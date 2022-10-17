@@ -1,0 +1,88 @@
+{
+  "name": "big-screen-vue-datav",
+  "version": "1.5.1",
+  "private": true,
+  "scripts": {
+    "init": "npm install",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "prettier": "prettier --write .",
+    "lint": "vue-cli-service lint",
+    "prepare": "husky install",
+    "commit": "cz"
+  },
+  "dependencies": {
+    "@jiaminghi/data-view": "^2.10.0",
+    "@types/echarts": "^4.4.3",
+    "animate.css": "^4.1.1",
+    "axios": "^0.26.0",
+    "core-js": "^3.6.4",
+    "echarts": "^4.6.0",
+    "echarts-liquidfill": "^3.1.0",
+    "element-ui": "^2.15.9",
+    "less-loader": "^6.0.0",
+    "moment": "^2.29.4",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "os": "^0.1.2",
+    "screenfull": "^4.2.0",
+    "vue": "^2.6.11",
+    "vue-awesome": "^4.0.2",
+    "vue-count-to": "^1.0.13",
+    "vue-popperjs": "^2.3.0",
+    "vue-router": "^3.1.5",
+    "vuex": "^3.1.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@vue/cli-plugin-babel": "^4.2.0",
+    "@vue/cli-plugin-eslint": "^4.2.0",
+    "@vue/cli-service": "^4.2.0",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^6.1.2",
+    "husky": "^8.0.0",
+    "prettier": "^2.7.1",
+    "sass": "^1.25.0",
+    "sass-loader": "^8.0.2",
+    "svg-sprite-loader": "^6.0.11",
+    "vue-template-compiler": "^2.6.11",
+    "webpack-bundle-analyzer": "^4.6.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "vue/no-unused-components": "off",
+      "no-debugger": "off",
+      "no-console": "off"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 4 versions",
+    "not ie <= 8",
+    "ios >= 8",
+    "android >= 4.0"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

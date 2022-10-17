@@ -1,0 +1,43 @@
+@import "./normalze.scss";
+@import "./mixin.scss";
+@import "./variables.scss";
+@import "../fonts/iconfont.css";
+@import "../theme/index.css";
+//  全局样式
+* {
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.2em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  font-size: 1em;
+}
+
+@each $key, $value in $flex-jc {
+  .jc-#{$key} {
+    justify-content: $value;
+  }
+}

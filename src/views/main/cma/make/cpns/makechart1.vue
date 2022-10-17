@@ -1,0 +1,204 @@
+<template>
+  <base-echart :options="options" />
+</template>
+
+<script>
+// 导入基础模板
+import baseEchart from "@/common/echart"
+export default {
+  name: "makechart1",
+  props: {
+    xData: {
+      type: Array,
+      default: () => []
+    },
+    targetOuts: {
+      type: Array,
+      default: () => []
+    },
+    inPuts: {
+      type: Array,
+      default: () => []
+    }
+  },
+  components: {
+    baseEchart
+  },
+  computed: {
+    options() {
+      let { xData, targetOuts: yData, inPuts: yData1 } = this
+      return {
+        title: {
+          text: "By 站位產出達成狀況",
+          left: "center",
+          textStyle: {
+            color: "#369fb5",
+            fontWeight: "bold",
+            fontSize: 22
+          }
+        },
+        grid: {
+          top: 60,
+          right: 10,
+          left: 70,
+          bottom: 20 //图表尺寸大小
+        },
+        legend: [
+          {
+            top: 0,
+            right: 80,
+            textStyle: {
+              color: "#FFFFFF",
+              fontSize: 12
+            },
+            data: ["計劃"]
+          },
+          {
+            top: 0,
+            right: 8,
+            textStyle: {
+              color: "#FFFFFF",
+              fontSize: 12
+            },
+            data: ["實際"]
+          }
+        ],
+        xAxis: {
+          type: "category",
+          color: "#59588D",
+          data: xData,
+          axisLabel: {
+            margin: 10,
+            color: "#EEEEEE",
+            textStyle: {
+              fontSize: 12
+            }
+            // 坐标轴刻度标签换行处理
+            // formatter: function (params) {
+            //   let newParams = params
+            //   console.log("====", newParams.indexOf("("))
+
+            //   return newParams
+            // }
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#ffffff",
+              opacity: 0.3
+            }
+          },
+          axisTick: {
+            show: false
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: "#ffffff",
+              opacity: 0.3
+            }
+          }
+        },
+        yAxis: [
+          {
+            min: (value) => Math.ceil(value.min), // 指定最小值
+            max: (value) => Math.floor(value.max), // 指定最大值
+            axisLabel: {
+              color: "#EEEEEE",
+              textStyle: {
+                fontSize: 14
+              }
+            },
+            axisLine: {
+              lineStyle: {
+                color: "#ffffff",
+                opacity: 0.3
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            splitLine: {
+              show: true,
+              lineStyle: {
+                color: "#ffffff",
+                opacity: 0.3
+              }
+            }
+          }
+          // {
+          //   type: "value",
+          //   name: "ML-X",
+          //   min: 0,
+          //   max: 100,
+          //   axisLabel: {
+          //     formatter: "{value} %"
+          //   }
+          // }
+        ],
+        series: [
+          {
+            type: "bar",
+            name: "計劃",
+            data: yData,
+            barWidth: "16",
+            itemStyle: {
+              normal: {
+                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: "rgba(184,123,255,1)"
+                  },
+                  {
+                    offset: 1,
+                    color: "rgba(45,57,178,1)"
+                  }
+                ])
+              }
+            },
+            label: {
+              normal: {
+                show: true,
+                position: "top",
+                fontSize: 12,
+                fontWeight: "bold",
+                color: "#FFFFFF"
+              }
+            }
+          },
+          {
+            type: "bar",
+            name: "實際",
+            data: yData1,
+            barWidth: "16",
+            itemStyle: {
+              normal: {
+                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: "rgba(48,227,235,1)"
+                  },
+                  {
+                    offset: 1,
+                    color: "rgba(16,127,212,1)"
+                  }
+                ])
+              }
+            },
+            label: {
+              normal: {
+                show: true,
+                position: "top",
+                fontSize: 12,
+                fontWeight: "bold",
+                color: "#FFFFFF"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>
