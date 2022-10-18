@@ -34,7 +34,6 @@ module.exports = {
       .plugin("webpack-bundle-analyzer")
       .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin)
       .end()
-
     // 配置svg图标的使用方法
     config.module.rule("svg").exclude.add(resolve("src/assets/icons")).end()
     config.module

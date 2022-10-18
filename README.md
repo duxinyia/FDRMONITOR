@@ -9,6 +9,7 @@
 
 1. git add .
 2. 执行脚本: npm run commit
+3. 提交到远程：git push
 
 /_ feat 新增特性 (feature)
 fix 修复 Bug(bug fix)

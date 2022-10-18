@@ -12,10 +12,12 @@ Vue.prototype.$moment = moment
 Vue.use(globalRegister)
 
 // 挂载element ui
-import ElementUI from "element-ui"
-import "element-ui/lib/theme-chalk/index.css"
+// import ElementUI from "element-ui"
+// import "element-ui/lib/theme-chalk/index.css"
 import "@/assets/scss/index.scss"
-Vue.use(ElementUI)
+// Vue.use(ElementUI)
+
+import "@/assets/scss/index.scss"
 
 // 挂载svg组件
 import "@/assets/icons"

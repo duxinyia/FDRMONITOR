@@ -66,7 +66,7 @@
                     </el-col>
                     <el-col :span="8">
                       <div class="battery">
-                        <span class="name">{{ item.station | getShowStation }}</span>
+                        <span class="name">{{ item.station }}</span>
                         <div class="container">
                           <!-- 中间区域 -->
                           <div class="center" :style="changeCenterStyle(item)">
@@ -135,31 +135,6 @@ export default {
     getShowArray() {
       let splitNum = this.isLessSplit ? 3 : 6
       return splitArray(this.showData, splitNum)
-    }
-  },
-  filters: {
-    getShowStation(station) {
-      let stationMap = new Map([
-        ["Cube Assy", "FC"],
-        ["Dust trup", "DT"],
-        ["AA", "AA"],
-        ["AA Oven", "AA Oven"],
-        ["Image test", "IMG TEST"],
-        ["FOL FVI", "FOL FVI"],
-        ["FOL PACK", "FOL PACK"],
-        ["ACF", "ACF"],
-        ["Stiffener Attachment", "SA"],
-        ["Oven Curing 1", "OVEN1"],
-        ["Laser marking", "LM"],
-        ["Flex Dispense&Corner castellation", "AR"],
-        ["Image_Down_Test", "TE1"],
-        ["Image_Up_Test", "TE2"],
-        ["Final Visual Inspection", "FVI"],
-        ["AVI", "AVI"],
-        ["PACK", "PACK"],
-        ["EOL Kitting", "Kitting"]
-      ])
-      return stationMap.get(station)
     }
   },
   mounted() {
