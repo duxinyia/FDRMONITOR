@@ -6,7 +6,9 @@ import { getTime } from "@/utils"
 
 // GetRunningInfo
 
-export let GetRunningInfo = () =>
+export let GetRunningInfo = (params) => {
+  let { plantID, deviceNo, ProductArea } = params
   $post(
-    `api/MESOutPut/GetRunningInfo?PlantID=8S01&DeviceNo=A3H001&ProductArea=FOL&LotType=MP&${getTime()}`
+    `api/MESOutPut/GetRunningInfo?PlantID=${plantID}&DeviceNo=${deviceNo}&ProductArea=${ProductArea}&LotType=MP&${getTime()}`
   )
+}

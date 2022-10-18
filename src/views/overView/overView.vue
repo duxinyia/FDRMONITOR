@@ -5,49 +5,34 @@
         <img class="logo" :src="logoUrl" alt="" />
         <h2 class="name" v-show="!isCollapse">戰情中心</h2>
       </div>
+
       <el-menu
         background-color="#162949"
         text-color="#fff"
         active-text-color="#ffd04b"
         :collapse="isCollapse"
         router
-        default-active="/overview/cma"
+        :default-active="$route.path"
         :collapse-transition="false"
       >
-        <!-- :default-active="$router.path" -->
-        <el-submenu index="1">
+        <el-submenu index="/overview/cma">
           <template slot="title">
             <i class="el-icon-location"></i>
-            <span>导航总览</span>
+            <span>CMA总览</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/overview/cma">CMA总览</el-menu-item>
-            <el-menu-item index="/overview/dp">DP总览</el-menu-item>
+            <span slot="title"></span>
+            <el-menu-item index="/overview/cma/device">设备总览</el-menu-item>
+            <el-menu-item index="/overview/cma/make">制造总览</el-menu-item>
+            <el-menu-item index="/overview/cma/yield">良率总览</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
-        <!-- 背景选择 -->
-        <el-menu-item index="/overview/bg">
-          <i class="el-icon-menu"></i>
-          <span slot="title">背景选择</span>
-        </el-menu-item>
-
-        <!-- 用户信息 -->
-        <el-menu-item index="/overview/user">
-          <i class="el-icon-menu"></i>
-          <span slot="title">用户信息</span>
-        </el-menu-item>
-        <!-- 权限设置 -->
-        <el-menu-item index="/overview/user">
-          <i class="el-icon-menu"></i>
-          <span slot="title">权限设置</span>
-        </el-menu-item>
-
         <!-- 关于页面 -->
-        <el-menu-item index="/overview/about">
+        <!-- <el-menu-item index="/overview/about">
           <i class="el-icon-menu"></i>
           <span slot="title">关于</span>
-        </el-menu-item>
+        </el-menu-item> -->
       </el-menu>
     </el-aside>
     <el-container>

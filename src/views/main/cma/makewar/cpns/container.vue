@@ -20,7 +20,12 @@
                     5.差異原因:{{ "無" }}<br />
                   </div>
 
-                  <div class="state-right state" :style="changeHeight(item)" v-if="folChecked">
+                  <div
+                    @click="toMake('FOL')"
+                    class="state-right state"
+                    :style="changeHeight(item)"
+                    v-if="folChecked"
+                  >
                     <!-- 定位显示比例 -->
                     <span class="rate" v-if="folChecked">{{
                       item.values.FOL.hitRate | filterRate
@@ -39,6 +44,7 @@
                     5.差異原因:{{ "無" }}<br />
                   </div>
                   <div
+                    @click="toMake('EOL')"
                     class="state-left state"
                     :style="changeHeight(item, 'EOL')"
                     v-if="eolChecked"
@@ -140,6 +146,10 @@ export default {
     },
     changeReachRate(item, name = "FOL") {
       return Number((item.values[name].output / item.values[name].targetOut) * 100).toFixed(0) + "%"
+    },
+    toMake(ProductArea) {
+      let { deviceNo, plantID } = this.device
+      this.$router.push({ name: "make", params: { deviceNo, plantID, ProductArea } })
     }
   }
 }
@@ -158,6 +168,7 @@ export default {
     font-weight: bold;
   }
   .container {
+    height: calc(100% - 24px);
     display: flex;
     .left {
       font-size: 13px;
@@ -179,6 +190,7 @@ export default {
         .text {
           margin-top: auto;
           .middle {
+            margin: 0 auto;
             margin-top: 25px;
             display: flex;
             .state {
@@ -191,11 +203,13 @@ export default {
               padding: 1px;
               transform: rotate(180deg);
               display: flex;
+              cursor: pointer;
             }
             .state-left {
               position: relative;
               .rate {
-                font-size: 12px;
+                font-size: 13px;
+                font-weight: bold;
                 position: absolute;
                 transform: rotate(180deg);
                 bottom: -24px;
@@ -216,7 +230,8 @@ export default {
               margin-right: 12px;
               position: relative;
               .rate {
-                font-size: 12px;
+                font-size: 13px;
+                font-weight: bold;
                 position: absolute;
                 transform: rotate(180deg);
                 bottom: -24px;
@@ -235,6 +250,7 @@ export default {
             }
           }
           .date {
+            margin-top: 4px;
             text-align: center;
           }
         }

@@ -32,9 +32,6 @@
 
         <el-col :span="10">
           <el-table
-            :span-method="arraySpanMethod"
-            :cell-style="cellStyle"
-            :row-style="rowStyle"
             :header-cell-style="getRowClass"
             :data="tableData"
             :highlight-current-row="true"
@@ -111,28 +108,16 @@ export default {
   mounted() {
     // SET_FULLLOADING
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
-    this.initData()
-    // 每5分钟获取一次数据
-    this.dataTiming = setInterval(() => {
-      this.initData()
-    }, 3 * 60 * 1000)
+    console.log("hhhh", this.$route)
+    this.GetRunningInfo(this.$route.params)
   },
   methods: {
     getRowClass() {
       return "background:transparent !important;color:#1adafb;'font-size':'30px'"
     },
-    async initData() {
-      let requestArr = [this.GetRunningInfo()]
-      await Promise.all(requestArr)
+    async GetRunningInfo(params) {
+      let { stationInfo } = await GetRunningInfo(params)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
-    },
-    async GetRunningInfo() {
-      let { deviceInfo, stationInfo } = await GetRunningInfo()
-      // 清空数据
-      this.clearData()
-
-      console.log("make", deviceInfo, stationInfo)
-
       // 循环取出头部区域
       stationInfo.forEach((item) => {
         // station x轴的数据 inPut 输入的值
@@ -146,53 +131,9 @@ export default {
         this.maxWips.push(maxWip)
         this.wips.push(wip)
       })
-
       // 取出表格的数据
       this.tableData = stationInfo
-    },
-    // 清空数据
-    clearData() {
-      this.xData = []
-      this.targetOuts = []
-      this.inPuts = []
-      this.maxWips = []
-      this.wips = []
-    },
-    arraySpanMethod() {
-      // { row, column, rowIndex, columnIndex }
-      // console.log(row, column, rowIndex, columnIndex)
-      // if (rowIndex % 2 === 0) {
-      //   if (columnIndex === 0) {
-      //     return [1, 2]
-      //   } else if (columnIndex === 1) {
-      //     return [0, 0]
-      //   }
-      // }
-      // return [1, 2]
-    },
-    cellStyle({ row, columnIndex }) {
-      // console.log("row", row, column, rowIndex, columnIndex)
-      // if (column.label == "站位") {
-      //   return "background:#134162;color:#fff"
-      // }
-      if (columnIndex == 5 && row.wip >= 23875) {
-        return "color:#f00"
-      }
-    },
-    rowStyle() {
-      // console.log("row rowIndex", row, rowIndex)
-      // if (row.column.label === "站位") {
-      //   return "background:#2D5AB9"
-      // }
     }
-    // headerRowStyle() {
-    //   return {
-    //     background: "red"
-    //   }
-    // }
-  },
-  beforeDestroy() {
-    clearInterval(this.dataTiming)
   }
 }
 </script>

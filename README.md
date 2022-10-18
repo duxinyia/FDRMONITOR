@@ -51,3 +51,42 @@ wwlh-mis-dba@mail.foxconn.com 幫我發佈一下頁面 你好dba
 ## 获取 ip 地址
 
 \*\* https://bbs.huaweicloud.com/blogs/297823 process.env.BASE_IP
+
+# 关于本项目的一些说明:
+
+1. 对于 block 的标题包裹的图标原先是过大了,如果拉取了这个代码，需要更改 dataV 的源码。
+   在 node_modules\_@jiaminghi_data-view@2.10.0@@jiaminghi\data-view\lib\components\decoration7\src\main.vue 下
+
+```html
+<div class="dv-decoration-7">
+  <svg width="21px" height="18px">
+    <polyline
+      stroke-width="4"
+      fill="transparent"
+      :stroke="mergedColor[0]"
+      points="10, 2 19, 10 10, 18"
+    />
+    <polyline
+      stroke-width="2"
+      fill="transparent"
+      :stroke="mergedColor[1]"
+      points="2, 2 11, 10 2, 18"
+    />
+  </svg>
+  <slot></slot>
+  <svg width="21px" height="20px">
+    <polyline
+      stroke-width="4"
+      fill="transparent"
+      :stroke="mergedColor[0]"
+      points="11, 2 2, 10 11, 18"
+    />
+    <polyline
+      stroke-width="2"
+      fill="transparent"
+      :stroke="mergedColor[1]"
+      points="19, 2 10, 10 19, 18"
+    />
+  </svg>
+</div>
+```

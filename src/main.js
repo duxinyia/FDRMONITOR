@@ -12,10 +12,9 @@ Vue.prototype.$moment = moment
 Vue.use(globalRegister)
 
 // 挂载element ui
-// import ElementUI from "element-ui"
-// import "element-ui/lib/theme-chalk/index.css"
+import { Message } from "element-ui"
 import "@/assets/scss/index.scss"
-// Vue.use(ElementUI)
+Vue.prototype.$message = Message
 
 import "@/assets/scss/index.scss"
 

@@ -43,7 +43,6 @@ import {
   // PageHeader,
   // CascaderPanel,
   Loading,
-  Message,
   Avatar
 } from "element-ui"
 import "element-ui/lib/theme-chalk/index.css"
@@ -92,14 +91,10 @@ const components = [
   // PageHeader,
   // CascaderPanel,
   Loading,
-  Message,
   Avatar
 ]
 export default function (app) {
   components.forEach((component) => {
     app.use(component)
-    if (component == Message) {
-      app.prototype.$message = component
-    }
   })
 }

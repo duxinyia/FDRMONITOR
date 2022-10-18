@@ -41,7 +41,7 @@
               <div
                 v-for="(item, index) in everyArr"
                 :style="changeEveryStyle()"
-                class="item"
+                class="machine"
                 :key="index"
               >
                 <p class="title">{{ item.deviceInfo.customName }}</p>
@@ -62,17 +62,35 @@
                   >
                     <el-col :span="2" class="wip-num">{{ item.wip || "-" }}</el-col>
                     <el-col :span="5">
-                      <dv-percent-pond :config="percentConfig" class="percent-pond" />
+                      <el-tooltip effect="dark" placement="right">
+                        <div slot="content">
+                          <span>上限WIP: {{ item.minWip }}</span
+                          ><br /><br />
+                          <span>下限WIP: {{ item.maxWip }}</span>
+                        </div>
+                        <div>
+                          <dv-percent-pond :config="percentConfig" class="percent-pond" />
+                        </div>
+                      </el-tooltip>
                     </el-col>
                     <el-col :span="8">
                       <div class="battery">
                         <span class="name">{{ item.station }}</span>
-                        <div class="container">
-                          <!-- 中间区域 -->
-                          <div class="center" :style="changeCenterStyle(item)">
-                            {{ item.outPut }}
+                        <el-tooltip effect="dark" placement="right">
+                          <div slot="content">
+                            <span>實際產出: {{ item.outPut }}</span
+                            ><br /><br />
+                            <span>計劃產出: {{ item.targetOut }}</span>
+                            <br /><br />
+                            <span>差異產出: {{ item.outPut - item.targetOut }}</span>
                           </div>
-                        </div>
+                          <div class="container">
+                            <!-- 中间区域 -->
+                            <div class="center" :style="changeCenterStyle(item)">
+                              {{ item.outPut }}
+                            </div>
+                          </div>
+                        </el-tooltip>
                       </div>
                     </el-col>
                     <el-col :span="3">{{ item.targetOut || "-" }}</el-col>
@@ -237,7 +255,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  .item {
+  .machine {
     width: 600px;
     height: 100%;
     padding: 4px 6px 4px 6px;
@@ -269,8 +287,8 @@ export default {
   }
 }
 .percent-pond {
-  width: 100px;
-  height: 25px;
+  width: 100px !important;
+  height: 25px !important;
 }
 .btns {
   span {
@@ -331,6 +349,10 @@ export default {
     .center {
       width: 50%;
       height: 80%;
+      font-size: 14px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
       background: linear-gradient(
         to right,
         rgba(34, 177, 249, 0.3) 10%,

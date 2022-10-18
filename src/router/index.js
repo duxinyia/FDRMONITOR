@@ -24,7 +24,7 @@ const routes = [
     path: "/overview",
     name: "overview",
     component: () => import(/* webpackChunkName: "overView" */ "../views/overView/overView.vue"),
-    redirect: () => "overview/cma",
+    redirect: () => "overview/cma/device",
     children: [
       {
         path: "bg",
@@ -39,7 +39,7 @@ const routes = [
           import(/* webpackChunkName: "overview/user" */ "../views/overView/cpns/user/user.vue")
       },
       {
-        path: "cma",
+        path: "cma/:type",
         name: "overview-cma",
         component: () =>
           import(/* webpackChunkName: "overview/cma" */ "../views/overView/cpns/cma/cma.vue")
@@ -102,7 +102,7 @@ const routes = [
         path: "makewar",
         name: "makewar",
         component: () =>
-          import(/* webpackChunkName: "output" */ "../views/main/cma/makewar/makewar.vue")
+          import(/* webpackChunkName: "makewar" */ "../views/main/cma/makewar/makewar.vue")
       },
       // 良率看板 SAP良率
       {
