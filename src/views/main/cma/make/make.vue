@@ -106,6 +106,7 @@ export default {
     }
   },
   mounted() {
+  
     // SET_FULLLOADING
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     console.log("hhhh", this.$route)
@@ -116,7 +117,9 @@ export default {
       return "background:transparent !important;color:#1adafb;'font-size':'30px'"
     },
     async GetRunningInfo(params) {
-      let { stationInfo } = await GetRunningInfo(params)
+      let result = await GetRunningInfo(params)
+      // console.log("result", result)
+      let { stationInfo } = result
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
       // 循环取出头部区域
       stationInfo.forEach((item) => {

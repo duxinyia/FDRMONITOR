@@ -8,7 +8,7 @@ import { getTime } from "@/utils"
 
 export let GetRunningInfo = (params) => {
   let { plantID, deviceNo, ProductArea } = params
-  $post(
+  return $post(
     `api/MESOutPut/GetRunningInfo?PlantID=${plantID}&DeviceNo=${deviceNo}&ProductArea=${ProductArea}&LotType=MP&${getTime()}`
   )
 }

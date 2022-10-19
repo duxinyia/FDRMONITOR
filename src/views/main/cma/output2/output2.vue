@@ -15,7 +15,36 @@
           <i class="iconfont icon-xiayiye icon2"></i>
         </span>
       </div>
-      <div class="select-container">
+      <div class="control">
+        <div class="fol-container container">
+          <span
+            class="fol-box"
+            :style="{
+              'box-shadow': currentIndex == 1 ? 'inset 0 0 20px #c987ed' : ''
+            }"
+          ></span>
+          <span class="name" @click="currentIndex = 1">FOL</span>
+        </div>
+        <div class="eol-container container">
+          <span
+            class="eol-box"
+            :style="{
+              'box-shadow': currentIndex == 2 ? 'inset 0 0 20px #c987ed' : ''
+            }"
+          ></span>
+          <span class="name" @click="currentIndex = 2">EOL</span>
+        </div>
+        <div class="all-container container">
+          <span
+            class="all-box"
+            :style="{
+              'box-shadow': currentIndex == 3 ? 'inset 0 0 20px #fbeeca' : ''
+            }"
+          ></span>
+          <span class="name" @click="currentIndex = 3">ALL</span>
+        </div>
+      </div>
+      <!-- <div class="select-container">
         <el-select v-model="selectArea" placeholder="请选择" @change="changeArea">
           <el-option
             v-for="item in areas"
@@ -25,7 +54,7 @@
           >
           </el-option>
         </el-select>
-      </div>
+      </div> -->
       <!-- 主要区域 -->
       <div class="page-main">
         <!-- 用轮播图显示 -->
@@ -69,7 +98,7 @@
                           <span>下限WIP: {{ item.maxWip }}</span>
                         </div>
                         <div>
-                          <dv-percent-pond :config="percentConfig" class="percent-pond" />
+                          <dv-percent-pond :config="changeConfig(item)" class="percent-pond" />
                         </div>
                       </el-tooltip>
                     </el-col>
@@ -106,7 +135,6 @@
     </dv-border-box-12>
   </div>
 </template>
-
 <script>
 // 导入头部
 import PageHeader from "@/components/page-header/index.vue"
@@ -121,14 +149,6 @@ export default {
   },
   data() {
     return {
-      // dataV中的进度池的config
-      percentConfig: {
-        value: 56,
-        formatter: "",
-        borderRadius: 1,
-        lineDash: [2, 2],
-        borderWidth: 1
-      },
       dataTiming: null,
       showData: [],
       areas: [
@@ -146,7 +166,8 @@ export default {
         }
       ],
       selectArea: "ALL",
-      isLessSplit: false
+      isLessSplit: false,
+      currentIndex: 3
     }
   },
   computed: {
@@ -172,7 +193,10 @@ export default {
     async GetKeyStationRunningInfo() {
       this.isLessSplit = false
       this.showData = await GetKeyStationRunningInfo(this.selectArea)
-      if (this.showData.findIndex((item) => item.stationInfo.length > 10) >= 0) {
+      if (
+        Array.isArray(this.showData) &&
+        this.showData.findIndex((item) => item.stationInfo.length > 10) >= 0
+      ) {
         this.isLessSplit = true
       }
       // 所有的值都跟 showData 的 length有关系
@@ -193,7 +217,6 @@ export default {
       }
     },
     changeCenterStyle(item) {
-      // console.log("item", item)
       let result = parseInt(item.hitRate)
       if (result > 100) {
         return {
@@ -204,6 +227,19 @@ export default {
       }
       return {
         width: `${result}%`
+      }
+    },
+    changeConfig(item) {
+      let showValue = 0
+      if (Number(item.wip) != 0 || item.maxWip != 0) {
+        showValue = (Number(item.wip) / item.maxWip).toFixed(0)
+      }
+      return {
+        value: showValue,
+        formatter: "",
+        borderRadius: 1,
+        lineDash: [2, 2],
+        borderWidth: 1
       }
     },
     toLeft() {
@@ -233,6 +269,7 @@ export default {
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
   padding: 20px;
+  position: relative;
 }
 ::v-deep .el-input__inner {
   background: rgba(10, 77, 110, 0.6);
@@ -323,12 +360,48 @@ export default {
     }
   }
 }
-.select-container {
+.control {
+  position: relative;
   display: flex;
-  .el-select {
-    margin: -7px 120px 7px auto;
+  align-items: center;
+  margin-bottom: 10px;
+  .container {
+    display: flex;
+    align-items: center;
+    span {
+      &:nth-child(1) {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin-right: 6px;
+      }
+    }
+  }
+  .fol-container {
+    margin-left: auto;
+    .fol-box {
+      border: 2px solid #d08bf5;
+    }
+  }
+  .eol-container {
+    margin: 0 10px;
+    .eol-box {
+      border: 2px solid #58d5e0;
+    }
+  }
+  .all-container {
+    margin-right: 100px;
+    .all-box {
+      border: 2px solid #fbeeca;
+    }
   }
 }
+// .select-container {
+//   display: flex;
+//   .el-select {
+//     margin: -7px 120px 7px auto;
+//   }
+// }
 .battery {
   width: 98%;
   height: 30px;

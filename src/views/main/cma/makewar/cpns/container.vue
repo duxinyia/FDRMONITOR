@@ -128,9 +128,38 @@ export default {
   },
   methods: {
     changeSpeed(item, name = "FOL") {
+      // 100 黄色 110 浅绿 130 深绿
       let result = parseInt(this.changeReachRate(item, name))
+      let bgColor = ""
+      if (result > 130) {
+        bgColor = `linear-gradient(
+                  to bottom,
+                  rgba(51, 255, 0, 0.6) 40%,
+                  rgba(51, 255, 0, 0.5) 70%,
+                  rgba(51, 255, 0, 1) 100%
+                )`
+      } else if (result > 110) {
+        // 浅绿
+        bgColor = `linear-gradient(
+                  to bottom,
+                  rgba(51, 255, 153, 0.6) 40%,
+                  rgba(51, 255, 153, 0.5) 70%,
+                  rgba(51, 255, 153, 1) 100%
+                )`
+      } else if (result == 100) {
+        // 黄色
+        bgColor = `linear-gradient(
+                  to bottom,
+                  rgba(255, 255, 102, 0.6) 40%,
+                  rgba(255, 255, 102, 0.5) 70%,
+                  rgba(255, 255, 102, 1) 100%
+                )`
+      } else {
+        bgColor = ""
+      }
       return {
-        height: result > 100 ? "100%" : `${result}%`
+        height: result > 100 ? "100%" : `${result}%`,
+        background: bgColor
       }
     },
     changeHeight(item, name = "FOL") {

@@ -84,7 +84,6 @@ export default {
   watch: {
     $route: {
       handler(newValue) {
-        console.log("newValue", newValue)
         let { type } = newValue.params
         this.showDiv = this.showDivMap.get(type)
       },

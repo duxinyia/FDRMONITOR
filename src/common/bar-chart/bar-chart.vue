@@ -180,19 +180,19 @@ export default {
               params[3].data.details.forEach((item) => {
                 let flag = item.remainTime.includes("-")
                 tempStr += `
-                <div style="display:flex;border-bottom: 1px solid #fff;">
-                  <span style="flex:1">${item.machine}</span>
-                  <span style="flex:1;color:${flag ? "#f40" : ""}">${item.remainTime}</span>
+                <div style="display:flex;justify-content: space-between;border-bottom: 1px solid #fff;">
+                  <span style="margin-right:5px">${item.machine}</span>
+                  <span style="color:${flag ? "#f40" : ""}">${item.remainTime}</span>
                 </div>`
               })
             } else {
               tempStr = "暂无详情"
             }
             return `
-              <div style="width:200px;border: 1px solid #fff;text-align: center;z-index: 1009;">
-                <div style="display:flex;border-bottom: 1px solid #fff;">
-                  <span style="flex:1">機台名稱</span>
-                  <span style="flex:1">持續時間</span>
+              <div style="border: 1px solid #fff;">
+                <div style="display:flex;justify-content: space-between;border-bottom: 1px solid #fff;">
+                  <span>機台名稱</span>
+                  <span>持續時間</span>
                 </div>
                 ${tempStr}
               </div>
