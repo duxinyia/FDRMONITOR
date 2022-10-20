@@ -200,10 +200,11 @@ export default {
           this.config1.sum += item.count
           this.config1.details.push(item.details)
         })
-      result.forEach((item) => {
-        this.config1.bottomData.push({ name: "", value: this.config1.sum - item.count })
-        this.config1.topData.push({ name: "", value: this.config1.sum })
-      })
+      result &&
+        result.forEach((item) => {
+          this.config1.bottomData.push({ name: "", value: this.config1.sum - item.count })
+          this.config1.topData.push({ name: "", value: this.config1.sum })
+        })
     },
     // 获取 配件到期提示區
     async getDeviceInfo() {
@@ -287,8 +288,8 @@ export default {
               eFailRate
             } = threeItem
             this.scrollData.push([
-              customName,
               machineName,
+              customName,
               planeOutPut,
               outPut,
               hitRate,

@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside :width="isCollapse ? '60px' : '200px'" class="aside-container">
+    <el-aside :width="isCollapse ? '65px' : '200px'" class="aside-container">
       <div class="top-title">
         <img class="logo" :src="logoUrl" alt="" />
         <h2 class="name" v-show="!isCollapse">戰情中心</h2>

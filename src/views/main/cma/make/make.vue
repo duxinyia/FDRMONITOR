@@ -15,17 +15,22 @@
           </dv-border-box-12>
           <dv-border-box-12>
             <div class="chart-container">
-              <make-chart-1 :xData="xData" :targetOuts="targetOuts" :inPuts="inPuts" />
+              <make-chart-1
+                :title="chart1Ttitle"
+                :xData="xData"
+                :targetOuts="targetOuts"
+                :inPuts="inPuts"
+              />
             </div>
           </dv-border-box-12>
           <dv-border-box-12>
             <div class="chart-container">
-              <make-chart-2 />
+              <make-chart-2 :title="chart2Ttitle" />
             </div>
           </dv-border-box-12>
           <dv-border-box-12>
             <div class="chart-container">
-              <make-chart-3 :xData="xData" :maxWips="maxWips" :wips="wips" />
+              <make-chart-3 :title="chart3Ttitle" :xData="xData" :maxWips="maxWips" :wips="wips" />
             </div>
           </dv-border-box-12>
         </el-col>
@@ -37,7 +42,7 @@
             :highlight-current-row="true"
             style="width: 100%; margin-top: 4px"
           >
-            <el-table-column align="center" class="table-head" label="ML-K產能達成狀況">
+            <el-table-column align="center" class="table-head" :label="tableLabel">
               <!-- "station": "Material incoming",//站位
                 "opNo": "0016",//站位代碼
                 "targetOut": 118500,//計劃產出（目標產出）
@@ -102,15 +107,24 @@ export default {
       targetOuts: [],
       inPuts: [],
       maxWips: [],
-      wips: []
+      wips: [],
+      chart1Ttitle: "",
+      chart2Ttitle: "",
+      chart3Ttitle: "",
+      tableLabel: ""
     }
   },
   mounted() {
-  
     // SET_FULLLOADING
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     console.log("hhhh", this.$route)
     this.GetRunningInfo(this.$route.params)
+    let { customName } = this.$route.params
+    // 各个表格的标题
+    this.chart1Ttitle = `${customName} 產出達成狀況`
+    this.chart2Ttitle = `${customName} AA時段產出`
+    this.chart3Ttitle = `${customName} 站位WIP狀況`
+    this.tableLabel = `${customName}產能達成狀況`
   },
   methods: {
     getRowClass() {
@@ -118,7 +132,7 @@ export default {
     },
     async GetRunningInfo(params) {
       let result = await GetRunningInfo(params)
-      // console.log("result", result)
+      console.log("result", result)
       let { stationInfo } = result
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
       // 循环取出头部区域
@@ -146,8 +160,12 @@ export default {
 ::v-deep .el-table {
   background-color: transparent;
   color: white;
-  font-size: 19px;
+  font-size: 17px;
 }
+::v-deep .el-table__cell {
+  padding: 7px 0;
+}
+
 //表格整行的颜色
 ::v-deep .el-table tr {
   background-color: transparent !important;

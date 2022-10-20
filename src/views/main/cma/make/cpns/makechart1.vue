@@ -8,6 +8,10 @@ import baseEchart from "@/common/echart"
 export default {
   name: "makechart1",
   props: {
+    title: {
+      type: String,
+      default: "标题"
+    },
     xData: {
       type: Array,
       default: () => []
@@ -26,10 +30,10 @@ export default {
   },
   computed: {
     options() {
-      let { xData, targetOuts: yData, inPuts: yData1 } = this
+      let { xData, targetOuts: yData, inPuts: yData1, title } = this
       return {
         title: {
-          text: "By 站位產出達成狀況",
+          text: title,
           left: "center",
           textStyle: {
             color: "#369fb5",
@@ -38,10 +42,10 @@ export default {
           }
         },
         grid: {
-          top: 60,
+          top: 50,
           right: 10,
           left: 70,
-          bottom: 20 //图表尺寸大小
+          bottom: 50 //图表尺寸大小
         },
         legend: [
           {
@@ -71,14 +75,16 @@ export default {
             margin: 10,
             color: "#EEEEEE",
             textStyle: {
-              fontSize: 12
-            }
+              fontSize: 14
+            },
+            rotate: "45"
+
             // 坐标轴刻度标签换行处理
             // formatter: function (params) {
+            //   // 1. 超过五个字符的需要换行 2. 有空格的在空格出换行 3.
             //   let newParams = params
             //   console.log("====", newParams.indexOf("("))
-
-            //   return newParams
+            //   return "h"
             // }
           },
           axisLine: {

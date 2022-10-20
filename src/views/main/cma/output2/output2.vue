@@ -19,42 +19,35 @@
         <div class="fol-container container">
           <span
             class="fol-box"
+            @click="changeIndex(1)"
             :style="{
               'box-shadow': currentIndex == 1 ? 'inset 0 0 20px #c987ed' : ''
             }"
           ></span>
-          <span class="name" @click="currentIndex = 1">FOL</span>
+          <span class="name">FOL</span>
         </div>
         <div class="eol-container container">
           <span
             class="eol-box"
+            @click="changeIndex(2)"
             :style="{
-              'box-shadow': currentIndex == 2 ? 'inset 0 0 20px #c987ed' : ''
+              'box-shadow': currentIndex == 2 ? 'inset 0 0 20px #58d5e0' : ''
             }"
           ></span>
-          <span class="name" @click="currentIndex = 2">EOL</span>
+          <span class="name">EOL</span>
         </div>
         <div class="all-container container">
           <span
             class="all-box"
+            @click="changeIndex(3)"
             :style="{
               'box-shadow': currentIndex == 3 ? 'inset 0 0 20px #fbeeca' : ''
             }"
           ></span>
-          <span class="name" @click="currentIndex = 3">ALL</span>
+          <span class="name">ALL</span>
         </div>
       </div>
-      <!-- <div class="select-container">
-        <el-select v-model="selectArea" placeholder="请选择" @change="changeArea">
-          <el-option
-            v-for="item in areas"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
-      </div> -->
+
       <!-- 主要区域 -->
       <div class="page-main">
         <!-- 用轮播图显示 -->
@@ -177,7 +170,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("fullLoading/SET_FULLLOADING", true)
+    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
     // 每5分钟获取一次数据
     this.dataTiming = setInterval(() => {
@@ -188,9 +181,9 @@ export default {
     async initData() {
       let requestArr = [this.GetKeyStationRunningInfo()]
       await Promise.all(requestArr)
-      this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
     async GetKeyStationRunningInfo() {
+      this.$store.commit("fullLoading/SET_FULLLOADING", true)
       this.isLessSplit = false
       this.showData = await GetKeyStationRunningInfo(this.selectArea)
       if (
@@ -199,14 +192,7 @@ export default {
       ) {
         this.isLessSplit = true
       }
-      // 所有的值都跟 showData 的 length有关系
-      console.log("this.showData", this.showData)
-    },
-    changeArea() {
-      this.$store.commit("fullLoading/SET_FULLLOADING", true)
-      this.GetKeyStationRunningInfo().then(() => {
-        this.$store.commit("fullLoading/SET_FULLLOADING", false)
-      })
+      this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
     changeEveryStyle() {
       // 如果是分割成6块的
@@ -230,9 +216,10 @@ export default {
       }
     },
     changeConfig(item) {
+      console.log("item =====", item)
       let showValue = 0
-      if (Number(item.wip) != 0 || item.maxWip != 0) {
-        showValue = (Number(item.wip) / item.maxWip).toFixed(0)
+      if (item.wipRate) {
+        showValue = parseInt(item.wipRate) > 100 ? 100 : parseInt(item.wipRate)
       }
       return {
         value: showValue,
@@ -241,6 +228,16 @@ export default {
         lineDash: [2, 2],
         borderWidth: 1
       }
+    },
+    changeIndex(index) {
+      let map = new Map([
+        [1, "FOL"],
+        [2, "EOL"],
+        [3, "ALL"]
+      ])
+      this.currentIndex = index
+      this.selectArea = map.get(index)
+      this.GetKeyStationRunningInfo()
     },
     toLeft() {
       this.$refs["carousel"].prev()
@@ -374,6 +371,7 @@ export default {
         width: 30px;
         height: 30px;
         margin-right: 6px;
+        cursor: pointer;
       }
     }
   }
@@ -396,12 +394,6 @@ export default {
     }
   }
 }
-// .select-container {
-//   display: flex;
-//   .el-select {
-//     margin: -7px 120px 7px auto;
-//   }
-// }
 .battery {
   width: 98%;
   height: 30px;

@@ -128,34 +128,34 @@ export default {
   },
   methods: {
     changeSpeed(item, name = "FOL") {
-      // 100 黄色 110 浅绿 130 深绿
+      // 110以上 深绿 100-108 浅绿 100 以下 紫色
       let result = parseInt(this.changeReachRate(item, name))
+      console.log("res", result)
       let bgColor = ""
-      if (result > 130) {
+      if (result > 110) {
+        // 深绿
         bgColor = `linear-gradient(
                   to bottom,
-                  rgba(51, 255, 0, 0.6) 40%,
-                  rgba(51, 255, 0, 0.5) 70%,
-                  rgba(51, 255, 0, 1) 100%
+                  rgba(0, 255, 0, 0.5) 40%,
+                  rgba(0, 255, 0, 0.7) 70%,
+                  rgba(0, 255, 0, 1) 100%
                 )`
-      } else if (result > 110) {
+      } else if (result >= 100) {
         // 浅绿
         bgColor = `linear-gradient(
                   to bottom,
-                  rgba(51, 255, 153, 0.6) 40%,
-                  rgba(51, 255, 153, 0.5) 70%,
+                  rgba(51, 255, 153, 0.5) 40%,
+                  rgba(51, 255, 153, 0.7) 70%,
                   rgba(51, 255, 153, 1) 100%
                 )`
-      } else if (result == 100) {
-        // 黄色
+      } else {
+        // 紫色
         bgColor = `linear-gradient(
                   to bottom,
-                  rgba(255, 255, 102, 0.6) 40%,
-                  rgba(255, 255, 102, 0.5) 70%,
-                  rgba(255, 255, 102, 1) 100%
+                  rgba(201, 135, 237, 0.5) 40%,
+                  rgba(201, 135, 237, 0.7) 70%,
+                  rgba(201, 135, 237, 1) 100%
                 )`
-      } else {
-        bgColor = ""
       }
       return {
         height: result > 100 ? "100%" : `${result}%`,
@@ -174,11 +174,17 @@ export default {
       }
     },
     changeReachRate(item, name = "FOL") {
-      return Number((item.values[name].output / item.values[name].targetOut) * 100).toFixed(0) + "%"
+      if (item.values[name].output == 0 || item.values[name].targetOut == 0) {
+        return "0%"
+      } else {
+        return (
+          Number((item.values[name].output / item.values[name].targetOut) * 100).toFixed(0) + "%"
+        )
+      }
     },
     toMake(ProductArea) {
-      let { deviceNo, plantID } = this.device
-      this.$router.push({ name: "make", params: { deviceNo, plantID, ProductArea } })
+      let { deviceNo, plantID, customName } = this.device
+      this.$router.push({ name: "make", params: { deviceNo, plantID, ProductArea, customName } })
     }
   }
 }
@@ -247,12 +253,12 @@ export default {
               .speed {
                 display: inline-block;
                 width: 100%;
-                background: linear-gradient(
-                  to bottom,
-                  rgba(105, 249, 255, 0.6) 40%,
-                  rgba(105, 249, 255, 0.5) 70%,
-                  rgba(105, 249, 255, 1) 100%
-                );
+                // background: linear-gradient(
+                //   to bottom,
+                //   rgba(105, 249, 255, 0.6) 40%,
+                //   rgba(105, 249, 255, 0.5) 70%,
+                //   rgba(105, 249, 255, 1) 100%
+                // );
               }
             }
             .state-right {
@@ -269,12 +275,12 @@ export default {
               .speed {
                 display: inline-block;
                 width: 100%;
-                background: linear-gradient(
-                  to bottom,
-                  rgba(220, 145, 255, 0.6) 40%,
-                  rgba(220, 145, 255, 0.8) 70%,
-                  rgba(220, 145, 255, 1) 100%
-                );
+                // background: linear-gradient(
+                //   to bottom,
+                //   rgba(220, 145, 255, 0.6) 40%,
+                //   rgba(220, 145, 255, 0.8) 70%,
+                //   rgba(220, 145, 255, 1) 100%
+                // );
               }
             }
           }

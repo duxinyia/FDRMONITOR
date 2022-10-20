@@ -8,6 +8,10 @@ import baseEchart from "@/common/echart"
 export default {
   name: "makechart3",
   props: {
+    title: {
+      type: String,
+      default: "标题"
+    },
     xData: {
       type: Array,
       default: () => []
@@ -26,10 +30,10 @@ export default {
   },
   computed: {
     options() {
-      let { xData, maxWips, wips } = this
+      let { xData, maxWips, wips, title } = this
       return {
         title: {
-          text: "By 站位WIP狀況",
+          text: title,
           left: "center",
           textStyle: {
             color: "#369fb5",

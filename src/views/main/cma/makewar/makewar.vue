@@ -22,20 +22,20 @@
         </div>
 
         <div class="control">
-          <div class="fol-container" @click="changeFol">
+          <div class="fol-container" @click="folChecked = !folChecked">
             <span
               class="frame"
               :style="{
-                'box-shadow': folChecked ? 'inset 0 0 20px #c987ed' : ''
+                'box-shadow': folChecked ? 'inset 0 0 20px #3762ff' : ''
               }"
             ></span>
             <span class="name">FOL</span>
           </div>
-          <div class="eol-container" @click="changeEol">
+          <div class="eol-container" @click="eolChecked = !eolChecked">
             <span
               class="frame"
               :style="{
-                'box-shadow': eolChecked ? 'inset 0 0 20px #59d7df' : ''
+                'box-shadow': eolChecked ? 'inset 0 0 20px #3762ff' : ''
               }"
             ></span>
             <span class="name">EOL</span>
@@ -132,13 +132,13 @@ export default {
     },
     getRowClass() {
       return "background:transparent !important;color:#1adafb;"
-    },
-    changeEol() {
-      this.eolChecked = !this.eolChecked
-    },
-    changeFol() {
-      this.folChecked = !this.folChecked
     }
+    // changeEol() {
+    //   this.eolChecked = !this.eolChecked
+    // },
+    // changeFol() {
+    //   this.folChecked = !this.folChecked
+    // }
   },
   beforeDestroy() {
     clearInterval(this.dataTiming)
@@ -204,16 +204,18 @@ export default {
       cursor: pointer;
     }
     .eol-container {
-      color: #58d5e0;
+      // color: #58d5e0;
+      color: #3762ff;
       .frame {
-        border: 1px solid #58d5e0;
+        border: 1px solid #3762ff;
       }
     }
     .fol-container {
-      color: #d08bf5;
+      // color: #d08bf5;
+      color: #3762ff;
       margin-right: 8px;
       .frame {
-        border: 1px solid #d08bf5;
+        border: 1px solid #3762ff;
       }
     }
     .frame {

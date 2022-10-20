@@ -38,7 +38,7 @@ export default {
   props: ["title", "showdata"],
   data() {
     return {
-      header: ["機種", "線體", "計劃產出", "實際產出", "達成率", "DPC", "LCB", "電性"]
+      header: ["線體", "機種", "計劃產出", "實際產出", "達成率", "DPC", "LCB", "電性"]
     }
   },
   computed: {

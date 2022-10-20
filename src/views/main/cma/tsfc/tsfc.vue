@@ -6,30 +6,15 @@
       <div class="page-main">
         <!-- 第一行 -->
         <el-row :gutter="30" class="main-one">
-          <el-col v-for="item in topConfigArr" :span="8" :key="item.id">
-            <dv-border-box-10>
-              <div class="wrapper">
-                <div class="output">
-                  <span>{{ item.today }}</span>
-                  <span>当日投入</span>
-                </div>
-                <div class="poor">
-                  <span class="special">{{ item.poor }}</span>
-                  <span>不良品</span>
-                </div>
-                <div class="chart">
-                  <dv-water-level-pond
-                    :config="{ data: [`${item.pond}`], shape: 'round' }"
-                    style="width: 100px; height: 150px"
-                  />
-                </div>
-              </div>
-            </dv-border-box-10>
+          <el-col v-for="item in names" :key="item" :span="12">
+            <dv-border-box-11 :title="item">
+              <line-chart />
+            </dv-border-box-11>
           </el-col>
         </el-row>
         <!-- 第二行 -->
         <el-row :gutter="30">
-          <el-col v-for="item in names" :key="item" :span="8">
+          <el-col v-for="item in names" :key="item" :span="12">
             <dv-border-box-11 :title="item">
               <line-chart />
             </dv-border-box-11>
@@ -60,7 +45,7 @@ export default {
         { id: 2, today: 3500, poor: 240, good: 0.98, pond: 65 },
         { id: 3, today: 3600, poor: 240, good: 0.98, pond: 60 }
       ],
-      names: ["FOL", "EOL", "Tatal"]
+      names: ["FOL", "EOL"]
     }
   },
   computed: {
@@ -97,12 +82,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
+  margin-top: 20px;
   padding: 20px 20px 20px 20px;
 }
 .page-main {
+  margin-top: 10px;
   height: 100%;
   .main-one {
-    margin: 50px 0px 50px 0px;
+    margin: 0px 0px 50px 0px;
     .wrapper {
       display: flex;
       .output,

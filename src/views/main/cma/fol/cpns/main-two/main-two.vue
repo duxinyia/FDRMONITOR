@@ -363,8 +363,10 @@ export default {
               width: 135px;
               height: 220px;
               padding: 6px 3px 5px 6px;
-              border: 2px solid #354fad;
-              box-shadow: inset 0 0 10px rgba(53, 79, 173, 1);
+              // border: 2px solid #354fad;
+              // box-shadow: inset 0 0 10px rgba(53, 79, 173, 1);
+              border: 2px solid #02958e;
+              box-shadow: inset 0 0 10px rgba(2, 149, 142, 1);
               border-radius: 8px;
 
               .left {
