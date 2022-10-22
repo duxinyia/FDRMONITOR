@@ -1,5 +1,5 @@
 <template>
-  <base-echart :options="options" />
+  <base-echart :options="options" @echartClick="echartClick" />
 </template>
 
 <script>
@@ -67,6 +67,23 @@ export default {
             data: ["實際"]
           }
         ],
+        tooltip: {
+          show: true,
+          trigger: "axis", //axis , item
+          backgroundColor: "RGBA(0, 49, 85, 1)",
+          borderColor: "rgba(0, 151, 251, 1)",
+          borderWidth: 1,
+          borderRadius: 0,
+          textStyle: {
+            color: "#BCE9FC",
+            fontSize: 16,
+            align: "left"
+          },
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+          }
+        },
         xAxis: {
           type: "category",
           color: "#59588D",
@@ -202,6 +219,12 @@ export default {
           }
         ]
       }
+    }
+  },
+  methods: {
+    echartClick(params) {
+      console.log("params", params)
+      this.$emit("barClick", params.data.opNo)
     }
   }
 }

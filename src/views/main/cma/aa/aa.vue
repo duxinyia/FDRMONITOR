@@ -72,7 +72,7 @@ export default {
   },
   mounted() {
     // SET_FULLLOADING
-    this.$store.commit("fullLoading/SET_FULLLOADING", true)
+    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
     // 每5分钟获取一次数据
     this.dataTiming = setInterval(() => {
@@ -96,8 +96,8 @@ export default {
     // 获取保養任務公告
     async getAAMachineMaintainInfo() {
       let res = await getAAMachineMaintainInfo()
-      let tempArr = []
-      Array.isArray(res) &&
+      if (Array.isArray(res)) {
+        let tempArr = []
         res.forEach((item) => {
           tempArr.push([
             item.machinename,
@@ -107,24 +107,27 @@ export default {
             this.getImgStr(item.stn4)
           ])
         })
-      // 现在的
-      this.config1 = tempArr
+        // 现在的
+        this.config1 = tempArr
+      }
     },
     // 當日產出/達成率/良率/統計
     async getAAProductInfo() {
       let res = await getAAProductInfo()
-      let tempArr = []
-      res.forEach((item) => {
-        tempArr.push([
-          item.customName,
-          parseInt(item.planeOutPut),
-          item.outPut,
-          item.hitRate || "-",
-          item.firstYield
-        ])
-      })
-      // 现
-      this.config5 = tempArr
+      if (Array.isArray(res)) {
+        let tempArr = []
+        res.forEach((item) => {
+          tempArr.push([
+            item.customName,
+            parseInt(item.planeOutPut),
+            item.outPut,
+            item.hitRate || "-",
+            item.firstYield
+          ])
+        })
+        // 现
+        this.config5 = tempArr
+      }
     },
     // 获取中间的数据
     async getAllStateNums() {
@@ -180,10 +183,12 @@ export default {
     // 获取良率损失top5
     async getYieldTop5() {
       let res = await getYieldTop5()
-      this.config2 = res.map((item) => {
-        let { rejectType: name, total: value, totalRate: rate, machines } = item
-        return { name, value, rate, machines }
-      })
+      if (Array.isArray(res)) {
+        this.config2 = res.map((item) => {
+          let { rejectType: name, total: value, totalRate: rate, machines } = item
+          return { name, value, rate, machines }
+        })
+      }
     },
     // 获取下方机台信息的数据 及每个block
     async getMachinesInfo() {

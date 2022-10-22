@@ -93,6 +93,7 @@ export default {
         if (valid) {
           this.btnLoading = true
           let res = await login(this.form)
+          console.log("res", res)
           if (res.Resultflag == 1) {
             // 表示用户名 和 密码正确
             this.$store.commit("user/SET_USER", this.form)

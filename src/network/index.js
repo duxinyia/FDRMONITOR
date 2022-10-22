@@ -19,7 +19,17 @@ service.interceptors.request.use((config) => {
 })
 // 响应拦截器
 service.interceptors.response.use(
-  (res) => res.data.resultvalue || res.data,
+  (res) => {
+    if (res.data.status == false || res.data.Status == false) {
+      Message({
+        message: res.data.message || "出错了~",
+        type: "error"
+      })
+      return ""
+    } else {
+      return res.data.resultvalue || res.data
+    }
+  },
   (err) => {
     Message({
       message: "網絡請求錯誤...",

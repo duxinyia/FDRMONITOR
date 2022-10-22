@@ -176,7 +176,7 @@ export default {
           },
           formatter: function (params) {
             let tempStr = ""
-            if (params[3].data.details.length > 0) {
+            if (Array.isArray(params[3].data.details) && params[3].data.details.length > 0) {
               params[3].data.details.forEach((item) => {
                 let flag = item.remainTime.includes("-")
                 tempStr += `

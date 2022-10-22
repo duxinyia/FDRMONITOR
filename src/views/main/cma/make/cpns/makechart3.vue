@@ -20,6 +20,10 @@ export default {
       type: Array,
       default: () => []
     },
+    minWips: {
+      type: Array,
+      default: () => []
+    },
     wips: {
       type: Array,
       default: () => []
@@ -30,7 +34,7 @@ export default {
   },
   computed: {
     options() {
-      let { xData, maxWips, wips, title } = this
+      let { xData, maxWips, wips, title, minWips } = this
       return {
         title: {
           text: title,
@@ -44,13 +48,39 @@ export default {
         grid: {
           top: 40,
           right: 10,
-          left: 50,
-          bottom: 30 //图表尺寸大小
+          left: 70,
+          bottom: 50 //图表尺寸大小
+        },
+        tooltip: {
+          show: true,
+          trigger: "axis", //axis , item
+          backgroundColor: "RGBA(0, 49, 85, 1)",
+          borderColor: "rgba(0, 151, 251, 1)",
+          borderWidth: 1,
+          borderRadius: 0,
+          textStyle: {
+            color: "#BCE9FC",
+            fontSize: 16,
+            align: "left"
+          },
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+          }
         },
         legend: [
           {
             top: 0,
-            right: 80,
+            right: 180,
+            textStyle: {
+              color: "#FFFFFF",
+              fontSize: 12
+            },
+            data: ["實際"]
+          },
+          {
+            top: 0,
+            right: 90,
             textStyle: {
               color: "#FFFFFF",
               fontSize: 12
@@ -64,7 +94,7 @@ export default {
               color: "#FFFFFF",
               fontSize: 12
             },
-            data: ["實際"]
+            data: ["WIP下限"]
           }
         ],
         xAxis: {
@@ -77,7 +107,8 @@ export default {
             color: "#EEEEEE",
             textStyle: {
               fontSize: 12
-            }
+            },
+            rotate: "45"
           },
           axisLine: {
             lineStyle: {
@@ -152,6 +183,48 @@ export default {
                     {
                       offset: 1,
                       color: "rgba(109, 101, 197, 0.5)"
+                    }
+                  ])
+                }
+              }
+            },
+            label: {
+              normal: {
+                show: true,
+                position: "top",
+                fontSize: 12,
+                fontWeight: "bold",
+                color: "#FFFFFF"
+              }
+            }
+          },
+          {
+            type: "line",
+            name: "WIP下限",
+            data: minWips,
+            barWidth: "16",
+            itemStyle: {
+              normal: {
+                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: "rgba(78, 243, 156,1)"
+                  },
+                  {
+                    offset: 1,
+                    color: "rgba(78, 243, 156,1)"
+                  }
+                ]),
+                areaStyle: {
+                  //区域填充样式
+                  color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                    {
+                      offset: 0,
+                      color: "rgba(78, 243, 156, 0.1)"
+                    },
+                    {
+                      offset: 1,
+                      color: "rgba(78, 243, 156, 0.5)"
                     }
                   ])
                 }

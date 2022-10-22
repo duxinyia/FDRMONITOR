@@ -4,47 +4,49 @@
     <dv-border-box-12>
       <!-- 自定义两个切换按钮 -->
       <div class="btns">
-        <span class="left-icon-container" @click="toLeft">
+        <div class="left icon-wrapper" @click="toLeft">
           <i class="iconfont icon-shangyiye icon2"></i>
           <i class="iconfont icon-shangyiye icon1"></i>
           <i class="iconfont icon-shangyiye icon"></i>
-        </span>
-        <span @click="toRight">
-          <i class="iconfont icon-xiayiye icon"></i>
-          <i class="iconfont icon-xiayiye icon1"></i>
-          <i class="iconfont icon-xiayiye icon2"></i>
-        </span>
-      </div>
-      <div class="control">
-        <div class="fol-container container">
-          <span
-            class="fol-box"
-            @click="changeIndex(1)"
-            :style="{
-              'box-shadow': currentIndex == 1 ? 'inset 0 0 20px #c987ed' : ''
-            }"
-          ></span>
-          <span class="name">FOL</span>
         </div>
-        <div class="eol-container container">
-          <span
-            class="eol-box"
-            @click="changeIndex(2)"
-            :style="{
-              'box-shadow': currentIndex == 2 ? 'inset 0 0 20px #58d5e0' : ''
-            }"
-          ></span>
-          <span class="name">EOL</span>
-        </div>
-        <div class="all-container container">
-          <span
-            class="all-box"
-            @click="changeIndex(3)"
-            :style="{
-              'box-shadow': currentIndex == 3 ? 'inset 0 0 20px #fbeeca' : ''
-            }"
-          ></span>
-          <span class="name">ALL</span>
+        <div class="right">
+          <div class="control">
+            <div class="fol-container container">
+              <span
+                class="fol-box"
+                @click="changeIndex(1)"
+                :style="{
+                  'box-shadow': currentIndex == 1 ? 'inset 0 0 20px #c987ed' : ''
+                }"
+              ></span>
+              <span class="name">FOL</span>
+            </div>
+            <div class="eol-container container">
+              <span
+                class="eol-box"
+                @click="changeIndex(2)"
+                :style="{
+                  'box-shadow': currentIndex == 2 ? 'inset 0 0 20px #58d5e0' : ''
+                }"
+              ></span>
+              <span class="name">EOL</span>
+            </div>
+            <div class="all-container container">
+              <span
+                class="all-box"
+                @click="changeIndex(3)"
+                :style="{
+                  'box-shadow': currentIndex == 3 ? 'inset 0 0 20px #fbeeca' : ''
+                }"
+              ></span>
+              <span class="name">ALL</span>
+            </div>
+          </div>
+          <div class="icon-wrapper" @click="toRight">
+            <i class="iconfont icon-xiayiye icon"></i>
+            <i class="iconfont icon-xiayiye icon1"></i>
+            <i class="iconfont icon-xiayiye icon2"></i>
+          </div>
         </div>
       </div>
 
@@ -183,7 +185,7 @@ export default {
       await Promise.all(requestArr)
     },
     async GetKeyStationRunningInfo() {
-      this.$store.commit("fullLoading/SET_FULLLOADING", true)
+      // this.$store.commit("fullLoading/SET_FULLLOADING", true)
       this.isLessSplit = false
       this.showData = await GetKeyStationRunningInfo(this.selectArea)
       if (
@@ -216,7 +218,6 @@ export default {
       }
     },
     changeConfig(item) {
-      console.log("item =====", item)
       let showValue = 0
       if (item.wipRate) {
         showValue = parseInt(item.wipRate) > 100 ? 100 : parseInt(item.wipRate)
@@ -325,21 +326,52 @@ export default {
   height: 25px !important;
 }
 .btns {
-  span {
-    position: absolute;
-    width: 120px;
-    height: 50px;
-    text-align: center;
-    animation: twinkle 2s infinite;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  .right {
+    display: flex;
+    .control {
+      display: flex;
+      align-items: center;
+      .container {
+        display: flex;
+        align-items: center;
+        span {
+          &:nth-child(1) {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            margin-right: 6px;
+            cursor: pointer;
+          }
+        }
+      }
+      .fol-container {
+        margin-left: auto;
+        .fol-box {
+          border: 2px solid #d08bf5;
+        }
+      }
+      .eol-container {
+        margin: 0 10px;
+        .eol-box {
+          border: 2px solid #58d5e0;
+        }
+      }
+      .all-container {
+        margin-right: 100px;
+        .all-box {
+          border: 2px solid #fbeeca;
+        }
+      }
+    }
+  }
+  .icon-wrapper {
     cursor: pointer;
-    &:nth-child(1) {
-      left: 10px;
-      top: 20px;
-    }
-    &:nth-child(2) {
-      right: 10px;
-      top: 20px;
-    }
+    animation: twinkle 2s infinite;
     .icon {
       font-weight: bold;
       font-size: 25px;
@@ -357,43 +389,7 @@ export default {
     }
   }
 }
-.control {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  .container {
-    display: flex;
-    align-items: center;
-    span {
-      &:nth-child(1) {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        margin-right: 6px;
-        cursor: pointer;
-      }
-    }
-  }
-  .fol-container {
-    margin-left: auto;
-    .fol-box {
-      border: 2px solid #d08bf5;
-    }
-  }
-  .eol-container {
-    margin: 0 10px;
-    .eol-box {
-      border: 2px solid #58d5e0;
-    }
-  }
-  .all-container {
-    margin-right: 100px;
-    .all-box {
-      border: 2px solid #fbeeca;
-    }
-  }
-}
+
 .battery {
   width: 98%;
   height: 30px;

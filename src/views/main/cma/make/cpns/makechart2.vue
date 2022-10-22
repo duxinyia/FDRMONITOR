@@ -7,32 +7,37 @@
 import baseEchart from "@/common/echart"
 export default {
   name: "makechart2",
-  props: {},
+  props: {
+    title: {
+      type: String,
+      default: "标题"
+    },
+    chart2Xdata: {
+      type: Array,
+      default: () => []
+    },
+    chart2Output: {
+      type: Array,
+      default: () => []
+    },
+    chart2TargetOut: {
+      type: Array,
+      default: () => []
+    },
+    chart2HitRate: {
+      type: Array,
+      default: () => []
+    }
+  },
   components: {
     baseEchart
   },
   computed: {
     options() {
-      let xData = [
-        "06:00",
-        "08:00",
-        "10:00",
-        "12:00",
-        "14:00",
-        "16:00",
-        "18:00",
-        "20:00",
-        "22:00",
-        "00:00",
-        "02:00",
-        "04:00",
-        "06:00"
-      ]
-      let yData = [5.1, 3.2, 6.1, 4.1, 2.7, 4.2, 5.1, 3.2, 6.1, 4.1, 2.7, 4.2]
-      let yData1 = [5.1, 3.2, 6.1, 4.1, 2.7, 4.2, 5.1, 3.2, 6.1, 4.1, 2.7, 4.2]
+      let { title, chart2Xdata, chart2Output, chart2TargetOut, chart2HitRate } = this
       return {
         title: {
-          text: "ML-K AA時段產出",
+          text: title,
           left: "center",
           textStyle: {
             color: "#369fb5",
@@ -42,9 +47,26 @@ export default {
         },
         grid: {
           top: 40,
-          right: 30,
-          left: 30,
+          right: 50,
+          left: 70,
           bottom: 30 //图表尺寸大小
+        },
+        tooltip: {
+          show: true,
+          trigger: "axis", //axis , item
+          backgroundColor: "RGBA(0, 49, 85, 1)",
+          borderColor: "rgba(0, 151, 251, 1)",
+          borderWidth: 1,
+          borderRadius: 0,
+          textStyle: {
+            color: "#BCE9FC",
+            fontSize: 16,
+            align: "left"
+          },
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+          }
         },
         legend: [
           {
@@ -79,7 +101,7 @@ export default {
           type: "category",
           // boundaryGap: false,
           color: "#59588D",
-          data: xData,
+          data: chart2Xdata,
           axisLabel: {
             margin: 10,
             color: "#EEEEEE",
@@ -109,7 +131,7 @@ export default {
             // name: "ydata",
             position: "left",
             min: 0, // 指定最小值
-            max: 10, // 指定最大值
+            max: (value) => value.max, // 指定最大值
             axisLabel: {
               color: "#EEEEEE",
               textStyle: {
@@ -135,9 +157,8 @@ export default {
           },
           {
             type: "value",
-            // name: "ML-X",
-            min: 0, // 指定最小值
-            max: 10, // 指定最大值
+            min: (value) => Math.ceil(value.min), // 指定最小值
+            max: (value) => value.max, // 指定最大值
             position: "right",
             splitLine: {
               show: false
@@ -146,6 +167,9 @@ export default {
               color: "#EEEEEE",
               textStyle: {
                 fontSize: 14
+              },
+              formatter: function (value) {
+                return value + "%"
               }
             },
             axisLine: {
@@ -160,7 +184,7 @@ export default {
           {
             type: "bar",
             name: "計劃",
-            data: yData,
+            data: chart2TargetOut,
             barWidth: "16",
             itemStyle: {
               normal: {
@@ -189,7 +213,7 @@ export default {
           {
             type: "bar",
             name: "實際",
-            data: yData1,
+            data: chart2Output,
             barWidth: "16",
             itemStyle: {
               normal: {
@@ -219,13 +243,14 @@ export default {
             name: "ML-X",
             type: "line",
             symbolSize: 8,
+            yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             //smooth: true, // 设置拆线平滑
             itemStyle: {
               normal: {
                 color: "#52fea2"
               }
             },
-            data: [5, 3, 6, 4, 2, 4, 5, 3, 6, 4, 2, 4]
+            data: chart2HitRate
           }
         ]
       }

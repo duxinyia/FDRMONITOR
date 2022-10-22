@@ -86,7 +86,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("fullLoading/SET_FULLLOADING", true)
+    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
   },
   methods: {
@@ -99,46 +99,42 @@ export default {
     async GetProductInfo() {
       let res = await GetProductInfo()
       console.log("res44", res)
-      res.hitStatistics.forEach((item) => {
-        item.hitRate = parseInt(item.hitRate) + "%"
-      })
-      // 上方数据
-      this.configArr = [[res.hitStatistics[0]], [res.hitStatistics[1]]]
-      // 下方数据
-      this.outPutInfoDetails = res.outPutInfoDetails
-      // 找到最大值
-      res.outPutInfoDetails.forEach((item, index) => {
-        // let tempMax = 0
-        item.dateValues.forEach((childItem) => {
-          // childItem.values.EOL.output  取出的是 output 的最大值
-          if (childItem.values.EOL.output > this.maxOutput[index]) {
-            this.maxOutput[index] = childItem.values.EOL.output
-          }
-          // childItem.values.FOL.output
-          if (childItem.values.FOL.output > this.maxOutput[index]) {
-            this.maxOutput[index] = childItem.values.FOL.output
-          }
-
-          // childItem.values.EOL.output  取出的是 output 的最大值
-          if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
-            this.maxTargetOut[index] = childItem.values.EOL.targetOut
-          }
-          // childItem.values.FOL.output
-          if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
-            this.maxTargetOut[index] = childItem.values.FOL.targetOut
-          }
+      if (res) {
+        res.hitStatistics.forEach((item) => {
+          item.hitRate = parseInt(item.hitRate) + "%"
         })
-      })
+        // 上方数据
+        this.configArr = [[res.hitStatistics[0]], [res.hitStatistics[1]]]
+        // 下方数据
+        this.outPutInfoDetails = res.outPutInfoDetails
+        // 找到最大值
+        res.outPutInfoDetails.forEach((item, index) => {
+          // let tempMax = 0
+          item.dateValues.forEach((childItem) => {
+            // childItem.values.EOL.output  取出的是 output 的最大值
+            if (childItem.values.EOL.output > this.maxOutput[index]) {
+              this.maxOutput[index] = childItem.values.EOL.output
+            }
+            // childItem.values.FOL.output
+            if (childItem.values.FOL.output > this.maxOutput[index]) {
+              this.maxOutput[index] = childItem.values.FOL.output
+            }
+
+            // childItem.values.EOL.output  取出的是 output 的最大值
+            if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
+              this.maxTargetOut[index] = childItem.values.EOL.targetOut
+            }
+            // childItem.values.FOL.output
+            if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
+              this.maxTargetOut[index] = childItem.values.FOL.targetOut
+            }
+          })
+        })
+      }
     },
     getRowClass() {
       return "background:transparent !important;color:#1adafb;"
     }
-    // changeEol() {
-    //   this.eolChecked = !this.eolChecked
-    // },
-    // changeFol() {
-    //   this.folChecked = !this.folChecked
-    // }
   },
   beforeDestroy() {
     clearInterval(this.dataTiming)
@@ -153,6 +149,9 @@ export default {
   background-color: transparent;
   color: white;
   font-size: 18px;
+}
+::v-deep .el-table::before {
+  display: none;
 }
 ::v-deep th {
   padding: 2px 0 !important;
@@ -211,7 +210,6 @@ export default {
       }
     }
     .fol-container {
-      // color: #d08bf5;
       color: #3762ff;
       margin-right: 8px;
       .frame {

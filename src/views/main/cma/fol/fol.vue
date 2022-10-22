@@ -160,7 +160,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("fullLoading/SET_FULLLOADING", true)
+    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
     // 每5分钟获取一次数据
     this.dataTiming = setInterval(() => {
@@ -191,7 +191,7 @@ export default {
         topData: [],
         details: []
       }
-      result &&
+      if (Array.isArray(result)) {
         result.forEach((item) => {
           this.config1.xAxisData.push(item.alterName)
           this.config1.seriesData.push(item.count)
@@ -200,17 +200,17 @@ export default {
           this.config1.sum += item.count
           this.config1.details.push(item.details)
         })
-      result &&
         result.forEach((item) => {
           this.config1.bottomData.push({ name: "", value: this.config1.sum - item.count })
           this.config1.topData.push({ name: "", value: this.config1.sum })
         })
+      }
     },
     // 获取 配件到期提示區
     async getDeviceInfo() {
       let result = await getDeviceInfo()
-      this.config2 = []
-      Array.isArray(result) &&
+      if (Array.isArray(result)) {
+        this.config2 = []
         result.forEach((item) => {
           let {
             deviceSeries,
@@ -231,75 +231,79 @@ export default {
             overLine
           ])
         })
+      }
     },
     // 获取top5的信息
     async getMachineTop5() {
       let result = await getMachineTop5()
-      this.config4 = {
-        names: [],
-        values: [],
-        formatValues: []
-      }
-      result.forEach((item) => {
-        this.config4.names.push(`${item.errormsg} ${item.rate}`)
-        this.config4.values.push({
-          value: item.keeptime,
-          detail: item.machines
+      if (Array.isArray(result)) {
+        this.config4 = {
+          names: [],
+          values: [],
+          formatValues: []
+        }
+        result.forEach((item) => {
+          this.config4.names.push(`${item.errormsg} ${item.rate}`)
+          this.config4.values.push({
+            value: item.keeptime,
+            detail: item.machines
+          })
+          this.config4.formatValues.push((item.keeptime / 60).toFixed(2) + " Min")
         })
-        this.config4.formatValues.push((item.keeptime / 60).toFixed(2) + " Min")
-      })
+      }
     },
     // 获取对应机台的信息
     async getProductInfo() {
       let result = await getProductInfo()
-      // console.log("result===", result)
-      this.bottomData = []
-      this.scrollData = []
-      this.textArr = []
-      // 下方的数据 给对象新加一个属性用于描述十个块的
-      this.bottomData = result
-      result.forEach((item) => {
-        item.workShopInfos.forEach((childItem) => {
-          childItem.machineInfos = childItem.machineInfos.map((machine) => {
-            this.textArr = []
-            // 每个机台的信息
-            if (machine.memberRunStatus) {
-              Object.entries(machine.memberRunStatus).forEach((item) => {
-                this.textArr.push({ name: item[0], state: item[1] })
-              })
-            }
-            // 取出对应的状态 生成新的divArr
-            return { ...machine, divsConfig: this.divConfig[0] }
+      if (Array.isArray(result)) {
+        this.bottomData = []
+        this.scrollData = []
+        this.textArr = []
+        // 下方的数据 给对象新加一个属性用于描述十个块的
+        this.bottomData = result
+        result.forEach((item) => {
+          item.workShopInfos.forEach((childItem) => {
+            childItem.machineInfos = childItem.machineInfos.map((machine) => {
+              this.textArr = []
+              // 每个机台的信息
+              if (machine.memberRunStatus) {
+                Object.entries(machine.memberRunStatus).forEach((item) => {
+                  this.textArr.push({ name: item[0], state: item[1] })
+                })
+              }
+              // 取出对应的状态 生成新的divArr
+              return { ...machine, divsConfig: this.divConfig[0] }
+            })
           })
         })
-      })
-      // dataV中的数据
-      result.forEach((item) => {
-        item.workShopInfos.forEach((childItem) => {
-          childItem.machineInfos.forEach((threeItem) => {
-            const {
-              customName,
-              machineName,
-              planeOutPut,
-              outPut,
-              hitRate,
-              dpcRate,
-              lcbRate,
-              eFailRate
-            } = threeItem
-            this.scrollData.push([
-              machineName,
-              customName,
-              planeOutPut,
-              outPut,
-              hitRate,
-              dpcRate,
-              lcbRate,
-              eFailRate
-            ])
+        // dataV中的数据
+        result.forEach((item) => {
+          item.workShopInfos.forEach((childItem) => {
+            childItem.machineInfos.forEach((threeItem) => {
+              const {
+                customName,
+                machineName,
+                planeOutPut,
+                outPut,
+                hitRate,
+                dpcRate,
+                lcbRate,
+                eFailRate
+              } = threeItem
+              this.scrollData.push([
+                machineName,
+                customName,
+                planeOutPut,
+                outPut,
+                hitRate,
+                dpcRate,
+                lcbRate,
+                eFailRate
+              ])
+            })
           })
         })
-      })
+      }
     }
   },
   beforeDestroy() {

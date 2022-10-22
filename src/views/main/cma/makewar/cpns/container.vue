@@ -14,7 +14,8 @@
                   <div slot="content">
                     1.計劃產出:{{ item.values.FOL.targetOut | filterTargetOut }}<br /><br />
                     2.實際產出:{{ item.values.FOL.output }}<br /><br />
-                    3.達成比例:{{ changeReachRate(item) }}<br /><br />
+                    3.達成比例:{{ item.values.FOL.hitRate }}<br /><br />
+                    <!-- 3.達成比例:{{ changeReachRate(item) }}<br /><br /> -->
                     4.差異產出:{{ Number(item.values.FOL.output - item.values.FOL.targetOut)
                     }}<br /><br />
                     5.差異原因:{{ "無" }}<br />
@@ -26,9 +27,14 @@
                     :style="changeHeight(item)"
                     v-if="folChecked"
                   >
-                    <!-- 定位显示比例 -->
-                    <span class="rate" v-if="folChecked">{{
+                    <!-- 定位显示比例 10 / 21改为显示 dailyHitRate-->
+                    <!-- <span class="rate" v-if="folChecked">{{
                       item.values.FOL.hitRate | filterRate
+                    }}</span> -->
+                    <span class="rate" v-if="folChecked">{{
+                      item.values.FOL.dailyHitRate
+                        ? parseInt(item.values.FOL.dailyHitRate) + "%"
+                        : "0%"
                     }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
@@ -38,7 +44,8 @@
                   <div slot="content">
                     1.計劃產出:{{ item.values.EOL.targetOut | filterTargetOut }}<br /><br />
                     2.實際產出:{{ item.values.EOL.output }}<br /><br />
-                    3.達成比例:{{ changeReachRate(item, "EOL") }}<br /><br />
+                    3.達成比例:{{ item.values.EOL.hitRate }}<br /><br />
+                    <!-- 3.達成比例:{{ changeReachRate(item, "EOL") }}<br /><br /> -->
                     4.差異產出:{{ Number(item.values.EOL.output - item.values.EOL.targetOut)
                     }}<br /><br />
                     5.差異原因:{{ "無" }}<br />
@@ -50,8 +57,13 @@
                     v-if="eolChecked"
                   >
                     <!-- 定位显示 -->
-                    <span class="rate" v-if="eolChecked">{{
+                    <!-- <span class="rate" v-if="eolChecked">{{
                       item.values.EOL.hitRate | filterRate
+                    }}</span> -->
+                    <span class="rate" v-if="eolChecked">{{
+                      item.values.EOL.dailyHitRate
+                        ? parseInt(item.values.EOL.dailyHitRate) + "%"
+                        : "0%"
                     }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
@@ -116,10 +128,10 @@ export default {
   },
   filters: {
     // 分割添加上%
-    filterRate(value) {
-      if (!value) return "0%"
-      return value.split(".")[0] + "%"
-    },
+    // filterRate(value) {
+    //   if (!value) return "0%"
+    //   return value.split(".")[0] + "%"
+    // },
     // 去掉小数部分
     filterTargetOut(value) {
       if (!value) return "無"
@@ -129,8 +141,8 @@ export default {
   methods: {
     changeSpeed(item, name = "FOL") {
       // 110以上 深绿 100-108 浅绿 100 以下 紫色
-      let result = parseInt(this.changeReachRate(item, name))
-      console.log("res", result)
+      // let result = parseInt(this.changeReachRate(item, name))
+      let result = item.values[name].hitRate ? parseInt(item.values[name].hitRate) : 0
       let bgColor = ""
       if (result > 110) {
         // 深绿
@@ -173,18 +185,21 @@ export default {
         height
       }
     },
-    changeReachRate(item, name = "FOL") {
-      if (item.values[name].output == 0 || item.values[name].targetOut == 0) {
-        return "0%"
-      } else {
-        return (
-          Number((item.values[name].output / item.values[name].targetOut) * 100).toFixed(0) + "%"
-        )
-      }
-    },
+    // changeReachRate(item, name = "FOL") {
+    // if (item.values[name].output == 0 || item.values[name].targetOut == 0) {
+    //   return "0%"
+    // } else {
+    //   return (
+    //     Number((item.values[name].output / item.values[name].targetOut) * 100).toFixed(0) + "%"
+    //   )
+    // }
+    // },
     toMake(ProductArea) {
-      let { deviceNo, plantID, customName } = this.device
-      this.$router.push({ name: "make", params: { deviceNo, plantID, ProductArea, customName } })
+      let { deviceNo, plantID, customName, Opno } = this.device
+      this.$router.push({
+        name: "make",
+        params: { deviceNo, plantID, ProductArea, Opno, customName }
+      })
     }
   }
 }
@@ -253,12 +268,6 @@ export default {
               .speed {
                 display: inline-block;
                 width: 100%;
-                // background: linear-gradient(
-                //   to bottom,
-                //   rgba(105, 249, 255, 0.6) 40%,
-                //   rgba(105, 249, 255, 0.5) 70%,
-                //   rgba(105, 249, 255, 1) 100%
-                // );
               }
             }
             .state-right {
@@ -275,12 +284,6 @@ export default {
               .speed {
                 display: inline-block;
                 width: 100%;
-                // background: linear-gradient(
-                //   to bottom,
-                //   rgba(220, 145, 255, 0.6) 40%,
-                //   rgba(220, 145, 255, 0.8) 70%,
-                //   rgba(220, 145, 255, 1) 100%
-                // );
               }
             }
           }

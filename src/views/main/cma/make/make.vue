@@ -7,7 +7,7 @@
         <el-col :span="14">
           <dv-border-box-12>
             <div class="total-wrapper">
-              <div v-for="item in totalArr" :key="item.id" class="total-container">
+              <div v-for="item in getShowValues" :key="item.id" class="total-container">
                 <div class="name">{{ item.name }}</div>
                 <div class="number">{{ item.value }}</div>
               </div>
@@ -20,17 +20,30 @@
                 :xData="xData"
                 :targetOuts="targetOuts"
                 :inPuts="inPuts"
+                @barClick="barClick"
               />
             </div>
           </dv-border-box-12>
           <dv-border-box-12>
             <div class="chart-container">
-              <make-chart-2 :title="chart2Ttitle" />
+              <make-chart-2
+                :title="chart2Ttitle"
+                :chart2Xdata="chart2Xdata"
+                :chart2Output="chart2Output"
+                :chart2TargetOut="chart2TargetOut"
+                :chart2HitRate="chart2HitRate"
+              />
             </div>
           </dv-border-box-12>
           <dv-border-box-12>
             <div class="chart-container">
-              <make-chart-3 :title="chart3Ttitle" :xData="xData" :maxWips="maxWips" :wips="wips" />
+              <make-chart-3
+                :title="chart3Ttitle"
+                :xData="xData"
+                :maxWips="maxWips"
+                :minWips="minWips"
+                :wips="wips"
+              />
             </div>
           </dv-border-box-12>
         </el-col>
@@ -83,7 +96,7 @@ import MakeChart1 from "./cpns/makechart1.vue"
 import MakeChart2 from "./cpns/makechart2.vue"
 import MakeChart3 from "./cpns/makechart3.vue"
 // 导入请求函数
-import { GetRunningInfo } from "@/api/make.js"
+import { GetRunningInfo, GetStationTimeSpanOutputInfo } from "@/api/make.js"
 export default {
   name: "make",
   components: {
@@ -94,12 +107,6 @@ export default {
   },
   data() {
     return {
-      totalArr: [
-        { id: 1, name: "當日計畫", value: "134,000" },
-        { id: 2, name: "實際", value: "134,000" },
-        { id: 3, name: "差異", value: "134,000" },
-        { id: 4, name: "達成率", value: "134,000" }
-      ],
       // 表格的数据
       tableData: [],
       // x 轴的标题
@@ -107,49 +114,105 @@ export default {
       targetOuts: [],
       inPuts: [],
       maxWips: [],
+      minWips: [],
       wips: [],
       chart1Ttitle: "",
       chart2Ttitle: "",
       chart3Ttitle: "",
-      tableLabel: ""
+      tableLabel: "",
+      headValues: [0, 0, 0, 0],
+      Opno: "",
+      // 左边中间图表的数据
+      chart2Xdata: [],
+      chart2Output: [],
+      chart2TargetOut: [],
+      chart2HitRate: []
+    }
+  },
+  computed: {
+    getShowValues() {
+      let { headValues } = this
+      return [
+        { id: 1, name: "當日計畫", value: headValues[0] || 0 },
+        { id: 2, name: "實際", value: headValues[1] || 0 },
+        { id: 3, name: "差異", value: headValues[2] || 0 },
+        { id: 4, name: "達成率", value: headValues[3] || "0%" }
+      ]
     }
   },
   mounted() {
     // SET_FULLLOADING
-    this.$store.commit("fullLoading/SET_FULLLOADING", true)
-    console.log("hhhh", this.$route)
+    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.GetRunningInfo(this.$route.params)
     let { customName } = this.$route.params
     // 各个表格的标题
     this.chart1Ttitle = `${customName} 產出達成狀況`
     this.chart2Ttitle = `${customName} AA時段產出`
     this.chart3Ttitle = `${customName} 站位WIP狀況`
-    this.tableLabel = `${customName}產能達成狀況`
+    this.tableLabel = `${customName} 產能達成狀況`
   },
   methods: {
-    getRowClass() {
-      return "background:transparent !important;color:#1adafb;'font-size':'30px'"
-    },
+    // 获取右边表格的数据
     async GetRunningInfo(params) {
       let result = await GetRunningInfo(params)
       console.log("result", result)
-      let { stationInfo } = result
-      this.$store.commit("fullLoading/SET_FULLLOADING", false)
+      let {
+        productAreaInfo: { targetOut, outPut, hitRate, delta },
+        stationInfo
+      } = result
+      this.headValues = [targetOut, outPut, hitRate, delta]
+      // 取出 stationInfo 的最后一项的 opNo
+      this.Opno = stationInfo[stationInfo.length - 1].opNo
+      this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno: this.Opno })
       // 循环取出头部区域
       stationInfo.forEach((item) => {
+        // console.log("item=======", item)
         // station x轴的数据 inPut 输入的值
-        let { station, inPut, targetOut, maxWip, wip } = item
+        let { station, inPut, targetOut, maxWip, minWip, wip, opNo } = item
         //
         this.xData.push(station)
         // 第一个需要的数据
-        this.targetOuts.push(targetOut)
-        this.inPuts.push(inPut)
+        this.targetOuts.push({ opNo, value: targetOut })
+        this.inPuts.push({ opNo, value: inPut })
         // 第二个 需要的数据
         this.maxWips.push(maxWip)
+        this.minWips.push(minWip)
         this.wips.push(wip)
       })
       // 取出表格的数据
       this.tableData = stationInfo
+    },
+    // 获取左边中间区域的数据
+    async GetStationTimeSpanOutputInfo(params) {
+      let result = await GetStationTimeSpanOutputInfo(params)
+      this.chart2Xdata = []
+      this.chart2Output = []
+      this.chart2TargetOut = []
+      this.chart2HitRate = []
+      console.log("result====", result)
+      // 需要生成 x轴的值 三种y的值
+      result.dateValues.forEach((item) => {
+        let {
+          dateCoode,
+          values: {
+            value: { targetOut, output, hitRate }
+          }
+        } = item
+        this.chart2Xdata.push(dateCoode.split(" ")[1].slice(0, 5))
+        this.chart2Output.push(output)
+        this.chart2TargetOut.push(targetOut)
+        this.chart2HitRate.push(parseInt(hitRate))
+      })
+      this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    },
+    // 处理 表一 的点击事件
+    barClick(Opno) {
+      console.log("点击了", Opno, this.$route.params)
+      this.Opno = Opno
+      this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno })
+    },
+    getRowClass() {
+      return "background:transparent !important;color:#1adafb;'font-size':'30px'"
     }
   }
 }
@@ -166,7 +229,6 @@ export default {
   padding: 7px 0;
 }
 
-//表格整行的颜色
 ::v-deep .el-table tr {
   background-color: transparent !important;
 }
@@ -212,6 +274,11 @@ export default {
   background-color: transparent;
   z-index: 1;
 }
+
+::v-deep .el-table tbody tr:hover > td {
+  background-color: transparent !important;
+}
+
 .page-main {
   margin-top: 10px;
   .total-wrapper {
@@ -237,19 +304,15 @@ export default {
         color: #26dac9;
       }
       &:nth-child(1) {
-        // box-shadow: inset 0 0 20px #ffff00; #6152cf
         box-shadow: inset 0 0 20px #2ddae9;
       }
       &:nth-child(2) {
-        // box-shadow: inset 0 0 20px #00ff00;
         box-shadow: inset 0 0 20px #1797d9;
       }
       &:nth-child(3) {
-        // box-shadow: inset 0 0 20px #ff0000;
         box-shadow: inset 0 0 20px #2ddae9;
       }
       &:nth-child(4) {
-        // box-shadow: inset 0 0 20px #8b6fff;
         box-shadow: inset 0 0 20px #1797d9;
       }
     }

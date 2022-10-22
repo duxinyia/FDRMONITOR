@@ -48,8 +48,8 @@ export default {
   },
   methods: {
     async initData() {
-      let requestArr = [this.GetKeyStationRunningInfo()]
-      await Promise.all(requestArr)
+      // let requestArr = [this.GetKeyStationRunningInfo()]
+      // await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
     async GetKeyStationRunningInfo() {
