@@ -28,17 +28,25 @@ export default {
               info: "FOL設備總覽",
               to: "fol"
             },
+
             {
               id: 3,
-              imgUrl: require("@/assets/images/output.png"),
-              info: "產出可視化平台",
-              to: "output"
+              isExternalLink: true,
+              imgUrl: require("@/assets/images/spotcheck.jpg"),
+              info: "AA PDI AI 檢測界面",
+              to: "http://10.142.117.50:32001/standard/design/#/share/OS4L2ZWV"
             }
           ]
         ],
         [
           "make",
           [
+            {
+              id: 3,
+              imgUrl: require("@/assets/images/output.png"),
+              info: "產出可視化平台",
+              to: "output"
+            },
             {
               id: 4,
               imgUrl: require("@/assets/images/output2.png"),
@@ -95,8 +103,13 @@ export default {
     this.showDiv = this.showDivMap.get(type)
   },
   methods: {
-    toProject({ to }) {
-      this.$router.push({ name: to })
+    toProject({ to, isExternalLink = false }) {
+      if (isExternalLink) {
+        // 打开新窗口
+        window.open(to)
+      } else {
+        this.$router.push({ name: to })
+      }
     }
   }
 }

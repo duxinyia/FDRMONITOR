@@ -99,7 +99,6 @@ export default {
             this.$store.commit("user/SET_USER", this.form)
             // 跳转页面
             this.$router.replace({ name: "overview" })
-            // this.$router.replace({ name: "overview" })
             this.$message({
               type: "success",
               message: `登錄成功~`,

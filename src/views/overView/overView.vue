@@ -142,4 +142,9 @@ export default {
     }
   }
 }
+// @media screen and (max-width: 600px) {
+//   .aside-container {
+//     display: none !important;
+//   }
+// }
 </style>

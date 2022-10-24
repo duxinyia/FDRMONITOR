@@ -49,7 +49,6 @@
           </div>
         </div>
       </div>
-
       <!-- 主要区域 -->
       <div class="page-main">
         <!-- 用轮播图显示 -->

@@ -135,8 +135,8 @@ export default {
       return [
         { id: 1, name: "當日計畫", value: headValues[0] || 0 },
         { id: 2, name: "實際", value: headValues[1] || 0 },
-        { id: 3, name: "差異", value: headValues[2] || 0 },
-        { id: 4, name: "達成率", value: headValues[3] || "0%" }
+        { id: 3, name: "差異", value: headValues[3] || 0 },
+        { id: 4, name: "達成率", value: headValues[2] || "0%" }
       ]
     }
   },
@@ -166,7 +166,6 @@ export default {
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno: this.Opno })
       // 循环取出头部区域
       stationInfo.forEach((item) => {
-        // console.log("item=======", item)
         // station x轴的数据 inPut 输入的值
         let { station, inPut, targetOut, maxWip, minWip, wip, opNo } = item
         //

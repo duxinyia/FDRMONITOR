@@ -31,7 +31,9 @@ import "echarts-liquidfill"
 
 // 挂载animate.css
 import "animate.css"
+// import dataV from "@jiaminghi/data-view"
 
+// Vue.use(dataV)
 // 关闭 生产环境的vue图标
 const isDebug_mode = process.env.NODE_ENV !== "production"
 Vue.config.debug = isDebug_mode

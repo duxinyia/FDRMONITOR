@@ -30,6 +30,7 @@ module.exports = {
   publicPath: "./",
   productionSourceMap: false,
   chainWebpack: (config) => {
+    config.resolve.alias.set("moment", "dayjs")
     if (process.env.NODE_ENV === "production") {
       config
         .plugin("webpack-bundle-analyzer")
