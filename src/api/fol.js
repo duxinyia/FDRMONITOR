@@ -28,6 +28,6 @@ export let GetAOIScanInfo = (combineID) =>
   $post(`api/ADLineRun/GetAOIScanInfo?${getTimeAgo()}&CombineID=${combineID}`)
 
 // 7.获取表格下方的数据
-let str = "St=2022-09-26 06:00:00&Et=2022-09-26 12:00:00"
+// let str = "St=2022-09-26 06:00:00&Et=2022-09-26 12:00:00"
 export let GetConcentrationInfo = (combineID) =>
-  $post(`api/ADLineRun/GetCarrierMapConcentrationInfo?${str}&CombineID=${combineID}`)
+  $post(`api/ADLineRun/GetCarrierMapConcentrationInfo?${getTime()}&CombineID=${combineID}`)

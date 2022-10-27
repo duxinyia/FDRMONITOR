@@ -75,17 +75,28 @@ export function getCurrentTime() {
  * @param {*} pre
  * @returns
  */
-export let getTime = () => {
-  let preTime = ""
-  // 先判断一下当前时间是否超过今天的六点
-  if (new Date(`${moment().format("YYYY-MM-DD 06:00:00")}`).getTime() < Date.now()) {
-    // 已经超过了6点
-    preTime = moment().format("YYYY-MM-DD 06:00:00")
+export let getTime = (preTime = "") => {
+  let curTime = ""
+  // 如果没传开始时间
+  if (!preTime) {
+    // 先判断一下当前时间是否超过今天的六点
+    if (new Date(`${moment().format("YYYY-MM-DD 06:00:00")}`).getTime() < Date.now()) {
+      // 已经超过了6点
+      preTime = moment().format("YYYY-MM-DD 06:00:00")
+    } else {
+      // 还在6点以前
+      preTime = moment().subtract(1, "days").format("YYYY-MM-DD") + " 06:00:00"
+    }
+    curTime = moment().format("YYYY-MM-DD HH:mm:ss")
   } else {
-    // 还在6点以前
-    preTime = moment().subtract(1, "days").format("YYYY-MM-DD") + " 06:00:00"
+    curTime =
+      moment().format("YYYY-MM-DD") == preTime
+        ? moment().format("YYYY-MM-DD HH:mm:ss")
+        : moment(preTime).subtract(-1, "days").format("YYYY-MM-DD 07:00:00")
+    preTime = `${preTime} 06:00:00`
+    console.log(preTime, curTime, moment().format("YYYY-MM-DD"))
   }
-  let curTime = moment().format("YYYY-MM-DD HH:mm:ss")
+  // let curTime = moment().format("YYYY-MM-DD HH:mm:ss")
   return `St=${preTime}&Et=${curTime}`
 }
 

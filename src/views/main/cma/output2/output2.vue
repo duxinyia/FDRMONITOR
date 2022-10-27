@@ -2,129 +2,136 @@
   <div>
     <page-header title="九宮格產出看板" />
     <dv-border-box-12>
-      <!-- 自定义两个切换按钮 -->
-      <div class="btns">
-        <div class="left icon-wrapper" @click="toLeft">
-          <i class="iconfont icon-shangyiye icon2"></i>
-          <i class="iconfont icon-shangyiye icon1"></i>
-          <i class="iconfont icon-shangyiye icon"></i>
-        </div>
-        <div class="right">
-          <div class="control">
-            <div class="fol-container container">
-              <span
-                class="fol-box"
-                @click="changeIndex(1)"
-                :style="{
-                  'box-shadow': currentIndex == 1 ? 'inset 0 0 20px #c987ed' : ''
-                }"
-              ></span>
-              <span class="name">FOL</span>
-            </div>
-            <div class="eol-container container">
-              <span
-                class="eol-box"
-                @click="changeIndex(2)"
-                :style="{
-                  'box-shadow': currentIndex == 2 ? 'inset 0 0 20px #58d5e0' : ''
-                }"
-              ></span>
-              <span class="name">EOL</span>
-            </div>
-            <div class="all-container container">
-              <span
-                class="all-box"
-                @click="changeIndex(3)"
-                :style="{
-                  'box-shadow': currentIndex == 3 ? 'inset 0 0 20px #fbeeca' : ''
-                }"
-              ></span>
-              <span class="name">ALL</span>
-            </div>
+      <div
+        v-loading="isLoading"
+        element-loading-spinner="el-icon-loading"
+        element-loading-text="加载中"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+      >
+        <!-- 自定义两个切换按钮 -->
+        <div class="btns">
+          <div class="left icon-wrapper" @click="toLeft">
+            <i class="iconfont icon-shangyiye icon2"></i>
+            <i class="iconfont icon-shangyiye icon1"></i>
+            <i class="iconfont icon-shangyiye icon"></i>
           </div>
-          <div class="icon-wrapper" @click="toRight">
-            <i class="iconfont icon-xiayiye icon"></i>
-            <i class="iconfont icon-xiayiye icon1"></i>
-            <i class="iconfont icon-xiayiye icon2"></i>
-          </div>
-        </div>
-      </div>
-      <!-- 主要区域 -->
-      <div class="page-main">
-        <!-- 用轮播图显示 -->
-        <el-carousel
-          ref="carousel"
-          :autoplay="false"
-          height="880px"
-          :interval="5000"
-          indicator-position="none"
-        >
-          <el-carousel-item v-for="(everyArr, index) in getShowArray" :key="index">
-            <div class="contaner">
-              <div
-                v-for="(item, index) in everyArr"
-                :style="changeEveryStyle()"
-                class="machine"
-                :key="index"
-              >
-                <p class="title">{{ item.deviceInfo.customName }}</p>
-                <el-row :gutter="6" class="headers">
-                  <el-col :span="3">WIP</el-col>
-                  <el-col :span="3" :offset="12">IO</el-col>
-                  <el-col :span="3">Hit Rate</el-col>
-                  <el-col :span="3">Yield</el-col>
-                </el-row>
-                <div class="wrapper-container">
-                  <el-row
-                    v-for="(item, index) in item.stationInfo"
-                    type="flex"
-                    align="middle"
-                    :gutter="6"
-                    :key="index"
-                    class="data-info"
-                  >
-                    <el-col :span="2" class="wip-num">{{ item.wip || "-" }}</el-col>
-                    <el-col :span="5">
-                      <el-tooltip effect="dark" placement="right">
-                        <div slot="content">
-                          <span>上限WIP: {{ item.minWip }}</span
-                          ><br /><br />
-                          <span>下限WIP: {{ item.maxWip }}</span>
-                        </div>
-                        <div>
-                          <dv-percent-pond :config="changeConfig(item)" class="percent-pond" />
-                        </div>
-                      </el-tooltip>
-                    </el-col>
-                    <el-col :span="8">
-                      <div class="battery">
-                        <span class="name">{{ item.station }}</span>
-                        <el-tooltip effect="dark" placement="right">
-                          <div slot="content">
-                            <span>實際產出: {{ item.outPut }}</span
-                            ><br /><br />
-                            <span>計劃產出: {{ item.targetOut }}</span>
-                            <br /><br />
-                            <span>差異產出: {{ item.outPut - item.targetOut }}</span>
-                          </div>
-                          <div class="container">
-                            <!-- 中间区域 -->
-                            <div class="center" :style="changeCenterStyle(item)">
-                              {{ item.outPut }}
-                            </div>
-                          </div>
-                        </el-tooltip>
-                      </div>
-                    </el-col>
-                    <el-col :span="3">{{ item.targetOut || "-" }}</el-col>
-                    <el-col :span="3">{{ item.hitRate || "-" }}</el-col>
-                    <el-col :span="3">{{ item.overallYield || "-" }}</el-col>
-                  </el-row>
-                </div>
+          <div class="right">
+            <div class="control">
+              <div class="fol-container container">
+                <span
+                  class="fol-box"
+                  @click="changeIndex(1)"
+                  :style="{
+                    'box-shadow': currentIndex == 1 ? 'inset 0 0 20px #c987ed' : ''
+                  }"
+                ></span>
+                <span class="name">FOL</span>
+              </div>
+              <div class="eol-container container">
+                <span
+                  class="eol-box"
+                  @click="changeIndex(2)"
+                  :style="{
+                    'box-shadow': currentIndex == 2 ? 'inset 0 0 20px #58d5e0' : ''
+                  }"
+                ></span>
+                <span class="name">EOL</span>
+              </div>
+              <div class="all-container container">
+                <span
+                  class="all-box"
+                  @click="changeIndex(3)"
+                  :style="{
+                    'box-shadow': currentIndex == 3 ? 'inset 0 0 20px #fbeeca' : ''
+                  }"
+                ></span>
+                <span class="name">ALL</span>
               </div>
             </div>
-          </el-carousel-item>
-        </el-carousel>
+            <div class="icon-wrapper" @click="toRight">
+              <i class="iconfont icon-xiayiye icon"></i>
+              <i class="iconfont icon-xiayiye icon1"></i>
+              <i class="iconfont icon-xiayiye icon2"></i>
+            </div>
+          </div>
+        </div>
+        <!-- 主要区域 -->
+        <div class="page-main">
+          <!-- 用轮播图显示 -->
+          <el-carousel
+            ref="carousel"
+            :autoplay="false"
+            height="880px"
+            :interval="5000"
+            indicator-position="none"
+          >
+            <el-carousel-item v-for="(everyArr, index) in getShowArray" :key="index">
+              <div class="contaner">
+                <div
+                  v-for="(item, index) in everyArr"
+                  :style="changeEveryStyle()"
+                  class="machine"
+                  :key="index"
+                >
+                  <p class="title">{{ item.deviceInfo.customName }}</p>
+                  <el-row :gutter="6" class="headers">
+                    <el-col :span="3">WIP</el-col>
+                    <el-col :span="3" :offset="12">IO</el-col>
+                    <el-col :span="3">Hit Rate</el-col>
+                    <el-col :span="3">Yield</el-col>
+                  </el-row>
+                  <div class="wrapper-container">
+                    <el-row
+                      v-for="(item, index) in item.stationInfo"
+                      type="flex"
+                      align="middle"
+                      :gutter="6"
+                      :key="index"
+                      class="data-info"
+                    >
+                      <el-col :span="2" class="wip-num">{{ item.wip || "-" }}</el-col>
+                      <el-col :span="5">
+                        <el-tooltip effect="dark" placement="right">
+                          <div slot="content">
+                            <span>上限WIP: {{ item.minWip }}</span
+                            ><br /><br />
+                            <span>下限WIP: {{ item.maxWip }}</span>
+                          </div>
+                          <div>
+                            <dv-percent-pond :config="changeConfig(item)" class="percent-pond" />
+                          </div>
+                        </el-tooltip>
+                      </el-col>
+                      <el-col :span="8">
+                        <div class="battery">
+                          <span class="name">{{ item.station }}</span>
+                          <el-tooltip effect="dark" placement="right">
+                            <div slot="content">
+                              <span>實際產出: {{ item.outPut }}</span
+                              ><br /><br />
+                              <span>計劃產出: {{ item.targetOut }}</span>
+                              <br /><br />
+                              <span>差異產出: {{ item.outPut - item.targetOut }}</span>
+                            </div>
+                            <div class="container">
+                              <!-- 中间区域 -->
+                              <div class="center" :style="changeCenterStyle(item)">
+                                {{ item.outPut }}
+                              </div>
+                            </div>
+                          </el-tooltip>
+                        </div>
+                      </el-col>
+                      <el-col :span="3">{{ item.targetOut || "-" }}</el-col>
+                      <el-col :span="3">{{ item.hitRate || "-" }}</el-col>
+                      <el-col :span="3">{{ item.overallYield || "-" }}</el-col>
+                    </el-row>
+                  </div>
+                </div>
+              </div>
+            </el-carousel-item>
+          </el-carousel>
+        </div>
       </div>
     </dv-border-box-12>
   </div>
@@ -161,7 +168,15 @@ export default {
       ],
       selectArea: "ALL",
       isLessSplit: false,
-      currentIndex: 3
+      currentIndex: 3,
+      isLoading: true
+    }
+  },
+  watch: {
+    showData: {
+      handler() {
+        this.isLoading = false
+      }
     }
   },
   computed: {
@@ -176,7 +191,7 @@ export default {
     // 每5分钟获取一次数据
     this.dataTiming = setInterval(() => {
       this.initData()
-    }, 3 * 60 * 1000)
+    }, this.$globalData.CYCLE_TIME)
   },
   methods: {
     async initData() {

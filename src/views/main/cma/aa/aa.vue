@@ -77,7 +77,7 @@ export default {
     // 每5分钟获取一次数据
     this.dataTiming = setInterval(() => {
       this.initData()
-    }, 3 * 60 * 1000)
+    }, this.$globalData.CYCLE_TIME)
   },
   methods: {
     // 发送请求，处理数据

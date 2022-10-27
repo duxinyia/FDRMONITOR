@@ -35,6 +35,34 @@ export default {
               imgUrl: require("@/assets/images/spotcheck.jpg"),
               info: "AA PDI AI 檢測界面",
               to: "http://10.142.117.50:32001/standard/design/#/share/OS4L2ZWV"
+            },
+            {
+              id: 4,
+              isExternalLink: true,
+              imgUrl: require("@/assets/images/device4.jpg"),
+              info: "實時統計",
+              to: "http://10.142.117.50:32001/share.html?token=8ZBXMVWR"
+            },
+            {
+              id: 5,
+              isExternalLink: true,
+              imgUrl: require("@/assets/images/device5.png"),
+              info: "歷史日統計",
+              to: "http://10.142.117.50:32001/share.html?token=V3SKHL6X"
+            },
+            {
+              id: 6,
+              isExternalLink: true,
+              imgUrl: require("@/assets/images/device6.png"),
+              info: "歷史周統計",
+              to: "http://10.142.117.50:32001/share.html?token=HYMY179K"
+            },
+            {
+              id: 7,
+              isExternalLink: true,
+              imgUrl: require("@/assets/images/device7.png"),
+              info: "歷史月統計",
+              to: "http://10.142.117.50:32001/share.html?token=TLYKVQQY"
             }
           ]
         ],
@@ -126,6 +154,7 @@ export default {
     overflow: hidden;
     margin-right: 30px;
     border-radius: 5px;
+    margin-bottom: 20px;
     .image {
       width: 300px;
       height: 200px;

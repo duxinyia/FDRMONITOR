@@ -80,8 +80,7 @@ export default {
       },
       leftShow: true,
       btnLoading: false,
-      isRemPwd: false,
-      changePwdUrl: "http://10.151.128.172:8089/Login/Repassword"
+      isRemPwd: false
     }
   },
   created() {
@@ -104,16 +103,6 @@ export default {
               message: `登錄成功~`,
               duration: 1500
             })
-          } else {
-            // 后端有错误  给出提示 清空内容
-            this.$message({
-              message: res.Message,
-              type: "error",
-              customClass: "login-tip"
-            })
-            if (res.OtherValue) {
-              window.open(res.OtherValue)
-            }
           }
           this.btnLoading = false
           this.$refs["form"].resetFields()
@@ -124,7 +113,7 @@ export default {
     },
     // 忘记密码
     forgetPwd() {
-      window.open(this.changePwdUrl)
+      window.open(this.$globalData.ResetPwdUrl)
     },
     keyDown(e) {
       if (e.keyCode == 13) {
@@ -193,8 +182,8 @@ export default {
         margin-top: 80px;
         .form-title {
           font-size: 26px;
-          font-weight: 900;
-          margin-bottom: 10px;
+          font-weight: 700;
+          margin-bottom: 15px;
         }
         .login-btn {
           width: 80%;
@@ -231,7 +220,6 @@ export default {
     }
   }
 }
-
 @media screen and (max-width: 1280px) {
   .login-page {
     .container {

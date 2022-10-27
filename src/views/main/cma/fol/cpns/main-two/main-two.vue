@@ -7,103 +7,110 @@
     class="main-two"
   >
     <dv-border-box-11 :title="title">
-      <!-- 使用轮播图来展示数据 -->
-      <el-carousel
-        style="height: 590px"
-        indicator-position="none"
-        :interval="15 * 1000"
-        ref="carousel"
-        arrow="never"
-        @change="carouselChange"
+      <div
+        v-loading="isLoading"
+        element-loading-spinner="el-icon-loading"
+        element-loading-text="加载中"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
       >
-        <el-carousel-item v-for="floor in bottomData" :key="floor.location">
-          <!-- 生成四个块 -->
-          <div class="wrapper">
-            <div
-              v-for="(block, index) in floor.workShopInfos"
-              :key="block.workShop"
-              :class="{
-                'block-container': true,
-                active0: index == 0,
-                active1: index == 1,
-                active2: index == 2,
-                active3: index == 3
-              }"
-            >
-              <!-- block名称 -->
-              <div class="blcok-name">
-                {{ block.workShop }}
-              </div>
-              <!-- 剩下展示六个块 -->
-              <div class="block-layout">
-                <!-- 机台容器 -->
-                <div v-for="machine in block.machineInfos" :key="machine.ip" class="machine">
-                  <div class="content">
-                    <div
-                      class="machine-head"
-                      :style="changeHead(machine)"
-                      @click="openDialog(machine)"
-                    >
-                      <i class="iconfont icon-flag" :style="changeIcon(machine)"></i>
-                      <span class="state">{{ machine.machineName | changeMachineName }}</span>
-                    </div>
-
-                    <div class="machine-info" :style="changeMachineInfo(machine)">
-                      <!-- 左边 -->
-                      <div class="left">
-                        <div
-                          v-for="item in divArr2[0]"
-                          :key="item.id"
-                          :style="changeDivStyle(item.style, machine)"
-                        >
-                          {{ item.text }}
-                        </div>
+        <!-- 使用轮播图来展示数据 -->
+        <el-carousel
+          style="height: 590px"
+          indicator-position="none"
+          :interval="15 * 1000"
+          ref="carousel"
+          arrow="never"
+          @change="carouselChange"
+        >
+          <el-carousel-item v-for="floor in bottomData" :key="floor.location">
+            <!-- 生成四个块 -->
+            <div class="wrapper">
+              <div
+                v-for="(block, index) in floor.workShopInfos"
+                :key="block.workShop"
+                :class="{
+                  'block-container': true,
+                  active0: index == 0,
+                  active1: index == 1,
+                  active2: index == 2,
+                  active3: index == 3
+                }"
+              >
+                <!-- block名称 -->
+                <div class="blcok-name">
+                  {{ block.workShop }}
+                </div>
+                <!-- 剩下展示六个块 -->
+                <div class="block-layout">
+                  <!-- 机台容器 -->
+                  <div v-for="machine in block.machineInfos" :key="machine.ip" class="machine">
+                    <div class="content">
+                      <div
+                        class="machine-head"
+                        :style="changeHead(machine)"
+                        @click="openDialog(machine)"
+                      >
+                        <i class="iconfont icon-flag" :style="changeIcon(machine)"></i>
+                        <span class="state">{{ machine.machineName | changeMachineName }}</span>
                       </div>
-                      <!-- 右边 -->
-                      <div class="right">
-                        <template v-if="machine.combineID">
-                          <el-tooltip class="item" effect="dark" placement="right">
-                            <div slot="content">dpc不良:{{ machine.dpcRate }}</div>
+
+                      <div class="machine-info" :style="changeMachineInfo(machine)">
+                        <!-- 左边 -->
+                        <div class="left">
+                          <div
+                            v-for="item in divArr2[0]"
+                            :key="item.id"
+                            :style="changeDivStyle(item.style, machine)"
+                          >
+                            {{ item.text }}
+                          </div>
+                        </div>
+                        <!-- 右边 -->
+                        <div class="right">
+                          <template v-if="machine.combineID">
+                            <el-tooltip class="item" effect="dark" placement="right">
+                              <div slot="content">dpc不良:{{ machine.dpcRate }}</div>
+                              <div class="dpc">
+                                <span class="name">DPC</span>
+                                <i class="iconfont icon-hexagon"></i>
+                              </div>
+                            </el-tooltip>
+                          </template>
+                          <template v-else>
                             <div class="dpc">
                               <span class="name">DPC</span>
+                              <!-- <svg-icon className="hexagon" icon-class="hexagon" /> -->
                               <i class="iconfont icon-hexagon"></i>
                             </div>
-                          </el-tooltip>
-                        </template>
-                        <template v-else>
-                          <div class="dpc">
-                            <span class="name">DPC</span>
-                            <!-- <svg-icon className="hexagon" icon-class="hexagon" /> -->
-                            <i class="iconfont icon-hexagon"></i>
-                          </div>
-                        </template>
-                        <div class="lcb" :style="changeLcbStyle(machine)">LCB</div>
-                        <div class="e-fail" :style="changeLcbStyle(machine)">e-fail</div>
-                        <dv-percent-pond
-                          class="percent-pond"
-                          :config="handlePercentConfig(machine.hitRate)"
-                        />
+                          </template>
+                          <div class="lcb" :style="changeLcbStyle(machine)">LCB</div>
+                          <div class="e-fail" :style="changeLcbStyle(machine)">e-fail</div>
+                          <dv-percent-pond
+                            class="percent-pond"
+                            :config="handlePercentConfig(machine.hitRate)"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </el-carousel-item>
-      </el-carousel>
-      <!-- 自定义两个切换按钮 -->
-      <div class="btns">
-        <span class="left-icon-container" @click="prev">
-          <i class="iconfont icon-shangyiye icon2"></i>
-          <i class="iconfont icon-shangyiye icon1"></i>
-          <i class="iconfont icon-shangyiye icon"></i>
-        </span>
-        <span @click="next">
-          <i class="iconfont icon-xiayiye icon"></i>
-          <i class="iconfont icon-xiayiye icon1"></i>
-          <i class="iconfont icon-xiayiye icon2"></i>
-        </span>
+          </el-carousel-item>
+        </el-carousel>
+        <!-- 自定义两个切换按钮 -->
+        <div class="btns">
+          <span class="left-icon-container" @click="prev">
+            <i class="iconfont icon-shangyiye icon2"></i>
+            <i class="iconfont icon-shangyiye icon1"></i>
+            <i class="iconfont icon-shangyiye icon"></i>
+          </span>
+          <span @click="next">
+            <i class="iconfont icon-xiayiye icon"></i>
+            <i class="iconfont icon-xiayiye icon1"></i>
+            <i class="iconfont icon-xiayiye icon2"></i>
+          </span>
+        </div>
       </div>
     </dv-border-box-11>
     <!-- 详情弹框 -->
@@ -138,6 +145,7 @@ export default {
   data() {
     return {
       loading: false,
+      isLoading: true,
       currentIndex: 0,
       // 水位图的配置文件
       percentConfig: {
@@ -151,6 +159,13 @@ export default {
       dialogVisible: false,
       // 弹框id
       combineID: ""
+    }
+  },
+  watch: {
+    bottomData: {
+      handler() {
+        this.isLoading = false
+      }
     }
   },
   computed: {
@@ -363,12 +378,9 @@ export default {
               width: 135px;
               height: 220px;
               padding: 6px 3px 5px 6px;
-              // border: 2px solid #354fad;
-              // box-shadow: inset 0 0 10px rgba(53, 79, 173, 1);
               border: 2px solid #02958e;
               box-shadow: inset 0 0 10px rgba(2, 149, 142, 1);
               border-radius: 8px;
-
               .left {
                 flex: 1;
                 display: flex;
@@ -393,6 +405,7 @@ export default {
                   display: flex;
                   justify-content: center;
                   align-items: center;
+                  // background-image: "~@assets/images/hexagon.png";
                   .name {
                     position: absolute;
                     left: 50%;

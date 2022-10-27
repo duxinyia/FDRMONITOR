@@ -12,7 +12,13 @@
       <pie-chart title="當日良率損失TOP5" :alloptions="config2" />
     </dv-border-box-13>
     <dv-border-box-12>
-      <div class="item-wrapper">
+      <div
+        class="item-wrapper"
+        v-loading="numLoading"
+        element-loading-spinner="el-icon-loading"
+        element-loading-text="加载中"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+      >
         <div v-for="(item, index) in config3" :key="item.id" class="num-item">
           <!-- 普通版本 -->
           <span class="des">{{ item.des }}</span>
@@ -56,18 +62,31 @@ import MyscrollChart from "@/components/myscroll-chart/myscroll-chart.vue"
 export default {
   name: "main-one",
   props: ["config1", "config2", "config3", "config4", "config5"],
+  data() {
+    return {
+      numLoading: true
+    }
+  },
   components: {
     countTo,
     scrollChart,
     pieChart,
     rankingRotationChart,
     MyscrollChart
+  },
+  watch: {
+    config3: {
+      handler() {
+        this.numLoading = false
+      },
+      deep: true
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
 .main-one {
-  z-index: 100;
+  // z-index: 100;
   display: flex;
   margin-top: 20px;
   // 小圆点的样式
@@ -118,13 +137,4 @@ export default {
     }
   }
 }
-
-// .yield-container {
-//   ::v-deep .header-item {
-//     padding: 0 2px;
-//   }
-//   ::v-deep .ceil {
-//     padding: 0 2px;
-//   }
-// }
 </style>

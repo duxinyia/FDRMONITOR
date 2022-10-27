@@ -14,15 +14,14 @@
                   <div slot="content">
                     1.計劃產出:{{ item.values.FOL.targetOut | filterTargetOut }}<br /><br />
                     2.實際產出:{{ item.values.FOL.output }}<br /><br />
-                    3.達成比例:{{ item.values.FOL.hitRate }}<br /><br />
+                    3.達成比例:{{ item.values.FOL.dailyHitRate }}<br /><br />
                     <!-- 3.達成比例:{{ changeReachRate(item) }}<br /><br /> -->
                     4.差異產出:{{ Number(item.values.FOL.output - item.values.FOL.targetOut)
                     }}<br /><br />
                     5.差異原因:{{ "無" }}<br />
                   </div>
-
                   <div
-                    @click="toMake('FOL')"
+                    @click="toMake('FOL', item)"
                     class="state-right state"
                     :style="changeHeight(item)"
                     v-if="folChecked"
@@ -32,9 +31,7 @@
                       item.values.FOL.hitRate | filterRate
                     }}</span> -->
                     <span class="rate" v-if="folChecked">{{
-                      item.values.FOL.dailyHitRate
-                        ? parseInt(item.values.FOL.dailyHitRate) + "%"
-                        : "0%"
+                      item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%"
                     }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
@@ -44,14 +41,14 @@
                   <div slot="content">
                     1.計劃產出:{{ item.values.EOL.targetOut | filterTargetOut }}<br /><br />
                     2.實際產出:{{ item.values.EOL.output }}<br /><br />
-                    3.達成比例:{{ item.values.EOL.hitRate }}<br /><br />
+                    3.達成比例:{{ item.values.EOL.dailyHitRate }}<br /><br />
                     <!-- 3.達成比例:{{ changeReachRate(item, "EOL") }}<br /><br /> -->
                     4.差異產出:{{ Number(item.values.EOL.output - item.values.EOL.targetOut)
                     }}<br /><br />
                     5.差異原因:{{ "無" }}<br />
                   </div>
                   <div
-                    @click="toMake('EOL')"
+                    @click="toMake('EOL', item)"
                     class="state-left state"
                     :style="changeHeight(item, 'EOL')"
                     v-if="eolChecked"
@@ -61,9 +58,7 @@
                       item.values.EOL.hitRate | filterRate
                     }}</span> -->
                     <span class="rate" v-if="eolChecked">{{
-                      item.values.EOL.dailyHitRate
-                        ? parseInt(item.values.EOL.dailyHitRate) + "%"
-                        : "0%"
+                      item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%"
                     }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
@@ -127,11 +122,6 @@ export default {
     }
   },
   filters: {
-    // 分割添加上%
-    // filterRate(value) {
-    //   if (!value) return "0%"
-    //   return value.split(".")[0] + "%"
-    // },
     // 去掉小数部分
     filterTargetOut(value) {
       if (!value) return "無"
@@ -142,7 +132,7 @@ export default {
     changeSpeed(item, name = "FOL") {
       // 110以上 深绿 100-108 浅绿 100 以下 紫色
       // let result = parseInt(this.changeReachRate(item, name))
-      let result = item.values[name].hitRate ? parseInt(item.values[name].hitRate) : 0
+      let result = item.values[name].dailyHitRate ? parseInt(item.values[name].dailyHitRate) : 0
       let bgColor = ""
       if (result > 110) {
         // 深绿
@@ -185,20 +175,18 @@ export default {
         height
       }
     },
-    // changeReachRate(item, name = "FOL") {
-    // if (item.values[name].output == 0 || item.values[name].targetOut == 0) {
-    //   return "0%"
-    // } else {
-    //   return (
-    //     Number((item.values[name].output / item.values[name].targetOut) * 100).toFixed(0) + "%"
-    //   )
-    // }
-    // },
-    toMake(ProductArea) {
+    toMake(ProductArea, item) {
       let { deviceNo, plantID, customName, Opno } = this.device
       this.$router.push({
         name: "make",
-        params: { deviceNo, plantID, ProductArea, Opno, customName }
+        params: {
+          deviceNo,
+          plantID,
+          ProductArea,
+          Opno,
+          customName,
+          preTime: `${item.dateCoode}`
+        }
       })
     }
   }

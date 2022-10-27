@@ -419,59 +419,62 @@ export default {
     },
     // 获取右边下方的表格数据  GetConcentrationInfo
     async GetConcentrationInfo(combineID) {
-      let res = await GetConcentrationInfo(combineID)
-      console.log("取右边下方的表格数据", res)
-      this.threeTable = res
-      let maxXYRate = 0,
-        minXYRate = 10
-      // 找到行和列的最大值
-      res.forEach((item) => {
-        let [_x, _y] = item.carrierXY.split("-")
-        // 获得行和列的最大值
-        if (_x * 1 > this.maxArr[0]) {
-          this.$set(this.maxArr, 0, _x * 1)
-        }
-        if (_y * 1 > this.maxArr[1]) {
-          this.$set(this.maxArr, 1, _y * 1)
-        }
-        //找到 carrierXYRate 的最大值 和最小值
-        if (item.carrierXYRate) {
-          if (Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1)) > maxXYRate) {
-            maxXYRate = Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1))
+      try {
+        let res = await GetConcentrationInfo(combineID)
+        console.log("取右边下方的表格数据", res)
+        this.threeTable = res
+        let maxXYRate = 0,
+          minXYRate = 10
+        // 找到行和列的最大值
+        res.forEach((item) => {
+          let [_x, _y] = item.carrierXY.split("-")
+          // 获得行和列的最大值
+          if (_x * 1 > this.maxArr[0]) {
+            this.$set(this.maxArr, 0, _x * 1)
           }
-          if (Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1)) < minXYRate) {
-            minXYRate = Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1))
+          if (_y * 1 > this.maxArr[1]) {
+            this.$set(this.maxArr, 1, _y * 1)
           }
-        }
-      })
-      // maxXYRate = maxXYRate + '%'
-      // console.log("最大值和最小值:", maxXYRate, minXYRate)
-      // 处理坐标
-      this.threeTable = this.threeTable.map((item) => {
-        // XY:2-1 => 5-10  2-2 => 4-10
-        let [x, y] = item.carrierXY.split("-") // X = 2 Y = 1
-        let _y = this.maxArr[0] + 2 - Number(x) // this.maxArr[1] => 4
-        let _x = this.maxArr[1] + 2 - Number(y) // this.maxArr[0] => 10
-        item.carrierXY = [_x, _y]
+          //找到 carrierXYRate 的最大值 和最小值
+          if (item.carrierXYRate) {
+            if (Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1)) > maxXYRate) {
+              maxXYRate = Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1))
+            }
+            if (Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1)) < minXYRate) {
+              minXYRate = Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1))
+            }
+          }
+        })
+        // maxXYRate = maxXYRate + '%'
+        console.log("最大值和最小值:", maxXYRate, minXYRate)
+        // 处理坐标
+        this.threeTable = this.threeTable.map((item) => {
+          // XY:2-1 => 5-10  2-2 => 4-10
+          let [x, y] = item.carrierXY.split("-") // X = 2 Y = 1
+          let _y = this.maxArr[0] + 2 - Number(x) // this.maxArr[1] => 4
+          let _x = this.maxArr[1] + 2 - Number(y) // this.maxArr[0] => 10
+          item.carrierXY = [_x, _y]
+          // 添加最大和最小的标志
+          if (maxXYRate + "%" == item.carrierXYRate) {
+            item.isHigh = true
+          }
+          if (minXYRate + "%" == item.carrierXYRate) {
+            item.isLow = true
+          }
+          return item
+        })
 
-        // 添加最大和最小的标志
-        if (maxXYRate + "%" == item.carrierXYRate) {
-          item.isHigh = true
+        // 构造对象 加入原数组
+        for (let i = this.maxArr[0], j = 2; i > 0; i--, j++) {
+          // this.threeTable.push({ carrierXY: `1-${j}`, text: `${i}` })
+          this.threeTable.push({ carrierXY: [1, j], carrierXYRate: `${i}` })
         }
-        if (minXYRate + "%" == item.carrierXYRate) {
-          item.isLow = true
+        for (let i = this.maxArr[1], j = 2; i > 0; i--, j++) {
+          // this.threeTable.push({ carrierXY: `${j}-1`, text: `${i}` })
+          this.threeTable.push({ carrierXY: [j, 1], carrierXYRate: `${i}` })
         }
-        return item
-      })
-
-      // 构造对象 加入原数组
-      for (let i = this.maxArr[0], j = 2; i > 0; i--, j++) {
-        // this.threeTable.push({ carrierXY: `1-${j}`, text: `${i}` })
-        this.threeTable.push({ carrierXY: [1, j], carrierXYRate: `${i}` })
-      }
-      for (let i = this.maxArr[1], j = 2; i > 0; i--, j++) {
-        // this.threeTable.push({ carrierXY: `${j}-1`, text: `${i}` })
-        this.threeTable.push({ carrierXY: [j, 1], carrierXYRate: `${i}` })
+      } catch (error) {
+        console.log("error", error)
       }
     },
     clean() {

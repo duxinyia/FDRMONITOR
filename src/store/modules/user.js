@@ -6,14 +6,13 @@ const state = {
     password: ""
   }
 }
-
 const mutations = {
   SET_USER(state, payload) {
     cache.deleteCache("user")
     cache.setCache("user", payload)
-    const { username = "", password = "" } = payload
-    state.user.username = username
-    state.user.password = password
+    const { name = "", paw = "" } = payload
+    state.user.username = name
+    state.user.password = paw
   },
   updateUser(state) {
     let user = cache.getCache("user")

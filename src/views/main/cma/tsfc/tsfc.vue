@@ -48,12 +48,6 @@ export default {
       names: ["FOL", "EOL"]
     }
   },
-  computed: {
-    // options() {
-    //   // console.log("data", data)
-    //   // return ""
-    // }
-  },
   mounted() {
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.$store.commit("fullLoading/SET_FULLLOADING", false)

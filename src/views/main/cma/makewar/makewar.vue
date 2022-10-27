@@ -86,7 +86,7 @@ export default {
     }
   },
   mounted() {
-    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
+    this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
   },
   methods: {

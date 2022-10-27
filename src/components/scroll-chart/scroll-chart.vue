@@ -1,5 +1,11 @@
 <template>
-  <div class="container">
+  <div
+    class="container"
+    v-loading="isLoading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+  >
     <!-- 标题区域 -->
     <div class="title-area">
       <span class="title" v-if="showTitle">{{ title }}</span>
@@ -29,6 +35,18 @@ export default {
     showTitle: {
       type: Boolean,
       default: true
+    }
+  },
+  data() {
+    return {
+      isLoading: true
+    }
+  },
+  watch: {
+    config: {
+      handler() {
+        this.isLoading = false
+      }
     }
   }
 }

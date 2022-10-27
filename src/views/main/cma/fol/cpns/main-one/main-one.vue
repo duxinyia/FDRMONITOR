@@ -6,19 +6,28 @@
         <bar-chart :config1="config1" @echartClick="handlerClick" />
       </dv-border-box-12>
     </el-col>
-    <!-- 自己定义的表格 -->
+    <!-- 線體狀態看板區 -->
     <el-col :span="7">
       <dv-border-box-13>
         <scroll-chart height="200px" :config="scollConfig2" title="線體狀態看板區:" />
       </dv-border-box-13>
     </el-col>
-    <!-- 轮播图 -->
+    <!-- 線體良率明細區 -->
     <el-col :span="7">
       <dv-border-box-13>
-        <carousel-chart :showdata="config3" title="線體良率明細區:" />
+        <myscroll-chart
+          title="線體良率明細區:"
+          carouselHeight="173px"
+          :rowNum="5"
+          :headers="['線體', '機種', '計劃產出', '實際產出', '達成率', 'DPC', 'LCB', '電性']"
+          :widths="[60, 60, 80, 80, 70, 60, 60, 60]"
+          :showData="config3"
+        >
+          <template #default="{ row }">{{ row }} </template>
+        </myscroll-chart>
       </dv-border-box-13>
     </el-col>
-    <!-- 漏斗图 -->
+    <!-- 當日當機Top5 -->
     <el-col :span="5">
       <dv-border-box-12>
         <rank-chart :config="config4" />
@@ -34,8 +43,9 @@ import scrollChart from "@/components/scroll-chart/scroll-chart.vue"
 import rankChart from "@/common/rank-chart/rank-chart.vue"
 // 导入3d柱状图
 import barChart from "@/common/bar-chart/bar-chart.vue"
-// 导入用element封装的轮播图
-import CarouselChart from "./cpns/CarouselChart.vue"
+
+// 导入自己封装的轮播图
+import MyscrollChart from "@/components/myscroll-chart/myscroll-chart.vue"
 export default {
   name: "main-one",
   props: ["config1", "config2", "config3", "config4"],
@@ -43,7 +53,7 @@ export default {
     scrollChart,
     rankChart,
     barChart,
-    CarouselChart
+    MyscrollChart
   },
   computed: {
     scollConfig2() {

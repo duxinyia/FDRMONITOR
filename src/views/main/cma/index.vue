@@ -103,13 +103,14 @@ export default {
       this.bgDialogVisible = true
     },
     goHome() {
-      this.$router.replace({ name: "overview" })
+      // this.$router.replace({ name: "overview" })
+      this.$router.go(-1)
     },
     logout() {
       // 清空缓存
       cache.deleteCache("user")
       this.$router.replace("/login")
-      this.$message.success("退出成功~")
+      // this.$message.success("退出成功~")
     },
     // 切换全屏
     fullscreenClick() {

@@ -11,11 +11,12 @@ export let GetRunningInfo = (params) => {
     `api/MESOutPut/GetRunningInfo?PlantID=${plantID}&DeviceNo=${deviceNo}&ProductArea=${ProductArea}&LotType=MP&${getTime()}`
   )
 }
-
 // 获取中间表格的数据
 export let GetStationTimeSpanOutputInfo = (params) => {
-  let { plantID, Opno, deviceNo } = params
+  let { plantID, Opno, deviceNo, preTime } = params
   return $post(
-    `/api/MESOutPut/GetStationTimeSpanOutputInfo?PlantID=${plantID}&DeviceNo=${deviceNo}&Opno=${Opno}&LotType=MP&${getTime()}`
+    `/api/MESOutPut/GetStationTimeSpanOutputInfo?PlantID=${plantID}&DeviceNo=${deviceNo}&Opno=${Opno}&LotType=MP&${getTime(
+      preTime
+    )}`
   )
 }

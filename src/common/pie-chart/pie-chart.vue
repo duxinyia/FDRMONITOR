@@ -1,6 +1,12 @@
 <template>
   <!-- 饼图 -->
-  <div class="pie-chart">
+  <div
+    class="pie-chart"
+    v-loading="isLoading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中..."
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+  >
     <span class="title" v-if="showTitle">{{ title }}</span>
     <base-echart :options="options" />
   </div>
@@ -8,7 +14,6 @@
 
 <script>
 import baseEchart from "@/common/echart"
-
 export default {
   name: "pie-chart",
   props: {
@@ -34,6 +39,18 @@ export default {
   components: {
     baseEchart
   },
+  data() {
+    return {
+      isLoading: true
+    }
+  },
+  watch: {
+    alloptions: {
+      handler() {
+        this.isLoading = false
+      }
+    }
+  },
   computed: {
     options() {
       return {
@@ -42,23 +59,41 @@ export default {
           formatter: (params) => {
             let tempStr = ""
             if (params.data.machines.length > 0) {
-              params.data.machines.forEach((item) => {
+              params.data.machines.forEach((item, index) => {
                 tempStr += `
-                <div style="display:flex;border-bottom: 1px solid #fff;">
+                <div style="display:flex;background:${index % 2 == 0 ? "#003b51" : "#0a2732"}">
                   <span style="flex:1">${item.machinename || "-"}</span>
                   <span style="flex:1">${item.totalRate}</span>
                 </div>`
               })
             }
             return `
-              <div style="width:200px;border: 1px solid #fff;text-align: center;">
-                <div style="display:flex;border-bottom: 1px solid #fff;">
+              <div style="width:200px;text-align: center;line-height:2em;font-size:14px;border:1px solid #003b51">
+                <div style="display:flex;background:#20316e">
                   <span style="flex:1">top5机台</span>
                   <span style="flex:1">比率</span>
                 </div>
               ${tempStr}
               </div>
             `
+            // if (params.data.machines.length > 0) {
+            //   params.data.machines.forEach((item) => {
+            //     tempStr += `
+            //     <div style="display:flex;border-bottom: 1px solid #fff;">
+            //       <span style="flex:1">${item.machinename || "-"}</span>
+            //       <span style="flex:1">${item.totalRate}</span>
+            //     </div>`
+            //   })
+            // }
+            // return `
+            //   <div style="width:200px;border: 1px solid #fff;text-align: center;">
+            //     <div style="display:flex;border-bottom: 1px solid #fff;background:#20316e">
+            //       <span style="flex:1">top5机台</span>
+            //       <span style="flex:1">比率</span>
+            //     </div>
+            //   ${tempStr}
+            //   </div>
+            // `
           }
         },
         series: [

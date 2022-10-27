@@ -224,7 +224,7 @@ export default {
   methods: {
     echartClick(params) {
       console.log("params", params)
-      this.$emit("barClick", params.data.opNo)
+      this.$emit("barClick", params.data)
     }
   }
 }

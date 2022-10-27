@@ -2,9 +2,15 @@
   <!-- top5 好看的排位图
         参考地址:https://www.isqqw.com/echartsdetail?id=16405
   -->
-  <div class="rank-echart">
+  <div
+    class="rank-echart"
+    v-loading="isLoading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+  >
     <p class="title">{{ title }}</p>
-    <base-echart :options="options" />
+    <base-echart :options="options" height="204px" />
   </div>
 </template>
 
@@ -22,6 +28,18 @@ export default {
       default: "當日當機Top5:"
     },
     config: {}
+  },
+  data() {
+    return {
+      isLoading: true
+    }
+  },
+  watch: {
+    config: {
+      handler() {
+        this.isLoading = false
+      }
+    }
   },
   methods: {
     getSymbolData(data) {
@@ -43,7 +61,7 @@ export default {
         grid: {
           left: "",
           right: 8,
-          bottom: 40,
+          bottom: 0,
           top: 10,
           containLabel: false
         },
@@ -54,17 +72,17 @@ export default {
           },
           formatter: function (params) {
             let tempStr = ""
-            params[0].data.detail.forEach((item) => {
+            params[0].data.detail.forEach((item, index) => {
               tempStr += `
-                <div style="display:flex;border-bottom: 1px solid #fff;">
+                <div style="display:flex;background:${index % 2 == 0 ? "#003b51" : "#0a2732"}">
                   <span style="flex:1">${item.machinename}</span>
                   <span style="flex:1">${item.rate}</span>
                   <span style="flex:1">${(item.keeptime / 60).toFixed(2) + " Min"}</span>
                 </div>`
             })
             return `
-              <div style="width:230px;text-align: center;border: 1px solid #fff;">
-                <div style="display:flex;border-bottom: 1px solid #fff;">
+              <div style="width:230px;text-align: center;line-height:2em;font-size:14px;">
+                <div style="display:flex;background:#20316e">
                   <span style="flex:1">機台名稱</span>
                   <span style="flex:1">比率</span>
                   <span style="flex:1">持續時間</span>

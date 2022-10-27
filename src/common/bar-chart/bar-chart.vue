@@ -3,7 +3,13 @@
   柱状图:
   参考:https://www.isqqw.com/echartsdetail?id=15050
  -->
-  <div class="bar-chart">
+  <div
+    class="bar-chart"
+    v-loading="isLoading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+  >
     <p class="title" v-if="showTitle">{{ title }}</p>
     <base-echart :options="options" @echartClick="handlerClick" :height="height" />
   </div>
@@ -73,6 +79,7 @@ export default {
   },
   data() {
     return {
+      isLoading: true,
       ciolColor1: [
         "rgba(8, 177, 255, 1)",
         "rgba(0, 255, 136,   1)",
@@ -163,6 +170,13 @@ export default {
       ]
     }
   },
+  watch: {
+    config1: {
+      handler() {
+        this.isLoading = false
+      }
+    }
+  },
   computed: {
     options() {
       const { ciolColor1, ciolColor0, bottomColor0, bottomColor1, header0, header1, bottom } = this
@@ -177,11 +191,13 @@ export default {
           formatter: function (params) {
             let tempStr = ""
             if (Array.isArray(params[3].data.details) && params[3].data.details.length > 0) {
-              params[3].data.details.forEach((item) => {
+              params[3].data.details.forEach((item, index) => {
                 let flag = item.remainTime.includes("-")
                 tempStr += `
-                <div style="display:flex;justify-content: space-between;border-bottom: 1px solid #fff;">
-                  <span style="margin-right:5px">${item.machine}</span>
+                <div style="font-size:14px;padding:0 10px;display:flex;justify-content: space-between;background:${
+                  index % 2 == 0 ? "#003b51" : "#0a2732"
+                }">
+                  <span style="margin-right:20px">${item.machine}</span>
                   <span style="color:${flag ? "#f40" : ""}">${item.remainTime}</span>
                 </div>`
               })
@@ -189,8 +205,8 @@ export default {
               tempStr = "暂无详情"
             }
             return `
-              <div style="border: 1px solid #fff;">
-                <div style="display:flex;justify-content: space-between;border-bottom: 1px solid #fff;">
+              <div style="font-size:14px;line-height:2.2em;">
+                <div style="display:flex;justify-content: space-between;background:#20316e;padding:0 10px">
                   <span>機台名稱</span>
                   <span>持續時間</span>
                 </div>

@@ -5,7 +5,6 @@
         <img class="logo" :src="logoUrl" alt="" />
         <h2 class="name" v-show="!isCollapse">戰情中心</h2>
       </div>
-
       <el-menu
         background-color="#162949"
         text-color="#fff"
@@ -43,7 +42,8 @@
           <i class="el-icon-s-unfold flod" @click="isCollapse = !isCollapse" v-if="isCollapse"></i>
           <el-dropdown @command="handleCommand" placement="bottom">
             <span class="el-dropdown-link">
-              <el-avatar icon="el-icon-user-solid" size="large"></el-avatar>
+              <i class="el-icon-user-solid user-icon"></i>
+              <!-- <el-avatar icon="el-icon-user-solid user-icon" size="35"></el-avatar> -->
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="layout">退出登录</el-dropdown-item>
@@ -57,7 +57,6 @@
     </el-container>
   </el-container>
 </template>
-
 <script>
 // 导入设置localstorage的函数
 import cache from "@/utils/cache.js"
@@ -75,7 +74,7 @@ export default {
         // 清空缓存
         cache.deleteCache("user")
         this.$router.replace("/login")
-        this.$message.success("退出成功~")
+        // this.$message.success("退出成功~")
       }
     }
   }
@@ -117,10 +116,16 @@ export default {
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  padding: 0 5px;
+  padding: 0 10px;
   background: #324157;
-  .flod {
+  .flod,
+  .user-icon {
     cursor: pointer;
+    font-size: 23px;
+    color: #fff;
+    &:hover {
+      color: #00ffff;
+    }
   }
 }
 .aside-container {
@@ -142,9 +147,4 @@ export default {
     }
   }
 }
-// @media screen and (max-width: 600px) {
-//   .aside-container {
-//     display: none !important;
-//   }
-// }
 </style>

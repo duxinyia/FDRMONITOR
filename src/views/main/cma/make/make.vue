@@ -47,7 +47,6 @@
             </div>
           </dv-border-box-12>
         </el-col>
-
         <el-col :span="10">
           <el-table
             :header-cell-style="getRowClass"
@@ -56,19 +55,6 @@
             style="width: 100%; margin-top: 4px"
           >
             <el-table-column align="center" class="table-head" :label="tableLabel">
-              <!-- "station": "Material incoming",//站位
-                "opNo": "0016",//站位代碼
-                "targetOut": 118500,//計劃產出（目標產出）
-                "inPut": 0,//投入
-                "outPut": 0,//產出
-                "setUp": 0,//setup不良
-                "fail": 0,//不良數
-                "wip": "",//WIP
-                "minWip": 0,//最小WIP
-                "maxWip": 0,//最大WIP
-                "hitRate": "0.00%",//達成率
-                "processYield": "100.00%",//不含setup良率
-                "overallYield": "100.00%"//含setup良率 -->
               <el-table-column align="center" prop="station" width="180px" label="站位">
               </el-table-column>
               <el-table-column align="center" prop="targetOut" label="計劃"> </el-table-column>
@@ -126,7 +112,8 @@ export default {
       chart2Xdata: [],
       chart2Output: [],
       chart2TargetOut: [],
-      chart2HitRate: []
+      chart2HitRate: [],
+      preTime: ""
     }
   },
   computed: {
@@ -144,10 +131,10 @@ export default {
     // SET_FULLLOADING
     // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.GetRunningInfo(this.$route.params)
-    let { customName } = this.$route.params
+    let { customName, preTime } = this.$route.params
+    this.preTime = preTime
     // 各个表格的标题
     this.chart1Ttitle = `${customName} 產出達成狀況`
-    this.chart2Ttitle = `${customName} AA時段產出`
     this.chart3Ttitle = `${customName} 站位WIP狀況`
     this.tableLabel = `${customName} 產能達成狀況`
   },
@@ -163,6 +150,8 @@ export default {
       this.headValues = [targetOut, outPut, hitRate, delta]
       // 取出 stationInfo 的最后一项的 opNo
       this.Opno = stationInfo[stationInfo.length - 1].opNo
+      // 取出最后一项的名称
+      this.chart2Ttitle = `${stationInfo[stationInfo.length - 1].station} AA時段產出`
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno: this.Opno })
       // 循环取出头部区域
       stationInfo.forEach((item) => {
@@ -171,7 +160,7 @@ export default {
         //
         this.xData.push(station)
         // 第一个需要的数据
-        this.targetOuts.push({ opNo, value: targetOut })
+        this.targetOuts.push({ opNo, station, value: targetOut })
         this.inPuts.push({ opNo, value: inPut })
         // 第二个 需要的数据
         this.maxWips.push(maxWip)
@@ -205,11 +194,12 @@ export default {
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
     // 处理 表一 的点击事件
-    barClick(Opno) {
-      console.log("点击了", Opno, this.$route.params)
+    barClick({ opNo: Opno, station }) {
       this.Opno = Opno
+      this.chart2Ttitle = `${station} AA時段產出`
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno })
     },
+    arraySpanMethod() {},
     getRowClass() {
       return "background:transparent !important;color:#1adafb;'font-size':'30px'"
     }
@@ -227,7 +217,6 @@ export default {
 ::v-deep .el-table__cell {
   padding: 7px 0;
 }
-
 ::v-deep .el-table tr {
   background-color: transparent !important;
 }

@@ -8,80 +8,87 @@
   >
     <!-- 该楼层的具体block -->
     <dv-border-box-11 :title="title">
-      <!-- 定位显示颜色 -->
-      <div class="machine-color-info">
-        <div class="info-container" v-for="item in colorsInfo" :key="item.state">
-          <span class="color" :style="{ color: item.color }"></span>
-          <span class="state">{{ item.state }}</span>
+      <div
+        v-loading="isLoading"
+        element-loading-spinner="el-icon-loading"
+        element-loading-text="加载中"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+      >
+        <!-- 定位显示颜色 -->
+        <div class="machine-color-info">
+          <div class="info-container" v-for="item in colorsInfo" :key="item.state">
+            <span class="color" :style="{ color: item.color }"></span>
+            <span class="state">{{ item.state }}</span>
+          </div>
         </div>
-      </div>
-      <div class="show-container">
-        <!-- 使用轮播图来展示数据 -->
-        <el-carousel
-          style="height: 500px"
-          indicator-position="none"
-          :interval="15 * 1000"
-          ref="carousel"
-          arrow="never"
-          @change="carouselChange"
-        >
-          <el-carousel-item v-for="(blocks, floor_name) in totalBlock" :key="floor_name">
-            <div class="wrapper">
-              <div
-                class="block-container"
-                v-for="(block_arr, block_name) in blocks"
-                :key="block_name"
-              >
-                <dv-decoration-7 class="block-name"
-                  >&nbsp;&nbsp;{{ block_name || "-" }}&nbsp;&nbsp;</dv-decoration-7
+        <div class="show-container">
+          <!-- 使用轮播图来展示数据 -->
+          <el-carousel
+            style="height: 500px"
+            indicator-position="none"
+            :interval="15 * 1000"
+            ref="carousel"
+            arrow="never"
+            @change="carouselChange"
+          >
+            <el-carousel-item v-for="(blocks, floor_name) in totalBlock" :key="floor_name">
+              <div class="wrapper">
+                <div
+                  class="block-container"
+                  v-for="(block_arr, block_name) in blocks"
+                  :key="block_name"
                 >
-                <div class="grid-container">
-                  <div class="machine-container" v-for="(item, index) in block_arr" :key="index">
-                    <span
-                      class="machine"
-                      @click="goDetail(item)"
-                      :style="{ color: selectColor(item.runStatus) }"
-                    >
-                      {{ item.machineName || "-" }}
-                    </span>
-                    <div class="dots">
-                      <template v-if="Object.keys(item.aaHeadCurrentRunStates).length > 0">
-                        <span
-                          class="state-dot"
-                          v-for="(state, stn) in item.aaHeadCurrentRunStates"
-                          :key="stn"
-                          :style="dotBgColor(state)"
-                        >
-                        </span>
-                      </template>
-                      <template v-else>
-                        <span
-                          class="state-dot"
-                          :style="dotBgColor()"
-                          v-for="item in 4"
-                          :key="item"
-                        ></span>
-                      </template>
+                  <dv-decoration-7 class="block-name"
+                    >&nbsp;&nbsp;{{ block_name || "-" }}&nbsp;&nbsp;</dv-decoration-7
+                  >
+                  <div class="grid-container">
+                    <div class="machine-container" v-for="(item, index) in block_arr" :key="index">
+                      <span
+                        class="machine"
+                        @click="goDetail(item)"
+                        :style="{ color: selectColor(item.runStatus) }"
+                      >
+                        {{ item.machineName || "-" }}
+                      </span>
+                      <div class="dots">
+                        <template v-if="Object.keys(item.aaHeadCurrentRunStates).length > 0">
+                          <span
+                            class="state-dot"
+                            v-for="(state, stn) in item.aaHeadCurrentRunStates"
+                            :key="stn"
+                            :style="dotBgColor(state)"
+                          >
+                          </span>
+                        </template>
+                        <template v-else>
+                          <span
+                            class="state-dot"
+                            :style="dotBgColor()"
+                            v-for="item in 4"
+                            :key="item"
+                          ></span>
+                        </template>
+                      </div>
+                      <dv-percent-pond class="percent" :config="selectConfig(item)" />
                     </div>
-                    <dv-percent-pond class="percent" :config="selectConfig(item)" />
                   </div>
                 </div>
               </div>
-            </div>
-          </el-carousel-item>
-        </el-carousel>
-        <!-- 自定义两个切换按钮 -->
-        <div class="btns">
-          <span class="left-icon-container" @click="prev">
-            <i class="iconfont icon-shangyiye icon2"></i>
-            <i class="iconfont icon-shangyiye icon1"></i>
-            <i class="iconfont icon-shangyiye icon"></i>
-          </span>
-          <span @click="next">
-            <i class="iconfont icon-xiayiye icon"></i>
-            <i class="iconfont icon-xiayiye icon1"></i>
-            <i class="iconfont icon-xiayiye icon2"></i>
-          </span>
+            </el-carousel-item>
+          </el-carousel>
+          <!-- 自定义两个切换按钮 -->
+          <div class="btns">
+            <span class="left-icon-container" @click="prev">
+              <i class="iconfont icon-shangyiye icon2"></i>
+              <i class="iconfont icon-shangyiye icon1"></i>
+              <i class="iconfont icon-shangyiye icon"></i>
+            </span>
+            <span @click="next">
+              <i class="iconfont icon-xiayiye icon"></i>
+              <i class="iconfont icon-xiayiye icon1"></i>
+              <i class="iconfont icon-xiayiye icon2"></i>
+            </span>
+          </div>
         </div>
       </div>
     </dv-border-box-11>
@@ -125,6 +132,7 @@ export default {
       ],
       currentIndex: 0,
       loading: false,
+      isLoading: true,
       dialogVisible: false, // 详情弹框
       machineName: "" // 弹框 的名称
     }
@@ -132,6 +140,13 @@ export default {
   computed: {
     title() {
       return Object.keys(this.totalBlock)[this.currentIndex]
+    }
+  },
+  watch: {
+    totalBlock: {
+      handler() {
+        this.isLoading = false
+      }
     }
   },
   methods: {
@@ -225,7 +240,6 @@ export default {
     top: 48px;
     .info-container {
       display: flex;
-      vertical-align: middle;
       align-items: center;
       margin-right: 10px;
       .color {
@@ -264,7 +278,6 @@ export default {
         .grid-container {
           height: calc(100% - 48px);
           display: grid;
-
           grid-template-rows: repeat(7, 1fr);
           grid-template-columns: repeat(3, 1fr);
           justify-items: center;

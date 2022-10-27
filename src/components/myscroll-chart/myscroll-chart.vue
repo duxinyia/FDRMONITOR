@@ -1,5 +1,11 @@
 <template>
-  <div class="myscroll-chart">
+  <div
+    class="myscroll-chart"
+    v-loading="isLoading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+  >
     <!-- 标题区域 -->
     <div class="title-container">
       <span class="title">{{ title }}</span>
@@ -19,20 +25,23 @@
     </div>
     <el-carousel
       ref="carousel"
-      height="215px"
+      :height="carouselHeight"
       :interval="waitTime"
       direction="vertical"
       indicator-position="none"
     >
       <el-carousel-item v-for="(everyArr, index) in getNewArray" :key="index">
-        <div class="rows" v-for="(rows, index) in everyArr" :key="index">
-          <span
-            class="row"
-            :style="`width:${widths[i]}px;`"
-            v-for="(row, i) in rows"
-            :key="i"
-            v-html="row"
-          ></span>
+        <div
+          class="rows"
+          v-for="(rows, index) in everyArr"
+          :style="`height: ${avgHeight}px;line-height: ${avgHeight}px;background-color: ${
+            index % 2 === 0 ? evenRowBGC : oddRowBGC
+          }`"
+          :key="index"
+        >
+          <template v-for="(row, i) in rows">
+            <span class="row" :style="`width:${widths[i]}px`" :key="i" v-html="row"></span>
+          </template>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -50,6 +59,11 @@ export default {
       type: String,
       default: ""
     },
+    // 轮播表的高度
+    carouselHeight: {
+      type: String,
+      default: "215px"
+    },
     // 头部区域
     headers: {
       type: Array,
@@ -64,6 +78,16 @@ export default {
     headerHeight: {
       type: Number,
       default: 30
+    },
+    // 双数的颜色
+    evenRowBGC: {
+      type: String,
+      default: "#0a2732"
+    },
+    // 单数的颜色
+    oddRowBGC: {
+      type: String,
+      default: "#003b51"
     },
     // 各项的数组
     widths: {
@@ -81,11 +105,26 @@ export default {
       default: 6
     }
   },
+  data() {
+    return {
+      isLoading: true
+    }
+  },
   computed: {
     getNewArray() {
       let { showData, rowNum } = this
-      // let tempArr = this.showdata.filter((item) => item[0])
       return splitArray(showData, rowNum)
+    },
+    avgHeight() {
+      let { carouselHeight, rowNum } = this
+      return parseInt(carouselHeight) / rowNum
+    }
+  },
+  watch: {
+    showData: {
+      handler() {
+        this.isLoading = false
+      }
     }
   },
   methods: {
@@ -136,26 +175,11 @@ export default {
     text-align: center;
   }
   .rows {
-    height: 36px;
-    line-height: 36px;
+    // height: 36px;
+    // line-height: 36px;
     font-size: 14px;
     text-align: center;
     display: flex;
-    &:nth-child(even) {
-      background: #0a2732;
-    }
-    &:nth-child(odd) {
-      background: #003b51;
-    }
   }
-  // .main {
-  //   font-size: 14px;
-  //   .rows {
-  //     display: flex;
-  //     .row-item {
-  //       flex: 1;
-  //     }
-  //   }
-  // }
 }
 </style>

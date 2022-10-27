@@ -2,31 +2,62 @@
   <div>
     <page-header title="SAP良率" />
     <!-- 主要区域 -->
-    <dv-border-box-10>
-      <div class="page-main">
-        <!-- 第一个图 -->
+
+    <div class="page-main">
+      <!-- 第一个图 -->
+      <dv-border-box-10>
         <div class="top-chart">
-          <line-chart-1 />
+          <el-carousel height="380px" :interval="10000" indicator-position="none">
+            <el-carousel-item>
+              <line-chart-1 />
+            </el-carousel-item>
+            <el-carousel-item>
+              <line-chart-1 />
+            </el-carousel-item>
+          </el-carousel>
         </div>
         <!-- 下面四个图 -->
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <line-chart-2 />
-          </el-col>
-          <el-col :span="12">
-            <line-chart-3 />
-          </el-col>
-        </el-row>
-        <el-row :gutter="20" class="three-main">
-          <el-col :span="12">
-            <line-chart-4 />
-          </el-col>
-          <el-col :span="12">
-            <line-chart-5 />
-          </el-col>
-        </el-row>
-      </div>
-    </dv-border-box-10>
+
+        <el-carousel height="550px" :interval="10000" indicator-position="none">
+          <el-carousel-item>
+            <el-row :gutter="20">
+              <el-col :span="12">
+                <line-chart-2 />
+              </el-col>
+              <el-col :span="12">
+                <line-chart-3 />
+              </el-col>
+            </el-row>
+            <el-row :gutter="20" class="three-main">
+              <el-col :span="12">
+                <line-chart-4 />
+              </el-col>
+              <el-col :span="12">
+                <line-chart-5 />
+              </el-col>
+            </el-row>
+          </el-carousel-item>
+          <el-carousel-item>
+            <el-row :gutter="20">
+              <el-col :span="12">
+                <line-chart-2 />
+              </el-col>
+              <el-col :span="12">
+                <line-chart-3 />
+              </el-col>
+            </el-row>
+            <el-row :gutter="20" class="three-main">
+              <el-col :span="12">
+                <line-chart-4 />
+              </el-col>
+              <el-col :span="12">
+                <line-chart-5 />
+              </el-col>
+            </el-row>
+          </el-carousel-item>
+        </el-carousel>
+      </dv-border-box-10>
+    </div>
   </div>
 </template>
 <script>

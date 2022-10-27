@@ -1,12 +1,13 @@
 // 导入axios
 import axios from "axios"
 import { Message } from "element-ui"
+import Data from "@/assets/data"
 // 定義一些常量
-const TIMEOUT = 10000
+// const TIMEOUT = 6000
 const service = axios.create({
   // 基本路径
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: TIMEOUT
+  timeout: Data.TIMEOUT
 })
 // 请求拦截器
 service.interceptors.request.use((config) => {
@@ -22,7 +23,7 @@ service.interceptors.response.use(
   (res) => {
     if (res.data.status == false || res.data.Status == false) {
       Message({
-        message: res.data.message || "出错了~",
+        message: res.data.message || res.data.Message || "出错了~",
         type: "error"
       })
       return ""
@@ -32,10 +33,10 @@ service.interceptors.response.use(
   },
   (err) => {
     Message({
-      message: "網絡請求錯誤...",
+      message: `請求超時${Data.TIMEOUT / 1000}s....`,
       type: "error"
     })
-    console.log("出錯了err", err)
+    return err
   }
 )
 // 所有的请求函数

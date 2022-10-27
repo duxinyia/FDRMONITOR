@@ -6,25 +6,36 @@
       <div class="page-main">
         <!-- 第一个图 -->
         <div class="top-chart">
-          <line-chart-1 />
+          <el-carousel height="380px" interval="10000" indicator-position="none">
+            <el-carousel-item>
+              <line-chart-1 />
+            </el-carousel-item>
+            <el-carousel-item>
+              <line-chart-1 />
+            </el-carousel-item>
+          </el-carousel>
         </div>
         <!-- 下面四个图 -->
-        <el-row :gutter="10">
-          <el-col :span="12">
-            <line-chart-2 />
-          </el-col>
-          <el-col :span="12">
-            <line-chart-3 />
-          </el-col>
-        </el-row>
-        <el-row :gutter="10" class="three-main">
-          <el-col :span="12">
-            <line-chart-4 />
-          </el-col>
-          <el-col :span="12">
-            <line-chart-5 />
-          </el-col>
-        </el-row>
+        <el-carousel height="550px" interval="10000" indicator-position="none">
+          <el-carousel-item>
+            <el-row :gutter="10">
+              <el-col :span="12">
+                <line-chart-2 @click="toDetail('DPC')" />
+              </el-col>
+              <el-col :span="12">
+                <line-chart-3 />
+              </el-col>
+            </el-row>
+            <el-row :gutter="10" class="three-main">
+              <el-col :span="12">
+                <line-chart-4 />
+              </el-col>
+              <el-col :span="12">
+                <line-chart-5 />
+              </el-col>
+            </el-row>
+          </el-carousel-item>
+        </el-carousel>
       </div>
     </dv-border-box-10>
   </div>
@@ -73,6 +84,9 @@ export default {
       ]
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    },
+    toDetail(name) {
+      console.log("name", name)
     }
   },
   beforeDestroy() {

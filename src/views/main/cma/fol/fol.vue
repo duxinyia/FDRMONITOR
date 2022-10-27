@@ -4,7 +4,7 @@
     <!-- 主要区域 -->
     <div class="page-main">
       <!-- 第一行 -->
-      <main-one :config1="config1" :config2="config2" :config3="scrollData" :config4="config4" />
+      <main-one :config1="config1" :config2="config2" :config3="config3" :config4="config4" />
       <!-- 第二行 -->
       <main-two :bottomData="bottomData" />
     </div>
@@ -44,7 +44,7 @@ export default {
         values: [],
         formatValue: []
       },
-      scrollData: [],
+      config3: [],
       bottomData: [],
       dataTiming: null,
       textArr: []
@@ -165,7 +165,7 @@ export default {
     // 每5分钟获取一次数据
     this.dataTiming = setInterval(() => {
       this.initData()
-    }, 50000)
+    }, this.$globalData.CYCLE_TIME)
   },
   methods: {
     async initData() {
@@ -257,7 +257,7 @@ export default {
       let result = await getProductInfo()
       if (Array.isArray(result)) {
         this.bottomData = []
-        this.scrollData = []
+        this.config3 = []
         this.textArr = []
         // 下方的数据 给对象新加一个属性用于描述十个块的
         this.bottomData = result
@@ -290,20 +290,30 @@ export default {
                 lcbRate,
                 eFailRate
               } = threeItem
-              this.scrollData.push([
-                machineName,
-                customName,
-                planeOutPut,
-                outPut,
-                hitRate,
-                dpcRate,
-                lcbRate,
-                eFailRate
-              ])
+              customName &&
+                this.config3.push([
+                  this.handleValue(machineName),
+                  customName || "-",
+                  planeOutPut || "-",
+                  outPut || "-",
+                  hitRate || "-",
+                  dpcRate || "-",
+                  lcbRate || "-",
+                  eFailRate || "-"
+                ])
             })
           })
         })
       }
+    },
+    // 处理線體的数据
+    handleValue(value) {
+      if (typeof value == "string") {
+        if (value.includes("Line")) {
+          return value.split(" ")[1]
+        }
+      }
+      return value
     }
   },
   beforeDestroy() {

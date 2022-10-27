@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div
+    v-loading="isLoading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+  >
     <span class="title">{{ title }}</span>
     <div class="container">
-      <el-tooltip v-for="(item, index) in config" :key="index" placement="right">
+      <el-tooltip v-for="(item, index) in config" :key="index" placement="bottom">
         <div slot="content">
-          <!-- 多行信息<br />第二行信息 -->
           <div class="tootip-container">
             <div class="header">
               <span
@@ -55,6 +59,14 @@ export default {
         borderWidth: 0,
         formatter: "",
         lineDash: [4, 2]
+      },
+      isLoading: true
+    }
+  },
+  watch: {
+    config: {
+      handler() {
+        this.isLoading = false
       }
     }
   },
@@ -94,6 +106,11 @@ export default {
   }
 }
 </script>
+<style>
+.el-tooltip__popper {
+  padding: 4px;
+}
+</style>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
 .title {
@@ -107,20 +124,27 @@ export default {
 
 .tootip-container {
   width: 180px;
-  line-height: 2;
+  line-height: 2em;
   text-align: center;
+  font-size: 14px;
+  // border: 1px solid rgba(255, 255, 255, 0.5);
   .header {
     display: flex;
-    border: 1px solid #fff;
+    padding: 0 4px;
+    background: #20316e;
     .header-item {
       flex: 1;
     }
   }
   .machine-info {
     display: flex;
-    border-bottom: 1px solid #fff;
-    border-right: 1px solid #fff;
-    border-left: 1px solid #fff;
+    padding: 0 4px;
+    &:nth-child(2n) {
+      background: #003b51;
+    }
+    &:nth-child(2n + 1) {
+      background: #0a2732;
+    }
     span {
       flex: 1;
     }

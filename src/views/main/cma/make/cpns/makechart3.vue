@@ -187,15 +187,6 @@ export default {
                   ])
                 }
               }
-            },
-            label: {
-              normal: {
-                show: true,
-                position: "top",
-                fontSize: 12,
-                fontWeight: "bold",
-                color: "#FFFFFF"
-              }
             }
           },
           {
@@ -228,15 +219,6 @@ export default {
                     }
                   ])
                 }
-              }
-            },
-            label: {
-              normal: {
-                show: true,
-                position: "top",
-                fontSize: 12,
-                fontWeight: "bold",
-                color: "#FFFFFF"
               }
             }
           },
