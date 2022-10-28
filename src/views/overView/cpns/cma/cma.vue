@@ -110,6 +110,12 @@ export default {
               imgUrl: require("@/assets/images/tsfc.png"),
               info: "SFC总良率预览",
               to: "tsfc"
+            },
+            {
+              id: 10,
+              imgUrl: require("@/assets/images/1.png"),
+              info: "Top 25 Defect Item",
+              to: "defect"
             }
           ]
         ]

@@ -1,34 +1,52 @@
 <template>
-  <base-echart height="350px" :options="options" />
+  <dv-border-box-11 :title="title">
+    <base-echart height="350px" :options="options" />
+  </dv-border-box-11>
 </template>
 
 <script>
 // 导入基础的图
 import BaseEchart from "@/common/echart"
 export default {
-  name: "LineChart",
+  name: "LineChart1",
+  props: {
+    title: {
+      type: String,
+      default: ""
+    }
+  },
   components: {
     BaseEchart
   },
   data() {
     return {
-      xData: ["22-Aug", "22-Sap", "22-Wk38", "22-Wk39", "22-Wk40", "3/2", "3/3", "3/4"],
-      juy: [98.9, 99.4, 99.35, 98.9, 99.4, 99.55, 99.35, 98.95],
-      jua: [99.35, 99.53, 98.9, 98.9, 99.9, 99.4, 99.35, 98.26],
-      jug: [98.9, 99.35, 98.4, 99.4, 99.35, 99.15, 98.3, 98.4]
+      xData: ["2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10"],
+      mdx: [96.84, 98.82, 96.8, 98.8, 97.82, 95.84],
+      jux: [94.77, 97.76, 97.71, 95.77, 97.43, 94.73],
+      mlx: [98.58, 98.59, 98.61, 97.57, 98.69, 96.68],
+      mwx: [96.5, 96.58, 98.31, 98.37, 98.56, 98.37]
     }
   },
   computed: {
     options() {
       return {
+        // title: {
+        //   text: "ML-K AA時段產出",
+        //   left: "left",
+        //   textStyle: {
+        //     color: "#369fb5",
+        //     fontWeight: "bold",
+        //     fontSize: 15
+        //   }
+        // },
         grid: {
           top: 80,
-          right: 10,
-          left: 60,
-          bottom: 25 //图表尺寸大小
+          right: 50,
+          left: 80,
+          bottom: 40 //图表尺寸大小
         },
         legend: [
-          // JU-Y
+          // MD-X
           {
             top: 40,
             right: 300,
@@ -36,9 +54,9 @@ export default {
               color: "#FFFFFF",
               fontSize: 12
             },
-            data: ["JU-Y"]
+            data: ["MD-X"]
           },
-          // JU-A
+          // JU-X
           {
             top: 40,
             right: 190,
@@ -46,9 +64,9 @@ export default {
               color: "#FFFFFF",
               fontSize: 12
             },
-            data: ["JU-A"]
+            data: ["JU-X"]
           },
-          // JU-G
+          // ML-X
           {
             top: 40,
             right: 90,
@@ -56,7 +74,17 @@ export default {
               color: "#FFFFFF",
               fontSize: 12
             },
-            data: ["JU-G"]
+            data: ["ML-X"]
+          },
+          // MW-X
+          {
+            top: 40,
+            right: 8,
+            textStyle: {
+              color: "#FFF",
+              fontSize: 12
+            },
+            data: ["MW-X"]
           }
         ],
         tooltip: {
@@ -85,11 +113,13 @@ export default {
             margin: 10,
             color: "#EEEEEE",
             textStyle: {
-              fontSize: 14
+              fontSize: 18,
+              fontWeight: "bold"
             }
           },
           axisLine: {
             symbol: ["none", "arrow"],
+            symbolOffset: [0, 10],
             lineStyle: {
               color: "#ffffff",
               opacity: 0.8
@@ -101,8 +131,8 @@ export default {
           splitLine: {
             show: false,
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.3
+              color: "#fff",
+              opacity: 0.8
             }
           }
         },
@@ -111,8 +141,10 @@ export default {
             type: "value",
             min: (value) => Math.ceil(value.min - 1), // 指定最小值
             max: () => 100, // 指定最大值
-            // position: "left",
             splitLine: {
+              show: false
+            },
+            axisTick: {
               show: false
             },
             axisLabel: {
@@ -124,78 +156,100 @@ export default {
                 return value + "%"
               }
             },
-            axisTick: {
-              show: false
-            },
             axisLine: {
               symbol: ["none", "arrow"],
+              symbolOffset: [0, 10],
               lineStyle: {
                 color: "#fff",
-                opacity: 0.8
+                opacity: 1
               }
             }
           }
         ],
         series: [
-          // 线数据 JU-Y
+          // 线数据 MD-X
           {
-            name: "JU-Y",
+            name: "MD-X",
             type: "line",
             //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             symbolSize: 8,
             smooth: true, // 设置拆线平滑
             itemStyle: {
               normal: {
-                color: "#52fea2",
-                label: {
-                  show: true
-                }
+                color: "#52fea2"
               }
             },
             lineStyle: {
-              width: 4
+              width: 5
             },
-            data: this.juy
+            label: {
+              show: true,
+              formatter: (params) => params.value + "%"
+            },
+            data: this.mdx
           },
-          // 线数据 JU-A
+          // 线数据 JU-X
           {
-            name: "JU-A",
+            name: "JU-X",
             type: "line",
             //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             symbolSize: 8,
             smooth: true, // 设置拆线平滑
             itemStyle: {
               normal: {
-                color: "#1fedeb",
-                label: {
-                  show: true
-                }
+                color: "#1fedeb"
               }
             },
             lineStyle: {
-              width: 4
+              width: 5
             },
-            data: this.jua
+            label: {
+              show: true,
+              formatter: (params) => params.value + "%"
+            },
+            data: this.jux
           },
-          // 线数据 JU-G
+          // 线数据 ML-X
           {
-            name: "JU-G",
+            name: "ML-X",
             type: "line",
             //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             symbolSize: 8,
             smooth: true, // 设置拆线平滑
             itemStyle: {
               normal: {
-                color: "#f7a35c",
-                label: {
-                  show: true
-                }
+                color: "#f7a35c"
               }
             },
             lineStyle: {
-              width: 4
+              width: 5
             },
-            data: this.jug
+            label: {
+              show: true,
+              formatter: (params) => params.value + "%"
+            },
+            data: this.mlx
+          },
+          // 线数据 MW-X
+          {
+            name: "MW-X",
+            type: "line",
+            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
+            symbolSize: 8,
+            smooth: true, // 设置拆线平滑
+            itemStyle: {
+              normal: {
+                color: "#99ff66"
+              }
+            },
+            lineStyle: {
+              width: 5
+            },
+            label: {
+              show: true,
+              formatter: (params) => params.value + "%"
+            },
+            data: this.mwx
           }
         ]
       }

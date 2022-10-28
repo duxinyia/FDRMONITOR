@@ -130,7 +130,8 @@ export default {
   },
   methods: {
     changeSpeed(item, name = "FOL") {
-      // 110以上 深绿 100-108 浅绿 100 以下 紫色
+      console.log("item", item)
+      // 110以上 深绿 100-108 浅绿 100 以下 黄色
       // let result = parseInt(this.changeReachRate(item, name))
       let result = item.values[name].dailyHitRate ? parseInt(item.values[name].dailyHitRate) : 0
       let bgColor = ""
@@ -154,9 +155,9 @@ export default {
         // 紫色
         bgColor = `linear-gradient(
                   to bottom,
-                  rgba(201, 135, 237, 0.5) 40%,
-                  rgba(201, 135, 237, 0.7) 70%,
-                  rgba(201, 135, 237, 1) 100%
+                  rgba(255, 182, 30, 0.5) 40%,
+                  rgba(255, 182, 30, 0.7) 70%,
+                  rgba(255, 182, 30, 1) 100%
                 )`
       }
       return {

@@ -1,5 +1,5 @@
 <template>
-  <dv-border-box-11 title="Setup F/R">
+  <dv-border-box-11 title="Stanley系列">
     <base-echart :options="options" />
   </dv-border-box-11>
 </template>

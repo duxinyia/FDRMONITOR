@@ -12,17 +12,24 @@ export default {
   components: {
     BaseEchart
   },
+  props: {
+    config: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
-      xData: ["2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10"],
-      mdx: [95.84, 98.82, 95.8, 98.8, 97.82, 96.84],
-      jux: [96.77, 97.76, 96.71, 95.77, 97.43, 97.73],
-      mlx: [94.58, 98.59, 97.61, 97.57, 98.69, 95.68],
-      mwx: [97.5, 96.58, 97.31, 98.37, 98.56, 94.37]
+      // xData: ["2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10"],
+      // mdx: [96.84, 98.82, 96.8, 98.8, 97.82, 95.84],
+      // jux: [94.77, 97.76, 97.71, 95.77, 97.43, 94.73],
+      // mlx: [98.58, 98.59, 98.61, 97.57, 98.69, 96.68],
+      // mwx: [96.5, 96.58, 98.31, 98.37, 98.56, 98.37]
     }
   },
   computed: {
     options() {
+      let { xData, mdx, jux, mlx, mwx } = this.config
       return {
         // title: {
         //   text: "ML-K AA時段產出",
@@ -102,7 +109,7 @@ export default {
           type: "category",
           boundaryGap: true,
           color: "#59588D",
-          data: this.xData,
+          data: xData,
           axisLabel: {
             margin: 10,
             color: "#EEEEEE",
@@ -180,7 +187,7 @@ export default {
               show: true,
               formatter: (params) => params.value + "%"
             },
-            data: this.mdx
+            data: mdx
           },
           // 线数据 JU-X
           {
@@ -201,7 +208,7 @@ export default {
               show: true,
               formatter: (params) => params.value + "%"
             },
-            data: this.jux
+            data: jux
           },
           // 线数据 ML-X
           {
@@ -222,7 +229,7 @@ export default {
               show: true,
               formatter: (params) => params.value + "%"
             },
-            data: this.mlx
+            data: mlx
           },
           // 线数据 MW-X
           {
@@ -243,7 +250,7 @@ export default {
               show: true,
               formatter: (params) => params.value + "%"
             },
-            data: this.mwx
+            data: mwx
           }
         ]
       }

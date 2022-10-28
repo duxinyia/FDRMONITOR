@@ -114,12 +114,24 @@ const routes = [
       {
         path: "sfc",
         name: "sfc",
-        component: () => import(/* webpackChunkName: "sap" */ "../views/main/cma/sfc/sfc.vue")
+        component: () => import(/* webpackChunkName: "sfc" */ "../views/main/cma/sfc/sfc.vue")
+      },
+      {
+        path: "sfcdetail",
+        name: "sfcdetail",
+        component: () =>
+          import(/* webpackChunkName: "sfcdetail" */ "../views/main/cma/sfcdetail/sfcdetail.vue")
       },
       {
         path: "tsfc",
         name: "tsfc",
-        component: () => import(/* webpackChunkName: "sap" */ "../views/main/cma/tsfc/tsfc.vue")
+        component: () => import(/* webpackChunkName: "tsfc" */ "../views/main/cma/tsfc/tsfc.vue")
+      },
+      {
+        path: "defect",
+        name: "defect",
+        component: () =>
+          import(/* webpackChunkName: "defect" */ "../views/main/cma/defect/defect.vue")
       }
     ]
   },

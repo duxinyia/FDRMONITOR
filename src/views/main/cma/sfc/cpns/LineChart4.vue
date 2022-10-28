@@ -1,5 +1,6 @@
 <template>
-  <dv-border-box-11 title="SFR F/R">
+  <dv-border-box-11 title="JU系列">
+    <span class="btn" @click="toDetail">详情</span>
     <base-echart :options="options" />
   </dv-border-box-11>
 </template>
@@ -269,8 +270,33 @@ export default {
         ]
       }
     }
+  },
+  methods: {
+    toDetail() {
+      console.log("toDetail")
+      this.$router.push({
+        name: "sfcdetail",
+        params: {
+          title: "JU系列良率"
+        }
+      })
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.btn {
+  position: absolute;
+  right: 40px;
+  top: 36px;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  border: 1px solid #ccc;
+  z-index: 9999;
+  cursor: pointer;
+}
+</style>

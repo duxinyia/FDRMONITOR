@@ -53,12 +53,18 @@
         <i class="el-icon-collection-tag icon"></i>Copyright © 2022. Foxconn All rights reserved
       </div>
       <div class="author-info">
-        <span class="author"
-          ><i class="el-icon-user-solid icon"></i>郭小龍/560-82583 吳思敏/560-23123</span
-        >
-        <span class="mail"
-          ><i class="el-icon-message icon"></i>peng-peng.tian@mail.foxconn.com</span
-        >
+        <div>
+          <span class="author"><i class="el-icon-user-solid icon"></i>郭小龍/560-82583</span>
+          <span class="mail"
+            ><i class="el-icon-message icon"></i>peng-peng.tian@mail.foxconn.com</span
+          >
+          &nbsp;&nbsp;
+          <span class="author"><i class="el-icon-user-solid icon"></i>吳思敏/560-23123</span>
+          <span class="mail"
+            ><i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com</span
+          >
+        </div>
+        <div></div>
       </div>
     </div>
   </div>

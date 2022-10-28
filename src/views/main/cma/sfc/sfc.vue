@@ -6,21 +6,21 @@
       <div class="page-main">
         <!-- 第一个图 -->
         <div class="top-chart">
-          <el-carousel height="380px" interval="10000" indicator-position="none">
+          <el-carousel height="380px" :interval="10000" indicator-position="none">
             <el-carousel-item>
-              <line-chart-1 />
+              <line-chart-1 :config="config1" />
             </el-carousel-item>
             <el-carousel-item>
-              <line-chart-1 />
+              <line-chart-1 :config="config2" />
             </el-carousel-item>
           </el-carousel>
         </div>
         <!-- 下面四个图 -->
-        <el-carousel height="550px" interval="10000" indicator-position="none">
+        <el-carousel height="550px" :interval="10000" indicator-position="none">
           <el-carousel-item>
             <el-row :gutter="10">
               <el-col :span="12">
-                <line-chart-2 @click="toDetail('DPC')" />
+                <line-chart-2 />
               </el-col>
               <el-col :span="12">
                 <line-chart-3 />
@@ -62,7 +62,44 @@ export default {
     LineChart5
   },
   data() {
-    return {}
+    return {
+      config1: {
+        xData: [
+          "2021-Sep",
+          "2021-Oct",
+          "2021-Nov",
+          "2021-Dec",
+          "2022-Jan",
+          "2022-Feb",
+          "2022-Mar",
+          "2022-Apr",
+          "2022-May",
+          "2022-Jun",
+          "2022-Ju",
+          "2022-Aug",
+          "2022-Sep"
+        ],
+        mdx: [
+          96.84, 98.82, 96.8, 98.8, 97.82, 95.84, 98.68, 98.69, 98.68, 98.69, 98.68, 98.69, 98.69
+        ],
+        jux: [
+          94.77, 97.76, 97.71, 95.77, 97.43, 94.73, 98.73, 98.43, 98.73, 98.43, 98.73, 98.43, 98.69
+        ],
+        mlx: [
+          98.58, 98.59, 98.61, 97.57, 98.69, 96.68, 98.73, 98.43, 98.73, 98.69, 98.68, 98.69, 98.69
+        ],
+        mwx: [
+          96.5, 96.58, 98.31, 98.37, 98.56, 98.37, 97.71, 95.77, 97.43, 94.73, 94.73, 98.73, 98.43
+        ]
+      },
+      config2: {
+        xData: ["2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10"],
+        mdx: [96.84, 98.82, 96.8, 98.8, 97.82, 95.84],
+        jux: [94.77, 97.76, 97.71, 95.77, 97.43, 94.73],
+        mlx: [98.58, 98.59, 98.61, 97.57, 98.69, 96.68],
+        mwx: [96.5, 96.58, 98.31, 98.37, 98.56, 98.37]
+      }
+    }
   },
   computed: {},
   mounted() {
@@ -84,10 +121,10 @@ export default {
       ]
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
-    },
-    toDetail(name) {
-      console.log("name", name)
     }
+    // toDetail(name) {
+    //   console.log("name", name)
+    // }
   },
   beforeDestroy() {
     clearInterval(this.dataTiming)

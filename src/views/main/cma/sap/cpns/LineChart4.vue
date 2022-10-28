@@ -1,5 +1,5 @@
 <template>
-  <dv-border-box-11 title="超領 F/R">
+  <dv-border-box-11 title="JU系列">
     <base-echart :options="options" />
   </dv-border-box-11>
 </template>

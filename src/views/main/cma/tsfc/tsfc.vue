@@ -6,18 +6,30 @@
       <div class="page-main">
         <!-- 第一行 -->
         <el-row :gutter="30" class="main-one">
-          <el-col v-for="item in names" :key="item" :span="12">
-            <dv-border-box-11 :title="item">
-              <line-chart />
-            </dv-border-box-11>
+          <el-col v-for="item in ['JU系列', 'MD系列']" :key="item" :span="12" class="item">
+            <div class="left">
+              <dv-border-box-11 :title="item">
+                <line-chart />
+              </dv-border-box-11>
+            </div>
+            <div class="right">
+              <span>FOL</span>
+              <span>EOL</span>
+            </div>
           </el-col>
         </el-row>
         <!-- 第二行 -->
-        <el-row :gutter="30">
-          <el-col v-for="item in names" :key="item" :span="12">
-            <dv-border-box-11 :title="item">
-              <line-chart />
-            </dv-border-box-11>
+        <el-row :gutter="30" class="main-two">
+          <el-col v-for="item in ['Stanley系列', 'ML系列']" :key="item" :span="12" class="item">
+            <div class="left">
+              <dv-border-box-11 :title="item">
+                <line-chart />
+              </dv-border-box-11>
+            </div>
+            <div class="right">
+              <span>FOL</span>
+              <span>EOL</span>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -28,14 +40,14 @@
 // 导入头部
 import PageHeader from "@/components/page-header/index.vue"
 // 导入水位球
-import WaterBall from "./cpns/WaterBall.vue"
+// import WaterBall from "./cpns/WaterBall.vue"
 // 导入折线图
 import LineChart from "./cpns/LineChart.vue"
 export default {
   name: "tsfc",
   components: {
     PageHeader,
-    WaterBall,
+    // WaterBall,
     LineChart
   },
   data() {
@@ -44,8 +56,36 @@ export default {
         { id: 1, today: 3400, poor: 240, good: 0.98, pond: 50 },
         { id: 2, today: 3500, poor: 240, good: 0.98, pond: 65 },
         { id: 3, today: 3600, poor: 240, good: 0.98, pond: 60 }
-      ],
-      names: ["FOL", "EOL"]
+      ]
+      // names: ["FOL", "EOL"]
+      // config1: {
+      //   title: "JU系列",
+      //   xData: ["22-Aug", "22-Sap", "22-Wk38", "22-Wk39", "22-Wk40", "3/2", "3/3", "3/4"],
+      //   yData1: [98.9, 99.4, 99.35, 98.9, 99.4, 99.55, 99.35, 98.95],
+      //   yData2: [99.35, 99.53, 98.9, 98.9, 99.9, 99.4, 99.35, 98.26],
+      //   yData3: [98.9, 99.35, 98.4, 99.4, 99.35, 99.15, 98.3, 98.4]
+      // },
+      // config2: {
+      //   title: "MD系列",
+      //   xData: ["22-Aug", "22-Sap", "22-Wk38", "22-Wk39", "22-Wk40", "3/2", "3/3", "3/4"],
+      //   yData1: [98.9, 99.4, 99.35, 98.9, 99.4, 99.55, 99.35, 98.95],
+      //   yData2: [99.35, 99.53, 98.9, 98.9, 99.9, 99.4, 99.35, 98.26],
+      //   yData3: [98.9, 99.35, 98.4, 99.4, 99.35, 99.15, 98.3, 98.4]
+      // },
+      // config3: {
+      //   title: "Stanley系列",
+      //   xData: ["22-Aug", "22-Sap", "22-Wk38", "22-Wk39", "22-Wk40", "3/2", "3/3", "3/4"],
+      //   yData1: [98.9, 99.4, 99.35, 98.9, 99.4, 99.55, 99.35, 98.95],
+      //   yData2: [99.35, 99.53, 98.9, 98.9, 99.9, 99.4, 99.35, 98.26],
+      //   yData3: [98.9, 99.35, 98.4, 99.4, 99.35, 99.15, 98.3, 98.4]
+      // },
+      // config4: {
+      //   title: "ML系列",
+      //   xData: ["22-Aug", "22-Sap", "22-Wk38", "22-Wk39", "22-Wk40", "3/2", "3/3", "3/4"],
+      //   yData1: [98.9, 99.4, 99.35, 98.9, 99.4, 99.55, 99.35, 98.95],
+      //   yData2: [99.35, 99.53, 98.9, 98.9, 99.9, 99.4, 99.35, 98.26],
+      //   yData3: [98.9, 99.35, 98.4, 99.4, 99.35, 99.15, 98.3, 98.4]
+      // }
     }
   },
   mounted() {
@@ -83,7 +123,7 @@ export default {
   margin-top: 10px;
   height: 100%;
   .main-one {
-    margin: 0px 0px 50px 0px;
+    margin: 0px 0px 20px 0px;
     .wrapper {
       display: flex;
       .output,
@@ -130,6 +170,36 @@ export default {
         flex: 1;
       }
     }
+  }
+  .item {
+    display: flex;
+    .left {
+      width: 870px;
+      color: #dd4848;
+    }
+    .right {
+      margin-left: 10px;
+      margin-top: 50px;
+      span {
+        display: block;
+        text-align: center;
+        width: 60px;
+        height: 30px;
+        line-height: 30px;
+        cursor: pointer;
+        // border: 1px solid red;
+        &:nth-child(1) {
+          background: rgba(127, 98, 233, 0.5);
+        }
+        &:nth-child(2) {
+          background: rgba(98, 213, 233, 0.5);
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+  .main-two {
+    margin-bottom: 20px;
   }
 }
 </style>

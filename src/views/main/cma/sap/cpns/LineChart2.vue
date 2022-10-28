@@ -1,5 +1,5 @@
 <template>
-  <dv-border-box-11 title="MBO F/R">
+  <dv-border-box-11 title="ML系列">
     <base-echart :options="options" />
   </dv-border-box-11>
 </template>

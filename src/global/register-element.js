@@ -24,8 +24,8 @@ import {
   // CheckboxButton,
   // CheckboxGroup,
   // Switch,
-  // Select,
-  // Option,
+  Select,
+  Option,
   // OptionGroup,
   Button,
   ButtonGroup,
@@ -42,6 +42,7 @@ import {
   Image,
   // PageHeader,
   // CascaderPanel,
+  DatePicker,
   Loading,
   Avatar
 } from "element-ui"
@@ -72,8 +73,8 @@ const components = [
   // CheckboxButton,
   // CheckboxGroup,
   // Switch,
-  // Select,
-  // Option,
+  Select,
+  Option,
   // OptionGroup,
   Button,
   ButtonGroup,
@@ -90,6 +91,7 @@ const components = [
   Image,
   // PageHeader,
   // CascaderPanel,
+  DatePicker,
   Loading,
   Avatar
 ]
