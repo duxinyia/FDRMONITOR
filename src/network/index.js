@@ -2,8 +2,7 @@
 import axios from "axios"
 import { Message } from "element-ui"
 import Data from "@/assets/data"
-// 定義一些常量
-// const TIMEOUT = 6000
+
 const service = axios.create({
   // 基本路径
   baseURL: process.env.VUE_APP_BASE_API,

@@ -7,24 +7,28 @@
     top="20vh"
     width="40%"
   >
-    <dv-border-box-11 title="戰情中心" :key="dialogKey">
+    <dv-border-box-11 :title="diglogTitle" :key="dialogKey">
       <svg-icon className="closeIcon" icon-class="close" @click="toClose" />
       <div class="container">
-        <router-link
-          tag="div"
-          v-for="item in screenArr"
-          :to="{ name: item.path }"
-          :key="item.id"
-          class="project"
-        >
-          <span class="name">{{ item.name }}</span>
-        </router-link>
+        <template v-for="item in screenArr">
+          <router-link
+            v-if="!item.isExternalLink"
+            tag="div"
+            :to="{ name: item.to, query: { belong: item.target } }"
+            :key="item.id"
+            class="project"
+          >
+            <span class="name">{{ item.info }}</span>
+          </router-link>
+        </template>
       </div>
     </dv-border-box-11>
   </el-dialog>
 </template>
 
 <script>
+// 导入需要跳转路由配置
+import { CMA_CONFIG } from "@/assets/data"
 export default {
   name: "project-dialog",
   props: {
@@ -37,20 +41,24 @@ export default {
       default: 1
     }
   },
-
+  created() {
+    this.belong = this.$route.query.belong
+  },
   data() {
     return {
-      screenArr: [
-        { id: 1, name: "AA設備總覽", path: "aa" },
-        { id: 2, name: "FOL設備總覽", path: "fol" },
-        { id: 3, name: "產出可視化平台", path: "output" },
-        { id: 4, name: "九宮格產出看板", path: "output2" },
-        // { id: 5, name: "製造層", path: "make" },
-        { id: 6, name: "製造戰情中心", path: "makewar" }
-      ]
+      belong: ""
+    }
+  },
+  computed: {
+    screenArr() {
+      return CMA_CONFIG.get(this.belong).filter((item) => !item.isExternalLink)
+    },
+    diglogTitle() {
+      return CMA_CONFIG.get(this.belong)[0].belong
     }
   },
   methods: {
+    // 关闭弹框
     toClose() {
       this.$emit("update:dialogVisible", false)
     }

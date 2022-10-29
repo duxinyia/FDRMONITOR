@@ -12,8 +12,8 @@
           <el-tooltip content="背景選擇" placement="top">
             <span class="iconfont icon-fenlei select-bg" @click="openBgDialog"></span>
           </el-tooltip>
-          <el-tooltip content="返回首頁" placement="top">
-            <span class="iconfont icon-shouye-shouye select-bg" @click="goHome"></span>
+          <el-tooltip content="下一个系统" placement="top">
+            <span class="iconfont icon-fenlei select-bg" @click="goNext"></span>
           </el-tooltip>
         </div>
         <div class="right">
@@ -29,6 +29,11 @@
               @click="fullscreenClick"
             ></span>
           </el-tooltip>
+          <!-- 返回首頁 -->
+          <el-tooltip content="返回首頁" placement="top">
+            <span class="iconfont icon-shouye-shouye select-bg" @click="goHome"></span>
+          </el-tooltip>
+          <!-- 退出 -->
           <el-tooltip content="退出" placement="top">
             <span class="iconfont icon-tuichu1 signout" @click="logout"></span>
           </el-tooltip>
@@ -68,14 +73,6 @@ export default {
       isFullScreen: false,
       dialogVisible: false,
       bgDialogVisible: false,
-      screenArr: [
-        { id: 1, name: "AA設備總覽", path: "aa" },
-        { id: 2, name: "FOL設備總覽", path: "fol" },
-        { id: 3, name: "產出可視化平台", path: "output" },
-        { id: 4, name: "九宮格產出看板", path: "output2" },
-        { id: 5, name: "製造層", path: "make" },
-        { id: 6, name: "製造戰情中心", path: "makewar" }
-      ],
       imgUrl: cache.getCache("bgUrl")
         ? cache.getCache("bgUrl").bg
         : require("@/assets/images/background5.png")
@@ -103,14 +100,16 @@ export default {
       this.bgDialogVisible = true
     },
     goHome() {
-      // this.$router.replace({ name: "overview" })
-      this.$router.go(-1)
+      console.log("取出", this.$store.state.fullLoading.path)
+      this.$router.push(this.$store.state.fullLoading.path)
+    },
+    goNext() {
+      console.log("hello world")
     },
     logout() {
       // 清空缓存
       cache.deleteCache("user")
       this.$router.replace("/login")
-      // this.$message.success("退出成功~")
     },
     // 切换全屏
     fullscreenClick() {
@@ -175,6 +174,11 @@ export default {
           @extend .fullscreen;
           font-size: 29px;
           margin-top: -3px;
+          margin-left: 10px;
+        }
+        .select-bg {
+          @extend .fullscreen;
+          font-weight: bold;
           margin-left: 10px;
         }
       }

@@ -19,19 +19,24 @@
             <i class="el-icon-location"></i>
             <span>CMA总览</span>
           </template>
-          <el-menu-item-group>
-            <span slot="title"></span>
-            <el-menu-item index="/overview/cma/device">设备总览</el-menu-item>
-            <el-menu-item index="/overview/cma/make">制造总览</el-menu-item>
-            <el-menu-item index="/overview/cma/yield">良率总览</el-menu-item>
-          </el-menu-item-group>
+          <el-menu-item index="/overview/cma/device">
+            <i class="el-icon-s-data"></i>
+            <span slot="title">设备总览</span>
+          </el-menu-item>
+          <el-menu-item index="/overview/cma/make">
+            <i class="el-icon-s-data"></i>
+            <span slot="title">制造总览</span>
+          </el-menu-item>
+          <el-menu-item index="/overview/cma/yield">
+            <i class="el-icon-s-data"></i>
+            <span slot="title">良率总览</span>
+          </el-menu-item>
         </el-submenu>
-
         <!-- 关于页面 -->
-        <!-- <el-menu-item index="/overview/about">
+        <el-menu-item index="/overview/about">
           <i class="el-icon-menu"></i>
           <span slot="title">关于</span>
-        </el-menu-item> -->
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>
@@ -43,7 +48,6 @@
           <el-dropdown @command="handleCommand" placement="bottom">
             <span class="el-dropdown-link">
               <i class="el-icon-user-solid user-icon"></i>
-              <!-- <el-avatar icon="el-icon-user-solid user-icon" size="35"></el-avatar> -->
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="layout">退出登录</el-dropdown-item>

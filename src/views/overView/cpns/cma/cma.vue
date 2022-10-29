@@ -8,118 +8,13 @@
 </template>
 
 <script>
+// 导入需要跳转路由配置
+import { CMA_CONFIG } from "@/assets/data"
 export default {
   name: "cma",
   data() {
     return {
-      showDivMap: new Map([
-        [
-          "device",
-          [
-            {
-              id: 1,
-              imgUrl: require("@/assets/images/aa.png"),
-              info: "AA設備總覽",
-              to: "aa"
-            },
-            {
-              id: 2,
-              imgUrl: require("@/assets/images/fol.png"),
-              info: "FOL設備總覽",
-              to: "fol"
-            },
-
-            {
-              id: 3,
-              isExternalLink: true,
-              imgUrl: require("@/assets/images/spotcheck.jpg"),
-              info: "AA PDI AI 檢測界面",
-              to: "http://10.142.117.50:32001/standard/design/#/share/OS4L2ZWV"
-            },
-            {
-              id: 4,
-              isExternalLink: true,
-              imgUrl: require("@/assets/images/device4.jpg"),
-              info: "實時統計",
-              to: "http://10.142.117.50:32001/share.html?token=8ZBXMVWR"
-            },
-            {
-              id: 5,
-              isExternalLink: true,
-              imgUrl: require("@/assets/images/device5.png"),
-              info: "歷史日統計",
-              to: "http://10.142.117.50:32001/share.html?token=V3SKHL6X"
-            },
-            {
-              id: 6,
-              isExternalLink: true,
-              imgUrl: require("@/assets/images/device6.png"),
-              info: "歷史周統計",
-              to: "http://10.142.117.50:32001/share.html?token=HYMY179K"
-            },
-            {
-              id: 7,
-              isExternalLink: true,
-              imgUrl: require("@/assets/images/device7.png"),
-              info: "歷史月統計",
-              to: "http://10.142.117.50:32001/share.html?token=TLYKVQQY"
-            }
-          ]
-        ],
-        [
-          "make",
-          [
-            {
-              id: 3,
-              imgUrl: require("@/assets/images/output.png"),
-              info: "產出可視化平台",
-              to: "output"
-            },
-            {
-              id: 4,
-              imgUrl: require("@/assets/images/output2.png"),
-              info: "九宮格產出看板",
-              to: "output2"
-            },
-            {
-              id: 6,
-              imgUrl: require("@/assets/images/makewar.png"),
-              info: "製造戰情中心",
-              to: "makewar"
-            }
-          ]
-        ],
-        [
-          "yield",
-          [
-            // 良率总览
-            {
-              id: 7,
-              imgUrl: require("@/assets/images/sap.png"),
-              info: "SAP良率",
-              to: "sap"
-            },
-            {
-              id: 8,
-              imgUrl: require("@/assets/images/sap.png"),
-              info: "SFC良率",
-              to: "sfc"
-            },
-            {
-              id: 9,
-              imgUrl: require("@/assets/images/tsfc.png"),
-              info: "SFC总良率预览",
-              to: "tsfc"
-            },
-            {
-              id: 10,
-              imgUrl: require("@/assets/images/1.png"),
-              info: "Top 25 Defect Item",
-              to: "defect"
-            }
-          ]
-        ]
-      ]),
+      showDivMap: CMA_CONFIG,
       showDiv: []
     }
   },
@@ -137,12 +32,15 @@ export default {
     this.showDiv = this.showDivMap.get(type)
   },
   methods: {
-    toProject({ to, isExternalLink = false }) {
+    toProject({ target, to, isExternalLink = false }) {
       if (isExternalLink) {
         // 打开新窗口
         window.open(to)
       } else {
-        this.$router.push({ name: to })
+        console.log("更改路径", this.$route.path)
+        let path = this.$route.path
+        this.$router.push({ name: to, query: { belong: target } })
+        this.$store.commit("fullLoading/SET_PATH", path)
       }
     }
   }

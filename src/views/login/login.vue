@@ -119,7 +119,7 @@ export default {
     },
     // 忘记密码
     forgetPwd() {
-      window.open(this.$globalData.ResetPwdUrl)
+      window.open(this.$globalData.RESET_PWD_URL)
     },
     keyDown(e) {
       if (e.keyCode == 13) {

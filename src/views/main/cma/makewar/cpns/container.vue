@@ -130,7 +130,7 @@ export default {
   },
   methods: {
     changeSpeed(item, name = "FOL") {
-      console.log("item", item)
+      // console.log("item", item)
       // 110以上 深绿 100-108 浅绿 100 以下 黄色
       // let result = parseInt(this.changeReachRate(item, name))
       let result = item.values[name].dailyHitRate ? parseInt(item.values[name].dailyHitRate) : 0

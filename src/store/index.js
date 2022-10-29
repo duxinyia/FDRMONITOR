@@ -29,4 +29,10 @@ export function updateUser() {
     store.commit("user/SET_USER", user)
   }
 }
+export function updatePath() {
+  let path = cache.getCache("path")
+  if (path) {
+    store.commit("fullLoading/SET_PATH", path)
+  }
+}
 export default store

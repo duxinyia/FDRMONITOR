@@ -13,14 +13,14 @@ const mutations = {
     const { name = "", paw = "" } = payload
     state.user.username = name
     state.user.password = paw
-  },
-  updateUser(state) {
-    let user = cache.getCache("user")
-    if (user) {
-      state.user.username = user.username
-      state.user.password = user.password
-    }
   }
+  // updateUser(state) {
+  //   let user = cache.getCache("user")
+  //   if (user) {
+  //     state.user.username = user.username
+  //     state.user.password = user.password
+  //   }
+  // }
 }
 const actions = {}
 export default {

@@ -1,16 +1,15 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-
+import Store from "@/store"
 import NProgress from "nprogress"
 import "nprogress/nprogress.css"
 // 导入设置localstorage的函数
-import cache from "@/utils/cache.js"
+// import cache from "@/utils/cache.js"
 const routerPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
   return routerPush.call(this, location).catch((error) => error)
 }
 Vue.use(VueRouter)
-
 const routes = [
   {
     path: "/",
@@ -155,9 +154,8 @@ const router = new VueRouter({
 // 前置守卫
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  // 如果有值，直接跳转到主页
   if (to.path == "/login") {
-    if (cache.getCache("user")) {
+    if (Store.state.user.user.username) {
       next("/overview")
     } else {
       next()

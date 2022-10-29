@@ -42,7 +42,7 @@
         <el-button type="success">查询</el-button>
       </div>
       <div class="bottom-data">
-        <div v-for="(item, index) in showData" :key="index" class="every-device">
+        <div v-for="(item, index) in showData[currentPage - 1]" :key="index" class="every-device">
           <el-row>
             <el-col :span="16">2022-10-22</el-col>
             <el-col :span="8" class="border-left">{{ item.device }}</el-col>
@@ -61,16 +61,27 @@
             <el-col :span="4">Rate</el-col>
           </el-row>
           <div class="text">
-            <el-row v-for="(child, index) in item.defectNameList" :key="index">
-              <el-col :span="16" :style="`text-align:${index <= 8 ? 'center' : 'left'}`">{{
-                child.name
-              }}</el-col>
-              <el-col :span="4" class="border-left border-right">{{ child.failQty }}</el-col>
-              <el-col :span="4">{{ child.rate }}</el-col>
-            </el-row>
+            <template v-for="(child, index) in item.defectNameList">
+              <el-row :key="index">
+                <el-col v-if="index <= 8" :span="16" :style="`text-align:center`">{{
+                  child.name
+                }}</el-col>
+                <el-col v-else :span="16" :style="`text-align:left`">{{ child.name }}</el-col>
+                <el-col :span="4" class="border-left border-right">{{ child.failQty }}</el-col>
+                <el-col :span="4">{{ child.rate }}</el-col>
+              </el-row>
+            </template>
           </div>
         </div>
       </div>
+      <el-pagination
+        @current-change="handleCurrentChange"
+        background
+        layout="prev, pager, next"
+        :total="total"
+        :page-size="3"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -80,6 +91,8 @@
 import PageHeader from "@/components/page-header/index.vue"
 // 导入发送请求的函函數
 import { GetDefectYieldInfo } from "@/api/defect.js"
+// 导入对应的函数
+import { splitArray } from "@/utils"
 export default {
   name: "defect",
   components: {
@@ -113,32 +126,43 @@ export default {
           label: "双皮奶"
         }
       ],
-      timeframe: ""
+      timeframe: "",
+      total: 10,
+      currentPage: 1
     }
   },
   created() {
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.getDefectYieldInfo()
   },
+  // computed: {
+  //   currentShowArr() {
+  //     return showData[]
+  //   }
+  // },
   methods: {
     async getDefectYieldInfo() {
       let res = await GetDefectYieldInfo()
       if (res) {
+        this.total = res.length
         this.$store.commit("fullLoading/SET_FULLLOADING", false)
-        this.showData = res
-        res.forEach((item) => {
-          let fails = 0
-          let rates = 0
-          item.defectNameList.forEach((item) => {
-            fails += item.failQty
-            rates += parseFloat(item.rate) * 100
-          })
-          item.defectNameList.push({ name: "ALL", failQty: fails, rate: rates / 100 })
-          // console.log(fails, rates / 100)
-        })
+        this.showData = splitArray(res, 3)
+        // res.forEach((item) => {
+        //   let fails = 0
+        //   let rates = 0
+        //   item.defectNameList.forEach((item) => {
+        //     fails += item.failQty
+        //     rates += parseFloat(item.rate) * 100
+        //   })
+        //   item.defectNameList.push({ name: "ALL", failQty: fails, rate: rates / 100 })
+        // })
         console.log("res", res)
         // 处理最后一行 total
       }
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
+      this.currentPage = val
     }
   }
 }
