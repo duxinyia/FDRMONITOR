@@ -1,14 +1,15 @@
 <template>
   <!-- 饼图 -->
-  <div
-    class="pie-chart"
-    v-loading="isLoading"
-    element-loading-spinner="el-icon-loading"
-    element-loading-text="加载中..."
-    element-loading-background="rgba(0, 0, 0, 0.8)"
-  >
+  <div class="pie-chart">
     <span class="title" v-if="showTitle">{{ title }}</span>
-    <base-echart :options="options" />
+    <div
+      v-loading="isLoading"
+      element-loading-spinner="el-icon-loading"
+      element-loading-text="加载中..."
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+    >
+      <base-echart :options="options" />
+    </div>
   </div>
 </template>
 
@@ -46,8 +47,12 @@ export default {
   },
   watch: {
     alloptions: {
-      handler() {
-        this.isLoading = false
+      handler(newVal) {
+        if (Array.isArray(newVal) && newVal.length > 0) {
+          this.isLoading = false
+        } else {
+          this.isLoading = false
+        }
       }
     }
   },
@@ -167,8 +172,9 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
 .title {
+  display: inline-block;
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 600;
   margin-bottom: 5px;
   color: $title-color;
   padding-left: 5px;

@@ -35,6 +35,7 @@
           type="datetimerange"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
+          value-format="yyyy-MM-dd HH:mm:ss"
           :default-time="['06:00:00']"
         >
         </el-date-picker>
@@ -126,7 +127,7 @@ export default {
           label: "双皮奶"
         }
       ],
-      timeframe: "",
+      timeframe: [this.$moment().format("YYYY-MM-DD 06:00:00")],
       total: 10,
       currentPage: 1
     }
@@ -135,33 +136,30 @@ export default {
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.getDefectYieldInfo()
   },
-  // computed: {
-  //   currentShowArr() {
-  //     return showData[]
-  //   }
-  // },
+
   methods: {
     async getDefectYieldInfo() {
       let res = await GetDefectYieldInfo()
+      console.log("处理前", res)
       if (res) {
         this.total = res.length
         this.$store.commit("fullLoading/SET_FULLLOADING", false)
         this.showData = splitArray(res, 3)
-        // res.forEach((item) => {
-        //   let fails = 0
-        //   let rates = 0
-        //   item.defectNameList.forEach((item) => {
-        //     fails += item.failQty
-        //     rates += parseFloat(item.rate) * 100
-        //   })
-        //   item.defectNameList.push({ name: "ALL", failQty: fails, rate: rates / 100 })
-        // })
-        console.log("res", res)
-        // 处理最后一行 total
+        res.forEach((item) => {
+          let fails = 0
+          let rates = 0
+          item.defectNameList.forEach((item) => {
+            console.log(item.failQty, parseFloat(item.rate) * 10)
+            fails += item.failQty
+            rates += parseFloat(item.rate) * 10
+          })
+          console.log("处理后fails rates", fails, rates)
+          item.defectNameList.push({ name: "ALL", failQty: fails, rate: rates / 10 })
+        })
+        console.log("处理后res", res)
       }
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
       this.currentPage = val
     }
   }
@@ -193,6 +191,15 @@ export default {
 .text {
   height: 700px;
   overflow-y: scroll;
+  position: relative;
+  // .el-row {
+  //   &:last-child {
+  //     position: fixed;
+  //     bottom: 20px;
+  //     left: 0;
+  //     right: 0;
+  //   }
+  // }
 }
 .page-main {
   .top-header {
@@ -201,6 +208,7 @@ export default {
   .bottom-data {
     display: flex;
     flex-wrap: wrap;
+
     .every-device {
       width: 600px;
       margin: 5px;

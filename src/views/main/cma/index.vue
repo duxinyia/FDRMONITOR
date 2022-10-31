@@ -1,5 +1,5 @@
 <template>
-  <div id="index" ref="appRef" :style="{ backgroundImage: `url(${imgUrl})` }">
+  <div id="index" ref="appRef" :style="changeAppBg">
     <dv-loading v-if="$store.state.fullLoading.fullLoading">Loading...</dv-loading>
     <div class="contaienr">
       <!-- 退出按钮 -->
@@ -11,9 +11,6 @@
           </el-tooltip>
           <el-tooltip content="背景選擇" placement="top">
             <span class="iconfont icon-fenlei select-bg" @click="openBgDialog"></span>
-          </el-tooltip>
-          <el-tooltip content="下一个系统" placement="top">
-            <span class="iconfont icon-fenlei select-bg" @click="goNext"></span>
           </el-tooltip>
         </div>
         <div class="right">
@@ -43,11 +40,14 @@
       <project-dialog :dialogKey="Date.now()" :dialogVisible.sync="dialogVisible" />
       <!-- 不同背景切换 -->
       <bgs-dialog
-        @changeBg="changeBg"
+        @radioChangeBg="radioChangeBg"
+        @selectChangeBg="selectChangeBg"
         :dialogKey="Date.now()"
         :dialogVisible.sync="bgDialogVisible"
       />
-      <router-view />
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </div>
   </div>
 </template>
@@ -81,10 +81,40 @@ export default {
   mounted() {
     this.initScreen()
   },
+  computed: {
+    changeAppBg() {
+      console.log("changeAppBg")
+      if (this.imgUrl.includes("img")) {
+        return { background: `url(${this.imgUrl})` }
+      } else {
+        return { background: this.imgUrl }
+      }
+    }
+  },
   methods: {
-    changeBg(data) {
-      this.imgUrl = data
+    // 选择了背景图片
+    radioChangeBg(imgUrl) {
+      this.imgUrl = imgUrl
+      // this.$refs["appRef"].style.background = `url(${imgUrl})`
     },
+    // 选择了纯色 背景
+    selectChangeBg(bgCol) {
+      this.imgUrl = bgCol
+      // this.$refs["appRef"].style.background = bgCol
+      // console.log(this.$refs["appRef"].style.background)
+    },
+    changeBg(bg) {
+      console.log("data", bg)
+      if (bg) {
+        if (bg.includes("img")) {
+          this.$refs["appRef"].style.background = `url(${this.imgUrl})`
+        } else {
+          this.$refs["appRef"].style.background = bg
+        }
+        this.imgUrl = bg
+      }
+    },
+
     initScreen() {
       if (screenfull.enabled) {
         screenfull.on("change", this.changeScreen)
@@ -100,14 +130,13 @@ export default {
       this.bgDialogVisible = true
     },
     goHome() {
-      console.log("取出", this.$store.state.fullLoading.path)
       this.$router.push(this.$store.state.fullLoading.path)
     },
-    goNext() {
-      console.log("hello world")
-    },
+    // goNext() {
+    //   console.log("hello world")
+    // },
     logout() {
-      // 清空缓存
+      // 清空缓存  { background: `url(${imgUrl})` }
       cache.deleteCache("user")
       this.$router.replace("/login")
     },

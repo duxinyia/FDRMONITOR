@@ -4,7 +4,7 @@
     :append-to-body="true"
     :before-close="toClose"
     :close-on-click-modal="false"
-    top="20vh"
+    top="10vh"
     width="40%"
   >
     <dv-border-box-11 title="背景选择" :key="dialogKey">
@@ -18,6 +18,15 @@
             <span class="iconfont icon-yanjing eye"></span>
             <span class="text">预览</span>
           </div>
+        </div>
+        <div class="img-container">
+          <p class="radio">自定义</p>
+          <el-color-picker
+            class="image"
+            v-model="color"
+            show-alpha
+            @change="changeColor"
+          ></el-color-picker>
         </div>
       </div>
     </dv-border-box-11>
@@ -41,14 +50,25 @@ export default {
   },
   data() {
     return {
-      radio: cache.getCache("bgUrl") ? cache.getCache("bgUrl").index : 0,
-      bgs: [require("@/assets/images/background5.png"), require("@/assets/images/background3.png")]
+      radio: cache.getCache("bgUrl") ? cache.getCache("bgUrl").index : "",
+      color: cache.getCache("bgUrl") ? cache.getCache("bgUrl").bg : "",
+      bgs: [
+        require("@/assets/images/background5.png"),
+        require("@/assets/images/background3.png"),
+        require("@/assets/images/background8.jpg"),
+        require("@/assets/images/background9.png"),
+        require("@/assets/images/background10.jpg"),
+        require("@/assets/images/background11.jpg"),
+        require("@/assets/images/background12.jpg"),
+        require("@/assets/images/background13.jpg"),
+        require("@/assets/images/background14.jpg")
+      ]
     }
   },
   watch: {
     radio: {
       handler(newVal) {
-        this.$emit("changeBg", this.bgs[newVal])
+        this.$emit("radioChangeBg", this.bgs[newVal])
         cache.setCache("bgUrl", { index: newVal, bg: this.bgs[newVal] })
       }
     }
@@ -56,6 +76,12 @@ export default {
   methods: {
     toClose() {
       this.$emit("update:dialogVisible", false)
+    },
+    changeColor(newColor) {
+      // this.radio = 100
+      console.log("newColor", newColor)
+      this.$emit("selectChangeBg", newColor)
+      cache.setCache("bgUrl", { index: 100, bg: newColor })
     }
   }
 }
@@ -86,8 +112,9 @@ export default {
   align-content: center;
   justify-items: center;
   align-items: center;
-  grid-template-rows: repeat(1, 1fr);
-  grid-template-columns: repeat(2, 1fr);
+  text-align: center;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   .img-container {
     text-align: center;
     height: 220px;
@@ -127,6 +154,7 @@ export default {
     .image {
       width: 100%;
       height: 200px;
+      line-height: 200px;
       &:hover + .mask {
         transform: translateX(100%);
       }

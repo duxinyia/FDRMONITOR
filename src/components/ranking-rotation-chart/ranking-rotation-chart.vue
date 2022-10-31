@@ -114,8 +114,9 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
 .title {
+  display: inline-block;
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 600;
   margin-bottom: 5px;
   color: $title-color;
   padding-left: 5px;

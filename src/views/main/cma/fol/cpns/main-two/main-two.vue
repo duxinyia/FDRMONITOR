@@ -17,7 +17,7 @@
         <el-carousel
           style="height: 590px"
           indicator-position="none"
-          :interval="15 * 1000"
+          :interval="150 * 1000"
           ref="carousel"
           arrow="never"
           @change="carouselChange"
@@ -72,19 +72,26 @@
                               <div slot="content">dpc不良:{{ machine.dpcRate }}</div>
                               <div class="dpc">
                                 <span class="name">DPC</span>
-                                <i class="iconfont icon-hexagon"></i>
+                                <svg-icon className="hexagon" icon-class="hexagon" />
+                                <!-- <i class="iconfont icon-hexagon"></i> -->
                               </div>
                             </el-tooltip>
                           </template>
                           <template v-else>
                             <div class="dpc">
-                              <span class="name">DPC</span>
-                              <!-- <svg-icon className="hexagon" icon-class="hexagon" /> -->
-                              <i class="iconfont icon-hexagon"></i>
+                              <span class="name" style="color: rgba(128, 128, 128, 0.8)">DPC</span>
+                              <svg-icon className="hexagon1" icon-class="hexagon" />
+                              <!-- <i class="iconfont icon-hexagon"></i> -->
                             </div>
                           </template>
-                          <div class="lcb" :style="changeLcbStyle(machine)">LCB</div>
-                          <div class="e-fail" :style="changeLcbStyle(machine)">e-fail</div>
+                          <el-tooltip class="item" effect="dark" placement="right">
+                            <div slot="content">lcb不良:{{ machine.lcbRate }}</div>
+                            <div class="lcb" :style="changeLcbStyle(machine)">LCB</div>
+                          </el-tooltip>
+                          <el-tooltip class="item" effect="dark" placement="right">
+                            <div slot="content">efail不良:{{ machine.eFailRate }}</div>
+                            <div class="e-fail" :style="changeLcbStyle(machine)">e-fail</div>
+                          </el-tooltip>
                           <dv-percent-pond
                             class="percent-pond"
                             :config="handlePercentConfig(machine.hitRate)"
@@ -262,31 +269,6 @@ export default {
         }
       }
     },
-    // changeItemStyle(machine, item) {
-    //   if (
-    //     (machine.combineID == "M0001FC02" ||
-    //       machine.combineID == "M0001FC11" ||
-    //       machine.combineID == "M0001FC14") &&
-    //     item.text == "FC"
-    //   ) {
-    //     return {
-    //       color: "#fff",
-    //       ...item.style,
-    //       background: "rgba(230, 100, 100, 0.6)"
-    //     }
-    //   } else {
-    //     return { color: "rgba(1, 181, 153, 0.8)", ...item.style }
-    //   }
-    // },
-    // changelcbStyle(machine) {
-    //   if (
-    //     machine.combineID == "M0001FC02" ||
-    //     machine.combineID == "M0001FC11" ||
-    //     machine.combineID == "M0001FC14"
-    //   ) {
-    //     return { background: "rgba(230, 100, 100, 0.6)" }
-    //   }
-    // },
     // 上一楼
     prev() {
       this.$refs.carousel.prev()
@@ -313,6 +295,7 @@ export default {
 ::v-deep .el-carousel__item {
   height: 100%;
 }
+
 .main-two {
   height: 680px;
   position: relative;
@@ -397,15 +380,14 @@ export default {
                 font-size: 12px;
                 text-align: center;
                 .dpc {
-                  margin-top: 5px;
-                  width: 40px;
-                  height: 40x;
+                  // margin-top: 5px;
+                  width: 35px;
+                  height: 35px;
                   text-align: center;
                   position: relative;
                   display: flex;
                   justify-content: center;
                   align-items: center;
-                  // background-image: "~@assets/images/hexagon.png";
                   .name {
                     position: absolute;
                     left: 50%;
@@ -422,12 +404,12 @@ export default {
                   }
                 }
                 .lcb {
-                  width: 35px;
-                  height: 35px;
-                  line-height: 35px;
+                  width: 30px;
+                  height: 30px;
+                  line-height: 30px;
                   border-radius: 50%;
                   border: 1px solid #46bb9b;
-                  margin: 8px 0px;
+                  margin: 0px 0px 6px 0px;
                 }
                 .e-fail {
                   width: 30px;
@@ -487,6 +469,16 @@ export default {
   right: -14px;
   bottom: 38px;
   transform: rotate(-90deg);
+}
+.hexagon {
+  width: 30px;
+  height: 30px;
+  color: #46bb9b;
+}
+.hexagon1 {
+  width: 30px;
+  height: 30px;
+  color: rgba(128, 128, 128, 0.8);
 }
 @keyframes rotation {
   from {

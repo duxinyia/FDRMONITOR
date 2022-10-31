@@ -1,4 +1,5 @@
 import {
+  ColorPicker,
   Pagination,
   Dialog, //弹框
   Carousel, //轮播图
@@ -49,6 +50,7 @@ import {
 } from "element-ui"
 import "element-ui/lib/theme-chalk/index.css"
 const components = [
+  ColorPicker,
   Pagination,
   Dialog, //弹框
   Carousel, //轮播图

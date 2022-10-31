@@ -37,7 +37,6 @@ export default {
         // 打开新窗口
         window.open(to)
       } else {
-        console.log("更改路径", this.$route.path)
         let path = this.$route.path
         this.$router.push({ name: to, query: { belong: target } })
         this.$store.commit("fullLoading/SET_PATH", path)

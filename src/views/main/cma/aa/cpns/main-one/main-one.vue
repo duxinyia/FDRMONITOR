@@ -3,6 +3,7 @@
     <dv-border-box-12>
       <myscroll-chart
         title="膠針到期預警"
+        carouselHeight="220px"
         :headers="['設備名稱', 'A1', 'A2', 'A3', 'A4']"
         :widths="[120, 50, 50, 50, 50]"
         :showData="config1"
@@ -40,6 +41,7 @@
     <dv-border-box-12>
       <myscroll-chart
         title="當日產出/達成率/一次良率/統計"
+        carouselHeight="220px"
         :headers="['機種', '計劃', '實際', '達成率', '一次良率']"
         :widths="[60, 60, 60, 80, 100]"
         :showData="config5"
@@ -58,7 +60,6 @@ import pieChart from "@/common/pie-chart/pie-chart"
 import rankingRotationChart from "@/components/ranking-rotation-chart/ranking-rotation-chart"
 // 导入自己封装的轮播图
 import MyscrollChart from "@/components/myscroll-chart/myscroll-chart.vue"
-
 export default {
   name: "main-one",
   props: ["config1", "config2", "config3", "config4", "config5"],
@@ -86,9 +87,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main-one {
-  // z-index: 100;
   display: flex;
-  margin-top: 20px;
+  margin: 20px 0 10px 0;
   // 小圆点的样式
   ::v-deep .dot {
     display: inline-block;
@@ -102,7 +102,7 @@ export default {
   }
   .item-wrapper {
     // 没用环形图的
-    height: 280px;
+    height: 272px;
     display: flex;
     flex-wrap: wrap;
     .num-item {
