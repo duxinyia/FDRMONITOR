@@ -61,7 +61,9 @@ export default {
         require("@/assets/images/background11.jpg"),
         require("@/assets/images/background12.jpg"),
         require("@/assets/images/background13.jpg"),
-        require("@/assets/images/background14.jpg")
+        require("@/assets/images/background14.jpg"),
+        require("@/assets/images/background15.jpg"),
+        require("@/assets/images/background16.jpg")
       ]
     }
   },

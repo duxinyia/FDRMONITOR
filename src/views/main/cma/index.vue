@@ -45,9 +45,7 @@
         :dialogKey="Date.now()"
         :dialogVisible.sync="bgDialogVisible"
       />
-      <keep-alive>
-        <router-view />
-      </keep-alive>
+      <router-view />
     </div>
   </div>
 </template>
@@ -104,7 +102,6 @@ export default {
       // console.log(this.$refs["appRef"].style.background)
     },
     changeBg(bg) {
-      console.log("data", bg)
       if (bg) {
         if (bg.includes("img")) {
           this.$refs["appRef"].style.background = `url(${this.imgUrl})`

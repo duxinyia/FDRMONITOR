@@ -140,7 +140,7 @@ export default {
   methods: {
     async getDefectYieldInfo() {
       let res = await GetDefectYieldInfo()
-      console.log("处理前", res)
+      // console.log("处理前", res)
       if (res) {
         this.total = res.length
         this.$store.commit("fullLoading/SET_FULLLOADING", false)
@@ -149,14 +149,14 @@ export default {
           let fails = 0
           let rates = 0
           item.defectNameList.forEach((item) => {
-            console.log(item.failQty, parseFloat(item.rate) * 10)
+            // console.log(item.failQty, parseFloat(item.rate) * 10)
             fails += item.failQty
             rates += parseFloat(item.rate) * 10
           })
-          console.log("处理后fails rates", fails, rates)
+          // console.log("处理后fails rates", fails, rates)
           item.defectNameList.push({ name: "ALL", failQty: fails, rate: rates / 10 })
         })
-        console.log("处理后res", res)
+        // console.log("处理后res", res)
       }
     },
     handleCurrentChange(val) {

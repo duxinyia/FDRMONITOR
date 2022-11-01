@@ -60,11 +60,10 @@
           >
           &nbsp;&nbsp;
           <span class="author"><i class="el-icon-user-solid icon"></i>吳思敏/560-23123</span>
-          <span class="mail"
-            ><i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com</span
+          <span class="mail">
+            <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com</span
           >
         </div>
-        <div></div>
       </div>
     </div>
   </div>
@@ -132,14 +131,6 @@ export default {
   }
 }
 </script>
-
-<style>
-.login-tip {
-  background: #8e44ad;
-  color: aquamarine;
-}
-</style>
-
 <style lang="scss" scoped>
 ::v-deep .el-input {
   width: 80%;

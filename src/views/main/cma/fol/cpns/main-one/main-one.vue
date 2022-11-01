@@ -14,7 +14,7 @@
           carouselHeight="173px"
           :rowNum="5"
           :headers="['機種', 'MPS', '可線體數', '實際開線數', '計劃性停線數', '異常停線數', '差異']"
-          :widths="[50, 50, 80, 100, 90, 90, 60]"
+          :widths="[50, 50, 80, 110, 110, 90, 60]"
           :showData="config2"
         >
         </myscroll-chart>

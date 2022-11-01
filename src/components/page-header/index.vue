@@ -24,6 +24,10 @@
 </template>
 
 <script>
+// 导入弹框
+import ProjectDialog from "@/components/project-dialog/project-dialog.vue"
+// 导入背景选择弹框
+import BgsDialog from "@/components/bgs-dialog/bgs-dialog.vue"
 export default {
   name: "page-header",
   props: {
@@ -31,6 +35,10 @@ export default {
       type: String,
       required: true
     }
+  },
+  components: {
+    ProjectDialog,
+    BgsDialog
   },
   data() {
     return {

@@ -12,7 +12,6 @@
           <el-tooltip content="背景選擇" placement="top">
             <span class="iconfont icon-fenlei select-bg" @click="openBgDialog"></span>
           </el-tooltip>
-          <!-- <el-color-picker v-model="color" show-alpha></el-color-picker> -->
           <el-tooltip content="返回首頁" placement="top">
             <span class="iconfont icon-shouye-shouye select-bg" @click="goHome"></span>
           </el-tooltip>
