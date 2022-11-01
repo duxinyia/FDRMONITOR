@@ -1,78 +1,71 @@
 <template>
-  <div>
-    <page-header title="製造戰情中心" />
-    <!-- 主要区域 -->
-    <div class="page-main">
-      <!-- 统计区域 -->
-      <div class="count-container">
-        <div v-for="(item, index) in configArr" class="container" :key="index">
-          <dv-border-box-10>
-            <div>
-              <el-table :data="item" :header-cell-style="getRowClass">
-                <el-table-column align="center" prop="productArea" label="名称"> </el-table-column>
-                <el-table-column align="center" prop="totalCount" label="計畫"> </el-table-column>
-                <el-table-column align="center" prop="hitCount" label="達成機種"> </el-table-column>
-                <el-table-column align="center" prop="notHitCount" label="未達成">
-                </el-table-column>
-                <el-table-column align="center" width="100" prop="hitRate" label="達成率">
-                </el-table-column>
-              </el-table>
-            </div>
-          </dv-border-box-10>
-        </div>
+  <!-- 主要区域 -->
+  <div class="page-main">
+    <!-- 统计区域 -->
+    <div class="count-container">
+      <div v-for="(item, index) in configArr" class="container" :key="index">
+        <dv-border-box-10>
+          <div>
+            <el-table :data="item" :header-cell-style="getRowClass">
+              <el-table-column align="center" prop="productArea" label="名称"> </el-table-column>
+              <el-table-column align="center" prop="totalCount" label="計畫"> </el-table-column>
+              <el-table-column align="center" prop="hitCount" label="達成機種"> </el-table-column>
+              <el-table-column align="center" prop="notHitCount" label="未達成"> </el-table-column>
+              <el-table-column align="center" width="100" prop="hitRate" label="達成率">
+              </el-table-column>
+            </el-table>
+          </div>
+        </dv-border-box-10>
+      </div>
 
-        <div class="control">
-          <div class="fol-container" @click="folChecked = !folChecked">
-            <span
-              class="frame"
-              :style="{
-                'box-shadow': folChecked ? 'inset 0 0 20px #3762ff' : ''
-              }"
-            ></span>
-            <span class="name">FOL</span>
-          </div>
-          <div class="eol-container" @click="eolChecked = !eolChecked">
-            <span
-              class="frame"
-              :style="{
-                'box-shadow': eolChecked ? 'inset 0 0 20px #3762ff' : ''
-              }"
-            ></span>
-            <span class="name">EOL</span>
-          </div>
+      <div class="control">
+        <div class="fol-container" @click="folChecked = !folChecked">
+          <span
+            class="frame"
+            :style="{
+              'box-shadow': folChecked ? 'inset 0 0 20px #3762ff' : ''
+            }"
+          ></span>
+          <span class="name">FOL</span>
+        </div>
+        <div class="eol-container" @click="eolChecked = !eolChecked">
+          <span
+            class="frame"
+            :style="{
+              'box-shadow': eolChecked ? 'inset 0 0 20px #3762ff' : ''
+            }"
+          ></span>
+          <span class="name">EOL</span>
         </div>
       </div>
-      <!-- 下面的区域 -->
-      <dv-border-box-13 :key="Date.now()">
-        <div class="table-chart">
-          <template v-for="(item, index) in outPutInfoDetails">
-            <container
-              :eolChecked="eolChecked"
-              :folChecked="folChecked"
-              :device="item.device"
-              :dateValues="item.dateValues"
-              :key="index"
-              :maxOutput="maxOutput[index]"
-              :maxTargetOut="maxTargetOut[index]"
-            />
-          </template>
-        </div>
-      </dv-border-box-13>
     </div>
+    <!-- 下面的区域 -->
+    <dv-border-box-13 :key="Date.now()">
+      <div class="table-chart">
+        <template v-for="(item, index) in outPutInfoDetails">
+          <container
+            :eolChecked="eolChecked"
+            :folChecked="folChecked"
+            :device="item.device"
+            :dateValues="item.dateValues"
+            :key="index"
+            :maxOutput="maxOutput[index]"
+            :maxTargetOut="maxTargetOut[index]"
+          />
+        </template>
+      </div>
+    </dv-border-box-13>
   </div>
 </template>
 
 <script>
 // 导入发送请求的函函數
 import { GetProductInfo } from "@/api/makewar.js"
-// 导入头部
-import PageHeader from "@/components/page-header/index.vue"
 // 导入子组件
 import container from "./cpns/container.vue"
 export default {
   name: "makewar",
   components: {
-    PageHeader,
     container
   },
   data() {
@@ -86,6 +79,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit("fullLoading/SET_TITLE", "製造戰情中心")
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
   },

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <page-header title="SFC良率" />
+  <!-- 主要区域 -->
+  <div class="page-main">
     <!-- 主要区域 -->
     <dv-border-box-10>
       <div class="page-main">
@@ -41,8 +41,6 @@
   </div>
 </template>
 <script>
-// 导入头部
-import PageHeader from "@/components/page-header/index.vue"
 // 导入5个折线图
 import LineChart1 from "./cpns/LineChart1.vue"
 import LineChart2 from "./cpns/LineChart2.vue"
@@ -54,7 +52,6 @@ import LineChart5 from "./cpns/LineChart5.vue"
 export default {
   name: "sfc",
   components: {
-    PageHeader,
     LineChart1,
     LineChart2,
     LineChart3,
@@ -103,6 +100,7 @@ export default {
   },
   computed: {},
   mounted() {
+    this.$store.commit("fullLoading/SET_TITLE", "SFC良率")
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.$store.commit("fullLoading/SET_FULLLOADING", false)
     // this.initData()
@@ -136,7 +134,6 @@ export default {
   padding: 10px 20px 18px 20px;
 }
 .page-main {
-  height: 100%;
   .top-chart {
     margin: 0px 0px;
   }

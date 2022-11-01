@@ -1,6 +1,5 @@
 <template>
   <div>
-    <page-header title="九宮格產出看板" />
     <dv-border-box-12>
       <div
         v-loading="isLoading"
@@ -137,17 +136,12 @@
   </div>
 </template>
 <script>
-// 导入头部
-import PageHeader from "@/components/page-header/index.vue"
 // 导入发送请求的函数
 import { GetKeyStationRunningInfo } from "@/api/output2.js"
 // 导入对应的分割函数
 import { splitArray } from "@/utils"
 export default {
   name: "output2",
-  components: {
-    PageHeader
-  },
   data() {
     return {
       dataTiming: null,
@@ -186,6 +180,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit("fullLoading/SET_TITLE", "九宮格產出看板")
     // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
     // 每5分钟获取一次数据

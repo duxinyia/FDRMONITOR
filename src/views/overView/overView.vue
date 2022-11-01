@@ -145,6 +145,7 @@ export default {
       vertical-align: middle;
     }
     .name {
+      color: #fff;
       font-size: 24px;
       font-weight: bold;
       margin-left: 10px;

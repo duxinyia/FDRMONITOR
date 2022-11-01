@@ -7,7 +7,7 @@ import globalData from "@/assets/data"
 // 挂在element ui 的 message
 import { Message } from "element-ui"
 // 保证vuex和localstorage中数据的统一
-import { updateUser, updatePath } from "@/store"
+import { updateStoreData } from "@/store"
 // 导入 animate.css
 import "animate.css"
 // echarts 水位图
@@ -22,6 +22,5 @@ export default function (app) {
   app.prototype.$echarts = echarts
   app.prototype.$globalData = globalData
   app.prototype.$message = Message
-  updateUser()
-  updatePath()
+  updateStoreData()
 }

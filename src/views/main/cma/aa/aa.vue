@@ -1,25 +1,19 @@
 <template>
-  <div>
-    <page-header title="AA設備總覽" />
-    <!-- 主要区域 -->
-    <div class="page-main">
-      <!-- 第一行 -->
-      <main-one
-        :config1="config1"
-        :config2="config2"
-        :config3="config3"
-        :config4="config4"
-        :config5="config5"
-      />
-      <!-- 第二行 -->
-      <main-two :totalBlock="bottomData" />
-    </div>
+  <!-- 主要区域 -->
+  <div class="page-main">
+    <!-- 第一行 -->
+    <main-one
+      :config1="config1"
+      :config2="config2"
+      :config3="config3"
+      :config4="config4"
+      :config5="config5"
+    />
+    <!-- 第二行 -->
+    <main-two :totalBlock="bottomData" />
   </div>
 </template>
-
 <script>
-// 导入头部
-import PageHeader from "@/components/page-header/index.vue"
 // 导入第一行
 import mainOne from "./cpns/main-one/main-one.vue"
 // 导入底部区域
@@ -33,11 +27,9 @@ import {
   getYieldTop5,
   getMachinesInfo
 } from "@/api/aa.js"
-
 export default {
   name: "APPMain",
   components: {
-    PageHeader,
     mainOne,
     mainTwo
   },
@@ -71,8 +63,7 @@ export default {
     }
   },
   mounted() {
-    // SET_FULLLOADING
-    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
+    this.$store.commit("fullLoading/SET_TITLE", "AA設備總覽")
     this.initData()
     // 每5分钟获取一次数据
     this.dataTiming = setInterval(() => {

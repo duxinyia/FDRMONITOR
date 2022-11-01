@@ -1,18 +1,13 @@
 <template>
-  <div>
-    <page-header title="FOL設備總覽" />
-    <!-- 主要区域 -->
-    <div class="page-main">
-      <!-- 第一行 -->
-      <main-one :config1="config1" :config2="config2" :config3="config3" :config4="config4" />
-      <!-- 第二行 -->
-      <main-two :bottomData="bottomData" />
-    </div>
+  <!-- 主要区域 -->
+  <div class="page-main">
+    <!-- 第一行 -->
+    <main-one :config1="config1" :config2="config2" :config3="config3" :config4="config4" />
+    <!-- 第二行 -->
+    <main-two :bottomData="bottomData" />
   </div>
 </template>
 <script>
-// 导入头部
-import PageHeader from "@/components/page-header/index.vue"
 // 导入第一行
 import mainOne from "./cpns/main-one/main-one.vue"
 // 导入底部区域
@@ -22,7 +17,6 @@ import { getMaintainInfo, getDeviceInfo, getMachineTop5, getProductInfo } from "
 export default {
   name: "fol",
   components: {
-    PageHeader,
     mainOne,
     mainTwo
   },
@@ -160,6 +154,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit("fullLoading/SET_TITLE", "FOL設備總覽")
     // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
     // 每5分钟获取一次数据

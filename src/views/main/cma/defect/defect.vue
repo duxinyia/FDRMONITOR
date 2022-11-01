@@ -1,104 +1,100 @@
 <template>
-  <div class="defect-container">
-    <page-header title="Top 25 Defect Item" />
-    <div class="page-main">
-      <div class="top-header">
-        <!-- 下拉选择框 -->
-        <el-select v-model="rank" placeholder="段位">
-          <el-option
-            v-for="item in ranks"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
-        <!-- 机种(可多选) -->
-        <el-select
-          v-model="machine"
-          multiple
-          collapse-tags
-          class="machine-select"
-          placeholder="机种(可多选)"
+  <div class="page-main">
+    <div class="top-header">
+      <!-- 下拉选择框 -->
+      <el-select v-model="rank" placeholder="段位">
+        <el-option v-for="item in ranks" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
+      <!-- 机种(可多选) -->
+      <el-select
+        v-model="machine"
+        multiple
+        collapse-tags
+        class="machine-select"
+        placeholder="机种(可多选)"
+      >
+        <el-option
+          v-for="item in machines"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
         >
-          <el-option
-            v-for="item in machines"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
-        <el-date-picker
-          v-model="timeframe"
-          class="date-picker"
-          type="datetimerange"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          :default-time="['06:00:00']"
-        >
-        </el-date-picker>
-        <!-- 查询按钮 -->
-        <el-button type="success">查询</el-button>
-      </div>
-      <div class="bottom-data">
-        <div v-for="(item, index) in showData[currentPage - 1]" :key="index" class="every-device">
-          <el-row>
-            <el-col :span="16">2022-10-22</el-col>
-            <el-col :span="8" class="border-left">{{ item.device }}</el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="16">Overall Yield</el-col>
-            <el-col :span="8" class="border-left">{{ item.overallYield }}</el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="16">Target Yield</el-col>
-            <el-col :span="8" class="border-left">{{ item.targetYield || "-" }}</el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="16">DefectName</el-col>
-            <el-col :span="4" class="border-left border-right">Fail Qty</el-col>
-            <el-col :span="4">Rate</el-col>
-          </el-row>
-          <div class="text">
-            <template v-for="(child, index) in item.defectNameList">
-              <el-row :key="index">
-                <el-col v-if="index <= 8" :span="16" :style="`text-align:center`">{{
-                  child.name
-                }}</el-col>
-                <el-col v-else :span="16" :style="`text-align:left`">{{ child.name }}</el-col>
-                <el-col :span="4" class="border-left border-right">{{ child.failQty }}</el-col>
-                <el-col :span="4">{{ child.rate }}</el-col>
-              </el-row>
-            </template>
-          </div>
+        </el-option>
+      </el-select>
+      <el-date-picker
+        v-model="timeframe"
+        class="date-picker"
+        type="datetimerange"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        value-format="yyyy-MM-dd HH:mm:ss"
+        :default-time="['06:00:00']"
+      >
+      </el-date-picker>
+      <!-- 查询按钮 -->
+      <el-button type="success">查询</el-button>
+    </div>
+    <div class="bottom-data">
+      <div v-for="(item, index) in showData[currentPage - 1]" :key="index" class="every-device">
+        <el-row>
+          <el-col :span="16">2022-10-22</el-col>
+          <el-col :span="8" class="border-left">{{ item.device }}</el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="16">Overall Yield</el-col>
+          <el-col :span="8" class="border-left">{{ item.overallYield }}</el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="16">Target Yield</el-col>
+          <el-col :span="8" class="border-left">{{ item.targetYield || "-" }}</el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="16">DefectName</el-col>
+          <el-col :span="4" class="border-left border-right">Fail Qty</el-col>
+          <el-col :span="4">Rate</el-col>
+        </el-row>
+        <div class="text">
+          <template v-for="(child, index) in item.defectNameList">
+            <el-row :key="index">
+              <el-col :span="16" :class="{ especially: index <= 8 ? true : false }">{{
+                child.name
+              }}</el-col>
+              <el-col
+                :span="4"
+                :class="{
+                  'border-left': true,
+                  'border-right': true,
+                  especially: index <= 8 ? true : false
+                }"
+                >{{ child.failQty }}</el-col
+              >
+              <el-col :span="4" :class="{ especially: index <= 8 ? true : false }">{{
+                child.rate
+              }}</el-col>
+            </el-row>
+          </template>
         </div>
       </div>
-      <el-pagination
-        @current-change="handleCurrentChange"
-        background
-        layout="prev, pager, next"
-        :total="total"
-        :page-size="3"
-      >
-      </el-pagination>
     </div>
+    <el-pagination
+      @current-change="handleCurrentChange"
+      background
+      layout="prev, pager, next"
+      :total="total"
+      :page-size="3"
+    >
+    </el-pagination>
   </div>
 </template>
 
 <script>
-// 导入头部
-import PageHeader from "@/components/page-header/index.vue"
 // 导入发送请求的函函數
 import { GetDefectYieldInfo } from "@/api/defect.js"
 // 导入对应的函数
 import { splitArray } from "@/utils"
 export default {
   name: "defect",
-  components: {
-    PageHeader
-  },
   data() {
     return {
       // 接口返回的数据
@@ -133,6 +129,7 @@ export default {
     }
   },
   created() {
+    this.$store.commit("fullLoading/SET_TITLE", "Top 25 Defect Item")
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.getDefectYieldInfo()
   },
@@ -192,14 +189,10 @@ export default {
   height: 700px;
   overflow-y: scroll;
   position: relative;
-  // .el-row {
-  //   &:last-child {
-  //     position: fixed;
-  //     bottom: 20px;
-  //     left: 0;
-  //     right: 0;
-  //   }
-  // }
+}
+.especially {
+  text-align: center;
+  background: rgba(33, 120, 155, 0.4);
 }
 .page-main {
   .top-header {
@@ -208,7 +201,6 @@ export default {
   .bottom-data {
     display: flex;
     flex-wrap: wrap;
-
     .every-device {
       width: 600px;
       margin: 5px;

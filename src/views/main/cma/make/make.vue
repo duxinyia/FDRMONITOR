@@ -1,82 +1,87 @@
 <template>
-  <div>
-    <page-header title="製造層" />
-    <!-- 主要区域 -->
-    <div class="page-main">
-      <el-row :gutter="10">
-        <el-col :span="14">
-          <dv-border-box-12>
-            <div class="total-wrapper">
-              <div v-for="item in getShowValues" :key="item.id" class="total-container">
-                <div class="name">{{ item.name }}</div>
-                <div class="number">{{ item.value }}</div>
-              </div>
+  <!-- 主要区域 -->
+  <div class="page-main">
+    <el-row :gutter="10">
+      <el-col :span="14">
+        <dv-border-box-12>
+          <div class="total-wrapper">
+            <div v-for="item in getShowValues" :key="item.id" class="total-container">
+              <div class="name">{{ item.name }}</div>
+              <div class="number">{{ item.value }}</div>
             </div>
-          </dv-border-box-12>
-          <dv-border-box-12>
-            <div class="chart-container">
-              <make-chart-1
-                :title="chart1Ttitle"
-                :xData="xData"
-                :targetOuts="targetOuts"
-                :inPuts="inPuts"
-                @barClick="barClick"
-              />
-            </div>
-          </dv-border-box-12>
-          <dv-border-box-12>
-            <div class="chart-container">
-              <make-chart-2
-                :title="chart2Ttitle"
-                :chart2Xdata="chart2Xdata"
-                :chart2Output="chart2Output"
-                :chart2TargetOut="chart2TargetOut"
-                :chart2HitRate="chart2HitRate"
-              />
-            </div>
-          </dv-border-box-12>
-          <dv-border-box-12>
-            <div class="chart-container">
-              <make-chart-3
-                :title="chart3Ttitle"
-                :xData="xData"
-                :maxWips="maxWips"
-                :minWips="minWips"
-                :wips="wips"
-              />
-            </div>
-          </dv-border-box-12>
-        </el-col>
-        <el-col :span="10">
-          <el-table
-            :header-cell-style="getRowClass"
-            :data="tableData"
-            :highlight-current-row="true"
-            style="width: 100%; margin-top: 4px"
-          >
-            <el-table-column align="center" class="table-head" :label="tableLabel">
-              <el-table-column align="center" prop="station" width="180px" label="站位">
-              </el-table-column>
-              <el-table-column align="center" prop="targetOut" label="計劃"> </el-table-column>
-              <el-table-column align="center" prop="inPut" label="實際"> </el-table-column>
-              <el-table-column align="center" prop="hitRate" width="100px" label="達成率">
-              </el-table-column>
-              <el-table-column align="center" prop="processYield" width="100px" label="良率">
-              </el-table-column>
-              <el-table-column align="center" prop="wip" label="WIP"> </el-table-column>
-              <el-table-column align="center" prop="maxWip" label="上限"> </el-table-column>
-              <el-table-column align="center" prop="minWip" label="下限"> </el-table-column>
+          </div>
+        </dv-border-box-12>
+        <dv-border-box-12>
+          <div class="chart-container">
+            <make-chart-1
+              :title="chart1Ttitle"
+              :xData="xData"
+              :targetOuts="targetOuts"
+              :inPuts="inPuts"
+              @barClick="barClick"
+            />
+          </div>
+        </dv-border-box-12>
+        <dv-border-box-12>
+          <div class="chart-container">
+            <make-chart-2
+              :title="chart2Ttitle"
+              :chart2Xdata="chart2Xdata"
+              :chart2Output="chart2Output"
+              :chart2TargetOut="chart2TargetOut"
+              :chart2HitRate="chart2HitRate"
+            />
+          </div>
+        </dv-border-box-12>
+        <dv-border-box-12>
+          <div class="chart-container">
+            <make-chart-3
+              :title="chart3Ttitle"
+              :xData="xData"
+              :maxWips="maxWips"
+              :minWips="minWips"
+              :wips="wips"
+            />
+          </div>
+        </dv-border-box-12>
+      </el-col>
+      <el-col :span="10">
+        <el-table
+          :header-cell-style="getRowClass"
+          :data="tableData"
+          :highlight-current-row="true"
+          style="margin-top: 4px"
+        >
+          <el-table-column align="center" class="table-head" :label="tableLabel">
+            <el-table-column
+              align="center"
+              prop="station"
+              width="180px"
+              show-overflow-tooltip
+              label="站位"
+            >
             </el-table-column>
-          </el-table>
-        </el-col>
-      </el-row>
-    </div>
+            <el-table-column align="center" prop="targetOut" label="計劃"> </el-table-column>
+            <el-table-column align="center" prop="inPut" label="實際"> </el-table-column>
+            <el-table-column align="center" prop="hitRate" width="100px" label="達成率">
+            </el-table-column>
+            <el-table-column align="center" prop="processYield" width="100px" label="良率">
+            </el-table-column>
+            <el-table-column align="center" prop="wip" label="WIP"> </el-table-column>
+            <el-table-column align="center" prop="maxWip" label="上限"> </el-table-column>
+            <el-table-column align="center" prop="minWip" label="下限"> </el-table-column>
+          </el-table-column>
+        </el-table>
+        <div class="ct">
+          <span class="name">CT(WIP总和/Pack站计划)</span>
+          <span class="number">{{ ctNum }}</span>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-// 导入头部
-import PageHeader from "@/components/page-header/index.vue"
 // 导入子组件
 import MakeChart1 from "./cpns/makechart1.vue"
 import MakeChart2 from "./cpns/makechart2.vue"
@@ -86,7 +91,6 @@ import { GetRunningInfo, GetStationTimeSpanOutputInfo } from "@/api/make.js"
 export default {
   name: "make",
   components: {
-    PageHeader,
     MakeChart1,
     MakeChart2,
     MakeChart3
@@ -113,7 +117,8 @@ export default {
       chart2Output: [],
       chart2TargetOut: [],
       chart2HitRate: [],
-      preTime: ""
+      preTime: "",
+      ctNum: 0
     }
   },
   computed: {
@@ -128,8 +133,7 @@ export default {
     }
   },
   mounted() {
-    // SET_FULLLOADING
-    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
+    this.$store.commit("fullLoading/SET_TITLE", "製造層")
     this.GetRunningInfo(this.$route.params)
     let { customName, preTime } = this.$route.params
     this.preTime = preTime
@@ -152,8 +156,11 @@ export default {
       this.Opno = stationInfo[stationInfo.length - 1].opNo
       // 取出最后一项的名称
       this.chart2Ttitle = `${stationInfo[stationInfo.length - 1].station} AA時段產出`
+      // 取出最后一项的 pack 计划
+      let packPlan = stationInfo[stationInfo.length - 1].targetOut
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno: this.Opno })
       // 循环取出头部区域
+      let totalWip = 0
       stationInfo.forEach((item) => {
         // station x轴的数据 inPut 输入的值
         let { station, inPut, targetOut, maxWip, minWip, wip, opNo } = item
@@ -166,7 +173,10 @@ export default {
         this.maxWips.push(maxWip)
         this.minWips.push(minWip)
         this.wips.push(wip)
+        totalWip += Number(wip)
       })
+      // console.log("==========", packPlan, totalWip, totalWip / packPlan)
+      this.ctNum = packPlan == 0 ? 0 : (totalWip / packPlan).toFixed(2)
       // 取出表格的数据
       this.tableData = stationInfo
     },
@@ -199,7 +209,6 @@ export default {
       this.chart2Ttitle = `${station} AA時段產出`
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno })
     },
-    arraySpanMethod() {},
     getRowClass() {
       return "background:transparent !important;color:#1adafb;'font-size':'30px'"
     }
@@ -209,64 +218,99 @@ export default {
 
 <style lang="scss" scoped>
 //整个table的背景颜色
+// ::v-deep .el-table {
+//   color: white;
+//   font-size: 17px;
+//   background-color: transparent !important; //主体框透明透明
+// }
+// ::v-deep .el-table__cell {
+//   padding: 7px 0;
+// }
+// ::v-deep .el-table tr {
+//   background-color: transparent !important;
+// }
+// ::v-deep .el-table tbody tr:hover > td {
+//   background-color: transparent !important;
+// }
+// ::v-deep .el-table td.el-table__cell,
+// .el-table--border th.el-table__cell,
+// .el-table__fixed-right-patch,
+// .el-table--border .el-table__cell,
+// .el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed,
+// .el-table--border,
+// .el-table--group,
+// .el-table--border th.el-table__cell,
+// .el-table__fixed-right-patch {
+//   border-bottom: 1px solid #1683af;
+//   border-right: 1px solid #1683af;
+// }
+// ::v-deep .el-table--border,
+// .el-table--group {
+//   border: 1px solid #1683af;
+// }
+// ::v-deep .el-table--border th.el-table__cell,
+// .el-table__fixed-right-patch {
+//   border-bottom: 1px solid #1683af;
+// }
+// ::v-deep .el-table--border .el-table__cell,
+// .el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed {
+//   border-right: 1px solid #1683af;
+// }
+// ::v-deep .el-table--border::after,
+// .el-table--group::after,
+// .el-table::before {
+//   content: "";
+//   position: absolute;
+//   background-color: transparent;
+//   z-index: 1;
+// }
+// ::v-deep .el-table tbody tr:hover > td {
+//   background-color: transparent !important;
+// }
+//整个table的背景颜色
 ::v-deep .el-table {
-  background-color: transparent;
-  color: white;
-  font-size: 17px;
+  font-size: 15px !important;
+  color: #fff;
+  // border-top: 1px solid #1683af;
+  // border-left: 1px solid #1683af;
+  border: 1px solid #1683af;
+  background-color: transparent !important; //主体框透明透明
 }
-::v-deep .el-table__cell {
-  padding: 7px 0;
+::v-deep .cell {
+  padding: 0px !important;
+}
+::v-deep .el-table th {
+  color: #1adafb;
+  padding: 7px 0 !important;
+  background-color: transparent;
+  border-right: 1px solid #1683af;
+  border-bottom: 1px solid #1683af !important;
+}
+::v-deep .el-table td {
+  padding: 7px 0 !important;
+  border-right: 1px solid #1683af;
+  border-bottom: 1px solid #1683af;
 }
 ::v-deep .el-table tr {
-  background-color: transparent !important;
+  background-color: transparent !important; //每一行透明
+}
+::v-deep .el-table::before,
+.el-table::after {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0px;
 }
 ::v-deep .el-table tbody tr:hover > td {
   background-color: transparent !important;
 }
 
-::v-deep .el-table td.el-table__cell,
-.el-table--border th.el-table__cell,
-.el-table__fixed-right-patch,
-.el-table--border .el-table__cell,
-.el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed,
-.el-table--border,
-.el-table--group,
-.el-table--border th.el-table__cell,
-.el-table__fixed-right-patch {
-  border-bottom: 1px solid #1683af;
-  border-right: 1px solid #1683af;
-}
-::v-deep .el-table--border,
-.el-table--group {
-  border: 1px solid #1683af;
-}
-::v-deep .el-table--border th.el-table__cell,
-.el-table__fixed-right-patch {
-  border-bottom: 1px solid #1683af;
-}
-::v-deep .el-table--border .el-table__cell,
-.el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed {
-  border-right: 1px solid #1683af;
-}
 ::v-deep .border-box-content {
   padding: 10px;
 }
 ::v-deep .dv-border-box-13 {
   padding: 10px 10px;
 }
-::v-deep .el-table--border::after,
-.el-table--group::after,
-.el-table::before {
-  content: "";
-  position: absolute;
-  background-color: transparent;
-  z-index: 1;
-}
-
-::v-deep .el-table tbody tr:hover > td {
-  background-color: transparent !important;
-}
-
 .page-main {
   margin-top: 10px;
   .total-wrapper {
@@ -304,6 +348,26 @@ export default {
         box-shadow: inset 0 0 20px #1797d9;
       }
     }
+  }
+}
+.ct {
+  margin-top: 5px;
+  height: 38px;
+  line-height: 38px;
+  .name {
+    display: inline-block;
+    text-align: center;
+    width: 548px;
+    border: 1px solid #147aa4;
+    background: rgba(79, 129, 189, 0.2);
+  }
+  .number {
+    text-align: center;
+    display: inline-block;
+    width: 80px;
+    border: 1px solid #147aa4;
+    border-left: none;
+    background: rgba(79, 129, 189, 0.2);
   }
 }
 </style>

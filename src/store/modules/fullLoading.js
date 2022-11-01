@@ -2,7 +2,9 @@
 import cache from "@/utils/cache.js"
 const state = {
   fullLoading: false,
-  path: ""
+  path: "",
+  title: "",
+  bgUrl: {}
 }
 
 const mutations = {
@@ -12,13 +14,14 @@ const mutations = {
   SET_PATH: (state, path = "/overview/cma/device") => {
     state.path = path
     cache.setCache("path", path)
+  },
+  SET_TITLE: (state, title = "页面标题") => {
+    state.title = title
+  },
+  SET_BGURL(state, bgUrl = {}) {
+    state.bgUrl = bgUrl
+    cache.setCache("bgUrl", bgUrl)
   }
-  // updatePath(state) {
-  //   let path = cache.getCache("path")
-  //   if (path) {
-  //     state.path = path
-  //   }
-  // }
 }
 const actions = {}
 

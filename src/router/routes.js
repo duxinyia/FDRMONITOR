@@ -83,7 +83,8 @@ export default [
       {
         path: "make",
         name: "make",
-        component: () => import(/* webpackChunkName: "output" */ "../views/main/cma/make/make.vue")
+        component: () => import(/* webpackChunkName: "output" */ "../views/main/cma/make/make.vue"),
+        meta: { isJump: true }
       },
       //製造戰情中心
       {
@@ -107,7 +108,8 @@ export default [
         path: "sfcdetail",
         name: "sfcdetail",
         component: () =>
-          import(/* webpackChunkName: "sfcdetail" */ "../views/main/cma/sfcdetail/sfcdetail.vue")
+          import(/* webpackChunkName: "sfcdetail" */ "../views/main/cma/sfcdetail/sfcdetail.vue"),
+        meta: { isJump: true }
       },
       {
         path: "tsfc",

@@ -10,6 +10,44 @@
       <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="['#568aea', '#000000']" />
       <dv-decoration-10 class="dv-dec-10-s" />
     </div>
+    <!-- 各种操作按钮 -->
+    <div class="operations">
+      <div class="left">
+        <!-- 展开菜单 -->
+        <el-tooltip content="戰情中心" placement="top">
+          <span class="iconfont icon-shezhi setup" @click="dialogVisible = true"></span>
+        </el-tooltip>
+        <el-tooltip content="背景選擇" placement="top">
+          <span class="iconfont icon-fenlei select-bg" @click="bgDialogVisible = true"></span>
+        </el-tooltip>
+      </div>
+      <div class="right">
+        <!-- 返回上一级 -->
+        <el-tooltip v-if="$route.meta.isJump" content="返回上一级" placement="top">
+          <span class="iconfont icon-fanhui backone" @click="$router.go(-1)"></span>
+        </el-tooltip>
+        <!-- 全屏和退出 -->
+        <el-tooltip :content="isFullScreen ? '退出全屏' : '全屏'" placement="top">
+          <span
+            :class="{
+              iconfont: true,
+              fullscreen: true,
+              'icon-quanping': !isFullScreen,
+              'icon-tuichuquanping': isFullScreen
+            }"
+            @click="fullscreenClick"
+          ></span>
+        </el-tooltip>
+        <!-- 返回首頁 -->
+        <el-tooltip content="返回首頁" placement="top">
+          <span class="iconfont icon-shouye-shouye select-bg" @click="goHome"></span>
+        </el-tooltip>
+        <!-- 退出 -->
+        <el-tooltip content="退出" placement="top">
+          <span class="iconfont icon-tuichu1 signout" @click="logout"></span>
+        </el-tooltip>
+      </div>
+    </div>
     <!-- 第二行 -->
     <div class="header-two">
       <div class="react-left">
@@ -20,10 +58,22 @@
         <span class="currentTime">{{ currentTime }}</span>
       </div>
     </div>
+    <!-- 不同项目切换 -->
+    <project-dialog :dialogVisible.sync="dialogVisible" />
+    <!-- 不同背景切换 -->
+    <bgs-dialog
+      @radioChangeBg="radioChangeBg"
+      @selectChangeBg="selectChangeBg"
+      :dialogVisible.sync="bgDialogVisible"
+    />
   </div>
 </template>
 
 <script>
+// 导入设置localstorage的函数
+import cache from "@/utils/cache.js"
+// 全屏
+import screenfull from "screenfull"
 // 导入弹框
 import ProjectDialog from "@/components/project-dialog/project-dialog.vue"
 // 导入背景选择弹框
@@ -45,13 +95,69 @@ export default {
       logoSrc: require("@/assets/images/RP_logo_blue.png"),
       address: "深圳&nbsp;龍華&nbsp;三贏&nbsp;CMA",
       currentTime: "", // 当前的时间
-      timing: null
+      timing: null,
+      dialogVisible: false,
+      bgDialogVisible: false,
+      isFullScreen: false
+    }
+  },
+  mounted() {
+    console.log("=====", this.$route, this.$store.getters)
+    this.initScreen()
+  },
+  computed: {
+    changeAppBg() {
+      if (this.imgUrl.includes("img")) {
+        return { background: `url(${this.imgUrl})` }
+      } else {
+        return { background: this.imgUrl }
+      }
     }
   },
   created() {
     this.getCurrentTime()
   },
   methods: {
+    // 选择了背景图片
+    radioChangeBg(imgUrl) {
+      this.imgUrl = imgUrl
+    },
+    // 选择了纯色 背景
+    selectChangeBg(bgCol) {
+      this.imgUrl = bgCol
+    },
+    goHome() {
+      this.$router.push(this.$store.state.fullLoading.path)
+    },
+    logout() {
+      cache.deleteCache("user")
+      this.$router.replace("/login")
+    },
+    initScreen() {
+      if (screenfull.enabled) {
+        screenfull.on("change", this.changeScreen)
+      }
+    },
+    changeScreen() {
+      this.isFullscreen = screenfull.isFullscreen
+    },
+    // 切换全屏
+    fullscreenClick() {
+      if (!screenfull.enabled) {
+        this.$message({
+          message: "you browser can not work",
+          type: "warning"
+        })
+        return false
+      }
+      this.isFullScreen = !this.isFullScreen
+      screenfull.toggle()
+    },
+    destroyScreen() {
+      if (screenfull.enabled) {
+        screenfull.off("change", this.changeScreen)
+      }
+    },
     // 获取当前时间
     getCurrentTime() {
       this.timing = setInterval(() => {
@@ -61,6 +167,7 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.timing)
+    this.destroyScreen()
   }
 }
 </script>
@@ -87,6 +194,57 @@ export default {
       .logo {
         width: 200px;
         height: 50px;
+      }
+    }
+  }
+  .operations {
+    position: absolute;
+    width: 100%;
+    top: 18px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .right {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      .fullscreen {
+        cursor: pointer;
+        font-size: 30px;
+        color: #3762ff;
+        &:hover {
+          color: aqua;
+        }
+      }
+      .backone {
+        @extend .fullscreen;
+        margin-right: 10px;
+      }
+      .signout {
+        @extend .fullscreen;
+        font-size: 29px;
+        margin-top: -3px;
+        margin-left: 10px;
+      }
+      .select-bg {
+        @extend .fullscreen;
+        font-weight: bold;
+        margin-left: 10px;
+      }
+    }
+    .left {
+      .setup {
+        cursor: pointer;
+        font-size: 30px;
+        color: #3762ff;
+        &:hover {
+          color: aqua;
+        }
+      }
+      .select-bg {
+        @extend .setup;
+        margin-left: 10px;
       }
     }
   }

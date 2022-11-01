@@ -35,13 +35,9 @@
         </div>
       </div>
       <!-- 不同项目切换 -->
-      <project-dialog :dialogKey="Date.now()" :dialogVisible.sync="dialogVisible" />
+      <project-dialog :dialogVisible.sync="dialogVisible" />
       <!-- 不同背景切换 -->
-      <bgs-dialog
-        @changeBg="changeBg"
-        :dialogKey="Date.now()"
-        :dialogVisible.sync="bgDialogVisible"
-      />
+      <bgs-dialog @changeBg="changeBg" :dialogVisible.sync="bgDialogVisible" />
       <router-view />
     </div>
   </div>

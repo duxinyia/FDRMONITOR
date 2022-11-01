@@ -23,16 +23,19 @@ const store = new Vuex.Store({
   getters
 })
 // 保证数据不失去
-export function updateUser() {
+export function updateStoreData() {
   let user = cache.getCache("user")
+  let path = cache.getCache("path")
+  let bgUrl = cache.getCache("bgUrl")
   if (user) {
     store.commit("user/SET_USER", user)
   }
-}
-export function updatePath() {
-  let path = cache.getCache("path")
   if (path) {
     store.commit("fullLoading/SET_PATH", path)
   }
+  if (bgUrl) {
+    store.commit("fullLoading/SET_BGURL", bgUrl)
+  }
 }
+
 export default store
