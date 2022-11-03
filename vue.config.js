@@ -30,6 +30,7 @@ module.exports = {
   publicPath: "./",
   productionSourceMap: false,
   chainWebpack: (config) => {
+    // 将moment 换成 dayjs
     config.resolve.alias.set("moment", "dayjs")
     if (process.env.NODE_ENV === "production") {
       config
@@ -50,13 +51,22 @@ module.exports = {
         symbolId: "icon-[name]"
       })
       .end()
-
+    // 获取本地的ip地址
     config.plugin("define").tap((args) => {
       let ip = getNetworkIp()
       args[0]["process.env"].BASE_IP = `"http://${ip}"`
       return args
     })
   },
+  // 配置scss全局变量 参考 https://www.jb51.net/article/203031.htm
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: `@import "~@/assets/scss/variables.scss";`
+      }
+    }
+  },
+  // 配置代理
   devServer: {
     open: true,
     hot: true,

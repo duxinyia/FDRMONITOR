@@ -139,7 +139,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables.scss";
+// @import "@/assets/scss/variables.scss";
 .myscroll-chart {
   text-align: center;
   .title-container {
@@ -150,9 +150,10 @@ export default {
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 5px;
-      color: $title-color;
+      // color: $title-color;
+      color: var(--chart-title);
       padding-left: 5px;
-      border-left: 4px solid #bb98fa;
+      border-left: 4px solid var(--chart-slip);
     }
     .arrows {
       span {

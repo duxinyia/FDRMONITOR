@@ -1,0 +1,23 @@
+/*暗黑主题*/
+:root[theme='dark']{
+  // overview 的色值
+  --base-bg:#000;
+  --base-text-color:#fff;
+  // overview 的色值
+  --overview-head-bg:#162949;/*晚上大的背景颜色*/
+  --overview-main-bg:#000;
+  --overview-menu-bg:#162949;
+  --icon-color:#fff;
+
+
+  // 各种看板主页头部公共部分的 色值
+  --page-head-icon:#3762ff;
+  --react-bg:#0e1738;
+  --react-text:#999;
+
+  // main-one 的 dataV中的表格标题的 色值
+  --chart-title:#68feff;
+  --chart-slip:#bb98fa;
+
+  // aa 看板的 色值
+}

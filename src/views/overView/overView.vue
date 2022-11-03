@@ -6,7 +6,6 @@
         <h2 class="name" v-show="!isCollapse">戰情中心</h2>
       </div>
       <el-menu
-        background-color="#162949"
         text-color="#fff"
         active-text-color="#ffd04b"
         :collapse="isCollapse"
@@ -51,6 +50,8 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="layout">退出登录</el-dropdown-item>
+              <el-dropdown-item command="dark">暗黑</el-dropdown-item>
+              <el-dropdown-item command="light">明亮</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -72,13 +73,21 @@ export default {
       logoUrl: require("@/assets/images/logo.png")
     }
   },
+  created() {
+    let theme = cache.getCache("theme") || "dark"
+    document.documentElement.setAttribute("theme", theme)
+  },
   methods: {
     handleCommand(command) {
       if (command == "layout") {
         // 清空缓存
         cache.deleteCache("user")
         this.$router.replace("/login")
-        // this.$message.success("退出成功~")
+      }
+      if (command == "dark" || command == "light") {
+        document.documentElement.setAttribute("theme", command)
+        // cache.setCache("theme", command)
+        this.$store.commit("fullLoading/SET_THEME", command)
       }
     }
   }
@@ -113,7 +122,11 @@ export default {
 }
 ::v-deep .el-menu {
   border-right: none;
+  background: var(--overview-menu-bg);
   height: calc(100% - 50px) !important;
+}
+::v-deep .el-main {
+  background: var(--overview-main-bg);
 }
 .header-container {
   display: flex;
@@ -121,12 +134,14 @@ export default {
   justify-content: space-between;
   height: 100%;
   padding: 0 10px;
-  background: #324157;
+  // background: #324157;
+  background: var(--overview-head-bg);
   .flod,
   .user-icon {
     cursor: pointer;
     font-size: 23px;
-    color: #fff;
+    // color: #fff;
+    color: var(--icon-color);
     &:hover {
       color: #00ffff;
     }
@@ -134,7 +149,9 @@ export default {
 }
 .aside-container {
   .top-title {
-    background: #162949;
+    // #162949
+    background: var(--overview-menu-bg);
+    // background: #162949;
     height: 50px;
     display: flex;
     align-items: center;
@@ -146,6 +163,7 @@ export default {
     }
     .name {
       color: #fff;
+      // color: var(--iconColor);
       font-size: 24px;
       font-weight: bold;
       margin-left: 10px;

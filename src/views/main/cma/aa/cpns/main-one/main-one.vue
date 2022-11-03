@@ -52,8 +52,6 @@
 <script>
 // 导入数字滚动组件
 import countTo from "vue-count-to"
-// 导入dataV的轮播组件
-import scrollChart from "@/components/scroll-chart/scroll-chart.vue"
 // 导入echarts中的饼图
 import pieChart from "@/common/pie-chart/pie-chart"
 // 导入改装排名轮播表
@@ -70,7 +68,6 @@ export default {
   },
   components: {
     countTo,
-    scrollChart,
     pieChart,
     rankingRotationChart,
     MyscrollChart

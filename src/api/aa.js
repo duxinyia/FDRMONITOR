@@ -25,6 +25,4 @@ export let getMachineThreeInfo = (ip) =>
   $post(`/api/AAMachineRun/GetAAMachineProductInfo?IP=${ip}&${getTime()}`)
 // 获取 下方表格的信息 10.143.47.26
 export let getMachineHeadRunInfos = (ip) =>
-  $post(
-    `http://10.151.129.104:8080/api/AAMachineRun/GetAAMachineHeadRunInfos?IP=${ip}&${getTime()}`
-  )
+  $post(`/api/AAMachineRun/GetAAMachineHeadRunInfos?IP=${ip}&${getTime()}`)

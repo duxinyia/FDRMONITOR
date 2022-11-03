@@ -89,14 +89,17 @@ export let getTime = (preTime = "") => {
     }
     curTime = moment().format("YYYY-MM-DD HH:mm:ss")
   } else {
+    // curTime =
+    //   moment().format("YYYY-MM-DD") == preTime
+    //     ? moment().format("YYYY-MM-DD HH:mm:ss")
+    //     : moment(preTime).subtract(-1, "days").format("YYYY-MM-DD 07:00:00")
     curTime =
       moment().format("YYYY-MM-DD") == preTime
         ? moment().format("YYYY-MM-DD HH:mm:ss")
-        : moment(preTime).subtract(-1, "days").format("YYYY-MM-DD 07:00:00")
+        : `${preTime} 24:00:00`
     preTime = `${preTime} 06:00:00`
     console.log(preTime, curTime, moment().format("YYYY-MM-DD"))
   }
-  // let curTime = moment().format("YYYY-MM-DD HH:mm:ss")
   return `St=${preTime}&Et=${curTime}`
 }
 

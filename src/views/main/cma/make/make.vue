@@ -117,7 +117,7 @@ export default {
       chart2Output: [],
       chart2TargetOut: [],
       chart2HitRate: [],
-      preTime: "",
+      // preTime: "",
       ctNum: 0
     }
   },
@@ -135,8 +135,8 @@ export default {
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "製造層")
     this.GetRunningInfo(this.$route.params)
-    let { customName, preTime } = this.$route.params
-    this.preTime = preTime
+    let { customName } = this.$route.params
+    // this.preTime = preTime
     // 各个表格的标题
     this.chart1Ttitle = `${customName} 產出達成狀況`
     this.chart3Ttitle = `${customName} 站位WIP狀況`
@@ -155,7 +155,7 @@ export default {
       // 取出 stationInfo 的最后一项的 opNo
       this.Opno = stationInfo[stationInfo.length - 1].opNo
       // 取出最后一项的名称
-      this.chart2Ttitle = `${stationInfo[stationInfo.length - 1].station} AA時段產出`
+      this.chart2Ttitle = `${stationInfo[stationInfo.length - 1].station} 時段產出`
       // 取出最后一项的 pack 计划
       let packPlan = stationInfo[stationInfo.length - 1].targetOut
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno: this.Opno })
@@ -206,7 +206,7 @@ export default {
     // 处理 表一 的点击事件
     barClick({ opNo: Opno, station }) {
       this.Opno = Opno
-      this.chart2Ttitle = `${station} AA時段產出`
+      this.chart2Ttitle = `${station} 時段產出`
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno })
     },
     getRowClass() {
@@ -218,61 +218,9 @@ export default {
 
 <style lang="scss" scoped>
 //整个table的背景颜色
-// ::v-deep .el-table {
-//   color: white;
-//   font-size: 17px;
-//   background-color: transparent !important; //主体框透明透明
-// }
-// ::v-deep .el-table__cell {
-//   padding: 7px 0;
-// }
-// ::v-deep .el-table tr {
-//   background-color: transparent !important;
-// }
-// ::v-deep .el-table tbody tr:hover > td {
-//   background-color: transparent !important;
-// }
-// ::v-deep .el-table td.el-table__cell,
-// .el-table--border th.el-table__cell,
-// .el-table__fixed-right-patch,
-// .el-table--border .el-table__cell,
-// .el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed,
-// .el-table--border,
-// .el-table--group,
-// .el-table--border th.el-table__cell,
-// .el-table__fixed-right-patch {
-//   border-bottom: 1px solid #1683af;
-//   border-right: 1px solid #1683af;
-// }
-// ::v-deep .el-table--border,
-// .el-table--group {
-//   border: 1px solid #1683af;
-// }
-// ::v-deep .el-table--border th.el-table__cell,
-// .el-table__fixed-right-patch {
-//   border-bottom: 1px solid #1683af;
-// }
-// ::v-deep .el-table--border .el-table__cell,
-// .el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed {
-//   border-right: 1px solid #1683af;
-// }
-// ::v-deep .el-table--border::after,
-// .el-table--group::after,
-// .el-table::before {
-//   content: "";
-//   position: absolute;
-//   background-color: transparent;
-//   z-index: 1;
-// }
-// ::v-deep .el-table tbody tr:hover > td {
-//   background-color: transparent !important;
-// }
-//整个table的背景颜色
 ::v-deep .el-table {
   font-size: 15px !important;
   color: #fff;
-  // border-top: 1px solid #1683af;
-  // border-left: 1px solid #1683af;
   border: 1px solid #1683af;
   background-color: transparent !important; //主体框透明透明
 }
@@ -304,7 +252,6 @@ export default {
 ::v-deep .el-table tbody tr:hover > td {
   background-color: transparent !important;
 }
-
 ::v-deep .border-box-content {
   padding: 10px;
 }

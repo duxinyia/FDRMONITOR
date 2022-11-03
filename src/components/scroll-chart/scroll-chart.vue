@@ -52,15 +52,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "@/assets/scss/variables.scss";
+// @import "@/assets/scss/variables.scss";
 .title {
   display: inline-block;
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 5px;
-  color: $title-color;
+  // color: $title-color;
+  color: var(--chart-title);
   padding-left: 5px;
-  border-left: 4px solid #bb98fa;
+  border-left: 4px solid var(--chart-slip);
 }
 ::v-deep .header-item {
   padding: 0 2px !important;

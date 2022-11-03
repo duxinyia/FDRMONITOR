@@ -27,6 +27,7 @@ export function updateStoreData() {
   let user = cache.getCache("user")
   let path = cache.getCache("path")
   let bgUrl = cache.getCache("bgUrl")
+  let theme = cache.getCache("theme")
   if (user) {
     store.commit("user/SET_USER", user)
   }
@@ -35,6 +36,9 @@ export function updateStoreData() {
   }
   if (bgUrl) {
     store.commit("fullLoading/SET_BGURL", bgUrl)
+  }
+  if (theme) {
+    store.commit("fullLoading/SET_THEME", theme)
   }
 }
 

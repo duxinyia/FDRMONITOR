@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     initChart() {
-      this.myChart = this.$echarts.init(this.$el, null, { renderer: "canvas" })
+      this.myChart = this.$echarts.init(this.$el, null, { renderer: "canvas" }, "light")
       this.myChart.off("click")
       // 使用刚指定的配置项和数据显示图表。
       this.myChart.setOption(this.options)

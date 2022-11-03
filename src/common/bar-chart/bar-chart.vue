@@ -455,16 +455,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables.scss";
+// @import "@/assets/scss/variables.scss";
 .bar-chart {
   z-index: 100;
   .title {
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 5px;
-    color: $title-color;
+    // color: $title-color;
+    color: var(--chart-title);
     padding-left: 5px;
-    border-left: 4px solid #bb98fa;
+    border-left: 4px solid var(--chart-slip);
   }
 }
 </style>

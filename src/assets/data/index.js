@@ -133,7 +133,7 @@ export let CMA_CONFIG = new Map([
       },
       {
         id: 10,
-        imgUrl: require("@/assets/images/1.png"),
+        imgUrl: require("@/assets/images/defect.png"),
         info: "Top 25 Defect Item",
         target: "yield",
         belong: "良率模块",

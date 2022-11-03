@@ -155,7 +155,6 @@ export default {
   },
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "FOL設備總覽")
-    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
     // 每5分钟获取一次数据
     this.dataTiming = setInterval(() => {

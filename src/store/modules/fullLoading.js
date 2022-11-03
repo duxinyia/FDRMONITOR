@@ -4,7 +4,8 @@ const state = {
   fullLoading: false,
   path: "",
   title: "",
-  bgUrl: {}
+  bgUrl: {},
+  theme: ""
 }
 
 const mutations = {
@@ -21,6 +22,10 @@ const mutations = {
   SET_BGURL(state, bgUrl = {}) {
     state.bgUrl = bgUrl
     cache.setCache("bgUrl", bgUrl)
+  },
+  SET_THEME(state, theme = "dark") {
+    state.theme = theme
+    cache.setCache("theme", theme)
   }
 }
 const actions = {}

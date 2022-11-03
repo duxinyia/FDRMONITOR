@@ -33,13 +33,13 @@
       >
       </el-date-picker>
       <!-- 查询按钮 -->
-      <el-button type="success">查询</el-button>
+      <el-button type="primary">查询</el-button>
     </div>
     <div class="bottom-data">
       <div v-for="(item, index) in showData[currentPage - 1]" :key="index" class="every-device">
         <el-row>
-          <el-col :span="16">2022-10-22</el-col>
-          <el-col :span="8" class="border-left">{{ item.device }}</el-col>
+          <el-col :span="16">{{ $moment().format("YYYY-MM-DD HH:mm:ss") }}</el-col>
+          <el-col :span="8" class="border-left especially">{{ item.device }}</el-col>
         </el-row>
         <el-row>
           <el-col :span="16">Overall Yield</el-col>
@@ -123,7 +123,8 @@ export default {
           label: "双皮奶"
         }
       ],
-      timeframe: [this.$moment().format("YYYY-MM-DD 06:00:00")],
+      // timeframe: [this.$moment().format("YYYY-MM-DD 06:00:00")],
+      timeframe: "",
       total: 10,
       currentPage: 1
     }
@@ -137,7 +138,6 @@ export default {
   methods: {
     async getDefectYieldInfo() {
       let res = await GetDefectYieldInfo()
-      // console.log("处理前", res)
       if (res) {
         this.total = res.length
         this.$store.commit("fullLoading/SET_FULLLOADING", false)
@@ -146,14 +146,15 @@ export default {
           let fails = 0
           let rates = 0
           item.defectNameList.forEach((item) => {
-            // console.log(item.failQty, parseFloat(item.rate) * 10)
             fails += item.failQty
             rates += parseFloat(item.rate) * 10
           })
-          // console.log("处理后fails rates", fails, rates)
-          item.defectNameList.push({ name: "ALL", failQty: fails, rate: rates / 10 })
+          item.defectNameList.push({
+            name: "ALL",
+            failQty: fails,
+            rate: (rates / 10).toFixed(2) + "%"
+          })
         })
-        // console.log("处理后res", res)
       }
     },
     handleCurrentChange(val) {
@@ -172,6 +173,41 @@ export default {
 }
 ::v-deep .el-row {
   border-bottom: 2px solid #1478a1;
+}
+// 重置下拉框的样式
+::v-deep .el-input__inner {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #409eff;
+}
+::v-deep .el-select {
+  &:hover .el-input__inner {
+    border: 1px solid #409eff;
+  }
+}
+::v-deep .el-range-input {
+  background: transparent;
+  color: #fff;
+  border: none;
+}
+::v-deep .el-tag--info {
+  background: rgba(64, 158, 255, 0.4);
+  color: #fff;
+  border: none;
+}
+// 重置分頁器的樣式
+::v-deep .el-pagination {
+  padding: 0;
+}
+::v-deep .el-pagination.is-background .btn-next,
+::v-deep .el-pagination.is-background .btn-prev,
+::v-deep .el-pagination.is-background .el-pager li {
+  color: #fff;
+  background: transparent;
+  border: 1px solid #1478a1;
+}
+::v-deep .el-pagination .btn-prev {
+  margin-left: 0;
 }
 .border-left {
   border-left: 2px solid #1478a1;
@@ -200,10 +236,11 @@ export default {
   }
   .bottom-data {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
+    margin-bottom: 10px;
     .every-device {
       width: 600px;
-      margin: 5px;
       border: 2px solid #1478a1;
     }
   }

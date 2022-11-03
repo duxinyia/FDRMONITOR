@@ -164,8 +164,9 @@ export default {
       this.allShowData = await getMachineHeadRunInfos(ip)
     },
     itemStyle(item) {
-      let bgColor = item.runstate == "STOP" ? "rgba(255, 0, 51, 0.5)" : "rgba(51, 255, 102, 0.8)"
-      let width = Number(item.keeptime) / 90
+      let bgColor = item.runstate == "Stop" ? "rgba(255, 0, 51, 0.5)" : "rgba(51, 255, 102, 0.8)"
+      let width = (Number(item.keeptime) / 90).toFixed(2)
+      console.log(width)
       return {
         background: bgColor,
         width: `${width}px`

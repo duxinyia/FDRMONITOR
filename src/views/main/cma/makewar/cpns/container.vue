@@ -177,6 +177,7 @@ export default {
       }
     },
     toMake(ProductArea, item) {
+      // console.log(ProductArea, item)
       let { deviceNo, plantID, customName, Opno } = this.device
       this.$router.push({
         name: "make",
@@ -216,7 +217,7 @@ export default {
       margin-top: 18px;
       color: #69f9ff;
       .every-num {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
       }
     }
     .right {

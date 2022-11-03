@@ -6,9 +6,12 @@ import { getTime } from "@/utils"
 
 // GetRunningInfo
 export let GetRunningInfo = (params) => {
-  let { plantID, deviceNo, ProductArea } = params
+  let { plantID, deviceNo, ProductArea, preTime } = params
+  // let time  = `St=${preTime}&Et=${curTime}`
   return $post(
-    `api/MESOutPut/GetRunningInfo?PlantID=${plantID}&DeviceNo=${deviceNo}&ProductArea=${ProductArea}&LotType=MP&${getTime()}`
+    `api/MESOutPut/GetRunningInfo?PlantID=${plantID}&DeviceNo=${deviceNo}&ProductArea=${ProductArea}&LotType=MP&${getTime(
+      preTime
+    )}`
   )
 }
 // 获取中间表格的数据
