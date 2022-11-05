@@ -75,7 +75,7 @@ export default {
             params[0].data.detail.forEach((item, index) => {
               tempStr += `
                 <div style="display:flex;background:${index % 2 == 0 ? "#003b51" : "#0a2732"}">
-                  <span style="flex:1">${item.machinename}</span>
+                  <span style="flex:1">${item.machinename.replace("FOL ", "")}</span>
                   <span style="flex:1">${item.rate}</span>
                   <span style="flex:1">${(item.keeptime / 60).toFixed(2) + " Min"}</span>
                 </div>`
@@ -225,10 +225,11 @@ export default {
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 5px;
-    // color: $title-color;
-    color: var(--chart-title);
+    color: $title-color;
+    // color: var(--chart-title);
     padding-left: 5px;
-    border-left: 4px solid var(--chart-slip);
+    // border-left: 4px solid var(--chart-slip);
+    border-left: 4px solid #bb98fa;
   }
 }
 </style>

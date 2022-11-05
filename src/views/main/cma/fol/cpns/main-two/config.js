@@ -6,13 +6,15 @@ export let stateBall = [
 ]
 let bgColor = "rgba(52, 172, 224,0.6)"
 let color = "#4ed4a5"
-export let textArr = ["FC", "UF", "SC", "SSC", "PP", "GA", "OVEN"]
+let textArr0 = ["FC", "UF", "SC", "SSC", "PP", "GA", "OVEN"]
+let textArr1 = ["DA", "OVEN", "WB01", "WB 02", "WB03", "WBAOI", "装扳机"]
 
 export let divArr2 = [
+  // 正常的
   [
     {
       id: 1,
-      text: textArr[0],
+      text: textArr0[0],
       style: {
         width: "45px",
         height: "23px",
@@ -32,7 +34,7 @@ export let divArr2 = [
     },
     {
       id: 3,
-      text: textArr[1],
+      text: textArr0[1],
       style: {
         width: "40px",
         height: "23px",
@@ -52,7 +54,7 @@ export let divArr2 = [
     },
     {
       id: 5,
-      text: textArr[2],
+      text: textArr0[2],
       style: {
         width: "50px",
         height: "23px",
@@ -62,7 +64,7 @@ export let divArr2 = [
     },
     {
       id: 6,
-      text: textArr[3],
+      text: textArr0[3],
       style: {
         width: "50px",
         height: "48px",
@@ -72,7 +74,7 @@ export let divArr2 = [
     },
     {
       id: 7,
-      text: textArr[4],
+      text: textArr0[4],
       style: {
         width: "40px",
         height: "26px",
@@ -83,7 +85,7 @@ export let divArr2 = [
     },
     {
       id: 8,
-      text: textArr[5],
+      text: textArr0[5],
       style: {
         width: "40px",
         height: "26px",
@@ -103,7 +105,7 @@ export let divArr2 = [
     },
     {
       id: 10,
-      text: textArr[6],
+      text: textArr0[6],
       style: {
         width: "50px",
         height: "20px",
@@ -112,7 +114,110 @@ export let divArr2 = [
       }
     }
   ],
-  []
+  // 34# 35# 特殊的
+  [
+    {
+      id: 1,
+      text: textArr1[0],
+      style: {
+        width: "45px",
+        height: "23px",
+        "line-height": "23px",
+        "margin-left": "6px",
+        border: `1px solid ${color}`
+      }
+    },
+    {
+      id: 2,
+      style: {
+        width: "20px",
+        height: "5px",
+        "margin-left": "15px",
+        border: `1px solid ${color}`
+      }
+    },
+    {
+      id: 3,
+      text: textArr1[1],
+      style: {
+        width: "40px",
+        height: "23px",
+        "line-height": "23px",
+        "margin-left": "6px",
+        border: `1px solid ${color}`
+      }
+    },
+    {
+      id: 4,
+      style: {
+        width: "20px",
+        height: "5px",
+        "margin-left": "15px",
+        border: `1px solid ${color}`
+      }
+    },
+    {
+      id: 5,
+      text: textArr1[2],
+      style: {
+        width: "50px",
+        height: "23px",
+        "line-height": "23px",
+        border: `1px solid ${color}`
+      }
+    },
+    {
+      id: 6,
+      text: textArr1[3],
+      style: {
+        width: "50px",
+        height: "48px",
+        "line-height": "48px",
+        border: `1px solid ${color}`
+      }
+    },
+    {
+      id: 7,
+      text: textArr1[4],
+      style: {
+        width: "40px",
+        height: "26px",
+        "line-height": "26px",
+        "margin-left": "6px",
+        border: `1px solid ${color}`
+      }
+    },
+    {
+      id: 8,
+      text: textArr1[5],
+      style: {
+        width: "40px",
+        height: "26px",
+        "line-height": "26px",
+        "margin-left": "6px",
+        border: `1px solid ${color}`
+      }
+    },
+    {
+      id: 9,
+      style: {
+        width: "20px",
+        height: "5px",
+        "margin-left": "15px",
+        border: `1px solid ${color}`
+      }
+    },
+    {
+      id: 10,
+      text: textArr1[6],
+      style: {
+        width: "50px",
+        height: "20px",
+        "line-height": "21px",
+        border: `1px solid ${color}`
+      }
+    }
+  ]
 ]
 
 // let bgColor =

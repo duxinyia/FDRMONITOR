@@ -57,19 +57,30 @@
                       <div class="machine-info" :style="changeMachineInfo(machine)">
                         <!-- 左边 -->
                         <div class="left">
-                          <div
-                            v-for="item in divArr2[0]"
-                            :key="item.id"
-                            :style="changeDivStyle(item.style, machine)"
-                          >
-                            {{ item.text }}
-                          </div>
+                          <template v-if="machine.combineTag && machine.combineTag == 'DA'">
+                            <div
+                              v-for="item in divArr2[1]"
+                              :key="item.id"
+                              :style="changeDivStyle(item.style, machine)"
+                            >
+                              {{ item.text }}
+                            </div>
+                          </template>
+                          <template v-else>
+                            <div
+                              v-for="item in divArr2[0]"
+                              :key="item.id"
+                              :style="changeDivStyle(item.style, machine)"
+                            >
+                              {{ item.text }}
+                            </div>
+                          </template>
                         </div>
                         <!-- 右边 -->
                         <div class="right">
                           <template v-if="machine.combineID">
                             <el-tooltip class="item" effect="dark" placement="right">
-                              <div slot="content">dpc不良:{{ machine.dpcRate }}</div>
+                              <div slot="content">dpc不良:{{ machine.dpcRate | changeRate }}</div>
                               <div class="dpc">
                                 <span class="name">DPC</span>
                                 <svg-icon className="hexagon" icon-class="hexagon" />
@@ -85,11 +96,11 @@
                             </div>
                           </template>
                           <el-tooltip class="item" effect="dark" placement="right">
-                            <div slot="content">lcb不良:{{ machine.lcbRate }}</div>
+                            <div slot="content">lcb不良:{{ machine.lcbRate | changeRate }}</div>
                             <div class="lcb" :style="changeLcbStyle(machine)">LCB</div>
                           </el-tooltip>
                           <el-tooltip class="item" effect="dark" placement="right">
-                            <div slot="content">efail不良:{{ machine.eFailRate }}</div>
+                            <div slot="content">efail不良:{{ machine.eFailRate | changeRate }}</div>
                             <div class="e-fail" :style="changeLcbStyle(machine)">e-fail</div>
                           </el-tooltip>
                           <dv-percent-pond
@@ -149,6 +160,7 @@ export default {
   components: {
     DetailDialog
   },
+
   data() {
     return {
       loading: false,
@@ -177,7 +189,7 @@ export default {
   },
   computed: {
     title() {
-      return this.bottomData.length > 0 ? this.bottomData[this.currentIndex].location : "标题"
+      return this.bottomData.length > 0 ? this.bottomData[this.currentIndex].location : "-"
     }
   },
   filters: {
@@ -185,6 +197,11 @@ export default {
     changeMachineName(value) {
       if (!value) return "-"
       return value.substring(value.length - 2) + "#"
+    },
+    changeRate(rate) {
+      if (rate) {
+        return parseFloat(rate).toFixed(2) + "%"
+      }
     }
   },
   methods: {
@@ -255,10 +272,11 @@ export default {
         return {
           ...style,
           color: "rgba(127, 127, 127, 0.9)",
-          border: `1px solid rgba(127, 127, 127, 0.9)`
+          border: `1px solid rgba(127, 127, 127, 0.9)`,
+          "font-size": "12px"
         }
       } else {
-        return { ...style }
+        return { ...style, "font-size": "12px" }
       }
     },
     changeLcbStyle(machine) {

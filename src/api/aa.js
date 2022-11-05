@@ -1,9 +1,7 @@
 import request from "@/network"
 let { post: $post } = request
-
 // 导入时间处理函数
 import { getTime } from "@/utils"
-
 // 保養任務公告
 export let getAAMachineMaintainInfo = () => $post(`api/AAMachineRun/GetAAMachineMaintainInfo`)
 // 當日產出/達成率/良率/統計

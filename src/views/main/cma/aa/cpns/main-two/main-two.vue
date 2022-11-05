@@ -163,7 +163,7 @@ export default {
       let map = new Map([
         ["RUN", "#31e631"],
         ["STOP", "#808080"],
-        ["ExceptionRun", "#ff4500"],
+        ["ExceptionRUN", "#ff4500"],
         ["ExceptionSTOP", "#dd4848"]
       ])
       return {

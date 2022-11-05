@@ -290,10 +290,10 @@ export default {
                   customName || "-",
                   planeOutPut || "-",
                   outPut || "-",
-                  hitRate || "-",
-                  dpcRate || "-",
-                  lcbRate || "-",
-                  eFailRate || "-"
+                  this.changeRate(hitRate) || "-",
+                  this.changeRate(dpcRate) || "-",
+                  this.changeRate(lcbRate) || "-",
+                  this.changeRate(eFailRate) || "-"
                 ])
             })
           })
@@ -308,6 +308,11 @@ export default {
         }
       }
       return value
+    },
+    changeRate(rate) {
+      if (rate) {
+        return parseFloat(rate).toFixed(2) + "%"
+      }
     }
   },
   beforeDestroy() {

@@ -170,7 +170,17 @@ export default {
             smooth: true, // 设置拆线平滑
             itemStyle: {
               normal: {
-                color: "#52fea2"
+                // color: "#52fea2"
+                color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                  {
+                    offset: 0,
+                    color: "rgba(90, 210, 250, 1)"
+                  },
+                  {
+                    offset: 0.9,
+                    color: "rgba(55, 89, 240, 1)"
+                  }
+                ])
               }
             },
             lineStyle: {
@@ -191,7 +201,8 @@ export default {
             smooth: true, // 设置拆线平滑
             itemStyle: {
               normal: {
-                color: "#1fedeb"
+                // color: "#1fedeb"
+                color: "rgba(214, 235, 110, 1)"
               }
             },
             lineStyle: {
@@ -212,7 +223,8 @@ export default {
             smooth: true, // 设置拆线平滑
             itemStyle: {
               normal: {
-                color: "#f7a35c"
+                // color: "#f7a35c"
+                color: "rgba(194, 153, 242, 1)"
               }
             },
             lineStyle: {
@@ -233,7 +245,8 @@ export default {
             smooth: true, // 设置拆线平滑
             itemStyle: {
               normal: {
-                color: "#99ff66"
+                // color: "#99ff66"
+                color: "rgba(173, 247, 183, 1)"
               }
             },
             lineStyle: {
@@ -254,7 +267,17 @@ export default {
             smooth: true, // 设置拆线平滑
             itemStyle: {
               normal: {
-                color: "#FFD700"
+                // color: "#FFD700"
+                color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                  {
+                    offset: 0,
+                    color: "rgba(125, 245, 141, 1)"
+                  },
+                  {
+                    offset: 0.9,
+                    color: "rgba(26, 156, 44, 1)"
+                  }
+                ])
               }
             },
             lineStyle: {

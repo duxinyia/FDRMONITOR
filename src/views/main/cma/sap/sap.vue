@@ -6,15 +6,14 @@
       <div class="top-chart">
         <el-carousel height="380px" :interval="10000" indicator-position="none">
           <el-carousel-item>
-            <line-chart-1 :config="config1" />
+            <line-chart-1 :config="config2" />
           </el-carousel-item>
           <el-carousel-item>
-            <line-chart-1 :config="config2" />
+            <line-chart-1 :config="config1" />
           </el-carousel-item>
         </el-carousel>
       </div>
       <!-- 下面四个图 -->
-
       <el-carousel height="550px" :interval="10000" indicator-position="none">
         <el-carousel-item>
           <el-row :gutter="20">

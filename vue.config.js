@@ -51,7 +51,7 @@ module.exports = {
         symbolId: "icon-[name]"
       })
       .end()
-    // 获取本地的ip地址
+    // 获取本地的ip地址 https://bbs.huaweicloud.com/blogs/297823 process.env.BASE_IP
     config.plugin("define").tap((args) => {
       let ip = getNetworkIp()
       args[0]["process.env"].BASE_IP = `"http://${ip}"`

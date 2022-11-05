@@ -72,9 +72,10 @@ export default {
             }
           },
           axisLine: {
+            symbol: ["none", "arrow"],
             lineStyle: {
               color: "#ffffff",
-              opacity: 0.3
+              opacity: 0.9
             }
           },
           axisTick: {
@@ -111,9 +112,10 @@ export default {
               show: false
             },
             axisLine: {
+              symbol: ["none", "arrow"],
               lineStyle: {
                 color: "#fff",
-                opacity: 0.3
+                opacity: 0.8
               }
             }
           }
@@ -129,7 +131,17 @@ export default {
             smooth: true, // 设置拆线平滑
             itemStyle: {
               normal: {
-                color: "#1fedeb"
+                // color: "#1fedeb"
+                color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                  {
+                    offset: 0,
+                    color: "#8F89EB"
+                  },
+                  {
+                    offset: 0.9,
+                    color: "#ffffff"
+                  }
+                ])
               }
             },
             lineStyle: {

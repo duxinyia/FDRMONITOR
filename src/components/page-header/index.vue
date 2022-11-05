@@ -2,15 +2,15 @@
   <div class="page-header">
     <!-- 第一行 -->
     <div class="header-one">
-      <dv-decoration-10 class="dv-dec-10" :color="changeColor" />
-      <dv-decoration-8 class="dv-dec-8" :color="changeColor" />
-      <!-- 、<dv-decoration-8 class="dv-dec-8" :color="['var(--base-bg)', 'green']" /> -->
+      <dv-decoration-10 class="dv-dec-10" />
+      <!-- <dv-decoration-8 class="dv-dec-8" :color="changeColor" /> -->
+      、<dv-decoration-8 class="dv-dec-8" :color="['#568aea', '#000000']" />
       <div class="logo-container">
         <img class="logo" :src="logoSrc" alt="logoSrc" />
       </div>
-      <!-- <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="['#568aea', '#000000']" /> -->
-      <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="changeColor" />
-      <dv-decoration-10 class="dv-dec-10-s" :color="changeColor" />
+      <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="['#568aea', '#000000']" />
+      <!-- <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="changeColor" /> -->
+      <dv-decoration-10 class="dv-dec-10-s" />
     </div>
     <!-- 各种操作按钮 -->
     <div class="operations">
@@ -19,9 +19,19 @@
         <el-tooltip content="戰情中心" placement="top">
           <span class="iconfont icon-shezhi setup" @click="dialogVisible = true"></span>
         </el-tooltip>
+        <!-- 背景选择 -->
         <el-tooltip content="背景選擇" placement="top">
           <span class="iconfont icon-fenlei select-bg" @click="bgDialogVisible = true"></span>
         </el-tooltip>
+        <!-- 主题切换 -->
+        <!-- <el-switch
+          v-model="thememode"
+          active-icon-class="el-icon-sunny"
+          inactive-icon-class="el-icon-moon"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+        >
+        </el-switch> -->
       </div>
       <div class="right">
         <!-- 返回上一级 -->
@@ -100,7 +110,8 @@ export default {
       timing: null,
       dialogVisible: false,
       bgDialogVisible: false,
-      isFullScreen: false
+      isFullScreen: false,
+      thememode: true
     }
   },
   mounted() {
@@ -113,10 +124,10 @@ export default {
       } else {
         return { background: this.imgUrl }
       }
-    },
-    changeColor() {
-      return this.$store.getters.theme == "dark" ? ["#568aea", "#000000"] : ["red", "green"]
     }
+    // changeColor() {
+    //   return this.$store.getters.theme == "dark" ? ["#568aea", "#000000"] : ["red", "green"]
+    // }
   },
   created() {
     this.getCurrentTime()
@@ -216,8 +227,8 @@ export default {
       .fullscreen {
         cursor: pointer;
         font-size: 30px;
-        // color: #3762ff;
-        color: var(--page-head-icon);
+        color: #3762ff;
+        // color: var(--page-head-icon);
         &:hover {
           color: aqua;
         }
@@ -242,8 +253,8 @@ export default {
       .setup {
         cursor: pointer;
         font-size: 30px;
-        // color: #3762ff;
-        color: var(--page-head-icon);
+        color: #3762ff;
+        // color: var(--page-head-icon);
         &:hover {
           color: aqua;
         }
@@ -270,11 +281,13 @@ export default {
       height: 0;
       text-align: left;
       line-height: 50px;
-      border-bottom: 50px solid var(--react-bg);
+      border-bottom: 50px solid #0e1738;
+      // border-bottom: 50px solid var(--react-bg);
       border-right: 45px solid transparent;
       .address {
         font-size: 22px;
-        color: var(--react-text);
+        color: #999;
+        // color: var(--react-text);
       }
     }
     .react-right {
@@ -284,7 +297,8 @@ export default {
       border-left: 45px solid transparent;
       .currentTime {
         font-size: 23px;
-        color: var(--react-text);
+        // color: var(--react-text);
+        color: #999;
       }
     }
   }

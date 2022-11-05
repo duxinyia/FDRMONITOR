@@ -17,15 +17,19 @@
 //   --theme_button_color: yellowgreen;
 // }
 
-
-
 body {
   line-height: 1.2em;
   font-family: arial, Helvetica, sans-serif;
 }
+// 去除滚动条
 ::-webkit-scrollbar {
   display: none;
 }
+// 去处input有值的时候的样式
+// input:-internal-autofill-selected {
+//   background-color:transparent !important;
+// }
+
 
 h1,
 h2,

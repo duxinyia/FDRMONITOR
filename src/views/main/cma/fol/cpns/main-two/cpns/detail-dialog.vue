@@ -366,7 +366,7 @@ export default {
       // 最高值和最低值的背景不同
       let str = ""
       if (item.isHigh) {
-        str = "#ffff66"
+        str = "#00ff99"
       }
       if (item.isLow) {
         str = "#ff0066"
