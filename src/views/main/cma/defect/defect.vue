@@ -1,12 +1,10 @@
 <template>
   <div class="page-main">
-    <div class="top-header">
-      <!-- 下拉选择框 -->
+    <!-- <div class="top-header">
       <el-select v-model="rank" placeholder="段位">
         <el-option v-for="item in ranks" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
-      <!-- 机种(可多选) -->
       <el-select
         v-model="machine"
         multiple
@@ -32,9 +30,8 @@
         :default-time="['06:00:00']"
       >
       </el-date-picker>
-      <!-- 查询按钮 -->
       <el-button type="primary">查询</el-button>
-    </div>
+    </div> -->
     <div class="bottom-data">
       <div v-for="(item, index) in showData[currentPage - 1]" :key="index" class="every-device">
         <el-row>
@@ -100,31 +97,31 @@ export default {
       // 接口返回的数据
       showData: [],
       // 段位
-      rank: "",
-      ranks: [
-        {
-          value: "选项1",
-          label: "黄金糕"
-        },
-        {
-          value: "选项2",
-          label: "双皮奶"
-        }
-      ],
+      // rank: "",
+      // ranks: [
+      //   {
+      //     value: "选项1",
+      //     label: "黄金糕"
+      //   },
+      //   {
+      //     value: "选项2",
+      //     label: "双皮奶"
+      //   }
+      // ],
       // 机种
-      machine: "",
-      machines: [
-        {
-          value: "选项1",
-          label: "黄金糕"
-        },
-        {
-          value: "选项2",
-          label: "双皮奶"
-        }
-      ],
+      // machine: "",
+      // machines: [
+      //   {
+      //     value: "选项1",
+      //     label: "黄金糕"
+      //   },
+      //   {
+      //     value: "选项2",
+      //     label: "双皮奶"
+      //   }
+      // ],
       // timeframe: [this.$moment().format("YYYY-MM-DD 06:00:00")],
-      timeframe: "",
+      // timeframe: "",
       total: 10,
       currentPage: 1
     }
@@ -175,26 +172,26 @@ export default {
   border-bottom: 2px solid #1478a1;
 }
 // 重置下拉框的样式
-::v-deep .el-input__inner {
-  background: transparent;
-  color: #fff;
-  border: 1px solid #409eff;
-}
-::v-deep .el-select {
-  &:hover .el-input__inner {
-    border: 1px solid #409eff;
-  }
-}
-::v-deep .el-range-input {
-  background: transparent;
-  color: #fff;
-  border: none;
-}
-::v-deep .el-tag--info {
-  background: rgba(64, 158, 255, 0.4);
-  color: #fff;
-  border: none;
-}
+// ::v-deep .el-input__inner {
+//   background: transparent;
+//   color: #fff;
+//   border: 1px solid #409eff;
+// }
+// ::v-deep .el-select {
+//   &:hover .el-input__inner {
+//     border: 1px solid #409eff;
+//   }
+// }
+// ::v-deep .el-range-input {
+//   background: transparent;
+//   color: #fff;
+//   border: none;
+// }
+// ::v-deep .el-tag--info {
+//   background: rgba(64, 158, 255, 0.4);
+//   color: #fff;
+//   border: none;
+// }
 // 重置分頁器的樣式
 ::v-deep .el-pagination {
   padding: 0;
@@ -215,12 +212,12 @@ export default {
 .border-right {
   border-right: 2px solid #1478a1;
 }
-.machine-select {
-  margin: 0 10px;
-}
-.date-picker {
-  margin-right: 10px;
-}
+// .machine-select {
+//   margin: 0 10px;
+// }
+// .date-picker {
+//   margin-right: 10px;
+// }
 .text {
   height: 700px;
   overflow-y: scroll;
@@ -231,14 +228,15 @@ export default {
   background: rgba(33, 120, 155, 0.4);
 }
 .page-main {
-  .top-header {
-    margin: 10px 0;
-  }
+  // .top-header {
+  //   margin: 10px 0;
+  // }
   .bottom-data {
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     .every-device {
       width: 600px;
       border: 2px solid #1478a1;

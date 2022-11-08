@@ -1,5 +1,7 @@
 // 导入设置localstorage的函数
 import cache from "@/utils/cache.js"
+// 导入cookie
+import cookie from "@/utils/cookie.js"
 const state = {
   user: {
     username: "",
@@ -11,6 +13,7 @@ const mutations = {
     cache.deleteCache("user")
     cache.setCache("user", payload)
     const { name = "", paw = "" } = payload
+    cookie.setCookie(name, paw, 7)
     state.user.username = name
     state.user.password = paw
   }

@@ -176,10 +176,10 @@ export default {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 5px;
-  color: $title-color;
-  // color: var(--chart-title);
+  // color: $title-color;
+  color: var(--chart-title);
   padding-left: 5px;
-  // border-left: 4px solid var(--chart-slip);
-  border-left: 4px solid #bb98fa;
+  border-left: 4px solid var(--chart-slip);
+  // border-left: 4px solid #bb98fa;
 }
 </style>

@@ -1,8 +1,10 @@
 /*白天主题*/
 :root[theme="light"] {
-  // overview 的色值
+
+  // 基础色值
   --base-bg: #fff;
   --base-text-color: #000;
+
   // overview 的色值
   --overview-head-bg: #fff;
   --overview-main-bg: #ddd;
@@ -10,11 +12,21 @@
   --iconc-color: #000;
 
   // 各种看板主页头部公共部分的 色值
-  // --page-head-icon: #8ad12d;
-  // --react-bg: #8ad12d;
-  // --react-text: #8ad12d;
+  --page-head-icon: #8ad12d;
+  --react-bg: #8ad12d;
+  --react-text: #8ad12d;
+
   // main-one 的 dataV中的表格标题的 色值
-  // --chart-title: #8ad12d;
-  // --chart-slip: #8ad12d;
-  // page-header区域的 色值
+  --chart-title: #8ad12d;
+  --chart-slip: #8ad12d;
+  --chart-scroll-arraw:#8ad12d;
+  --chart-scroll-header:#8ad12d;
+  --chart-scroll-even:#8ad12d;  // 单
+  --chart-scroll-odd:#8ad12d;   // 双
+
+    // aa 看板的 色值
+    --chart3-item-bg:#8ad12d;
+    --chart3-item-des:#74bf0c;
+    --chart3-item-num:#ffff00;
+    --aa-bottom-block-bg:#74bf0c;
 }

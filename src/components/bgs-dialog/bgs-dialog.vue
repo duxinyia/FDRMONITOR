@@ -4,7 +4,7 @@
     :append-to-body="true"
     :before-close="toClose"
     :close-on-click-modal="false"
-    top="10vh"
+    top="20vh"
     width="40%"
   >
     <dv-border-box-11 title="背景选择" :key="dialogKey">
@@ -19,7 +19,7 @@
             <span class="text">预览</span>
           </div>
         </div>
-        <div class="img-container">
+        <!-- <div class="img-container">
           <p class="radio">自定义</p>
           <el-color-picker
             class="image"
@@ -27,7 +27,7 @@
             show-alpha
             @change="changeColor"
           ></el-color-picker>
-        </div>
+        </div> -->
       </div>
     </dv-border-box-11>
   </el-dialog>
@@ -54,16 +54,16 @@ export default {
       color: cache.getCache("bgUrl") ? cache.getCache("bgUrl").bg : "",
       bgs: [
         require("@/assets/images/background5.png"),
-        require("@/assets/images/background3.png"),
-        require("@/assets/images/background8.jpg"),
-        require("@/assets/images/background9.png"),
-        require("@/assets/images/background10.jpg"),
-        require("@/assets/images/background11.jpg"),
-        require("@/assets/images/background12.jpg"),
-        require("@/assets/images/background13.jpg"),
-        require("@/assets/images/background14.jpg"),
-        require("@/assets/images/background15.jpg"),
-        require("@/assets/images/background16.jpg")
+        require("@/assets/images/background3.png")
+        // require("@/assets/images/background8.jpg"),
+        // require("@/assets/images/background9.png"),
+        // require("@/assets/images/background10.jpg"),
+        // require("@/assets/images/background11.jpg")
+        // require("@/assets/images/background12.jpg"),
+        // require("@/assets/images/background13.jpg"),
+        // require("@/assets/images/background14.jpg")
+        // require("@/assets/images/background15.jpg")
+        // require("@/assets/images/background16.jpg")
       ]
     }
   },
@@ -117,8 +117,8 @@ export default {
   justify-items: center;
   align-items: center;
   text-align: center;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   .img-container {
     text-align: center;
     height: 220px;
@@ -126,10 +126,10 @@ export default {
     overflow: hidden;
     .mask {
       width: 100%;
-      height: 200px;
+      height: 220px;
       text-align: center;
       line-height: 200px;
-      margin-top: 15px;
+      margin-top: 10px;
       pointer-events: none;
       background: rgba(127, 127, 127, 0.6);
       transition: 0.4s;

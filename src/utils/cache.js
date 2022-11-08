@@ -15,5 +15,4 @@ class LocalCache {
     window.localStorage.clear()
   }
 }
-
 export default new LocalCache()

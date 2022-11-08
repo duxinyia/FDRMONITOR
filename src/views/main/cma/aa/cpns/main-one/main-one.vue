@@ -108,7 +108,8 @@ export default {
       text-align: center;
       width: 48%;
       border-radius: 10px;
-      background-color: rgba(53, 79, 173, 0.6);
+      // background-color: rgba(53, 79, 173, 0.6);
+      background: var(--chart3-item-bg);
       align-items: center;
       margin-bottom: 10px;
       &:nth-child(2n + 1) {
@@ -122,11 +123,13 @@ export default {
         margin-top: 4px;
         flex: 1;
         font-weight: 900;
-        color: rgb(116, 191, 12);
+        // color: #74bf0c;
+        color: var(--chart3-item-des);
       }
       .number {
         display: inline-block;
-        color: yellow;
+        // color: #ffff00;
+        color: var(--chart3-item-num);
         line-height: 100%;
         flex: 1;
         font-size: 25px;

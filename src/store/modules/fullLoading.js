@@ -1,5 +1,6 @@
 // 导入设置localstorage的函数
 import cache from "@/utils/cache.js"
+
 const state = {
   fullLoading: false,
   path: "",

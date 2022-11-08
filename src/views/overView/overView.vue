@@ -16,30 +16,30 @@
       >
         <el-submenu index="/overview/cma">
           <template slot="title">
-            <i class="el-icon-location"></i>
+            <i class="el-icon-s-flag"></i>
             <span>CMA总览</span>
           </template>
           <el-menu-item index="/overview/cma/device">
-            <i class="el-icon-s-data"></i>
+            <i class="el-icon-s-platform"></i>
             <span slot="title">设备总览</span>
           </el-menu-item>
           <el-menu-item index="/overview/cma/make">
-            <i class="el-icon-s-data"></i>
+            <i class="el-icon-s-platform"></i>
             <span slot="title">制造总览</span>
           </el-menu-item>
           <el-menu-item index="/overview/cma/yield">
-            <i class="el-icon-s-data"></i>
+            <i class="el-icon-s-platform"></i>
             <span slot="title">良率总览</span>
           </el-menu-item>
         </el-submenu>
         <!-- 关于页面 -->
         <el-menu-item index="/overview/about">
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-info"></i>
           <span slot="title">关于</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
-    <!-- 右边区域: header 区域和main区域 -->
+    <!-- 右边区域: header 区域 和 main区域 -->
     <el-container class="right-container">
       <el-header class="header-container">
         <i

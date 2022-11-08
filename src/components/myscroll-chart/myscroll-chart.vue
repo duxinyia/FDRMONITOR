@@ -34,9 +34,7 @@
         <div
           class="rows"
           v-for="(rows, index) in everyArr"
-          :style="`height: ${avgHeight}px;line-height: ${avgHeight}px;background-color: ${
-            index % 2 === 0 ? evenRowBGC : oddRowBGC
-          }`"
+          :style="`height: ${avgHeight}px;line-height: ${avgHeight}px;`"
           :key="index"
         >
           <template v-for="(row, i) in rows">
@@ -150,17 +148,18 @@ export default {
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 5px;
-      color: $title-color;
-      // color: var(--chart-title);
+      // color: $title-color;
+      color: var(--chart-title);
       padding-left: 5px;
-      // border-left: 4px solid var(--chart-slip);
-      border-left: 4px solid #bb98fa;
+      border-left: 4px solid var(--chart-slip);
+      // border-left: 4px solid #bb98fa;
     }
     .arrows {
       span {
         cursor: pointer;
         font-size: 20px;
-        color: #00baff;
+        // color: #00baff;
+        color: var(--chart-scroll-arraw);
         &:hover {
           color: aqua;
         }
@@ -173,7 +172,8 @@ export default {
   .header {
     font-size: 16px;
     display: flex;
-    background: #20316e;
+    // background: #20316e;
+    background: var(--chart-scroll-header);
     text-align: center;
   }
   .rows {
@@ -182,6 +182,14 @@ export default {
     font-size: 14px;
     text-align: center;
     display: flex;
+    &:nth-child(2n) {
+      // background: #003b51;
+      background: var(--chart-scroll-odd);
+    }
+    &:nth-child(2n + 1) {
+      // background: #0a2732;
+      background: var(--chart-scroll-even);
+    }
   }
 }
 </style>

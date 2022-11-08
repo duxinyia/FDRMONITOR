@@ -4,7 +4,7 @@
     <div class="header-one">
       <dv-decoration-10 class="dv-dec-10" />
       <!-- <dv-decoration-8 class="dv-dec-8" :color="changeColor" /> -->
-      、<dv-decoration-8 class="dv-dec-8" :color="['#568aea', '#000000']" />
+      <dv-decoration-8 class="dv-dec-8" :color="['#568aea', '#000000']" />
       <div class="logo-container">
         <img class="logo" :src="logoSrc" alt="logoSrc" />
       </div>
@@ -227,8 +227,8 @@ export default {
       .fullscreen {
         cursor: pointer;
         font-size: 30px;
-        color: #3762ff;
-        // color: var(--page-head-icon);
+        // color: #3762ff;
+        color: var(--page-head-icon);
         &:hover {
           color: aqua;
         }
@@ -253,8 +253,8 @@ export default {
       .setup {
         cursor: pointer;
         font-size: 30px;
-        color: #3762ff;
-        // color: var(--page-head-icon);
+        // color: #3762ff;
+        color: var(--page-head-icon);
         &:hover {
           color: aqua;
         }
@@ -281,13 +281,13 @@ export default {
       height: 0;
       text-align: left;
       line-height: 50px;
-      border-bottom: 50px solid #0e1738;
-      // border-bottom: 50px solid var(--react-bg);
+      // border-bottom: 50px solid #0e1738;
+      border-bottom: 50px solid var(--react-bg);
       border-right: 45px solid transparent;
       .address {
         font-size: 22px;
-        color: #999;
-        // color: var(--react-text);
+        // color: #999;
+        color: var(--react-text);
       }
     }
     .react-right {
@@ -297,8 +297,8 @@ export default {
       border-left: 45px solid transparent;
       .currentTime {
         font-size: 23px;
-        // color: var(--react-text);
-        color: #999;
+        color: var(--react-text);
+        // color: #999;
       }
     }
   }

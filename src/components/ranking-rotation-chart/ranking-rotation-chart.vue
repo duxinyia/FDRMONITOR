@@ -119,10 +119,10 @@ export default {
   font-weight: 600;
   margin-bottom: 5px;
   color: $title-color;
-  // color: var(--chart-title);
+  color: var(--chart-title);
   padding-left: 5px;
-  // border-left: 4px solid var(--chart-slip);
-  border-left: 4px solid #bb98fa;
+  border-left: 4px solid var(--chart-slip);
+  // border-left: 4px solid #bb98fa;
 }
 
 .tootip-container {
@@ -166,6 +166,10 @@ export default {
       .ranking-title {
         padding-left: 10px;
         margin-right: auto;
+        color: var(--base-text-color);
+      }
+      .keeptime {
+        color: var(--base-text-color);
       }
     }
     .bottom {

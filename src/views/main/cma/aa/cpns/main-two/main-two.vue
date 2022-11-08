@@ -264,14 +264,15 @@ export default {
         flex: 1;
         margin-right: 10px;
         border-radius: 10px;
-        background-color: rgba(53, 79, 173, 0.3);
+        // background-color: rgba(53, 79, 173, 0.3);
+        background: var(--aa-bottom-block-bg);
         .block-name {
           width: 100%;
           height: 40px;
           overflow: hidden;
           line-height: 40px;
           margin-bottom: 10px;
-          color: rgb(162, 198, 153);
+          // color: rgb(162, 198, 153);
           text-align: center;
           border-bottom: 2px solid rgba(53, 79, 173, 0.8);
         }
