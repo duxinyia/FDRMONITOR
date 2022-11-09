@@ -18,10 +18,12 @@
         <!-- 展开菜单 -->
         <el-tooltip content="戰情中心" placement="top">
           <span class="iconfont icon-shezhi setup" @click="dialogVisible = true"></span>
+          <!-- <span class="iconfont icon-menu setup" @click="dialogVisible = true"></span> -->
         </el-tooltip>
         <!-- 背景选择 -->
         <el-tooltip content="背景選擇" placement="top">
-          <span class="iconfont icon-fenlei select-bg" @click="bgDialogVisible = true"></span>
+          <!-- <span class="iconfont icon-fenlei select-bg" @click="bgDialogVisible = true"></span> -->
+          <span class="iconfont icon-huanfu select-bg" @click="bgDialogVisible = true"></span>
         </el-tooltip>
         <!-- 主题切换 -->
         <!-- <el-switch
@@ -36,6 +38,7 @@
       <div class="right">
         <!-- 返回上一级 -->
         <el-tooltip v-if="$route.meta.isJump" content="返回上一级" placement="top">
+          <!-- <span class="iconfont icon-fanhui backone" @click="$router.go(-1)"></span> -->
           <span class="iconfont icon-fanhui backone" @click="$router.go(-1)"></span>
         </el-tooltip>
         <!-- 全屏和退出 -->
@@ -52,11 +55,13 @@
         </el-tooltip>
         <!-- 返回首頁 -->
         <el-tooltip content="返回首頁" placement="top">
-          <span class="iconfont icon-shouye-shouye select-bg" @click="goHome"></span>
+          <!-- <span class="iconfont icon-shouye-shouye select-bg" @click="goHome"></span> -->
+          <span class="iconfont icon-shouye select-bg" @click="goHome"></span>
         </el-tooltip>
         <!-- 退出 -->
         <el-tooltip content="退出" placement="top">
-          <span class="iconfont icon-tuichu1 signout" @click="logout"></span>
+          <!-- <span class="iconfont icon-tuichu1 signout" @click="logout"></span> -->
+          <span class="iconfont icon-tuichu2 signout" @click="logout"></span>
         </el-tooltip>
       </div>
     </div>
@@ -250,9 +255,11 @@ export default {
       }
     }
     .left {
+      display: flex;
+      align-items: center;
       .setup {
         cursor: pointer;
-        font-size: 30px;
+        font-size: 32px;
         // color: #3762ff;
         color: var(--page-head-icon);
         &:hover {
@@ -261,6 +268,7 @@ export default {
       }
       .select-bg {
         @extend .setup;
+        font-size: 36px;
         margin-left: 10px;
       }
     }
@@ -274,7 +282,10 @@ export default {
       height: 50px;
       line-height: 50px;
       vertical-align: bottom;
-      color: var(--base-text-color);
+      // color: var(--page-head-title);
+      background: var(--page-head-title);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .react-left {
       width: 400px;
@@ -284,6 +295,8 @@ export default {
       // border-bottom: 50px solid #0e1738;
       border-bottom: 50px solid var(--react-bg);
       border-right: 45px solid transparent;
+      // background: linear-gradient(to right, 0% rgba(0, 227, 210, 1), 100% rgba(63, 119, 232, 1));
+      // background-clip: border-box;
       .address {
         font-size: 22px;
         // color: #999;

@@ -1,4 +1,5 @@
 import {
+  Upload,
   ColorPicker,
   Pagination,
   Dialog, //弹框
@@ -50,6 +51,7 @@ import {
 } from "element-ui"
 import "element-ui/lib/theme-chalk/index.css"
 const components = [
+  Upload,
   ColorPicker,
   Pagination,
   Dialog, //弹框

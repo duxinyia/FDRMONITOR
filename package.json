@@ -76,7 +76,8 @@
     "rules": {
       "vue/no-unused-components": "off",
       "no-debugger": "off",
-      "no-console": "off"
+      "no-console": "off",
+      "no-unused-vars":"off"
     }
   },
   "browserslist": [

@@ -1,6 +1,6 @@
 // 一些不变的量
 export default {
-  TIMEOUT: 8000,
+  TIMEOUT: 10000,
   CYCLE_TIME: 3 * 60 * 1000,
   RESET_PWD_URL: "http://10.151.128.172:8089/Login/Repassword"
 }

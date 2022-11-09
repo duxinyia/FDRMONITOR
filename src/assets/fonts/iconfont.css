@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3656248 */
-  src: url("iconfont.ttf?t=1667274701338") format("truetype");
+  src: url('iconfont.ttf?t=1667978169560') format('truetype');
 }
 
 .iconfont {
@@ -9,6 +9,30 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-menu:before {
+  content: "\e605";
+}
+
+.icon-tuichu2:before {
+  content: "\e603";
+}
+
+.icon-24gf-fullScreenEnter:before {
+  content: "\ea7d";
+}
+
+.icon-shouye:before {
+  content: "\e8c6";
+}
+
+.icon-24gf-next:before {
+  content: "\ea7f";
+}
+
+.icon-huanfu:before {
+  content: "\e62e";
 }
 
 .icon-fanhui:before {
@@ -86,3 +110,4 @@
 .icon-flag:before {
   content: "\e954";
 }
+

@@ -1,6 +1,5 @@
 /*白天主题*/
 :root[theme="light"] {
-
   // 基础色值
   --base-bg: #fff;
   --base-text-color: #000;
@@ -13,20 +12,21 @@
 
   // 各种看板主页头部公共部分的 色值
   --page-head-icon: #8ad12d;
+  --page-head-title:linear-gradient(102.37deg, rgba(0, 227, 212, 1) 0%, rgba(0, 0, 0, 1) 100%);
   --react-bg: #8ad12d;
-  --react-text: #8ad12d;
+  --react-text: #fff;
 
   // main-one 的 dataV中的表格标题的 色值
-  --chart-title: #8ad12d;
-  --chart-slip: #8ad12d;
-  --chart-scroll-arraw:#8ad12d;
-  --chart-scroll-header:#8ad12d;
-  --chart-scroll-even:#8ad12d;  // 单
-  --chart-scroll-odd:#8ad12d;   // 双
-
-    // aa 看板的 色值
-    --chart3-item-bg:#8ad12d;
-    --chart3-item-des:#74bf0c;
-    --chart3-item-num:#ffff00;
-    --aa-bottom-block-bg:#74bf0c;
+  --chart-title: rgba(63, 119, 232, 1);
+  --chart-slip: rgba(38, 89, 191, 1);
+  --chart-scroll-arraw: #00baff;
+  --chart-scroll-header: rgba(32, 49, 110, 1);
+  --chart-scroll-even: linear-gradient(270deg, rgba(102, 213, 250, 1) 0%, rgba(93, 121, 245, 1) 100%); // 单
+  --chart-scroll-odd: linear-gradient(270deg, rgba(90, 210, 250, 1) 0%, rgba(39, 75, 232, 1) 100%); // 双
+  // background: linear-gradient(100.74deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
+  // aa 看板的 色值
+  --chart3-item-bg: linear-gradient(100.74deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
+  --chart3-item-des: #fff;
+  --chart3-item-num: #fff;
+  --aa-bottom-block-bg: linear-gradient(100.74deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
 }

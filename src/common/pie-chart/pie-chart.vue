@@ -57,6 +57,8 @@ export default {
     }
   },
   computed: {
+    // store 中的 theme dark light -> 判断对应的值
+
     options() {
       return {
         tooltip: {

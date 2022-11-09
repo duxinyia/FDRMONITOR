@@ -6,13 +6,9 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: "notFound",
-  data() {
-    return {}
-  },
   methods: {
     goBack() {
       this.$router.go(-1)
