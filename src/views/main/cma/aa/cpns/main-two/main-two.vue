@@ -6,8 +6,10 @@
     element-loading-text="加載中..."
     element-loading-background="rgba(0, 0, 0, 0.8)"
   >
-    <!-- 该楼层的具体block -->
-    <dv-border-box-11 :title="title">
+    <!-- 该楼层的具体block
+    :color="`${$store.getters.theme == 'dark' ? ['#8aaafb', '#1f33a2'] : ['#05dad4', '#2c97e1']}`"
+    -->
+    <dv-border-box-11 :color="changeBoxColor" :title="title">
       <div
         v-loading="isLoading"
         element-loading-spinner="el-icon-loading"
@@ -17,7 +19,10 @@
         <!-- 定位显示颜色 -->
         <div class="machine-color-info">
           <div class="info-container" v-for="item in colorsInfo" :key="item.state">
-            <span class="color" :style="{ color: item.color }"></span>
+            <span
+              :class="['color',$store.getters.theme == 'dark'?  'is-animation' :'']"
+              :style="selectColor(item.state)"
+            ></span>
             <span class="state">{{ item.state }}</span>
           </div>
         </div>
@@ -38,18 +43,18 @@
                   v-for="(block_arr, block_name) in blocks"
                   :key="block_name"
                 >
-                  <dv-decoration-7 class="block-name"
-                    >&nbsp;&nbsp;{{ block_name || "-" }}&nbsp;&nbsp;</dv-decoration-7
-                  >
+                  <dv-decoration-7 :color="changeDv7Color" class="block-name">
+                    <span style="padding:0 5px">{{ block_name || "" }}</span>
+                  </dv-decoration-7>
                   <div class="grid-container">
                     <div class="machine-container" v-for="(item, index) in block_arr" :key="index">
-                      <span
-                        class="machine"
+                      <div
+                        :class="['machine',$store.getters.theme == 'dark'?  'is-animation' :'']"
                         @click="goDetail(item)"
-                        :style="{ color: selectColor(item.runStatus) }"
+                        :style="selectColor(item.runStatus)"
                       >
-                        {{ item.machineName || "-" }}
-                      </span>
+                        <span :style="{ color: selectSpanColor() }">{{ item.machineName || "" }}</span>
+                      </div>
                       <div class="dots">
                         <template v-if="Object.keys(item.aaHeadCurrentRunStates).length > 0">
                           <span
@@ -57,8 +62,7 @@
                             v-for="(state, stn) in item.aaHeadCurrentRunStates"
                             :key="stn"
                             :style="dotBgColor(state)"
-                          >
-                          </span>
+                          ></span>
                         </template>
                         <template v-else>
                           <span
@@ -140,6 +144,12 @@ export default {
   computed: {
     title() {
       return Object.keys(this.totalBlock)[this.currentIndex]
+    },
+    changeBoxColor() {
+      return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
+    },
+    changeDv7Color() {
+      return this.$store.getters.theme == "dark" ? ["#1dc1f5", "#1dc1f5"] : ["#fff", "#fff"]
     }
   },
   watch: {
@@ -151,14 +161,41 @@ export default {
   },
   methods: {
     selectColor(state) {
-      let map = new Map([
-        ["RUN", "#67f9d8"],
-        ["DOWN", "#E66464"],
-        ["IDLE", "#ffe434"],
-        ["", "#595959"]
-      ])
-      return map.get(state)
+      let map = ""
+      if (this.$store.getters.theme == "dark") {
+        map = new Map([
+          ["RUN", "#67f9d8"],
+          ["DOWN", "#E66464"],
+          ["IDLE", "#ffe434"],
+          ["", "#595959"]
+        ])
+        return {
+          // animation: "fade 2s infinite",
+          color: map.get(state)
+          // background: map.get(state)
+        }
+      } else {
+        map = new Map([
+          ["RUN", "radial-gradient(50% 50%, rgba(39, 75, 232, 1) 0%, rgba(90, 210, 250, 1) 100%)"],
+          [
+            "DOWN",
+            "radial-gradient(50% 50%, rgba(246, 211, 101, 1) 0%, rgba(252, 161, 134, 1) 100%)"
+          ],
+          [
+            "IDLE",
+            "radial-gradient(50% 50%, rgba(26, 156, 44, 1) 0%, rgba(125, 245, 141, 1) 100%)"
+          ],
+          ["", "rgba(0, 0, 0, 0.3)"]
+        ])
+        return {
+          background: map.get(state)
+        }
+      }
     },
+    selectSpanColor() {
+      return this.$store.getters.theme == "dark" ? "" : "#fff"
+    },
+
     dotBgColor(state = "STOP") {
       let map = new Map([
         ["RUN", "#31e631"],
@@ -171,9 +208,13 @@ export default {
       }
     },
     selectConfig(item) {
+      let colors =
+        this.$store.getters.theme == "dark"
+          ? ["rgba(135, 206, 250,0.6)", "rgba(135, 206, 250,0.8)"]
+          : ["#284ee8", "#284ee8"]
       return {
         ...this.commonConfig,
-        colors: ["rgba(135, 206, 250,0.6)", "rgba(135, 206, 250,0.8)"],
+        colors,
         formatter: "",
         value: this.strToNum(item.hitRate)
       }
@@ -212,6 +253,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+::v-deep .dv-border-box-11-title {
+  font-size: 30px !important;
+  font-weight: bold !important;
+}
 ::v-deep .dv-percent-pond {
   margin: 0 auto;
 }
@@ -231,6 +276,10 @@ export default {
   font-size: 25px;
   font-weight: bold;
 }
+/* 为了适配动画 */
+.is-animation {
+  animation: fade 2s infinite;
+}
 .main-two {
   position: relative;
   .machine-color-info {
@@ -247,11 +296,13 @@ export default {
         width: 16px;
         height: 16px;
         margin-right: 4px;
-        background: rgba(53, 79, 173, 0.4);
-        animation: fade 2s infinite;
+        /* background: rgba(53, 79, 173, 0.4); */
+        background: var(--aa-item-bg);
+        /* animation: fade 2s infinite; */
       }
       .state {
         font-size: 16px;
+        color: var(--base-text-color);
       }
     }
   }
@@ -274,7 +325,8 @@ export default {
           margin-bottom: 10px;
           // color: rgb(162, 198, 153);
           text-align: center;
-          border-bottom: 2px solid rgba(53, 79, 173, 0.8);
+          /* border-bottom: 2px solid rgba(53, 79, 173, 0.8); */
+          border-bottom: 2px solid var(--aa-bottom-block-border);
         }
         .grid-container {
           height: calc(100% - 48px);
@@ -300,8 +352,9 @@ export default {
               border-radius: 4px;
               cursor: pointer;
               margin-bottom: 2px;
-              background: rgba(53, 79, 173, 0.4);
-              animation: fade 2s infinite;
+              /* background: rgba(53, 79, 173, 0.4); */
+              /* background: var(--aa-item-bg); */
+              /* animation: fade 2s infinite; */
             }
             .dots {
               width: 100%;
@@ -346,17 +399,20 @@ export default {
         .icon {
           font-weight: bold;
           font-size: 25px;
-          color: rgba(89, 113, 197, 0.6);
+          /* color: rgba(89, 113, 197, 0.6); */
+          color: var(--aa-bottom-icon);
         }
         .icon1 {
           font-weight: bold;
           font-size: 25px;
-          color: rgba(89, 113, 197, 0.8);
+          /* color: rgba(89, 113, 197, 0.8); */
+          color: var(--aa-bottom-icon1);
         }
         .icon2 {
           font-weight: 800;
           font-size: 25px;
-          color: rgba(89, 113, 197, 1);
+          /* color: rgba(89, 113, 197, 1); */
+          color: var(--aa-bottom-icon2);
         }
       }
     }

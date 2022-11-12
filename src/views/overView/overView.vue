@@ -3,7 +3,7 @@
     <!-- 侧边栏 -->
     <el-aside :width="menuFold ? '65px' : '210px'" class="aside-container">
       <div class="top-title">
-        <img class="logo" :src="logoUrl" alt="" />
+        <img class="logo" :src="$globalData.logoUrl" alt />
         <h2 class="name" v-show="!menuFold">戰情中心</h2>
       </div>
       <el-menu
@@ -42,21 +42,33 @@
     <!-- 右边区域: header 区域 和 main区域 -->
     <el-container class="right-container">
       <el-header class="header-container">
-        <i
-          class="flod"
-          :class="menuFold ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
-          @click="menuFold = !menuFold"
-        ></i>
-        <el-dropdown @command="handleCommand" placement="bottom">
-          <span class="el-dropdown-link">
-            <i class="el-icon-user-solid user-icon"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="layout">退出登录</el-dropdown-item>
-            <el-dropdown-item command="dark">暗黑</el-dropdown-item>
-            <el-dropdown-item command="light">明亮</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <div class="header-left">
+          <i
+            class="flod"
+            :class="menuFold ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
+            @click="menuFold = !menuFold"
+          ></i>
+          <el-switch
+            v-model="theme"
+            active-value="light"
+            inactive-value="dark"
+            active-color="#000"
+            inactive-color="#ffffff99"
+            @change="changeTheme"
+          ></el-switch>
+        </div>
+        <div class="header-right">
+          <el-dropdown @command="handleCommand" placement="bottom">
+            <span class="el-dropdown-link">
+              <i class="el-icon-user-solid user-icon"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="layout">退出登录</el-dropdown-item>
+              <el-dropdown-item command="dark">暗黑</el-dropdown-item>
+              <el-dropdown-item command="light">明亮</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
       </el-header>
       <el-main class="main-container">
         <router-view />
@@ -72,7 +84,7 @@ export default {
   data() {
     return {
       menuFold: false,
-      logoUrl: require("@/assets/images/logo.png")
+      theme: this.$store.getters.theme || "dark"
     }
   },
   created() {
@@ -87,14 +99,30 @@ export default {
         this.$router.replace("/login")
       }
       if (command == "dark" || command == "light") {
+        let index = command == "dark" ? 0 : 1
         document.documentElement.setAttribute("theme", command)
         // cache.setCache("theme", command)
         this.$store.commit("fullLoading/SET_THEME", command)
+        this.$store.commit("fullLoading/SET_BGURL", {
+          index,
+          bg: `background:url(${this.$globalData.bgs[index]})`
+        })
       }
+    },
+    changeTheme(theme) {
+      console.log("theme", theme)
+      let index = theme == "dark" ? 0 : 1
+      document.documentElement.setAttribute("theme", theme)
+      this.$store.commit("fullLoading/SET_THEME", theme)
+      this.$store.commit("fullLoading/SET_BGURL", {
+        index,
+        bg: `background:url(${this.$globalData.bgs[index]})`
+      })
     }
   }
 }
 </script>
+
 
 <style lang="scss" scoped>
 // 重置el-mune的样式
@@ -187,10 +215,17 @@ export default {
       padding: 0 10px;
       // background: #324157;
       background: var(--overview-head-bg);
+      .header-left {
+        display: flex;
+        align-items: center;
+        .flod {
+          margin-right: 10px;
+        }
+      }
       .flod,
       .user-icon {
         cursor: pointer;
-        font-size: 23px;
+        font-size: 25px;
         // color: #fff;
         color: var(--icon-color);
         &:hover {

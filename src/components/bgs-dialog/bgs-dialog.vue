@@ -8,11 +8,11 @@
     width="40%"
   >
     <dv-border-box-11 title="背景选择" :key="dialogKey">
-      <svg-icon className="closeIcon" icon-class="close" @click="toClose" />
+      <svg-icon class="closeIcon" icon-class="close" @click="toClose" />
       <div class="container">
-        <div class="img-container" v-for="(item, index) in bgs" :key="index">
+        <div class="img-container" v-for="(item, index) in $globalData.bgs" :key="index">
           <el-radio v-model="radio" class="radio" :label="index">背景{{ index + 1 }}</el-radio>
-          <el-image class="image" :src="item" :preview-src-list="bgs"> </el-image>
+          <el-image class="image" :src="item" :preview-src-list="$globalData.bgs"></el-image>
           <!-- 遮罩层 -->
           <div class="mask">
             <span class="iconfont icon-yanjing eye"></span>
@@ -27,7 +27,7 @@
             show-alpha
             @change="changeColor"
           ></el-color-picker>
-        </div> -->
+        </div>-->
       </div>
     </dv-border-box-11>
   </el-dialog>
@@ -51,29 +51,24 @@ export default {
   data() {
     return {
       radio: cache.getCache("bgUrl") ? cache.getCache("bgUrl").index : "",
-      color: cache.getCache("bgUrl") ? cache.getCache("bgUrl").bg : "",
-      bgs: [
-        require("@/assets/images/background5.png"),
-        require("@/assets/images/background3.png")
-        // require("@/assets/images/background8.jpg"),
-        // require("@/assets/images/background9.png"),
-        // require("@/assets/images/background10.jpg"),
-        // require("@/assets/images/background11.jpg")
-        // require("@/assets/images/background12.jpg"),
-        // require("@/assets/images/background13.jpg"),
-        // require("@/assets/images/background14.jpg")
-        // require("@/assets/images/background15.jpg")
-        // require("@/assets/images/background16.jpg")
-      ]
+      color: cache.getCache("bgUrl") ? cache.getCache("bgUrl").bg : ""
     }
   },
   watch: {
     radio: {
       handler(newVal) {
-        this.$emit("radioChangeBg", this.bgs[newVal])
+        this.$emit("radioChangeBg", this.$globalData.bgs[newVal])
+        document.documentElement.setAttribute(
+          "theme",
+          this.$store.getters.theme == "dark" ? "light" : "dark"
+        )
+        this.$store.commit(
+          "fullLoading/SET_THEME",
+          this.$store.getters.theme == "dark" ? "light" : "dark"
+        )
         this.$store.commit("fullLoading/SET_BGURL", {
           index: newVal,
-          bg: `background:url(${this.bgs[newVal]})`
+          bg: `background:url(${this.$globalData.bgs[newVal]})`
         })
       }
     }

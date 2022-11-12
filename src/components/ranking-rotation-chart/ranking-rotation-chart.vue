@@ -15,8 +15,7 @@
                 v-for="item in ['機台名稱', '比率', '持續時間']"
                 :key="item"
                 class="header-item"
-                >{{ item }}</span
-              >
+              >{{ item }}</span>
             </div>
             <div v-for="machine in item.machines" :key="machine.machinename" class="machine-info">
               <span>{{ machine.machinename }}</span>
@@ -33,7 +32,7 @@
             <span class="keeptime">{{ (item.keeptime / 60).toFixed(0) }}&nbsp;Min</span>
           </div>
           <div class="bottom">
-            <dv-percent-pond :config="lastConfig(item.value, index)" class="dv-pond" style="" />
+            <dv-percent-pond :config="lastConfig(item.value, index)" class="dv-pond" style />
           </div>
         </div>
       </el-tooltip>
@@ -73,33 +72,45 @@ export default {
   methods: {
     lastConfig(value, index) {
       let lastConfig = { ...this.baseConfig, value }
-      if (index == 0) {
-        lastConfig.colors = ["rgba(255, 0, 0,0.6)", "#ff0033"]
-      } else if (index == 1) {
-        lastConfig.colors = ["rgba(241, 196, 15,0.6)", "#f1c40f"]
+      if (this.$store.getters.theme == "dark") {
+        if (index == 0) {
+          lastConfig.colors = ["rgba(255, 0, 0,0.1)", "#ff0033"]
+          // lastConfig.colors = ["rgb(0, 227, 210)", "rgb(63, 119, 232)"]
+        } else if (index == 1) {
+          lastConfig.colors = ["rgba(241, 196, 15,0.6)", "#f1c40f"]
+        } else {
+          lastConfig.colors = ["rgba(0, 186, 255, 0.6)", "#00baff"]
+        }
       } else {
-        lastConfig.colors = ["rgba(0, 186, 255, 0.6)", "#00baff"]
+        lastConfig.colors = ["rgb(0, 227, 210)", "rgb(63, 119, 232)"]
       }
       return lastConfig
     },
     specialSty(index) {
       // 红 黄 灰
       // let bgColor = index == 0 ? "#e74c3c" : index == 1 ? "#f1c40f" : "#bdc3c7"
-      if (index == 0) {
-        return {
-          color: "#e74c3c",
-          fontSize: "16px",
-          fontWeight: 800
-        }
-      } else if (index == 1) {
-        return {
-          color: "#f1c40f",
-          fontSize: "16px",
-          fontWeight: 800
+      if (this.$store.getters.theme == "dark") {
+        if (index == 0) {
+          return {
+            color: "#e74c3c",
+            fontSize: "16px",
+            fontWeight: 800
+          }
+        } else if (index == 1) {
+          return {
+            color: "#f1c40f",
+            fontSize: "16px",
+            fontWeight: 800
+          }
+        } else {
+          return {
+            color: "#bdc3c7"
+          }
         }
       } else {
         return {
-          color: "#bdc3c7"
+          fontWeight: 800,
+          color: "rgba(63, 119, 232, 1)"
         }
       }
     }

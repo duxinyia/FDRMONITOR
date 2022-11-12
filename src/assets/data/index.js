@@ -1,7 +1,22 @@
-// 一些不变的量
+// 一些不变的量  会被挂载到this.$globalData上
 export default {
   TIMEOUT: 10000,
   CYCLE_TIME: 3 * 60 * 1000,
+  logoUrl: require("@/assets/images/logo.png"),
+  bgs: [
+    require("@/assets/images/background5.png"),
+    require("@/assets/images/background17.png")
+    // require("@/assets/images/background3.png")
+    // require("@/assets/images/background8.jpg"),
+    // require("@/assets/images/background9.png"),
+    // require("@/assets/images/background10.jpg"),
+    // require("@/assets/images/background11.jpg")
+    // require("@/assets/images/background12.jpg"),
+    // require("@/assets/images/background13.jpg"),
+    // require("@/assets/images/background14.jpg")
+    // require("@/assets/images/background15.jpg")
+    // require("@/assets/images/background16.jpg")
+  ],
   RESET_PWD_URL: "http://10.151.128.172:8089/Login/Repassword"
 }
 

@@ -3,13 +3,13 @@
     <!-- 第一行 -->
     <div class="header-one">
       <dv-decoration-10 class="dv-dec-10" />
-      <!-- <dv-decoration-8 class="dv-dec-8" :color="changeColor" /> -->
-      <dv-decoration-8 class="dv-dec-8" :color="['#568aea', '#000000']" />
+      <dv-decoration-8 class="dv-dec-8" :color="changeColor" />
+      <!-- <dv-decoration-8 class="dv-dec-8" :color="['#568aea', '#000000']" /> -->
       <div class="logo-container">
         <img class="logo" :src="logoSrc" alt="logoSrc" />
       </div>
-      <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="['#568aea', '#000000']" />
-      <!-- <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="changeColor" /> -->
+      <!-- <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="['#568aea', '#000000']" /> -->
+      <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="changeColor" />
       <dv-decoration-10 class="dv-dec-10-s" />
     </div>
     <!-- 各种操作按钮 -->
@@ -33,7 +33,7 @@
           active-color="#13ce66"
           inactive-color="#ff4949"
         >
-        </el-switch> -->
+        </el-switch>-->
       </div>
       <div class="right">
         <!-- 返回上一级 -->
@@ -67,12 +67,21 @@
     </div>
     <!-- 第二行 -->
     <div class="header-two">
-      <div class="react-left">
-        <span class="address" v-html="address"></span>
+      <div class="react-container">
+        <div class="react-left">
+          <span class="address" v-html="address"></span>
+        </div>
       </div>
-      <h3 class="title-text">{{ title }}</h3>
-      <div class="react-right">
-        <span class="currentTime">{{ currentTime }}</span>
+      <div class="header-center">
+        <div class="left" v-if="this.$store.getters.theme == 'light'"></div>
+        <h3 class="title-text">{{ title }}</h3>
+        <div class="right" v-if="this.$store.getters.theme == 'light'"></div>
+      </div>
+
+      <div class="react-container">
+        <div class="react-right">
+          <span class="currentTime">{{ currentTime }}</span>
+        </div>
       </div>
     </div>
     <!-- 不同项目切换 -->
@@ -129,10 +138,10 @@ export default {
       } else {
         return { background: this.imgUrl }
       }
+    },
+    changeColor() {
+      return this.$store.getters.theme == "dark" ? ["#568aea", "#000000"] : ["#568aea", "#ecf6ff"]
     }
-    // changeColor() {
-    //   return this.$store.getters.theme == "dark" ? ["#568aea", "#000000"] : ["red", "green"]
-    // }
   },
   created() {
     this.getCurrentTime()
@@ -233,7 +242,10 @@ export default {
         cursor: pointer;
         font-size: 30px;
         // color: #3762ff;
-        color: var(--page-head-icon);
+        /* color: var(--page-head-icon); */
+        background: var(--page-head-icon);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
         &:hover {
           color: aqua;
         }
@@ -261,7 +273,10 @@ export default {
         cursor: pointer;
         font-size: 32px;
         // color: #3762ff;
-        color: var(--page-head-icon);
+        /* color: var(--page-head-icon); */
+        background: var(--page-head-icon);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
         &:hover {
           color: aqua;
         }
@@ -276,42 +291,85 @@ export default {
   .header-two {
     display: flex;
     justify-content: space-between;
-    .title-text {
-      font-size: 35px;
-      font-weight: 700;
-      height: 50px;
-      line-height: 50px;
-      vertical-align: bottom;
-      // color: var(--page-head-title);
-      background: var(--page-head-title);
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .react-left {
-      width: 400px;
-      height: 0;
-      text-align: left;
-      line-height: 50px;
-      // border-bottom: 50px solid #0e1738;
-      border-bottom: 50px solid var(--react-bg);
-      border-right: 45px solid transparent;
-      // background: linear-gradient(to right, 0% rgba(0, 227, 210, 1), 100% rgba(63, 119, 232, 1));
-      // background-clip: border-box;
-      .address {
-        font-size: 22px;
-        // color: #999;
-        color: var(--react-text);
+    .header-center {
+      display: flex;
+      align-items: center;
+      .left,
+      .right {
+        width: 300px;
+        height: 5px;
+      }
+      .left {
+        margin-right: 20px;
+        background: linear-gradient(
+          to right,
+          rgba(90, 210, 250, 0) 26.1%,
+          rgba(39, 75, 232, 1) 100%
+        );
+      }
+      .title-text {
+        font-size: 35px;
+        font-weight: 700;
+        height: 50px;
+        line-height: 50px;
+        vertical-align: bottom;
+        // color: var(--page-head-title);
+        background: var(--page-head-title);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .right {
+        margin-left: 20px;
+        background: linear-gradient(
+          to left,
+          rgba(90, 210, 250, 0) 26.1%,
+          rgba(39, 75, 232, 1) 100%
+        );
       }
     }
-    .react-right {
-      @extend .react-left;
-      text-align: right;
-      border-right: none;
-      border-left: 45px solid transparent;
-      .currentTime {
-        font-size: 23px;
-        color: var(--react-text);
-        // color: #999;
+    .react-container {
+      width: 400px;
+      height: 50px;
+      overflow: hidden;
+
+      .react-left {
+        width: 100%;
+        height: 50px;
+        /* height: 0; */
+        transform: skewX(45deg);
+        transform-origin: bottom;
+        text-align: left;
+        line-height: 50px;
+        background: var(--react-left-bg);
+        // border-bottom: 50px solid #0e1738;
+        /* border-bottom: 50px solid var(--react-bg);
+        border-right: 45px solid transparent; */
+        /* background: linear-gradient(to right, 0% rgba(0, 227, 210, 1), 100% rgba(63, 119, 232, 1)); */
+        // background-clip: border-box;
+        .address {
+          display: inline-block;
+          margin-left: 25px;
+          font-size: 22px;
+          // color: #999;
+          color: var(--react-text);
+          transform: skewX(-45deg);
+        }
+      }
+      .react-right {
+        @extend .react-left;
+        text-align: right;
+        border-right: none;
+        transform: skewX(-45deg);
+        /* border-left: 45px solid transparent; */
+        background: var(--react-right-bg);
+        .currentTime {
+          display: inline-block;
+          font-size: 23px;
+          margin-right: 25px;
+          color: var(--react-text);
+          transform: skewX(45deg);
+          // color: #999;
+        }
       }
     }
   }

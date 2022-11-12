@@ -37,9 +37,7 @@
                 }"
               >
                 <!-- block名称 -->
-                <div class="blcok-name">
-                  {{ block.workShop }}
-                </div>
+                <div class="blcok-name">{{ block.workShop }}</div>
                 <!-- 剩下展示六个块 -->
                 <div class="block-layout">
                   <!-- 机台容器 -->
@@ -62,46 +60,44 @@
                               v-for="item in divArr2[1]"
                               :key="item.id"
                               :style="changeDivStyle(item.style, machine)"
-                            >
-                              {{ item.text }}
-                            </div>
+                            >{{ item.text }}</div>
                           </template>
                           <template v-else>
                             <div
                               v-for="item in divArr2[0]"
                               :key="item.id"
                               :style="changeDivStyle(item.style, machine)"
-                            >
-                              {{ item.text }}
-                            </div>
+                            >{{ item.text }}</div>
                           </template>
                         </div>
                         <!-- 右边 -->
                         <div class="right">
-                          <template v-if="machine.combineID">
-                            <el-tooltip class="item" effect="dark" placement="right">
-                              <div slot="content">dpc不良:{{ machine.dpcRate | changeRate }}</div>
-                              <div class="dpc">
-                                <span class="name">DPC</span>
-                                <svg-icon className="hexagon" icon-class="hexagon" />
-                                <!-- <i class="iconfont icon-hexagon"></i> -->
-                              </div>
-                            </el-tooltip>
-                          </template>
-                          <template v-else>
+                          <el-tooltip
+                            v-if="machine.combineID"
+                            class="item"
+                            effect="dark"
+                            placement="right"
+                          >
+                            <div slot="content">dpc不良:{{ machine.dpcRate | changeRate }}</div>
                             <div class="dpc">
-                              <span class="name" style="color: rgba(128, 128, 128, 0.8)">DPC</span>
-                              <svg-icon className="hexagon1" icon-class="hexagon" />
+                              <span class="name">DPC</span>
+                              <svg-icon class="hexagon" icon-class="hexagon" />
                               <!-- <i class="iconfont icon-hexagon"></i> -->
                             </div>
-                          </template>
+                          </el-tooltip>
+                          <div v-else class="dpc">
+                            <span class="name" style="color: rgba(128, 128, 128, 0.8)">DPC</span>
+                            <svg-icon class="hexagon1" :icon-class="changeIconClass(machine)" />
+                            <!-- <i class="iconfont icon-hexagon"></i> -->
+                          </div>
+
                           <el-tooltip class="item" effect="dark" placement="right">
                             <div slot="content">lcb不良:{{ machine.lcbRate | changeRate }}</div>
-                            <div class="lcb" :style="changeLcbStyle(machine)">LCB</div>
+                            <div class="lcb" :style="changeLcbStyle(machine,'lcb')">LCB</div>
                           </el-tooltip>
                           <el-tooltip class="item" effect="dark" placement="right">
                             <div slot="content">efail不良:{{ machine.eFailRate | changeRate }}</div>
-                            <div class="e-fail" :style="changeLcbStyle(machine)">e-fail</div>
+                            <div class="e-fail" :style="changeLcbStyle(machine,'fail')">e-fail</div>
                           </el-tooltip>
                           <dv-percent-pond
                             class="percent-pond"
@@ -248,6 +244,9 @@ export default {
       //   { color: "rgba(128, 128, 128, 0.8)" }
       return {}
     },
+    changeIconClass(machine) {
+      return machine.dpcColor == "Y" ? "hexagon-red" : "hexagon"
+    },
     // 改变旗子的颜色
     changeIcon(machine) {
       // 如果没有机台
@@ -279,8 +278,21 @@ export default {
         return { ...style, "font-size": "12px" }
       }
     },
-    changeLcbStyle(machine) {
-      if (!machine.combineID) {
+    changeLcbStyle(machine, type) {
+      // lcbColor -> Y 红色
+      if (machine.combineID) {
+        // 有机台显示的颜色
+        if (machine.lcbColor == "Y" && type == "lcb") {
+          return {
+            background: "red"
+          }
+        } else {
+          return {
+            border: "1px solid #46bb9b"
+          }
+        }
+      } else {
+        // 没有机台显示的颜色
         return {
           color: "rgba(127, 127, 127, 0.9)",
           border: "1px solid rgba(127, 127, 127, 0.9)"
@@ -426,14 +438,14 @@ export default {
                   height: 30px;
                   line-height: 30px;
                   border-radius: 50%;
-                  border: 1px solid #46bb9b;
+                  /* border: 1px solid #46bb9b; */
                   margin: 0px 0px 6px 0px;
                 }
                 .e-fail {
                   width: 30px;
                   height: 25px;
                   line-height: 25px;
-                  border: 1px solid #46bb9b;
+                  /* border: 1px solid #46bb9b; */
                 }
               }
             }

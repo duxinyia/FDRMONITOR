@@ -51,6 +51,7 @@ export default {
           left: 70,
           bottom: 30 //图表尺寸大小
         },
+
         tooltip: {
           show: true,
           trigger: "axis", //axis , item
@@ -67,7 +68,12 @@ export default {
             // 坐标轴指示器，坐标轴触发有效
             type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
           }
+          // formatter: function (params) {
+          //   console.log("parmas", params)
+          //   return "hell"
+          // }
         },
+
         legend: [
           {
             top: 0,
@@ -94,7 +100,7 @@ export default {
               color: "#FFFFFF",
               fontSize: 12
             },
-            data: ["ML-X"]
+            data: ["達成比例"]
           }
         ],
         xAxis: {
@@ -240,7 +246,7 @@ export default {
             }
           },
           {
-            name: "ML-X",
+            name: "達成比例",
             type: "line",
             symbolSize: 8,
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
@@ -250,6 +256,14 @@ export default {
                 color: "#52fea2"
               }
             },
+            // label: {
+            //   normal: {
+            //     show: true,
+            //     formatter: function (params) {
+            //       return params.value + "%"
+            //     }
+            //   }
+            // },
             data: chart2HitRate
           }
         ]

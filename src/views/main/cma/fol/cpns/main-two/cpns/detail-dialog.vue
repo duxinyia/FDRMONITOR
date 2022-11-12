@@ -8,7 +8,7 @@
     width="65%"
   >
     <dv-border-box-11 :title="combineID" :key="Date.now()">
-      <svg-icon className="closeIcon" icon-class="close" @click="toClose" />
+      <svg-icon class="closeIcon" icon-class="close" @click="toClose" />
       <div class="container">
         <div class="left">
           <div v-for="item in infoArr" :key="item.id">
@@ -17,9 +17,11 @@
           </div>
           <!-- top5 -->
           <span class="efficiency-title">效率損失Top5:</span>
-          <div v-for="(item, index) in efficiencyLoss" :key="item.errormsg" class="efficiency">
-            {{ index + 1 }}. {{ item.errormsg }} {{ item.rate }}
-          </div>
+          <div
+            v-for="(item, index) in efficiencyLoss"
+            :key="item.errormsg"
+            class="efficiency"
+          >{{ index + 1 }}. {{ item.errormsg }} {{ item.rate }}</div>
         </div>
         <div class="right">
           <div class="right-one">
@@ -44,9 +46,7 @@
               :key="index"
               class="grid-item"
               :style="changeItemStyle(item)"
-            >
-              {{ item.carrierXYRate || "" }}
-            </div>
+            >{{ item.carrierXYRate || "" }}</div>
           </div>
         </div>
       </div>
@@ -368,7 +368,7 @@ export default {
       if (item.isHigh) {
         str = "#00ff99"
       }
-      if (item.isLow) {
+      if (item.isSecond) {
         str = "#ff0066"
       }
       // 动态显示位置
@@ -423,8 +423,9 @@ export default {
         let res = await GetConcentrationInfo(combineID)
         console.log("取右边下方的表格数据", res)
         this.threeTable = res
-        let maxXYRate = 0,
-          minXYRate = 10
+        // let maxXYRate = 0,
+        //   minXYRate = 10
+        let RateArr = []
         // 找到行和列的最大值
         res.forEach((item) => {
           let [_x, _y] = item.carrierXY.split("-")
@@ -436,17 +437,26 @@ export default {
             this.$set(this.maxArr, 1, _y * 1)
           }
           //找到 carrierXYRate 的最大值 和最小值
-          if (item.carrierXYRate) {
-            if (Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1)) > maxXYRate) {
-              maxXYRate = Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1))
-            }
-            if (Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1)) < minXYRate) {
-              minXYRate = Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1))
-            }
+          if (
+            item.carrierXYRate &&
+            !RateArr.includes(Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1)))
+          ) {
+            RateArr.push(Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1)))
+            // if (Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1)) > maxXYRate) {
+            //   maxXYRate = Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1))
+            // }
+            // if (Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1)) < minXYRate) {
+            //   minXYRate = Number(item.carrierXYRate.slice(0, item.carrierXYRate.length - 1))
+            // }
           }
         })
+        // 现在需要找到最大值和第二大的值    RateArr.sort((v1, v2) => v2 - v1),
         // maxXYRate = maxXYRate + '%'
-        console.log("最大值和最小值:", maxXYRate, minXYRate)
+        console.log(
+          "最大值和最小值:",
+          RateArr.sort((v1, v2) => v2 - v1)
+        )
+
         // 处理坐标
         this.threeTable = this.threeTable.map((item) => {
           // XY:2-1 => 5-10  2-2 => 4-10
@@ -454,13 +464,22 @@ export default {
           let _y = this.maxArr[0] + 2 - Number(x) // this.maxArr[1] => 4
           let _x = this.maxArr[1] + 2 - Number(y) // this.maxArr[0] => 10
           item.carrierXY = [_x, _y]
-          // 添加最大和最小的标志
-          if (maxXYRate + "%" == item.carrierXYRate) {
-            item.isHigh = true
+          // 添加最大和第二大的标志
+          if (RateArr.length >= 2) {
+            let [maxXYRate, secondRate] = RateArr
+            if (maxXYRate + "%" == item.carrierXYRate) {
+              item.isHigh = true
+            }
+            if (secondRate + "%" == item.carrierXYRate) {
+              item.isSecond = true
+            }
           }
-          if (minXYRate + "%" == item.carrierXYRate) {
-            item.isLow = true
-          }
+          // if (maxXYRate + "%" == item.carrierXYRate) {
+          //   item.isHigh = true
+          // }
+          // if (minXYRate + "%" == item.carrierXYRate) {
+          //   item.isLow = true
+          // }
           return item
         })
 
