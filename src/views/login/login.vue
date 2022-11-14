@@ -11,11 +11,7 @@
           <!-- <div class="form-title">登录</div> -->
           <el-form ref="form" :rules="rules" :model="form">
             <el-form-item prop="name">
-              <el-input
-                prefix-icon="el-icon-user"
-                placeholder="工號"
-                v-model.trim="form.name"
-              ></el-input>
+              <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
             </el-form-item>
             <el-form-item prop="paw">
               <el-input
@@ -34,8 +30,7 @@
                 @click="toLogin"
                 :loading="btnLoading"
                 :disabled="btnLoading"
-                >{{ btnLoading ? "登录中~" : "登录" }}</el-button
-              >
+              >{{ btnLoading ? "登录中~" : "登录" }}</el-button>
             </el-form-item>
             <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
           </el-form>
@@ -49,15 +44,19 @@
       </div>
       <div class="author-info">
         <div>
-          <span class="author"><i class="el-icon-user-solid icon"></i>郭小龍/560-82583</span>
-          <span class="mail"
-            ><i class="el-icon-message icon"></i>peng-peng.tian@mail.foxconn.com</span
-          >
-          &nbsp;&nbsp;
-          <span class="author"><i class="el-icon-user-solid icon"></i>吳思敏/560-23123</span>
+          <span class="author">
+            <i class="el-icon-user-solid icon"></i>郭小龍/560-82583
+          </span>
           <span class="mail">
-            <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com</span
-          >
+            <i class="el-icon-message icon"></i>peng-peng.tian@mail.foxconn.com
+          </span>
+          &nbsp;&nbsp;
+          <span class="author">
+            <i class="el-icon-user-solid icon"></i>吳思敏/560-23123
+          </span>
+          <span class="mail">
+            <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
+          </span>
         </div>
       </div>
     </div>
@@ -126,43 +125,32 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-// ::v-deep .el-input {
-//   width: 80%;
-// }
 ::v-deep .el-form-item {
   margin-bottom: 30px;
 }
 ::v-deep .el-input__inner {
-  // border-top: none;
-  // border-right: none;
-  // border-left: none;
-  // border-bottom: 1px solid #dcdfe6;
-  // border-radius: 0px;
   background: transparent !important;
-  border: 1px solid #1296db;
+  border: 1px solid #1296db !important;
 }
 // 改变input里的字体颜色
 ::v-deep input::-webkit-input-placeholder {
   color: #17a1e5;
   font-size: 15px;
 }
-// ::v-deep {
-//   .el-form-item__error {
-//     left: 10%;
-//   }
-// }
 ::v-deep .el-checkbox__label {
   padding-left: 5px;
 }
 .login-page {
   width: 100%;
   height: 100%;
-  min-width: 960px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   overflow: hidden;
   background: url("~@/assets/images/login-bg.jpg") no-repeat center center;
   .header {
     width: 50%;
-    margin: 40px auto 0 auto;
+    margin: 30px auto 0 auto;
     position: relative;
     text-align: center;
     color: #fff;
@@ -183,14 +171,13 @@ export default {
   .content {
     display: flex;
     justify-content: space-around;
-    margin-top: 160px;
     .content-left {
       width: 550px;
       height: 490px;
       opacity: 0.9;
       background: url("~@/assets/images/login-ball.png") no-repeat center center;
       background-size: 100%;
-      animation: rotate 15s linear infinite;
+      animation: rotate 200s linear infinite;
     }
     .conetent-right {
       width: 450px;
@@ -229,10 +216,6 @@ export default {
     }
   }
   .footer {
-    position: fixed;
-    bottom: 5px;
-    left: 0;
-    right: 0;
     font-size: 14px;
     text-align: center;
     color: #d3c9c9;

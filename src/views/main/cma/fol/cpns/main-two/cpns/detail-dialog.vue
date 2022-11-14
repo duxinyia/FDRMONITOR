@@ -59,8 +59,6 @@
 import { GetMachineProductInfo, GetAOIScanInfo, GetConcentrationInfo } from "@/api/fol.js"
 // 导入基础模板
 import baseEchart from "@/common/echart"
-// 导入折线图的配置文件
-// import { options } from "./config.js"
 export default {
   name: "detail-dialog",
   props: {
@@ -102,7 +100,6 @@ export default {
       oneTableData: [{}, {}],
       maxArr: [0, 0],
       threeTable: [],
-      // options,
       // 柱狀图和折线图的数据
       xData: [],
       inputData: [],
@@ -451,11 +448,10 @@ export default {
           }
         })
         // 现在需要找到最大值和第二大的值    RateArr.sort((v1, v2) => v2 - v1),
-        // maxXYRate = maxXYRate + '%'
-        console.log(
-          "最大值和最小值:",
-          RateArr.sort((v1, v2) => v2 - v1)
-        )
+        // console.log(
+        //   "最大值和最小值:",
+        //   RateArr.sort((v1, v2) => v2 - v1)
+        // )
 
         // 处理坐标
         this.threeTable = this.threeTable.map((item) => {
@@ -467,10 +463,10 @@ export default {
           // 添加最大和第二大的标志
           if (RateArr.length >= 2) {
             let [maxXYRate, secondRate] = RateArr
-            if (maxXYRate + "%" == item.carrierXYRate) {
+            if (item.carrierXYRate.includes(String(maxXYRate))) {
               item.isHigh = true
             }
-            if (secondRate + "%" == item.carrierXYRate) {
+            if (item.carrierXYRate.includes(String(secondRate))) {
               item.isSecond = true
             }
           }

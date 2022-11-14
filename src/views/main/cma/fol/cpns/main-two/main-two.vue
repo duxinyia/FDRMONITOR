@@ -60,14 +60,18 @@
                               v-for="item in divArr2[1]"
                               :key="item.id"
                               :style="changeDivStyle(item.style, machine)"
-                            >{{ item.text }}</div>
+                            >
+                              {{ item.text }}
+                            </div>
                           </template>
                           <template v-else>
                             <div
                               v-for="item in divArr2[0]"
                               :key="item.id"
                               :style="changeDivStyle(item.style, machine)"
-                            >{{ item.text }}</div>
+                            >
+                              {{ item.text }}
+                            </div>
                           </template>
                         </div>
                         <!-- 右边 -->
@@ -93,11 +97,13 @@
 
                           <el-tooltip class="item" effect="dark" placement="right">
                             <div slot="content">lcb不良:{{ machine.lcbRate | changeRate }}</div>
-                            <div class="lcb" :style="changeLcbStyle(machine,'lcb')">LCB</div>
+                            <div class="lcb" :style="changeLcbStyle(machine, 'lcb')">LCB</div>
                           </el-tooltip>
                           <el-tooltip class="item" effect="dark" placement="right">
                             <div slot="content">efail不良:{{ machine.eFailRate | changeRate }}</div>
-                            <div class="e-fail" :style="changeLcbStyle(machine,'fail')">e-fail</div>
+                            <div class="e-fail" :style="changeLcbStyle(machine, 'fail')">
+                              e-fail
+                            </div>
                           </el-tooltip>
                           <dv-percent-pond
                             class="percent-pond"

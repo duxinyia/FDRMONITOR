@@ -20,7 +20,7 @@
         <div class="machine-color-info">
           <div class="info-container" v-for="item in colorsInfo" :key="item.state">
             <span
-              :class="['color',$store.getters.theme == 'dark'?  'is-animation' :'']"
+              :class="['color', $store.getters.theme == 'dark' ? 'is-animation' : '']"
               :style="selectColor(item.state)"
             ></span>
             <span class="state">{{ item.state }}</span>
@@ -44,16 +44,18 @@
                   :key="block_name"
                 >
                   <dv-decoration-7 :color="changeDv7Color" class="block-name">
-                    <span style="padding:0 5px">{{ block_name || "" }}</span>
+                    <span style="padding: 0 5px">{{ block_name || "" }}</span>
                   </dv-decoration-7>
                   <div class="grid-container">
                     <div class="machine-container" v-for="(item, index) in block_arr" :key="index">
                       <div
-                        :class="['machine',$store.getters.theme == 'dark'?  'is-animation' :'']"
+                        :class="['machine', $store.getters.theme == 'dark' ? 'is-animation' : '']"
                         @click="goDetail(item)"
                         :style="selectColor(item.runStatus)"
                       >
-                        <span :style="{ color: selectSpanColor() }">{{ item.machineName || "" }}</span>
+                        <span :style="{ color: selectSpanColor() }">{{
+                          item.machineName || ""
+                        }}</span>
                       </div>
                       <div class="dots">
                         <template v-if="Object.keys(item.aaHeadCurrentRunStates).length > 0">

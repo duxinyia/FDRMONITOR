@@ -15,7 +15,8 @@
                 v-for="item in ['機台名稱', '比率', '持續時間']"
                 :key="item"
                 class="header-item"
-              >{{ item }}</span>
+                >{{ item }}</span
+              >
             </div>
             <div v-for="machine in item.machines" :key="machine.machinename" class="machine-info">
               <span>{{ machine.machinename }}</span>

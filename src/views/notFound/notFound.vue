@@ -2,11 +2,6 @@
   <div class="container">
     <div class="wrapper">
       <div class="text">404</div>
-      <dv-border-box-11
-        :color="['#05dad4', '#2c97e1']"
-        style="height:200px"
-        title="dv-border-box-11"
-      >dv-border-box-11</dv-border-box-11>
       <el-button type="success" @click="goBack" plain>返回</el-button>
     </div>
   </div>

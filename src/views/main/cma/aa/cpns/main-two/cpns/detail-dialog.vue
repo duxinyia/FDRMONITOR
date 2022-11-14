@@ -10,60 +10,74 @@
     <div class="detail-container">
       <dv-border-box-11 :title="machineName" :key="Date.now()">
         <!-- 返回按钮 -->
-        <svg-icon className="closeIcon" icon-class="close" @click="toClose" />
+        <svg-icon class="closeIcon" icon-class="close" @click="toClose" />
         <div class="card-container">
           <div class="every-card" v-for="item in threeInfo" :key="item.date">
             <div class="date">{{ item.date || "无" }}</div>
             <div class="machine">
-              <span class="text-justify te-indent">機種</span> :&nbsp;{{ item.deviceNo || "无" }}
+              <span class="text-justify te-indent">機種</span>
+              :&nbsp;{{ item.deviceNo || "无" }}
             </div>
             <div class="combination">
               <span class="text-justify te-indent">組合</span>:&nbsp;
               <span class="config">{{ item.config || "无" }}</span>
             </div>
             <div class="planout">
-              <span class="text-justify te-indent">計劃產出</span>:&nbsp;{{ item.planOut || "无" }}
+              <span class="text-justify te-indent">計劃產出</span>
+              :&nbsp;{{ item.planOut || "无" }}
             </div>
             <div class="actualout">
-              <span class="text-justify te-indent">實際產出</span>:&nbsp;{{
-                item.actualOut || "无"
+              <span class="text-justify te-indent">實際產出</span>
+              :&nbsp;{{
+              item.actualOut || "无"
               }}
             </div>
             <div class="yieldrate">
-              <span class="text-justify te-indent">達成率</span>:&nbsp;{{ item.hitRate || "无" }}
+              <span class="text-justify te-indent">達成率</span>
+              :&nbsp;{{ item.hitRate || "无" }}
             </div>
             <div class="efficiency">
-              <span class="text-justify te-indent">效率</span>:&nbsp;{{
-                item.efficiency.efficiency
+              <span class="text-justify te-indent">效率</span>
+              :&nbsp;{{
+              item.efficiency.efficiency
               }}
             </div>
             <div class="firstYield">
-              <span class="text-justify te-indent">一次良率</span>:&nbsp;{{ item.firstYield }}
+              <span class="text-justify te-indent">一次良率</span>
+              :&nbsp;{{ item.firstYield }}
             </div>
-            <div class="efficiencyloss"><span class="text-justify">效率損失</span>:</div>
+            <div class="efficiencyloss">
+              <span class="text-justify">效率損失</span>:
+            </div>
             <template v-if="Object.keys(item.mapYieldLoss).length > 0">
               <div
                 v-for="(eff, index) in item.efficiencyLoss"
                 :key="eff.rejectType"
                 class="eff-yiel-container"
               >
-                <span class="mr-auto te-indent">{{ index + 1 }}.{{ eff.errormsg }}</span
-                ><span>{{ eff.rate }}</span>
+                <span class="mr-auto te-indent">{{ index + 1 }}.{{ eff.errormsg }}</span>
+                <span>{{ eff.rate }}</span>
               </div>
             </template>
-            <template v-else> <div class="te-indent">暂无</div> </template>
-            <div class="yieldloss"><span class="text-justify">良率損失</span>:</div>
+            <template v-else>
+              <div class="te-indent">暂无</div>
+            </template>
+            <div class="yieldloss">
+              <span class="text-justify">良率損失</span>:
+            </div>
             <template v-if="Object.keys(item.mapYieldLoss).length > 0">
               <div
                 v-for="(yiel, index) in item.mapYieldLoss"
                 :key="yiel.rejectType"
                 class="eff-yiel-container"
               >
-                <span class="mr-auto te-indent">{{ index + 1 }}.{{ yiel.rejectType }}</span
-                ><span>{{ yiel.totalRate }}</span>
+                <span class="mr-auto te-indent">{{ index + 1 }}.{{ yiel.rejectType }}</span>
+                <span>{{ yiel.totalRate }}</span>
               </div>
             </template>
-            <template v-else> <div class="te-indent">暂无</div></template>
+            <template v-else>
+              <div class="te-indent">暂无</div>
+            </template>
           </div>
         </div>
 
@@ -74,9 +88,11 @@
           </div>
           <!-- 生成对应的时间 -->
           <div class="times-container">
-            <span class="time" v-for="(item, index) in timeNums" :key="item + index">{{
+            <span class="time" v-for="(item, index) in timeNums" :key="item + index">
+              {{
               item
-            }}</span>
+              }}
+            </span>
           </div>
           <!-- 生成对应的时间刻度 -->
           <div class="time-scale">
@@ -87,17 +103,20 @@
             <!-- 循环数组，生成不同的span -->
             <el-tooltip placement="top" v-for="item in value" :key="item.starttime">
               <div slot="content">
-                狀態:<span
+                狀態:
+                <span
                   class="stateDot"
                   :style="{
                     color:
                       item.runstate == 'RUN' ? 'rgba(51, 255, 102, 0.8)' : 'rgba(255, 0, 51, 0.5)'
                   }"
-                  >{{ item.runstate }}</span
-                >
+                >{{ item.runstate }}</span>
                 <br />
                 <br />
-                開始時間:{{ item.starttime }}<br /><br />結束時間:{{ item.endtime }}
+                開始時間:{{ item.starttime }}
+                <br />
+                <br />
+                結束時間:{{ item.endtime }}
               </div>
               <span class="every-time" :style="itemStyle(item)"></span>
             </el-tooltip>
@@ -277,7 +296,7 @@ export default {
       flex-direction: column;
       color: aqua;
       span {
-        margin-bottom: 15px;
+        margin-bottom: 22px;
       }
     }
     .times-container {

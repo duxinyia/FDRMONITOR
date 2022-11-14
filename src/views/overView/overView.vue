@@ -56,6 +56,12 @@
             inactive-color="#ffffff99"
             @change="changeTheme"
           ></el-switch>
+          <!-- 用一个正方形的框做黑白切换的效果 -->
+          <!-- <div class="theme-wrap" @change="changeTheme($store.getters.theme)">
+            <span
+              :class="['iconfont','theme-icon',$store.getters.theme == 'dark' ? 'icon-yueliang' : 'icon-taiyang']"
+            ></span>
+          </div>-->
         </div>
         <div class="header-right">
           <el-dropdown @command="handleCommand" placement="bottom">
@@ -63,9 +69,9 @@
               <i class="el-icon-user-solid user-icon"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="layout">退出登录</el-dropdown-item>
-              <el-dropdown-item command="dark">暗黑</el-dropdown-item>
-              <el-dropdown-item command="light">明亮</el-dropdown-item>
+              <el-dropdown-item command="layout">退出</el-dropdown-item>
+              <!-- <el-dropdown-item command="dark">暗黑</el-dropdown-item>
+              <el-dropdown-item command="light">明亮</el-dropdown-item>-->
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -122,7 +128,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 // 重置el-mune的样式
@@ -212,7 +217,7 @@ export default {
       height: 48px !important;
       justify-content: space-between;
       height: 100%;
-      padding: 0 10px;
+      padding: 0 20px;
       // background: #324157;
       background: var(--overview-head-bg);
       .header-left {
@@ -220,6 +225,17 @@ export default {
         align-items: center;
         .flod {
           margin-right: 10px;
+        }
+        .theme-wrap {
+          width: 25px;
+          height: 25px;
+          /* border: 1px solid red; */
+          line-height: 25px;
+          .theme-icon {
+            font-size: 25px;
+            cursor: pointer;
+            color: red;
+          }
         }
       }
       .flod,
