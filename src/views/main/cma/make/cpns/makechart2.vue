@@ -67,11 +67,30 @@ export default {
           axisPointer: {
             // 坐标轴指示器，坐标轴触发有效
             type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+          },
+          formatter: function (params) {
+            console.log(params)
+            let r1 = ""
+            let r2 = ""
+            let r3 = ""
+
+            params.forEach((item) => {
+              if (item.seriesName == "計劃") {
+                r1 = `<div><span style="display: inline-block;width:10px;height:10px;border-radius: 50%;margin-right:5px;background:#4ae794"></span><span>${item.seriesName}:${item.value}</span></div>`
+              } else if (item.seriesName == "實際") {
+                r2 = `<div><span style="display: inline-block;width:10px;height:10px;border-radius: 50%;margin-right:5px;background:#9b6def"></span><span>${item.seriesName}:${item.value}</span></div>`
+              } else {
+                r3 = `<div><span style="display: inline-block;width:10px;height:10px;border-radius: 50%;margin-right:5px;background:#27c6e4"></span><span>${
+                  item.seriesName
+                }:${item.value + "%"}</span></div>`
+              }
+            })
+            return `<div style="color:'#BCE9FC'">
+                <div>${params[0].axisValue}</div>
+                ${r1}${r2}${r3}
+
+            </div>`
           }
-          // formatter: function (params) {
-          //   console.log("parmas", params)
-          //   return "hell"
-          // }
         },
 
         legend: [

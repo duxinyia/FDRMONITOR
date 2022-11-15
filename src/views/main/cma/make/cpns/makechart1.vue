@@ -31,6 +31,9 @@ export default {
   computed: {
     options() {
       let { xData, targetOuts: yData, inPuts: yData1, title } = this
+      let newXData = xData.length >= 6 ? xData.slice(5) : xData
+      let newYData = yData.length >= 6 ? yData.slice(5) : yData
+      let newYData1 = yData1.length >= 6 ? yData1.slice(5) : yData1
       return {
         title: {
           text: title,
@@ -87,7 +90,7 @@ export default {
         xAxis: {
           type: "category",
           color: "#59588D",
-          data: xData,
+          data: newXData,
           axisLabel: {
             margin: 10,
             color: "#EEEEEE",
@@ -162,7 +165,7 @@ export default {
           {
             type: "bar",
             name: "計劃",
-            data: yData,
+            data: newYData,
             barWidth: "16",
             itemStyle: {
               normal: {
@@ -191,7 +194,7 @@ export default {
           {
             type: "bar",
             name: "實際",
-            data: yData1,
+            data: newYData1,
             barWidth: "16",
             itemStyle: {
               normal: {

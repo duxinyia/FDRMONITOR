@@ -35,7 +35,9 @@ export default {
   watch: {
     options: {
       handler(newOption) {
-        this.myChart.setOption(newOption, true)
+        if (Object.keys(newOption).length > 0) {
+          this.myChart.setOption(newOption, true)
+        }
       },
       deep: true
     }

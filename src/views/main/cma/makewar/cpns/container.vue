@@ -12,13 +12,22 @@
               <div class="middle">
                 <el-tooltip class="item" effect="dark" placement="right">
                   <div slot="content">
-                    1.計劃產出:{{ item.values.FOL.targetOut | filterTargetOut }}<br /><br />
-                    2.實際產出:{{ item.values.FOL.output }}<br /><br />
-                    3.達成比例:{{ item.values.FOL.dailyHitRate }}<br /><br />
+                    1.計劃產出:{{ item.values.FOL.targetOut | filterTargetOut }}
+                    <br />
+                    <br />
+                    2.實際產出:{{ item.values.FOL.output }}
+                    <br />
+                    <br />
+                    3.達成比例:{{ item.values.FOL.dailyHitRate }}
+                    <br />
+                    <br />
                     <!-- 3.達成比例:{{ changeReachRate(item) }}<br /><br /> -->
                     4.差異產出:{{ Number(item.values.FOL.output - item.values.FOL.targetOut)
-                    }}<br /><br />
-                    5.差異原因:{{ "無" }}<br />
+                    }}
+                    <br />
+                    <br />
+                    5.差異原因:{{ "無" }}
+                    <br />
                   </div>
                   <div
                     @click="toMake('FOL', item)"
@@ -29,23 +38,34 @@
                     <!-- 定位显示比例 10 / 21改为显示 dailyHitRate-->
                     <!-- <span class="rate" v-if="folChecked">{{
                       item.values.FOL.hitRate | filterRate
-                    }}</span> -->
-                    <span class="rate" v-if="folChecked">{{
+                    }}</span>-->
+                    <span class="rate" v-if="folChecked">
+                      {{
                       item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%"
-                    }}</span>
+                      }}
+                    </span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
                   </div>
                 </el-tooltip>
                 <el-tooltip class="item" effect="dark" placement="right">
                   <div slot="content">
-                    1.計劃產出:{{ item.values.EOL.targetOut | filterTargetOut }}<br /><br />
-                    2.實際產出:{{ item.values.EOL.output }}<br /><br />
-                    3.達成比例:{{ item.values.EOL.dailyHitRate }}<br /><br />
+                    1.計劃產出:{{ item.values.EOL.targetOut | filterTargetOut }}
+                    <br />
+                    <br />
+                    2.實際產出:{{ item.values.EOL.output }}
+                    <br />
+                    <br />
+                    3.達成比例:{{ item.values.EOL.dailyHitRate }}
+                    <br />
+                    <br />
                     <!-- 3.達成比例:{{ changeReachRate(item, "EOL") }}<br /><br /> -->
                     4.差異產出:{{ Number(item.values.EOL.output - item.values.EOL.targetOut)
-                    }}<br /><br />
-                    5.差異原因:{{ "無" }}<br />
+                    }}
+                    <br />
+                    <br />
+                    5.差異原因:{{ "無" }}
+                    <br />
                   </div>
                   <div
                     @click="toMake('EOL', item)"
@@ -56,10 +76,12 @@
                     <!-- 定位显示 -->
                     <!-- <span class="rate" v-if="eolChecked">{{
                       item.values.EOL.hitRate | filterRate
-                    }}</span> -->
-                    <span class="rate" v-if="eolChecked">{{
+                    }}</span>-->
+                    <span class="rate" v-if="eolChecked">
+                      {{
                       item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%"
-                    }}</span>
+                      }}
+                    </span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
                   </div>
@@ -130,10 +152,15 @@ export default {
   },
   methods: {
     changeSpeed(item, name = "FOL") {
-      // console.log("item", item)
+      // console.log("item=====", item)
+      let result = ""
       // 110以上 深绿 100-108 浅绿 100 以下 黄色
-      // let result = parseInt(this.changeReachRate(item, name))
-      let result = item.values[name].dailyHitRate ? parseInt(item.values[name].dailyHitRate) : 0
+      // 判断是否是当天的数据
+      if (this.$moment().format("YYYY-MM-DD").includes(item.dateCoode)) {
+        result = item.values[name].hitRate ? parseInt(item.values[name].hitRate) : 0
+      } else {
+        result = item.values[name].dailyHitRate ? parseInt(item.values[name].dailyHitRate) : 0
+      }
       let bgColor = ""
       if (result > 110) {
         // 深绿
@@ -218,6 +245,7 @@ export default {
       color: #69f9ff;
       .every-num {
         margin-bottom: 15px;
+
       }
     }
     .right {

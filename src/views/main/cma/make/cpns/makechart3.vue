@@ -35,6 +35,9 @@ export default {
   computed: {
     options() {
       let { xData, maxWips, wips, title, minWips } = this
+      let newXData = xData.length >= 6 ? xData.slice(5) : xData
+      let newWips = wips.length >= 6 ? wips.slice(5) : wips
+      let newMinWips = minWips.length >= 6 ? minWips.slice(5) : minWips
       return {
         title: {
           text: title,
@@ -101,7 +104,7 @@ export default {
           type: "category",
           boundaryGap: false,
           color: "#59588D",
-          data: xData,
+          data: newXData,
           axisLabel: {
             margin: 10,
             color: "#EEEEEE",
@@ -192,7 +195,7 @@ export default {
           {
             type: "line",
             name: "WIP下限",
-            data: minWips,
+            data: newMinWips,
             barWidth: "16",
             itemStyle: {
               normal: {
@@ -225,7 +228,7 @@ export default {
           {
             type: "line",
             name: "實際",
-            data: wips,
+            data: newWips,
             barWidth: "16",
             itemStyle: {
               normal: {

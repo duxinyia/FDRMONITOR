@@ -58,7 +58,6 @@ export default {
   },
   computed: {
     // store 中的 theme dark light -> 判断对应的值
-
     options() {
       return {
         tooltip: {
@@ -107,8 +106,8 @@ export default {
           {
             name: "效率损失",
             type: "pie",
-            radius: "50%",
-            center: ["50%", "50%"],
+            radius: "75%",
+            center: ["50%", "55%"],
             data: this.alloptions,
             emphasis: {
               itemStyle: {
@@ -127,8 +126,8 @@ export default {
           {
             name: "效率损失",
             type: "pie",
-            radius: "70%",
-            center: ["50%", "50%"],
+            radius: "75%",
+            center: ["50%", "55%"],
             data: this.alloptions,
             emphasis: {
               itemStyle: {
@@ -173,15 +172,18 @@ export default {
 
 <style lang="scss" scoped>
 // @import "@/assets/scss/variables.scss";
-.title {
-  display: inline-block;
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 5px;
-  // color: $title-color;
-  color: var(--chart-title);
-  padding-left: 5px;
-  border-left: 4px solid var(--chart-slip);
-  // border-left: 4px solid #bb98fa;
+.pie-chart {
+  /* margin-top: 10px; */
+  .title {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    // color: $title-color;
+    color: var(--chart-title);
+    padding-left: 5px;
+    border-left: 4px solid var(--chart-slip);
+    // border-left: 4px solid #bb98fa;
+  }
 }
 </style>

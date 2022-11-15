@@ -70,8 +70,8 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="layout">退出</el-dropdown-item>
-              <!-- <el-dropdown-item command="dark">暗黑</el-dropdown-item>
-              <el-dropdown-item command="light">明亮</el-dropdown-item>-->
+              <el-dropdown-item command="dark">暗黑</el-dropdown-item>
+              <el-dropdown-item command="light">明亮</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>

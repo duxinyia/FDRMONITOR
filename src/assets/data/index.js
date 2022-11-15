@@ -17,7 +17,7 @@ export default {
     // require("@/assets/images/background15.jpg")
     // require("@/assets/images/background16.jpg")
   ],
-  RESET_PWD_URL: "http://10.151.128.172:8089/Login/Repassword"
+  RESET_PWD_URL: "http://10.151.128.172:8089/Login/Repassword",
 }
 
 // 系统的路由部分
