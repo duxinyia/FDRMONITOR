@@ -6,7 +6,7 @@
     element-loading-background="rgba(0, 0, 0, 0.8)"
     class="main-two"
   >
-    <dv-border-box-11 :title="title">
+    <dv-border-box-11 :color="changeBoxColor" :title="title">
       <div
         v-loading="isLoading"
         element-loading-spinner="el-icon-loading"
@@ -37,7 +37,9 @@
                 }"
               >
                 <!-- block名称 -->
-                <div class="blcok-name">{{ block.workShop }}</div>
+                <dv-decoration-7 :color="changeDv7Color" class="block-name">
+                  <div style="padding:0 5px">{{ block.workShop }}</div>
+                </dv-decoration-7>
                 <!-- 剩下展示六个块 -->
                 <div class="block-layout">
                   <!-- 机台容器 -->
@@ -60,22 +62,19 @@
                               v-for="item in divArr2[1]"
                               :key="item.id"
                               :style="changeDivStyle(item.style, machine)"
-                            >
-                              {{ item.text }}
-                            </div>
+                            >{{ item.text }}</div>
                           </template>
                           <template v-else>
                             <div
                               v-for="item in divArr2[0]"
                               :key="item.id"
                               :style="changeDivStyle(item.style, machine)"
-                            >
-                              {{ item.text }}
-                            </div>
+                            >{{ item.text }}</div>
                           </template>
                         </div>
                         <!-- 右边 -->
                         <div class="right">
+                          <!-- 如果有机台 -->
                           <el-tooltip
                             v-if="machine.combineID"
                             class="item"
@@ -85,13 +84,13 @@
                             <div slot="content">dpc不良:{{ machine.dpcRate | changeRate }}</div>
                             <div class="dpc">
                               <span class="name">DPC</span>
-                              <svg-icon class="hexagon" icon-class="hexagon" />
+                              <svg-icon class="hexagon" :icon-class="changeIconClass(machine)" />
                               <!-- <i class="iconfont icon-hexagon"></i> -->
                             </div>
                           </el-tooltip>
                           <div v-else class="dpc">
                             <span class="name" style="color: rgba(128, 128, 128, 0.8)">DPC</span>
-                            <svg-icon class="hexagon1" :icon-class="changeIconClass(machine)" />
+                            <svg-icon class="hexagon1" icon-class="hexagon" />
                             <!-- <i class="iconfont icon-hexagon"></i> -->
                           </div>
 
@@ -101,9 +100,7 @@
                           </el-tooltip>
                           <el-tooltip class="item" effect="dark" placement="right">
                             <div slot="content">efail不良:{{ machine.eFailRate | changeRate }}</div>
-                            <div class="e-fail" :style="changeLcbStyle(machine, 'fail')">
-                              e-fail
-                            </div>
+                            <div class="e-fail" :style="changeLcbStyle(machine, 'fail')">e-fail</div>
                           </el-tooltip>
                           <dv-percent-pond
                             class="percent-pond"
@@ -192,6 +189,12 @@ export default {
   computed: {
     title() {
       return this.bottomData.length > 0 ? this.bottomData[this.currentIndex].location : "-"
+    },
+    changeBoxColor() {
+      return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
+    },
+    changeDv7Color() {
+      return this.$store.getters.theme == "dark" ? ["#1dc1f5", "#1dc1f5"] : ["#fff", "#fff"]
     }
   },
   filters: {
@@ -208,7 +211,16 @@ export default {
   },
   methods: {
     handlePercentConfig(rate) {
-      let colors = rate ? ["#00b050"] : ["rgba(127, 127, 127, 0.9)", "rgba(127, 127, 127, 0.9)"]
+      // 如果 rate 有值 就显示绿色 如果没值的话 显示黑色不渐变
+      let colors = ""
+      // dark 保持原样 light 从新的规则
+      if (this.$store.getters.theme == "dark") {
+        colors = rate ? ["#00b050"] : ["rgba(127, 127, 127, 0.9)", "rgba(127, 127, 127, 0.9)"]
+      } else {
+        colors = rate
+          ? ["rgba(252, 161, 134, 1)", "rgba(246, 211, 101, 1)"]
+          : ["rgba(127, 127, 127, 0.9)", "rgba(127, 127, 127, 0.9)"]
+      }
       return {
         value: rate ? rate.split(".")[0] : 0,
         localGradient: true,
@@ -242,6 +254,17 @@ export default {
           color: "rgba(128, 128, 128, 0.8)",
           cursor: "auto"
         }
+      } else {
+        // 有机台的颜色值
+        if (this.$store.getters.theme == "dark") {
+          // 暗色的
+        } else {
+          return {
+            // border: "2px solid",
+            "border-image":
+              "linear-gradient(to left,rgba(90, 210, 250, 1) 0%,rgba(39, 75, 232, 1) 100%) 2"
+          }
+        }
       }
       //   // 绿色 红色 黄色 灰色
       //   { color: "rgba(1, 181, 153, 0.8)" },
@@ -251,7 +274,12 @@ export default {
       return {}
     },
     changeIconClass(machine) {
-      return machine.dpcColor == "Y" ? "hexagon-red" : "hexagon"
+      // 这个是已经有值的情况 分情况 dark light
+      if (this.$store.getters.theme == "dark") {
+        return machine.dpcColor == "Y" ? "hexagon-red" : "hexagon"
+      } else {
+        return machine.dpcColor == "Y" ? "hexagon-light" : "hexagon-light"
+      }
     },
     // 改变旗子的颜色
     changeIcon(machine) {
@@ -261,14 +289,44 @@ export default {
           color: "rgba(128, 128, 128, 0.8)",
           "border-right": "2px solid rgba(128, 128, 128, 0.8)"
         }
+      } else {
+        // 通过判断是否属于 dask
+        if (this.$store.getters.theme == "dark") {
+          return {
+            color: "rgba(1, 181, 153, 0.8)",
+            "border-right": "2px solid rgba(1, 181, 153, 0.8)"
+          }
+        } else {
+          return {
+            // "border-image":
+            //   "linear-gradient(to right,rgba(90, 210, 250, 1) 0%,rgba(39, 75, 232, 1) 100%)",
+            color: "#fff",
+            "border-right": "2px solid rgba(39, 75, 232, 1)"
+          }
+        }
       }
     },
     // 改变主体的颜色
     changeMachineInfo(machine) {
+      // 没有机台显示的颜色
       if (!machine.combineID) {
         return {
           border: "2px solid rgba(127, 127, 127, 0.9)",
           "box-shadow": "inset 0 0 10px rgba(127, 127, 127, 0.9)"
+        }
+      } else {
+        // 有机台显示的颜色
+        if (this.$store.getters.theme == "dark") {
+          return {
+            border: "2px solid #02958e",
+            "box-shadow": "inset 0 0 10px rgba(2, 149, 142, 0.5)"
+          }
+        } else {
+          return {
+            border: "2px solid rgba(39, 75, 232, 1)",
+            background:
+              "radial-gradient(50% 50%, rgba(0, 227, 210, 0) 0%, rgba(63, 119, 232, 0.3) 100%)"
+          }
         }
       }
     },
@@ -293,8 +351,9 @@ export default {
             background: "red"
           }
         } else {
+          let color = this.$store.getters.theme == "dark" ? "#46bb9b" : "rgba(23, 51, 143, 1)"
           return {
-            border: "1px solid #46bb9b"
+            border: `1px solid ${color}`
           }
         }
       } else {
@@ -342,8 +401,9 @@ export default {
     .block-container {
       flex: 1;
       margin: 0px 15px 0px 0px;
-      background: rgba(7, 23, 145, 0.5);
-      .blcok-name {
+      /* background: rgba(7, 23, 145, 0.5); */
+      background: var(--fol-bottom-item-bg);
+      .block-name {
         height: 35px;
         line-height: 35px;
         display: flex;
@@ -356,10 +416,11 @@ export default {
           animation: rotation 4s linear infinite;
         }
       }
+
       .block-layout {
         height: 547px;
         display: grid;
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.9);
         grid-template-rows: repeat(2, 1fr);
         grid-template-columns: repeat(3, 1fr);
         .machine {
@@ -382,8 +443,8 @@ export default {
               .icon-flag {
                 flex: 2;
                 font-size: 25px;
-                color: rgba(1, 181, 153, 0.8);
-                border-right: 2px solid rgba(1, 181, 153, 0.8);
+                /* color: rgba(1, 181, 153, 0.8);
+                border-right: 2px solid rgba(1, 181, 153, 0.8); */
               }
               .state {
                 flex: 4;
@@ -397,8 +458,8 @@ export default {
               width: 135px;
               height: 220px;
               padding: 6px 3px 5px 6px;
-              border: 2px solid #02958e;
-              box-shadow: inset 0 0 10px rgba(2, 149, 142, 1);
+              /* border: 2px solid #02958e;
+              box-shadow: inset 0 0 10px rgba(2, 149, 142, 1); */
               border-radius: 8px;
               .left {
                 flex: 1;
@@ -482,17 +543,20 @@ export default {
       .icon {
         font-weight: bold;
         font-size: 25px;
-        color: rgba(89, 113, 197, 0.6);
+        /* color: rgba(89, 113, 197, 0.6); */
+        color: var(--aa-bottom-icon);
       }
       .icon1 {
         font-weight: bold;
         font-size: 25px;
-        color: rgba(89, 113, 197, 0.8);
+        /* color: rgba(89, 113, 197, 0.8); */
+        color: var(--aa-bottom-icon1);
       }
       .icon2 {
-        font-weight: bold;
+        font-weight: 800;
         font-size: 25px;
-        color: rgba(89, 113, 197, 1);
+        /* color: rgba(89, 113, 197, 1); */
+        color: var(--aa-bottom-icon2);
       }
     }
   }

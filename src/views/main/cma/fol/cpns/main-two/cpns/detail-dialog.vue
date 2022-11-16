@@ -17,9 +17,11 @@
           </div>
           <!-- top5 -->
           <span class="efficiency-title">效率損失Top5:</span>
-          <div v-for="(item, index) in efficiencyLoss" :key="item.errormsg" class="efficiency">
-            {{ index + 1 }}. {{ item.errormsg }} {{ item.rate }}
-          </div>
+          <div
+            v-for="(item, index) in efficiencyLoss"
+            :key="item.errormsg"
+            class="efficiency"
+          >{{ index + 1 }}. {{ item.errormsg }} {{ item.rate }}</div>
         </div>
         <div class="right">
           <div class="right-one">
@@ -44,9 +46,7 @@
               :key="index"
               class="grid-item"
               :style="changeItemStyle(item)"
-            >
-              {{ item.carrierXYRate || "" }}
-            </div>
+            >{{ item.carrierXYRate || "" }}</div>
           </div>
         </div>
       </div>
@@ -447,6 +447,7 @@ export default {
             // }
           }
         })
+        RateArr.sort((v1, v2) => v2 - v1)
         // 现在需要找到最大值和第二大的值    RateArr.sort((v1, v2) => v2 - v1),
         // console.log(
         //   "最大值和最小值:",
@@ -461,15 +462,15 @@ export default {
           let _x = this.maxArr[1] + 2 - Number(y) // this.maxArr[0] => 10
           item.carrierXY = [_x, _y]
           // 添加最大和第二大的标志
-          if (RateArr.length >= 2) {
-            let [maxXYRate, secondRate] = RateArr
-            if (item.carrierXYRate.includes(String(maxXYRate))) {
-              item.isHigh = true
-            }
-            if (item.carrierXYRate.includes(String(secondRate))) {
-              item.isSecond = true
-            }
+          // if (RateArr.length >= 2) {
+          let [maxXYRate, secondRate] = RateArr
+          if (item.carrierXYRate.includes(String(maxXYRate))) {
+            item.isHigh = true
           }
+          if (item.carrierXYRate.includes(String(secondRate))) {
+            item.isSecond = true
+          }
+          // }
           // if (maxXYRate + "%" == item.carrierXYRate) {
           //   item.isHigh = true
           // }

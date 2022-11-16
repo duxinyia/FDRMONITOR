@@ -48,14 +48,14 @@
             :class="menuFold ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
             @click="menuFold = !menuFold"
           ></i>
-          <el-switch
+          <!-- <el-switch
             v-model="theme"
             active-value="light"
             inactive-value="dark"
             active-color="#000"
             inactive-color="#ffffff99"
             @change="changeTheme"
-          ></el-switch>
+          ></el-switch>-->
           <!-- 用一个正方形的框做黑白切换的效果 -->
           <!-- <div class="theme-wrap" @change="changeTheme($store.getters.theme)">
             <span

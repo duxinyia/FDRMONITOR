@@ -53,9 +53,11 @@
                         @click="goDetail(item)"
                         :style="selectColor(item.runStatus)"
                       >
-                        <span :style="{ color: selectSpanColor() }">{{
+                        <span :style="{ color: selectSpanColor() }">
+                          {{
                           item.machineName || ""
-                        }}</span>
+                          }}
+                        </span>
                       </div>
                       <div class="dots">
                         <template v-if="Object.keys(item.aaHeadCurrentRunStates).length > 0">
@@ -327,6 +329,7 @@ export default {
           margin-bottom: 10px;
           // color: rgb(162, 198, 153);
           text-align: center;
+
           /* border-bottom: 2px solid rgba(53, 79, 173, 0.8); */
           border-bottom: 2px solid var(--aa-bottom-block-border);
         }

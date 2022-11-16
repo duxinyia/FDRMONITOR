@@ -2,7 +2,7 @@
   <!--
   柱状图:
   参考:https://www.isqqw.com/echartsdetail?id=15050
- -->
+  -->
   <div
     class="bar-chart"
     v-loading="isLoading"
@@ -179,10 +179,12 @@ export default {
   },
   computed: {
     options() {
+      // 定义对应的色值
+      let xlabelColor = this.$store.getters.theme == "dark" ? "#fff" : "rgba(88, 115, 150, 1)"
+      // 取出对应的数据
       const { ciolColor1, ciolColor0, bottomColor0, bottomColor1, header0, header1, bottom } = this
       let { xAxisData, ciolData, seriesData, seriesData1, topData, bottomData } = this.config1
       return {
-        backgroundColor: "#000",
         tooltip: {
           trigger: "axis",
           axisPointer: {
@@ -272,7 +274,7 @@ export default {
           },
           axisLabel: {
             textStyle: {
-              color: "#fff",
+              color: xlabelColor,
               fontSize: 12
             }
           }

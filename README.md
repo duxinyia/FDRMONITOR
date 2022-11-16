@@ -11,6 +11,7 @@
 
 吳成龍 22385 wwlh-wwfol-f1aateam@mail.foxconn.com AA 设备模块
 馮超 761405 wwlh-wwfol-pme01@mail.foxconn.com FOL 设备模块
+杨欧 372435
 
 赵军 75185 wwlh-wweol-pan.gh@mail.foxconn.com 战情中心
 

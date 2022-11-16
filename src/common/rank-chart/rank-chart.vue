@@ -57,6 +57,8 @@ export default {
     options() {
       const { getSymbolData } = this
       const { names, values, formatValues } = this.config
+      // 根据不同的theme 显示不同的颜色
+      let rightText = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       return {
         grid: {
           left: "",
@@ -105,25 +107,26 @@ export default {
             show: true,
             axisLabel: {
               textStyle: {
-                color: "#ffffff",
+                color: rightText,
                 fontSize: "12"
               },
               align: "left",
               padding: [0, 0, 3, 8],
               verticalAlign: "bottom",
-              lineHeight: 30,
-              formatter: function (value) {
-                return `{a|${value}}`
-              },
-              rich: {
-                a: {
-                  // color: "#00BAFF",
-                  color: "#fff",
-                  fontSize: "14",
-                  // fontFamily: "PingFangSC-Regular",
-                  padding: [0, 0, 7, 0]
-                }
-              }
+              lineHeight: 30
+              // formatter: function (value) {
+              //   return `
+              //   <span>1</span>
+              //   <span>${value}</span>
+              //   `
+              // }
+              // rich: {
+              //   a: {
+              //     color: "#fff",
+              //     fontSize: "14",
+              //     padding: [0, 0, 7, 0]
+              //   }
+              // }
             },
             data: names
           },
@@ -135,7 +138,7 @@ export default {
             show: true,
             axisLabel: {
               textStyle: {
-                color: "#ffffff",
+                color: "#fff",
                 fontSize: "12"
               },
               align: "right",
@@ -147,10 +150,8 @@ export default {
               },
               rich: {
                 a: {
-                  // color: "#00BAFF",
-                  color: "#fff",
+                  color: rightText,
                   fontSize: "14",
-                  // fontFamily: "PingFangSC-Regular",
                   padding: [0, 0, 7, 0]
                 }
               }

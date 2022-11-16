@@ -7,12 +7,11 @@
         <dv-border-box-10>
           <div>
             <el-table :data="item" :header-cell-style="getRowClass">
-              <el-table-column align="center" prop="productArea" label="名称"> </el-table-column>
-              <el-table-column align="center" prop="totalCount" label="計畫"> </el-table-column>
-              <el-table-column align="center" prop="hitCount" label="達成機種"> </el-table-column>
-              <el-table-column align="center" prop="notHitCount" label="未達成"> </el-table-column>
-              <el-table-column align="center" width="100" prop="hitRate" label="達成率">
-              </el-table-column>
+              <el-table-column align="center" prop="productArea" label="名称"></el-table-column>
+              <el-table-column align="center" prop="totalCount" label="計畫"></el-table-column>
+              <el-table-column align="center" prop="hitCount" label="達成機種"></el-table-column>
+              <el-table-column align="center" prop="notHitCount" label="未達成"></el-table-column>
+              <el-table-column align="center" width="100" prop="hitRate" label="達成率"></el-table-column>
             </el-table>
           </div>
         </dv-border-box-10>
@@ -92,7 +91,6 @@ export default {
     // 获取数据
     async GetProductInfo() {
       let res = await GetProductInfo()
-      console.log("res44", res)
       if (res) {
         res.hitStatistics.forEach((item) => {
           item.hitRate = parseInt(item.hitRate) + "%"

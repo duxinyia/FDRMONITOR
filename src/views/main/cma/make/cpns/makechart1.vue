@@ -23,17 +23,77 @@ export default {
     inPuts: {
       type: Array,
       default: () => []
+    },
+    isFol: {
+      type: Boolean,
+      default: false
+    },
+    isStanley: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
     baseEchart
   },
   computed: {
+    // 需要通过变量来判断是否 是 fol 还是 sta
     options() {
-      let { xData, targetOuts: yData, inPuts: yData1, title } = this
-      let newXData = xData.length >= 6 ? xData.slice(5) : xData
-      let newYData = yData.length >= 6 ? yData.slice(5) : yData
-      let newYData1 = yData1.length >= 6 ? yData1.slice(5) : yData1
+      let { xData, targetOuts: yData, inPuts: yData1, title, isFol, isStanley } = this
+      let newXData = xData
+      let newYData = yData
+      let newYData1 = yData1
+      // EOL-> Stanley -> 前四个和倒数第二个 否则去掉 前五个和倒数第二个
+      if (isFol) {
+        if (isStanley) {
+          let tempArr1 = xData.slice(4)
+          tempArr1.splice(tempArr1.length - 2, 1)
+          newXData = tempArr1
+          let tempArr2 = yData.slice(4)
+          tempArr2.splice(tempArr2.length - 2, 1)
+          newYData = tempArr2
+          let tempArr3 = yData1.slice(4)
+          tempArr3.splice(tempArr3.length - 2, 1)
+          newYData1 = tempArr3
+        } else {
+          let tempArr1 = xData.slice(5)
+          tempArr1.splice(tempArr1.length - 2, 1)
+          newXData = tempArr1
+          let tempArr2 = yData.slice(5)
+          tempArr2.splice(tempArr2.length - 2, 1)
+          newYData = tempArr2
+          let tempArr3 = yData1.slice(5)
+          tempArr3.splice(tempArr3.length - 2, 1)
+          newYData1 = tempArr3
+        }
+      } else {
+        if (isStanley) {
+          let tempArr1 = xData.slice(4)
+          tempArr1.splice(tempArr1.length - 2, 1)
+          newXData = tempArr1
+          let tempArr2 = yData.slice(4)
+          tempArr2.splice(tempArr2.length - 2, 1)
+          newYData = tempArr2
+          let tempArr3 = yData1.slice(4)
+          tempArr3.splice(tempArr3.length - 2, 1)
+          newYData1 = tempArr3
+        } else {
+          let tempArr1 = xData.slice(5)
+          tempArr1.splice(tempArr1.length - 2, 1)
+          newXData = tempArr1
+          let tempArr2 = yData.slice(5)
+          tempArr2.splice(tempArr2.length - 2, 1)
+          newYData = tempArr2
+          let tempArr3 = yData1.slice(5)
+          tempArr3.splice(tempArr3.length - 2, 1)
+          newYData1 = tempArr3
+        }
+      }
+
+      // let newXData = xData.length >= 6 ? xData.slice(5) : xData
+      // let newYData = yData.length >= 6 ? yData.slice(5) : yData
+      // let newYData1 = yData1.length >= 6 ? yData1.slice(5) : yData1
+
       return {
         title: {
           text: title,
@@ -98,12 +158,10 @@ export default {
               fontSize: 14
             },
             rotate: "45"
-
             // 坐标轴刻度标签换行处理
             // formatter: function (params) {
+            //   console.log("params", params)
             //   // 1. 超过五个字符的需要换行 2. 有空格的在空格出换行 3.
-            //   let newParams = params
-            //   console.log("====", newParams.indexOf("("))
             //   return "h"
             // }
           },

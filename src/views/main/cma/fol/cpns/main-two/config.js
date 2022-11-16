@@ -1,3 +1,4 @@
+import store from '@/store'
 // 三个状态的
 export let stateBall = [
   { id: 1, text: "DPC" },
@@ -5,7 +6,7 @@ export let stateBall = [
   { id: 3, text: "e-fail" }
 ]
 let bgColor = "rgba(52, 172, 224,0.6)"
-let color = "#4ed4a5"
+let color = store.getters.theme == 'dark' ? "#4ed4a5" :'rgba(23, 51, 143, 1)'
 let textArr0 = ["FC", "UF", "SC", "SSC", "PP", "GA", "OVEN"]
 let textArr1 = ["DA", "OVEN", "WB01", "WB 02", "WB03", "WBAOI", "装扳机"]
 

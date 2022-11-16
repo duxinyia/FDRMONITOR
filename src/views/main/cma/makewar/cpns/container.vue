@@ -22,8 +22,7 @@
                     <br />
                     <br />
                     <!-- 3.達成比例:{{ changeReachRate(item) }}<br /><br /> -->
-                    4.差異產出:{{ Number(item.values.FOL.output - item.values.FOL.targetOut)
-                    }}
+                    4.差異產出:{{ Number(item.values.FOL.output - item.values.FOL.targetOut) }}
                     <br />
                     <br />
                     5.差異原因:{{ "無" }}
@@ -39,11 +38,10 @@
                     <!-- <span class="rate" v-if="folChecked">{{
                       item.values.FOL.hitRate | filterRate
                     }}</span>-->
-                    <span class="rate" v-if="folChecked">
-                      {{
-                      item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%"
-                      }}
-                    </span>
+                    <span
+                      class="rate"
+                      v-if="folChecked"
+                    >{{ item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%" }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
                   </div>
@@ -60,8 +58,7 @@
                     <br />
                     <br />
                     <!-- 3.達成比例:{{ changeReachRate(item, "EOL") }}<br /><br /> -->
-                    4.差異產出:{{ Number(item.values.EOL.output - item.values.EOL.targetOut)
-                    }}
+                    4.差異產出:{{ Number(item.values.EOL.output - item.values.EOL.targetOut) }}
                     <br />
                     <br />
                     5.差異原因:{{ "無" }}
@@ -77,11 +74,10 @@
                     <!-- <span class="rate" v-if="eolChecked">{{
                       item.values.EOL.hitRate | filterRate
                     }}</span>-->
-                    <span class="rate" v-if="eolChecked">
-                      {{
-                      item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%"
-                      }}
-                    </span>
+                    <span
+                      class="rate"
+                      v-if="eolChecked"
+                    >{{ item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%" }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
                   </div>
@@ -204,7 +200,7 @@ export default {
       }
     },
     toMake(ProductArea, item) {
-      // console.log(ProductArea, item)
+      console.log(ProductArea, item)
       let { deviceNo, plantID, customName, Opno } = this.device
       this.$router.push({
         name: "make",
@@ -245,7 +241,6 @@ export default {
       color: #69f9ff;
       .every-num {
         margin-bottom: 15px;
-
       }
     }
     .right {

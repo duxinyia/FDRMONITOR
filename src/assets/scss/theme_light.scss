@@ -37,6 +37,7 @@
     rgba(39, 75, 232, 1) 100%
   ); // 双
   // background: linear-gradient(100.74deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
+
   // aa 看板的 色值
   --chart3-item-bg: linear-gradient(100.74deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
   --chart3-item-des: #fff;
@@ -47,4 +48,8 @@
   --aa-bottom-block-border: rgba(204, 204, 204, 1);
   --aa-bottom-block-bg: linear-gradient(100.74deg, rgb(0, 227, 210) 0%, rgb(63, 119, 232) 100%);
   --aa-item-bg: radial-gradient(50% 50%, rgba(26, 156, 44, 1) 0%, rgba(125, 245, 141, 1) 100%);
+
+  // fol 的色值
+  --fol-bar-text:rgba(88, 115, 150, 1);
+  --fol-bottom-item-bg:linear-gradient(259.02deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%)
 }
