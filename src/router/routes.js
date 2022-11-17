@@ -93,6 +93,12 @@ export default [
         component: () =>
           import(/* webpackChunkName: "makewar" */ "../views/main/cma/makewar/makewar.vue")
       },
+      // 从 製造戰情中心 达成率 跳转过来的路由
+      {
+        path:'wardetail',
+        name:'wardetail',
+        component:() => import(/* webpackChunkName: "wardetail" */ "../views/main/cma/wardetail/wardetail.vue")
+      },
       // 良率看板 SAP良率
       {
         path: "sap",

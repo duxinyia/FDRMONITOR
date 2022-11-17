@@ -54,9 +54,7 @@
                         :style="selectColor(item.runStatus)"
                       >
                         <span :style="{ color: selectSpanColor() }">
-                          {{
-                          item.machineName || ""
-                          }}
+                          {{ item.machineName || "" }}
                         </span>
                       </div>
                       <div class="dots">

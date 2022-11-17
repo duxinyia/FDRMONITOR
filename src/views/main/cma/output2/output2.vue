@@ -88,12 +88,13 @@
                       :key="index"
                       class="data-info"
                     >
-                      <el-col :span="2" class="wip-num">{{ item.wip || "-" }}</el-col>
+                      <el-col :span="2" class="wip-num">{{ item.wip || 0 }}</el-col>
                       <el-col :span="5">
                         <el-tooltip effect="dark" placement="right">
                           <div slot="content">
-                            <span>上限WIP: {{ item.minWip }}</span
-                            ><br /><br />
+                            <span>上限WIP: {{ item.minWip }}</span>
+                            <br />
+                            <br />
                             <span>下限WIP: {{ item.maxWip }}</span>
                           </div>
                           <div>
@@ -106,17 +107,17 @@
                           <span class="name">{{ item.station }}</span>
                           <el-tooltip effect="dark" placement="right">
                             <div slot="content">
-                              <span>實際產出: {{ item.outPut }}</span
-                              ><br /><br />
+                              <span>實際產出: {{ item.outPut }}</span>
+                              <br />
+                              <br />
                               <span>計劃產出: {{ item.targetOut }}</span>
-                              <br /><br />
+                              <br />
+                              <br />
                               <span>差異產出: {{ item.outPut - item.targetOut }}</span>
                             </div>
                             <div class="container">
                               <!-- 中间区域 -->
-                              <div class="center" :style="changeCenterStyle(item)">
-                                {{ item.outPut }}
-                              </div>
+                              <div class="center" :style="changeCenterStyle(item)">{{ item.outPut }}</div>
                             </div>
                           </el-tooltip>
                         </div>
@@ -146,20 +147,20 @@ export default {
     return {
       dataTiming: null,
       showData: [],
-      areas: [
-        {
-          value: "ALL",
-          label: "全部"
-        },
-        {
-          value: "FOL",
-          label: "FOL"
-        },
-        {
-          value: "EOL",
-          label: "EOL"
-        }
-      ],
+      // areas: [
+      //   {
+      //     value: "ALL",
+      //     label: "全部"
+      //   },
+      //   {
+      //     value: "FOL",
+      //     label: "FOL"
+      //   },
+      //   {
+      //     value: "EOL",
+      //     label: "EOL"
+      //   }
+      // ],
       selectArea: "ALL",
       isLessSplit: false,
       currentIndex: 3,
@@ -194,6 +195,7 @@ export default {
       await Promise.all(requestArr)
     },
     async GetKeyStationRunningInfo() {
+      this.isLoading = true
       // this.$store.commit("fullLoading/SET_FULLLOADING", true)
       this.isLessSplit = false
       this.showData = await GetKeyStationRunningInfo(this.selectArea)

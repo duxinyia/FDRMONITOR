@@ -363,10 +363,10 @@ export default {
       // 最高值和最低值的背景不同
       let str = ""
       if (item.isHigh) {
-        str = "#00ff99"
+        str = "#ff0066"
       }
       if (item.isSecond) {
-        str = "#ff0066"
+        str = "#CD8162"
       }
       // 动态显示位置
       let [x, y] = item.carrierXY

@@ -11,11 +11,7 @@
           <!-- <div class="form-title">登录</div> -->
           <el-form ref="form" :rules="rules" :model="form">
             <el-form-item prop="name">
-              <el-input
-                prefix-icon="el-icon-user"
-                placeholder="工號"
-                v-model.trim="form.name"
-              ></el-input>
+              <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
             </el-form-item>
             <el-form-item prop="paw">
               <el-input
@@ -34,8 +30,7 @@
                 @click="toLogin"
                 :loading="btnLoading"
                 :disabled="btnLoading"
-                >{{ btnLoading ? "登录中~" : "登录" }}</el-button
-              >
+              >{{ btnLoading ? "登录中~" : "登录" }}</el-button>
             </el-form-item>
             <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
           </el-form>
@@ -49,12 +44,16 @@
       </div>
       <div class="author-info">
         <div>
-          <span class="author"> <i class="el-icon-user-solid icon"></i>郭小龍/560-82583 </span>
+          <span class="author">
+            <i class="el-icon-user-solid icon"></i>郭小龍/560-82583
+          </span>
           <span class="mail">
             <i class="el-icon-message icon"></i>peng-peng.tian@mail.foxconn.com
           </span>
           &nbsp;&nbsp;
-          <span class="author"> <i class="el-icon-user-solid icon"></i>吳思敏/560-23123 </span>
+          <span class="author">
+            <i class="el-icon-user-solid icon"></i>吳思敏/560-23123
+          </span>
           <span class="mail">
             <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
           </span>
@@ -161,7 +160,7 @@ export default {
       letter-spacing: 10px;
     }
     .header-img {
-      background: url("~@/assets/images/login-header.gif") no-repeat center center;
+      background: url("~@/assets/images/login-header.png") no-repeat center center;
       background-size: 100%;
       position: absolute;
       top: 0.8em;
@@ -178,7 +177,7 @@ export default {
       opacity: 0.9;
       background: url("~@/assets/images/login-ball.png") no-repeat center center;
       background-size: 100%;
-      animation: rotate 200s linear infinite;
+      animation: rotate 500s linear infinite;
     }
     .conetent-right {
       width: 450px;

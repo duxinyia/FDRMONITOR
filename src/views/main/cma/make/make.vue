@@ -66,8 +66,18 @@
             ></el-table-column>
             <el-table-column align="center" prop="targetOut" label="計劃"></el-table-column>
             <el-table-column align="center" prop="inPut" label="實際"></el-table-column>
-            <el-table-column align="center" prop="hitRate" width="100px" label="達成率"></el-table-column>
-            <el-table-column align="center" prop="processYield" width="100px" label="良率"></el-table-column>
+            <el-table-column
+              align="center"
+              prop="hitRate"
+              width="100px"
+              label="達成率"
+            ></el-table-column>
+            <el-table-column
+              align="center"
+              prop="processYield"
+              width="100px"
+              label="良率"
+            ></el-table-column>
             <el-table-column align="center" prop="wip" label="WIP"></el-table-column>
             <el-table-column align="center" prop="maxWip" label="上限"></el-table-column>
             <el-table-column align="center" prop="minWip" label="下限"></el-table-column>

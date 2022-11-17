@@ -29,8 +29,8 @@
                     <br />
                   </div>
                   <div
-                    @click="toMake('FOL', item)"
                     class="state-right state"
+                    @click="toMake('FOL', item)"
                     :style="changeHeight(item)"
                     v-if="folChecked"
                   >
@@ -38,10 +38,11 @@
                     <!-- <span class="rate" v-if="folChecked">{{
                       item.values.FOL.hitRate | filterRate
                     }}</span>-->
-                    <span
-                      class="rate"
-                      v-if="folChecked"
-                    >{{ item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%" }}</span>
+                    <span class="rate" @click.stop="textClick" v-if="folChecked">
+                      {{
+                      item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%"
+                      }}
+                    </span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
                   </div>
@@ -65,8 +66,8 @@
                     <br />
                   </div>
                   <div
-                    @click="toMake('EOL', item)"
                     class="state-left state"
+                    @click="toMake('EOL', item)"
                     :style="changeHeight(item, 'EOL')"
                     v-if="eolChecked"
                   >
@@ -74,10 +75,11 @@
                     <!-- <span class="rate" v-if="eolChecked">{{
                       item.values.EOL.hitRate | filterRate
                     }}</span>-->
-                    <span
-                      class="rate"
-                      v-if="eolChecked"
-                    >{{ item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%" }}</span>
+                    <span class="rate" @click.stop="textClick" v-if="eolChecked">
+                      {{
+                      item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%"
+                      }}
+                    </span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
                   </div>
@@ -121,11 +123,6 @@ export default {
       default: 0
     }
   },
-  data() {
-    return {
-      config: { value: 66, formatter: "" }
-    }
-  },
   computed: {
     // 获得左边要显示的四个数字
     getShowArr() {
@@ -149,16 +146,22 @@ export default {
   methods: {
     changeSpeed(item, name = "FOL") {
       // console.log("item=====", item)
-      let result = ""
+      let result = 0
+      let result1 = 0
       // 110以上 深绿 100-108 浅绿 100 以下 黄色
       // 判断是否是当天的数据
+      // if (this.$moment().format("YYYY-MM-DD").includes(item.dateCoode)) {
+      //   result = item.values[name].hitRate ? parseInt(item.values[name].hitRate) : 0
+      // } else {
+      result = item.values[name].dailyHitRate ? parseInt(item.values[name].dailyHitRate) : 0
+      // }
       if (this.$moment().format("YYYY-MM-DD").includes(item.dateCoode)) {
-        result = item.values[name].hitRate ? parseInt(item.values[name].hitRate) : 0
+        result1 = item.values[name].hitRate ? parseInt(item.values[name].hitRate) : 0
       } else {
-        result = item.values[name].dailyHitRate ? parseInt(item.values[name].dailyHitRate) : 0
+        result1 = result
       }
       let bgColor = ""
-      if (result > 110) {
+      if (result1 > 110) {
         // 深绿
         bgColor = `linear-gradient(
                   to bottom,
@@ -166,7 +169,7 @@ export default {
                   rgba(0, 255, 0, 0.7) 70%,
                   rgba(0, 255, 0, 1) 100%
                 )`
-      } else if (result >= 100) {
+      } else if (result1 >= 100) {
         // 浅绿
         bgColor = `linear-gradient(
                   to bottom,
@@ -213,6 +216,10 @@ export default {
           preTime: `${item.dateCoode}`
         }
       })
+    },
+    textClick() {
+      console.log("hello world")
+      this.$router.push({ name: "wardetail" })
     }
   }
 }

@@ -50,7 +50,7 @@ export default {
         },
         grid: {
           top: 40,
-          right: 10,
+          right: 40,
           left: 70,
           bottom: 50 //图表尺寸大小
         },
@@ -74,7 +74,7 @@ export default {
         legend: [
           {
             top: 0,
-            right: 180,
+            right: 210,
             textStyle: {
               color: "#FFFFFF",
               fontSize: 12
@@ -83,7 +83,7 @@ export default {
           },
           {
             top: 0,
-            right: 90,
+            right: 130,
             textStyle: {
               color: "#FFFFFF",
               fontSize: 12
@@ -92,7 +92,7 @@ export default {
           },
           {
             top: 0,
-            right: 8,
+            right: 40,
             textStyle: {
               color: "#FFFFFF",
               fontSize: 12
@@ -110,8 +110,8 @@ export default {
             color: "#EEEEEE",
             textStyle: {
               fontSize: 12
-            },
-            rotate: "45"
+            }
+            // rotate: "45"
           },
           axisLine: {
             lineStyle: {

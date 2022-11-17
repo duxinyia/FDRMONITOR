@@ -69,9 +69,9 @@
               <i class="el-icon-user-solid user-icon"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="layout">退出</el-dropdown-item>
-              <el-dropdown-item command="dark">暗黑</el-dropdown-item>
-              <el-dropdown-item command="light">明亮</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-switch-button" command="layout">退出</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-moon" command="dark" divided>暗黑</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-sunny" command="light" divided>明亮</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -128,8 +128,21 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.el-dropdown-menu {
+  padding: 0 0;
+}
+.el-dropdown-menu__item--divided {
+  margin-top: 0;
+}
+.el-dropdown-menu__item--divided:before {
+  display: none;
+}
+</style>
 
 <style lang="scss" scoped>
+/* 重置el-dropdown-menu的样式 */
+
 // 重置el-mune的样式
 // 目录
 .el-menu-item {

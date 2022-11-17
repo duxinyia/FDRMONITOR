@@ -155,9 +155,9 @@ export default {
             margin: 10,
             color: "#EEEEEE",
             textStyle: {
-              fontSize: 14
-            },
-            rotate: "45"
+              fontSize: 12
+            }
+            // rotate: "45"
             // 坐标轴刻度标签换行处理
             // formatter: function (params) {
             //   console.log("params", params)
