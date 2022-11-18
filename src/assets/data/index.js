@@ -41,6 +41,14 @@ export let CMA_CONFIG = new Map([
         belong: "设备模块",
         to: "fol"
       },
+      {
+        id: 8,
+        imgUrl: require("@/assets/images/eol.png"),
+        info: "EOL設備總覽",
+        target: "device",
+        belong: "设备模块",
+        to: "eol"
+      },
 
       {
         id: 3,

@@ -65,6 +65,12 @@ export default [
         name: "aa",
         component: () => import(/* webpackChunkName: "aa" */ "../views/main/cma/aa/aa.vue")
       },
+      // 11/18 新增加EOL的页面
+      {
+        path: "eol",
+        name: "eol",
+        component: () => import(/* webpackChunkName: "eol" */ "../views/main/cma/eol/eol.vue")
+      },
       // 產出可視化平台
       {
         path: "output",
@@ -95,9 +101,10 @@ export default [
       },
       // 从 製造戰情中心 达成率 跳转过来的路由
       {
-        path:'wardetail',
-        name:'wardetail',
-        component:() => import(/* webpackChunkName: "wardetail" */ "../views/main/cma/wardetail/wardetail.vue")
+        path: "wardetail",
+        name: "wardetail",
+        component: () =>
+          import(/* webpackChunkName: "wardetail" */ "../views/main/cma/wardetail/wardetail.vue")
       },
       // 良率看板 SAP良率
       {

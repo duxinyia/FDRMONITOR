@@ -19,15 +19,15 @@
           <el-col :span="8" class="l23 h25">L23</el-col>
         </el-col>
       </el-row>
-      <el-row class="three-row" v-for="(item,index) in textArr" :key="index">
-        <el-col class="h30" :span="3">{{item.name}}</el-col>
-        <el-col class="h30" :span="3">{{item.number}}</el-col>
-        <el-col class="h30" :span="3">{{item.shiji}}</el-col>
-        <el-col class="h30" :span="3">{{item.rate}}</el-col>
-        <el-col class="h30" :span="3">{{item.l9}}</el-col>
-        <el-col class="h30" :span="3">{{item.l21}}</el-col>
-        <el-col class="h30" :span="3">{{item.l23}}</el-col>
-        <el-col class="h30" :span="3">{{item.l24}}</el-col>
+      <el-row class="three-row" v-for="(item, index) in textArr" :key="index">
+        <el-col class="h30" :span="3">{{ item.name }}</el-col>
+        <el-col class="h30" :span="3">{{ item.number }}</el-col>
+        <el-col class="h30" :span="3">{{ item.shiji }}</el-col>
+        <el-col class="h30" :span="3">{{ item.rate }}</el-col>
+        <el-col class="h30" :span="3">{{ item.l9 }}</el-col>
+        <el-col class="h30" :span="3">{{ item.l21 }}</el-col>
+        <el-col class="h30" :span="3">{{ item.l23 }}</el-col>
+        <el-col class="h30" :span="3">{{ item.l24 }}</el-col>
       </el-row>
     </div>
     <!-- 右边表格 -->
@@ -49,15 +49,15 @@
           <el-col :span="3" class="l23 h40">config4</el-col>
         </el-col>
       </el-row>
-      <el-row class="three-row" v-for="(item,index) in textArr" :key="index">
-        <el-col class="h30" :span="3">{{item.name}}</el-col>
-        <el-col class="h30" :span="3">{{item.number}}</el-col>
-        <el-col class="h30" :span="3">{{item.shiji}}</el-col>
-        <el-col class="h30" :span="3">{{item.rate}}</el-col>
-        <el-col class="h30" :span="3">{{item.l9}}</el-col>
-        <el-col class="h30" :span="3">{{item.l21}}</el-col>
-        <el-col class="h30" :span="3">{{item.l23}}</el-col>
-        <el-col class="h30" :span="3">{{item.l24}}</el-col>
+      <el-row class="three-row" v-for="(item, index) in textArr" :key="index">
+        <el-col class="h30" :span="3">{{ item.name }}</el-col>
+        <el-col class="h30" :span="3">{{ item.number }}</el-col>
+        <el-col class="h30" :span="3">{{ item.shiji }}</el-col>
+        <el-col class="h30" :span="3">{{ item.rate }}</el-col>
+        <el-col class="h30" :span="3">{{ item.l9 }}</el-col>
+        <el-col class="h30" :span="3">{{ item.l21 }}</el-col>
+        <el-col class="h30" :span="3">{{ item.l23 }}</el-col>
+        <el-col class="h30" :span="3">{{ item.l24 }}</el-col>
       </el-row>
     </div>
     <!-- <div class="right-table tx-center" style="width:600px">

@@ -69,7 +69,9 @@
               <i class="el-icon-user-solid user-icon"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-switch-button" command="layout">退出</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-switch-button" command="layout"
+                >退出</el-dropdown-item
+              >
               <el-dropdown-item icon="el-icon-moon" command="dark" divided>暗黑</el-dropdown-item>
               <el-dropdown-item icon="el-icon-sunny" command="light" divided>明亮</el-dropdown-item>
             </el-dropdown-menu>
