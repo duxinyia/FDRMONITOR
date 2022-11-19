@@ -115,11 +115,9 @@
                               <br />
                               <span>差異產出: {{ item.outPut - item.targetOut }}</span>
                             </div>
-                            <div class="container">
+                            <div class="container" :style="changeContainerStyle(item)">
                               <!-- 中间区域 -->
-                              <div class="center" :style="changeCenterStyle(item)">
-                                {{ item.outPut }}
-                              </div>
+                              <div class="center" :style="changeCenterStyle(item)">{{ item.outPut }}</div>
                             </div>
                           </el-tooltip>
                         </div>
@@ -217,17 +215,34 @@ export default {
         }
       }
     },
+    changeContainerStyle(item) {
+      let borders = this.$store.getters.theme == "dark" ? "#1694ed" : "#fff"
+      let bgs = this.$store.getters.theme == "dark" ? "#093f65" : "transparent"
+      return {
+        border: `1px solid ${borders}`,
+        background: bgs
+      }
+    },
     changeCenterStyle(item) {
       let result = parseInt(item.hitRate)
+      let bgs0 = [
+        "linear-gradient(to right,rgba(153, 102, 255, 0.3) 10%,rgba(153, 102, 255, 0.6) 50%,rgba(153, 102, 255, 0.9) 100%)",
+        "linear-gradient(270deg, rgba(45, 60, 128, 1) 0%, rgba(39, 75, 232, 1) 100%)"
+      ]
+      let bgs1 = [
+        "linear-gradient(tot right,rgba(34, 177, 249, 0.3) 10%,rgba(34, 177, 249, 0.6) 50%,rgba(34, 177, 249, 0.9) 100%)",
+        "linear-gradient(270deg, rgba(222, 184, 47, 1) 0%, rgba(255, 140, 26, 1) 100%)"
+      ]
+
       if (result > 100) {
         return {
           width: "100%",
-          background:
-            "linear-gradient(to right,rgba(153, 102, 255, 0.3) 10%,rgba(153, 102, 255, 0.6) 50%,rgba(153, 102, 255, 0.9) 100%)"
+          background: this.$store.getters.theme == "dark" ? bgs0[0] : bgs0[1]
         }
       }
       return {
-        width: `${result}%`
+        width: `${result}%`,
+        background: this.$store.getters.theme == "dark" ? bgs1[0] : bgs1[1]
       }
     },
     changeConfig(item) {
@@ -235,9 +250,12 @@ export default {
       if (item.wipRate) {
         showValue = parseInt(item.wipRate) > 100 ? 100 : parseInt(item.wipRate)
       }
+      let colors =
+        this.$store.getters.theme == "dark" ? ["#3DE7C9", "#00BAFF"] : ["#3DE7C9", "#00BAFF"]
       return {
         value: showValue,
         formatter: "",
+        colors,
         borderRadius: 1,
         lineDash: [2, 2],
         borderWidth: 1
@@ -308,6 +326,7 @@ export default {
     height: 100%;
     padding: 4px 6px 4px 6px;
     border: 1px solid #2f5e75;
+    background: var(--output2-machine-bg);
     .title {
       font-size: 23px;
       font-weight: bold;
@@ -318,7 +337,8 @@ export default {
     .headers {
       .el-col {
         font-size: 17px;
-        color: #3be8ea;
+        /* color: #3be8ea; */
+        color: var(--output2-header-item);
         font-weight: bold;
       }
     }
@@ -418,8 +438,8 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
-    background: #093f65;
-    border: 1px solid #1694ed;
+    /* background: #093f65; */
+    /* border: 1px solid #1694ed; */
     .center {
       width: 50%;
       height: 80%;
@@ -427,12 +447,12 @@ export default {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      background: linear-gradient(
+      /* background: linear-gradient(
         to right,
         rgba(34, 177, 249, 0.3) 10%,
         rgba(34, 177, 249, 0.6) 50%,
         rgba(34, 177, 249, 0.9) 100%
-      );
+      ); */
     }
   }
 }

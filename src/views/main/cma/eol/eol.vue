@@ -15,6 +15,14 @@ export default {
   components: {
     mainOne,
     mainTwo
+  },
+  mounted() {
+    this.$store.commit("fullLoading/SET_TITLE", "EOL設備總覽")
+    // this.initData()
+    // // 每5分钟获取一次数据
+    // this.dataTiming = setInterval(() => {
+    //   this.initData()
+    // }, this.$globalData.CYCLE_TIME)
   }
 }
 </script>

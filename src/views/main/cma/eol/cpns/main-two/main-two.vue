@@ -2,7 +2,7 @@
   <div class="main-two">
     <div class="contaienr">
       <div class="floor-name">F20-4F</div>
-      <div v-for="item in textArr" :style="changeStyle(item)" :key="item.type">{{item.type}}</div>
+      <div v-for="item in textArr" :style="changeStyle(item)" :key="item.type">{{ item.type }}</div>
     </div>
   </div>
 </template>

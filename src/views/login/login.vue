@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="form-container">
-      <el-image class="logo" :src="form_logo" :fit="fit"></el-image>
+      <el-image class="logo" :src="form_logo"></el-image>
       <p class="welcome-text">您好！欢迎登录战情中心</p>
       <el-form class="form" ref="form" :rules="rules" :model="form">
         <el-form-item prop="name">
