@@ -1,67 +1,3 @@
-<template>
-  <!-- 主要区域 -->
-  <div class="page-main">
-    <!-- 统计区域 -->
-    <div class="count-container">
-      <div v-for="(item, index) in configArr" class="container" :key="index">
-        <dv-border-box-10>
-          <div>
-            <el-table :data="item" :header-cell-style="getRowClass">
-              <el-table-column align="center" prop="productArea" label="名称"></el-table-column>
-              <el-table-column align="center" prop="totalCount" label="計畫"></el-table-column>
-              <el-table-column align="center" prop="hitCount" label="達成機種"></el-table-column>
-              <el-table-column align="center" prop="notHitCount" label="未達成"></el-table-column>
-              <el-table-column
-                align="center"
-                width="100"
-                prop="hitRate"
-                label="達成率"
-              ></el-table-column>
-            </el-table>
-          </div>
-        </dv-border-box-10>
-      </div>
-
-      <div class="control">
-        <div class="fol-container" @click="folChecked = !folChecked">
-          <span
-            class="frame"
-            :style="{
-              'box-shadow': folChecked ? 'inset 0 0 20px #3762ff' : ''
-            }"
-          ></span>
-          <span class="name">FOL</span>
-        </div>
-        <div class="eol-container" @click="eolChecked = !eolChecked">
-          <span
-            class="frame"
-            :style="{
-              'box-shadow': eolChecked ? 'inset 0 0 20px #3762ff' : ''
-            }"
-          ></span>
-          <span class="name">EOL</span>
-        </div>
-      </div>
-    </div>
-    <!-- 下面的区域 -->
-    <dv-border-box-13 :key="Date.now()">
-      <div class="table-chart">
-        <template v-for="(item, index) in outPutInfoDetails">
-          <container
-            :eolChecked="eolChecked"
-            :folChecked="folChecked"
-            :device="item.device"
-            :dateValues="item.dateValues"
-            :key="index"
-            :maxOutput="maxOutput[index]"
-            :maxTargetOut="maxTargetOut[index]"
-          />
-        </template>
-      </div>
-    </dv-border-box-13>
-  </div>
-</template>
-
 <script>
 // 导入发送请求的函函數
 import { GetProductInfo } from "@/api/makewar.js"
@@ -80,6 +16,11 @@ export default {
       outPutInfoDetails: [],
       maxOutput: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       maxTargetOut: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  computed: {
+    changeBoxColor() {
+      return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
     }
   },
   mounted() {
@@ -130,7 +71,8 @@ export default {
       }
     },
     getRowClass() {
-      return "background:transparent !important;color:#1adafb;"
+      let color = this.$store.getters.theme == "dark" ? "#1adafb" : "rgba(39, 75, 232, 1)"
+      return `background:transparent !important;color:${color};`
     }
   },
   beforeDestroy() {
@@ -139,12 +81,71 @@ export default {
 }
 </script>
 
+<template>
+  <!-- 主要区域 -->
+  <div class="page-main">
+    <!-- 统计区域 -->
+    <div class="count-container">
+      <div v-for="(item, index) in configArr" class="container" :key="index">
+        <dv-border-box-10 :color="changeBoxColor">
+          <div>
+            <el-table :data="item" :header-cell-style="getRowClass">
+              <el-table-column align="center" prop="productArea" label="名称"></el-table-column>
+              <el-table-column align="center" prop="totalCount" label="計畫"></el-table-column>
+              <el-table-column align="center" prop="hitCount" label="達成機種"></el-table-column>
+              <el-table-column align="center" prop="notHitCount" label="未達成"></el-table-column>
+              <el-table-column align="center" width="100" prop="hitRate" label="達成率"></el-table-column>
+            </el-table>
+          </div>
+        </dv-border-box-10>
+      </div>
+      <div class="control">
+        <div class="fol-container" @click="folChecked = !folChecked">
+          <span
+            class="frame"
+            :style="{
+              'box-shadow': folChecked ? 'inset 0 0 20px #3762ff' : ''
+            }"
+          ></span>
+          <span class="name">FOL</span>
+        </div>
+        <div class="eol-container" @click="eolChecked = !eolChecked">
+          <span
+            class="frame"
+            :style="{
+              'box-shadow': eolChecked ? 'inset 0 0 20px #3762ff' : ''
+            }"
+          ></span>
+          <span class="name">EOL</span>
+        </div>
+      </div>
+    </div>
+    <!-- 下面的区域 -->
+    <dv-border-box-13 :color="changeBoxColor" :key="Date.now()">
+      <div class="table-chart">
+        <container
+          v-for="(item, index) in outPutInfoDetails"
+          :eolChecked="eolChecked"
+          :folChecked="folChecked"
+          :device="item.device"
+          :dateValues="item.dateValues"
+          :key="index + index"
+          :maxOutput="maxOutput[index]"
+          :maxTargetOut="maxTargetOut[index]"
+        />
+      </div>
+    </dv-border-box-13>
+  </div>
+</template>
+
+
 <style lang="scss" scoped>
 //整个table的背景颜色
 ::v-deep .el-table,
 .el-table__expanded-cell {
   background-color: transparent;
-  color: white;
+  /* color: white; */
+  color: var(--makewar-table-text);
   font-size: 18px;
 }
 ::v-deep .el-table::before {
@@ -166,7 +167,7 @@ export default {
   background-color: transparent !important;
 }
 ::v-deep .el-table tbody tr:hover > td {
-  background-color: #001229 !important;
+  background-color: transparent !important;
 }
 ::v-deep .border-box-content {
   padding: 15px;

@@ -251,14 +251,18 @@ export default {
         showValue = parseInt(item.wipRate) > 100 ? 100 : parseInt(item.wipRate)
       }
       let colors =
-        this.$store.getters.theme == "dark" ? ["#3DE7C9", "#00BAFF"] : ["#3DE7C9", "#00BAFF"]
+        this.$store.getters.theme == "dark"
+          ? ["#3DE7C9", "#00BAFF"]
+          : ["rgba(13, 207, 255, 1)", "rgba(22, 43, 224, 1)"]
+      let lineDashs = this.$store.getters.theme == "dark" ? [2, 2] : [2, 0]
       return {
         value: showValue,
         formatter: "",
         colors,
         borderRadius: 1,
-        lineDash: [2, 2],
-        borderWidth: 1
+        lineDash: lineDashs,
+        borderWidth: 1,
+        localGradient: false
       }
     },
     changeIndex(index) {
@@ -325,7 +329,8 @@ export default {
     width: 600px;
     height: 100%;
     padding: 4px 6px 4px 6px;
-    border: 1px solid #2f5e75;
+    /* border: 1px solid #2f5e75; */
+    border-radius: 8px;
     background: var(--output2-machine-bg);
     .title {
       font-size: 23px;
@@ -408,17 +413,20 @@ export default {
     .icon {
       font-weight: bold;
       font-size: 25px;
-      color: rgba(89, 113, 197, 0.6);
+      /* color: rgba(89, 113, 197, 0.6); */
+      color: var(--aa-bottom-icon);
     }
     .icon1 {
       font-weight: bold;
       font-size: 25px;
-      color: rgba(89, 113, 197, 0.8);
+      /* color: rgba(89, 113, 197, 0.8); */
+      color: var(--aa-bottom-icon1);
     }
     .icon2 {
       font-weight: 800;
       font-size: 25px;
-      color: rgba(89, 113, 197, 1);
+      /* color: rgba(89, 113, 197, 1); */
+      color: var(--aa-bottom-icon2);
     }
   }
 }

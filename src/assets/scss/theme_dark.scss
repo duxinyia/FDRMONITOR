@@ -21,7 +21,7 @@
   // main-one 的 dataV中的表格标题的 色值
   --chart-title: #68feff;
   --chart-slip: #bb98fa;
-  --chart-scroll-arraw: #00baff;
+  --chart-scroll-right-arraw: #00baff;
   --chart-scroll-header: #20316e;
   --chart-scroll-even: #0a2732; // 单
   --chart-scroll-odd: #003b51; // 双
@@ -42,7 +42,13 @@
   --fol-bottom-item-bg: rgba(7, 23, 145, 0.5);
 
   // 九宫格的颜色
-  --output2-machine-bg:transparent;
-  --output2-header-item:#3be8ea;
+  --output2-machine-bg: #111e40;
+  --output2-header-item: #3be8ea;
 
+  // 制造戰情中心
+  --makewar-table-text:#fff;
+  --makewar-item-title:#fff;
+  --makewar-item-rate:#fff;
+  --makewar-item-num:#69f9ff;
+  --makewar-item-date:#fff;
 }

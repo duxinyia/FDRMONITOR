@@ -278,7 +278,7 @@ export default {
       if (this.$store.getters.theme == "dark") {
         return machine.dpcColor == "Y" ? "hexagon-red" : "hexagon"
       } else {
-        return machine.dpcColor == "Y" ? "hexagon-light" : "hexagon-light"
+        return machine.dpcColor == "Y" ? "hexagon-red" : "hexagon"
       }
     },
     // 改变旗子的颜色
@@ -348,7 +348,7 @@ export default {
         // 有机台显示的颜色
         if (machine.lcbColor == "Y" && type == "lcb") {
           return {
-            background: "red"
+            background: "#f04d4d"
           }
         } else {
           let color = this.$store.getters.theme == "dark" ? "#46bb9b" : "rgba(23, 51, 143, 1)"

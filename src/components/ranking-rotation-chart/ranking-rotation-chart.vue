@@ -15,8 +15,7 @@
                 v-for="item in ['機台名稱', '比率', '持續時間']"
                 :key="item"
                 class="header-item"
-                >{{ item }}</span
-              >
+              >{{ item }}</span>
             </div>
             <div v-for="machine in item.machines" :key="machine.machinename" class="machine-info">
               <span>{{ machine.machinename }}</span>
@@ -126,15 +125,24 @@ export default {
 <style lang="scss" scoped>
 // @import "@/assets/scss/variables.scss";
 .title {
-  display: inline-block;
+  /* display: inline-block; */
+  display: flex;
+  align-items: center;
   font-size: 20px;
+  line-height: 1em;
   font-weight: 600;
   margin-bottom: 5px;
-  color: $title-color;
   color: var(--chart-title);
-  padding-left: 5px;
-  border-left: 4px solid var(--chart-slip);
-  // border-left: 4px solid #bb98fa;
+  &::before {
+    content: "";
+    display: inline-block;
+    margin-right: 5px;
+    width: 4px;
+    height: 0.9em;
+    line-height: 0.9em;
+    border-radius: 2px;
+    background: var(--chart-slip);
+  }
 }
 
 .tootip-container {

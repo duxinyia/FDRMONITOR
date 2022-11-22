@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <dv-border-box-10>
+    <dv-border-box-10 :color="changeBoxColor">
       <p class="title">{{ device.customName }}</p>
       <div class="container">
         <div class="left">
@@ -38,9 +38,11 @@
                     <!-- <span class="rate" v-if="folChecked">{{
                       item.values.FOL.hitRate | filterRate
                     }}</span>-->
-                    <span class="rate" @click.stop="textClick" v-if="folChecked">
-                      {{ item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%" }}
-                    </span>
+                    <span
+                      class="rate"
+                      @click.stop="textClick"
+                      v-if="folChecked"
+                    >{{ item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%" }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
                   </div>
@@ -73,9 +75,11 @@
                     <!-- <span class="rate" v-if="eolChecked">{{
                       item.values.EOL.hitRate | filterRate
                     }}</span>-->
-                    <span class="rate" @click.stop="textClick" v-if="eolChecked">
-                      {{ item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%" }}
-                    </span>
+                    <span
+                      class="rate"
+                      @click.stop="textClick"
+                      v-if="eolChecked"
+                    >{{ item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%" }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
                   </div>
@@ -130,6 +134,9 @@ export default {
         lowNum.toLocaleString("en-US"),
         0
       ]
+    },
+    changeBoxColor() {
+      return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
     }
   },
   filters: {
@@ -157,30 +164,58 @@ export default {
         result1 = result
       }
       let bgColor = ""
-      if (result1 > 110) {
-        // 深绿
-        bgColor = `linear-gradient(
+      if (this.$store.getters.theme == "dark") {
+        if (result1 > 110) {
+          // 深绿
+          bgColor = `linear-gradient(
                   to bottom,
                   rgba(0, 255, 0, 0.5) 40%,
                   rgba(0, 255, 0, 0.7) 70%,
                   rgba(0, 255, 0, 1) 100%
                 )`
-      } else if (result1 >= 100) {
-        // 浅绿
-        bgColor = `linear-gradient(
+        } else if (result1 >= 100) {
+          // 浅绿
+          bgColor = `linear-gradient(
                   to bottom,
                   rgba(51, 255, 153, 0.5) 40%,
                   rgba(51, 255, 153, 0.7) 70%,
                   rgba(51, 255, 153, 1) 100%
                 )`
-      } else {
-        // 紫色
-        bgColor = `linear-gradient(
+        } else {
+          // 紫色
+          bgColor = `linear-gradient(
                   to bottom,
                   rgba(255, 182, 30, 0.5) 40%,
                   rgba(255, 182, 30, 0.7) 70%,
                   rgba(255, 182, 30, 1) 100%
                 )`
+        }
+      } else {
+        if (result1 > 110) {
+          // 深绿
+          bgColor = `linear-gradient(
+                  to bottom,
+                  rgba(0, 255, 0, 0.5) 40%,
+                  rgba(0, 255, 0, 0.7) 70%,
+                  rgba(0, 255, 0, 1) 100%
+                )`
+        } else if (result1 >= 100) {
+          // 浅绿
+          bgColor = `linear-gradient(
+                  to bottom,
+                  rgba(51, 255, 153, 0.5) 40%,
+                  rgba(51, 255, 153, 0.7) 70%,
+                  rgba(51, 255, 153, 1) 100%
+                )`
+        } else {
+          // 紫色
+          bgColor = `linear-gradient(
+                  to bottom,
+                  rgba(255, 182, 30, 0.5) 40%,
+                  rgba(255, 182, 30, 0.7) 70%,
+                  rgba(255, 182, 30, 1) 100%
+                )`
+        }
       }
       return {
         height: result > 100 ? "100%" : `${result}%`,
@@ -220,6 +255,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
   padding: 10px;
@@ -232,6 +268,7 @@ export default {
     text-align: center;
     font-size: 20px;
     font-weight: bold;
+    color: var(--makewar-item-title);
   }
   .container {
     height: calc(100% - 24px);
@@ -241,7 +278,8 @@ export default {
       display: flex;
       flex-direction: column;
       margin-top: 18px;
-      color: #69f9ff;
+      /* color: #69f9ff; */
+      color: var(--makewar-item-num);
       .every-num {
         margin-bottom: 15px;
       }
@@ -271,7 +309,8 @@ export default {
               display: flex;
               cursor: pointer;
             }
-            .state-left {
+            .state-left,
+            .state-right {
               position: relative;
               .rate {
                 font-size: 13px;
@@ -280,6 +319,7 @@ export default {
                 transform: rotate(180deg);
                 bottom: -24px;
                 left: 0px;
+                color: var(--makewar-item-rate);
               }
               .speed {
                 display: inline-block;
@@ -288,24 +328,12 @@ export default {
             }
             .state-right {
               margin-right: 12px;
-              position: relative;
-              .rate {
-                font-size: 13px;
-                font-weight: bold;
-                position: absolute;
-                transform: rotate(180deg);
-                bottom: -24px;
-                left: 0px;
-              }
-              .speed {
-                display: inline-block;
-                width: 100%;
-              }
             }
           }
           .date {
             margin-top: 4px;
             text-align: center;
+            color: var(--makewar-item-date);
           }
         }
       }

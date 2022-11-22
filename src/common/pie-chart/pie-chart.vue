@@ -171,19 +171,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @import "@/assets/scss/variables.scss";
 .pie-chart {
-  /* margin-top: 10px; */
   .title {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     font-size: 20px;
+    line-height: 1em;
     font-weight: 600;
     margin-bottom: 5px;
-    // color: $title-color;
     color: var(--chart-title);
-    padding-left: 5px;
-    border-left: 4px solid var(--chart-slip);
-    // border-left: 4px solid #bb98fa;
+    &::before {
+      content: "";
+      display: inline-block;
+      margin-right: 5px;
+      width: 4px;
+      height: 0.9em;
+      line-height: 0.9em;
+      border-radius: 2px;
+      background: var(--chart-slip);
+    }
   }
 }
 </style>

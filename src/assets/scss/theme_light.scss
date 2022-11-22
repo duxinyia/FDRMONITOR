@@ -20,7 +20,7 @@
   // main-one 的 dataV中的表格标题的 色值
   --chart-title: rgba(63, 119, 232, 1);
   --chart-slip: rgba(38, 89, 191, 1);
-  --chart-scroll-arraw: #00baff;
+  --chart-scroll-right-arraw: rgba(60, 125, 231, 1);
   --chart-scroll-header: linear-gradient(
     259.26deg,
     rgba(0, 227, 210, 1) 0%,
@@ -58,6 +58,17 @@
   );
 
   // 九宫格的颜色
-  --output2-machine-bg:linear-gradient(259.26deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
-  --output2-header-item:#2b409b;
+  --output2-machine-bg: linear-gradient(
+    259.26deg,
+    rgba(0, 227, 210, 1) 0%,
+    rgba(63, 119, 232, 1) 100%
+  );
+  --output2-header-item: #2b409b;
+
+  // 制造戰情中心
+  --makewar-table-text:rgba(20, 44, 153, 1);
+  --makewar-item-title:rgba(63, 119, 232, 1);
+  --makewar-item-rate:rgba(39, 75, 232, 1);
+  --makewar-item-num:rgba(39, 75, 232, 1);
+  --makewar-item-date:rgba(39, 75, 232, 1);
 }
