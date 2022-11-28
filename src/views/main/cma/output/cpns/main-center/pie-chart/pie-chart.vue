@@ -14,16 +14,9 @@ export default {
   components: {
     baseEchart
   },
-  props: {},
+  props: ["seriesData"],
   data() {
     return {
-      seriesData: [
-        { name: "治安单位", value: 1243 },
-        { name: "内保单位", value: 629 },
-        { name: "人管单位", value: 1629 },
-        { name: "国保单位", value: 3425 },
-        { name: "禁毒单位", value: 2824 }
-      ],
       color: [
         "rgba(220, 145, 255, 1)",
         "rgba(245, 154, 108, 1)",
@@ -35,6 +28,7 @@ export default {
   },
   computed: {
     options() {
+      let { seriesData } = this
       return {
         // backgroundColor: "#000",
         color: this.color,
@@ -51,9 +45,9 @@ export default {
             orient: "vertical",
             left: "74%",
             align: "auto",
-            top: "35%",
-            itemWidth: 12, // 图例图形宽度
-            itemHeight: 12,
+            top: "5%",
+            itemWidth: 20, // 图例图形宽度
+            itemHeight: 16,
             itemGap: 20,
             textStyle: {
               color: "#fff",
@@ -61,7 +55,6 @@ export default {
               verticalAlign: "middle",
               rich: {
                 name: {
-                  // color: "rgba(59, 61, 69, 1)",
                   color: "#fff",
                   fontSize: 16,
                   width: 100,
@@ -75,13 +68,13 @@ export default {
                 }
               }
             },
-            data: this.seriesData,
-            formatter: (name) => {
-              if (this.seriesData.length) {
-                const item = this.seriesData.filter((item) => item.name === name)[0]
-                return `{name|${name} }{value| ${item.value}}`
-              }
-            },
+            // data: this.seriesData.slice(8),
+            // formatter: (name) => {
+            //   if (this.seriesData.length) {
+            //     const item = this.seriesData.filter((item) => item.name === name)[0]
+            //     return `{name|${name} }{value| ${item.value}}`
+            //   }
+            // },
             x: "left"
           }
         ],

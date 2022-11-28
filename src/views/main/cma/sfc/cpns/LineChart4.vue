@@ -13,6 +13,7 @@ export default {
   components: {
     BaseEchart
   },
+  props: ["config"],
   data() {
     return {
       xData: ["2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10"],
@@ -25,6 +26,7 @@ export default {
   },
   computed: {
     options() {
+      console.log("config4", this.config)
       return {
         grid: {
           top: 80,

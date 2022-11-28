@@ -5,11 +5,9 @@
       <div class="page-main">
         <!-- 第一行 -->
         <el-row :gutter="30" class="main-one">
-          <el-col v-for="item in ['JU系列', 'MD系列']" :key="item" :span="12" class="item">
+          <el-col v-for="item in 4" :key="item" :span="12" class="item">
             <div class="left">
-              <dv-border-box-11 :title="item">
-                <line-chart />
-              </dv-border-box-11>
+              <line-chart :config="chartConfig[item-1]" />
             </div>
             <div class="right">
               <span>FOL</span>
@@ -18,7 +16,7 @@
           </el-col>
         </el-row>
         <!-- 第二行 -->
-        <el-row :gutter="30" class="main-two">
+        <!-- <el-row :gutter="30" class="main-two">
           <el-col v-for="item in ['Stanley系列', 'ML系列']" :key="item" :span="12" class="item">
             <div class="left">
               <dv-border-box-11 :title="item">
@@ -30,7 +28,7 @@
               <span>EOL</span>
             </div>
           </el-col>
-        </el-row>
+        </el-row>-->
       </div>
     </dv-border-box-10>
   </div>
@@ -38,6 +36,8 @@
 <script>
 // 导入折线图
 import LineChart from "./cpns/LineChart.vue"
+// 导入接口文档
+import { getDateCodeRunningYieldInfo } from "@/api/tsfc.js"
 export default {
   name: "tsfc",
   components: {
@@ -45,18 +45,14 @@ export default {
   },
   data() {
     return {
-      topConfigArr: [
-        { id: 1, today: 3400, poor: 240, good: 0.98, pond: 50 },
-        { id: 2, today: 3500, poor: 240, good: 0.98, pond: 65 },
-        { id: 3, today: 3600, poor: 240, good: 0.98, pond: 60 }
-      ]
+      chartConfig: []
     }
   },
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "SFC总良率预览")
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.$store.commit("fullLoading/SET_FULLLOADING", false)
-    // this.initData()
+    this.initData()
     // 每5分钟获取一次数据
     // this.dataTiming = setInterval(() => {
     //   this.initData()
@@ -64,14 +60,15 @@ export default {
   },
   methods: {
     async initData() {
-      let requestArr = [
-        // this.getMaintainInfo(),
-        // this.getDeviceInfo(),
-        // this.getMachineTop5(),
-        // this.getProductInfo()
-      ]
+      let requestArr = [this.getDateCodeRunningYieldInfo()]
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    },
+    // 获取对应的数据
+    async getDateCodeRunningYieldInfo() {
+      let res = await getDateCodeRunningYieldInfo()
+      console.log("res", res)
+      this.chartConfig = res
     }
   },
   beforeDestroy() {

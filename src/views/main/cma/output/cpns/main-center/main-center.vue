@@ -13,29 +13,18 @@
       <!-- 第二行 -->
       <div class="center-two">
         <p class="title-info">
-          <img class="icon" src="@/assets/images/icon02.png" alt="" />
+          <img class="icon" src="@/assets/images/icon02.png" alt />
           <span class="title">機種產出分佈</span>
         </p>
-        <pie-chart :showTitle="false" />
+        <pie-chart :showTitle="false" :seriesData="seriesData" />
       </div>
       <!-- 第三行 -->
       <div class="center-three">
         <p class="title-info">
-          <img class="icon" src="@/assets/images/icon02.png" alt="" />
+          <img class="icon" src="@/assets/images/icon02.png" alt />
           <span class="title">未來7天開線數</span>
         </p>
-        <!-- <scroll-chart
-          height="400px"
-          :showTitle="false"
-          :config="scrollConfig"
-          title="線體良率明細區:"
-        /> -->
-        <line-chart
-          height="400px"
-          :showTitle="false"
-          :config="scrollConfig"
-          title="線體良率明細區:"
-        />
+        <line-chart height="400px" :showTitle="false" :config="lineChartConfig" title="線體良率明細區:" />
       </div>
     </dv-border-box-11>
   </div>
@@ -46,48 +35,22 @@
 import PieChart from "./pie-chart/pie-chart.vue"
 // 导入折线图
 import LineChart from "@/common/line-chart/line-chart.vue"
-// 导入轮播图
-// import scrollChart from "@/components/scroll-chart/scroll-chart.vue"
-
 export default {
   name: "main-center",
   components: {
     PieChart,
     LineChart
-    // scrollChart
   },
-  data() {
-    return {
-      totalArr: [
-        { name: "年度計劃:", value: "134,000" },
-        { name: "實際:", value: "124,000" },
-        { name: "差異:", value: "124,000" },
-        { name: "達成率:", value: "124,000" }
-      ],
-      scrollConfig: {
-        header: ["季度", "機種", "計劃", "實際", "差異", "達成率"],
-        rowNum: 8,
-        data: [
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"]
-        ],
-        index: true,
-        columnWidth: [50],
-        align: ["center"],
-        carousel: "page"
-      }
+  props: ["yearInfo", "seriesData", "lineChartConfig"],
+  computed: {
+    totalArr() {
+      let { targetOut = 0, output, delta, hitRate } = this.yearInfo
+      return [
+        { name: "年度計劃:", value: parseInt(targetOut).toLocaleString("en-US") },
+        { name: "實際:", value: parseInt(output).toLocaleString("en-US") },
+        { name: "差異:", value: parseInt(delta).toLocaleString("en-US") },
+        { name: "達成率:", value: hitRate }
+      ]
     }
   }
 }

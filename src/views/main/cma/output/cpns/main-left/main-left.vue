@@ -3,104 +3,40 @@
     <el-row>
       <el-col :span="24">
         <dv-border-box-11 title="產出By季度達成">
-          <bar-chart height="380px" :showTitle="false" :config1="newConfig1" />
+          <div class="progress-container">
+            <div v-for="item in progressConfig" :key="item.name">
+              <div class="number">{{item.value}}</div>
+              <p class="name">{{item.name}}</p>
+            </div>
+          </div>
         </dv-border-box-11>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="24"
-        ><dv-border-box-11 title="季度/產出By系列"
-          ><scroll-chart height="390px" :showTitle="false" :config="scrollConfig"
-        /></dv-border-box-11>
+      <el-col :span="24">
+        <dv-border-box-13 class="box13">
+          <myscroll-chart
+            title="季度/產出By系列"
+            carouselHeight="335px"
+            :headers="['季度', '機種', '計劃', '實際', '差異', '達成率']"
+            :widths="[60, 80, 100, 100, 100,100]"
+            :showData="scrollData"
+            :rowNum="8"
+          />
+        </dv-border-box-13>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-// 导入3d柱状图
-import barChart from "@/common/bar-chart/bar-chart.vue"
-// 导入轮播图
-import scrollChart from "@/components/scroll-chart/scroll-chart.vue"
+// 导入自己封装的轮播图
+import MyscrollChart from "@/components/myscroll-chart/myscroll-chart.vue"
 export default {
   name: "main-left",
+  props: ["progressConfig", "scrollData"],
   components: {
-    barChart,
-    scrollChart
-  },
-  data() {
-    return {
-      config1: [
-        {
-          name: "Q1",
-          value: 7
-        },
-        {
-          name: "Q2",
-          value: 8
-        },
-        {
-          name: "Q3",
-          value: 9
-        },
-        {
-          name: "Q4",
-          value: 5
-        }
-      ],
-      // 3d柱状图处理后的config1的数据
-      newConfig1: {
-        xAxisData: [],
-        seriesData: [],
-        seriesData1: [],
-        ciolData: [],
-        sum: 0,
-        bottomData: [],
-        topData: []
-      },
-      scrollConfig: {
-        header: ["季度", "機種", "計劃", "實際", "差異", "達成率"],
-        rowNum: 8,
-        data: [
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"],
-          ["Q3", "ML-M", "162", "166", "12", "100%"]
-        ],
-        index: true,
-        columnWidth: [50],
-        align: ["center"],
-        carousel: "page"
-      }
-    }
-  },
-  created() {
-    this.handleConfig1()
-  },
-  methods: {
-    handleConfig1() {
-      this.config1.forEach((item) => {
-        this.newConfig1.xAxisData.push(item.name)
-        this.newConfig1.seriesData.push(item.value)
-        this.newConfig1.seriesData1.push({ name: "", value: item.value })
-        this.newConfig1.ciolData.push({ name: "", value: "0" })
-        this.newConfig1.sum += item.value
-      })
-      this.config1.forEach((item) => {
-        this.newConfig1.bottomData.push({ name: "", value: this.newConfig1.sum - item.value })
-        this.newConfig1.topData.push({ name: "", value: this.newConfig1.sum })
-      })
-    }
+    MyscrollChart
   }
 }
 </script>
@@ -111,5 +47,24 @@ export default {
 ::v-deep .dv-border-box-11-title {
   font-size: 20px !important;
   font-weight: bold !important;
+}
+::v-deep .dv-border-box-13 .border-box-content {
+  padding: 20px;
+}
+.progress-container {
+  height: 380px;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+  .number {
+    width: 120px;
+    height: 120px;
+    background: red;
+    border-radius: 50%;
+  }
+  /* .name {
+  } */
 }
 </style>

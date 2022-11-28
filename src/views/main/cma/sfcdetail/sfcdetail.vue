@@ -4,7 +4,7 @@
     <!-- 第一个图 -->
     <dv-border-box-10>
       <div class="top-chart">
-        <line-chart-1 :title="title" />
+        <line-chart-1 :title="tag" />
       </div>
       <!-- 下面四个图 -->
       <el-row :gutter="20">
@@ -23,22 +23,6 @@
           <line-chart-5 />
         </el-col>
       </el-row>
-      <!-- <el-row :gutter="20">
-        <el-col :span="12">
-          <line-chart-2 />
-        </el-col>
-        <el-col :span="12">
-          <line-chart-3 />
-        </el-col>
-      </el-row>
-      <el-row :gutter="20" class="three-main">
-        <el-col :span="12">
-          <line-chart-4 />
-        </el-col>
-        <el-col :span="12">
-          <line-chart-5 />
-        </el-col>
-      </el-row> -->
     </dv-border-box-10>
   </div>
 </template>
@@ -50,7 +34,7 @@ import LineChart3 from "./cpns/LineChart3.vue"
 import LineChart4 from "./cpns/LineChart4.vue"
 import LineChart5 from "./cpns/LineChart5.vue"
 // 导入发送请求的函函數
-// import { getMaintainInfo, getDeviceInfo, getMachineTop5, getProductInfo } from "@/api/fol.js"
+import { getCloseNGYieldInfo } from "@/api/sfcdetail.js"
 export default {
   name: "sfcdetail",
   components: {
@@ -62,16 +46,16 @@ export default {
   },
   data() {
     return {
-      title: ""
+      tag: ""
     }
   },
   computed: {},
   mounted() {
-    this.title = this.$route.params.title
-    this.$store.commit("fullLoading/SET_TITLE", this.title)
+    this.tag = this.$route.query.tag
+    this.$store.commit("fullLoading/SET_TITLE", `${this.tag}系列良率`)
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
-    this.$store.commit("fullLoading/SET_FULLLOADING", false)
-    // this.initData()
+    // this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    this.initData()
     // 每5分钟获取一次数据
     // this.dataTiming = setInterval(() => {
     //   this.initData()
@@ -80,6 +64,7 @@ export default {
   methods: {
     async initData() {
       let requestArr = [
+        this.getCloseNGYieldInfo()
         // this.getMaintainInfo(),
         // this.getDeviceInfo(),
         // this.getMachineTop5(),
@@ -87,6 +72,11 @@ export default {
       ]
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    },
+    // 获取数据
+    async getCloseNGYieldInfo() {
+      let res = await getCloseNGYieldInfo({ tag: this.tag })
+      console.log("返回的值为:", res)
     }
   },
   beforeDestroy() {

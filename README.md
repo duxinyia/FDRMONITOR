@@ -34,6 +34,9 @@
 2. 执行脚本: npm run commit
 3. 提交到远程：git push
 
+#
+lowNum.toLocaleString("en-US")
+
 # 平时使用的一些技巧
 
 https://blog.csdn.net/baidu_41388533/article/details/123645081

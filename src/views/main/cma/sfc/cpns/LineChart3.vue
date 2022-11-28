@@ -1,5 +1,5 @@
 <template>
-  <dv-border-box-11 title="MD系列">
+  <dv-border-box-11 :title="`${config.deviceSeries}系列`">
     <span class="btn" @click="toDetail">详情</span>
     <base-echart :options="options" />
   </dv-border-box-11>
@@ -9,22 +9,46 @@
 // 导入基础的图
 import BaseEchart from "@/common/echart"
 export default {
-  name: "LineChart2",
+  name: "LineChart3",
   components: {
     BaseEchart
   },
+  props: ["config"],
   data() {
     return {
-      xData: ["2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10"],
-      defGoal: [0.3, 0.5, 0.5, 0.4, 0.4, 0.3],
-      mdx: [0.5, 0.2, 0.3, 0.4, 0.5, 0.3],
-      jux: [0.2, 0.5, 0.3, 0.5, 0.2, 0.4],
-      mlx: [0.4, 0.4, 0.6, 0.2, 0.3, 0.45],
-      mwx: [0.3, 0.3, 0.4, 0.2, 0.3, 0.4]
+      xData: [],
+      // Stanley: [],
+      legends: ["ML-M", "ML-K", "ML-B"],
+      // mdx: [],
+      // jux: [],
+      // mlx: [],
+      // mwx: []
+      mlm: [],
+      mlk: [],
+      mlb: []
     }
   },
   computed: {
     options() {
+      // console.log("config======", this.config)
+      // 处理对应的数据
+      if (Object.keys(this.config).length > 0) {
+        this.config.mowkYieldList.forEach((item) => {
+          let { dateCode, mesYieldList } = item
+          // 取出时间
+          this.xData.push(dateCode)
+          // 取出剩下的 值
+          mesYieldList.forEach((item1) => {
+            if (item1.owner == "ML-M") {
+              this.mlm.push(parseFloat(item1.yield))
+            } else if (item1.owner == "ML-K") {
+              this.mlk.push(parseFloat(item1.yield))
+            } else if (item1.owner == "ML-B") {
+              this.mlb.push(parseFloat(item1.yield))
+            }
+          })
+        })
+      }
       return {
         grid: {
           top: 80,
@@ -33,7 +57,7 @@ export default {
           bottom: 40 //图表尺寸大小
         },
         legend: [
-          // MD-X
+          // ML-M
           {
             top: 50,
             right: 380,
@@ -41,9 +65,9 @@ export default {
               color: "#FFFFFF",
               fontSize: 12
             },
-            data: ["Def Goal"]
+            data: ["ML-M"]
           },
-          // MD-X
+          // ML-K
           {
             top: 50,
             right: 300,
@@ -51,9 +75,9 @@ export default {
               color: "#FFFFFF",
               fontSize: 12
             },
-            data: ["MD-X"]
+            data: ["ML-K"]
           },
-          // JU-X
+          // ML-B
           {
             top: 50,
             right: 190,
@@ -61,27 +85,7 @@ export default {
               color: "#FFFFFF",
               fontSize: 12
             },
-            data: ["JU-X"]
-          },
-          // ML-X
-          {
-            top: 50,
-            right: 90,
-            textStyle: {
-              color: "#FFFFFF",
-              fontSize: 12
-            },
-            data: ["ML-X"]
-          },
-          // MW-X
-          {
-            top: 50,
-            right: 8,
-            textStyle: {
-              color: "#FFF",
-              fontSize: 12
-            },
-            data: ["MW-X"]
+            data: ["ML-B"]
           }
         ],
         tooltip: {
@@ -162,9 +166,9 @@ export default {
           }
         ],
         series: [
-          // 线数据 Def Goal
+          // 线数据 ML-M
           {
-            name: "Def Goal",
+            name: "ML-M",
             type: "line",
             //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             symbolSize: 8,
@@ -181,11 +185,11 @@ export default {
               show: true,
               formatter: (params) => params.value + "%"
             },
-            data: this.defGoal
+            data: this.mlm
           },
-          // 线数据 MD-X
+          // 线数据 ML-K
           {
-            name: "MD-X",
+            name: "ML-K",
             type: "line",
             //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             symbolSize: 8,
@@ -202,11 +206,11 @@ export default {
               show: true,
               formatter: (params) => params.value + "%"
             },
-            data: this.mdx
+            data: this.mlk
           },
-          // 线数据 JU-X
+          // 线数据 ML-B
           {
-            name: "JU-X",
+            name: "ML-B",
             type: "line",
             //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             symbolSize: 8,
@@ -223,49 +227,7 @@ export default {
               show: true,
               formatter: (params) => params.value + "%"
             },
-            data: this.jux
-          },
-          // 线数据 ML-X
-          {
-            name: "ML-X",
-            type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            symbolSize: 8,
-            smooth: true, // 设置拆线平滑
-            itemStyle: {
-              normal: {
-                color: "#99ff66"
-              }
-            },
-            lineStyle: {
-              width: 4
-            },
-            label: {
-              show: true,
-              formatter: (params) => params.value + "%"
-            },
-            data: this.mlx
-          },
-          // 线数据 MW-X
-          {
-            name: "MW-X",
-            type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            symbolSize: 8,
-            smooth: true, // 设置拆线平滑
-            itemStyle: {
-              normal: {
-                color: "#FFD700"
-              }
-            },
-            lineStyle: {
-              width: 4
-            },
-            label: {
-              show: true,
-              formatter: (params) => params.value + "%"
-            },
-            data: this.mwx
+            data: this.mlb
           }
         ]
       }
@@ -277,7 +239,7 @@ export default {
       this.$router.push({
         name: "sfcdetail",
         params: {
-          title: "MD系列良率"
+          title: "ML系列良率"
         }
       })
     }

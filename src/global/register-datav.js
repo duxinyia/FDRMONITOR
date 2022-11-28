@@ -10,7 +10,8 @@ import {
   decoration10,
   scrollBoard,
   percentPond,
-  scrollRankingBoard
+  scrollRankingBoard,
+  capsuleChart
 } from "@jiaminghi/data-view"
 
 const components = [
@@ -25,7 +26,8 @@ const components = [
   decoration10,
   scrollBoard,
   percentPond,
-  scrollRankingBoard
+  scrollRankingBoard,
+  capsuleChart
 ]
 
 export default function (app) {

@@ -8,10 +8,10 @@
         <div class="top-chart">
           <el-carousel height="380px" :interval="10000" indicator-position="none">
             <el-carousel-item>
-              <line-chart-1 :config="config1" />
+              <line-chart-1 :config="topLineChartConfig" :isYear="false" />
             </el-carousel-item>
             <el-carousel-item>
-              <line-chart-1 :config="config2" />
+              <line-chart-1 :config="topLineChartConfig" :isYear="true" />
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -19,21 +19,21 @@
         <el-carousel height="550px" :interval="10000" indicator-position="none">
           <el-carousel-item>
             <el-row :gutter="10">
-              <el-col :span="12">
-                <line-chart-2 />
+              <el-col v-for="item in 4" :key="item" :span="12">
+                <line-chart-2 :config="lineChartConfigs[item - 1]" />
               </el-col>
-              <el-col :span="12">
-                <line-chart-3 />
-              </el-col>
+              <!-- <el-col :span="12">
+                <line-chart-2 :config="lineChartConfigs[1]" />
+              </el-col>-->
             </el-row>
-            <el-row :gutter="10" class="three-main">
+            <!-- <el-row :gutter="10" class="three-main">
               <el-col :span="12">
-                <line-chart-4 />
+                <line-chart-2 :config="lineChartConfigs[2]" />
               </el-col>
               <el-col :span="12">
-                <line-chart-5 />
+                <line-chart-2 :config="lineChartConfigs[3]" />
               </el-col>
-            </el-row>
+            </el-row>-->
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -48,7 +48,7 @@ import LineChart3 from "./cpns/LineChart3.vue"
 import LineChart4 from "./cpns/LineChart4.vue"
 import LineChart5 from "./cpns/LineChart5.vue"
 // 导入发送请求的函函數
-// import { getMaintainInfo, getDeviceInfo, getMachineTop5, getProductInfo } from "@/api/fol.js"
+import { getCloseYieldInfo } from "@/api/sfc.js"
 export default {
   name: "sfc",
   components: {
@@ -60,42 +60,10 @@ export default {
   },
   data() {
     return {
-      config1: {
-        xData: [
-          "2021-Sep",
-          "2021-Oct",
-          "2021-Nov",
-          "2021-Dec",
-          "2022-Jan",
-          "2022-Feb",
-          "2022-Mar",
-          "2022-Apr",
-          "2022-May",
-          "2022-Jun",
-          "2022-Ju",
-          "2022-Aug",
-          "2022-Sep"
-        ],
-        mdx: [
-          96.84, 98.82, 96.8, 98.8, 97.82, 95.84, 98.68, 98.69, 98.68, 98.69, 98.68, 98.69, 98.69
-        ],
-        jux: [
-          94.77, 97.76, 97.71, 95.77, 97.43, 94.73, 98.73, 98.43, 98.73, 98.43, 98.73, 98.43, 98.69
-        ],
-        mlx: [
-          98.58, 98.59, 98.61, 97.57, 98.69, 96.68, 98.73, 98.43, 98.73, 98.69, 98.68, 98.69, 98.69
-        ],
-        mwx: [
-          96.5, 96.58, 98.31, 98.37, 98.56, 98.37, 97.71, 95.77, 97.43, 94.73, 94.73, 98.73, 98.43
-        ]
-      },
-      config2: {
-        xData: ["2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10"],
-        mdx: [96.84, 98.82, 96.8, 98.8, 97.82, 95.84],
-        jux: [94.77, 97.76, 97.71, 95.77, 97.43, 94.73],
-        mlx: [98.58, 98.59, 98.61, 97.57, 98.69, 96.68],
-        mwx: [96.5, 96.58, 98.31, 98.37, 98.56, 98.37]
-      }
+      // 上方折线图的数据
+      topLineChartConfig: [],
+      // 下方系列的数据
+      lineChartConfigs: [{}, {}, {}, {}]
     }
   },
   computed: {},
@@ -103,7 +71,7 @@ export default {
     this.$store.commit("fullLoading/SET_TITLE", "SFC良率")
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.$store.commit("fullLoading/SET_FULLLOADING", false)
-    // this.initData()
+    this.initData()
     // 每5分钟获取一次数据
     // this.dataTiming = setInterval(() => {
     //   this.initData()
@@ -111,18 +79,18 @@ export default {
   },
   methods: {
     async initData() {
-      let requestArr = [
-        // this.getMaintainInfo(),
-        // this.getDeviceInfo(),
-        // this.getMachineTop5(),
-        // this.getProductInfo()
-      ]
+      let requestArr = [this.getCloseYieldInfo()]
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    },
+    async getCloseYieldInfo() {
+      let res = await getCloseYieldInfo()
+      console.log("res======", res.deviceSeriesInfos)
+      // 取出  系列 2月4周 月份
+      this.topLineChartConfig = res.deviceSeriesInfos
+      // 先做系列的
+      this.lineChartConfigs = res.deviceInfos
     }
-    // toDetail(name) {
-    //   console.log("name", name)
-    // }
   },
   beforeDestroy() {
     clearInterval(this.dataTiming)
@@ -137,8 +105,8 @@ export default {
   .top-chart {
     margin: 0px 0px;
   }
-  .three-main {
+  /* .three-main {
     margin-top: 0px;
-  }
+  } */
 }
 </style>

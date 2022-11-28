@@ -8,13 +8,13 @@
   </div>
 </template>
 <script>
-var data1 = [620, 580, 610, 640, 810, 800, 830]
-var data2 = [210, 220, 290, 200, 205, 240, 230]
-var data3 = [700, 840, 710, 690, 590, 640, 720]
-var data4 = [400, 400, 400, 500, 400, 420, 470]
-var data5 = [600, 620, 640, 620, 470, 530, 520]
-var xData = ["11-1", "11-2", "11-3", "11-4", "11-5", "11-6", "11-7"]
-var cp = ["JU-X", "MD-X", "ML-X", "ML-2X", "Stanley"]
+// var data1 = [620, 580, 610, 640, 810, 800, 830]
+// var data2 = [210, 220, 290, 200, 205, 240, 230]
+// var data3 = [700, 840, 710, 690, 590, 640, 720]
+// var data4 = [400, 400, 400, 500, 400, 420, 470]
+// var data5 = [600, 620, 640, 620, 470, 530, 520]
+// var xData = ["11-1", "11-2", "11-3", "11-4", "11-5", "11-6", "11-7"]
+// var legends = ["JU-X", "MD-X", "ML-X", "ML-2X", "Stanley"]
 // 导入基础模板
 import baseEchart from "@/common/echart"
 export default {
@@ -39,10 +39,16 @@ export default {
   },
   computed: {
     options() {
+      let {
+        xData,
+        legends,
+        yData: [data1, data2, data3, data4, data5, data6, data7, data8, data9, data10]
+      } = this.config
+      console.log("legends.slice(5)", legends.slice(5))
       return {
         grid: {
           borderWidth: 0,
-          top: 50,
+          top: 60,
           left: "6%",
           right: "6%",
           bottom: "10%",
@@ -50,14 +56,24 @@ export default {
             color: "#fff"
           }
         },
-        legend: {
-          // top: "3%",
-          textStyle: {
-            fontSize: 20,
-            fontFamily: "MicrosoftYaHeiUI",
-            color: "#FFFFFF"
+        legend: [
+          {
+            data: legends.slice(5),
+            y: "25",
+            textStyle: {
+              color: "#c3dbff", //更改坐标轴文字颜色
+              fontSize: 14
+            }
+          },
+          {
+            data: legends.slice(0, 5),
+            y: "0",
+            textStyle: {
+              color: "#c3dbff", //更改坐标轴文字颜色
+              fontSize: 14
+            }
           }
-        },
+        ],
         tooltip: {
           show: true,
           trigger: "axis", //axis , item
@@ -135,7 +151,7 @@ export default {
         ],
         series: [
           {
-            name: cp[0],
+            name: legends[0],
             type: "line",
             symbolSize: 10,
             symbol: "circle",
@@ -183,7 +199,7 @@ export default {
             data: data1
           },
           {
-            name: cp[1],
+            name: legends[1],
             type: "line",
             symbolSize: 10,
             symbol: "circle",
@@ -231,7 +247,7 @@ export default {
             data: data2
           },
           {
-            name: cp[2],
+            name: legends[2],
             type: "line",
             symbolSize: 10,
             symbol: "circle",
@@ -279,7 +295,7 @@ export default {
             data: data3
           },
           {
-            name: cp[3],
+            name: legends[3],
             type: "line",
             symbolSize: 10,
             symbol: "circle",
@@ -327,7 +343,247 @@ export default {
             data: data4
           },
           {
-            name: cp[4],
+            name: legends[4],
+            type: "line",
+            symbolSize: 10,
+            symbol: "circle",
+            itemStyle: {
+              normal: {
+                label: {
+                  show: false,
+                  position: "top",
+                  formatter: (params) => {
+                    return params.value + "%"
+                  },
+                  textStyle: {
+                    fontSize: 12,
+                    color: "#fff"
+                  }
+                },
+                color: "#FF6633",
+                barBorderRadius: 0
+              }
+            },
+            lineStyle: {
+              normal: {
+                width: 4,
+                color: {
+                  type: "linear",
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: "#FF6633" // 0% 处的颜色
+                    },
+
+                    {
+                      offset: 1,
+                      color: "#FF6633" // 100% 处的颜色
+                    }
+                  ],
+                  global: false // 缺省为 false
+                }
+              }
+            },
+            data: data5
+          },
+          {
+            name: legends[5],
+            type: "line",
+            symbolSize: 10,
+            symbol: "circle",
+            itemStyle: {
+              normal: {
+                label: {
+                  show: false,
+                  position: "top",
+                  formatter: (params) => {
+                    return params.value + "%"
+                  },
+                  textStyle: {
+                    fontSize: 12,
+                    color: "#fff"
+                  }
+                },
+                color: "#FF6633",
+                barBorderRadius: 0
+              }
+            },
+            lineStyle: {
+              normal: {
+                width: 4,
+                color: {
+                  type: "linear",
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: "#FF6633" // 0% 处的颜色
+                    },
+
+                    {
+                      offset: 1,
+                      color: "#FF6633" // 100% 处的颜色
+                    }
+                  ],
+                  global: false // 缺省为 false
+                }
+              }
+            },
+            data: data5
+          },
+          {
+            name: legends[6],
+            type: "line",
+            symbolSize: 10,
+            symbol: "circle",
+            itemStyle: {
+              normal: {
+                label: {
+                  show: false,
+                  position: "top",
+                  formatter: (params) => {
+                    return params.value + "%"
+                  },
+                  textStyle: {
+                    fontSize: 12,
+                    color: "#fff"
+                  }
+                },
+                color: "#FF6633",
+                barBorderRadius: 0
+              }
+            },
+            lineStyle: {
+              normal: {
+                width: 4,
+                color: {
+                  type: "linear",
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: "#FF6633" // 0% 处的颜色
+                    },
+
+                    {
+                      offset: 1,
+                      color: "#FF6633" // 100% 处的颜色
+                    }
+                  ],
+                  global: false // 缺省为 false
+                }
+              }
+            },
+            data: data5
+          },
+          {
+            name: legends[7],
+            type: "line",
+            symbolSize: 10,
+            symbol: "circle",
+            itemStyle: {
+              normal: {
+                label: {
+                  show: false,
+                  position: "top",
+                  formatter: (params) => {
+                    return params.value + "%"
+                  },
+                  textStyle: {
+                    fontSize: 12,
+                    color: "#fff"
+                  }
+                },
+                color: "#FF6633",
+                barBorderRadius: 0
+              }
+            },
+            lineStyle: {
+              normal: {
+                width: 4,
+                color: {
+                  type: "linear",
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: "#FF6633" // 0% 处的颜色
+                    },
+
+                    {
+                      offset: 1,
+                      color: "#FF6633" // 100% 处的颜色
+                    }
+                  ],
+                  global: false // 缺省为 false
+                }
+              }
+            },
+            data: data5
+          },
+          {
+            name: legends[8],
+            type: "line",
+            symbolSize: 10,
+            symbol: "circle",
+            itemStyle: {
+              normal: {
+                label: {
+                  show: false,
+                  position: "top",
+                  formatter: (params) => {
+                    return params.value + "%"
+                  },
+                  textStyle: {
+                    fontSize: 12,
+                    color: "#fff"
+                  }
+                },
+                color: "#FF6633",
+                barBorderRadius: 0
+              }
+            },
+            lineStyle: {
+              normal: {
+                width: 4,
+                color: {
+                  type: "linear",
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: "#FF6633" // 0% 处的颜色
+                    },
+
+                    {
+                      offset: 1,
+                      color: "#FF6633" // 100% 处的颜色
+                    }
+                  ],
+                  global: false // 缺省为 false
+                }
+              }
+            },
+            data: data5
+          },
+          {
+            name: legends[9],
             type: "line",
             symbolSize: 10,
             symbol: "circle",

@@ -1,5 +1,8 @@
 <template>
-  <base-echart height="350px" :options="options" />
+  <!-- <dv-border-box-11 :title="`${config.deviceSeries}系列`"> -->
+  <dv-border-box-11 :title="config.deviceSeries && `${config.deviceSeries}系列`">
+    <base-echart height="350px" :options="options" />
+  </dv-border-box-11>
 </template>
 
 <script>
@@ -10,16 +13,73 @@ export default {
   components: {
     BaseEchart
   },
+  props: ["config"],
   data() {
     return {
-      xData: ["22-Aug", "22-Sap", "22-Wk38", "22-Wk39", "22-Wk40", "3/2", "3/3", "3/4"],
-      juy: [98.9, 99.4, 99.35, 98.9, 99.4, 99.55, 99.35, 98.95],
-      jua: [99.35, 99.53, 98.9, 98.9, 99.9, 99.4, 99.35, 98.26],
-      jug: [98.9, 99.35, 98.4, 99.4, 99.35, 99.15, 98.3, 98.4]
+      xData: [], // x轴的数据
+      legends: [] // 所有legend的值
     }
   },
   computed: {
     options() {
+      if (Object.keys(this.config).length > 0) {
+        // 不能写死数据，因为不确定 循环数组，取出对应的值
+        console.log("=======", this.config)
+        // 1. 取出eol的值
+        this.config.eoL_MowkYieldList.forEach((item, index) => {
+          // 取出 对应的 legend
+          this.legends.push(item.device.customName)
+          // 给当前实例动态显示值
+          this["eol_" + item.device.customName] = []
+          item.dateValues.forEach((item1) => {
+            if (index == 0) {
+              // 取出x轴的数据
+              this.xData.push(item1.dateCode)
+            }
+            // 取出对应的值 先只考虑eol的值
+            this["eol_" + item.device.customName].push(parseInt(item1.values.value))
+          })
+        })
+        // 2. 取出fol的值
+        this.config.foL_MowkYieldList.forEach((item, index) => {
+          // 给当前实例动态显示值
+          this["fol_" + item.device.customName] = []
+          item.dateValues.forEach((item1) => {
+            // 取出对应的值 先只考虑eol的值
+            this["fol_" + item.device.customName].push(parseInt(item1.values.value))
+          })
+        })
+        // 3.取出所有的值
+        this.config.alL_MowkYieldList.forEach((item, index) => {
+          // 给当前实例动态显示值
+          this["all_" + item.device.customName] = []
+          item.dateValues.forEach((item1) => {
+            // 取出对应的值 先只考虑eol的值
+            this["all_" + item.device.customName].push(parseInt(item1.values.value))
+          })
+        })
+        console.log("=======", this)
+      }
+      // 一些基本的配置
+      let baseLengend = {
+        top: 40,
+        textStyle: {
+          color: "#FFFFFF",
+          fontSize: 12
+        }
+      }
+      let baseSerie = {
+        type: "line",
+        symbolSize: 8,
+        smooth: true, // 设置拆线平滑
+        lineStyle: {
+          width: 4
+        },
+        label: {
+          show: true,
+          formatter: (params) => params.value + "%"
+        }
+      }
       return {
         grid: {
           top: 80,
@@ -27,38 +87,15 @@ export default {
           left: 60,
           bottom: 25 //图表尺寸大小
         },
-        legend: [
-          // JU-Y
-          {
-            top: 40,
-            right: 300,
-            textStyle: {
-              color: "#FFFFFF",
-              fontSize: 12
-            },
-            data: ["JU-Y"]
+        legend: {
+          top: 50,
+          right: 50,
+          textStyle: {
+            color: "#fff",
+            fontSize: 14
           },
-          // JU-A
-          {
-            top: 40,
-            right: 190,
-            textStyle: {
-              color: "#FFFFFF",
-              fontSize: 12
-            },
-            data: ["JU-A"]
-          },
-          // JU-G
-          {
-            top: 40,
-            right: 90,
-            textStyle: {
-              color: "#FFFFFF",
-              fontSize: 12
-            },
-            data: ["JU-G"]
-          }
-        ],
+          data: this.legends
+        },
         tooltip: {
           show: true,
           trigger: "axis", //axis , item
@@ -109,8 +146,8 @@ export default {
         yAxis: [
           {
             type: "value",
-            min: (value) => Math.ceil(value.min - 1), // 指定最小值
-            max: () => 100, // 指定最大值
+            min: (value) => value.min, // 指定最小值
+            max: (value) => value.max, // 指定最大值
             // position: "left",
             splitLine: {
               show: false
@@ -136,68 +173,18 @@ export default {
             }
           }
         ],
-        series: [
-          // 线数据 JU-Y
-          {
-            name: "JU-Y",
-            type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            symbolSize: 8,
-            smooth: true, // 设置拆线平滑
-            itemStyle: {
-              normal: {
-                color: "#52fea2",
-                label: {
-                  show: true
-                }
-              }
-            },
-            lineStyle: {
-              width: 4
-            },
-            data: this.juy
-          },
-          // 线数据 JU-A
-          {
-            name: "JU-A",
-            type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            symbolSize: 8,
-            smooth: true, // 设置拆线平滑
-            itemStyle: {
-              normal: {
-                color: "#1fedeb",
-                label: {
-                  show: true
-                }
-              }
-            },
-            lineStyle: {
-              width: 4
-            },
-            data: this.jua
-          },
-          // 线数据 JU-G
-          {
-            name: "JU-G",
-            type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            symbolSize: 8,
-            smooth: true, // 设置拆线平滑
-            itemStyle: {
-              normal: {
-                color: "#f7a35c",
-                label: {
-                  show: true
-                }
-              }
-            },
-            lineStyle: {
-              width: 4
-            },
-            data: this.jug
+        series: this.legends.map((item, index) => {
+          return {
+            ...baseSerie,
+            name: this.legends[index],
+            data: this["all" + this.legends[index]]
           }
-        ]
+        })
+        // [
+        //   ({ ...baseSerie, name: this.legends[0], data: this["all" + this.legends[0]] },
+        //   { ...baseSerie, name: this.legends[1], data: this["all" + this.legends[1]] },
+        //   { ...baseSerie, name: this.legends[2], data: this["all" + this.legends[2]] })
+        // ]
       }
     }
   }

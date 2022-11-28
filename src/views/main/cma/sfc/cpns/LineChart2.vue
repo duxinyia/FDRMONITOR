@@ -1,5 +1,5 @@
 <template>
-  <dv-border-box-11 title="ML系列">
+  <dv-border-box-11 :title="`${config.deviceSeries}系列`">
     <span class="btn" @click="toDetail">详情</span>
     <base-echart :options="options" />
   </dv-border-box-11>
@@ -13,18 +13,57 @@ export default {
   components: {
     BaseEchart
   },
+  props: ["config"],
   data() {
     return {
-      xData: ["2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10"],
-      defGoal: [0.4, 0.3, 0.3, 0.3, 0.3, 0.3],
-      mdx: [0.4, 0.3, 0.4, 0.5, 0.2, 0.3],
-      jux: [0.3, 0.3, 0.3, 0.4, 0.3, 0.2],
-      mlx: [0.2, 0.2, 0.6, 0.3, 0.3, 0.45],
-      mwx: [0.5, 0.2, 0.5, 0.2, 0.2, 0.2]
+      xData: [],
+      legends: []
+      // mdg: [],
+      // mdk: [],
+      // mdy: []
     }
   },
   computed: {
     options() {
+      // console.log("config======", this.config)
+      // 处理对应的数据
+      if (Object.keys(this.config).length > 0) {
+        // 取出 legend 的值
+        this.config.monthWeekYieldList.forEach((item, index) => {
+          // 取出lengds
+          this.legends.push(item.device)
+          // 给实例新增属性
+          this[item.device] = []
+          item.dateValues.forEach((item1) => {
+            if (index == 0) {
+              // 取出x轴的数据
+              this.xData.push(item1.dateCode)
+            }
+            // 取出剩下的数据
+            this[item.device].push(parseFloat(item1.values.value))
+          })
+        })
+      }
+      // 一些基本的配置
+      let baseLengend = {
+        top: 50,
+        textStyle: {
+          color: "#FFFFFF",
+          fontSize: 12
+        }
+      }
+      let baseSerie = {
+        type: "line",
+        symbolSize: 8,
+        smooth: true, // 设置拆线平滑
+        lineStyle: {
+          width: 4
+        },
+        label: {
+          show: true,
+          formatter: (params) => params.value + "%"
+        }
+      }
       return {
         grid: {
           top: 80,
@@ -32,58 +71,15 @@ export default {
           left: 80,
           bottom: 40 //图表尺寸大小
         },
-        legend: [
-          // MD-X
-          {
-            top: 50,
-            right: 380,
-            textStyle: {
-              color: "#FFFFFF",
-              fontSize: 12
-            },
-            data: ["Def Goal"]
+        legend: {
+          top: 50,
+          right: 50,
+          textStyle: {
+            color: "#fff",
+            fontSize: 14
           },
-          // MD-X
-          {
-            top: 50,
-            right: 300,
-            textStyle: {
-              color: "#FFFFFF",
-              fontSize: 12
-            },
-            data: ["MD-X"]
-          },
-          // JU-X
-          {
-            top: 50,
-            right: 190,
-            textStyle: {
-              color: "#FFFFFF",
-              fontSize: 12
-            },
-            data: ["JU-X"]
-          },
-          // ML-X
-          {
-            top: 50,
-            right: 90,
-            textStyle: {
-              color: "#FFFFFF",
-              fontSize: 12
-            },
-            data: ["ML-X"]
-          },
-          // MW-X
-          {
-            top: 50,
-            right: 8,
-            textStyle: {
-              color: "#FFF",
-              fontSize: 12
-            },
-            data: ["MW-X"]
-          }
-        ],
+          data: this.legends
+        },
         tooltip: {
           show: true,
           trigger: "axis", //axis , item
@@ -134,9 +130,8 @@ export default {
         yAxis: [
           {
             type: "value",
-            min: () => 0, // 指定最小值
+            min: (value) => value.min, // 指定最小值
             max: (value) => value.max, // 指定最大值
-            // position: "left",
             splitLine: {
               show: false
             },
@@ -162,111 +157,9 @@ export default {
           }
         ],
         series: [
-          // 线数据 Def Goal
-          {
-            name: "Def Goal",
-            type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            symbolSize: 8,
-            smooth: true, // 设置拆线平滑
-            itemStyle: {
-              normal: {
-                color: "#52fea2"
-              }
-            },
-            lineStyle: {
-              width: 4
-            },
-            label: {
-              show: true,
-              formatter: (params) => params.value + "%"
-            },
-            data: this.defGoal
-          },
-          // 线数据 MD-X
-          {
-            name: "MD-X",
-            type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            symbolSize: 8,
-            smooth: true, // 设置拆线平滑
-            itemStyle: {
-              normal: {
-                color: "#1fedeb"
-              }
-            },
-            lineStyle: {
-              width: 4
-            },
-            label: {
-              show: true,
-              formatter: (params) => params.value + "%"
-            },
-            data: this.mdx
-          },
-          // 线数据 JU-X
-          {
-            name: "JU-X",
-            type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            symbolSize: 8,
-            smooth: true, // 设置拆线平滑
-            itemStyle: {
-              normal: {
-                color: "#f7a35c"
-              }
-            },
-            lineStyle: {
-              width: 4
-            },
-            label: {
-              show: true,
-              formatter: (params) => params.value + "%"
-            },
-            data: this.jux
-          },
-          // 线数据 ML-X
-          {
-            name: "ML-X",
-            type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            symbolSize: 8,
-            smooth: true, // 设置拆线平滑
-            itemStyle: {
-              normal: {
-                color: "#99ff66"
-              }
-            },
-            lineStyle: {
-              width: 4
-            },
-            label: {
-              show: true,
-              formatter: (params) => params.value + "%"
-            },
-            data: this.mlx
-          },
-          // 线数据 MW-X
-          {
-            name: "MW-X",
-            type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            symbolSize: 8,
-            smooth: true, // 设置拆线平滑
-            itemStyle: {
-              normal: {
-                color: "#FFD700"
-              }
-            },
-            lineStyle: {
-              width: 4
-            },
-            label: {
-              show: true,
-              formatter: (params) => params.value + "%"
-            },
-            data: this.mwx
-          }
+          { ...baseSerie, name: this.legends[0], data: this[this.legends[0]] },
+          { ...baseSerie, name: this.legends[1], data: this[this.legends[1]] },
+          { ...baseSerie, name: this.legends[2], data: this[this.legends[2]] }
         ]
       }
     }
@@ -276,8 +169,8 @@ export default {
       console.log("toDetail")
       this.$router.push({
         name: "sfcdetail",
-        params: {
-          title: "ML系列良率"
+        query: {
+          tag: this.config.deviceSeries
         }
       })
     }
