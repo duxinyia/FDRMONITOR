@@ -7,12 +7,12 @@
         <el-row :gutter="30" class="main-one">
           <el-col v-for="item in 4" :key="item" :span="12" class="item">
             <div class="left">
-              <line-chart :config="chartConfig[item-1]" />
+              <line-chart :config="chartConfig[item - 1]" />
             </div>
-            <div class="right">
+            <!-- <div class="right">
               <span>FOL</span>
               <span>EOL</span>
-            </div>
+            </div>-->
           </el-col>
         </el-row>
         <!-- 第二行 -->
@@ -139,7 +139,7 @@ export default {
       width: 870px;
       color: #dd4848;
     }
-    .right {
+    /* .right {
       margin-left: 10px;
       margin-top: 50px;
       span {
@@ -158,7 +158,7 @@ export default {
           margin-top: 10px;
         }
       }
-    }
+    } */
   }
   .main-two {
     margin-bottom: 20px;

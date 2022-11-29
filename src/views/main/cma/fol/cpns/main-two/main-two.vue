@@ -396,7 +396,6 @@ export default {
 ::v-deep .el-carousel__item {
   height: 100%;
 }
-
 .main-two {
   height: 680px;
   position: relative;
@@ -422,7 +421,6 @@ export default {
           animation: rotation 4s linear infinite;
         }
       }
-
       .block-layout {
         height: 547px;
         display: grid;
@@ -449,8 +447,6 @@ export default {
               .icon-flag {
                 flex: 2;
                 font-size: 25px;
-                /* color: rgba(1, 181, 153, 0.8);
-                border-right: 2px solid rgba(1, 181, 153, 0.8); */
               }
               .state {
                 flex: 4;
@@ -464,8 +460,6 @@ export default {
               width: 135px;
               height: 220px;
               padding: 6px 3px 5px 6px;
-              /* border: 2px solid #02958e;
-              box-shadow: inset 0 0 10px rgba(2, 149, 142, 1); */
               border-radius: 8px;
               .left {
                 flex: 1;
@@ -511,14 +505,12 @@ export default {
                   height: 30px;
                   line-height: 30px;
                   border-radius: 50%;
-                  /* border: 1px solid #46bb9b; */
                   margin: 0px 0px 6px 0px;
                 }
                 .e-fail {
                   width: 30px;
                   height: 25px;
                   line-height: 25px;
-                  /* border: 1px solid #46bb9b; */
                 }
               }
             }
@@ -549,25 +541,21 @@ export default {
       .icon {
         font-weight: bold;
         font-size: 25px;
-        /* color: rgba(89, 113, 197, 0.6); */
         color: var(--aa-bottom-icon);
       }
       .icon1 {
         font-weight: bold;
         font-size: 25px;
-        /* color: rgba(89, 113, 197, 0.8); */
         color: var(--aa-bottom-icon1);
       }
       .icon2 {
         font-weight: 800;
         font-size: 25px;
-        /* color: rgba(89, 113, 197, 1); */
         color: var(--aa-bottom-icon2);
       }
     }
   }
 }
-
 .percent-pond {
   width: 95px;
   height: 30px;

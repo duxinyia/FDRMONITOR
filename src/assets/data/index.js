@@ -42,7 +42,7 @@ export let CMA_CONFIG = new Map([
         to: "fol"
       },
       {
-        id: 8,
+        id: 3,
         imgUrl: require("@/assets/images/eol.png"),
         info: "EOL設備總覽",
         target: "device",
@@ -51,7 +51,7 @@ export let CMA_CONFIG = new Map([
       },
 
       {
-        id: 3,
+        id: 4,
         isExternalLink: true,
         imgUrl: require("@/assets/images/spotcheck.jpg"),
         info: "AA PDI AI 檢測界面",
@@ -60,7 +60,7 @@ export let CMA_CONFIG = new Map([
         to: "http://10.142.117.50:32001/standard/design/#/share/OS4L2ZWV"
       },
       {
-        id: 4,
+        id: 5,
         isExternalLink: true,
         imgUrl: require("@/assets/images/device4.jpg"),
         info: "實時統計",
@@ -69,7 +69,7 @@ export let CMA_CONFIG = new Map([
         to: "http://10.142.117.50:32001/share.html?token=8ZBXMVWR"
       },
       {
-        id: 5,
+        id: 6,
         isExternalLink: true,
         imgUrl: require("@/assets/images/device5.png"),
         info: "歷史日統計",
@@ -78,7 +78,7 @@ export let CMA_CONFIG = new Map([
         to: "http://10.142.117.50:32001/share.html?token=V3SKHL6X"
       },
       {
-        id: 6,
+        id: 7,
         isExternalLink: true,
         imgUrl: require("@/assets/images/device6.png"),
         info: "歷史周統計",
@@ -87,7 +87,7 @@ export let CMA_CONFIG = new Map([
         to: "http://10.142.117.50:32001/share.html?token=HYMY179K"
       },
       {
-        id: 7,
+        id: 8,
         isExternalLink: true,
         imgUrl: require("@/assets/images/device7.png"),
         info: "歷史月統計",
@@ -101,7 +101,7 @@ export let CMA_CONFIG = new Map([
     "make",
     [
       {
-        id: 3,
+        id: 9,
         imgUrl: require("@/assets/images/output.png"),
         info: "產出可視化平台",
         target: "make",
@@ -109,7 +109,7 @@ export let CMA_CONFIG = new Map([
         to: "output"
       },
       {
-        id: 4,
+        id: 10,
         imgUrl: require("@/assets/images/output2.png"),
         info: "九宮格產出看板",
         target: "make",
@@ -117,7 +117,7 @@ export let CMA_CONFIG = new Map([
         to: "output2"
       },
       {
-        id: 6,
+        id: 11,
         imgUrl: require("@/assets/images/makewar.png"),
         info: "製造戰情中心",
         target: "make",
@@ -131,7 +131,7 @@ export let CMA_CONFIG = new Map([
     [
       // 良率总览
       {
-        id: 7,
+        id: 12,
         imgUrl: require("@/assets/images/sap.png"),
         info: "SAP良率",
         target: "yield",
@@ -139,7 +139,7 @@ export let CMA_CONFIG = new Map([
         to: "sap"
       },
       {
-        id: 8,
+        id: 13,
         imgUrl: require("@/assets/images/sap.png"),
         info: "SFC良率",
         target: "yield",
@@ -147,7 +147,7 @@ export let CMA_CONFIG = new Map([
         to: "sfc"
       },
       {
-        id: 9,
+        id: 14,
         imgUrl: require("@/assets/images/tsfc.png"),
         info: "SFC总良率预览",
         target: "yield",
@@ -155,7 +155,7 @@ export let CMA_CONFIG = new Map([
         to: "tsfc"
       },
       {
-        id: 10,
+        id: 15,
         imgUrl: require("@/assets/images/defect.png"),
         info: "Top 25 Defect Item",
         target: "yield",

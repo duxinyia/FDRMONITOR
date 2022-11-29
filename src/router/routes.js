@@ -138,12 +138,12 @@ export default [
     ]
   },
   // dp 的路由
-  {
-    path: "/dp",
-    name: "dp",
-    component: () => import(/* webpackChunkName: "main" */ "../views/main/dp/index.vue"),
-    children: []
-  },
+  // {
+  //   path: "/dp",
+  //   name: "dp",
+  //   component: () => import(/* webpackChunkName: "main" */ "../views/main/dp/index.vue"),
+  //   children: []
+  // },
   // 没找到的路由
   {
     path: "*",

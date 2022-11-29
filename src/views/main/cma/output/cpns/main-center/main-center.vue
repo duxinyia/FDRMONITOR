@@ -1,6 +1,6 @@
 <template>
   <div class="main-center">
-    <dv-border-box-11 title="年度達成">
+    <dv-border-box-11 :color="changeBoxColor" title="年度達成">
       <!-- 第一行 -->
       <el-row :gutter="30">
         <el-col v-for="item in totalArr" :key="item.name" class="item" :span="6">
@@ -51,6 +51,9 @@ export default {
         { name: "差異:", value: parseInt(delta).toLocaleString("en-US") },
         { name: "達成率:", value: hitRate }
       ]
+    },
+    changeBoxColor() {
+      return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
     }
   }
 }

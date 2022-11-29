@@ -18,14 +18,10 @@ export default {
     return {
       xData: [],
       legends: []
-      // mdg: [],
-      // mdk: [],
-      // mdy: []
     }
   },
   computed: {
     options() {
-      // console.log("config======", this.config)
       // 处理对应的数据
       if (Object.keys(this.config).length > 0) {
         // 取出 legend 的值

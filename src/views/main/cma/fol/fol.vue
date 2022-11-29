@@ -203,29 +203,46 @@ export default {
     // 获取 配件到期提示區
     async getDeviceInfo() {
       let result = await getDeviceInfo()
-      if (Array.isArray(result)) {
-        this.config2 = []
-        result.forEach((item) => {
-          let {
-            deviceSeries,
-            mpsPlan,
-            allowLine,
-            actualLine,
-            planStopLine,
-            exceptStopLine,
-            overLine
-          } = item
-          this.config2.push([
-            deviceSeries,
-            mpsPlan,
-            allowLine,
-            actualLine,
-            planStopLine,
-            exceptStopLine,
-            overLine
-          ])
-        })
-      }
+      let tempArr = [
+        ["JU-X", 0, 4, 0, 2, 0, 0],
+        ["JU-2X", 1, 4, 1, 2, 0, 0],
+        ["JU-3X", 1, 4, 1, 2, 0, 0],
+        ["NH-X", 0, 1, 0, 0, 0, 0],
+        ["NH-2X", 1, 1, 1, 0, 0, 0],
+        ["MD-X", 0, 4, 0, 1, 0, 0],
+        ["MD-2X", 0, 4, 0, 1, 0, 0],
+        ["MD-3X", 3, 4, 3, 1, 0, 0],
+        ["ML-X", 3, 11, 3, 2, 3, 0],
+        ["ML-2X", 2, 11, 3, 2, 3, 1],
+        ["ML-3X", 0, 11, 0, 2, 3, 0],
+        ["Stanley", 1, 2, 1, 1, 0, 0],
+        ["IOWA-B", 1, 1, 1, 0, 0, 0]
+      ]
+      this.config2 = tempArr
+      // 先注释先，到时候再打开
+      // if (Array.isArray(result)) {
+      //   this.config2 = []
+      //   result.forEach((item) => {
+      //     let {
+      //       deviceSeries,
+      //       mpsPlan,
+      //       allowLine,
+      //       actualLine,
+      //       planStopLine,
+      //       exceptStopLine,
+      //       overLine
+      //     } = item
+      //     this.config2.push([
+      //       deviceSeries,
+      //       mpsPlan,
+      //       allowLine,
+      //       actualLine,
+      //       planStopLine,
+      //       exceptStopLine,
+      //       overLine
+      //     ])
+      //   })
+      // }
     },
     // 获取top5的信息
     async getMachineTop5() {

@@ -58,7 +58,6 @@ export default {
             this["all_" + item.device.customName].push(parseInt(item1.values.value))
           })
         })
-        console.log("=======", this)
       }
       // 一些基本的配置
       let baseLengend = {
@@ -80,6 +79,16 @@ export default {
           formatter: (params) => params.value + "%"
         }
       }
+      console.log(
+        "this series",
+        this.legends.map((item, index) => {
+          return {
+            ...baseSerie,
+            name: this.legends[index],
+            data: this["all_" + this.legends[index]]
+          }
+        })
+      )
       return {
         grid: {
           top: 80,
@@ -177,18 +186,12 @@ export default {
           return {
             ...baseSerie,
             name: this.legends[index],
-            data: this["all" + this.legends[index]]
+            data: this["eol_" + this.legends[index]]
           }
         })
-        // [
-        //   ({ ...baseSerie, name: this.legends[0], data: this["all" + this.legends[0]] },
-        //   { ...baseSerie, name: this.legends[1], data: this["all" + this.legends[1]] },
-        //   { ...baseSerie, name: this.legends[2], data: this["all" + this.legends[2]] })
-        // ]
       }
     }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>

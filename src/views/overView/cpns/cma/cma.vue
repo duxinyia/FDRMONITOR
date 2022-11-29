@@ -1,7 +1,7 @@
 <template>
   <div class="cma-container">
     <div v-for="(item, index) in showDiv" :key="index" class="container" @click="toProject(item)">
-      <el-image class="image" fit="fill" :src="item.imgUrl"> </el-image>
+      <el-image class="image" fit="fill" :src="item.imgUrl"></el-image>
       <span class="info">{{ item.info }}</span>
     </div>
   </div>
@@ -48,8 +48,11 @@ export default {
 
 <style lang="scss" scoped>
 .cma-container {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   .container {
     cursor: pointer;
     border: 3px solid transparent;

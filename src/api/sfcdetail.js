@@ -1,7 +1,6 @@
 import request from "@/network"
 let { get: $get, post: $post } = request
 
-
 //
 export let getCloseNGYieldInfo = (params = {}) => {
   let { LotType = "MP", tag } = params

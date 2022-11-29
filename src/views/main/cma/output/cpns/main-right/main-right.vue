@@ -2,21 +2,19 @@
   <div class="main-right">
     <el-row>
       <el-col :span="24">
-        <dv-border-box-11 title="產出By月達成">
-          <!-- <bar-chart height="380px" :showTitle="false" :config1="newConfig1" /> -->
-          <dv-capsule-chart :config="dvScrollConfig" style="height:350px" />
+        <dv-border-box-11 :color="changeBoxColor" title="產出By月達成">
+          <dv-capsule-chart :config="dvScrollConfig" style="height: 350px" />
         </dv-border-box-11>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
         <dv-border-box-13 class="box13">
-          <!-- <scroll-chart height="390px" :showTitle="false" :config="scrollConfig" /> -->
           <myscroll-chart
             title="周/產出By機種"
-            carouselHeight="335px"
+            carouselHeight="375px"
             :headers="['月份', '機種', '計劃', '實際', '差異', '達成率']"
-            :widths="[60, 80, 100, 100, 100,100]"
+            :widths="[60, 80, 100, 100, 100, 100]"
             :showData="scrollData"
             :rowNum="8"
           />
@@ -27,18 +25,12 @@
 </template>
 
 <script>
-// 导入3d柱状图
-import barChart from "@/common/bar-chart/bar-chart.vue"
-// 导入轮播图
-// import scrollChart from "@/components/scroll-chart/scroll-chart.vue"
 // 导入自己封装的轮播图
 import MyscrollChart from "@/components/myscroll-chart/myscroll-chart.vue"
 export default {
   name: "main-right",
   props: ["scrollData", "rightTopData"],
   components: {
-    barChart,
-    // scrollChart
     MyscrollChart
   },
   computed: {
@@ -47,6 +39,11 @@ export default {
       return {
         data: rightTopData,
         showValue: true
+      }
+    },
+    computed: {
+      changeBoxColor() {
+        return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
       }
     }
   },

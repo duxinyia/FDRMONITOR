@@ -21,10 +21,9 @@
           <!-- <span class="iconfont icon-menu setup" @click="dialogVisible = true"></span> -->
         </el-tooltip>
         <!-- 背景选择 -->
-        <el-tooltip content="背景選擇" placement="top">
-          <!-- <span class="iconfont icon-fenlei select-bg" @click="bgDialogVisible = true"></span> -->
+        <!-- <el-tooltip content="背景選擇" placement="top">
           <span class="iconfont icon-huanfu select-bg" @click="bgDialogVisible = true"></span>
-        </el-tooltip>
+        </el-tooltip>-->
         <!-- 主题切换 -->
         <!-- <el-switch
           v-model="thememode"
@@ -38,7 +37,6 @@
       <div class="right">
         <!-- 返回上一级 -->
         <el-tooltip v-if="$route.meta.isJump" content="返回上一级" placement="top">
-          <!-- <span class="iconfont icon-fanhui backone" @click="$router.go(-1)"></span> -->
           <span class="iconfont icon-fanhui backone" @click="$router.go(-1)"></span>
         </el-tooltip>
         <!-- 全屏和退出 -->
@@ -87,11 +85,11 @@
     <!-- 不同项目切换 -->
     <project-dialog :dialogVisible.sync="dialogVisible" />
     <!-- 不同背景切换 -->
-    <bgs-dialog
+    <!-- <bgs-dialog
       @radioChangeBg="radioChangeBg"
       @selectChangeBg="selectChangeBg"
       :dialogVisible.sync="bgDialogVisible"
-    />
+    />-->
   </div>
 </template>
 

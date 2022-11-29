@@ -9,6 +9,7 @@
       <el-menu
         class="el-menu-vertical"
         text-color="#fff"
+        background-color="transparent"
         active-text-color="#ffd04b"
         :collapse="menuFold"
         router
@@ -32,7 +33,6 @@
             <span slot="title">良率总览</span>
           </el-menu-item>
         </el-submenu>
-        <!-- 关于页面 -->
         <el-menu-item index="/overview/about">
           <i class="el-icon-info"></i>
           <span slot="title">关于</span>
@@ -69,9 +69,7 @@
               <i class="el-icon-user-solid user-icon"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-switch-button" command="layout"
-                >退出</el-dropdown-item
-              >
+              <el-dropdown-item icon="el-icon-switch-button" command="layout">退出</el-dropdown-item>
               <el-dropdown-item icon="el-icon-moon" command="dark" divided>暗黑</el-dropdown-item>
               <el-dropdown-item icon="el-icon-sunny" command="light" divided>明亮</el-dropdown-item>
             </el-dropdown-menu>
@@ -118,7 +116,6 @@ export default {
       }
     },
     changeTheme(theme) {
-      console.log("theme", theme)
       let index = theme == "dark" ? 0 : 1
       document.documentElement.setAttribute("theme", theme)
       this.$store.commit("fullLoading/SET_THEME", theme)
@@ -143,36 +140,14 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-/* 重置el-dropdown-menu的样式 */
-
-// 重置el-mune的样式
-// 目录
-.el-menu-item {
-  // background-color: #162949 !important;
-  background: var(--overview-menu-bg) !important;
-}
-.el-submenu {
-  // background-color: #162949 !important;
-  background: var(--overview-menu-bg) !important;
-  // 二级菜单 ( 默认背景 )
-  .el-menu-item {
-    padding-left: 50px !important;
-    // background-color: #0c2135 !important;
-    // background-color: #162949 !important;
-    background: var(--overview-menu-bg) !important;
-  }
-}
-
 ::v-deep .el-submenu__title {
-  background-color: #162949 !important;
+  background-color: transparent !important;
 }
-
 // hover 高亮
 .el-menu-item:hover {
   color: #ccc !important; // 菜单
   background: #1f5997 !important;
 }
-
 .el-menu-item.is-active {
   color: #fff !important;
   background-color: #1f5997 !important;
@@ -188,17 +163,11 @@ export default {
   .aside-container {
     overflow-x: hidden;
     overflow-y: auto;
-    line-height: 2000px;
-    // text-align: left;
-    // cursor: pointer;
     transition: width 0.3s linear;
     scrollbar-width: none; /* firefox */
     -ms-overflow-style: none; /* IE 10+ */
     background: var(--overview-menu-bg);
     .top-title {
-      // #162949
-      background: var(--overview-menu-bg);
-      // background: #162949;
       height: 48px;
       display: flex;
       align-items: center;
@@ -218,10 +187,6 @@ export default {
     }
     .el-menu-vertical {
       border-right: 0;
-      // &::not(.el-menu--collapse) {
-      //   width: 100%;
-      //   height: calc(100% - 48px);
-      // }
     }
   }
   // 右边主要区域

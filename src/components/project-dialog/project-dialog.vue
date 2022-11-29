@@ -8,7 +8,7 @@
     width="40%"
   >
     <dv-border-box-11 :title="diglogTitle" :key="dialogKey">
-      <svg-icon className="closeIcon" icon-class="close" @click="toClose" />
+      <svg-icon class="closeIcon" icon-class="close" @click="toClose" />
       <div class="container">
         <template v-for="item in screenArr">
           <router-link
