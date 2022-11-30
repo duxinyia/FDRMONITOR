@@ -5,9 +5,17 @@
   --base-text-color: #000;
 
   // overview 的色值
-  --overview-head-bg: linear-gradient(270deg, rgba(39, 75, 232, 0.8) 0%, rgba(90, 210, 250, 0.8) 100%);
-  --overview-main-bg: rgba(255, 255, 255,1);
-  --overview-menu-bg: linear-gradient(180deg, rgba(29, 172, 219, 0.8) 0%, rgba(15, 32, 112, 0.8) 100%);
+  --overview-head-bg: linear-gradient(
+    270deg,
+    rgba(39, 75, 232, 0.8) 0%,
+    rgba(90, 210, 250, 0.8) 100%
+  );
+  --overview-main-bg: rgba(255, 255, 255, 1);
+  --overview-menu-bg: linear-gradient(
+    180deg,
+    rgba(29, 172, 219, 0.8) 0%,
+    rgba(15, 32, 112, 0.8) 100%
+  );
   --icon-color: #fff;
 
   // 各种看板主页头部公共部分的 色值
@@ -71,4 +79,7 @@
   --makewar-item-rate: rgba(39, 75, 232, 1);
   --makewar-item-num: rgba(39, 75, 232, 1);
   --makewar-item-date: rgba(39, 75, 232, 1);
+
+  // 制造层
+  --make-base-text:#000;
 }

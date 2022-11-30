@@ -34,6 +34,8 @@ export default {
   },
   computed: {
     options() {
+      // 设置变量
+      let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       let { xData, maxWips, wips, title, minWips } = this
       let newXData = xData.length >= 6 ? xData.slice(5) : xData
       let newWips = wips.length >= 6 ? wips.slice(5) : wips
@@ -76,7 +78,8 @@ export default {
             top: 0,
             right: 210,
             textStyle: {
-              color: "#FFFFFF",
+              // color: "#FFFFFF",
+              color: themeColor,
               fontSize: 12
             },
             data: ["實際"]
@@ -85,7 +88,8 @@ export default {
             top: 0,
             right: 130,
             textStyle: {
-              color: "#FFFFFF",
+              // color: "#FFFFFF",
+              color: themeColor,
               fontSize: 12
             },
             data: ["WIP上限"]
@@ -94,7 +98,8 @@ export default {
             top: 0,
             right: 40,
             textStyle: {
-              color: "#FFFFFF",
+              // color: "#FFFFFF",
+              color: themeColor,
               fontSize: 12
             },
             data: ["WIP下限"]
@@ -107,7 +112,8 @@ export default {
           data: newXData,
           axisLabel: {
             margin: 10,
-            color: "#EEEEEE",
+            // color: "#EEEEEE",
+            color: themeColor,
             textStyle: {
               fontSize: 12
             }
@@ -115,8 +121,9 @@ export default {
           },
           axisLine: {
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.3
+              // color: "#ffffff",
+              color: themeColor,
+              opacity: 1
             }
           },
           axisTick: {
@@ -125,8 +132,9 @@ export default {
           splitLine: {
             show: true,
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.3
+              // color: "#ffffff",
+              color: themeColor,
+              opacity: 1
             }
           }
         },
@@ -135,15 +143,17 @@ export default {
             min: (value) => Math.ceil(value.min), // 指定最小值
             max: (value) => Math.floor(value.max), // 指定最大值
             axisLabel: {
-              color: "#EEEEEE",
+              // color: "#EEEEEE",
+              color: themeColor,
               textStyle: {
                 fontSize: 14
               }
             },
             axisLine: {
               lineStyle: {
-                color: "#ffffff",
-                opacity: 0.3
+                // color: "#ffffff",
+                color: themeColor,
+                opacity: 1
               }
             },
             axisTick: {
@@ -152,8 +162,9 @@ export default {
             splitLine: {
               show: true,
               lineStyle: {
-                color: "#ffffff",
-                opacity: 0.3
+                // color: "#ffffff",
+                color: themeColor,
+                opacity: 1
               }
             }
           }
@@ -263,7 +274,8 @@ export default {
                 position: "top",
                 fontSize: 12,
                 fontWeight: "bold",
-                color: "#FFFFFF"
+                // color: "#FFFFFF"
+                color: themeColor
               }
             }
           }

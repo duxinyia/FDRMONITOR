@@ -66,18 +66,8 @@
             ></el-table-column>
             <el-table-column align="center" prop="targetOut" label="計劃"></el-table-column>
             <el-table-column align="center" prop="inPut" label="實際"></el-table-column>
-            <el-table-column
-              align="center"
-              prop="hitRate"
-              width="100px"
-              label="達成率"
-            ></el-table-column>
-            <el-table-column
-              align="center"
-              prop="processYield"
-              width="100px"
-              label="良率"
-            ></el-table-column>
+            <el-table-column align="center" prop="hitRate" width="100px" label="達成率"></el-table-column>
+            <el-table-column align="center" prop="processYield" width="100px" label="良率"></el-table-column>
             <el-table-column align="center" prop="wip" label="WIP"></el-table-column>
             <el-table-column align="center" prop="maxWip" label="上限"></el-table-column>
             <el-table-column align="center" prop="minWip" label="下限"></el-table-column>
@@ -184,14 +174,13 @@ export default {
         this.xData.push(station)
         // 第一个需要的数据
         this.targetOuts.push({ opNo, station, value: targetOut })
-        this.inPuts.push({ opNo, value: inPut })
+        this.inPuts.push({ opNo, station, value: inPut })
         // 第二个 需要的数据
         this.maxWips.push(maxWip)
         this.minWips.push(minWip)
         this.wips.push(wip)
         totalWip += Number(wip)
       })
-      // console.log("==========", packPlan, totalWip, totalWip / packPlan)
       this.ctNum = packPlan == 0 ? 0 : (totalWip / packPlan).toFixed(2)
       // 取出表格的数据
       this.tableData = stationInfo
@@ -203,16 +192,16 @@ export default {
       this.chart2Output = []
       this.chart2TargetOut = []
       this.chart2HitRate = []
-      console.log("result====", result)
+      // console.log("result====", result)
       // 需要生成 x轴的值 三种y的值
       result.dateValues.forEach((item) => {
         let {
-          dateCoode,
+          dateCode,
           values: {
             value: { targetOut, output, hitRate }
           }
         } = item
-        this.chart2Xdata.push(dateCoode.split(" ")[1].slice(0, 5))
+        this.chart2Xdata.push(dateCode.split(" ")[1].slice(0, 5))
         this.chart2Output.push(output)
         this.chart2TargetOut.push(targetOut)
         this.chart2HitRate.push(parseInt(hitRate))
@@ -236,7 +225,8 @@ export default {
 //整个table的背景颜色
 ::v-deep .el-table {
   font-size: 15px !important;
-  color: #fff;
+  /* color: #000; */
+  color: var(--make-base-text);
   border: 1px solid #1683af;
   background-color: transparent !important; //主体框透明透明
 }
@@ -244,7 +234,6 @@ export default {
   padding: 0px !important;
 }
 ::v-deep .el-table th {
-  color: #1adafb;
   padding: 7px 0 !important;
   background-color: transparent;
   border-right: 1px solid #1683af;
@@ -292,6 +281,7 @@ export default {
         font-size: 25px;
         font-weight: 700;
         margin-bottom: 10px;
+        color: var(--make-base-text);
       }
       .number {
         font-size: 28px;
@@ -317,6 +307,7 @@ export default {
   margin-top: 5px;
   height: 38px;
   line-height: 38px;
+  color: var(--make-base-text);
   .name {
     display: inline-block;
     text-align: center;

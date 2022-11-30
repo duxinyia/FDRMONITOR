@@ -1,6 +1,6 @@
 <template>
-  <dv-border-box-11 :title="`${config.deviceSeries}系列`">
-    <span class="btn" @click="toDetail">详情</span>
+  <dv-border-box-11 :color="changeBoxColor" :title="`${config.deviceSeries}系列`">
+    <span class="btn" @click="toDetail"></span>
     <base-echart :options="options" />
   </dv-border-box-11>
 </template>
@@ -21,7 +21,14 @@ export default {
     }
   },
   computed: {
+    changeBoxColor() {
+      return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
+    },
     options() {
+      // 设置变量
+      let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
+      // 设置颜色数组，方便取值
+      // let colors = ["#5ad2fa", "#b989f0", "#adf7b7", "#3759f0"]
       // 处理对应的数据
       if (Object.keys(this.config).length > 0) {
         // 取出 legend 的值
@@ -44,7 +51,8 @@ export default {
       let baseLengend = {
         top: 50,
         textStyle: {
-          color: "#FFFFFF",
+          // color: "#FFFFFF",
+          color: themeColor,
           fontSize: 12
         }
       }
@@ -67,11 +75,13 @@ export default {
           left: 80,
           bottom: 40 //图表尺寸大小
         },
+        color: ["#5ad2fa", "#b989f0", "#adf7b7", "#c9dd68"],
         legend: {
           top: 50,
           right: 50,
           textStyle: {
-            color: "#fff",
+            // color: "#fff",
+            color: themeColor,
             fontSize: 14
           },
           data: this.legends
@@ -100,7 +110,8 @@ export default {
           data: this.xData,
           axisLabel: {
             margin: 10,
-            color: "#EEEEEE",
+            // color: "#EEEEEE",
+            color: themeColor,
             textStyle: {
               fontSize: 14
             }
@@ -108,8 +119,9 @@ export default {
           axisLine: {
             symbol: ["none", "arrow"],
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.8
+              // color: "#ffffff",
+              color: themeColor,
+              opacity: 1
             }
           },
           axisTick: {
@@ -118,8 +130,9 @@ export default {
           splitLine: {
             show: false,
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.3
+              // color: "#ffffff",
+              color: themeColor,
+              opacity: 1
             }
           }
         },
@@ -132,7 +145,8 @@ export default {
               show: false
             },
             axisLabel: {
-              color: "#EEEEEE",
+              // color: "#EEEEEE",
+              color: themeColor,
               textStyle: {
                 fontSize: 16
               },
@@ -146,23 +160,25 @@ export default {
             axisLine: {
               symbol: ["none", "arrow"],
               lineStyle: {
-                color: "#fff",
+                // color: "#fff",
+                color: themeColor,
                 opacity: 1
               }
             }
           }
         ],
-        series: [
-          { ...baseSerie, name: this.legends[0], data: this[this.legends[0]] },
-          { ...baseSerie, name: this.legends[1], data: this[this.legends[1]] },
-          { ...baseSerie, name: this.legends[2], data: this[this.legends[2]] }
-        ]
+        series: this.legends.map((item, index) => {
+          return {
+            ...baseSerie,
+            name: this.legends[index],
+            data: this[this.legends[index]]
+          }
+        })
       }
     }
   },
   methods: {
     toDetail() {
-      console.log("toDetail")
       this.$router.push({
         name: "sfcdetail",
         query: {
@@ -175,7 +191,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.btn {
+/* .btn {
   position: absolute;
   right: 40px;
   top: 36px;
@@ -185,6 +201,16 @@ export default {
   text-align: center;
   line-height: 25px;
   border: 1px solid #ccc;
+  z-index: 9999;
+  cursor: pointer;
+} */
+.btn {
+  position: absolute;
+  right: 358px;
+  top: 4px;
+  display: inline-block;
+  width: 218px;
+  height: 50px;
   z-index: 9999;
   cursor: pointer;
 }

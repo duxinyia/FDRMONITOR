@@ -67,7 +67,6 @@ export default {
     // 获取对应的数据
     async getDateCodeRunningYieldInfo() {
       let res = await getDateCodeRunningYieldInfo()
-      console.log("res", res)
       this.chartConfig = res
     }
   },
@@ -78,14 +77,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   padding: 20px 20px 20px 20px;
 }
 .page-main {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   height: 100%;
   .main-one {
-    margin: 0px 0px 20px 0px;
+    /* margin: 0px 0px 20px 0px; */
     .wrapper {
       display: flex;
       .output,
@@ -136,7 +135,7 @@ export default {
   .item {
     display: flex;
     .left {
-      width: 870px;
+      width: 940px;
       color: #dd4848;
     }
     /* .right {

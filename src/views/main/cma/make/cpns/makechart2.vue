@@ -34,6 +34,8 @@ export default {
   },
   computed: {
     options() {
+      // 设置变量
+      let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       let { title, chart2Xdata, chart2Output, chart2TargetOut, chart2HitRate } = this
       return {
         title: {
@@ -98,7 +100,8 @@ export default {
             top: 0,
             right: 80,
             textStyle: {
-              color: "#FFFFFF",
+              // color: "#FFFFFF",
+              color: themeColor,
               fontSize: 12
             },
             data: ["計劃"]
@@ -107,7 +110,8 @@ export default {
             top: 0,
             right: 8,
             textStyle: {
-              color: "#FFFFFF",
+              // color: "#FFFFFF",
+              color: themeColor,
               fontSize: 12
             },
             data: ["實際"]
@@ -116,7 +120,8 @@ export default {
             top: 0,
             right: 150,
             textStyle: {
-              color: "#FFFFFF",
+              // color: "#FFFFFF",
+              color: themeColor,
               fontSize: 12
             },
             data: ["達成比例"]
@@ -129,15 +134,17 @@ export default {
           data: chart2Xdata,
           axisLabel: {
             margin: 10,
-            color: "#EEEEEE",
+            // color: "#EEEEEE",
+            color: themeColor,
             textStyle: {
               fontSize: 12
             }
           },
           axisLine: {
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.3
+              // color: "#ffffff",
+              color: themeColor,
+              opacity: 1
             }
           },
           axisTick: {
@@ -146,8 +153,9 @@ export default {
           splitLine: {
             show: true,
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.3
+              // color: "#ffffff",
+              color: themeColor,
+              opacity: 1
             }
           }
         },
@@ -158,15 +166,17 @@ export default {
             min: 0, // 指定最小值
             max: (value) => value.max, // 指定最大值
             axisLabel: {
-              color: "#EEEEEE",
+              // color: "#EEEEEE",
+              color: themeColor,
               textStyle: {
                 fontSize: 14
               }
             },
             axisLine: {
               lineStyle: {
-                color: "#ffffff",
-                opacity: 0.3
+                // color: "#ffffff",
+                color: themeColor,
+                opacity: 1
               }
             },
             axisTick: {
@@ -175,8 +185,9 @@ export default {
             splitLine: {
               show: true,
               lineStyle: {
-                color: "#ffffff",
-                opacity: 0.3
+                // color: "#ffffff",
+                color: themeColor,
+                opacity: 1
               }
             }
           },
@@ -189,7 +200,8 @@ export default {
               show: false
             },
             axisLabel: {
-              color: "#EEEEEE",
+              // color: "#EEEEEE",
+              color: themeColor,
               textStyle: {
                 fontSize: 14
               },
@@ -199,8 +211,9 @@ export default {
             },
             axisLine: {
               lineStyle: {
-                color: "#ffffff",
-                opacity: 0.3
+                // color: "#ffffff",
+                color: themeColor,
+                opacity: 1
               }
             }
           }
@@ -231,7 +244,8 @@ export default {
                 position: "top",
                 fontSize: 12,
                 fontWeight: "bold",
-                color: "#FFFFFF"
+                // color: "#FFFFFF"
+                color: themeColor
               }
             }
           },
@@ -260,7 +274,8 @@ export default {
                 position: "top",
                 fontSize: 12,
                 fontWeight: "bold",
-                color: "#FFFFFF"
+                // color: "#FFFFFF"
+                color: themeColor
               }
             }
           },
@@ -275,14 +290,6 @@ export default {
                 color: "#52fea2"
               }
             },
-            // label: {
-            //   normal: {
-            //     show: true,
-            //     formatter: function (params) {
-            //       return params.value + "%"
-            //     }
-            //   }
-            // },
             data: chart2HitRate
           }
         ]
@@ -291,5 +298,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>

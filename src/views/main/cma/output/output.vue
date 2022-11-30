@@ -104,7 +104,7 @@ export default {
     // 获取年度的统计数据
     async getYearOutputInfoCollection() {
       let res = await getYearOutputInfoCollection()
-      console.log("获取年度的统计数据", res)
+      // console.log("获取年度的统计数据", res)
       this.yearInfo = res.yearInfo
       // 组合饼图的数据
       res.deviceSeriesPie.forEach((item) => {
@@ -116,7 +116,6 @@ export default {
     async getMPSOpenLineInfo() {
       let res = await getMPSOpenLineInfo()
       if (res) {
-        // console.log("res1", res)
         // 生成对应的折线图的 数据
         res.forEach((item) => {
           // 取到各项的名称
@@ -135,20 +134,24 @@ export default {
     },
     // 获取左下的数据
     async getDateCodeOutputInfo() {
-      let res = await getDateCodeOutputInfo({ DateTag: "month" })
-      console.log("获取左下的数据", res)
+      let res = await getDateCodeOutputInfo({ DateTag: "quarter" })
+      // console.log("获取左下的数据", res)
       res.forEach((item) => {
-        let { owner, targetOut, output, delta, hitRate } = item
-        this.leftScrollData.push(["Q3", owner, targetOut, output, delta, hitRate])
+        // 取出对应的值
+        let { owner, targetOut, output, delta, hitRate, dateCode } = item
+        //
+        let code = dateCode.split("-")[1]
+        this.leftScrollData.push([code, owner, targetOut, output, delta, hitRate])
       })
     },
     // 获取左右下的数据
     async getDateCodeOutputInfo1() {
-      let res = await getDateCodeOutputInfo({ DateTag: "quarter" })
+      let res = await getDateCodeOutputInfo({ DateTag: "month" })
       // console.log("获取右下的数据", res)
       res.forEach((item) => {
-        let { owner, targetOut, output, delta, hitRate } = item
-        this.rightScrollData.push(["9月", owner, targetOut, output, delta, hitRate])
+        let { owner, targetOut, output, delta, hitRate, dateCode } = item
+        let code = dateCode.split("-")[1]
+        this.rightScrollData.push([code, owner, targetOut, output, delta, hitRate])
       })
     }
   },
@@ -161,6 +164,5 @@ export default {
 <style lang="scss" scoped>
 .page-main {
   margin-top: 10px;
-  // height: 100%;
 }
 </style>

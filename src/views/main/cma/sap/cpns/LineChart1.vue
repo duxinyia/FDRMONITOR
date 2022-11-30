@@ -172,7 +172,7 @@ export default {
           {
             name: "MD-X",
             type: "line",
-            //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
+            //yAxisIndex: 1, // 使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             symbolSize: 8,
             smooth: true, // 设置拆线平滑
             itemStyle: {

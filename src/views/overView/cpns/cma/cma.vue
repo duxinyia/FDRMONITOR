@@ -48,8 +48,6 @@ export default {
 
 <style lang="scss" scoped>
 .cma-container {
-  /* display: flex;
-  flex-wrap: wrap; */
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(5, 1fr);

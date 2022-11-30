@@ -39,6 +39,8 @@ export default {
   computed: {
     // 需要通过变量来判断是否 是 fol 还是 sta
     options() {
+      // 设置变量
+      let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       let { xData, targetOuts: yData, inPuts: yData1, title, isFol, isStanley } = this
       let newXData = xData
       let newYData = yData
@@ -115,7 +117,8 @@ export default {
             top: 0,
             right: 80,
             textStyle: {
-              color: "#FFFFFF",
+              // color: "#FFFFFF",
+              color: themeColor,
               fontSize: 12
             },
             data: ["計劃"]
@@ -124,7 +127,8 @@ export default {
             top: 0,
             right: 8,
             textStyle: {
-              color: "#FFFFFF",
+              // color: "#FFFFFF",
+              color: themeColor,
               fontSize: 12
             },
             data: ["實際"]
@@ -153,22 +157,17 @@ export default {
           data: newXData,
           axisLabel: {
             margin: 10,
-            color: "#EEEEEE",
+            // color: "#EEEEEE",
+            color: themeColor,
             textStyle: {
               fontSize: 12
             }
-            // rotate: "45"
-            // 坐标轴刻度标签换行处理
-            // formatter: function (params) {
-            //   console.log("params", params)
-            //   // 1. 超过五个字符的需要换行 2. 有空格的在空格出换行 3.
-            //   return "h"
-            // }
           },
           axisLine: {
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.3
+              // color: "#ffffff",
+              color: themeColor,
+              opacity: 1
             }
           },
           axisTick: {
@@ -177,8 +176,9 @@ export default {
           splitLine: {
             show: true,
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.3
+              // color: "#ffffff",
+              color: themeColor,
+              opacity: 1
             }
           }
         },
@@ -187,15 +187,17 @@ export default {
             min: (value) => Math.ceil(value.min), // 指定最小值
             max: (value) => Math.floor(value.max), // 指定最大值
             axisLabel: {
-              color: "#EEEEEE",
+              // color: "#EEEEEE",
+              color: themeColor,
               textStyle: {
                 fontSize: 14
               }
             },
             axisLine: {
               lineStyle: {
-                color: "#ffffff",
-                opacity: 0.3
+                // color: "#ffffff",
+                color: themeColor,
+                opacity: 1
               }
             },
             axisTick: {
@@ -204,20 +206,12 @@ export default {
             splitLine: {
               show: true,
               lineStyle: {
-                color: "#ffffff",
-                opacity: 0.3
+                // color: "#ffffff",
+                color: themeColor,
+                opacity: 1
               }
             }
           }
-          // {
-          //   type: "value",
-          //   name: "ML-X",
-          //   min: 0,
-          //   max: 100,
-          //   axisLabel: {
-          //     formatter: "{value} %"
-          //   }
-          // }
         ],
         series: [
           {
@@ -245,7 +239,8 @@ export default {
                 position: "top",
                 fontSize: 12,
                 fontWeight: "bold",
-                color: "#FFFFFF"
+                // color: "#FFFFFF"
+                color: themeColor
               }
             }
           },
@@ -274,7 +269,8 @@ export default {
                 position: "top",
                 fontSize: 12,
                 fontWeight: "bold",
-                color: "#FFFFFF"
+                // color: "#FFFFFF"
+                color: themeColor
               }
             }
           }

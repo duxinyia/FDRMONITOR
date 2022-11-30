@@ -1,10 +1,13 @@
+// 导入store
+import store from '@/store'
+console.log('======', store.getters.theme)
 // 一些不变的量  会被挂载到this.$globalData上
 export default {
   TIMEOUT: 10000,
   CYCLE_TIME: 3 * 60 * 1000,
   logoUrl: require("@/assets/images/logo.png"),
   bgs: [
-    require("@/assets/images/background5.png"),
+    require("@/assets/images/background3.png"),
     require("@/assets/images/background17.png")
     // require("@/assets/images/background3.png")
     // require("@/assets/images/background8.jpg"),
@@ -49,7 +52,6 @@ export let CMA_CONFIG = new Map([
         belong: "设备模块",
         to: "eol"
       },
-
       {
         id: 4,
         isExternalLink: true,

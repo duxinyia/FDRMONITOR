@@ -1,5 +1,5 @@
 <template>
-  <dv-border-box-11 title="SFC 良率">
+  <dv-border-box-11 :color="changeBoxColor" title="SFC 良率">
     <base-echart height="350px" :options="options" />
   </dv-border-box-11>
 </template>
@@ -20,7 +20,12 @@ export default {
     }
   },
   computed: {
+    changeBoxColor() {
+      return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
+    },
     options() {
+      // 设置变量
+      let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       this.config.forEach((item, index) => {
         // 取出 legend
         this.legends.push(item.deviceSeries)
@@ -52,7 +57,7 @@ export default {
       let baseLengend = {
         top: 40,
         textStyle: {
-          color: "#FFFFFF",
+          color: themeColor,
           fontSize: 12
         }
       }
@@ -69,6 +74,7 @@ export default {
         }
       }
       return {
+        color: ["#5ad2fa", "#b989f0", "#adf7b7", "#c9dd68"],
         grid: {
           top: 95,
           right: 50,
@@ -79,7 +85,7 @@ export default {
           top: 50,
           right: 50,
           textStyle: {
-            color: "#fff",
+            color: themeColor,
             fontSize: 14
           },
           data: this.legends
@@ -108,18 +114,17 @@ export default {
           data: this.xData,
           axisLabel: {
             margin: 10,
-            color: "#EEEEEE",
+            color: themeColor,
             textStyle: {
-              fontSize: 18,
-              fontWeight: "bold"
+              fontSize: 16
             }
           },
           axisLine: {
             symbol: ["none", "arrow"],
             symbolOffset: [0, 10],
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.8
+              color: themeColor,
+              opacity: 1
             }
           },
           axisTick: {
@@ -128,8 +133,8 @@ export default {
           splitLine: {
             show: false,
             lineStyle: {
-              color: "#fff",
-              opacity: 0.8
+              color: themeColor,
+              opacity: 1
             }
           }
         },
@@ -145,7 +150,7 @@ export default {
               show: false
             },
             axisLabel: {
-              color: "#EEEEEE",
+              color: themeColor,
               textStyle: {
                 fontSize: 16
               },
@@ -157,18 +162,15 @@ export default {
               symbol: ["none", "arrow"],
               symbolOffset: [0, 10],
               lineStyle: {
-                color: "#fff",
+                color: themeColor,
                 opacity: 1
               }
             }
           }
         ],
-        series: [
-          { ...baseSerie, name: this.legends[0], data: this[this.legends[0]] },
-          { ...baseSerie, name: this.legends[1], data: this[this.legends[1]] },
-          { ...baseSerie, name: this.legends[2], data: this[this.legends[2]] },
-          { ...baseSerie, name: this.legends[3], data: this[this.legends[3]] }
-        ]
+        series: this.legends.map((item, index) => {
+          return { ...baseSerie, name: this.legends[index], data: this[this.legends[index]] }
+        })
       }
     }
   }

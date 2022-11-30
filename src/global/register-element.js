@@ -1,4 +1,5 @@
 import {
+  RadioGroup,
   Progress,
   Upload,
   ColorPicker,
@@ -52,6 +53,7 @@ import {
 } from "element-ui"
 import "element-ui/lib/theme-chalk/index.css"
 const components = [
+  RadioGroup,
   Progress,
   Upload,
   ColorPicker,

@@ -60,6 +60,7 @@ export default {
         }
       }
       return {
+        color: ["#5ad2fa", "#b989f0", "#adf7b7", "#c9dd68"],
         grid: {
           top: 80,
           right: 50,
@@ -161,5 +162,3 @@ export default {
   }
 }
 </script>
-
-

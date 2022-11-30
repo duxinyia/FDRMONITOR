@@ -44,9 +44,6 @@
 // 导入5个折线图
 import LineChart1 from "./cpns/LineChart1.vue"
 import LineChart2 from "./cpns/LineChart2.vue"
-// import LineChart3 from "./cpns/LineChart3.vue"
-// import LineChart4 from "./cpns/LineChart4.vue"
-// import LineChart5 from "./cpns/LineChart5.vue"
 // 导入发送请求的函函數
 import { getCloseYieldInfo } from "@/api/sfc.js"
 export default {
@@ -54,9 +51,6 @@ export default {
   components: {
     LineChart1,
     LineChart2
-    // LineChart3,
-    // LineChart4,
-    // LineChart5
   },
   data() {
     return {
@@ -105,8 +99,5 @@ export default {
   .top-chart {
     margin: 0px 0px;
   }
-  /* .three-main {
-    margin-top: 0px;
-  } */
 }
 </style>
