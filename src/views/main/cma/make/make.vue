@@ -39,7 +39,7 @@
           <div class="chart-container">
             <make-chart-3
               :title="chart3Ttitle"
-              :xData="xData"
+              :xData="chart2Xdata"
               :maxWips="maxWips"
               :minWips="minWips"
               :wips="wips"

@@ -1,6 +1,6 @@
 // 导入store
-import store from '@/store'
-console.log('======', store.getters.theme)
+import store from "@/store"
+// console.log("======", store.getters.theme)
 // 一些不变的量  会被挂载到this.$globalData上
 export default {
   TIMEOUT: 10000,

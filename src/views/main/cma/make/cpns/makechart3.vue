@@ -37,7 +37,8 @@ export default {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       let { xData, maxWips, wips, title, minWips } = this
-      let newXData = xData.length >= 6 ? xData.slice(5) : xData
+      // let newXData = xData.length >= 6 ? xData.slice(5) : xData
+      let newXData = xData
       let newWips = wips.length >= 6 ? wips.slice(5) : wips
       let newMinWips = minWips.length >= 6 ? minWips.slice(5) : minWips
       return {
