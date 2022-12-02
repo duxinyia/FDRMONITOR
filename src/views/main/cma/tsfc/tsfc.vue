@@ -60,6 +60,7 @@ export default {
   },
   methods: {
     async initData() {
+      this.$store.commit("fullLoading/SET_FULLLOADING", true)
       let requestArr = [this.getDateCodeRunningYieldInfo()]
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)

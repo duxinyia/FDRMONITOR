@@ -48,20 +48,6 @@
             :class="menuFold ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
             @click="menuFold = !menuFold"
           ></i>
-          <!-- <el-switch
-            v-model="theme"
-            active-value="light"
-            inactive-value="dark"
-            active-color="#000"
-            inactive-color="#ffffff99"
-            @change="changeTheme"
-          ></el-switch>-->
-          <!-- 用一个正方形的框做黑白切换的效果 -->
-          <!-- <div class="theme-wrap" @change="changeTheme($store.getters.theme)">
-            <span
-              :class="['iconfont','theme-icon',$store.getters.theme == 'dark' ? 'icon-yueliang' : 'icon-taiyang']"
-            ></span>
-          </div>-->
         </div>
         <div class="header-right">
           <el-dropdown @command="handleCommand" placement="bottom">
@@ -69,9 +55,7 @@
               <i class="el-icon-user-solid user-icon"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-switch-button" command="layout"
-                >退出</el-dropdown-item
-              >
+              <el-dropdown-item icon="el-icon-switch-button" command="layout">退出</el-dropdown-item>
               <el-dropdown-item icon="el-icon-moon" command="dark" divided>暗黑</el-dropdown-item>
               <el-dropdown-item icon="el-icon-sunny" command="light" divided>明亮</el-dropdown-item>
             </el-dropdown-menu>
@@ -116,15 +100,6 @@ export default {
           bg: `background:url(${this.$globalData.bgs[index]})`
         })
       }
-    },
-    changeTheme(theme) {
-      let index = theme == "dark" ? 0 : 1
-      document.documentElement.setAttribute("theme", theme)
-      this.$store.commit("fullLoading/SET_THEME", theme)
-      this.$store.commit("fullLoading/SET_BGURL", {
-        index,
-        bg: `background:url(${this.$globalData.bgs[index]})`
-      })
     }
   }
 }

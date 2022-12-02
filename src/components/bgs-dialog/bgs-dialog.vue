@@ -19,15 +19,6 @@
             <span class="text">预览</span>
           </div>
         </div>
-        <!-- <div class="img-container">
-          <p class="radio">自定义</p>
-          <el-color-picker
-            class="image"
-            v-model="color"
-            show-alpha
-            @change="changeColor"
-          ></el-color-picker>
-        </div>-->
       </div>
     </dv-border-box-11>
   </el-dialog>
@@ -78,7 +69,7 @@ export default {
       this.$emit("update:dialogVisible", false)
     },
     changeColor(newColor) {
-      console.log("newColor", newColor)
+      // console.log("newColor", newColor)
       this.$emit("selectChangeBg", newColor)
       this.$store.commit("fullLoading/SET_BGURL", { index: 100, bg: `background:${newColor}` })
     }

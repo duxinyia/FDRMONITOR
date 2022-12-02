@@ -30,26 +30,6 @@ export default {
     options() {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
-      // 隔三位加入逗号
-      function changeNumberToStr(data) {
-        data = data || "-"
-        let strArr = data.toString().split(".")
-        let letterArr = (strArr[0] || 0).split("")
-        let result = []
-        let counter = 0
-        for (let i = letterArr.length - 1; i >= 0; i--) {
-          counter++
-          result.unshift(letterArr[i])
-          if (!(counter % 3) && i != 0) {
-            result.unshift(",")
-          }
-        }
-        if (strArr.length > 1) {
-          return result.join("") + "." + strArr[1]
-        } else {
-          return result.join("")
-        }
-      }
       // 总数据列表
       let dataList = {
         xName: this.legends,
@@ -72,33 +52,41 @@ export default {
               return parseFloat(item.rate)
             })
           },
-          // {
-          //   name: "数据4",
-          //   data:
-          // },
           {
-            name: "数据5",
-            data: [1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000]
+            name: "FOL Cosmetic",
+            data: this.fol_cosmetic.map((item) => {
+              return parseFloat(item.rate)
+            })
           },
           {
-            name: "数据6",
-            data: [1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000]
+            name: "EOL Cosmetic",
+            data: this.eol_cosmetic.map((item) => {
+              return parseFloat(item.rate)
+            })
           },
           {
-            name: "数据7",
-            data: [1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000]
+            name: "FOL Others",
+            data: this.fol_others.map((item) => {
+              return parseFloat(item.rate)
+            })
           },
           {
-            name: "数据8",
-            data: [1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000]
+            name: "EOL Others",
+            data: this.eol_others.map((item) => {
+              return parseFloat(item.rate)
+            })
           },
           {
-            name: "数据9",
-            data: [1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000]
+            name: "FOL Process",
+            data: this.fol_process.map((item) => {
+              return parseFloat(item.rate)
+            })
           },
           {
-            name: "其他",
-            data: [1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000, 1000, 2000, 3000, 4000]
+            name: "EOL Process",
+            data: this.eol_process.map((item) => {
+              return parseFloat(item.rate)
+            })
           }
         ]
       }
@@ -126,16 +114,16 @@ export default {
             barWidth: 24,
             type: "bar",
             stack: "x",
-            data: item.data,
+            data: item.data
             // 高亮时放大
-            emphasis: {
-              disabled: true,
-              itemStyle: {
-                color: colorList[index],
-                borderColor: colorList[index],
-                borderWidth: 10
-              }
-            }
+            // emphasis: {
+            //   disabled: true,
+            //   itemStyle: {
+            //     color: colorList[index],
+            //     borderColor: colorList[index],
+            //     borderWidth: 10
+            //   }
+            // }
           })
         })
       // 总数
@@ -154,10 +142,10 @@ export default {
           show: true,
           position: "top",
           textStyle: { color: "#333" },
-          distance: 10,
-          formatter: (params) => {
-            return `${changeNumberToStr(params.value)}人`
-          }
+          distance: 10
+          // formatter: (params) => {
+          //   return `${changeNumberToStr(params.value)}人`
+          // }
         }
         // data: dataList.total
       })
@@ -167,7 +155,8 @@ export default {
         legend: {
           data: legendData,
           textStyle: {
-            align: "right"
+            align: "right",
+            color: "#fff"
           },
           right: "2%",
           top: "2%"
@@ -194,21 +183,21 @@ export default {
             let boxWidth = size.contentSize[0]
             let boxHeight = size.contentSize[1]
             return [x - boxWidth / 2 - 5, y - boxHeight - 30]
-          },
-          formatter: function (params) {
-            return `<div class="tooltip-div">${
-              params.name || "-"
-            }（人）<div style='margin-top: 8px;'>${
-              params.seriesName || "-"
-            }</div><div style='color: ${params.color};margin-top: 8px;'>${
-              changeNumberToStr(params.data) || "-"
-            }</div></div>`
           }
+          // formatter: function (params) {
+          //   return `<div class="tooltip-div">${
+          //     params.name || "-"
+          //   }（人）<div style='margin-top: 8px;'>${
+          //     params.seriesName || "-"
+          //   }</div><div style='color: ${params.color};margin-top: 8px;'>${
+          //     changeNumberToStr(params.data) || "-"
+          //   }</div></div>`
+          // }
         },
         grid: {
-          left: "4%",
-          right: "4%",
-          top: 100,
+          left: 5,
+          right: 8,
+          top: 30,
           bottom: "1%",
           containLabel: true
         },
@@ -217,7 +206,7 @@ export default {
           data: dataList.xName,
           axisLabel: {
             textStyle: {
-              fontSize: 12,
+              fontSize: 14,
               color: themeColor
             }
           },
@@ -233,7 +222,7 @@ export default {
         yAxis: {
           type: "value",
           nameTextStyle: {
-            fontSize: 12,
+            fontSize: 14,
             padding: [0, 50, 0, 0],
             color: themeColor
           },
@@ -261,4 +250,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main-one {
+  margin-bottom: 15px;
+}
 </style>

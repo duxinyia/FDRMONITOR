@@ -1,6 +1,6 @@
 <template>
   <div class="cma-container">
-    <div v-for="(item, index) in showDiv" :key="index" class="container" @click="toProject(item)">
+    <div v-for="(item, index) in showDiv1" :key="index" class="container" @click="toProject(item)">
       <el-image class="image" fit="fill" :src="item.imgUrl"></el-image>
       <span class="info">{{ item.info }}</span>
     </div>
@@ -9,7 +9,7 @@
 
 <script>
 // 导入需要跳转路由配置
-import { CMA_CONFIG } from "@/assets/data"
+import { CMA_CONFIG, changeCmaConfig } from "@/assets/data"
 export default {
   name: "cma",
   data() {
@@ -18,18 +18,28 @@ export default {
       showDiv: []
     }
   },
-  watch: {
-    $route: {
-      handler(newValue) {
-        let { type } = newValue.params
-        this.showDiv = this.showDivMap.get(type)
-      },
-      immediate: true
+  // watch: {
+  //   $route: {
+  //     handler(newValue) {
+  //       let { type } = newValue.params
+  //       let theme = this.$store.getters.theme
+  //       this.showDiv = this.showDivMap.get(type)
+  //     },
+  //     immediate: true
+  //   }
+  // },
+  computed: {
+    showDiv1() {
+      let { type } = this.$route.params
+      let theme = this.$store.getters.theme
+      return changeCmaConfig(theme).get(type)
     }
   },
   created() {
     let { type } = this.$route.params
+    let theme = this.$store.getters.theme
     this.showDiv = this.showDivMap.get(type)
+    // this.showDiv = changeCmaConfig(theme).get(type)
   },
   methods: {
     toProject({ target, to, isExternalLink = false }) {

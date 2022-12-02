@@ -27,6 +27,7 @@
       :TargetYield="TargetYield"
       :fol_process="fol_process"
       :eol_process="eol_process"
+      :totalNum="totalNum"
     />
   </div>
 </template>
@@ -61,7 +62,8 @@ export default {
       fol_others: [],
       eol_others: [],
       fol_process: [],
-      eol_process: []
+      eol_process: [],
+      totalNum: []
       // total: 10,
       // currentPage: 1
     }
@@ -70,7 +72,6 @@ export default {
     this.$store.commit("fullLoading/SET_TITLE", "Top 25 Defect Item")
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.getDefectYieldInfo()
-    this.$store.commit("fullLoading/SET_FULLLOADING", false)
   },
 
   methods: {
@@ -87,6 +88,7 @@ export default {
         this.TargetYield.push(targetYield)
         // 也需要求和和rate
         let total = 0
+        let rate = 0
         // 取出dpc 和 lcb这些
         item.defectNameList.forEach((item1) => {
           if (item1.name == "DPC") {
@@ -94,31 +96,40 @@ export default {
             this.dpcs.push({ rate: item1.rate, qty: item1.failQty })
           } else if (item1.name == "LCB") {
             total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
             this.lcbs.push({ rate: item1.rate, qty: item1.failQty })
           } else if (item1.name == "SFR") {
             total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
             this.sfrs.push({ rate: item1.rate, qty: item1.failQty })
           } else if (item1.name == "FOL Cosmetic") {
             total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
             this.fol_cosmetic.push({ rate: item1.rate, qty: item1.failQty })
           } else if (item1.name == "EOL Cosmetic") {
             total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
             this.eol_cosmetic.push({ rate: item1.rate, qty: item1.failQty })
           } else if (item1.name == "FOL Others") {
             total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
             this.fol_others.push({ rate: item1.rate, qty: item1.failQty })
           } else if (item1.name == "EOL Others") {
             total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
             this.eol_others.push({ rate: item1.rate, qty: item1.failQty })
           } else if (item1.name == "FOL Process") {
             total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
             this.fol_process.push({ rate: item1.rate, qty: item1.failQty })
           } else if (item1.name == "EOL Process") {
             total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
             this.eol_process.push({ rate: item1.rate, qty: item1.failQty })
           }
         })
-        console.log("total", total)
+        // console.log("total", total)
+        this.totalNum.push({ total, rate: (rate / 100).toFixed(2) + "%" })
       })
       // if (res) {
       //   this.total = res.length
@@ -138,12 +149,8 @@ export default {
       //     })
       //   })
       // }
+      this.$store.commit("fullLoading/SET_FULLLOADING", false)
     }
-    // handleCurrentChange(val) {
-    //   this.currentPage = val
-    // }
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
