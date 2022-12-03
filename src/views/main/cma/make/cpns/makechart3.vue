@@ -38,9 +38,9 @@ export default {
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       let { xData, maxWips, wips, title, minWips } = this
       // let newXData = xData.length >= 6 ? xData.slice(5) : xData
-      let newXData = xData
-      let newWips = wips.length >= 6 ? wips.slice(5) : wips
-      let newMinWips = minWips.length >= 6 ? minWips.slice(5) : minWips
+      // let newXData = xData
+      // let newWips = wips.length >= 6 ? wips.slice(5) : wips
+      // let newMinWips = minWips.length >= 6 ? minWips.slice(5) : minWips
       return {
         title: {
           text: title,
@@ -55,7 +55,7 @@ export default {
           top: 40,
           right: 40,
           left: 70,
-          bottom: 50 //图表尺寸大小
+          bottom: 30 //图表尺寸大小
         },
         tooltip: {
           show: true,
@@ -110,7 +110,7 @@ export default {
           type: "category",
           boundaryGap: false,
           color: "#59588D",
-          data: newXData,
+          data: xData,
           axisLabel: {
             margin: 10,
             // color: "#EEEEEE",
@@ -207,7 +207,7 @@ export default {
           {
             type: "line",
             name: "WIP下限",
-            data: newMinWips,
+            data: minWips,
             barWidth: "16",
             itemStyle: {
               normal: {
@@ -240,7 +240,7 @@ export default {
           {
             type: "line",
             name: "實際",
-            data: newWips,
+            data: wips,
             barWidth: "16",
             itemStyle: {
               normal: {
@@ -286,5 +286,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>

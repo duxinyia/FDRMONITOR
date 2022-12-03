@@ -8,7 +8,7 @@
 import cache from "@/utils/cache.js"
 export default {
   name: "App",
-  created() {
+  mounted() {
     let theme = cache.getCache("theme") || "dark"
     document.documentElement.setAttribute("theme", theme)
   }
@@ -19,6 +19,5 @@ export default {
   width: 100vw;
   height: 100vh;
   background-color: #020308;
-  /* background: var(--base-bg); */
 }
 </style>

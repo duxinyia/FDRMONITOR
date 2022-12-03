@@ -169,14 +169,17 @@ export let CMA_CONFIG = new Map([
 ])
 
 // 通过函数来解决主题变化的时候显示不同的图片
-export let changeCmaConfig = (theme = 'dark') => {
+export let changeCmaConfig = (theme = "dark") => {
   return new Map([
     [
       "device",
       [
         {
           id: 1,
-          imgUrl: theme == 'dark' ? require("@/assets/images/aa.png") : require("@/assets/images/_aa.png"),
+          imgUrl:
+            theme == "dark"
+              ? require("@/assets/images/aa.png")
+              : require("@/assets/images/_aa.png"),
           info: "AA設備總覽",
           target: "device",
           belong: "设备模块",
@@ -184,7 +187,10 @@ export let changeCmaConfig = (theme = 'dark') => {
         },
         {
           id: 2,
-          imgUrl: theme == 'dark' ? require("@/assets/images/fol.png") : require("@/assets/images/_fol.png"),
+          imgUrl:
+            theme == "dark"
+              ? require("@/assets/images/fol.png")
+              : require("@/assets/images/_fol.png"),
           info: "FOL設備總覽",
           target: "device",
           belong: "设备模块",
@@ -250,7 +256,10 @@ export let changeCmaConfig = (theme = 'dark') => {
       [
         {
           id: 9,
-          imgUrl: theme == 'dark' ? require("@/assets/images/output.png") : require("@/assets/images/_output.png"),
+          imgUrl:
+            theme == "dark"
+              ? require("@/assets/images/output.png")
+              : require("@/assets/images/_output.png"),
           info: "產出可視化平台",
           target: "make",
           belong: "制造模块",
@@ -258,7 +267,10 @@ export let changeCmaConfig = (theme = 'dark') => {
         },
         {
           id: 10,
-          imgUrl: theme == 'dark' ? require("@/assets/images/output2.png") : require("@/assets/images/_output2.png"),
+          imgUrl:
+            theme == "dark"
+              ? require("@/assets/images/output2.png")
+              : require("@/assets/images/_output2.png"),
           info: "九宮格產出看板",
           target: "make",
           belong: "制造模块",
@@ -266,7 +278,10 @@ export let changeCmaConfig = (theme = 'dark') => {
         },
         {
           id: 11,
-          imgUrl: theme == 'dark' ? require("@/assets/images/makewar.png") : require("@/assets/images/_makewar.png"),
+          imgUrl:
+            theme == "dark"
+              ? require("@/assets/images/makewar.png")
+              : require("@/assets/images/_makewar.png"),
           info: "製造戰情中心",
           target: "make",
           belong: "制造模块",
@@ -288,7 +303,10 @@ export let changeCmaConfig = (theme = 'dark') => {
         },
         {
           id: 13,
-          imgUrl: theme == 'dark' ? require("@/assets/images/sfc.png") : require("@/assets/images/_sfc.png"),
+          imgUrl:
+            theme == "dark"
+              ? require("@/assets/images/sfc.png")
+              : require("@/assets/images/_sfc.png"),
           info: "SFC良率",
           target: "yield",
           belong: "良率模块",
@@ -296,7 +314,10 @@ export let changeCmaConfig = (theme = 'dark') => {
         },
         {
           id: 14,
-          imgUrl: theme == 'dark' ? require("@/assets/images/tsfc.png") : require("@/assets/images/_tsfc.png"),
+          imgUrl:
+            theme == "dark"
+              ? require("@/assets/images/tsfc.png")
+              : require("@/assets/images/_tsfc.png"),
           info: "SFC总良率预览",
           target: "yield",
           belong: "良率模块",

@@ -20,9 +20,7 @@ service.interceptors.request.use((config) => {
 // 响应拦截器
 service.interceptors.response.use(
   (res) => {
-    console.log("======res", res)
     if (res.data.status == false || res.data.Status == false) {
-      // console.log("错误选项=", res)
       Message({
         message: res.data.message || res.data.Message || "出错了~",
         type: "error"

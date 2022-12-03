@@ -22,18 +22,7 @@
               <el-col v-for="item in 4" :key="item" :span="12">
                 <line-chart-2 :config="lineChartConfigs[item - 1]" />
               </el-col>
-              <!-- <el-col :span="12">
-                <line-chart-2 :config="lineChartConfigs[1]" />
-              </el-col>-->
             </el-row>
-            <!-- <el-row :gutter="10" class="three-main">
-              <el-col :span="12">
-                <line-chart-2 :config="lineChartConfigs[2]" />
-              </el-col>
-              <el-col :span="12">
-                <line-chart-2 :config="lineChartConfigs[3]" />
-              </el-col>
-            </el-row>-->
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -79,7 +68,6 @@ export default {
     },
     async getCloseYieldInfo() {
       let res = await getCloseYieldInfo()
-      // console.log("res======", res.deviceSeriesInfos)
       // 取出  系列 2月4周 月份
       this.topLineChartConfig = res.deviceSeriesInfos
       // 先做系列的
@@ -94,10 +82,5 @@ export default {
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
   padding: 10px 20px 18px 20px;
-}
-.page-main {
-  .top-chart {
-    margin: 0px 0px;
-  }
 }
 </style>

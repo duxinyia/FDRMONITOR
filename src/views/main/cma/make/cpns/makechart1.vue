@@ -37,7 +37,6 @@ export default {
     baseEchart
   },
   computed: {
-    // 需要通过变量来判断是否 是 fol 还是 sta
     options() {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
@@ -45,7 +44,6 @@ export default {
       let newXData = xData
       let newYData = yData
       let newYData1 = yData1
-      // EOL-> Stanley -> 前四个和倒数第二个 否则去掉 前五个和倒数第二个
       if (isFol) {
         if (isStanley) {
           let tempArr1 = xData.slice(4)
@@ -91,11 +89,6 @@ export default {
           newYData1 = tempArr3
         }
       }
-
-      // let newXData = xData.length >= 6 ? xData.slice(5) : xData
-      // let newYData = yData.length >= 6 ? yData.slice(5) : yData
-      // let newYData1 = yData1.length >= 6 ? yData1.slice(5) : yData1
-
       return {
         title: {
           text: title,
@@ -110,7 +103,7 @@ export default {
           top: 50,
           right: 10,
           left: 70,
-          bottom: 50 //图表尺寸大小
+          bottom: 30 //图表尺寸大小
         },
         legend: [
           {

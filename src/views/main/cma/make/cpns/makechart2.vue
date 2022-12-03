@@ -71,7 +71,7 @@ export default {
             type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
           },
           formatter: function (params) {
-            console.log(params)
+            // console.log(params)
             let r1 = ""
             let r2 = ""
             let r3 = ""

@@ -121,7 +121,7 @@ export default {
       currentTime: "", // 当前的时间
       timing: null,
       dialogVisible: false,
-      bgDialogVisible: false,
+      // bgDialogVisible: false,
       isFullScreen: false,
       thememode: true
     }
@@ -146,13 +146,13 @@ export default {
   },
   methods: {
     // 选择了背景图片
-    radioChangeBg(imgUrl) {
-      this.imgUrl = imgUrl
-    },
+    // radioChangeBg(imgUrl) {
+    //   this.imgUrl = imgUrl
+    // },
     // 选择了纯色 背景
-    selectChangeBg(bgCol) {
-      this.imgUrl = bgCol
-    },
+    // selectChangeBg(bgCol) {
+    //   this.imgUrl = bgCol
+    // },
     goHome() {
       this.$router.push(this.$store.state.fullLoading.path)
     },

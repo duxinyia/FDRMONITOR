@@ -16,8 +16,7 @@
           :headers="['機種', 'MPS', '可線體數', '實際開線數', '計劃性停線數', '異常停線數', '差異']"
           :widths="[50, 50, 80, 110, 110, 90, 60]"
           :showData="config2"
-        >
-        </myscroll-chart>
+        ></myscroll-chart>
       </dv-border-box-13>
     </el-col>
     <!-- 線體良率明細區 -->
@@ -30,8 +29,7 @@
           :headers="['線體', '機種', '計劃產出', '實際產出', '達成率', 'DPC', 'LCB', '電性']"
           :widths="[60, 60, 80, 80, 70, 60, 60, 60]"
           :showData="config3"
-        >
-        </myscroll-chart>
+        ></myscroll-chart>
       </dv-border-box-13>
     </el-col>
     <!-- 當日當機Top5 -->
@@ -44,8 +42,6 @@
 </template>
 
 <script>
-// 轮播图
-import scrollChart from "@/components/scroll-chart/scroll-chart.vue"
 // 导入排名图
 import rankChart from "@/common/rank-chart/rank-chart.vue"
 // 导入3d柱状图
@@ -56,7 +52,6 @@ export default {
   name: "main-one",
   props: ["config1", "config2", "config3", "config4"],
   components: {
-    scrollChart,
     rankChart,
     barChart,
     MyscrollChart

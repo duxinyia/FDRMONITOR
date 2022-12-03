@@ -1,9 +1,5 @@
 <template>
-  <!-- <dv-border-box-11 :title="`${config.deviceSeries}系列`"> -->
-  <dv-border-box-11
-    :color="changeBoxColor"
-    :title="config.deviceSeries && `${config.deviceSeries}系列`"
-  >
+  <dv-border-box-11 :color="changeBoxColor" :title="`${config.deviceSeries || ''}系列`">
     <div class="operation">
       <el-radio-group v-model="radio">
         <el-radio label="all_">全部</el-radio>
@@ -59,7 +55,7 @@ export default {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       let tempLegends = [] // 用于每次进来都是全新的 legends
-      if (Object.keys(this.config).length > 0) {
+      if (Object.keys(this.config).length > 1) {
         // 不能写死数据，因为不确定 循环数组，取出对应的值
         // 1. 取出eol的值
         this.config.eoL_MowkYieldList.forEach((item, index) => {

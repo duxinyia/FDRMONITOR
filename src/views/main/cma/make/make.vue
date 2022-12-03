@@ -66,18 +66,8 @@
             ></el-table-column>
             <el-table-column align="center" prop="targetOut" label="計劃"></el-table-column>
             <el-table-column align="center" prop="inPut" label="實際"></el-table-column>
-            <el-table-column
-              align="center"
-              prop="hitRate"
-              width="100px"
-              label="達成率"
-            ></el-table-column>
-            <el-table-column
-              align="center"
-              prop="processYield"
-              width="100px"
-              label="良率"
-            ></el-table-column>
+            <el-table-column align="center" prop="hitRate" width="100px" label="達成率"></el-table-column>
+            <el-table-column align="center" prop="processYield" width="100px" label="良率"></el-table-column>
             <el-table-column align="center" prop="wip" label="WIP"></el-table-column>
             <el-table-column align="center" prop="maxWip" label="上限"></el-table-column>
             <el-table-column align="center" prop="minWip" label="下限"></el-table-column>
@@ -91,7 +81,6 @@
     </el-row>
   </div>
 </template>
-
 <script>
 // 导入子组件
 import MakeChart1 from "./cpns/makechart1.vue"
@@ -147,6 +136,7 @@ export default {
   },
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "製造層")
+    console.log(this.$route)
     this.GetRunningInfo(this.$route.params)
     let { customName, ProductArea } = this.$route.params
     // 获取到 Stanley 和 ProductArea 的值， 用于判断是否是 FOL 过来的
@@ -162,7 +152,7 @@ export default {
     // 获取右边表格的数据
     async GetRunningInfo(params) {
       let result = await GetRunningInfo(params)
-      console.log("result", result)
+      // console.log("result", result)
       let {
         productAreaInfo: { targetOut, outPut, hitRate, delta },
         stationInfo

@@ -6,8 +6,7 @@ const state = {
   path: "",
   title: "", // 每个页面的标题
   bgUrl: {}, // 背景图
-  theme: "", // 系统的背景 深色 还是 浅色
-
+  theme: "" // 系统的背景 深色 还是 浅色
 }
 
 const mutations = {

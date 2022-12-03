@@ -24,12 +24,7 @@
           <img class="icon" src="@/assets/images/icon02.png" alt />
           <span class="title">未來7天開線數</span>
         </p>
-        <line-chart
-          height="400px"
-          :showTitle="false"
-          :config="lineChartConfig"
-          title="線體良率明細區:"
-        />
+        <line-chart height="400px" :showTitle="false" :config="lineChartConfig" title="線體良率明細區:" />
       </div>
     </dv-border-box-11>
   </div>
@@ -37,9 +32,9 @@
 
 <script>
 // 导入饼图
-import PieChart from "./pie-chart/pie-chart.vue"
+import PieChart from "./cpns/pie-chart/pie-chart.vue"
 // 导入折线图
-import LineChart from "@/common/line-chart/line-chart.vue"
+import LineChart from "./cpns/line-chart/line-chart.vue"
 export default {
   name: "main-center",
   components: {
