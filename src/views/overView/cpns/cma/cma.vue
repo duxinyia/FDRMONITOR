@@ -6,40 +6,17 @@
     </div>
   </div>
 </template>
-
 <script>
 // 导入需要跳转路由配置
 import { CMA_CONFIG, changeCmaConfig } from "@/assets/data"
 export default {
   name: "cma",
-  data() {
-    return {
-      showDivMap: CMA_CONFIG,
-      showDiv: []
-    }
-  },
-  // watch: {
-  //   $route: {
-  //     handler(newValue) {
-  //       let { type } = newValue.params
-  //       let theme = this.$store.getters.theme
-  //       this.showDiv = this.showDivMap.get(type)
-  //     },
-  //     immediate: true
-  //   }
-  // },
   computed: {
     showDiv1() {
       let { type } = this.$route.params
       let theme = this.$store.getters.theme
       return changeCmaConfig(theme).get(type)
     }
-  },
-  created() {
-    let { type } = this.$route.params
-    let theme = this.$store.getters.theme
-    this.showDiv = this.showDivMap.get(type)
-    // this.showDiv = changeCmaConfig(theme).get(type)
   },
   methods: {
     toProject({ target, to, isExternalLink = false }) {
@@ -55,10 +32,8 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .cma-container {
-  /* height: 100%; */
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(5, 1fr);

@@ -42,7 +42,9 @@
               <span class="text-justify te-indent">一次良率</span>
               :&nbsp;{{ item.firstYield }}
             </div>
-            <div class="efficiencyloss"><span class="text-justify">效率損失</span>:</div>
+            <div class="efficiencyloss">
+              <span class="text-justify">效率損失</span>:
+            </div>
             <template v-if="Object.keys(item.mapYieldLoss).length > 0">
               <div
                 v-for="(eff, index) in item.efficiencyLoss"
@@ -56,7 +58,9 @@
             <template v-else>
               <div class="te-indent">暂无</div>
             </template>
-            <div class="yieldloss"><span class="text-justify">良率損失</span>:</div>
+            <div class="yieldloss">
+              <span class="text-justify">良率損失</span>:
+            </div>
             <template v-if="Object.keys(item.mapYieldLoss).length > 0">
               <div
                 v-for="(yiel, index) in item.mapYieldLoss"
@@ -80,9 +84,7 @@
           </div>
           <!-- 生成对应的时间 -->
           <div class="times-container">
-            <span class="time" v-for="(item, index) in timeNums" :key="item + index">
-              {{ item }}
-            </span>
+            <span class="time" v-for="(item, index) in timeNums" :key="item + index">{{ item }}</span>
           </div>
           <!-- 生成对应的时间刻度 -->
           <div class="time-scale">
@@ -100,8 +102,7 @@
                     color:
                       item.runstate == 'RUN' ? 'rgba(51, 255, 102, 0.8)' : 'rgba(255, 0, 51, 0.5)'
                   }"
-                  >{{ item.runstate }}</span
-                >
+                >{{ item.runstate }}</span>
                 <br />
                 <br />
                 開始時間:{{ item.starttime }}
@@ -176,7 +177,6 @@ export default {
     itemStyle(item) {
       let bgColor = item.runstate == "Stop" ? "rgba(255, 0, 51, 0.5)" : "rgba(51, 255, 102, 0.8)"
       let width = (Number(item.keeptime) / 90).toFixed(2)
-      console.log(width)
       return {
         background: bgColor,
         width: `${width}px`

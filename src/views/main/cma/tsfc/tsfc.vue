@@ -1,14 +1,12 @@
 <template>
-  <div>
+  <div class="page-main">
     <!-- 主要区域 -->
     <dv-border-box-10>
-      <div class="page-main">
-        <el-row :gutter="30" class="main-one">
-          <el-col v-for="item in 4" :key="item" :span="12">
-            <line-chart :config="chartConfig[item - 1]" />
-          </el-col>
-        </el-row>
-      </div>
+      <el-row :gutter="30" class="main-one">
+        <el-col v-for="item in 4" :key="item" :span="12">
+          <line-chart :config="chartConfig[item - 1]" />
+        </el-col>
+      </el-row>
     </dv-border-box-10>
   </div>
 </template>
@@ -61,5 +59,8 @@ export default {
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
   padding: 20px 20px 20px 20px;
+}
+.page-main {
+  margin-top: 25px;
 }
 </style>

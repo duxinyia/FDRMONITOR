@@ -156,7 +156,6 @@ export default {
       }
       .name {
         color: #fff;
-        // color: var(--iconColor);
         font-size: 24px;
         font-weight: bold;
         margin-left: 10px;
@@ -175,7 +174,6 @@ export default {
       justify-content: space-between;
       height: 100%;
       padding: 0 20px;
-      // background: #324157;
       background: var(--overview-head-bg);
       .header-left {
         display: flex;
@@ -186,7 +184,6 @@ export default {
         .theme-wrap {
           width: 25px;
           height: 25px;
-          /* border: 1px solid red; */
           line-height: 25px;
           .theme-icon {
             font-size: 25px;
@@ -199,7 +196,6 @@ export default {
       .user-icon {
         cursor: pointer;
         font-size: 25px;
-        // color: #fff;
         color: var(--icon-color);
         &:hover {
           color: #00ffff;

@@ -24,13 +24,7 @@
           <!-- 普通版本 -->
           <span class="des">{{ item.des }}</span>
           <span v-if="index == 3" class="number">{{ item.number }}</span>
-          <countTo
-            v-else
-            :startVal="0"
-            class="number"
-            :endVal="item.number"
-            :duration="5000"
-          ></countTo>
+          <countTo v-else :startVal="0" class="number" :endVal="item.number" :duration="5000"></countTo>
         </div>
       </div>
     </dv-border-box-12>
@@ -108,7 +102,6 @@ export default {
       text-align: center;
       width: 48%;
       border-radius: 10px;
-      // background-color: rgba(53, 79, 173, 0.6);
       background: var(--chart3-item-bg);
       align-items: center;
       margin-bottom: 10px;
@@ -123,7 +116,6 @@ export default {
         margin-top: 4px;
         flex: 1;
         font-weight: 900;
-        // color: #74bf0c;
         color: var(--chart3-item-des);
       }
       .number {

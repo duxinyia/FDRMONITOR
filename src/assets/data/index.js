@@ -196,14 +196,14 @@ export let changeCmaConfig = (theme = "dark") => {
           belong: "设备模块",
           to: "fol"
         },
-        {
-          id: 3,
-          imgUrl: require("@/assets/images/eol.png"),
-          info: "EOL設備總覽",
-          target: "device",
-          belong: "设备模块",
-          to: "eol"
-        },
+        // {
+        //   id: 3,
+        //   imgUrl: require("@/assets/images/eol.png"),
+        //   info: "EOL設備總覽",
+        //   target: "device",
+        //   belong: "设备模块",
+        //   to: "eol"
+        // },
         {
           id: 4,
           isExternalLink: true,
@@ -293,14 +293,14 @@ export let changeCmaConfig = (theme = "dark") => {
       "yield",
       [
         // 良率总览
-        {
-          id: 12,
-          imgUrl: require("@/assets/images/sap.png"),
-          info: "SAP良率",
-          target: "yield",
-          belong: "良率模块",
-          to: "sap"
-        },
+        // {
+        //   id: 12,
+        //   imgUrl: require("@/assets/images/sap.png"),
+        //   info: "SAP良率",
+        //   target: "yield",
+        //   belong: "良率模块",
+        //   to: "sap"
+        // },
         {
           id: 13,
           imgUrl:

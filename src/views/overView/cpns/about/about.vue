@@ -9,6 +9,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.about-container {
-}
+/* .about-container {
+} */
 </style>

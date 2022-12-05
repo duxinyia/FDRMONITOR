@@ -6,9 +6,6 @@
     element-loading-text="加載中..."
     element-loading-background="rgba(0, 0, 0, 0.8)"
   >
-    <!-- 该楼层的具体block
-    :color="`${$store.getters.theme == 'dark' ? ['#8aaafb', '#1f33a2'] : ['#05dad4', '#2c97e1']}`"
-    -->
     <dv-border-box-11 :color="changeBoxColor" :title="title">
       <div
         v-loading="isLoading"
@@ -53,9 +50,7 @@
                         @click="goDetail(item)"
                         :style="selectColor(item.runStatus)"
                       >
-                        <span :style="{ color: selectSpanColor() }">
-                          {{ item.machineName || "" }}
-                        </span>
+                        <span :style="{ color: selectSpanColor() }">{{ item.machineName || "" }}</span>
                       </div>
                       <div class="dots">
                         <template v-if="Object.keys(item.aaHeadCurrentRunStates).length > 0">
@@ -172,9 +167,7 @@ export default {
           ["", "#595959"]
         ])
         return {
-          // animation: "fade 2s infinite",
           color: map.get(state)
-          // background: map.get(state)
         }
       } else {
         map = new Map([
@@ -298,9 +291,7 @@ export default {
         width: 16px;
         height: 16px;
         margin-right: 4px;
-        /* background: rgba(53, 79, 173, 0.4); */
         background: var(--aa-item-bg);
-        /* animation: fade 2s infinite; */
       }
       .state {
         font-size: 16px;
@@ -317,7 +308,6 @@ export default {
         flex: 1;
         margin-right: 10px;
         border-radius: 10px;
-        // background-color: rgba(53, 79, 173, 0.3);
         background: var(--aa-bottom-block-bg);
         .block-name {
           width: 100%;
@@ -325,10 +315,7 @@ export default {
           overflow: hidden;
           line-height: 40px;
           margin-bottom: 10px;
-          // color: rgb(162, 198, 153);
           text-align: center;
-
-          /* border-bottom: 2px solid rgba(53, 79, 173, 0.8); */
           border-bottom: 2px solid var(--aa-bottom-block-border);
         }
         .grid-container {
@@ -355,9 +342,6 @@ export default {
               border-radius: 4px;
               cursor: pointer;
               margin-bottom: 2px;
-              /* background: rgba(53, 79, 173, 0.4); */
-              /* background: var(--aa-item-bg); */
-              /* animation: fade 2s infinite; */
             }
             .dots {
               width: 100%;
@@ -402,19 +386,16 @@ export default {
         .icon {
           font-weight: bold;
           font-size: 25px;
-          /* color: rgba(89, 113, 197, 0.6); */
           color: var(--aa-bottom-icon);
         }
         .icon1 {
           font-weight: bold;
           font-size: 25px;
-          /* color: rgba(89, 113, 197, 0.8); */
           color: var(--aa-bottom-icon1);
         }
         .icon2 {
           font-weight: 800;
           font-size: 25px;
-          /* color: rgba(89, 113, 197, 1); */
           color: var(--aa-bottom-icon2);
         }
       }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-main">
     <dv-border-box-12>
       <div
         v-loading="isLoading"
@@ -55,7 +55,7 @@
           </div>
         </div>
         <!-- 主要区域 -->
-        <div class="page-main">
+        <div class="main">
           <!-- 用轮播图显示 -->
           <el-carousel
             ref="carousel"
@@ -117,9 +117,7 @@
                             </div>
                             <div class="container" :style="changeContainerStyle(item)">
                               <!-- 中间区域 -->
-                              <div class="center" :style="changeCenterStyle(item)">
-                                {{ item.outPut }}
-                              </div>
+                              <div class="center" :style="changeCenterStyle(item)">{{ item.outPut }}</div>
                             </div>
                           </el-tooltip>
                         </div>
@@ -149,20 +147,6 @@ export default {
     return {
       dataTiming: null,
       showData: [],
-      // areas: [
-      //   {
-      //     value: "ALL",
-      //     label: "全部"
-      //   },
-      //   {
-      //     value: "FOL",
-      //     label: "FOL"
-      //   },
-      //   {
-      //     value: "EOL",
-      //     label: "EOL"
-      //   }
-      // ],
       selectArea: "ALL",
       isLessSplit: false,
       currentIndex: 3,
@@ -184,7 +168,6 @@ export default {
   },
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "九宮格產出看板")
-    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
     // 每5分钟获取一次数据
     this.dataTiming = setInterval(() => {
@@ -198,7 +181,6 @@ export default {
     },
     async GetKeyStationRunningInfo() {
       this.isLoading = true
-      // this.$store.commit("fullLoading/SET_FULLLOADING", true)
       this.isLessSplit = false
       this.showData = await GetKeyStationRunningInfo(this.selectArea)
       if (
@@ -290,38 +272,16 @@ export default {
 }
 </script>
 
-<style>
-.el-select-dropdown {
-  background: #00132a !important;
-  color: #fff;
-  border: 1px solid #0a4d6e;
-}
-.el-select-dropdown__item.hover {
-  background: #0a4d6e;
-  color: #fff;
-}
-</style>
+
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
   padding: 20px;
   position: relative;
 }
-::v-deep .el-input__inner {
-  background: rgba(10, 77, 110, 0.6);
-  color: #fff;
-  border: 1px solid #0a4d6e;
-}
-::v-deep .el-select:hover .el-input__inner {
-  border-color: #0a4d6e;
-}
-::v-deep .el-input {
-  width: 100px;
-}
 
 .page-main {
-  font-size: 16px;
+  margin-top: 20px;
 }
-
 .contaner {
   height: 100%;
   display: flex;
@@ -331,7 +291,6 @@ export default {
     width: 600px;
     height: 100%;
     padding: 4px 6px 4px 6px;
-    /* border: 1px solid #2f5e75; */
     border-radius: 8px;
     background: var(--output2-machine-bg);
     .title {
@@ -344,7 +303,6 @@ export default {
     .headers {
       .el-col {
         font-size: 17px;
-        /* color: #3be8ea; */
         color: var(--output2-header-item);
         font-weight: bold;
       }
@@ -415,19 +373,16 @@ export default {
     .icon {
       font-weight: bold;
       font-size: 25px;
-      /* color: rgba(89, 113, 197, 0.6); */
       color: var(--aa-bottom-icon);
     }
     .icon1 {
       font-weight: bold;
       font-size: 25px;
-      /* color: rgba(89, 113, 197, 0.8); */
       color: var(--aa-bottom-icon1);
     }
     .icon2 {
       font-weight: 800;
       font-size: 25px;
-      /* color: rgba(89, 113, 197, 1); */
       color: var(--aa-bottom-icon2);
     }
   }
@@ -448,8 +403,6 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
-    /* background: #093f65; */
-    /* border: 1px solid #1694ed; */
     .center {
       width: 50%;
       height: 80%;
@@ -457,12 +410,6 @@ export default {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      /* background: linear-gradient(
-        to right,
-        rgba(34, 177, 249, 0.3) 10%,
-        rgba(34, 177, 249, 0.6) 50%,
-        rgba(34, 177, 249, 0.9) 100%
-      ); */
     }
   }
 }

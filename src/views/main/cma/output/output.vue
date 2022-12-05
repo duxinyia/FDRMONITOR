@@ -163,6 +163,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-main {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 </style>
