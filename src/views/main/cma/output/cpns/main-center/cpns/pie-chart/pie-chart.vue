@@ -17,13 +17,13 @@ export default {
   props: ["seriesData"],
   data() {
     return {
-      color: [
-        "rgba(220, 145, 255, 1)",
-        "rgba(245, 154, 108, 1)",
-        "rgba(139, 111, 255, 1)",
-        "rgba(120, 187, 255, 1)",
-        "rgba(124, 168, 255, 1)"
-      ]
+      // color: [
+      //   "rgba(220, 145, 255, 1)",
+      //   "rgba(245, 154, 108, 1)",
+      //   "rgba(139, 111, 255, 1)",
+      //   "rgba(120, 187, 255, 1)",
+      //   "rgba(124, 168, 255, 1)"
+      // ]
     }
   },
   computed: {
@@ -31,7 +31,19 @@ export default {
       let { seriesData } = this
       return {
         // backgroundColor: "#000",
-        color: this.color,
+        // color: this.color,
+        color: [
+          "#5ad2fa",
+          "#b989f0",
+          "#adf7b7",
+          "#c9dd68",
+          "33ffcc",
+          "#FFC125",
+          "#FF7F00",
+          "#836FFF",
+          "#4876FF",
+          "#EE5C42"
+        ],
         grid: {
           top: 0,
           left: 0,

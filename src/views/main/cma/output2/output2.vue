@@ -117,7 +117,9 @@
                             </div>
                             <div class="container" :style="changeContainerStyle(item)">
                               <!-- 中间区域 -->
-                              <div class="center" :style="changeCenterStyle(item)">{{ item.outPut }}</div>
+                              <div class="center" :style="changeCenterStyle(item)">
+                                {{ item.outPut }}
+                              </div>
                             </div>
                           </el-tooltip>
                         </div>
@@ -271,7 +273,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 ::v-deep .border-box-content {

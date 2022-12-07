@@ -94,12 +94,7 @@ export default {
               <el-table-column align="center" prop="totalCount" label="計畫"></el-table-column>
               <el-table-column align="center" prop="hitCount" label="達成機種"></el-table-column>
               <el-table-column align="center" prop="notHitCount" label="未達成"></el-table-column>
-              <el-table-column
-                align="center"
-                width="100"
-                prop="hitRate"
-                label="達成率"
-              ></el-table-column>
+              <el-table-column align="center" width="100" prop="hitRate" label="達成率"></el-table-column>
             </el-table>
           </div>
         </dv-border-box-10>
@@ -187,7 +182,7 @@ export default {
 .count-container {
   display: flex;
   justify-content: flex-start;
-  margin: 15px 0;
+  margin: 25px 0;
   .container {
     &:first-child {
       margin-right: 40px;

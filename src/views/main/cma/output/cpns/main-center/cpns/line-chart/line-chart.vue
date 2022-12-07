@@ -18,28 +18,26 @@ export default {
   },
   computed: {
     options() {
+      // 设置变量
+      let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       let {
         xData,
         legends,
         yData: [data0, data1, data2, data3, data4, data5, data6, data7, data8, data9]
       } = this.config
-
-      // 基础的 设定
-      // let baseSeries = {
-      //   name: legends[0],
-      //   type: "line",
-      //   symbolSize: 10,
-      //   symbol: "circle",
-      //   data: data1
-      // }
-      // let result = []
-      // if (this.legends) {
-      //   this.legends.forEach((item, index) => {
-      //     result.push({ ...baseSeries, name: item, data: `data${index + 1}` })
-      //   })
-      // }
-      // console.log("result", result, data1)
       return {
+        color: [
+          "#5ad2fa",
+          "#b989f0",
+          "#adf7b7",
+          "#c9dd68",
+          "33ffcc",
+          "#FFC125",
+          "#FF7F00",
+          "#836FFF",
+          "#4876FF",
+          "#EE5C42"
+        ],
         grid: {
           borderWidth: 0,
           top: 60,
@@ -92,7 +90,7 @@ export default {
               show: true, //隐藏X轴轴线
               symbol: ["none", "arrow"],
               lineStyle: {
-                color: "#fff",
+                color: themeColor,
                 width: 1
               }
             },
@@ -107,7 +105,7 @@ export default {
             },
             axisLabel: {
               interval: 0,
-              color: "#fff",
+              color: themeColor,
               fontSize: 20
             },
             data: xData
@@ -123,7 +121,7 @@ export default {
               show: true, //隐藏X轴轴线
               symbol: ["none", "arrow"],
               lineStyle: {
-                color: "#fff",
+                color: themeColor,
                 width: 1
               }
             },
@@ -132,7 +130,7 @@ export default {
             },
             axisLabel: {
               interval: 0,
-              color: "#fff",
+              color: themeColor,
               fontSize: 20,
               formatter: (params) => {
                 return params + ""

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3656248 */
-  src: url("iconfont.ttf?t=1668414561744") format("truetype");
+  src: url('iconfont.ttf?t=1670394408804') format('truetype');
 }
 
 .iconfont {
@@ -9,6 +9,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-zhizaoye:before {
+  content: "\e66f";
+}
+
+.icon-gongju:before {
+  content: "\e60a";
+}
+
+.icon-hege:before {
+  content: "\e677";
 }
 
 .icon-yueliang:before {
@@ -126,3 +138,4 @@
 .icon-flag:before {
   content: "\e954";
 }
+

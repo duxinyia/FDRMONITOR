@@ -3,14 +3,15 @@
     <el-row>
       <el-col :span="24">
         <dv-border-box-11 :color="changeBoxColor" title="產出By季度達成">
-          <div class="progress-container">
+          <!-- <div class="progress-container">
             <div v-for="item in progressConfig" :key="item.name">
               <div class="number">
                 <span class="content">{{ item.value }}</span>
               </div>
               <p class="name">{{ item.name }}</p>
             </div>
-          </div>
+          </div>-->
+          <line-chart :progressConfig="progressConfig" />
         </dv-border-box-11>
       </el-col>
     </el-row>
@@ -32,12 +33,15 @@
 </template>
 
 <script>
+// 导入折线图
+import LineChart from "./cpns/line-chart.vue"
 // 导入自己封装的轮播图
 import MyscrollChart from "@/components/myscroll-chart/myscroll-chart.vue"
 export default {
   name: "main-left",
   props: ["progressConfig", "scrollData"],
   components: {
+    LineChart,
     MyscrollChart
   },
   computed: {
@@ -70,8 +74,9 @@ export default {
     position: relative;
     width: 140px;
     height: 140px;
-    background: #00f0ff;
-    border-radius: 50%;
+    /* background: #00f0ff; */
+    border: 1px solid red;
+    /* border-radius: 50%; */
     .content {
       position: absolute;
       letter-spacing: 6px;
@@ -83,7 +88,7 @@ export default {
       z-index: 10;
       color: #26dac9;
     }
-    &::after {
+    /* &::after {
       position: absolute;
       left: 50%;
       top: 50%;
@@ -93,7 +98,7 @@ export default {
       border-radius: 50%;
       transform: translate(-50%, -50%);
       background: #293564;
-    }
+    } */
   }
   .name {
     margin-top: 6px;

@@ -1,9 +1,9 @@
 <template>
   <el-container class="overview">
     <!-- 侧边栏 -->
-    <el-aside :width="menuFold ? '65px' : '210px'" class="aside-container">
+    <el-aside :width="menuFold ? '65px' : '210px'" :class="asideClass">
       <div class="top-title">
-        <img class="logo" :src="$globalData.logoUrl" alt />
+        <el-image class="logo" :src="changeLogo" fit="cover" />
         <h2 class="name" v-show="!menuFold">戰情中心</h2>
       </div>
       <el-menu
@@ -17,24 +17,27 @@
       >
         <el-submenu index="/overview/cma">
           <template slot="title">
-            <i class="el-icon-s-flag"></i>
+            <i class="el-icon-s-flag menu-icon"></i>
             <span>CMA总览</span>
           </template>
           <el-menu-item index="/overview/cma/device">
-            <i class="el-icon-s-platform"></i>
+            <!-- <i class="el-icon-s-platform"></i> -->
+            <span class="iconfont icon-gongju mr-10"></span>
             <span slot="title">设备总览</span>
           </el-menu-item>
           <el-menu-item index="/overview/cma/make">
-            <i class="el-icon-s-platform"></i>
+            <!-- <i class="el-icon-s-platform"></i> -->
+            <span class="iconfont icon-zhizaoye mr-10"></span>
             <span slot="title">制造总览</span>
           </el-menu-item>
           <el-menu-item index="/overview/cma/yield">
-            <i class="el-icon-s-platform"></i>
+            <!-- <i class="el-icon-s-platform"></i> -->
+            <span class="iconfont icon-hege mr-10"></span>
             <span slot="title">良率总览</span>
           </el-menu-item>
         </el-submenu>
         <el-menu-item index="/overview/about">
-          <i class="el-icon-info"></i>
+          <i class="el-icon-info menu-icon"></i>
           <span slot="title">关于</span>
         </el-menu-item>
       </el-menu>
@@ -64,6 +67,13 @@
       </el-header>
       <el-main class="main-container">
         <router-view />
+        <el-image
+          v-if="$store.getters.theme == 'dark'"
+          class="bottom-img"
+          :src="bottomImgUrl"
+          fit="contain"
+        ></el-image>
+        <el-image v-else class="light-bottom-img" :src="lightBottomImgUrl" fit="contain"></el-image>
       </el-main>
     </el-container>
   </el-container>
@@ -76,7 +86,25 @@ export default {
   data() {
     return {
       menuFold: false,
-      theme: this.$store.getters.theme || "dark"
+      theme: this.$store.getters.theme || "dark",
+      bottomImgUrl: require("@/assets/images/overview-bottom.png"),
+      lightBottomImgUrl: require("@/assets/images/_overview-bottom.png"),
+      asideBg: require("@/assets/images/menu-bg.png"),
+      lightAsiseBg: require("@/assets/images/_menu-bg.png")
+    }
+  },
+  computed: {
+    changeLogo() {
+      return this.$store.getters.theme == "dark"
+        ? this.$globalData.lightLogo
+        : this.$globalData.logoUrl
+    },
+    asideClass() {
+      return {
+        "aside-container": true,
+        "light-container": this.$store.getters.theme != "dark",
+        "dark-container": this.$store.getters.theme == "dark"
+      }
     }
   },
   created() {
@@ -93,7 +121,6 @@ export default {
       if (command == "dark" || command == "light") {
         let index = command == "dark" ? 0 : 1
         document.documentElement.setAttribute("theme", command)
-        // cache.setCache("theme", command)
         this.$store.commit("fullLoading/SET_THEME", command)
         this.$store.commit("fullLoading/SET_BGURL", {
           index,
@@ -120,14 +147,23 @@ export default {
 ::v-deep .el-submenu__title {
   background-color: transparent !important;
 }
+.mr-10 {
+  margin-right: 10px;
+}
+.menu-icon {
+  color: #fff;
+}
 // hover 高亮
 .el-menu-item:hover {
   color: #ccc !important; // 菜单
   background: #1f5997 !important;
 }
 .el-menu-item.is-active {
-  color: #fff !important;
-  background-color: #1f5997 !important;
+  color: var(--menu-item-active) !important;
+  font-weight: bold;
+  background-color: var(--menu-item-active-bg) !important;
+  .menu-icon {
+  }
 }
 // 外层容器
 .overview {
@@ -143,7 +179,6 @@ export default {
     transition: width 0.3s linear;
     scrollbar-width: none; /* firefox */
     -ms-overflow-style: none; /* IE 10+ */
-    background: var(--overview-menu-bg);
     .top-title {
       height: 48px;
       display: flex;
@@ -152,6 +187,8 @@ export default {
       .logo {
         width: 32px;
         height: 32px;
+        /* width: 40px;
+        height: 40px; */
         vertical-align: middle;
       }
       .name {
@@ -164,6 +201,12 @@ export default {
     .el-menu-vertical {
       border-right: 0;
     }
+  }
+  .light-container {
+    background: url("~@/assets/images/_menu-bg.png") no-repeat center center !important;
+  }
+  .dark-container {
+    background: url("~@/assets/images/menu-bg.png") no-repeat center center !important;
   }
   // 右边主要区域
   .right-container {
@@ -181,16 +224,6 @@ export default {
         .flod {
           margin-right: 10px;
         }
-        .theme-wrap {
-          width: 25px;
-          height: 25px;
-          line-height: 25px;
-          .theme-icon {
-            font-size: 25px;
-            cursor: pointer;
-            color: red;
-          }
-        }
       }
       .flod,
       .user-icon {
@@ -203,7 +236,22 @@ export default {
       }
     }
     .main-container {
+      overflow: hidden;
+      position: relative;
       background: var(--overview-main-bg);
+      .bottom-img {
+        width: 2220px;
+        height: 1058px;
+        position: absolute;
+        top: -169px;
+        right: -400px;
+      }
+      .light-bottom-img {
+        position: absolute;
+        top: 190px;
+        right: -400px;
+        z-index: 0;
+      }
     }
   }
 }

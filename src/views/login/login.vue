@@ -2,7 +2,7 @@
   <div class="login-page">
     <div class="form-container">
       <el-image class="logo" :src="form_logo"></el-image>
-      <p class="welcome-text">您好！欢迎登录战情中心</p>
+      <!-- <p class="welcome-text">战情中心</p> -->
       <el-form class="form" ref="form" :rules="rules" :model="form">
         <el-form-item prop="name">
           <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
@@ -124,7 +124,7 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-  background: url("~@/assets/images/login-bg2.png") no-repeat center center;
+  background: url("~@/assets/images/login-bg3.png") no-repeat center center;
   .form-container {
     position: absolute;
     right: 11.3%;

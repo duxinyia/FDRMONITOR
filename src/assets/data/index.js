@@ -6,6 +6,7 @@ export default {
   TIMEOUT: 10000,
   CYCLE_TIME: 3 * 60 * 1000,
   logoUrl: require("@/assets/images/logo.png"),
+  lightLogo: require("@/assets/images/_logo.png"),
   bgs: [
     require("@/assets/images/background3.png"),
     require("@/assets/images/background17.png")
@@ -33,7 +34,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/aa.png"),
         info: "AA設備總覽",
         target: "device",
-        belong: "设备模块",
+        belong: "设备总览",
         to: "aa"
       },
       {
@@ -41,7 +42,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/fol.png"),
         info: "FOL設備總覽",
         target: "device",
-        belong: "设备模块",
+        belong: "设备总览",
         to: "fol"
       },
       {
@@ -49,7 +50,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/eol.png"),
         info: "EOL設備總覽",
         target: "device",
-        belong: "设备模块",
+        belong: "设备总览",
         to: "eol"
       },
       {
@@ -58,7 +59,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/spotcheck.jpg"),
         info: "AA PDI AI 檢測界面",
         target: "device",
-        belong: "设备模块",
+        belong: "设备总览",
         to: "http://10.142.117.50:32001/standard/design/#/share/OS4L2ZWV"
       },
       {
@@ -67,7 +68,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/device4.jpg"),
         info: "實時統計",
         target: "device",
-        belong: "设备模块",
+        belong: "设备总览",
         to: "http://10.142.117.50:32001/share.html?token=8ZBXMVWR"
       },
       {
@@ -76,7 +77,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/device5.png"),
         info: "歷史日統計",
         target: "device",
-        belong: "设备模块",
+        belong: "设备总览",
         to: "http://10.142.117.50:32001/share.html?token=V3SKHL6X"
       },
       {
@@ -85,7 +86,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/device6.png"),
         info: "歷史周統計",
         target: "device",
-        belong: "设备模块",
+        belong: "设备总览",
         to: "http://10.142.117.50:32001/share.html?token=HYMY179K"
       },
       {
@@ -94,7 +95,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/device7.png"),
         info: "歷史月統計",
         target: "device",
-        belong: "设备模块",
+        belong: "设备总览",
         to: "http://10.142.117.50:32001/share.html?token=TLYKVQQY"
       }
     ]
@@ -107,7 +108,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/output.png"),
         info: "產出可視化平台",
         target: "make",
-        belong: "制造模块",
+        belong: "制造总览",
         to: "output"
       },
       {
@@ -115,7 +116,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/output2.png"),
         info: "九宮格產出看板",
         target: "make",
-        belong: "制造模块",
+        belong: "制造总览",
         to: "output2"
       },
       {
@@ -123,7 +124,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/makewar.png"),
         info: "製造戰情中心",
         target: "make",
-        belong: "制造模块",
+        belong: "制造总览",
         to: "makewar"
       }
     ]
@@ -137,7 +138,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/sap.png"),
         info: "SAP良率",
         target: "yield",
-        belong: "良率模块",
+        belong: "良率总览",
         to: "sap"
       },
       {
@@ -145,7 +146,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/sap.png"),
         info: "SFC良率",
         target: "yield",
-        belong: "良率模块",
+        belong: "良率总览",
         to: "sfc"
       },
       {
@@ -153,7 +154,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/tsfc.png"),
         info: "SFC总良率预览",
         target: "yield",
-        belong: "良率模块",
+        belong: "良率总览",
         to: "tsfc"
       },
       {
@@ -161,7 +162,7 @@ export let CMA_CONFIG = new Map([
         imgUrl: require("@/assets/images/defect.png"),
         info: "Top 25 Defect Item",
         target: "yield",
-        belong: "良率模块",
+        belong: "良率总览",
         to: "defect"
       }
     ]
@@ -182,7 +183,7 @@ export let changeCmaConfig = (theme = "dark") => {
               : require("@/assets/images/_aa.png"),
           info: "AA設備總覽",
           target: "device",
-          belong: "设备模块",
+          belong: "设备总览",
           to: "aa"
         },
         {
@@ -193,7 +194,7 @@ export let changeCmaConfig = (theme = "dark") => {
               : require("@/assets/images/_fol.png"),
           info: "FOL設備總覽",
           target: "device",
-          belong: "设备模块",
+          belong: "设备总览",
           to: "fol"
         },
         // {
@@ -201,7 +202,7 @@ export let changeCmaConfig = (theme = "dark") => {
         //   imgUrl: require("@/assets/images/eol.png"),
         //   info: "EOL設備總覽",
         //   target: "device",
-        //   belong: "设备模块",
+        //   belong: "设备总览",
         //   to: "eol"
         // },
         {
@@ -210,7 +211,7 @@ export let changeCmaConfig = (theme = "dark") => {
           imgUrl: require("@/assets/images/spotcheck.jpg"),
           info: "AA PDI AI 檢測界面",
           target: "device",
-          belong: "设备模块",
+          belong: "设备总览",
           to: "http://10.142.117.50:32001/standard/design/#/share/OS4L2ZWV"
         },
         {
@@ -219,7 +220,7 @@ export let changeCmaConfig = (theme = "dark") => {
           imgUrl: require("@/assets/images/device4.jpg"),
           info: "實時統計",
           target: "device",
-          belong: "设备模块",
+          belong: "设备总览",
           to: "http://10.142.117.50:32001/share.html?token=8ZBXMVWR"
         },
         {
@@ -228,7 +229,7 @@ export let changeCmaConfig = (theme = "dark") => {
           imgUrl: require("@/assets/images/device5.png"),
           info: "歷史日統計",
           target: "device",
-          belong: "设备模块",
+          belong: "设备总览",
           to: "http://10.142.117.50:32001/share.html?token=V3SKHL6X"
         },
         {
@@ -237,7 +238,7 @@ export let changeCmaConfig = (theme = "dark") => {
           imgUrl: require("@/assets/images/device6.png"),
           info: "歷史周統計",
           target: "device",
-          belong: "设备模块",
+          belong: "设备总览",
           to: "http://10.142.117.50:32001/share.html?token=HYMY179K"
         },
         {
@@ -246,7 +247,7 @@ export let changeCmaConfig = (theme = "dark") => {
           imgUrl: require("@/assets/images/device7.png"),
           info: "歷史月統計",
           target: "device",
-          belong: "设备模块",
+          belong: "设备总览",
           to: "http://10.142.117.50:32001/share.html?token=TLYKVQQY"
         }
       ]
@@ -262,7 +263,7 @@ export let changeCmaConfig = (theme = "dark") => {
               : require("@/assets/images/_output.png"),
           info: "產出可視化平台",
           target: "make",
-          belong: "制造模块",
+          belong: "制造总览",
           to: "output"
         },
         {
@@ -273,7 +274,7 @@ export let changeCmaConfig = (theme = "dark") => {
               : require("@/assets/images/_output2.png"),
           info: "九宮格產出看板",
           target: "make",
-          belong: "制造模块",
+          belong: "制造总览",
           to: "output2"
         },
         {
@@ -284,7 +285,7 @@ export let changeCmaConfig = (theme = "dark") => {
               : require("@/assets/images/_makewar.png"),
           info: "製造戰情中心",
           target: "make",
-          belong: "制造模块",
+          belong: "制造总览",
           to: "makewar"
         }
       ]
@@ -298,7 +299,7 @@ export let changeCmaConfig = (theme = "dark") => {
         //   imgUrl: require("@/assets/images/sap.png"),
         //   info: "SAP良率",
         //   target: "yield",
-        //   belong: "良率模块",
+        //   belong: "良率总览",
         //   to: "sap"
         // },
         {
@@ -309,7 +310,7 @@ export let changeCmaConfig = (theme = "dark") => {
               : require("@/assets/images/_sfc.png"),
           info: "SFC良率",
           target: "yield",
-          belong: "良率模块",
+          belong: "良率总览",
           to: "sfc"
         },
         {
@@ -320,7 +321,7 @@ export let changeCmaConfig = (theme = "dark") => {
               : require("@/assets/images/_tsfc.png"),
           info: "SFC总良率预览",
           target: "yield",
-          belong: "良率模块",
+          belong: "良率总览",
           to: "tsfc"
         },
         {
@@ -328,7 +329,7 @@ export let changeCmaConfig = (theme = "dark") => {
           imgUrl: require("@/assets/images/defect.png"),
           info: "Top 25 Defect Item",
           target: "yield",
-          belong: "良率模块",
+          belong: "良率总览",
           to: "defect"
         }
       ]
