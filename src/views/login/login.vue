@@ -1,8 +1,8 @@
 <template>
   <div class="login-page">
     <div class="form-container">
-      <el-image class="logo" :src="form_logo"></el-image>
-      <!-- <p class="welcome-text">战情中心</p> -->
+      <el-image class="logo" :src="form_logo" fit="contain"></el-image>
+      <!-- <p class="welcome-text">你好，欢迎登陆战情中心</p> -->
       <el-form class="form" ref="form" :rules="rules" :model="form">
         <el-form-item prop="name">
           <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
@@ -37,14 +37,14 @@
       <div class="author-info">
         <div>
           <span class="author">
-            <i class="el-icon-user-solid icon"></i>郭小龍/560-82583
+            <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227
           </span>
           <span class="mail">
-            <i class="el-icon-message icon"></i>peng-peng.tian@mail.foxconn.com
+            <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
           </span>
           &nbsp;&nbsp;
           <span class="author">
-            <i class="el-icon-user-solid icon"></i>吳思敏/560-23123
+            <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123
           </span>
           <span class="mail">
             <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
@@ -89,13 +89,6 @@ export default {
             this.$store.commit("user/SET_USER", this.form)
             // 跳转页面
             this.$router.replace({ name: "overview" })
-            this.$message({
-              type: "success",
-              message: `登錄成功~`,
-              duration: 1500
-            })
-          } else {
-            window.open(res)
           }
           this.btnLoading = false
           this.$refs["form"].resetFields()
@@ -127,37 +120,45 @@ export default {
   background: url("~@/assets/images/login-bg3.png") no-repeat center center;
   .form-container {
     position: absolute;
-    right: 11.3%;
-    top: 28.6%;
-    width: 531px;
-    height: 463px;
+    right: 14%;
+    top: 30%;
+    /* width: 531px; */
+    width: 460px;
+    /* height: 470px; */
+    height: 370px;
     background: url("~@/assets/images/form-container.png") no-repeat center center;
-    background-size: 100%;
+    /* background: #fff; */
+    border-radius: 10px;
+    /* background-size: 100%; */
     text-align: center;
     .logo {
-      width: 327px;
-      height: 87px;
-      margin: 21px auto 21px auto;
+      width: 250px;
+      margin: 21px auto;
     }
-    .welcome-text {
+    /* .welcome-text {
       font-size: 26px;
       font-weight: bold;
       margin-bottom: 24px;
-    }
+    } */
     .form {
-      width: 386px;
+      /* width: 286px; */
+      width: 70%;
       margin: 0 auto;
       .forget-pwd {
         width: fit-content;
         cursor: pointer;
-        margin-top: 24px;
-        margin-bottom: 15px;
+        margin-top: 30px;
+        margin-bottom: 20px;
         text-align: left;
         font-size: 15px;
         color: #333;
+        &:hover {
+          color: aqua;
+        }
       }
       .login-btn {
-        width: 390px;
+        width: 100%;
+        /* width: 390px; */
         height: 53px;
         font-size: 20px;
         font-weight: bold;

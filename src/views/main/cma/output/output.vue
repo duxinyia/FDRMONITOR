@@ -18,10 +18,11 @@
     </el-row>
   </div>
 </template>
-
 <script>
 // 导入各子组件
-import { MainLeft, MainCenter, MainRight } from "./cpns"
+import MainLeft from "./cpns/main-left/main-left.vue"
+import MainCenter from "./cpns/main-center/main-center.vue"
+import MainRight from "./cpns/main-right/main-right.vue"
 // 导入发送请求的函数
 import {
   getYearOutputInfo,
@@ -50,11 +51,19 @@ export default {
         yData: []
       },
       // 左上的数据
-      progressConfig: [],
+      progressConfig: {
+        names: [],
+        values: [],
+        formatValues: []
+      },
       // 左下的数据
       leftScrollData: [],
       // 右上的数据
-      rightTopData: [],
+      rightTopData: {
+        names: [],
+        values: [],
+        formatValues: []
+      },
       // 右下的数据
       rightScrollData: []
     }
@@ -87,17 +96,26 @@ export default {
       let res = await getYearOutputInfo({ DateTag: "quarter" })
       console.log("获取左上的数据", res)
       res.forEach((item) => {
-        let { dateCode, output } = item
-        this.progressConfig.push({ name: dateCode, value: parseInt(output) })
+        let { dateCode, output, hitRate } = item
+        // 取出name
+        this.progressConfig.names.push(dateCode)
+        this.progressConfig.values.push(parseInt(output))
+        this.progressConfig.formatValues.push(hitRate)
       })
     },
     // 获取右上的数据
     async getYearOutputInfo1() {
       let res = await getYearOutputInfo({ DateTag: "month" })
-      // console.log("获取右上的数据", res)
-      res.forEach((item) => {
-        let { dateCode, output } = item
-        this.rightTopData.push({ name: dateCode, value: parseInt(output) })
+      console.log("获取右上的数据", res)
+      // 取出当前月，判断是否小于6
+      let month = this.$moment().format("M")
+      console.log("month", month)
+      let tempArr = month <= 6 ? res.slice(0, 6) : res.slice(6)
+      tempArr.forEach((item) => {
+        let { dateCode, output, hitRate } = item
+        this.rightTopData.names.push(dateCode)
+        this.rightTopData.values.push(parseInt(output))
+        this.rightTopData.formatValues.push(hitRate)
       })
     },
     // 获取中间饼图和统计区域的数据
@@ -135,7 +153,8 @@ export default {
     // 获取左下的数据
     async getDateCodeOutputInfo() {
       let res = await getDateCodeOutputInfo({ DateTag: "quarter" })
-      // console.log("获取左下的数据", res)
+      console.log("获取左下的数据", res)
+      this.leftScrollData = []
       res.forEach((item) => {
         // 取出对应的值
         let { owner, targetOut, output, delta, hitRate, dateCode } = item
@@ -148,11 +167,15 @@ export default {
     async getDateCodeOutputInfo1() {
       let res = await getDateCodeOutputInfo({ DateTag: "month" })
       // console.log("获取右下的数据", res)
-      res.forEach((item) => {
-        let { owner, targetOut, output, delta, hitRate, dateCode } = item
-        let code = dateCode.split("-")[1]
-        this.rightScrollData.push([code, owner, targetOut, output, delta, hitRate])
-      })
+      try {
+        res.forEach((item) => {
+          let { owner, targetOut, output, delta, hitRate = "-", dateCode } = item
+          let code = dateCode.split("-")[1]
+          this.rightScrollData.push([code, owner, targetOut, output, delta, hitRate])
+        })
+      } catch (error) {
+        console.log("error", error)
+      }
     }
   },
   beforeDestroy() {

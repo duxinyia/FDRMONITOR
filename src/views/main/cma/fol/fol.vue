@@ -203,27 +203,41 @@ export default {
     async getDeviceInfo() {
       let result = await getDeviceInfo()
       if (Array.isArray(result)) {
-        this.config2 = []
-        result.forEach((item) => {
-          let {
-            deviceSeries,
-            mpsPlan,
-            allowLine,
-            actualLine,
-            planStopLine,
-            exceptStopLine,
-            overLine
-          } = item
-          this.config2.push([
-            deviceSeries,
-            mpsPlan,
-            allowLine,
-            actualLine,
-            planStopLine,
-            exceptStopLine,
-            overLine
-          ])
-        })
+        this.config2 = [
+          ["JU-X", 1, 5, 1, 2, 0, 0],
+          ["JU-2X", 2, 5, 2, 2, 0, 0],
+          ["JU-3X", 0, 5, 0, 2, 0, 0],
+          ["NH-X", 0, 1, 0, 1, 0, 0],
+          ["NH-2X", 1, 1, 1, 1, 0, 0],
+          ["MD-X", 0, 7, 0, 3, 0, 0],
+          ["MD-2X", 1, 7, 1, 3, 0, 0],
+          ["MD-3X", 4, 7, 4, 3, 0, 0],
+          ["ML-X", 4, 9, 4, 1, 0, 0],
+          ["ML-2X", 4, 9, 4, 1, 0, 0],
+          ["ML-3X", 0, 9, 0, 1, 0, 0],
+          ["Stanley", 0, 2, 0, 2, 0, 0],
+          ["IOWA-B", 0, 1, 0, 1, 0, 0]
+        ]
+        // result.forEach((item) => {
+        //   let {
+        //     deviceSeries,
+        //     mpsPlan,
+        //     allowLine,
+        //     actualLine,
+        //     planStopLine,
+        //     exceptStopLine,
+        //     overLine
+        //   } = item
+        //   this.config2.push([
+        //     deviceSeries,
+        //     mpsPlan,
+        //     allowLine,
+        //     actualLine,
+        //     planStopLine,
+        //     exceptStopLine,
+        //     overLine
+        //   ])
+        // })
       }
     },
     // 获取top5的信息

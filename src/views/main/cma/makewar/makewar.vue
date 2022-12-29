@@ -104,7 +104,7 @@ export default {
           <span
             class="frame"
             :style="{
-              'box-shadow': folChecked ? 'inset 0 0 20px #3762ff' : ''
+              'box-shadow': folChecked ? 'inset 0 0 20px #5bdbe4' : ''
             }"
           ></span>
           <span class="name">FOL</span>
@@ -200,17 +200,16 @@ export default {
       cursor: pointer;
     }
     .eol-container {
-      // color: #58d5e0;
-      color: #3762ff;
+      /* // color: #58d5e0;
+      color: #3762ff; */
       .frame {
         border: 1px solid #3762ff;
       }
     }
     .fol-container {
-      color: #3762ff;
       margin-right: 8px;
       .frame {
-        border: 1px solid #3762ff;
+        border: 1px solid #5bdae3;
       }
     }
     .frame {

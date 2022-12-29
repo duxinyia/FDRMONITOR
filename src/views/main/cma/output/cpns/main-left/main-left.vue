@@ -4,14 +4,18 @@
       <el-col :span="24">
         <dv-border-box-11 :color="changeBoxColor" title="產出By季度達成">
           <!-- <div class="progress-container">
-            <div v-for="item in progressConfig" :key="item.name">
-              <div class="number">
-                <span class="content">{{ item.value }}</span>
+            <div class="progress-item" v-for="item in progressConfig" :key="item.name">
+              <div class="info">
+                <span class="name">{{item.name}}</span>
+                <span>{{item.value}}</span>
               </div>
-              <p class="name">{{ item.name }}</p>
+              <div class="progress">
+                <span class="speed" :style="changeSpeedStyle(item)">{{item.hitRate}}</span>
+              </div>
             </div>
           </div>-->
-          <line-chart :progressConfig="progressConfig" />
+          <rank-chart :config="progressConfig" />
+          <!-- <line-chart :progressConfig="progressConfig" /> -->
         </dv-border-box-11>
       </el-col>
     </el-row>
@@ -33,20 +37,28 @@
 </template>
 
 <script>
-// 导入折线图
-import LineChart from "./cpns/line-chart.vue"
+// 导入柱状图
+import RankChart from "./cpns/rank-chart.vue"
 // 导入自己封装的轮播图
 import MyscrollChart from "@/components/myscroll-chart/myscroll-chart.vue"
 export default {
   name: "main-left",
   props: ["progressConfig", "scrollData"],
   components: {
-    LineChart,
-    MyscrollChart
+    MyscrollChart,
+    RankChart
   },
   computed: {
     changeBoxColor() {
       return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
+    }
+  },
+  methods: {
+    changeSpeedStyle(item) {
+      let width = parseInt(item.hitRate) > 100 ? "100%" : `${parseInt(item.hitRate)}%`
+      return {
+        width
+      }
     }
   }
 }
@@ -62,48 +74,35 @@ export default {
 ::v-deep .dv-border-box-13 .border-box-content {
   padding: 20px;
 }
-.progress-container {
+/* .progress-container {
   height: 380px;
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
-  align-items: center;
-  text-align: center;
-  .number {
-    position: relative;
-    width: 140px;
-    height: 140px;
-    /* background: #00f0ff; */
-    border: 1px solid red;
-    /* border-radius: 50%; */
-    .content {
-      position: absolute;
-      letter-spacing: 6px;
-      font-weight: bold;
-      font-size: 18px;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 10;
-      color: #26dac9;
+  .progress-item {
+    margin-bottom: 40px;
+    &:first-child {
+      padding-top: 20px;
     }
-    /* &::after {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      content: "";
-      width: 90%;
-      height: 90%;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      background: #293564;
-    } */
+    .info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      .name {
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+    .progress {
+      height: 35px;
+      border: 1px solid #fff;
+      .speed {
+        display: inline-block;
+        width: 100px;
+        height: 100%;
+        line-height: 34px;
+        text-align: right;
+        background: #383b86;
+      }
+    }
   }
-  .name {
-    margin-top: 6px;
-    font-size: 18px;
-    font-weight: bold;
-  }
-}
+} */
 </style>

@@ -94,8 +94,8 @@ export default {
     },
     // 需要展示的数组
     showData: {
-      type: Array,
-      default: () => []
+      type: Array
+      // default: () => []
     },
     // 需要展示的列数
     rowNum: {

@@ -24,13 +24,7 @@
           <!-- 普通版本 -->
           <span class="des">{{ item.des }}</span>
           <span v-if="index == 3" class="number">{{ item.number }}</span>
-          <countTo
-            v-else
-            :startVal="0"
-            class="number"
-            :endVal="item.number"
-            :duration="5000"
-          ></countTo>
+          <countTo v-else :startVal="0" class="number" :endVal="item.number" :duration="5000"></countTo>
         </div>
       </div>
     </dv-border-box-12>
@@ -85,7 +79,7 @@ export default {
 <style lang="scss" scoped>
 .main-one {
   display: flex;
-  margin: 20px 0 10px 0;
+  margin: 30px 0 20px 0;
   // 小圆点的样式
   ::v-deep .dot {
     display: inline-block;

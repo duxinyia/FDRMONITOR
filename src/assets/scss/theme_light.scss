@@ -5,7 +5,11 @@
   --base-text-color: #000;
 
   // overview 的色值
-  --overview-head-bg: linear-gradient(270deg, rgba(39, 75, 232, 0.8) 0%, rgba(90, 210, 250, 1) 100%);
+  --overview-head-bg: linear-gradient(
+    270deg,
+    rgba(39, 75, 232, 0.8) 0%,
+    rgba(90, 210, 250, 1) 100%
+  );
   --overview-main-bg: rgba(255, 255, 255, 1);
   --overview-menu-bg: linear-gradient(
     180deg,
@@ -13,15 +17,16 @@
     rgba(15, 32, 112, 0.8) 100%
   );
   --icon-color: #fff;
-  --menu-item-active:#3766F4;
-  --menu-item-active-bg:#fff;
-  --cma-container-border:#000;
-  --cma-title:#3766f4;
-  --cma-box-shadow:#3766f4;
+  --menu-item-active: #3766f4;
+  --menu-item-active-bg: #fff;
+  --cma-container-border: #000;
+  --cma-title: #3766f4;
+  --cma-box-shadow: #3766f4;
 
   // 各种看板主页头部公共部分的 色值
   --page-head-icon: rgba(6, 23, 99, 1);
   --page-head-title: linear-gradient(102.37deg, rgba(0, 227, 212, 1) 0%, rgba(0, 0, 0, 1) 100%);
+  --page-head-name:#124d68;
   --react-left-bg: linear-gradient(100.74deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
   --react-right-bg: linear-gradient(100.74deg, rgba(63, 119, 232, 1) 0%, rgba(0, 227, 210, 1) 100%);
   --react-text: #fff;
@@ -83,4 +88,12 @@
 
   // 制造层
   --make-base-text: #000;
+
+  // 產出可視化平台 的样式
+  --output--total-text:#000;
+
+  // top25 的样式
+  --defect-text:rgba(39, 75, 232, 1);
+  --defect-border:rgb(0, 76, 227);
+  --defect-row-one:linear-gradient(259.26deg, rgba(63, 119, 232, 1) 0%, rgba(0, 227, 210, 1) 100%);
 }

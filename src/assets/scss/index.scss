@@ -5,18 +5,10 @@
 @import "./element-variables.scss";
 @import "./theme_dark.scss";
 @import "./theme_light.scss";
-// @import "../theme/index.css";
 //  全局样式
 * {
   box-sizing: border-box;
 }
-// :root {
-//   /* 背景色 */
-//   --theme_bg_color: red;
-//   /* 按钮颜色 */
-//   --theme_button_color: yellowgreen;
-// }
-
 body {
   line-height: 1.2em;
   font-family: arial, Helvetica, sans-serif;

@@ -1,12 +1,12 @@
 <template>
   <el-container class="overview">
     <!-- 侧边栏 -->
-    <el-aside :width="menuFold ? '65px' : '210px'" :class="asideClass">
+    <el-aside :width="menuFold ? '65px' : '280px'" :class="asideClass">
       <div class="top-title">
-        <el-image class="logo" :src="changeLogo" fit="cover" />
-        <h2 class="name" v-show="!menuFold">戰情中心</h2>
+        <el-image class="logo" :src="changeLogo" fit="fill" />
+        <h2 class="name" v-show="!menuFold">RAYPRUS</h2>
       </div>
-      <el-menu
+      <!-- <el-menu
         class="el-menu-vertical"
         text-color="#fff"
         background-color="transparent"
@@ -21,17 +21,14 @@
             <span>CMA总览</span>
           </template>
           <el-menu-item index="/overview/cma/device">
-            <!-- <i class="el-icon-s-platform"></i> -->
             <span class="iconfont icon-gongju mr-10"></span>
             <span slot="title">设备总览</span>
           </el-menu-item>
           <el-menu-item index="/overview/cma/make">
-            <!-- <i class="el-icon-s-platform"></i> -->
             <span class="iconfont icon-zhizaoye mr-10"></span>
             <span slot="title">制造总览</span>
           </el-menu-item>
           <el-menu-item index="/overview/cma/yield">
-            <!-- <i class="el-icon-s-platform"></i> -->
             <span class="iconfont icon-hege mr-10"></span>
             <span slot="title">良率总览</span>
           </el-menu-item>
@@ -40,6 +37,88 @@
           <i class="el-icon-info menu-icon"></i>
           <span slot="title">关于</span>
         </el-menu-item>
+      </el-menu>-->
+      <el-menu
+        class="el-menu-vertical"
+        text-color="#fff"
+        background-color="transparent"
+        active-text-color="#ffd04b"
+        :collapse="menuFold"
+        :default-active="$route.path"
+      >
+        <template v-for="item in menus">
+          <template v-if="item.subs">
+            <el-submenu :index="item.index" :key="item.index">
+              <template slot="title">
+                <i :class="item.icon"></i>
+                <span slot="title">{{ item.title }}</span>
+              </template>
+
+              <template v-for="subItem in item.subs">
+                <template v-if="subItem.subs">
+                  <el-submenu :index="subItem.index" :key="subItem.index">
+                    <template slot="title">
+                      <i :class="item.icon"></i>
+                      <span slot="title">{{ subItem.title }}</span>
+                    </template>
+
+                    <template v-for="subItem2 in subItem.subs">
+                      <template v-if="subItem2.subs">
+                        <el-submenu :index="subItem2.index" :key="subItem2.index">
+                          <template slot="title">
+                            <i :class="item.icon"></i>
+                            <span slot="title">{{ subItem2.title }}</span>
+                          </template>
+
+                          <template v-for="subItem3 in subItem2.subs">
+                            <template v-if="subItem3.subs">
+                              <el-submenu :index="subItem3.index" :key="subItem3.index">
+                                <template slot="title">
+                                  <i :class="subItem3.icon"></i>
+                                  <span slot="title">{{ subItem3.title }}</span>
+                                </template>
+                                <el-menu-item
+                                  v-for="(fiveItem,i) in subItem3.subs"
+                                  :key="i"
+                                  :index="fiveItem.index"
+                                >
+                                  <i :class="fiveItem.icon"></i>
+                                  <span slot="title">{{ fiveItem.title }}</span>
+                                </el-menu-item>
+                              </el-submenu>
+                            </template>
+
+                            <el-menu-item v-else :index="subItem3.index" :key="subItem3.index">
+                              <i :class="subItem3.icon"></i>
+                              <span slot="title">{{ subItem3.title }}</span>
+                            </el-menu-item>
+                          </template>
+                        </el-submenu>
+                      </template>
+
+                      <el-menu-item v-else :index="subItem2.index" :key="subItem2.index">
+                        <i :class="subItem2.icon"></i>
+                        <span slot="title">{{ subItem2.title }}</span>
+                      </el-menu-item>
+                    </template>
+                  </el-submenu>
+                </template>
+
+                <el-menu-item v-else :index="subItem.index" :key="subItem.index">
+                  <i :class="subItem.icon"></i>
+                  <span slot="title">{{ subItem.title }}</span>
+                </el-menu-item>
+              </template>
+            </el-submenu>
+          </template>
+
+          <template v-else>
+            <el-menu-item :index="item.index" :key="item.index">
+              <i :class="item.icon"></i>
+              <span slot="title">{{ item.title }}</span>
+            </el-menu-item>
+          </template>
+        </template>
       </el-menu>
     </el-aside>
     <!-- 右边区域: header 区域 和 main区域 -->
@@ -51,22 +130,38 @@
             :class="menuFold ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
             @click="menuFold = !menuFold"
           ></i>
+          <span class="title">戰情中心</span>
         </div>
+        <!-- <div class="header-center"></div> -->
         <div class="header-right">
+          <!-- 时间显示 -->
+          <span class="currentTime">{{currentTime}}</span>
+          <!-- 下拉菜单 -->
           <el-dropdown @command="handleCommand" placement="bottom">
             <span class="el-dropdown-link">
               <i class="el-icon-user-solid user-icon"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item icon="el-icon-switch-button" command="layout">退出</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-moon" command="dark" divided>深色</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-sunny" command="light" divided>浅色</el-dropdown-item>
+              <el-dropdown-item
+                :class="[$store.getters.theme == 'dark' ? 'active' : '']"
+                icon="el-icon-moon"
+                command="dark"
+                divided
+              >深色</el-dropdown-item>
+              <el-dropdown-item
+                :class="[$store.getters.theme != 'dark' ? 'active' : '']"
+                icon="el-icon-sunny"
+                command="light"
+                divided
+              >浅色</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
       </el-header>
       <el-main class="main-container">
         <router-view />
+
         <el-image
           v-if="$store.getters.theme == 'dark'"
           class="bottom-img"
@@ -79,6 +174,8 @@
   </el-container>
 </template>
 <script>
+// 导入侧边栏配置文件
+import { menus } from "@/assets/data"
 // 导入设置localstorage的函数
 import cache from "@/utils/cache.js"
 export default {
@@ -90,7 +187,10 @@ export default {
       bottomImgUrl: require("@/assets/images/overview-bottom.png"),
       lightBottomImgUrl: require("@/assets/images/_overview-bottom.png"),
       asideBg: require("@/assets/images/menu-bg.png"),
-      lightAsiseBg: require("@/assets/images/_menu-bg.png")
+      lightAsiseBg: require("@/assets/images/_menu-bg.png"),
+      currentTime: "", // 当前的时间
+      timing: null,
+      menus
     }
   },
   computed: {
@@ -110,6 +210,7 @@ export default {
   created() {
     let theme = cache.getCache("theme") || "dark"
     document.documentElement.setAttribute("theme", theme)
+    this.getCurrentTime()
   },
   methods: {
     handleCommand(command) {
@@ -119,6 +220,7 @@ export default {
         this.$router.replace("/login")
       }
       if (command == "dark" || command == "light") {
+        // this.$i18n.locale = lang
         let index = command == "dark" ? 0 : 1
         document.documentElement.setAttribute("theme", command)
         this.$store.commit("fullLoading/SET_THEME", command)
@@ -127,7 +229,16 @@ export default {
           bg: `background:url(${this.$globalData.bgs[index]})`
         })
       }
+    },
+    // 获取当前时间
+    getCurrentTime() {
+      this.timing = setInterval(() => {
+        this.currentTime = this.$moment().format("YYYY-MM-DD HH:mm:ss")
+      }, 1000)
     }
+  },
+  beforeDestroy() {
+    clearInterval(this.timing)
   }
 }
 </script>
@@ -153,17 +264,22 @@ export default {
 .menu-icon {
   color: #fff;
 }
+.active {
+  background: rgba(87, 200, 249, 0.6);
+}
 // hover 高亮
 .el-menu-item:hover {
   color: #ccc !important; // 菜单
   background: #1f5997 !important;
 }
+.currentTime {
+  margin-right: 25px;
+  color: #fff;
+}
 .el-menu-item.is-active {
   color: var(--menu-item-active) !important;
   font-weight: bold;
   background-color: var(--menu-item-active-bg) !important;
-  .menu-icon {
-  }
 }
 // 外层容器
 .overview {
@@ -187,15 +303,14 @@ export default {
       .logo {
         width: 32px;
         height: 32px;
-        /* width: 40px;
-        height: 40px; */
         vertical-align: middle;
       }
       .name {
-        color: #fff;
-        font-size: 24px;
+        color: var(--page-head-name);
+        font-size: 22px;
         font-weight: bold;
-        margin-left: 10px;
+        margin-left: 6px;
+        margin-top: 5px;
       }
     }
     .el-menu-vertical {
@@ -208,6 +323,7 @@ export default {
   .dark-container {
     background: url("~@/assets/images/menu-bg.png") no-repeat center center !important;
   }
+
   // 右边主要区域
   .right-container {
     .header-container {
@@ -224,7 +340,20 @@ export default {
         .flod {
           margin-right: 10px;
         }
+        .title {
+          font-size: 20px;
+          font-weight: bold;
+          letter-spacing: 10px;
+          margin-top: 4px;
+          color: #fff;
+          /* vertical-align: middle; */
+        }
       }
+      /* .header-center {
+        font-size: 26px;
+        font-weight: bold;
+        letter-spacing: 10px;
+      } */
       .flod,
       .user-icon {
         cursor: pointer;

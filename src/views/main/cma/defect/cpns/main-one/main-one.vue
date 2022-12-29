@@ -1,6 +1,8 @@
 <template>
   <div class="main-one">
-    <base-echart :options="options" height="380px" />
+    <dv-border-box-10 :color="changeBoxColor">
+      <base-echart :options="options" height="380px" />
+    </dv-border-box-10>
   </div>
 </template>
 
@@ -27,6 +29,9 @@ export default {
     baseEchart
   },
   computed: {
+    changeBoxColor() {
+      return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
+    },
     options() {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
@@ -115,15 +120,6 @@ export default {
             type: "bar",
             stack: "x",
             data: item.data
-            // 高亮时放大
-            // emphasis: {
-            //   disabled: true,
-            //   itemStyle: {
-            //     color: colorList[index],
-            //     borderColor: colorList[index],
-            //     borderWidth: 10
-            //   }
-            // }
           })
         })
       // 总数
@@ -141,22 +137,17 @@ export default {
         label: {
           show: true,
           position: "top",
-          textStyle: { color: "#333" },
+          textStyle: { color: "#f40" },
           distance: 10
-          // formatter: (params) => {
-          //   return `${changeNumberToStr(params.value)}人`
-          // }
         }
-        // data: dataList.total
       })
       return {
         color: colorList,
-        // backgroundColor: "#fff",
         legend: {
           data: legendData,
           textStyle: {
             align: "right",
-            color: "#fff"
+            color: themeColor
           },
           right: "2%",
           top: "2%"
@@ -197,7 +188,7 @@ export default {
         grid: {
           left: 5,
           right: 8,
-          top: 30,
+          top: 45,
           bottom: "1%",
           containLabel: true
         },
@@ -250,6 +241,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .border-box-content {
+  padding: 20px 20px 10px 20px;
+}
 .main-one {
   margin-bottom: 15px;
 }

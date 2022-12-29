@@ -58,10 +58,11 @@ export default {
       }
       let baseSerie = {
         type: "line",
-        symbolSize: 8,
+        symbol: "circle",
+        symbolSize: 15,
         smooth: true, // 设置拆线平滑
         lineStyle: {
-          width: 4
+          width: 5
         },
         label: {
           show: true,
@@ -69,13 +70,14 @@ export default {
         }
       }
       return {
+        color: ["#9669ff", "#3766f4", "#43cf7c", "#ff8d1a"],
         grid: {
           top: 80,
           right: 50,
           left: 80,
           bottom: 40 //图表尺寸大小
         },
-        color: ["#5ad2fa", "#b989f0", "#adf7b7", "#c9dd68"],
+        // color: ["#5ad2fa", "#b989f0", "#adf7b7", "#c9dd68"],
         legend: {
           top: 50,
           right: 50,

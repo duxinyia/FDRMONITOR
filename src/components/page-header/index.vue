@@ -4,11 +4,9 @@
     <div class="header-one">
       <dv-decoration-10 class="dv-dec-10" />
       <dv-decoration-8 class="dv-dec-8" :color="changeColor" />
-      <!-- <dv-decoration-8 class="dv-dec-8" :color="['#568aea', '#000000']" /> -->
       <div class="logo-container">
         <img class="logo" :src="logoSrc" alt="logoSrc" />
       </div>
-      <!-- <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="['#568aea', '#000000']" /> -->
       <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="changeColor" />
       <dv-decoration-10 class="dv-dec-10-s" />
     </div>
@@ -18,21 +16,7 @@
         <!-- 展开菜单 -->
         <el-tooltip content="戰情中心" placement="top">
           <span class="iconfont icon-shezhi setup" @click="dialogVisible = true"></span>
-          <!-- <span class="iconfont icon-menu setup" @click="dialogVisible = true"></span> -->
         </el-tooltip>
-        <!-- 背景选择 -->
-        <!-- <el-tooltip content="背景選擇" placement="top">
-          <span class="iconfont icon-huanfu select-bg" @click="bgDialogVisible = true"></span>
-        </el-tooltip>-->
-        <!-- 主题切换 -->
-        <!-- <el-switch
-          v-model="thememode"
-          active-icon-class="el-icon-sunny"
-          inactive-icon-class="el-icon-moon"
-          active-color="#13ce66"
-          inactive-color="#ff4949"
-        >
-        </el-switch>-->
       </div>
       <div class="right">
         <!-- 返回上一级 -->
@@ -53,13 +37,7 @@
         </el-tooltip>
         <!-- 返回首頁 -->
         <el-tooltip content="返回首頁" placement="top">
-          <!-- <span class="iconfont icon-shouye-shouye select-bg" @click="goHome"></span> -->
           <span class="iconfont icon-shouye select-bg" @click="goHome"></span>
-        </el-tooltip>
-        <!-- 退出 -->
-        <el-tooltip content="退出" placement="top">
-          <!-- <span class="iconfont icon-tuichu1 signout" @click="logout"></span> -->
-          <span class="iconfont icon-tuichu2 signout" @click="logout"></span>
         </el-tooltip>
       </div>
     </div>
@@ -84,12 +62,6 @@
     </div>
     <!-- 不同项目切换 -->
     <project-dialog :dialogVisible.sync="dialogVisible" />
-    <!-- 不同背景切换 -->
-    <!-- <bgs-dialog
-      @radioChangeBg="radioChangeBg"
-      @selectChangeBg="selectChangeBg"
-      :dialogVisible.sync="bgDialogVisible"
-    />-->
   </div>
 </template>
 
@@ -100,8 +72,6 @@ import cache from "@/utils/cache.js"
 import screenfull from "screenfull"
 // 导入弹框
 import ProjectDialog from "@/components/project-dialog/project-dialog.vue"
-// 导入背景选择弹框
-import BgsDialog from "@/components/bgs-dialog/bgs-dialog.vue"
 export default {
   name: "page-header",
   props: {
@@ -111,8 +81,7 @@ export default {
     }
   },
   components: {
-    ProjectDialog,
-    BgsDialog
+    ProjectDialog
   },
   data() {
     return {
@@ -121,22 +90,13 @@ export default {
       currentTime: "", // 当前的时间
       timing: null,
       dialogVisible: false,
-      // bgDialogVisible: false,
-      isFullScreen: false,
-      thememode: true
+      isFullScreen: false
     }
   },
   mounted() {
     this.initScreen()
   },
   computed: {
-    changeAppBg() {
-      if (this.imgUrl.includes("img")) {
-        return { background: `url(${this.imgUrl})` }
-      } else {
-        return { background: this.imgUrl }
-      }
-    },
     changeColor() {
       return this.$store.getters.theme == "dark" ? ["#568aea", "#000000"] : ["#568aea", "#ecf6ff"]
     }
@@ -145,20 +105,8 @@ export default {
     this.getCurrentTime()
   },
   methods: {
-    // 选择了背景图片
-    // radioChangeBg(imgUrl) {
-    //   this.imgUrl = imgUrl
-    // },
-    // 选择了纯色 背景
-    // selectChangeBg(bgCol) {
-    //   this.imgUrl = bgCol
-    // },
     goHome() {
       this.$router.push(this.$store.state.fullLoading.path)
-    },
-    logout() {
-      cache.deleteCache("user")
-      this.$router.replace("/login")
     },
     initScreen() {
       if (screenfull.enabled) {
@@ -239,8 +187,6 @@ export default {
       .fullscreen {
         cursor: pointer;
         font-size: 30px;
-        // color: #3762ff;
-        /* color: var(--page-head-icon); */
         background: var(--page-head-icon);
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -270,8 +216,6 @@ export default {
       .setup {
         cursor: pointer;
         font-size: 32px;
-        // color: #3762ff;
-        /* color: var(--page-head-icon); */
         background: var(--page-head-icon);
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -311,7 +255,6 @@ export default {
         height: 50px;
         line-height: 50px;
         vertical-align: bottom;
-        // color: var(--page-head-title);
         background: var(--page-head-title);
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -333,22 +276,15 @@ export default {
       .react-left {
         width: 100%;
         height: 50px;
-        /* height: 0; */
         transform: skewX(45deg);
         transform-origin: bottom;
         text-align: left;
         line-height: 50px;
         background: var(--react-left-bg);
-        // border-bottom: 50px solid #0e1738;
-        /* border-bottom: 50px solid var(--react-bg);
-        border-right: 45px solid transparent; */
-        /* background: linear-gradient(to right, 0% rgba(0, 227, 210, 1), 100% rgba(63, 119, 232, 1)); */
-        // background-clip: border-box;
         .address {
           display: inline-block;
           margin-left: 25px;
           font-size: 22px;
-          // color: #999;
           color: var(--react-text);
           transform: skewX(-45deg);
         }
@@ -358,7 +294,6 @@ export default {
         text-align: right;
         border-right: none;
         transform: skewX(-45deg);
-        /* border-left: 45px solid transparent; */
         background: var(--react-right-bg);
         .currentTime {
           display: inline-block;
@@ -366,7 +301,6 @@ export default {
           margin-right: 25px;
           color: var(--react-text);
           transform: skewX(45deg);
-          // color: #999;
         }
       }
     }

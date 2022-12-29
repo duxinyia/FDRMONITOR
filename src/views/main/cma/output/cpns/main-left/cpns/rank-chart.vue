@@ -9,8 +9,8 @@
     element-loading-text="加载中"
     element-loading-background="rgba(0, 0, 0, 0.8)"
   >
-    <p class="title">{{ title }}</p>
-    <base-echart :options="options" height="204px" />
+    <p class="title" v-if="isShowTitle">{{ title }}</p>
+    <base-echart :options="options" height="370px" />
   </div>
 </template>
 
@@ -27,11 +27,15 @@ export default {
       type: String,
       default: "當日當機Top5:"
     },
-    config: {}
+    config: {},
+    isShowTitle: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
-      isLoading: true
+      isLoading: false
     }
   },
   watch: {
@@ -59,6 +63,7 @@ export default {
       const { names, values, formatValues } = this.config
       // 根据不同的theme 显示不同的颜色
       let rightText = this.$store.getters.theme == "dark" ? "#fff" : "#000"
+      // let rightText = "#fff"
       return {
         grid: {
           left: "",
@@ -66,33 +71,6 @@ export default {
           bottom: 0,
           top: 10,
           containLabel: false
-        },
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "none"
-          },
-          formatter: function (params) {
-            let tempStr = ""
-            params[0].data.detail.forEach((item, index) => {
-              tempStr += `
-                <div style="display:flex;background:${index % 2 == 0 ? "#003b51" : "#0a2732"}">
-                  <span style="flex:1">${item.machinename.replace("FOL ", "")}</span>
-                  <span style="flex:1">${item.rate}</span>
-                  <span style="flex:1">${(item.keeptime / 60).toFixed(2) + " Min"}</span>
-                </div>`
-            })
-            return `
-              <div style="width:230px;text-align: center;line-height:2em;font-size:14px;">
-                <div style="display:flex;background:#20316e">
-                  <span style="flex:1">機台名稱</span>
-                  <span style="flex:1">比率</span>
-                  <span style="flex:1">持續時間</span>
-                </div>
-                ${tempStr}
-              </div>
-            `
-          }
         },
         xAxis: {
           show: false,
@@ -108,10 +86,10 @@ export default {
             axisLabel: {
               textStyle: {
                 color: rightText,
-                fontSize: "12"
+                fontSize: "16"
               },
               align: "left",
-              padding: [0, 0, 3, 8],
+              padding: [0, 0, 20, 8],
               verticalAlign: "bottom",
               lineHeight: 30
             },
@@ -126,10 +104,10 @@ export default {
             axisLabel: {
               textStyle: {
                 color: "#fff",
-                fontSize: "12"
+                fontSize: "16"
               },
               align: "right",
-              padding: [0, 8, 0, 0],
+              padding: [0, 8, 20, 0],
               verticalAlign: "bottom",
               lineHeight: 36,
               formatter: function (value) {
@@ -138,8 +116,8 @@ export default {
               rich: {
                 a: {
                   color: rightText,
-                  fontSize: "14",
-                  padding: [0, 0, 7, 0]
+                  fontSize: "16",
+                  padding: [0, 0, 20, 0]
                 }
               }
             },
@@ -167,7 +145,7 @@ export default {
               }
             },
             z: 2,
-            barWidth: 10,
+            barWidth: 20,
             data: values
           },
           {
@@ -188,12 +166,12 @@ export default {
           {
             name: "背景",
             type: "bar",
-            barWidth: 10,
+            barWidth: 20,
             barGap: "-100%",
             data: values[0],
             itemStyle: {
               normal: {
-                color: "#004298",
+                color: "#fff",
                 barBorderRadius: 30
               }
             },
@@ -208,8 +186,8 @@ export default {
 
 <style lang="scss" scoped>
 .rank-echart {
+  margin-top: 10px;
   .title {
-    /* display: inline-block; */
     display: flex;
     align-items: center;
     font-size: 20px;

@@ -1,5 +1,5 @@
 <template>
-  <div id="index" ref="appRef" :style="$store.getters.bgUrl">
+  <div id="index" ref="appRef" :style="indexStyle">
     <dv-loading v-if="$store.state.fullLoading.fullLoading">Loading...</dv-loading>
     <page-header :title="$store.state.fullLoading.title" />
     <router-view />
@@ -14,6 +14,12 @@ export default {
   mixins: [drawMixin],
   components: {
     PageHeader
+  },
+  computed: {
+    indexStyle() {
+      let isDark = this.$store.getters.theme == "dark"
+      return isDark ? this.$store.getters.bgUrl : { background: "transparent" }
+    }
   }
 }
 </script>

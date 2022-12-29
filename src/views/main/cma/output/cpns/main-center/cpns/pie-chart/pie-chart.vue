@@ -29,9 +29,9 @@ export default {
   computed: {
     options() {
       let { seriesData } = this
+      // 设置变量
+      let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       return {
-        // backgroundColor: "#000",
-        // color: this.color,
         color: [
           "#5ad2fa",
           "#b989f0",
@@ -53,7 +53,6 @@ export default {
         },
         legend: [
           {
-            // type: "scroll",
             orient: "vertical",
             left: "74%",
             align: "auto",
@@ -62,31 +61,24 @@ export default {
             itemHeight: 16,
             itemGap: 20,
             textStyle: {
-              color: "#fff",
+              color: themeColor,
               align: "left",
               verticalAlign: "middle",
               rich: {
                 name: {
-                  color: "#fff",
+                  color: themeColor,
                   fontSize: 16,
                   width: 100,
                   padding: [0, 0, 0, 10]
                 },
                 value: {
-                  color: "rgba(29, 145, 245, 1)",
+                  color: themeColor,
                   fontSize: 18,
                   fontFamily: "DIN",
                   fontWeight: 500
                 }
               }
             },
-            // data: this.seriesData.slice(8),
-            // formatter: (name) => {
-            //   if (this.seriesData.length) {
-            //     const item = this.seriesData.filter((item) => item.name === name)[0]
-            //     return `{name|${name} }{value| ${item.value}}`
-            //   }
-            // },
             x: "left"
           }
         ],
@@ -100,12 +92,6 @@ export default {
             center: ["45%", "50%"],
             hoverAnimation: true,
             z: 10,
-            itemStyle: {
-              normal: {
-                borderWidth: 5,
-                borderColor: "#fff"
-              }
-            },
             label: {
               show: false
             },

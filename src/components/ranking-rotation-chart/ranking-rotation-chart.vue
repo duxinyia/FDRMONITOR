@@ -15,8 +15,7 @@
                 v-for="item in ['機台名稱', '比率', '持續時間']"
                 :key="item"
                 class="header-item"
-                >{{ item }}</span
-              >
+              >{{ item }}</span>
             </div>
             <div v-for="machine in item.machines" :key="machine.machinename" class="machine-info">
               <span>{{ machine.machinename }}</span>
@@ -42,8 +41,6 @@
 </template>
 
 <script>
-// 到入深拷贝函数
-// import { deepClone } from "@/utils"
 export default {
   name: "table-chart",
   props: {
@@ -76,7 +73,6 @@ export default {
       if (this.$store.getters.theme == "dark") {
         if (index == 0) {
           lastConfig.colors = ["rgba(255, 0, 0,0.1)", "#ff0033"]
-          // lastConfig.colors = ["rgb(0, 227, 210)", "rgb(63, 119, 232)"]
         } else if (index == 1) {
           lastConfig.colors = ["rgba(241, 196, 15,0.6)", "#f1c40f"]
         } else {
@@ -124,9 +120,7 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
-// @import "@/assets/scss/variables.scss";
 .title {
-  /* display: inline-block; */
   display: flex;
   align-items: center;
   font-size: 20px;
@@ -151,7 +145,6 @@ export default {
   line-height: 2em;
   text-align: center;
   font-size: 14px;
-  // border: 1px solid rgba(255, 255, 255, 0.5);
   .header {
     display: flex;
     padding: 0 4px;

@@ -28,7 +28,7 @@
 
 <script>
 // 导入需要跳转路由配置
-import { CMA_CONFIG } from "@/assets/data"
+import { changeCmaConfig } from "@/assets/data"
 export default {
   name: "project-dialog",
   props: {
@@ -51,10 +51,12 @@ export default {
   },
   computed: {
     screenArr() {
-      return CMA_CONFIG.get(this.belong).filter((item) => !item.isExternalLink)
+      return changeCmaConfig()
+        .get(this.belong)
+        .filter((item) => !item.isExternalLink)
     },
     diglogTitle() {
-      return CMA_CONFIG.get(this.belong)[0].belong
+      return changeCmaConfig().get(this.belong)[0].belong
     }
   },
   methods: {

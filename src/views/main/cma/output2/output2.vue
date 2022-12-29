@@ -5,7 +5,7 @@
         v-loading="isLoading"
         element-loading-spinner="el-icon-loading"
         element-loading-text="加载中"
-        element-loading-background="rgba(0, 0, 0, 0.8)"
+        element-loading-background="rgba(0, 0, 0, 1)"
       >
         <!-- 自定义两个切换按钮 -->
         <div class="btns">
@@ -62,6 +62,7 @@
             :autoplay="false"
             height="880px"
             :interval="5000"
+            arrow="never"
             indicator-position="none"
           >
             <el-carousel-item v-for="(everyArr, index) in getShowArray" :key="index">
@@ -117,9 +118,7 @@
                             </div>
                             <div class="container" :style="changeContainerStyle(item)">
                               <!-- 中间区域 -->
-                              <div class="center" :style="changeCenterStyle(item)">
-                                {{ item.outPut }}
-                              </div>
+                              <div class="center" :style="changeCenterStyle(item)">{{ item.outPut }}</div>
                             </div>
                           </el-tooltip>
                         </div>

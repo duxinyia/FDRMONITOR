@@ -1,7 +1,7 @@
 <template>
   <div class="cma-container">
     <div class="title-container">
-      <span class="title">{{showDiv1[0].belong}}</span>
+      <span class="title">{{ showDiv1[0].belong }}</span>
       <el-image class="title-icon" :src="titleIcon" fit="cover"></el-image>
     </div>
     <div class="project-container">
@@ -19,7 +19,7 @@
 </template>
 <script>
 // 导入需要跳转路由配置
-import { CMA_CONFIG, changeCmaConfig } from "@/assets/data"
+import { changeCmaConfig } from "@/assets/data"
 export default {
   name: "cma",
   data() {

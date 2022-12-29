@@ -38,9 +38,11 @@
                     <!-- <span class="rate" v-if="folChecked">{{
                       item.values.FOL.hitRate | filterRate
                     }}</span>-->
-                    <span class="rate" @click.stop="textClick" v-if="folChecked">{{
+                    <span class="rate" @click.stop="textClick" v-if="folChecked">
+                      {{
                       item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%"
-                    }}</span>
+                      }}
+                    </span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
                   </div>
@@ -73,9 +75,11 @@
                     <!-- <span class="rate" v-if="eolChecked">{{
                       item.values.EOL.hitRate | filterRate
                     }}</span>-->
-                    <span class="rate" @click.stop="textClick" v-if="eolChecked">{{
+                    <span class="rate" @click.stop="textClick" v-if="eolChecked">
+                      {{
                       item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%"
-                    }}</span>
+                      }}
+                    </span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
                   </div>
@@ -299,15 +303,12 @@ export default {
               width: 30px;
               height: 150px;
               text-align: center;
-              border: 1px solid #69f9ff;
+              /* border: 1px solid #69f9ff; */
+              position: relative;
               padding: 1px;
               transform: rotate(180deg);
               display: flex;
               cursor: pointer;
-            }
-            .state-left,
-            .state-right {
-              position: relative;
               .rate {
                 font-size: 13px;
                 font-weight: bold;
@@ -322,7 +323,11 @@ export default {
                 width: 100%;
               }
             }
+            .state-left {
+              border: 1px solid #3762ff;
+            }
             .state-right {
+              border: 1px solid #69f9ff;
               margin-right: 12px;
             }
           }

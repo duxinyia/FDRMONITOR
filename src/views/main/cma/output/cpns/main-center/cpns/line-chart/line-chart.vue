@@ -53,7 +53,7 @@ export default {
             data: legends.slice(5),
             y: "25",
             textStyle: {
-              color: "#c3dbff", //更改坐标轴文字颜色
+              color: themeColor, //更改坐标轴文字颜色
               fontSize: 14
             }
           },
@@ -61,7 +61,7 @@ export default {
             data: legends.slice(0, 5),
             y: "0",
             textStyle: {
-              color: "#c3dbff", //更改坐标轴文字颜色
+              color: themeColor, //更改坐标轴文字颜色
               fontSize: 14
             }
           }

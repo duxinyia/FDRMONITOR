@@ -14,36 +14,43 @@ export default [
     component: () => import(/* webpackChunkName: "overView" */ "../views/overView/overView.vue"),
     redirect: () => "overview/cma/device",
     children: [
-      {
-        path: "bg",
-        name: "bg",
-        component: () =>
-          import(/* webpackChunkName: "overview/bg" */ "../views/overView/cpns/bg/bg.vue")
-      },
-      {
-        path: "user",
-        name: "user",
-        component: () =>
-          import(/* webpackChunkName: "overview/user" */ "../views/overView/cpns/user/user.vue")
-      },
+      // {
+      //   path: "bg",
+      //   name: "bg",
+      //   component: () =>
+      //     import(/* webpackChunkName: "overview/bg" */ "../views/overView/cpns/bg/bg.vue")
+      // },
+      // {
+      //   path: "user",
+      //   name: "user",
+      //   component: () =>
+      //     import(/* webpackChunkName: "overview/user" */ "../views/overView/cpns/user/user.vue")
+      // },
       {
         path: "cma/:type",
         name: "overview-cma",
         component: () =>
           import(/* webpackChunkName: "overview/cma" */ "../views/overView/cpns/cma/cma.vue")
       },
+      // 管理层
       {
-        path: "dp",
-        name: "overview-dp",
+        path: "manage/:type",
+        name: "overview-cma",
         component: () =>
-          import(/* webpackChunkName: "overview/dp" */ "../views/overView/cpns/dp/dp.vue")
-      },
-      {
-        path: "about",
-        name: "about",
-        component: () =>
-          import(/* webpackChunkName: "overview/about" */ "../views/overView/cpns/about/about.vue")
+          import(/* webpackChunkName: "overview/cma" */ "../views/overView/cpns/cma/cma.vue")
       }
+      // {
+      //   path: "dp",
+      //   name: "overview-dp",
+      //   component: () =>
+      //     import(/* webpackChunkName: "overview/dp" */ "../views/overView/cpns/dp/dp.vue")
+      // },
+      // {
+      //   path: "about",
+      //   name: "about",
+      //   component: () =>
+      //     import(/* webpackChunkName: "overview/about" */ "../views/overView/cpns/about/about.vue")
+      // }
     ]
   },
   // cma 的路由
@@ -51,7 +58,6 @@ export default [
     path: "/cma",
     name: "cma",
     component: () => import(/* webpackChunkName: "main" */ "../views/main/cma/index.vue"),
-    // redirect: { name: "aa" },
     children: [
       // FOL看板的路由
       {

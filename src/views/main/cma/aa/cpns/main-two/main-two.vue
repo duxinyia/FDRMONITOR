@@ -50,9 +50,11 @@
                         @click="goDetail(item)"
                         :style="selectColor(item.runStatus)"
                       >
-                        <span :style="{ color: selectSpanColor() }">{{
+                        <span :style="{ color: selectSpanColor() }">
+                          {{
                           item.machineName || ""
-                        }}</span>
+                          }}
+                        </span>
                       </div>
                       <div class="dots">
                         <template v-if="Object.keys(item.aaHeadCurrentRunStates).length > 0">
@@ -145,6 +147,7 @@ export default {
       return Object.keys(this.totalBlock)[this.currentIndex]
     },
     changeBoxColor() {
+      // return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
       return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
     },
     changeDv7Color() {

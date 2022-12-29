@@ -17,9 +17,11 @@
           </div>
           <!-- top5 -->
           <span class="efficiency-title">效率損失Top5:</span>
-          <div v-for="(item, index) in efficiencyLoss" :key="item.errormsg" class="efficiency">
-            {{ index + 1 }}. {{ item.errormsg }} {{ item.rate }}
-          </div>
+          <div
+            v-for="(item, index) in efficiencyLoss"
+            :key="item.errormsg"
+            class="efficiency"
+          >{{ index + 1 }}. {{ item.errormsg }} {{ item.rate }}</div>
         </div>
         <div class="right">
           <div class="right-one">
@@ -44,9 +46,7 @@
               :key="index"
               class="grid-item"
               :style="changeItemStyle(item)"
-            >
-              {{ item.carrierXYRate || "" }}
-            </div>
+            >{{ item.carrierXYRate || "" }}</div>
           </div>
         </div>
       </div>
