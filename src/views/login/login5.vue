@@ -1,15 +1,20 @@
 <template>
-  <!-- 转动地球版 -->
+  <!-- 初版 -->
   <div class="login-page">
-    <div class="header">
-      <h1 class="title">战情中心</h1>
-      <div class="header-img"></div>
-    </div>
-    <div class="content">
-      <div class="content-left"></div>
-      <div class="conetent-right">
+    <div class="container">
+      <transition
+        appear
+        mode="in-out"
+        :duration="1000"
+        enter-active-class="animate__animated animate__fadeInRight"
+        leave-active-class="animate__animated animate__zoomOut"
+      >
+        <div class="left" v-if="leftShow"></div>
+      </transition>
+      <div class="right">
+        <!-- 按钮区域 -->
         <div class="form-container">
-          <!-- <div class="form-title">登录</div> -->
+          <div class="form-title">戰情中心</div>
           <el-form ref="form" :rules="rules" :model="form">
             <el-form-item prop="name">
               <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
@@ -39,7 +44,7 @@
       </div>
     </div>
     <!-- 描述框 -->
-    <div class="footer">
+    <div class="copyright-info">
       <div class="copyright">
         <i class="el-icon-collection-tag icon"></i>Copyright © 2022. Foxconn All rights reserved
       </div>
@@ -97,6 +102,11 @@ export default {
             this.$store.commit("user/SET_USER", this.form)
             // 跳转页面
             this.$router.replace({ name: "overview" })
+            // this.$message({
+            //   type: "success",
+            //   message: `登錄成功~`,
+            //   duration: 1500
+            // })
           }
           this.btnLoading = false
           this.$refs["form"].resetFields()
@@ -121,17 +131,20 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-::v-deep .el-form-item {
-  margin-bottom: 30px;
+::v-deep .el-input {
+  width: 80%;
 }
 ::v-deep .el-input__inner {
-  background: transparent !important;
-  border: 1px solid #1296db !important;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid #dcdfe6;
+  border-radius: 0px;
 }
-// 改变input里的字体颜色
-::v-deep input::-webkit-input-placeholder {
-  color: #17a1e5;
-  font-size: 15px;
+::v-deep {
+  .el-form-item__error {
+    left: 10%;
+  }
 }
 ::v-deep .el-checkbox__label {
   padding-left: 5px;
@@ -139,64 +152,37 @@ export default {
 .login-page {
   width: 100%;
   height: 100%;
+  background: linear-gradient(300deg, #415381 20%, #537bcb);
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  overflow: hidden;
-  background: url("~@/assets/images/login-bg.jpg") no-repeat center center;
-  .header {
-    width: 50%;
-    margin: 30px auto 0 auto;
-    position: relative;
-    text-align: center;
-    color: #fff;
-    .title {
-      font-size: 40px;
-      font-weight: bold;
-      letter-spacing: 10px;
-    }
-    .header-img {
-      background: url("~@/assets/images/login-header.png") no-repeat center center;
-      background-size: 100%;
-      position: absolute;
-      top: 0.8em;
-      width: 100%;
-      height: 100px;
-    }
-  }
-  .content {
+  justify-content: center;
+  align-items: center;
+  .container {
+    height: 400px;
     display: flex;
-    justify-content: space-around;
-    .content-left {
-      width: 550px;
-      height: 490px;
-      opacity: 0.9;
-      background: url("~@/assets/images/login-ball.png") no-repeat center center;
-      background-size: 100%;
-      /* animation: rotate 500s linear infinite; */
+    box-shadow: 0 0 10px #0c1e4b;
+    .left {
+      width: 250px;
+      flex: 3;
+      background: linear-gradient(120deg, #3498db, #8e44ad);
+      padding: 20px 0px 0px 20px;
     }
-    .conetent-right {
-      width: 450px;
-      height: 450px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: url("~@/assets/images/login-form.png") no-repeat center center;
-      background-size: 100%;
+    .right {
+      flex: 4;
+      text-align: center;
+      color: #000;
+      background: #fff;
+      width: 380px;
       .form-container {
-        width: 80%;
-        margin: auto;
-        text-align: center;
+        margin-top: 80px;
         .form-title {
           font-size: 26px;
           font-weight: 700;
           margin-bottom: 15px;
-          color: #fff;
         }
         .login-btn {
-          width: 100%;
-          font-size: 18px;
-          background: linear-gradient(to right, #4288d2, #00eaff);
+          width: 80%;
+          background: linear-gradient(to right, #4288d2, #6569c1);
         }
         .forget-pwd {
           width: fit-content;
@@ -211,7 +197,9 @@ export default {
       }
     }
   }
-  .footer {
+  .copyright-info {
+    position: fixed;
+    bottom: 20px;
     font-size: 14px;
     text-align: center;
     color: #d3c9c9;
@@ -229,14 +217,12 @@ export default {
 }
 @media screen and (max-width: 1280px) {
   .login-page {
-    .content-left {
-      display: none;
+    .container {
+      width: 300px;
+      .left {
+        display: none;
+      }
     }
-  }
-}
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
   }
 }
 </style>

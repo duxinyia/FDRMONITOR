@@ -1,5 +1,5 @@
 export default {
   login: {
-    text: 'login'
+    text: "login"
   }
 }

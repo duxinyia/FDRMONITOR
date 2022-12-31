@@ -14,9 +14,9 @@
     <div class="operations">
       <div class="left">
         <!-- 展开菜单 -->
-        <el-tooltip content="戰情中心" placement="top">
+        <!-- <el-tooltip content="戰情中心" placement="top">
           <span class="iconfont icon-shezhi setup" @click="dialogVisible = true"></span>
-        </el-tooltip>
+        </el-tooltip>-->
       </div>
       <div class="right">
         <!-- 返回上一级 -->

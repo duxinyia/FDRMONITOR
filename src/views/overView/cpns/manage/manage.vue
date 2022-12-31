@@ -1,5 +1,5 @@
 <template>
-  <div class="cma-container">
+  <div class="manage-container">
     <div class="title-container">
       <span class="title">{{ showDiv1[0].belong }}</span>
       <el-image class="title-icon" :src="titleIcon" fit="cover"></el-image>
@@ -21,7 +21,7 @@
 // 导入需要跳转路由配置
 import { changeCmaConfig } from "@/assets/data"
 export default {
-  name: "cma",
+  name: "manage",
   data() {
     return {
       titleIcon: require("@/assets/images/title-icon.png")
@@ -50,7 +50,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.cma-container {
+.manage-container {
   position: absolute;
   z-index: 999;
   .title-container {

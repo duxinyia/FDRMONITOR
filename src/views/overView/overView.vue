@@ -38,6 +38,7 @@
           <span slot="title">关于</span>
         </el-menu-item>
       </el-menu>-->
+
       <el-menu
         class="el-menu-vertical"
         text-color="#fff"
@@ -48,63 +49,82 @@
       >
         <template v-for="item in menus">
           <template v-if="item.subs">
-            <el-submenu :index="item.index" :key="item.index">
+            <el-submenu :index="item.index" :key="item.title" @click.native="itemClick(item)">
               <template slot="title">
                 <i :class="item.icon"></i>
-                <span slot="title">{{ item.title }}</span>
+                <span slot="title">{{ item.title }}11</span>
               </template>
-
               <template v-for="subItem in item.subs">
                 <template v-if="subItem.subs">
-                  <el-submenu :index="subItem.index" :key="subItem.index">
+                  <el-submenu
+                    :index="subItem.index"
+                    :key="subItem.title"
+                    @click.native.stop="itemClick(subItem)"
+                  >
                     <template slot="title">
                       <i :class="item.icon"></i>
-                      <span slot="title">{{ subItem.title }}</span>
+                      <span slot="title">{{ subItem.title }}22</span>
                     </template>
 
                     <template v-for="subItem2 in subItem.subs">
                       <template v-if="subItem2.subs">
-                        <el-submenu :index="subItem2.index" :key="subItem2.index">
+                        <el-submenu
+                          :index="subItem2.index"
+                          :key="subItem2.title"
+                          @click.native.stop="itemClick(subItem2)"
+                        >
                           <template slot="title">
                             <i :class="item.icon"></i>
-                            <span slot="title">{{ subItem2.title }}</span>
+                            <span slot="title">{{ subItem2.title }}33</span>
                           </template>
-
                           <template v-for="subItem3 in subItem2.subs">
                             <template v-if="subItem3.subs">
-                              <el-submenu :index="subItem3.index" :key="subItem3.index">
+                              <el-submenu
+                                :index="subItem3.index"
+                                :key="subItem3.title"
+                                @click.native.stop="itemClick(subItem3)"
+                              >
                                 <template slot="title">
                                   <i :class="subItem3.icon"></i>
-                                  <span slot="title">{{ subItem3.title }}</span>
+                                  <span slot="title">{{ subItem3.title }}55</span>
                                 </template>
                                 <el-menu-item
-                                  v-for="(fiveItem,i) in subItem3.subs"
-                                  :key="i"
+                                  v-for="fiveItem in subItem3.subs"
+                                  :key="fiveItem.title"
                                   :index="fiveItem.index"
                                 >
                                   <i :class="fiveItem.icon"></i>
-                                  <span slot="title">{{ fiveItem.title }}</span>
+                                  <span slot="title">{{ fiveItem.title }}77</span>
                                 </el-menu-item>
                               </el-submenu>
                             </template>
-
-                            <el-menu-item v-else :index="subItem3.index" :key="subItem3.index">
+                            <el-menu-item
+                              v-else
+                              :index="subItem3.index"
+                              :key="subItem3.title"
+                              @click.native.stop="itemClick(subItem3)"
+                            >
                               <i :class="subItem3.icon"></i>
-                              <span slot="title">{{ subItem3.title }}</span>
+                              <span slot="title">{{ subItem3.title }}66</span>
                             </el-menu-item>
                           </template>
                         </el-submenu>
                       </template>
 
-                      <el-menu-item v-else :index="subItem2.index" :key="subItem2.index">
+                      <el-menu-item
+                        v-else
+                        :index="subItem2.index"
+                        :key="subItem2.title"
+                        @click.native.stop="itemClick(subItem2)"
+                      >
                         <i :class="subItem2.icon"></i>
-                        <span slot="title">{{ subItem2.title }}</span>
+                        <span slot="title">{{ subItem2.title }}44</span>
                       </el-menu-item>
                     </template>
                   </el-submenu>
                 </template>
 
-                <el-menu-item v-else :index="subItem.index" :key="subItem.index">
+                <el-menu-item v-else :index="subItem.index" :key="subItem.title">
                   <i :class="subItem.icon"></i>
                   <span slot="title">{{ subItem.title }}</span>
                 </el-menu-item>
@@ -113,7 +133,7 @@
           </template>
 
           <template v-else>
-            <el-menu-item :index="item.index" :key="item.index">
+            <el-menu-item :index="item.index" :key="item.title">
               <i :class="item.icon"></i>
               <span slot="title">{{ item.title }}</span>
             </el-menu-item>
@@ -135,7 +155,7 @@
         <!-- <div class="header-center"></div> -->
         <div class="header-right">
           <!-- 时间显示 -->
-          <span class="currentTime">{{currentTime}}</span>
+          <span class="currentTime">{{ currentTime }}</span>
           <!-- 下拉菜单 -->
           <el-dropdown @command="handleCommand" placement="bottom">
             <span class="el-dropdown-link">
@@ -160,8 +180,17 @@
         </div>
       </el-header>
       <el-main class="main-container">
-        <router-view />
-
+        <transition
+          appear
+          mode="out-in"
+          :duration="1000"
+          enter-active-class="animate__animated animate__fadeInRight"
+          leave-active-class="animate__animated animate__backOutRight"
+        >
+          <keep-alive>
+            <router-view />
+          </keep-alive>
+        </transition>
         <el-image
           v-if="$store.getters.theme == 'dark'"
           class="bottom-img"
@@ -229,6 +258,32 @@ export default {
           bg: `background:url(${this.$globalData.bgs[index]})`
         })
       }
+    },
+    itemClick(item) {
+      console.log("item", item)
+      if (item.toLink) {
+        this.$router.push({ name: item.toLink })
+      }
+      if (item.outLink) {
+        window.open(item.outLink)
+      }
+      if (item.title == "製程監控") {
+        console.log("製程監控")
+        this.$router.push("/overview/manage/make")
+      }
+      if (item.title == "設備") {
+        this.$router.push("/overview/manage/device")
+      }
+      if (item.title == "產出") {
+        this.$router.push("/overview/manage/output")
+      }
+      if (item.title == "良率") {
+        this.$router.push("/overview/manage/yield")
+      }
+      // 切换右边的情况
+      // if(item.)
+      // 1. 外部链接  window.open 2. 自己写的代码 $router.push 跳转
+      // this.$router.push({ name: item.index })
     },
     // 获取当前时间
     getCurrentTime() {

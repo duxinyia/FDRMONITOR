@@ -4,7 +4,12 @@ import moment from "moment"
 
 // 1. 获取 左上 右上 的数据
 export let getYearOutputInfo = (params = {}) => {
-  let { PlantID = "8S01", ProductArea = "EOL", Year = `${moment().format("YYYY")}`, DateTag } = params
+  let {
+    PlantID = "8S01",
+    ProductArea = "EOL",
+    Year = `${moment().format("YYYY")}`,
+    DateTag
+  } = params
   return $get(
     `api/MESOutPut/GetYearOutputInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&Year=${Year}&DateTag=${DateTag}`
   )
@@ -12,7 +17,12 @@ export let getYearOutputInfo = (params = {}) => {
 
 // 2. 获取 左下 右下 的数据
 export let getDateCodeOutputInfo = (params = {}) => {
-  let { PlantID = "8S01", ProductArea = "EOL", Time = `${moment().format("YYYY-MM")}`, DateTag } = params
+  let {
+    PlantID = "8S01",
+    ProductArea = "EOL",
+    Time = `${moment().format("YYYY-MM")}`,
+    DateTag
+  } = params
   return $get(
     `api/MESOutPut/GetDateCodeOutputInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&Time=${Time}&DateTag=${DateTag}`
   )
@@ -28,7 +38,12 @@ export let getYearOutputInfoCollection = (params = {}) => {
 
 // 4. 获取中间区域的折线图部分
 export let getMPSOpenLineInfo = (params = {}) => {
-  let { PlantID = "8S01", ProductArea = "EOL", St = `${moment().format("YYYY-MM-DD")}`, Et = `${moment().add(7, 'days').format("YYYY-MM-DD")}` } = params
+  let {
+    PlantID = "8S01",
+    ProductArea = "EOL",
+    St = `${moment().format("YYYY-MM-DD")}`,
+    Et = `${moment().add(7, "days").format("YYYY-MM-DD")}`
+  } = params
   return $get(
     `api/MESOutPut/GetMPSOpenLineInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&St=${St}&Et=${Et}`
   )

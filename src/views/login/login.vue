@@ -1,57 +1,111 @@
 <template>
   <div class="login-page">
-    <div class="form-container">
-      <el-image class="logo" :src="form_logo" fit="contain"></el-image>
-      <!-- <p class="welcome-text">你好，欢迎登陆战情中心</p> -->
-      <el-form class="form" ref="form" :rules="rules" :model="form">
-        <el-form-item prop="name">
-          <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
-        </el-form-item>
-        <el-form-item prop="paw">
-          <el-input
-            prefix-icon="el-icon-lock"
-            placeholder="密碼"
-            show-password
-            v-model.trim="form.paw"
-          ></el-input>
-        </el-form-item>
-        <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
-        <el-form-item>
-          <el-button
-            round
-            type="primary"
-            class="login-btn"
-            @keyup.enter.native="toLogin"
-            @click="toLogin"
-            :loading="btnLoading"
-            :disabled="btnLoading"
-          >{{ btnLoading ? "登录中~" : "登录" }}</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-    <!-- 描述框 -->
-    <div class="footer">
-      <div class="copyright">
-        <i class="el-icon-collection-tag icon"></i>Copyright © 2022. Foxconn All rights reserved
+    <transition
+      appear
+      mode="out-in"
+      :duration="2000"
+      enter-active-class="animate__animated animate__slideInDown"
+    >
+      <div class="form-container">
+        <transition
+          appear
+          mode="in-out"
+          :duration="2000"
+          enter-active-class="animate__animated animate__fadeInRight"
+        >
+          <div class="top-container">
+            <el-image class="logo" :src="form_logo" fit="contain"></el-image>
+            <h1 class="title">戰情中心</h1>
+          </div>
+        </transition>
+        <el-form class="form" ref="form" :rules="rules" :model="form">
+          <transition
+            appear
+            mode="out-in"
+            :duration="1000"
+            enter-active-class="animate__animated animate__fadeInLeft"
+          >
+            <el-form-item prop="name">
+              <el-input placeholder="工號" v-model.trim="form.name">
+                <i slot="prefix" style="display: flex;align-items: center;">
+                  <el-image style="width: 15px; height: 17px" :src="user_icon" fit="cover"></el-image>
+                </i>
+              </el-input>
+            </el-form-item>
+          </transition>
+          <transition
+            appear
+            mode="out-in"
+            :duration="1000"
+            enter-active-class="animate__animated animate__fadeInRight"
+          >
+            <el-form-item prop="paw">
+              <el-input placeholder="密碼" show-password v-model.trim="form.paw">
+                <i slot="prefix" style="display: flex;align-items: center;">
+                  <el-image style="width: 15px; height: 17px" :src="lock_icon" fit="cover"></el-image>
+                </i>
+              </el-input>
+            </el-form-item>
+          </transition>
+          <transition
+            appear
+            mode="out-in"
+            :duration="1000"
+            enter-active-class="animate__animated animate__fadeInLeft"
+          >
+            <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
+          </transition>
+          <transition
+            appear
+            mode="out-in"
+            :duration="1000"
+            enter-active-class="animate__animated animate__backInUp"
+          >
+            <el-form-item>
+              <el-button
+                round
+                type="primary"
+                class="login-btn"
+                @keyup.enter.native="toLogin"
+                @click="toLogin"
+                :loading="btnLoading"
+                :disabled="btnLoading"
+              >{{ btnLoading ? "登 录 中 ~" : "登 录" }}</el-button>
+            </el-form-item>
+          </transition>
+        </el-form>
       </div>
-      <div class="author-info">
-        <div>
-          <span class="author">
-            <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227
-          </span>
-          <span class="mail">
-            <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
-          </span>
-          &nbsp;&nbsp;
-          <span class="author">
-            <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123
-          </span>
-          <span class="mail">
-            <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
-          </span>
+    </transition>
+    <transition
+      appear
+      mode="out-in"
+      :duration="1000"
+      enter-active-class="animate__animated animate__fadeInRight"
+    >
+      <!-- 描述框 -->
+      <div class="footer">
+        <div class="copyright">
+          <i class="el-icon-collection-tag icon"></i>Copyright © 2022. Foxconn All rights reserved
+        </div>
+        <div class="author-info">
+          <div>
+            <span class="author">
+              <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227
+            </span>
+            <span class="mail">
+              <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
+            </span>
+            &nbsp;&nbsp;
+            <span class="author">
+              <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123
+            </span>
+            <span class="mail">
+              <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -72,7 +126,9 @@ export default {
       leftShow: true,
       btnLoading: false,
       isRemPwd: false,
-      form_logo: require("@/assets/images/form-logo.png")
+      form_logo: require("@/assets/images/form-logo.png"),
+      lock_icon: require("@/assets/images/lock-icon.png"),
+      user_icon: require("@/assets/images/user-icon.png")
     }
   },
   created() {
@@ -113,36 +169,56 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+::v-deep .el-input__prefix {
+  margin: auto 15px;
+  display: flex;
+  align-items: center;
+}
+::v-deep .el-input__inner {
+  padding-left: 50px;
+  border: none;
+  background: #f7f7f7;
+}
+::v-deep .el-form-item {
+  margin-bottom: 30px;
+}
+
 .login-page {
   width: 100%;
   height: 100%;
-  position: relative;
-  background: url("~@/assets/images/login-bg3.png") no-repeat center center;
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("~@/assets/images/login-bg4.png") no-repeat center center;
   .form-container {
-    position: absolute;
-    right: 14%;
-    top: 30%;
-    /* width: 531px; */
-    width: 460px;
-    /* height: 470px; */
-    height: 370px;
-    background: url("~@/assets/images/form-container.png") no-repeat center center;
-    /* background: #fff; */
-    border-radius: 10px;
-    /* background-size: 100%; */
-    text-align: center;
-    .logo {
-      width: 250px;
-      margin: 21px auto;
+    width: 500px;
+    height: 380px;
+    background: #fff;
+    /* background: url("~@/assets/images/form-container.png") no-repeat center center; */
+    border-radius: 15px;
+    .top-container {
+      width: 75%;
+      margin: auto;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      .logo {
+        width: 230px;
+        margin-top: 25px;
+        margin-bottom: 25px;
+      }
+      .title {
+        font-size: 25px;
+        font-family: Adobe Heiti Std;
+        font-weight: normal;
+        color: #01143b;
+        line-height: 8px;
+        font-weight: bold;
+      }
     }
-    /* .welcome-text {
-      font-size: 26px;
-      font-weight: bold;
-      margin-bottom: 24px;
-    } */
     .form {
-      /* width: 286px; */
-      width: 70%;
+      width: 75%;
       margin: 0 auto;
       .forget-pwd {
         width: fit-content;
@@ -162,7 +238,8 @@ export default {
         height: 53px;
         font-size: 20px;
         font-weight: bold;
-        background: linear-gradient(-90deg, #5039fb 0%, #008dff 100%);
+        /* background: linear-gradient(-90deg, #5039fb 0%, #008dff 100%); */
+        background: linear-gradient(270deg, rgba(10, 49, 126, 1) 0%, rgba(50, 112, 235, 1) 100%);
         box-shadow: 0px 8px 18px 0px rgba(0, 138, 255, 0.41);
         border-radius: 26px;
         cursor: pointer;

@@ -1,5 +1,5 @@
 export default {
   login: {
-    text: '登录'
+    text: "登录"
   }
 }

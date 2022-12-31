@@ -26,7 +26,7 @@
   // 各种看板主页头部公共部分的 色值
   --page-head-icon: rgba(6, 23, 99, 1);
   --page-head-title: linear-gradient(102.37deg, rgba(0, 227, 212, 1) 0%, rgba(0, 0, 0, 1) 100%);
-  --page-head-name:#124d68;
+  --page-head-name: #124d68;
   --react-left-bg: linear-gradient(100.74deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
   --react-right-bg: linear-gradient(100.74deg, rgba(63, 119, 232, 1) 0%, rgba(0, 227, 210, 1) 100%);
   --react-text: #fff;
@@ -90,10 +90,10 @@
   --make-base-text: #000;
 
   // 產出可視化平台 的样式
-  --output--total-text:#000;
+  --output--total-text: #000;
 
   // top25 的样式
-  --defect-text:rgba(39, 75, 232, 1);
-  --defect-border:rgb(0, 76, 227);
-  --defect-row-one:linear-gradient(259.26deg, rgba(63, 119, 232, 1) 0%, rgba(0, 227, 210, 1) 100%);
+  --defect-text: rgba(39, 75, 232, 1);
+  --defect-border: rgb(0, 76, 227);
+  --defect-row-one: linear-gradient(259.26deg, rgba(63, 119, 232, 1) 0%, rgba(0, 227, 210, 1) 100%);
 }

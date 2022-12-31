@@ -1,6 +1,14 @@
 <template>
   <div id="app" :style="appStyle">
+    <!-- <transition
+      appear
+      mode="out-in"
+      :duration="500"
+      enter-active-class="animate__animated animate__fadeInRight"
+      leave-active-class="animate__animated animate__zoomOut"
+    >-->
     <router-view />
+    <!-- </transition> -->
   </div>
 </template>
 <script>

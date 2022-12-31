@@ -12,51 +12,28 @@ export default [
     path: "/overview",
     name: "overview",
     component: () => import(/* webpackChunkName: "overView" */ "../views/overView/overView.vue"),
-    redirect: () => "overview/cma/device",
+    redirect: () => "overview/manage/device",
     children: [
       // {
-      //   path: "bg",
-      //   name: "bg",
+      //   path: "cma/:type",
+      //   name: "overview-cma",
       //   component: () =>
-      //     import(/* webpackChunkName: "overview/bg" */ "../views/overView/cpns/bg/bg.vue")
+      //     import(/* webpackChunkName: "overview/cma" */ "../views/overView/cpns/cma/cma.vue")
       // },
-      // {
-      //   path: "user",
-      //   name: "user",
-      //   component: () =>
-      //     import(/* webpackChunkName: "overview/user" */ "../views/overView/cpns/user/user.vue")
-      // },
-      {
-        path: "cma/:type",
-        name: "overview-cma",
-        component: () =>
-          import(/* webpackChunkName: "overview/cma" */ "../views/overView/cpns/cma/cma.vue")
-      },
       // 管理层
       {
         path: "manage/:type",
-        name: "overview-cma",
+        name: "overview-manage",
         component: () =>
-          import(/* webpackChunkName: "overview/cma" */ "../views/overView/cpns/cma/cma.vue")
-      }
-      // {
-      //   path: "dp",
-      //   name: "overview-dp",
-      //   component: () =>
-      //     import(/* webpackChunkName: "overview/dp" */ "../views/overView/cpns/dp/dp.vue")
-      // },
-      // {
-      //   path: "about",
-      //   name: "about",
-      //   component: () =>
-      //     import(/* webpackChunkName: "overview/about" */ "../views/overView/cpns/about/about.vue")
-      // }
+          import(/* webpackChunkName: "overview/manage" */ "../views/overView/cpns/manage/manage.vue")
+      },
+      // 分配权限的页面
     ]
   },
-  // cma 的路由
+  // main 的路由
   {
-    path: "/cma",
-    name: "cma",
+    path: "/main",
+    name: "main",
     component: () => import(/* webpackChunkName: "main" */ "../views/main/cma/index.vue"),
     children: [
       // FOL看板的路由
@@ -89,13 +66,13 @@ export default [
         path: "output2",
         name: "output2",
         component: () =>
-          import(/* webpackChunkName: "output" */ "../views/main/cma/output2/output2.vue")
+          import(/* webpackChunkName: "output2" */ "../views/main/cma/output2/output2.vue")
       },
       // 制造层
       {
         path: "make",
         name: "make",
-        component: () => import(/* webpackChunkName: "output" */ "../views/main/cma/make/make.vue"),
+        component: () => import(/* webpackChunkName: "make" */ "../views/main/cma/make/make.vue"),
         meta: { isJump: true }
       },
       //製造戰情中心
@@ -143,13 +120,6 @@ export default [
       }
     ]
   },
-  // dp 的路由
-  // {
-  //   path: "/dp",
-  //   name: "dp",
-  //   component: () => import(/* webpackChunkName: "main" */ "../views/main/dp/index.vue"),
-  //   children: []
-  // },
   // 没找到的路由
   {
     path: "*",

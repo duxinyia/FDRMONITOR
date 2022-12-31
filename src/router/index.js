@@ -16,15 +16,16 @@ const router = new VueRouter({
 // 前置守卫
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  if (to.path == "/login") {
-    if (cache.getCache("user")) {
-      next("/overview")
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
+  // if (to.path == "/login") {
+  //   if (cache.getCache("user")) {
+  //     next("/overview")
+  //   } else {
+  //     next()
+  //   }
+  // } else {
+  //   next()
+  // }
+  next()
 })
 // 后置守卫
 router.afterEach(() => {
