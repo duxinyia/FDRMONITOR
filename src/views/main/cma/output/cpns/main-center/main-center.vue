@@ -24,12 +24,7 @@
           <img class="icon" src="@/assets/images/icon02.png" alt />
           <span class="title">未來7天開線數</span>
         </p>
-        <line-chart
-          height="400px"
-          :showTitle="false"
-          :config="lineChartConfig"
-          title="線體良率明細區:"
-        />
+        <line-chart height="400px" :showTitle="false" :config="lineChartConfig" title="線體良率明細區:" />
       </div>
     </dv-border-box-11>
   </div>
@@ -54,7 +49,7 @@ export default {
         { name: "年度計劃:", value: parseInt(targetOut).toLocaleString("en-US") },
         { name: "實際:", value: parseInt(output).toLocaleString("en-US") },
         { name: "差異:", value: parseInt(delta).toLocaleString("en-US") },
-        { name: "達成率:", value: hitRate }
+        { name: "達成率:", value: hitRate || "0%" }
       ]
     },
     changeBoxColor() {

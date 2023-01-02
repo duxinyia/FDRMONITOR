@@ -61,7 +61,7 @@
       </div>
     </div>
     <!-- 不同项目切换 -->
-    <project-dialog :dialogVisible.sync="dialogVisible" />
+    <!-- <project-dialog :dialogVisible.sync="dialogVisible" /> -->
   </div>
 </template>
 
@@ -71,7 +71,7 @@ import cache from "@/utils/cache.js"
 // 全屏
 import screenfull from "screenfull"
 // 导入弹框
-import ProjectDialog from "@/components/project-dialog/project-dialog.vue"
+// import ProjectDialog from "@/components/project-dialog/project-dialog.vue"
 export default {
   name: "page-header",
   props: {
@@ -81,7 +81,7 @@ export default {
     }
   },
   components: {
-    ProjectDialog
+    // ProjectDialog
   },
   data() {
     return {

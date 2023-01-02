@@ -1,7 +1,7 @@
 <template>
   <el-container class="overview">
     <!-- 侧边栏 -->
-    <el-aside :width="menuFold ? '65px' : '280px'" :class="asideClass">
+    <el-aside :width="menuFold ? '65px' : '300px'" :class="asideClass">
       <div class="top-title">
         <el-image class="logo" :src="changeLogo" fit="fill" />
         <h2 class="name" v-show="!menuFold">RAYPRUS</h2>
@@ -322,6 +322,7 @@ export default {
 .active {
   background: rgba(87, 200, 249, 0.6);
 }
+
 // hover 高亮
 .el-menu-item:hover {
   color: #ccc !important; // 菜单
@@ -345,12 +346,16 @@ export default {
   height: 100%;
   // 侧边栏
   .aside-container {
+    position: relative;
     overflow-x: hidden;
     overflow-y: auto;
     transition: width 0.3s linear;
     scrollbar-width: none; /* firefox */
     -ms-overflow-style: none; /* IE 10+ */
     .top-title {
+      /* position: fixed;
+      top: 0;
+      left: 0; */
       height: 48px;
       display: flex;
       align-items: center;

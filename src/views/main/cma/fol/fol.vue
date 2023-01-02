@@ -193,6 +193,7 @@ export default {
           this.config1.sum += item.count
           this.config1.details.push(item.details)
         })
+        this.config1.sum = this.config1.sum + 1
         result.forEach((item) => {
           this.config1.bottomData.push({ name: "", value: this.config1.sum - item.count })
           this.config1.topData.push({ name: "", value: this.config1.sum })
@@ -204,16 +205,16 @@ export default {
       let result = await getDeviceInfo()
       if (Array.isArray(result)) {
         this.config2 = [
-          ["JU-X", 1, 7, 1, 5, 0, 0],
-          ["JU-2X", 1, 7, 1, 5, 0, 0],
-          ["JU-3X", 0, 7, 0, 5, 0, 0],
-          ["NH-X", 0, 1, 0, 0, 0, 0],
-          ["NH-2X", 1, 1, 1, 0, 0, 0],
+          ["JU-X", 1, 7, 1, 4, 0, 0],
+          ["JU-2X", 2, 7, 2, 4, 0, 0],
+          ["JU-3X", 0, 7, 0, 4, 0, 0],
+          ["NH-X", 0, 1, 0, 1, 0, 0],
+          ["NH-2X", 0, 1, 0, 1, 0, 0],
           ["MD-X", 0, 7, 0, 2, 0, 0],
           ["MD-2X", 1, 7, 1, 2, 0, 0],
           ["MD-3X", 4, 7, 4, 2, 0, 0],
-          ["ML-X", 3, 9, 3, 2, 0, 0],
-          ["ML-2X", 4, 9, 4, 2, 0, 0],
+          ["ML-X", 4, 9, 4, 2, 0, 0],
+          ["ML-2X", 3, 9, 3, 2, 0, 0],
           ["ML-3X", 0, 9, 0, 2, 0, 0],
           ["Stanley", 0, 2, 0, 2, 0, 0],
           ["IOWA-B", 0, 1, 0, 1, 0, 0]

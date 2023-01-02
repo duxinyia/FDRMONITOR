@@ -12,7 +12,7 @@ export default [
     path: "/overview",
     name: "overview",
     component: () => import(/* webpackChunkName: "overView" */ "../views/overView/overView.vue"),
-    redirect: () => "overview/manage/device",
+    redirect: () => "overview/manage/output",
     children: [
       // {
       //   path: "cma/:type",
@@ -25,8 +25,10 @@ export default [
         path: "manage/:type",
         name: "overview-manage",
         component: () =>
-          import(/* webpackChunkName: "overview/manage" */ "../views/overView/cpns/manage/manage.vue")
-      },
+          import(
+            /* webpackChunkName: "overview/manage" */ "../views/overView/cpns/manage/manage.vue"
+          )
+      }
       // 分配权限的页面
     ]
   },

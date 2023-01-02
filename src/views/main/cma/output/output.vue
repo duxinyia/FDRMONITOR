@@ -122,7 +122,7 @@ export default {
     // 获取年度的统计数据
     async getYearOutputInfoCollection() {
       let res = await getYearOutputInfoCollection()
-      // console.log("获取年度的统计数据", res)
+      console.log("获取年度的统计数据", res)
       this.yearInfo = res.yearInfo
       // 组合饼图的数据
       res.deviceSeriesPie.forEach((item) => {
@@ -166,7 +166,8 @@ export default {
     // 获取左右下的数据
     async getDateCodeOutputInfo1() {
       let res = await getDateCodeOutputInfo({ DateTag: "month" })
-      // console.log("获取右下的数据", res)
+      console.log("获取右下的数据", res)
+      this.rightScrollData = []
       try {
         res.forEach((item) => {
           let { owner, targetOut, output, delta, hitRate = "-", dateCode } = item

@@ -19,7 +19,7 @@ export let menus = [
         icon: "el-icon-s-tools",
         title: "產出",
         index: "2",
-        isOutLink: 'www.baibu.com'
+        isOutLink: "www.baibu.com"
       },
       {
         icon: "el-icon-s-tools",
@@ -48,14 +48,13 @@ export let menus = [
             icon: "el-icon-s-tools",
             title: "年度產出總覽",
             index: "/overview/manage",
-            toLink: 'output',
-            outLink: ''
+            toLink: "output",
           },
           {
             icon: "el-icon-s-tools",
             title: "每日產出看板",
             index: "/overview/manage",
-            toLink: 'makewar',
+            toLink: "makewar",
             subs: [
               {
                 icon: "el-icon-s-tools",
@@ -70,22 +69,26 @@ export let menus = [
                   {
                     icon: "el-icon-s-tools",
                     title: "AA/GA/CT",
-                    index: "11"
+                    index: "11",
+                    outLink: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx"
                   },
                   {
                     icon: "el-icon-s-tools",
                     title: "ACF",
-                    index: "12"
+                    index: "12",
+                    outLink: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx?Type=ACF"
                   },
                   {
                     icon: "el-icon-s-tools",
                     title: "TEST",
-                    index: "13"
+                    index: "13",
+                    outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.TestKanban"
                   },
                   {
                     icon: "el-icon-s-tools",
                     title: "AVI",
-                    index: "14"
+                    index: "14",
+                    outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.AVIFirstYieldKanban"
                   }
                 ]
               },
@@ -93,7 +96,7 @@ export let menus = [
                 icon: "el-icon-s-tools",
                 title: "By站位產出看板",
                 index: "15",
-                toLink: 'output2'
+                toLink: "output2"
               }
             ]
           }
@@ -173,7 +176,8 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "周產出/效率看板",
-                index: "29"
+                index: "29",
+                outLink: "http://10.147.214.130:8081/AA/Report"
               },
               {
                 icon: "el-icon-s-tools",
@@ -183,7 +187,8 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "Alarms times Top15 看板",
-                index: "31"
+                index: "31",
+                outLink: "http://10.147.214.130:8081/AA/TopReport"
               },
               {
                 icon: "el-icon-s-tools",
@@ -200,22 +205,26 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "ACF效率看板",
-                index: "34"
+                index: "34",
+                outLink: "http://10.147.214.130:8081/Test/ReportACF"
               },
               {
                 icon: "el-icon-s-tools",
                 title: "SA效率看板",
-                index: "35"
+                index: "35",
+                outLink: "http://10.147.214.130:8081/Test/ReportSA"
               },
               {
                 icon: "el-icon-s-tools",
                 title: "Test效率看板",
-                index: "36"
+                index: "36",
+                outLink: "http://10.147.214.130:8081/Test/ReportTEST"
               },
               {
                 icon: "el-icon-s-tools",
                 title: "Test機台每2小時by治具看板",
-                index: "37"
+                index: "37",
+                outLink: "http://10.151.128.141:8080/Kanban/I300FirstYieldByJig.aspx"
               },
               {
                 icon: "el-icon-s-tools",
@@ -225,7 +234,8 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "AVI效率看板",
-                index: "39"
+                index: "39",
+                outLink: "http://10.147.214.130:8081/Test/ReportAVI"
               }
             ]
           }
@@ -244,12 +254,14 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "SFR不良率看板(By機台)",
-                index: "42"
+                index: "42",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AASFRKanban"
               },
               {
                 icon: "el-icon-s-tools",
                 title: "SFR不良率看板(By鏡頭模穴)",
-                index: "43"
+                index: "43",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AASFRToolingKanban"
               }
             ]
           },
@@ -266,17 +278,20 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "AOI 不良率看板",
-                index: "45"
+                index: "45",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AOINotice"
               },
               {
                 icon: "el-icon-s-tools",
                 title: "AOI 8H趨勢看板",
-                index: "46"
+                index: "46",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AOINoticeImgPage"
               },
               {
                 icon: "el-icon-s-tools",
                 title: "DPC/LCB不良看板",
-                index: "47"
+                index: "47",
+                outLink: "http://10.151.128.45:8081/Kanban/LCBDPCTracknew.aspx"
               }
             ]
           },
@@ -288,7 +303,8 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "FC不良看板",
-                index: "49"
+                index: "49",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.SFCDefectKanban"
               }
             ]
           },
@@ -300,12 +316,14 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "FC高度報警集中性看板",
-                index: "51"
+                index: "51",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.FCAIterKanban"
               },
               {
                 icon: "el-icon-s-tools",
                 title: "FC壓縮量看板",
-                index: "52"
+                index: "52",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.BumpCollapsKanban"
               }
             ]
           },
@@ -317,32 +335,38 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "IAA Step看板",
-                index: "54"
+                index: "54",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AAStepKanban"
               },
               {
                 icon: "el-icon-s-tools",
                 title: "膠型 AI 檢測看板",
                 index: "55",
+                outLink: "http://10.142.117.50:32001/standard/design/#/shareOS4L2ZWV",
                 subs: [
                   {
                     icon: "el-icon-s-tools",
                     title: "實時統計",
-                    index: "56"
+                    index: "56",
+                    outLink: "http://10.142.117.50:32001/share.html?token=8ZBXMVMR",
                   },
                   {
                     icon: "el-icon-s-tools",
                     title: "歷史日統計",
-                    index: "57"
+                    index: "57",
+                    outLink: "http://10.142.117.50:32001/share.html?token=V3SKHL6X",
                   },
                   {
                     icon: "el-icon-s-tools",
                     title: "歷史周統計",
-                    index: "58"
+                    index: "58",
+                    outLink: "http://10.142.117.50:32001/share.html?token=HYMY179K",
                   },
                   {
                     icon: "el-icon-s-tools",
                     title: "歷史月統計",
-                    index: "59"
+                    index: "59",
+                    outLink: "http://10.142.117.50:32001/share.html?token=TLYKVQQY",
                   }
                 ]
               }
@@ -356,7 +380,8 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "EOL 一次良率看板",
-                index: "61"
+                index: "61",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.TestKanban"
               },
               {
                 icon: "el-icon-s-tools",
@@ -366,12 +391,14 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "AVI 一次不良看板",
-                index: "63"
+                index: "63",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AVIFirstYieldKanban"
               },
               {
                 icon: "el-icon-s-tools",
                 title: "Laser等級監控看板",
-                index: "64"
+                index: "64",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.LaserTransferAVILeveIKanban"
               }
             ]
           },
@@ -383,7 +410,8 @@ export let menus = [
               {
                 icon: "el-icon-s-tools",
                 title: "FOL 關鍵零部件看板",
-                index: "66"
+                index: "66",
+                outLink: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.KeyPartLiveKanban"
               },
               {
                 icon: "el-icon-s-tools",
@@ -457,7 +485,7 @@ export let changeCmaConfig = (theme = "dark") => {
           target: "make",
           belong: "管理层/產出",
           to: "output2"
-        },
+        }
       ]
     ],
     [
@@ -587,14 +615,6 @@ export let changeCmaConfig = (theme = "dark") => {
         }
       ]
     ],
-    [
-      "make",
-      [
-
-
-
-      ]
-    ],
-
+    ["make", []]
   ])
 }

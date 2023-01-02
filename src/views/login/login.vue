@@ -27,8 +27,12 @@
           >
             <el-form-item prop="name">
               <el-input placeholder="工號" v-model.trim="form.name">
-                <i slot="prefix" style="display: flex;align-items: center;">
-                  <el-image style="width: 15px; height: 17px" :src="user_icon" fit="cover"></el-image>
+                <i slot="prefix" style="display: flex; align-items: center">
+                  <el-image
+                    style="width: 15px; height: 17px"
+                    :src="user_icon"
+                    fit="cover"
+                  ></el-image>
                 </i>
               </el-input>
             </el-form-item>
@@ -41,8 +45,12 @@
           >
             <el-form-item prop="paw">
               <el-input placeholder="密碼" show-password v-model.trim="form.paw">
-                <i slot="prefix" style="display: flex;align-items: center;">
-                  <el-image style="width: 15px; height: 17px" :src="lock_icon" fit="cover"></el-image>
+                <i slot="prefix" style="display: flex; align-items: center">
+                  <el-image
+                    style="width: 15px; height: 17px"
+                    :src="lock_icon"
+                    fit="cover"
+                  ></el-image>
                 </i>
               </el-input>
             </el-form-item>
@@ -70,7 +78,8 @@
                 @click="toLogin"
                 :loading="btnLoading"
                 :disabled="btnLoading"
-              >{{ btnLoading ? "登 录 中 ~" : "登 录" }}</el-button>
+                >{{ btnLoading ? "登 录 中 ~" : "登 录" }}</el-button
+              >
             </el-form-item>
           </transition>
         </el-form>
@@ -89,16 +98,12 @@
         </div>
         <div class="author-info">
           <div>
-            <span class="author">
-              <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227
-            </span>
+            <span class="author"> <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227 </span>
             <span class="mail">
               <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
             </span>
             &nbsp;&nbsp;
-            <span class="author">
-              <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123
-            </span>
+            <span class="author"> <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123 </span>
             <span class="mail">
               <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
             </span>
