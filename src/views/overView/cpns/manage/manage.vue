@@ -76,9 +76,11 @@ export default {
     }
   }
   .project-container {
-    display: grid;
+    /* display: grid;
     grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr); */
+    display: flex;
+    flex-wrap: wrap;
     .container {
       width: 300px;
       height: 200px;
@@ -86,9 +88,9 @@ export default {
       border: 1px solid var(--cma-container-border);
       position: relative;
       overflow: hidden;
-      margin-right: 30px;
+      margin-right: 99px;
       border-radius: 5px;
-      margin-bottom: 20px;
+      margin-bottom: 80px;
       overflow: hidden;
       box-shadow: 0px 0px 15px var(--cma-box-shadow);
       .image {
@@ -106,8 +108,10 @@ export default {
         font-weight: bold;
         text-align: center;
         line-height: 35px;
-        background: rgba(204, 204, 204, 0.4);
-        color: rgba(255, 255, 255, 0.8);
+        background: rgba(204, 204, 204, 0.7);
+        /* background: rgba(0, 0, 0, 0.8); */
+        /* color: rgba(255, 255, 255, 0.8); */
+        color: #fff;
         position: absolute;
         bottom: 0;
         left: 0;

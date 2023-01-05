@@ -1,5 +1,5 @@
 <template>
-  <dv-border-box-11 :color="changeBoxColor" :title="`${config.deviceSeries}系列`">
+  <dv-border-box-11 :color="changeBoxColor" :title="`${config.deviceSeries || ''}系列`">
     <span class="btn" @click="toDetail"></span>
     <base-echart :options="options" />
   </dv-border-box-11>

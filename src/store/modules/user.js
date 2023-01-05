@@ -5,17 +5,19 @@ import cookie from "@/utils/cookie.js"
 const state = {
   user: {
     username: "",
-    password: ""
+    password: "",
+    fullName: ''
   }
 }
 const mutations = {
   SET_USER(state, payload) {
     cache.deleteCache("user")
     cache.setCache("user", payload)
-    const { name = "", paw = "" } = payload
+    const { name = "", paw = "", fullName = "" } = payload
     cookie.setCookie(name, paw, 7)
     state.user.username = name
     state.user.password = paw
+    state.user.fullName = fullName
   }
 }
 const actions = {}

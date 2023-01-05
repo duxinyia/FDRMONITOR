@@ -38,7 +38,6 @@
           <span slot="title">关于</span>
         </el-menu-item>
       </el-menu>-->
-
       <el-menu
         class="el-menu-vertical"
         text-color="#fff"
@@ -46,13 +45,17 @@
         active-text-color="#ffd04b"
         :collapse="menuFold"
         :default-active="$route.path"
+        @open="handleOpen"
+        @close="handleClose"
+        @select="handSelect"
       >
         <template v-for="item in menus">
           <template v-if="item.subs">
             <el-submenu :index="item.index" :key="item.title" @click.native="itemClick(item)">
               <template slot="title">
-                <i :class="item.icon"></i>
-                <span slot="title">{{ item.title }}11</span>
+                <!-- <i :class="item.icon"></i> -->
+                <span class="iconfont icon-jiedianguanli"></span>
+                <span slot="title">{{ item.title }}22</span>
               </template>
               <template v-for="subItem in item.subs">
                 <template v-if="subItem.subs">
@@ -63,7 +66,7 @@
                   >
                     <template slot="title">
                       <i :class="item.icon"></i>
-                      <span slot="title">{{ subItem.title }}22</span>
+                      <span slot="title">{{ subItem.title }}</span>
                     </template>
 
                     <template v-for="subItem2 in subItem.subs">
@@ -75,7 +78,7 @@
                         >
                           <template slot="title">
                             <i :class="item.icon"></i>
-                            <span slot="title">{{ subItem2.title }}33</span>
+                            <span slot="title">{{ subItem2.title }}</span>
                           </template>
                           <template v-for="subItem3 in subItem2.subs">
                             <template v-if="subItem3.subs">
@@ -86,15 +89,16 @@
                               >
                                 <template slot="title">
                                   <i :class="subItem3.icon"></i>
-                                  <span slot="title">{{ subItem3.title }}55</span>
+                                  <span slot="title">{{ subItem3.title }}</span>
                                 </template>
                                 <el-menu-item
                                   v-for="fiveItem in subItem3.subs"
                                   :key="fiveItem.title"
                                   :index="fiveItem.index"
+                                  @click.native.stop="itemClick(fiveItem)"
                                 >
                                   <i :class="fiveItem.icon"></i>
-                                  <span slot="title">{{ fiveItem.title }}77</span>
+                                  <span slot="title">{{ fiveItem.title }}88</span>
                                 </el-menu-item>
                               </el-submenu>
                             </template>
@@ -105,7 +109,7 @@
                               @click.native.stop="itemClick(subItem3)"
                             >
                               <i :class="subItem3.icon"></i>
-                              <span slot="title">{{ subItem3.title }}66</span>
+                              <span slot="title">{{ subItem3.title }}</span>
                             </el-menu-item>
                           </template>
                         </el-submenu>
@@ -118,7 +122,7 @@
                         @click.native.stop="itemClick(subItem2)"
                       >
                         <i :class="subItem2.icon"></i>
-                        <span slot="title">{{ subItem2.title }}44</span>
+                        <span slot="title">{{ subItem2.title }}</span>
                       </el-menu-item>
                     </template>
                   </el-submenu>
@@ -156,6 +160,10 @@
         <div class="header-right">
           <!-- 时间显示 -->
           <span class="currentTime">{{ currentTime }}</span>
+
+          <!-- 显示用户名 -->
+          <span class="username">{{$store.state.user.user.fullName}}</span>
+
           <!-- 下拉菜单 -->
           <el-dropdown @command="handleCommand" placement="bottom">
             <span class="el-dropdown-link">
@@ -187,17 +195,15 @@
           enter-active-class="animate__animated animate__fadeInRight"
           leave-active-class="animate__animated animate__backOutRight"
         >
-          <keep-alive>
-            <router-view />
-          </keep-alive>
+          <router-view />
         </transition>
-        <el-image
+        <!-- <el-image
           v-if="$store.getters.theme == 'dark'"
           class="bottom-img"
           :src="bottomImgUrl"
           fit="contain"
         ></el-image>
-        <el-image v-else class="light-bottom-img" :src="lightBottomImgUrl" fit="contain"></el-image>
+        <el-image v-else class="light-bottom-img" :src="lightBottomImgUrl" fit="contain"></el-image>-->
       </el-main>
     </el-container>
   </el-container>
@@ -242,6 +248,18 @@ export default {
     this.getCurrentTime()
   },
   methods: {
+    handleOpen(key, keyPath) {
+      console.log("打开：", key, keyPath)
+    },
+    handleClose(key, keyPath) {
+      console.log("关闭：", key, keyPath)
+    },
+    handSelect(key, keyPath) {
+      console.log("选择：", key, keyPath)
+    },
+    openMenu() {
+      console.log("/overview/manage/2")
+    },
     handleCommand(command) {
       if (command == "layout") {
         // 清空缓存
@@ -261,6 +279,9 @@ export default {
     },
     itemClick(item) {
       console.log("item", item)
+      let path = this.$route.path
+      this.$store.commit("fullLoading/SET_PATH", path)
+      // console.log("item", item)
       if (item.toLink) {
         this.$router.push({ name: item.toLink })
       }
@@ -268,8 +289,8 @@ export default {
         window.open(item.outLink)
       }
       if (item.title == "製程監控") {
-        console.log("製程監控")
-        this.$router.push("/overview/manage/make")
+        // console.log("製程監控")
+        this.$router.push("/overview/manage/process")
       }
       if (item.title == "設備") {
         this.$router.push("/overview/manage/device")
@@ -328,10 +349,7 @@ export default {
   color: #ccc !important; // 菜单
   background: #1f5997 !important;
 }
-.currentTime {
-  margin-right: 25px;
-  color: #fff;
-}
+
 .el-menu-item.is-active {
   color: var(--menu-item-active) !important;
   font-weight: bold;
@@ -383,7 +401,6 @@ export default {
   .dark-container {
     background: url("~@/assets/images/menu-bg.png") no-repeat center center !important;
   }
-
   // 右边主要区域
   .right-container {
     .header-container {
@@ -409,23 +426,34 @@ export default {
           /* vertical-align: middle; */
         }
       }
-      /* .header-center {
-        font-size: 26px;
-        font-weight: bold;
-        letter-spacing: 10px;
-      } */
+      .header-right {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        .currentTime {
+          margin-right: 10px;
+          /* margin-right: 25px; */
+        }
+        .username {
+          /* padding: ; */
+          padding: 0 8px;
+          border-left: 4px solid #fff;
+          border-right: 4px solid #fff;
+        }
+      }
       .flod,
       .user-icon {
+        margin-left: 10px;
         cursor: pointer;
         font-size: 25px;
         color: var(--icon-color);
         &:hover {
-          color: #00ffff;
+          color: #0ff;
         }
       }
     }
     .main-container {
-      overflow: hidden;
+      overflow: auto;
       position: relative;
       background: var(--overview-main-bg);
       .bottom-img {

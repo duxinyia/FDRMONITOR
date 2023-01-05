@@ -1,14 +1,6 @@
 <template>
   <div id="app" :style="appStyle">
-    <!-- <transition
-      appear
-      mode="out-in"
-      :duration="500"
-      enter-active-class="animate__animated animate__fadeInRight"
-      leave-active-class="animate__animated animate__zoomOut"
-    >-->
     <router-view />
-    <!-- </transition> -->
   </div>
 </template>
 <script>
@@ -38,6 +30,6 @@ export default {
   width: 100vw;
   height: 100vh;
   /* background-color: #020308; */
-  background-image: url("~@/assets/images/background17.png");
+  background-image: url("~@/assets/images/background17.png") no-repeat center center;
 }
 </style>
