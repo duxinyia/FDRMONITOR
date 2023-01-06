@@ -29,8 +29,9 @@ export default {
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       // 设置颜色数组，方便取值
       // let colors = ["#5ad2fa", "#b989f0", "#adf7b7", "#3759f0"]
+
       // 处理对应的数据
-      if (Object.keys(this.config).length > 0) {
+      if (Object.keys(this.config).length > 1) {
         // 取出 legend 的值
         this.config.monthWeekYieldList.forEach((item, index) => {
           // 取出lengds
@@ -47,6 +48,7 @@ export default {
           })
         })
       }
+
       // 一些基本的配置
       let baseLengend = {
         top: 50,

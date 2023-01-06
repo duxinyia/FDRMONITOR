@@ -1,36 +1,36 @@
 // 侧边栏的配置文件
 export default [
   {
-    icon: "el-icon-s-tools",
+    icon: "el-icon-s-home",
     title: "決策層",
     index: "/overview/manage/1",
     subs: [
       {
-        icon: "el-icon-s-tools",
+        icon: "el-icon-s-flag",
         title: "產出(待规划)",
         index: "/overview/manage/2",
         isOutLink: "www.baibu.com"
       },
       {
-        icon: "el-icon-s-tools",
+        icon: "el-icon-s-flag",
         title: "良率(待规划)",
         index: "/overview/manage/3"
       },
       {
-        icon: "el-icon-s-tools",
+        icon: "el-icon-s-flag",
         title: "人力(待规划)",
         index: "/overview/manage/4"
       }
     ]
   },
   {
-    icon: "el-icon-s-tools",
+    icon: "el-icon-s-home",
     title: "管理層",
     index: "/overview/manage",
     // index: '',
     subs: [
       {
-        icon: "el-icon-s-tools",
+        icon: "el-icon-s-flag",
         title: "產出",
         // index: "/overview/manage/device",
         index: "/overview/manage/output",
@@ -96,7 +96,7 @@ export default [
         ]
       },
       {
-        icon: "el-icon-s-tools",
+        icon: "el-icon-s-flag",
         title: "良率",
         index: "/overview/manage/yield",
         subs: [
@@ -109,7 +109,7 @@ export default [
             icon: "el-icon-s-tools",
             title: "SFC良率By月",
             index: "18",
-            toLink: "sfc",
+            toLink: "sfc"
           },
           {
             icon: "el-icon-s-tools",
@@ -146,7 +146,7 @@ export default [
         ]
       },
       {
-        icon: "el-icon-s-tools",
+        icon: "el-icon-s-flag",
         title: "設備",
         index: "25",
         subs: [
@@ -257,7 +257,7 @@ export default [
         ]
       },
       {
-        icon: "el-icon-s-tools",
+        icon: "el-icon-s-flag",
         title: "製程監控",
         index: "40",
         subs: [
@@ -371,25 +371,25 @@ export default [
                     icon: "el-icon-s-tools",
                     title: "實時統計",
                     index: "56",
-                    outLink: "http://10.142.117.50:32001/share.html?token=8ZBXMVMR"
+                    outLink: "http://10.142.117.50:32001/share.html#/?token=KG3RHWT8"
                   },
                   {
                     icon: "el-icon-s-tools",
                     title: "歷史日統計",
                     index: "57",
-                    outLink: "http://10.142.117.50:32001/share.html?token=V3SKHL6X"
+                    outLink: "http://10.142.117.50:32001/share.html#/?token=PVAX4VH2"
                   },
                   {
                     icon: "el-icon-s-tools",
                     title: "歷史周統計",
                     index: "58",
-                    outLink: "http://10.142.117.50:32001/share.html?token=HYMY179K"
+                    outLink: "http://10.142.117.50:32001/share.html#/?token=AMM0V0AE"
                   },
                   {
                     icon: "el-icon-s-tools",
                     title: "歷史月統計",
                     index: "59",
-                    outLink: "http://10.142.117.50:32001/share.html?token=TLYKVQQY"
+                    outLink: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
                   }
                 ]
               }

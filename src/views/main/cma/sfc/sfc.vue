@@ -46,7 +46,12 @@ export default {
       // 上方折线图的数据
       topLineChartConfig: [],
       // 下方系列的数据
-      lineChartConfigs: [{}, {}, {}, {}]
+      lineChartConfigs: [
+        { deviceSeries: "" },
+        { deviceSeries: "" },
+        { deviceSeries: "" },
+        { deviceSeries: "" }
+      ]
     }
   },
   computed: {},
@@ -68,10 +73,13 @@ export default {
     },
     async getCloseYieldInfo() {
       let res = await getCloseYieldInfo()
+      console.log("获取对应的数据:", res)
       // 取出  系列 2月4周 月份
       this.topLineChartConfig = res.deviceSeriesInfos
-      // 先做系列的
-      this.lineChartConfigs = res.deviceInfos
+      if (res.deviceInfos.length > 0) {
+        // 先做系列的
+        this.lineChartConfigs = res.deviceInfos
+      }
     }
   },
   beforeDestroy() {

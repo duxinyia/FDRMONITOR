@@ -48,7 +48,10 @@ export default {
     // 获取对应的数据
     async getDateCodeRunningYieldInfo() {
       let res = await getDateCodeRunningYieldInfo()
-      this.chartConfig = res
+      console.log("获取对应的数据", res)
+      if (res.length > 0) {
+        this.chartConfig = res
+      }
     }
   },
   beforeDestroy() {

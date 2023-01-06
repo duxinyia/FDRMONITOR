@@ -20,7 +20,7 @@ export default {
   computed: {
     appStyle() {
       let isDark = this.$store.getters.theme == "dark"
-      return isDark ? { background: "#020308" } : {}
+      return isDark ? { background: "#020308" } : this.$store.getters.bgUrl
     }
   }
 }

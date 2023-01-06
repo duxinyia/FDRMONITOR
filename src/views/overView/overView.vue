@@ -53,8 +53,8 @@
           <template v-if="item.subs">
             <el-submenu :index="item.index" :key="item.title" @click.native="itemClick(item)">
               <template slot="title">
-                <!-- <i :class="item.icon"></i> -->
-                <span class="iconfont icon-jiedianguanli"></span>
+                <i :class="item.icon"></i>
+                <!-- <span class="iconfont icon-jiedianguanli text"></span> -->
                 <span slot="title">{{ item.title }}22</span>
               </template>
               <template v-for="subItem in item.subs">
@@ -65,7 +65,7 @@
                     @click.native.stop="itemClick(subItem)"
                   >
                     <template slot="title">
-                      <i :class="item.icon"></i>
+                      <i :class="subItem.icon"></i>
                       <span slot="title">{{ subItem.title }}</span>
                     </template>
 
@@ -77,7 +77,7 @@
                           @click.native.stop="itemClick(subItem2)"
                         >
                           <template slot="title">
-                            <i :class="item.icon"></i>
+                            <i :class="subItem2.icon"></i>
                             <span slot="title">{{ subItem2.title }}</span>
                           </template>
                           <template v-for="subItem3 in subItem2.subs">
@@ -162,7 +162,7 @@
           <span class="currentTime">{{ currentTime }}</span>
 
           <!-- 显示用户名 -->
-          <span class="username">{{$store.state.user.user.fullName}}</span>
+          <span class="username">{{ $store.state.user.user.fullName }}</span>
 
           <!-- 下拉菜单 -->
           <el-dropdown @command="handleCommand" placement="bottom">
@@ -195,7 +195,7 @@
           enter-active-class="animate__animated animate__fadeInRight"
           leave-active-class="animate__animated animate__backOutRight"
         >
-          <router-view />
+          <router-view :key="key" />
         </transition>
         <!-- <el-image
           v-if="$store.getters.theme == 'dark'"
@@ -229,6 +229,9 @@ export default {
     }
   },
   computed: {
+    key() {
+      return this.$route.path.replace(/\//g, "_")
+    },
     changeLogo() {
       return this.$store.getters.theme == "dark"
         ? this.$globalData.lightLogo
@@ -265,8 +268,7 @@ export default {
         // 清空缓存
         cache.deleteCache("user")
         this.$router.replace("/login")
-      }
-      if (command == "dark" || command == "light") {
+      } else {
         // this.$i18n.locale = lang
         let index = command == "dark" ? 0 : 1
         document.documentElement.setAttribute("theme", command)
@@ -281,7 +283,6 @@ export default {
       console.log("item", item)
       let path = this.$route.path
       this.$store.commit("fullLoading/SET_PATH", path)
-      // console.log("item", item)
       if (item.toLink) {
         this.$router.push({ name: item.toLink })
       }
@@ -331,6 +332,12 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+i {
+  color: #fff;
+}
+.text {
+  font-weight: 700;
+}
 ::v-deep .el-submenu__title {
   background-color: transparent !important;
 }
@@ -378,6 +385,8 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+      border-bottom: 1px solid #5ad1fa;
+      /* background: #5ad1fa; */
       .logo {
         width: 32px;
         height: 32px;

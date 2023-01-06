@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3656248 */
-  src: url('iconfont.ttf?t=1672917717260') format('truetype');
+  src: url("iconfont.ttf?t=1672917717260") format("truetype");
 }
 
 .iconfont {
@@ -170,4 +170,3 @@
 .icon-flag:before {
   content: "\e954";
 }
-

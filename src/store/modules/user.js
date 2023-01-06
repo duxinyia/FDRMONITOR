@@ -6,7 +6,7 @@ const state = {
   user: {
     username: "",
     password: "",
-    fullName: ''
+    fullName: ""
   }
 }
 const mutations = {
