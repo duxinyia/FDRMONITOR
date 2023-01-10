@@ -13,7 +13,6 @@
     <!-- 各种操作按钮 -->
     <div class="operations">
       <div class="left">
-        <!-- 展开菜单 -->
         <!-- <el-tooltip content="戰情中心" placement="top">
           <span class="iconfont icon-shezhi setup" @click="dialogVisible = true"></span>
         </el-tooltip>-->
@@ -189,6 +188,7 @@ export default {
         font-size: 30px;
         background: var(--page-head-icon);
         background-clip: text;
+        color: #fff;
         -webkit-text-fill-color: transparent;
         &:hover {
           color: aqua;
@@ -205,12 +205,14 @@ export default {
         margin-left: 10px;
       }
       .select-bg {
+        cursor: pointer;
+        font-size: 30px;
         @extend .fullscreen;
         font-weight: bold;
         margin-left: 10px;
       }
     }
-    .left {
+    /* .left {
       display: flex;
       align-items: center;
       .setup {
@@ -228,7 +230,7 @@ export default {
         font-size: 36px;
         margin-left: 10px;
       }
-    }
+    } */
   }
   .header-two {
     display: flex;
@@ -255,6 +257,7 @@ export default {
         height: 50px;
         line-height: 50px;
         vertical-align: bottom;
+        /* color: var(--page-head-title); */
         background: var(--page-head-title);
         background-clip: text;
         -webkit-text-fill-color: transparent;

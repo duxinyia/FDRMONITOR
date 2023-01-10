@@ -16,6 +16,8 @@ import "echarts-liquidfill"
 import "@/assets/scss/index.scss"
 // 挂载svg组件
 import "@/assets/icons"
+//
+import 'font-awesome/css/font-awesome.css'
 
 export default function (app) {
   app.prototype.$moment = moment

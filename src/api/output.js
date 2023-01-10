@@ -11,7 +11,7 @@ export let getYearOutputInfo = (params = {}) => {
     DateTag
   } = params
   return $get(
-    `api/MESOutPut/GetYearOutputInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&Year=${Year}&DateTag=${DateTag}`
+    `api/MESOutPut/GetYearOutputInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&DateTag=${DateTag}`
   )
 }
 
@@ -24,7 +24,7 @@ export let getDateCodeOutputInfo = (params = {}) => {
     DateTag
   } = params
   return $get(
-    `api/MESOutPut/GetDateCodeOutputInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&Time=${Time}&DateTag=${DateTag}`
+    `api/MESOutPut/GetDateCodeOutputInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&DateTag=${DateTag}`
   )
 }
 

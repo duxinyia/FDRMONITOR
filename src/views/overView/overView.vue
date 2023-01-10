@@ -45,10 +45,10 @@
         active-text-color="#ffd04b"
         :collapse="menuFold"
         :default-active="$route.path"
-        @open="handleOpen"
-        @close="handleClose"
-        @select="handSelect"
       >
+        <!-- @open="handleOpen"
+        @close="handleClose"
+        @select="handSelect"-->
         <template v-for="item in menus">
           <template v-if="item.subs">
             <el-submenu :index="item.index" :key="item.title" @click.native="itemClick(item)">
@@ -98,7 +98,7 @@
                                   @click.native.stop="itemClick(fiveItem)"
                                 >
                                   <i :class="fiveItem.icon"></i>
-                                  <span slot="title">{{ fiveItem.title }}88</span>
+                                  <span slot="title">{{ fiveItem.title }}</span>
                                 </el-menu-item>
                               </el-submenu>
                             </template>
@@ -114,7 +114,6 @@
                           </template>
                         </el-submenu>
                       </template>
-
                       <el-menu-item
                         v-else
                         :index="subItem2.index"
@@ -197,6 +196,7 @@
         >
           <router-view :key="key" />
         </transition>
+
         <!-- <el-image
           v-if="$store.getters.theme == 'dark'"
           class="bottom-img"
@@ -280,7 +280,7 @@ export default {
       }
     },
     itemClick(item) {
-      console.log("item", item)
+      // console.log("item", item)
       let path = this.$route.path
       this.$store.commit("fullLoading/SET_PATH", path)
       if (item.toLink) {
@@ -335,9 +335,7 @@ export default {
 i {
   color: #fff;
 }
-.text {
-  font-weight: 700;
-}
+
 ::v-deep .el-submenu__title {
   background-color: transparent !important;
 }
@@ -369,12 +367,13 @@ i {
   left: 0;
   width: 100%;
   height: 100%;
+  /* min-width: 1200px; */
   // 侧边栏
   .aside-container {
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
-    transition: width 0.3s linear;
+    transition: all 0.3s linear;
     scrollbar-width: none; /* firefox */
     -ms-overflow-style: none; /* IE 10+ */
     .top-title {
@@ -386,6 +385,7 @@ i {
       align-items: center;
       justify-content: center;
       border-bottom: 1px solid #5ad1fa;
+
       /* background: #5ad1fa; */
       .logo {
         width: 32px;
@@ -462,23 +462,36 @@ i {
       }
     }
     .main-container {
+      width: 100%;
       overflow: auto;
       position: relative;
       background: var(--overview-main-bg);
-      .bottom-img {
+      /* margin: 20px;
+      padding: 0; */
+      /* .bottom-img {
         width: 2220px;
         height: 1058px;
         position: absolute;
         top: -169px;
         right: -400px;
-      }
-      .light-bottom-img {
+      } */
+      /* .light-bottom-img {
         position: absolute;
         top: 190px;
         right: -400px;
         z-index: 0;
-      }
+      } */
     }
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .aside-container {
+    width: 0px !important;
+    transform: translateX(-100%);
+  }
+  .flod {
+    display: none;
   }
 }
 </style>

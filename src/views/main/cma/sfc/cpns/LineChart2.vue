@@ -183,6 +183,7 @@ export default {
   },
   methods: {
     toDetail() {
+      if (!this.config.deviceSeries) return
       this.$router.push({
         name: "sfcdetail",
         query: {

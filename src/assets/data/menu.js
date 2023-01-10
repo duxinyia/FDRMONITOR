@@ -27,25 +27,28 @@ export default [
     icon: "el-icon-s-home",
     title: "管理層",
     index: "/overview/manage",
-    // index: '',
     subs: [
       {
         icon: "el-icon-s-flag",
         title: "產出",
-        // index: "/overview/manage/device",
         index: "/overview/manage/output",
         subs: [
           {
             icon: "el-icon-s-tools",
             title: "年度產出總覽",
-            index: "/overview/manage/output",
+            index: "/overview/manage/output1",
             toLink: "output"
           },
           {
             icon: "el-icon-s-tools",
-            title: "每日產出看板",
-            index: "/overview/manage/output",
+            title: "By時段產出看板",
+            index: "/overview/manage/output2",
             toLink: "makewar",
+          },
+          {
+            icon: "el-icon-s-tools",
+            title: "每日產出看板",
+            index: "/overview/manage/output3",
             subs: [
               {
                 icon: "el-icon-s-tools",
@@ -92,7 +95,8 @@ export default [
                 toLink: "output2"
               }
             ]
-          }
+          },
+
         ]
       },
       {
@@ -365,8 +369,14 @@ export default [
                 icon: "el-icon-s-tools",
                 title: "膠型 AI 檢測看板",
                 index: "55",
-                outLink: "http://10.142.117.50:32001/standard/design/#/share/OS4L2ZWV",
+                // outLink: "http://10.142.117.50:32001/standard/design/#/share/OS4L2ZWV",
                 subs: [
+                  {
+                    icon: "el-icon-s-tools",
+                    title: "膠型 AI 檢測",
+                    index: "566",
+                    outLink: "http://10.142.117.50:32001/standard/design/#/share/OS4L2ZWV"
+                  },
                   {
                     icon: "el-icon-s-tools",
                     title: "實時統計",

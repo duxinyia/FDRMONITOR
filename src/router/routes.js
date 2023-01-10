@@ -9,6 +9,21 @@ export default [
     component: () => import(/* webpackChunkName: "login" */ "../views/login/login.vue")
   },
   {
+    path: "/login1",
+    name: "login1",
+    component: () => import(/* webpackChunkName: "login1" */ "../views/login/login1.vue")
+  },
+  {
+    path: "/login2",
+    name: "login2",
+    component: () => import(/* webpackChunkName: "login2" */ "../views/login/login2.vue")
+  },
+  {
+    path: "/login3",
+    name: "login3",
+    component: () => import(/* webpackChunkName: "login3" */ "../views/login/login3.vue")
+  },
+  {
     path: "/overview",
     name: "overview",
     component: () => import(/* webpackChunkName: "overView" */ "../views/overView/overView.vue"),

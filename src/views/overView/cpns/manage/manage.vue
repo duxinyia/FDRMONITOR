@@ -51,8 +51,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .manage-container {
+  width: 100%;
   position: absolute;
-  z-index: 999;
+  padding-right: 20px;
+  gap: 20px;
+  /* z-index: 999; */
   .title-container {
     display: flex;
     align-items: center;
@@ -76,27 +79,29 @@ export default {
     }
   }
   .project-container {
-    /* display: grid;
+    display: grid;
     grid-template-rows: repeat(4, 1fr);
-    grid-template-columns: repeat(4, 1fr); */
-    display: flex;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 20px;
+    /* justify-content: center; */
+    align-content: center;
+    /* display: flex;
+    flex-wrap: wrap; */
+    padding-right: 20px;
     .container {
       width: 300px;
       height: 200px;
+      /* width: 15.625vw;
+      height: 10.4167vw; */
       cursor: pointer;
       border: 1px solid var(--cma-container-border);
       position: relative;
       overflow: hidden;
-      margin-right: 125px;
-
-      margin-bottom: 80px;
+      /* margin-right: 80px;
+      margin-bottom: 80px; */
       border-radius: 5px;
       overflow: hidden;
       box-shadow: 0px 0px 15px var(--cma-box-shadow);
-      &:nth-child(4n) {
-        margin-right: 0px;
-      }
       .image {
         width: 100%;
         height: 100%;
@@ -128,6 +133,13 @@ export default {
       &:hover .info {
         transform: translateX(-100%);
       }
+    }
+  }
+
+  @media screen and (max-width: 1500px) {
+    .project-container {
+      grid-template-rows: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 }

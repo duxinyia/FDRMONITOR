@@ -1,14 +1,16 @@
-export { default as menus } from './menu'
+export { default as menus } from "./menu"
+// import router from '../../router/index'
+
+// console.log('router', router)
 // 一些不变的量  会被挂载到this.$globalData上
 export default {
   TIMEOUT: 10000,
-  CYCLE_TIME: 5 * 60 * 1000,
+  CYCLE_TIME: 10 * 60 * 1000,
   logoUrl: require("@/assets/images/logo.png"),
   lightLogo: require("@/assets/images/_logo.png"),
   bgs: [require("@/assets/images/background3.png"), require("@/assets/images/background17.png")],
   RESET_PWD_URL: "http://10.151.128.172:8089/Login/Repassword"
 }
-
 
 // 通过函数来解决主题变化的时候显示不同的图片 目前有四个 1. 产出(output) 2. 良率(yield)  3. 设备(device)  4. 进程监控 (process)
 export let changeCmaConfig = (theme = "dark") => {
@@ -49,54 +51,54 @@ export let changeCmaConfig = (theme = "dark") => {
           belong: "管理层/產出",
           to: "fol"
         },
-        {
-          id: 89,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_aa_ga.png")
-              : require("@/assets/images/out_aa_ga.png"),
-          info: "AA/GA/CT",
-          target: "output",
-          belong: "管理层/產出",
-          to: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx"
-        },
-        {
-          id: 90,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_acf.png")
-              : require("@/assets/images/out_acf.png"),
-          info: "ACF",
-          target: "output",
-          belong: "管理层/產出",
-          to: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx?Type=ACF"
-        },
-        {
-          id: 91,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_output_test.png")
-              : require("@/assets/images/out_output_test.png"),
-          info: "TEST",
-          target: "output",
-          belong: "管理层/產出",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.TestKanban"
-        },
-        {
-          id: 92,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_output_test.png")
-              : require("@/assets/images/out_output_test.png"),
-          info: "AVI",
-          target: "output",
-          belong: "管理层/產出",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.AVIFirstYieldKanban"
-        },
+        // {
+        //   id: 89,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_aa_ga.png")
+        //       : require("@/assets/images/out_aa_ga.png"),
+        //   info: "AA/GA/CT",
+        //   target: "output",
+        //   belong: "管理层/產出",
+        //   to: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx"
+        // },
+        // {
+        //   id: 90,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_acf.png")
+        //       : require("@/assets/images/out_acf.png"),
+        //   info: "ACF",
+        //   target: "output",
+        //   belong: "管理层/產出",
+        //   to: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx?Type=ACF"
+        // },
+        // {
+        //   id: 91,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_output_test.png")
+        //       : require("@/assets/images/out_output_test.png"),
+        //   info: "TEST",
+        //   target: "output",
+        //   belong: "管理层/產出",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.TestKanban"
+        // },
+        // {
+        //   id: 92,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_output_test.png")
+        //       : require("@/assets/images/out_output_test.png"),
+        //   info: "AVI",
+        //   target: "output",
+        //   belong: "管理层/產出",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.AVIFirstYieldKanban"
+        // },
         {
           id: 10,
           imgUrl:
@@ -160,66 +162,66 @@ export let changeCmaConfig = (theme = "dark") => {
     [
       "device",
       [
-        {
-          id: 200,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_device_week.png")
-              : require("@/assets/images/out_device_week.png"),
-          info: "周產出/效率看板",
-          target: "device",
-          belong: "管理层/设备",
-          to: "http://10.147.214.130:8081/AA/Report"
-        },
-        {
-          id: 201,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_device_aa_top15.png")
-              : require("@/assets/images/out_device_aa_top15.png"),
-          info: "Alarms times Top15 看板",
-          target: "device",
-          belong: "管理层/设备",
-          to: "http://10.147.214.130:8081/AA/Report"
-        },
-        {
-          id: 202,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_device_test.png")
-              : require("@/assets/images/out_device_test.png"),
-          info: "ACF效率看板",
-          target: "device",
-          belong: "管理层/设备",
-          to: "http://10.147.214.130:8081/Test/ReportACF"
-        },
-        {
-          id: 203,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_device_test.png")
-              : require("@/assets/images/out_device_test.png"),
-          info: "SA效率看板",
-          target: "device",
-          belong: "管理层/设备",
-          to: "http://10.147.214.130:8081/Test/ReportSA"
-        },
-        {
-          id: 204,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_device_test.png")
-              : require("@/assets/images/out_device_test.png"),
-          info: "Test效率看板",
-          target: "device",
-          belong: "管理层/设备",
-          to: "http://10.147.214.130:8081/Test/ReportTEST"
-        },
+        // {
+        //   id: 200,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_device_week.png")
+        //       : require("@/assets/images/out_device_week.png"),
+        //   info: "周產出/效率看板",
+        //   target: "device",
+        //   belong: "管理层/设备",
+        //   to: "http://10.147.214.130:8081/AA/Report"
+        // },
+        // {
+        //   id: 201,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_device_aa_top15.png")
+        //       : require("@/assets/images/out_device_aa_top15.png"),
+        //   info: "Alarms times Top15 看板",
+        //   target: "device",
+        //   belong: "管理层/设备",
+        //   to: "http://10.147.214.130:8081/AA/Report"
+        // },
+        // {
+        //   id: 202,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_device_test.png")
+        //       : require("@/assets/images/out_device_test.png"),
+        //   info: "ACF效率看板",
+        //   target: "device",
+        //   belong: "管理层/设备",
+        //   to: "http://10.147.214.130:8081/Test/ReportACF"
+        // },
+        // {
+        //   id: 203,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_device_test.png")
+        //       : require("@/assets/images/out_device_test.png"),
+        //   info: "SA效率看板",
+        //   target: "device",
+        //   belong: "管理层/设备",
+        //   to: "http://10.147.214.130:8081/Test/ReportSA"
+        // },
+        // {
+        //   id: 204,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_device_test.png")
+        //       : require("@/assets/images/out_device_test.png"),
+        //   info: "Test效率看板",
+        //   target: "device",
+        //   belong: "管理层/设备",
+        //   to: "http://10.147.214.130:8081/Test/ReportTEST"
+        // },
         // {
         //   id: 202,
         //   isExternalLink: true,
@@ -232,18 +234,18 @@ export let changeCmaConfig = (theme = "dark") => {
         //   belong: "管理层/设备",
         //   to: "http://10.147.214.130:8081/AA/Report"
         // },
-        {
-          id: 205,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_device_test.png")
-              : require("@/assets/images/out_device_test.png"),
-          info: "AVI效率看板",
-          target: "device",
-          belong: "管理层/设备",
-          to: "http://10.147.214.130:8081/Test/ReportAVI"
-        },
+        // {
+        //   id: 205,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_device_test.png")
+        //       : require("@/assets/images/out_device_test.png"),
+        //   info: "AVI效率看板",
+        //   target: "device",
+        //   belong: "管理层/设备",
+        //   to: "http://10.147.214.130:8081/Test/ReportAVI"
+        // },
         {
           id: 2,
           imgUrl:
@@ -324,121 +326,121 @@ export let changeCmaConfig = (theme = "dark") => {
     [
       "process",
       [
-        {
-          id: 100,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_sfr.png")
-              : require("@/assets/images/out_sfr.png"),
-          info: "SFR不良率看板(By機台)",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AASFRKanban"
-        },
-        {
-          id: 101,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_sfr_tooling.png")
-              : require("@/assets/images/out_sfr_tooling.png"),
-          info: "SFR不良率看板(By鏡頭模穴)",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AASFRToolingKanban"
-        },
-        {
-          id: 102,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_aoi.png")
-              : require("@/assets/images/out_aoi.png"),
-          info: "AOI 不良率看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AOINotice"
-        },
-        {
-          id: 103,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_aoi1.png")
-              : require("@/assets/images/out_aoi1.png"),
-          info: "AOI 8H趨勢看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AOINoticeImgPage"
-        },
-        {
-          id: 103,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_dpc_lcb.png")
-              : require("@/assets/images/out_dpc_lcb.png"),
-          info: "DPC/LCB不良看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.45:8081/Kanban/LCBDPCTracknew.aspx"
-        },
-        {
-          id: 104,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_sfr_tooling.png")
-              : require("@/assets/images/out_sfr_tooling.png"),
-          info: "FC不良看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.SFCDefectKanban"
-        },
-        {
-          id: 105,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_sfr_tooling.png")
-              : require("@/assets/images/out_sfr_tooling.png"),
-          info: "FC高度報警集中性看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.FCAIterKanban"
-        },
-        {
-          id: 106,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_bump.png")
-              : require("@/assets/images/out_bump.png"),
-          info: "FC壓縮量看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.BumpCollapsKanban"
-        },
-        {
-          id: 107,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_scan.png")
-              : require("@/assets/images/out_scan.png"),
-          info: "IAA Step看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AAStepKanban"
-        },
+        // {
+        //   id: 100,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_sfr.png")
+        //       : require("@/assets/images/out_sfr.png"),
+        //   info: "SFR不良率看板(By機台)",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AASFRKanban"
+        // },
+        // {
+        //   id: 101,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_sfr_tooling.png")
+        //       : require("@/assets/images/out_sfr_tooling.png"),
+        //   info: "SFR不良率看板(By鏡頭模穴)",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AASFRToolingKanban"
+        // },
+        // {
+        //   id: 102,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_aoi.png")
+        //       : require("@/assets/images/out_aoi.png"),
+        //   info: "AOI 不良率看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AOINotice"
+        // },
+        // {
+        //   id: 103,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_aoi1.png")
+        //       : require("@/assets/images/out_aoi1.png"),
+        //   info: "AOI 8H趨勢看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AOINoticeImgPage"
+        // },
+        // {
+        //   id: 103,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_dpc_lcb.png")
+        //       : require("@/assets/images/out_dpc_lcb.png"),
+        //   info: "DPC/LCB不良看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.45:8081/Kanban/LCBDPCTracknew.aspx"
+        // },
+        // {
+        //   id: 104,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_sfr_tooling.png")
+        //       : require("@/assets/images/out_sfr_tooling.png"),
+        //   info: "FC不良看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.SFCDefectKanban"
+        // },
+        // {
+        //   id: 105,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_sfr_tooling.png")
+        //       : require("@/assets/images/out_sfr_tooling.png"),
+        //   info: "FC高度報警集中性看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.FCAIterKanban"
+        // },
+        // {
+        //   id: 106,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_bump.png")
+        //       : require("@/assets/images/out_bump.png"),
+        //   info: "FC壓縮量看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.BumpCollapsKanban"
+        // },
+        // {
+        //   id: 107,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_scan.png")
+        //       : require("@/assets/images/out_scan.png"),
+        //   info: "IAA Step看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AAStepKanban"
+        // },
         {
           id: 4,
           isExternalLink: true,
           imgUrl: require("@/assets/images/spotcheck.jpg"),
           info: "AA PDI AI 檢測界面",
           target: "device",
-          belong: "管理层/设备",
+          belong: "管理层/製程監控",
           to: "http://10.142.117.50:32001/standard/design/#/share/ZC1OY0JP"
         },
         {
@@ -489,57 +491,55 @@ export let changeCmaConfig = (theme = "dark") => {
           belong: "管理层/製程監控",
           to: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
         },
-        {
-          id: 112,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_test.png")
-              : require("@/assets/images/out_test.png"),
-          info: "EOL 一次良率看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.TestKanban"
-        },
-        {
-          id: 113,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_once_avi.png")
-              : require("@/assets/images/out_once_avi.png"),
-          info: "AVI 一次不良看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AVIFirstYieldKanban"
-        },
-        {
-          id: 114,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_sfr_tooling.png")
-              : require("@/assets/images/out_sfr_tooling.png"),
-          info: "Laser等級監控看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.LaserTransferAVILeveIKanban"
-        },
-        {
-          id: 115,
-          isExternalLink: true,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/out_key.png")
-              : require("@/assets/images/out_key.png"),
-          info: "FOL 關鍵零部件看板",
-          target: "process",
-          belong: "管理层/製程監控",
-          to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.KeyPartLiveKanban"
-        }
+        // {
+        //   id: 112,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_test.png")
+        //       : require("@/assets/images/out_test.png"),
+        //   info: "EOL 一次良率看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.TestKanban"
+        // },
+        // {
+        //   id: 113,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_once_avi.png")
+        //       : require("@/assets/images/out_once_avi.png"),
+        //   info: "AVI 一次不良看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AVIFirstYieldKanban"
+        // },
+        // {
+        //   id: 114,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_sfr_tooling.png")
+        //       : require("@/assets/images/out_sfr_tooling.png"),
+        //   info: "Laser等級監控看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.LaserTransferAVILeveIKanban"
+        // },
+        // {
+        //   id: 115,
+        //   isExternalLink: true,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/out_key.png")
+        //       : require("@/assets/images/out_key.png"),
+        //   info: "FOL 關鍵零部件看板",
+        //   target: "process",
+        //   belong: "管理层/製程監控",
+        //   to: "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.KeyPartLiveKanban"
+        // }
       ]
     ]
   ])
 }
-
-
