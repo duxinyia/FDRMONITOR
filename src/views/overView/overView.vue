@@ -46,16 +46,12 @@
         :collapse="menuFold"
         :default-active="$route.path"
       >
-        <!-- @open="handleOpen"
-        @close="handleClose"
-        @select="handSelect"-->
         <template v-for="item in menus">
           <template v-if="item.subs">
             <el-submenu :index="item.index" :key="item.title" @click.native="itemClick(item)">
               <template slot="title">
                 <i :class="item.icon"></i>
-                <!-- <span class="iconfont icon-jiedianguanli text"></span> -->
-                <span slot="title">{{ item.title }}22</span>
+                <span slot="title">{{ item.title }}</span>
               </template>
               <template v-for="subItem in item.subs">
                 <template v-if="subItem.subs">
@@ -339,17 +335,15 @@ i {
 ::v-deep .el-submenu__title {
   background-color: transparent !important;
 }
-.mr-10 {
-  margin-right: 10px;
-}
-.menu-icon {
-  color: #fff;
-}
 .active {
   background: rgba(87, 200, 249, 0.6);
 }
 
 // hover 高亮
+.el-menu {
+  height: 94%;
+  overflow: auto;
+}
 .el-menu-item:hover {
   color: #ccc !important; // 菜单
   background: #1f5997 !important;
@@ -384,8 +378,7 @@ i {
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px solid #5ad1fa;
-
+      /* border-bottom: 1px solid #5ad1fa; */
       /* background: #5ad1fa; */
       .logo {
         width: 32px;
@@ -466,21 +459,6 @@ i {
       overflow: auto;
       position: relative;
       background: var(--overview-main-bg);
-      /* margin: 20px;
-      padding: 0; */
-      /* .bottom-img {
-        width: 2220px;
-        height: 1058px;
-        position: absolute;
-        top: -169px;
-        right: -400px;
-      } */
-      /* .light-bottom-img {
-        position: absolute;
-        top: 190px;
-        right: -400px;
-        z-index: 0;
-      } */
     }
   }
 }

@@ -1,106 +1,114 @@
 // 侧边栏的配置文件
 export default [
   {
-    icon: "el-icon-s-home",
+    icon: "el-icon-s-promotion",
     title: "決策層",
     index: "/overview/manage/1",
     subs: [
       {
-        icon: "el-icon-s-flag",
+        icon: "el-icon-s-data",
         title: "產出(待规划)",
         index: "/overview/manage/2",
         isOutLink: "www.baibu.com"
       },
       {
-        icon: "el-icon-s-flag",
+        icon: "el-icon-s-data",
         title: "良率(待规划)",
         index: "/overview/manage/3"
       },
       {
-        icon: "el-icon-s-flag",
+        icon: "el-icon-s-data",
         title: "人力(待规划)",
         index: "/overview/manage/4"
       }
     ]
   },
   {
-    icon: "el-icon-s-home",
+    icon: "el-icon-s-promotion",
     title: "管理層",
     index: "/overview/manage",
     subs: [
       {
-        icon: "el-icon-s-flag",
+        icon: "el-icon-s-data",
         title: "產出",
         index: "/overview/manage/output",
         subs: [
           {
             icon: "el-icon-s-tools",
             title: "年度產出總覽",
-            index: "/overview/manage/output1",
+            index: "/overview/manage/output",
             toLink: "output"
           },
           {
             icon: "el-icon-s-tools",
-            title: "By時段產出看板",
-            index: "/overview/manage/output2",
-            toLink: "makewar",
+            title: "By天產出看板",
+            index: "9",
+            toLink: "makewar"
           },
           {
             icon: "el-icon-s-tools",
-            title: "每日產出看板",
-            index: "/overview/manage/output3",
+            title: "By時段產出看板(待规划)",
+            index: "/overview/manage/output2",
+            // toLink: "makewar"
+          },
+          // {
+
+          // },
+          // {
+          //   icon: "el-icon-s-tools",
+          //   title: "By時段產出看板(待规划)",
+          //   index: "9"
+          // },
+          {
+            icon: "el-icon-s-tools",
+            title: "By機臺產出看板",
+            index: "10",
             subs: [
               {
                 icon: "el-icon-s-tools",
-                title: "By時段產出看板(待规划)",
-                index: "9"
+                title: "AA/GA/CT",
+                index: "11",
+                outLink: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx"
               },
               {
                 icon: "el-icon-s-tools",
-                title: "By機臺產出看板",
-                index: "10",
-                subs: [
-                  {
-                    icon: "el-icon-s-tools",
-                    title: "AA/GA/CT",
-                    index: "11",
-                    outLink: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx"
-                  },
-                  {
-                    icon: "el-icon-s-tools",
-                    title: "ACF",
-                    index: "12",
-                    outLink: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx?Type=ACF"
-                  },
-                  {
-                    icon: "el-icon-s-tools",
-                    title: "TEST",
-                    index: "13",
-                    outLink:
-                      "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.TestKanban"
-                  },
-                  {
-                    icon: "el-icon-s-tools",
-                    title: "AVI",
-                    index: "14",
-                    outLink:
-                      "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.AVIFirstYieldKanban"
-                  }
-                ]
+                title: "ACF",
+                index: "12",
+                outLink: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx?Type=ACF"
               },
               {
                 icon: "el-icon-s-tools",
-                title: "By站位產出看板",
-                index: "15",
-                toLink: "output2"
+                title: "TEST",
+                index: "13",
+                outLink:
+                  "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.TestKanban"
+              },
+              {
+                icon: "el-icon-s-tools",
+                title: "AVI",
+                index: "14",
+                outLink:
+                  "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.AVIFirstYieldKanban"
               }
             ]
           },
-
+          {
+            icon: "el-icon-s-tools",
+            title: "By站位產出看板",
+            index: "15",
+            toLink: "output2"
+          },
+          // {
+          //   icon: "el-icon-s-tools",
+          //   title: "每日產出看板",
+          //   index: "/overview/manage/output3",
+          //   subs: [
+          //   ]
+          // }
         ]
       },
       {
-        icon: "el-icon-s-flag",
+        icon: "el-icon-s-data",
         title: "良率",
         index: "/overview/manage/yield",
         subs: [
@@ -150,7 +158,7 @@ export default [
         ]
       },
       {
-        icon: "el-icon-s-flag",
+        icon: "el-icon-s-data",
         title: "設備",
         index: "25",
         subs: [
@@ -261,7 +269,7 @@ export default [
         ]
       },
       {
-        icon: "el-icon-s-flag",
+        icon: "el-icon-s-data",
         title: "製程監控",
         index: "40",
         subs: [

@@ -30,11 +30,7 @@
               <el-form-item prop="name">
                 <el-input placeholder="工號" v-model.trim="form.name">
                   <i slot="prefix" style="display: flex; align-items: center">
-                    <el-image
-                      style="width: 15px; height: 17px"
-                      :src="user_icon"
-                      fit="cover"
-                    ></el-image>
+                    <el-image style="width: 15px; height: 17px" :src="user_icon" fit="cover"></el-image>
                   </i>
                 </el-input>
               </el-form-item>
@@ -48,11 +44,7 @@
               <el-form-item prop="paw">
                 <el-input placeholder="密碼" show-password v-model.trim="form.paw">
                   <i slot="prefix" style="display: flex; align-items: center">
-                    <el-image
-                      style="width: 15px; height: 17px"
-                      :src="lock_icon"
-                      fit="cover"
-                    ></el-image>
+                    <el-image style="width: 15px; height: 17px" :src="lock_icon" fit="cover"></el-image>
                   </i>
                 </el-input>
               </el-form-item>
@@ -80,8 +72,7 @@
                   @click="toLogin"
                   :loading="btnLoading"
                   :disabled="btnLoading"
-                  >{{ btnLoading ? "登 录 中 ~" : "登 录" }}</el-button
-                >
+                >{{ btnLoading ? "登 录 中 ~" : "登 录" }}</el-button>
               </el-form-item>
             </transition>
           </el-form>
@@ -101,12 +92,16 @@
         </div>
         <div class="author-info">
           <div>
-            <span class="author"> <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227 </span>
+            <span class="author">
+              <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227
+            </span>
             <span class="mail">
               <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
             </span>
             &nbsp;&nbsp;
-            <span class="author"> <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123 </span>
+            <span class="author">
+              <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123
+            </span>
             <span class="mail">
               <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
             </span>
@@ -114,6 +109,15 @@
         </div>
       </div>
     </transition>
+    <!-- 切换不同的登录 -->
+    <div class="every-login">
+      <div
+        class="item"
+        v-for="(item,index) in lgoinInfo"
+        :key="index"
+        @click="toLoginPage(item)"
+      >{{index}}</div>
+    </div>
   </div>
 </template>
 <script>
@@ -136,13 +140,35 @@ export default {
       isRemPwd: false,
       form_logo: require("@/assets/images/form-logo3.png"),
       lock_icon: require("@/assets/images/lock-icon.png"),
-      user_icon: require("@/assets/images/user-icon.png")
+      user_icon: require("@/assets/images/user-icon.png"),
+      lgoinInfo: [
+        {
+          id: 1,
+          to: "/login"
+        },
+        {
+          id: 2,
+          to: "/login1"
+        },
+        {
+          id: 3,
+          to: "/login2"
+        },
+        {
+          id: 4,
+          to: "/login3"
+        }
+      ]
     }
   },
   created() {
     window.addEventListener("keydown", this.keyDown)
   },
   methods: {
+    toLoginPage(item) {
+      if (this.$route.path == item.to) return
+      this.$router.push(item.to)
+    },
     toLogin() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
@@ -300,6 +326,26 @@ export default {
         /* margin-right: 10px; */
         margin-right: 0.5208vw;
       }
+    }
+  }
+}
+.every-login {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  color: #fff;
+  .item {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    border: 1px solid #8e44ad;
+    margin-left: 20px;
+    cursor: pointer;
+    &:hover {
+      background: #8e44ad;
+      color: #fff;
     }
   }
 }

@@ -11,7 +11,6 @@ export default {
   bgs: [require("@/assets/images/background3.png"), require("@/assets/images/background17.png")],
   RESET_PWD_URL: "http://10.151.128.172:8089/Login/Repassword"
 }
-
 // 通过函数来解决主题变化的时候显示不同的图片 目前有四个 1. 产出(output) 2. 良率(yield)  3. 设备(device)  4. 进程监控 (process)
 export let changeCmaConfig = (theme = "dark") => {
   return new Map([
@@ -40,17 +39,17 @@ export let changeCmaConfig = (theme = "dark") => {
           belong: "管理层/產出",
           to: "makewar"
         },
-        {
-          id: 88,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/fol.png")
-              : require("@/assets/images/_fol.png"),
-          info: "产出模块",
-          target: "output",
-          belong: "管理层/產出",
-          to: "fol"
-        },
+        // {
+        //   id: 88,
+        //   imgUrl:
+        //     theme == "dark"
+        //       ? require("@/assets/images/fol.png")
+        //       : require("@/assets/images/_fol.png"),
+        //   info: "产出模块",
+        //   target: "output",
+        //   belong: "管理层/產出",
+        //   to: "fol"
+        // },
         // {
         //   id: 89,
         //   isExternalLink: true,
@@ -490,7 +489,7 @@ export let changeCmaConfig = (theme = "dark") => {
           target: "process",
           belong: "管理层/製程監控",
           to: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
-        },
+        }
         // {
         //   id: 112,
         //   isExternalLink: true,

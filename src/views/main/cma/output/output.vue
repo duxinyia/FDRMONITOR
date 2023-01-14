@@ -109,8 +109,9 @@ export default {
       console.log("获取右上的数据", res)
       // 取出当前月，判断是否小于6
       let month = this.$moment().format("M")
-      console.log("month", month)
-      let tempArr = month <= 6 ? res.slice(0, 6) : res.slice(6)
+      // console.log("month", month)
+      // let tempArr = month <= 6 ? res.slice(0, 6) : res.slice(6)
+      let tempArr = res.slice(6)
       tempArr.forEach((item) => {
         let { dateCode, output, hitRate } = item
         this.rightTopData.names.push(dateCode)
@@ -171,6 +172,7 @@ export default {
       try {
         res.forEach((item) => {
           let { owner, targetOut, output, delta, hitRate = "-", dateCode } = item
+          // console.log("hitRate", hitRate)
           let code = dateCode.split("-")[1]
           this.rightScrollData.push([code, owner, targetOut, output, delta, hitRate])
         })

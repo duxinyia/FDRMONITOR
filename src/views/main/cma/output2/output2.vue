@@ -118,9 +118,7 @@
                             </div>
                             <div class="container" :style="changeContainerStyle(item)">
                               <!-- 中间区域 -->
-                              <div class="center" :style="changeCenterStyle(item)">
-                                {{ item.outPut }}
-                              </div>
+                              <div class="center" :style="changeCenterStyle(item)">{{ item.outPut }}</div>
                             </div>
                           </el-tooltip>
                         </div>
@@ -295,6 +293,7 @@ export default {
     padding: 4px 6px 4px 6px;
     border-radius: 8px;
     background: var(--output2-machine-bg);
+    overflow: auto;
     .title {
       font-size: 23px;
       font-weight: bold;

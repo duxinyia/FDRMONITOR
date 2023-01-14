@@ -12,11 +12,7 @@
           <!-- <div class="form-title">登录</div> -->
           <el-form ref="form" :rules="rules" :model="form">
             <el-form-item prop="name">
-              <el-input
-                prefix-icon="el-icon-user"
-                placeholder="工號"
-                v-model.trim="form.name"
-              ></el-input>
+              <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
             </el-form-item>
             <el-form-item prop="paw">
               <el-input
@@ -35,8 +31,7 @@
                 @click="toLogin"
                 :loading="btnLoading"
                 :disabled="btnLoading"
-                >{{ btnLoading ? "登录中~" : "登录" }}</el-button
-              >
+              >{{ btnLoading ? "登录中~" : "登录" }}</el-button>
             </el-form-item>
             <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
           </el-form>
@@ -50,17 +45,30 @@
       </div>
       <div class="author-info">
         <div>
-          <span class="author"> <i class="el-icon-user-solid icon"></i>郭小龍/560-82583 </span>
+          <span class="author">
+            <i class="el-icon-user-solid icon"></i>郭小龍/560-82583
+          </span>
           <span class="mail">
             <i class="el-icon-message icon"></i>peng-peng.tian@mail.foxconn.com
           </span>
           &nbsp;&nbsp;
-          <span class="author"> <i class="el-icon-user-solid icon"></i>吳思敏/560-23123 </span>
+          <span class="author">
+            <i class="el-icon-user-solid icon"></i>吳思敏/560-23123
+          </span>
           <span class="mail">
             <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
           </span>
         </div>
       </div>
+    </div>
+    <!-- 切换不同的登录 -->
+    <div class="every-login">
+      <div
+        class="item"
+        v-for="(item,index) in lgoinInfo"
+        :key="index"
+        @click="toLoginPage(item)"
+      >{{index}}</div>
     </div>
   </div>
 </template>
@@ -81,13 +89,35 @@ export default {
       },
       leftShow: true,
       btnLoading: false,
-      isRemPwd: false
+      isRemPwd: false,
+      lgoinInfo: [
+        {
+          id: 1,
+          to: "/login"
+        },
+        {
+          id: 2,
+          to: "/login1"
+        },
+        {
+          id: 3,
+          to: "/login2"
+        },
+        {
+          id: 4,
+          to: "/login3"
+        }
+      ]
     }
   },
   created() {
     window.addEventListener("keydown", this.keyDown)
   },
   methods: {
+    toLoginPage(item) {
+      if (this.$route.path == item.to) return
+      this.$router.push(item.to)
+    },
     toLogin() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
@@ -225,6 +255,26 @@ export default {
       .author {
         margin-right: 10px;
       }
+    }
+  }
+}
+.every-login {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  color: #fff;
+  .item {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    border: 1px solid #8e44ad;
+    margin-left: 20px;
+    cursor: pointer;
+    &:hover {
+      background: #8e44ad;
+      color: #fff;
     }
   }
 }
