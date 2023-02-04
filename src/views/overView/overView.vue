@@ -165,19 +165,23 @@
               <i class="el-icon-user-solid user-icon"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-switch-button" command="layout">退出</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-switch-button" command="layout"
+                >退出</el-dropdown-item
+              >
               <el-dropdown-item
                 :class="[$store.getters.theme == 'dark' ? 'active' : '']"
                 icon="el-icon-moon"
                 command="dark"
                 divided
-              >深色</el-dropdown-item>
+                >深色</el-dropdown-item
+              >
               <el-dropdown-item
                 :class="[$store.getters.theme != 'dark' ? 'active' : '']"
                 icon="el-icon-sunny"
                 command="light"
                 divided
-              >浅色</el-dropdown-item>
+                >浅色</el-dropdown-item
+              >
             </el-dropdown-menu>
           </el-dropdown>
         </div>

@@ -1,7 +1,7 @@
 export default [
   {
     path: "/",
-    redirect: () => "login"
+    redirect: () => "login4"
   },
   {
     path: "/login",
@@ -22,6 +22,11 @@ export default [
     path: "/login3",
     name: "login3",
     component: () => import(/* webpackChunkName: "login3" */ "../views/login/login3.vue")
+  },
+  {
+    path: "/login4",
+    name: "login4",
+    component: () => import(/* webpackChunkName: "login4" */ "../views/login/login4.vue")
   },
   {
     path: "/overview",

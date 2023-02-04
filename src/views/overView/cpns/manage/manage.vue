@@ -82,7 +82,7 @@ export default {
     display: grid;
     grid-template-rows: repeat(4, 1fr);
     grid-template-columns: repeat(4, 1fr);
-    row-gap: 20px;
+    gap: 20px;
     /* justify-content: center; */
     align-content: center;
     /* display: flex;

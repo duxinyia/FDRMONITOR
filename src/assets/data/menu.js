@@ -1,28 +1,28 @@
 // 侧边栏的配置文件
 export default [
-  {
-    icon: "el-icon-s-promotion",
-    title: "決策層",
-    index: "/overview/manage/1",
-    subs: [
-      {
-        icon: "el-icon-s-data",
-        title: "產出(待规划)",
-        index: "/overview/manage/2",
-        isOutLink: "www.baibu.com"
-      },
-      {
-        icon: "el-icon-s-data",
-        title: "良率(待规划)",
-        index: "/overview/manage/3"
-      },
-      {
-        icon: "el-icon-s-data",
-        title: "人力(待规划)",
-        index: "/overview/manage/4"
-      }
-    ]
-  },
+  // {
+  //   icon: "el-icon-s-promotion",
+  //   title: "決策層",
+  //   index: "/overview/manage/1",
+  //   subs: [
+  //     {
+  //       icon: "el-icon-s-data",
+  //       title: "產出(待规划)",
+  //       index: "/overview/manage/2",
+  //       isOutLink: "www.baibu.com"
+  //     },
+  //     {
+  //       icon: "el-icon-s-data",
+  //       title: "良率(待规划)",
+  //       index: "/overview/manage/3"
+  //     },
+  //     {
+  //       icon: "el-icon-s-data",
+  //       title: "人力(待规划)",
+  //       index: "/overview/manage/4"
+  //     }
+  //   ]
+  // },
   {
     icon: "el-icon-s-promotion",
     title: "管理層",
@@ -48,7 +48,7 @@ export default [
           {
             icon: "el-icon-s-tools",
             title: "By時段產出看板(待规划)",
-            index: "/overview/manage/output2",
+            index: "/overview/manage/output2"
             // toLink: "makewar"
           },
           // {
@@ -97,7 +97,7 @@ export default [
             title: "By站位產出看板",
             index: "15",
             toLink: "output2"
-          },
+          }
           // {
           //   icon: "el-icon-s-tools",
           //   title: "每日產出看板",

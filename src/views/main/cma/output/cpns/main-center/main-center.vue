@@ -16,9 +16,9 @@
           <img class="icon" src="@/assets/images/icon02.png" alt />
           <span class="title">機種產出分佈</span>
         </p>
-
-        <pie-chart v-if="seriesData.length == 0" :showTitle="false" :seriesData="seriesData" />
-        <p v-else>hello world</p>
+        <pie-chart :showTitle="false" :seriesData="seriesData" />
+        <!-- <pie-chart v-if="seriesData.length == 0" :showTitle="false" :seriesData="seriesData" />
+        <p v-else>hello world</p>-->
       </div>
       <!-- 第三行 -->
       <div class="center-three">

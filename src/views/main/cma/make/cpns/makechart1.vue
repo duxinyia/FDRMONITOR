@@ -273,7 +273,7 @@ export default {
   },
   methods: {
     echartClick(params) {
-      console.log("params", params)
+      // console.log("params", params)
       this.$emit("barClick", params.data)
     }
   }

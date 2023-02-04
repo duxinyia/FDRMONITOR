@@ -63,7 +63,7 @@ export default {
       const { names, values, formatValues } = this.config
       // 根据不同的theme 显示不同的颜色
       let rightText = this.$store.getters.theme == "dark" ? "#fff" : "#000"
-      // let rightText = "#fff"
+      // let rightText = "#fff"o
       return {
         grid: {
           left: "",

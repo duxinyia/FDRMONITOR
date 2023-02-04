@@ -1,24 +1,26 @@
 <template>
   <div class="login-page">
+    <!-- 显示战情中心 -->
+    <!-- <div class="title-container">
+      <p class="title">战情中心</p>
+      <p class="english-name">Intelligence Center</p>
+    </div>-->
+    <!-- 显示logo -->
+    <el-image class="logo" :src="logoUrl" afit="cover"></el-image>
+    <!-- 表单登录 -->
     <div class="form-container">
-      <el-image class="logo" :src="form_logo" fit="contain"></el-image>
-      <!-- <p class="welcome-text">你好，欢迎登陆战情中心</p> -->
-      <el-form class="form" ref="form" :rules="rules" :model="form">
+      <div class="form-title">用户登录</div>
+      <el-form ref="form" :rules="rules" :model="form">
         <el-form-item prop="name">
-          <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
+          <el-input class="workno" placeholder="工號" v-model.trim="form.name">
+            <el-image #prefix :src="lockUrl" fit="cover"></el-image>
+          </el-input>
         </el-form-item>
         <el-form-item prop="paw">
-          <el-input
-            prefix-icon="el-icon-lock"
-            placeholder="密碼"
-            show-password
-            v-model.trim="form.paw"
-          ></el-input>
+          <el-input class="password" placeholder="密碼" show-password v-model.trim="form.paw"></el-input>
         </el-form-item>
-        <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
         <el-form-item>
           <el-button
-            round
             type="primary"
             class="login-btn"
             @keyup.enter.native="toLogin"
@@ -27,10 +29,11 @@
             :disabled="btnLoading"
           >{{ btnLoading ? "登录中~" : "登录" }}</el-button>
         </el-form-item>
+        <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
       </el-form>
     </div>
     <!-- 描述框 -->
-    <div class="footer">
+    <div class="copyright-info">
       <div class="copyright">
         <i class="el-icon-collection-tag icon"></i>Copyright © 2022. Foxconn All rights reserved
       </div>
@@ -52,22 +55,14 @@
         </div>
       </div>
     </div>
-    <!-- 切换不同的登录 -->
-    <div class="every-login">
-      <div
-        class="item"
-        v-for="(item, index) in lgoinInfo"
-        :key="index"
-        @click="toLoginPage(item)"
-      >{{ index }}</div>
-    </div>
   </div>
 </template>
+
 <script>
 // 导入登录的接口地址
 import { login } from "@/api/login.js"
 export default {
-  name: "login",
+  name: "login4",
   data() {
     return {
       form: {
@@ -81,35 +76,14 @@ export default {
       leftShow: true,
       btnLoading: false,
       isRemPwd: false,
-      form_logo: require("@/assets/images/form-logo.png"),
-      lgoinInfo: [
-        {
-          id: 1,
-          to: "/login"
-        },
-        {
-          id: 2,
-          to: "/login1"
-        },
-        {
-          id: 3,
-          to: "/login2"
-        },
-        {
-          id: 4,
-          to: "/login3"
-        }
-      ]
+      lockUrl: require("@/assets/images/lock.png"),
+      logoUrl: require("@/assets/images/new_logo.png")
     }
   },
   created() {
     window.addEventListener("keydown", this.keyDown)
   },
   methods: {
-    toLoginPage(item) {
-      if (this.$route.path == item.to) return
-      this.$router.push(item.to)
-    },
     toLogin() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
@@ -143,69 +117,104 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.workno {
+  .el-input__inner {
+    background: url("~@/assets/images/user.png") no-repeat 10px center;
+    background-size: 16px 16px;
+    padding: 0px 10px 0px 40px;
+    border: 1px solid #adb8ec;
+    padding-left: 1px solid #adb8ec;
+
+    position: relative;
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 5px;
+      top: 10px;
+      width: 10px;
+      height: 10px;
+      background: red;
+    }
+  }
+}
+.password {
+  .el-input__inner {
+    background: url("~@/assets/images/lock.png") no-repeat 10px center;
+    background-size: 16px 16px;
+    padding: 0px 10px 0px 40px;
+    border: 1px solid #adb8ec;
+  }
+}
+</style>
+
 <style lang="scss" scoped>
+::v-deep .el-form-item {
+  margin-bottom: 32px;
+}
 .login-page {
   width: 100%;
   height: 100%;
+  min-width: 1920px;
+  text-align: center;
   position: relative;
-  background: url("~@/assets/images/login-bg3.png") no-repeat center center;
-  .form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("~@/assets/images/login-bg5.png") no-repeat;
+  background-position: 0 -55px;
+  .logo {
     position: absolute;
-    right: 14%;
-    top: 30%;
-    /* width: 531px; */
-    width: 460px;
-    /* height: 470px; */
-    height: 370px;
-    background: url("~@/assets/images/form-container.png") no-repeat center center;
-    /* background: #fff; */
-    border-radius: 10px;
-    /* background-size: 100%; */
-    text-align: center;
-    .logo {
-      width: 250px;
-      margin: 21px auto;
+    left: 40px;
+    top: 30px;
+  }
+  .title-container {
+    position: absolute;
+    top: 126px;
+    left: 860px;
+    color: #fff;
+    .title {
+      font-size: 50px;
+      line-height: 50px;
+      margin-bottom: 10px;
     }
-    /* .welcome-text {
+    .english-name {
+      font-size: 25px;
+    }
+  }
+  .form-container {
+    margin-top: 100px;
+    width: 350px;
+    color: #6077ef;
+
+    .form-title {
       font-size: 26px;
-      font-weight: bold;
-      margin-bottom: 24px;
-    } */
-    .form {
-      /* width: 286px; */
-      width: 70%;
-      margin: 0 auto;
-      .forget-pwd {
-        width: fit-content;
-        cursor: pointer;
-        margin-top: 30px;
-        margin-bottom: 20px;
-        text-align: left;
-        font-size: 15px;
-        color: #333;
-        &:hover {
-          color: aqua;
-        }
-      }
-      .login-btn {
-        width: 100%;
-        /* width: 390px; */
-        height: 53px;
-        font-size: 20px;
-        font-weight: bold;
-        background: linear-gradient(-90deg, #5039fb 0%, #008dff 100%);
-        box-shadow: 0px 8px 18px 0px rgba(0, 138, 255, 0.41);
-        border-radius: 26px;
-        cursor: pointer;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+    .login-btn {
+      width: 100%;
+      font-size: 17px;
+      /* background: linear-gradient(to right, #4288d2, #6569c1); */
+      background: #6077ef;
+    }
+    .forget-pwd {
+      width: fit-content;
+      margin: auto;
+      font-size: 15px;
+      color: #ccc;
+      cursor: pointer;
+      &:hover {
+        color: #409eff;
       }
     }
   }
-  .footer {
+  .copyright-info {
     position: fixed;
     bottom: 20px;
-    left: 0;
-    right: 0;
     font-size: 14px;
+    margin: auto;
     text-align: center;
     color: #fff;
     .icon {
@@ -217,26 +226,6 @@ export default {
       .author {
         margin-right: 10px;
       }
-    }
-  }
-}
-.every-login {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  color: #fff;
-  .item {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    border: 1px solid #8e44ad;
-    margin-left: 20px;
-    cursor: pointer;
-    &:hover {
-      background: #8e44ad;
-      color: #fff;
     }
   }
 }

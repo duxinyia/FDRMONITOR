@@ -23,80 +23,70 @@
       <div class="main-row">
         <div class="row-item is-bg">DPC</div>
         <div class="row-item" v-for="(item, index) in dpcs" :key="index">
-          <span class="qty">{{ item.qty }}</span
-          >&nbsp;
+          <span class="qty">{{ item.qty }}</span>&nbsp;
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
         <div class="row-item is-bg">LCB</div>
         <div class="row-item" v-for="(item, index) in lcbs" :key="index">
-          <span class="qty">{{ item.qty }}</span
-          >&nbsp;
+          <span class="qty">{{ item.qty }}</span>&nbsp;
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
         <div class="row-item is-bg">SFR</div>
         <div class="row-item" v-for="(item, index) in sfrs" :key="index">
-          <span class="qty">{{ item.qty }}</span
-          >&nbsp;
+          <span class="qty">{{ item.qty }}</span>&nbsp;
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
         <div class="row-item is-bg border-right">FOL Cosmetic</div>
         <div class="row-item" v-for="(item, index) in fol_cosmetic" :key="index">
-          <span class="qty">{{ item.qty }}</span
-          >&nbsp;
+          <span class="qty">{{ item.qty }}</span>&nbsp;
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
         <div class="row-item is-bg border-right">EOL Cosmetic</div>
         <div class="row-item" v-for="(item, index) in eol_cosmetic" :key="index">
-          <span class="qty">{{ item.qty }}</span
-          >&nbsp;
+          <span class="qty">{{ item.qty }}</span>&nbsp;
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
         <div class="row-item is-bg border-right">FOL Others</div>
         <div class="row-item" v-for="(item, index) in fol_others" :key="index">
-          <span class="qty">{{ item.qty }}</span
-          >&nbsp;
+          <span class="qty">{{ item.qty }}</span>&nbsp;
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
         <div class="row-item is-bg border-right">EOL Others</div>
         <div class="row-item" v-for="(item, index) in eol_others" :key="index">
-          <span class="qty">{{ item.qty }}</span
-          >&nbsp;
+          <span class="qty">{{ item.qty }}</span>&nbsp;
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
         <div class="row-item is-bg border-right">FOL Process</div>
         <div class="row-item" v-for="(item, index) in fol_process" :key="index">
-          <span class="qty">{{ item.qty }}</span
-          >&nbsp;
+          <span class="qty">{{ item.qty }}</span>&nbsp;
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
         <div class="row-item is-bg border-right">EOL Process</div>
         <div class="row-item" v-for="(item, index) in eol_process" :key="index">
-          <span class="qty">{{ item.qty }}</span
-          >&nbsp;
+          <span class="qty">{{ item.qty }}</span>&nbsp;
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
         <div class="row-item is-bg border-right">Total</div>
         <div class="row-item is-bg" v-for="(item, index) in totalNum" :key="index">
-          <span class="qty">{{ item.total }}</span
-          >&nbsp;
+          <span class="qty">{{ item.total }}</span>&nbsp;
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
@@ -135,14 +125,16 @@ export default {
   padding: 20px;
 }
 .is-bg {
-  background: var(--defect-row-one);
+  /* background: var(--defect-row-one); */
+  background: #264380;
   color: #fff !important;
 }
 /* .cur-pointer {
   cursor: pointer;
 } */
 .row-one {
-  background: var(--defect-row-one);
+  /* background: var(--defect-row-one); */
+  background: #264380;
   color: #fff !important;
 }
 .main-two {

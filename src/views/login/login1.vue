@@ -113,10 +113,10 @@
     <div class="every-login">
       <div
         class="item"
-        v-for="(item,index) in lgoinInfo"
+        v-for="(item, index) in lgoinInfo"
         :key="index"
         @click="toLoginPage(item)"
-      >{{index}}</div>
+      >{{ index }}</div>
     </div>
   </div>
 </template>

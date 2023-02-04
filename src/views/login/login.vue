@@ -14,7 +14,7 @@
       <div class="right">
         <!-- 按钮区域 -->
         <div class="form-container">
-          <div class="form-title">戰情中心</div>
+          <div class="form-title">用户登录</div>
           <el-form ref="form" :rules="rules" :model="form">
             <el-form-item prop="name">
               <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
@@ -67,14 +67,11 @@
       </div>
     </div>
     <!-- 切换不同的登录 -->
-    <div class="every-login">
-      <div
-        class="item"
-        v-for="(item,index) in lgoinInfo"
-        :key="index"
-        @click="toLoginPage(item)"
-      >{{index}}</div>
-    </div>
+    <!-- <div class="every-login">
+      <div class="item" v-for="(item, index) in lgoinInfo" :key="index" @click="toLoginPage(item)">
+        {{ index }}
+      </div>
+    </div>-->
   </div>
 </template>
 <script>
