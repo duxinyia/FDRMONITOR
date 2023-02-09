@@ -42,6 +42,7 @@
     </div>
   </div>
 </template>
+
 <script>
 // 导入自适应函数
 import drawMixin from "@/utils/drawMixin"

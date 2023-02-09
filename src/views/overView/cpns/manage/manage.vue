@@ -54,7 +54,7 @@ export default {
   width: 100%;
   position: absolute;
   padding-right: 20px;
-  gap: 20px;
+  /* gap: 20px; */
   /* z-index: 999; */
   .title-container {
     display: flex;
@@ -135,8 +135,7 @@ export default {
       }
     }
   }
-
-  @media screen and (max-width: 1500px) {
+  @media screen and (max-width: 1600px) {
     .project-container {
       grid-template-rows: repeat(4, 1fr);
       grid-template-columns: repeat(3, 1fr);

@@ -246,6 +246,17 @@ export let changeCmaConfig = (theme = "dark") => {
         //   to: "http://10.147.214.130:8081/Test/ReportAVI"
         // },
         {
+          id: 1,
+          imgUrl:
+            theme == "dark"
+              ? require("@/assets/images/aa.png")
+              : require("@/assets/images/_aa.png"),
+          info: "AA設備總覽",
+          target: "device",
+          belong: "管理层/设备",
+          to: "aa"
+        },
+        {
           id: 2,
           imgUrl:
             theme == "dark"
@@ -256,17 +267,7 @@ export let changeCmaConfig = (theme = "dark") => {
           belong: "管理层/设备",
           to: "fol"
         },
-        {
-          id: 1,
-          imgUrl:
-            theme == "dark"
-              ? require("@/assets/images/aa.png")
-              : require("@/assets/images/_aa.png"),
-          info: "AA設備總覽",
-          target: "device",
-          belong: "管理层/设备",
-          to: "aa"
-        }
+
         // {
         //   id: 3,
         //   imgUrl: require("@/assets/images/eol.png"),

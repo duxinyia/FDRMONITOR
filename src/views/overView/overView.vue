@@ -1,7 +1,7 @@
 <template>
   <el-container class="overview">
     <!-- 侧边栏 -->
-    <el-aside :width="menuFold ? '65px' : '300px'" :class="asideClass">
+    <el-aside :width="menuFold ? '65px' : '250px'" :class="asideClass">
       <div class="top-title">
         <el-image class="logo" :src="changeLogo" fit="fill" />
         <h2 class="name" v-show="!menuFold">RAYPRUS</h2>
@@ -17,33 +17,31 @@
       >
         <el-submenu index="/overview/cma">
           <template slot="title">
-            <i class="el-icon-s-flag menu-icon"></i>
-            <span>CMA总览</span>
+            <i class="el-icon-s-data"></i>
+            <span>產出</span>
           </template>
           <el-menu-item index="/overview/cma/device">
-            <span class="iconfont icon-gongju mr-10"></span>
-            <span slot="title">设备总览</span>
+            <i class="el-icon-s-data"></i>
+            <span slot="title">良率</span>
           </el-menu-item>
           <el-menu-item index="/overview/cma/make">
-            <span class="iconfont icon-zhizaoye mr-10"></span>
-            <span slot="title">制造总览</span>
+            <i class="el-icon-s-data"></i>
+            <span slot="title">設備</span>
           </el-menu-item>
           <el-menu-item index="/overview/cma/yield">
-            <span class="iconfont icon-hege mr-10"></span>
-            <span slot="title">良率总览</span>
+            <i class="el-icon-s-data"></i>
+            <span slot="title">製程監控</span>
           </el-menu-item>
         </el-submenu>
-        <el-menu-item index="/overview/about">
-          <i class="el-icon-info menu-icon"></i>
-          <span slot="title">关于</span>
-        </el-menu-item>
       </el-menu>-->
+      <!-- 新的菜单 -->
       <el-menu
         class="el-menu-vertical"
         text-color="#fff"
         background-color="transparent"
         active-text-color="#ffd04b"
         :collapse="menuFold"
+        router
         :default-active="$route.path"
       >
         <template v-for="item in menus">
@@ -62,7 +60,7 @@
                   >
                     <template slot="title">
                       <i :class="subItem.icon"></i>
-                      <span slot="title">{{ subItem.title }}</span>
+                      <span slot="title">{{ subItem.title }}55</span>
                     </template>
 
                     <template v-for="subItem2 in subItem.subs">
@@ -74,7 +72,7 @@
                         >
                           <template slot="title">
                             <i :class="subItem2.icon"></i>
-                            <span slot="title">{{ subItem2.title }}</span>
+                            <span slot="title">{{ subItem2.title }}22</span>
                           </template>
                           <template v-for="subItem3 in subItem2.subs">
                             <template v-if="subItem3.subs">
@@ -85,7 +83,7 @@
                               >
                                 <template slot="title">
                                   <i :class="subItem3.icon"></i>
-                                  <span slot="title">{{ subItem3.title }}</span>
+                                  <span slot="title">{{ subItem3.title }}66</span>
                                 </template>
                                 <el-menu-item
                                   v-for="fiveItem in subItem3.subs"
@@ -94,7 +92,7 @@
                                   @click.native.stop="itemClick(fiveItem)"
                                 >
                                   <i :class="fiveItem.icon"></i>
-                                  <span slot="title">{{ fiveItem.title }}</span>
+                                  <span slot="title">{{ fiveItem.title }}77</span>
                                 </el-menu-item>
                               </el-submenu>
                             </template>
@@ -105,7 +103,7 @@
                               @click.native.stop="itemClick(subItem3)"
                             >
                               <i :class="subItem3.icon"></i>
-                              <span slot="title">{{ subItem3.title }}</span>
+                              <span slot="title">{{ subItem3.title }}88</span>
                             </el-menu-item>
                           </template>
                         </el-submenu>
@@ -117,13 +115,18 @@
                         @click.native.stop="itemClick(subItem2)"
                       >
                         <i :class="subItem2.icon"></i>
-                        <span slot="title">{{ subItem2.title }}</span>
+                        <span slot="title">{{ subItem2.title }}99</span>
                       </el-menu-item>
                     </template>
                   </el-submenu>
                 </template>
 
-                <el-menu-item v-else :index="subItem.index" :key="subItem.title">
+                <el-menu-item
+                  v-else
+                  :index="subItem.index"
+                  :key="subItem.title"
+                  @click.native.stop="itemClick(subItem)"
+                >
                   <i :class="subItem.icon"></i>
                   <span slot="title">{{ subItem.title }}</span>
                 </el-menu-item>
@@ -134,7 +137,7 @@
           <template v-else>
             <el-menu-item :index="item.index" :key="item.title">
               <i :class="item.icon"></i>
-              <span slot="title">{{ item.title }}</span>
+              <span slot="title">{{ item.title }}33</span>
             </el-menu-item>
           </template>
         </template>
@@ -165,23 +168,19 @@
               <i class="el-icon-user-solid user-icon"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-switch-button" command="layout"
-                >退出</el-dropdown-item
-              >
+              <el-dropdown-item icon="el-icon-switch-button" command="layout">退出</el-dropdown-item>
               <el-dropdown-item
                 :class="[$store.getters.theme == 'dark' ? 'active' : '']"
                 icon="el-icon-moon"
                 command="dark"
                 divided
-                >深色</el-dropdown-item
-              >
+              >深色</el-dropdown-item>
               <el-dropdown-item
                 :class="[$store.getters.theme != 'dark' ? 'active' : '']"
                 icon="el-icon-sunny"
                 command="light"
                 divided
-                >浅色</el-dropdown-item
-              >
+              >浅色</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -249,25 +248,14 @@ export default {
     let theme = cache.getCache("theme") || "dark"
     document.documentElement.setAttribute("theme", theme)
     this.getCurrentTime()
+    // console.log("this path", this.$route.path)
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log("打开：", key, keyPath)
-    },
-    handleClose(key, keyPath) {
-      console.log("关闭：", key, keyPath)
-    },
-    handSelect(key, keyPath) {
-      console.log("选择：", key, keyPath)
-    },
-    openMenu() {
-      console.log("/overview/manage/2")
-    },
     handleCommand(command) {
       if (command == "layout") {
         // 清空缓存
         cache.deleteCache("user")
-        this.$router.replace("/login")
+        this.$router.replace("/login4")
       } else {
         // this.$i18n.locale = lang
         let index = command == "dark" ? 0 : 1
@@ -280,32 +268,9 @@ export default {
       }
     },
     itemClick(item) {
-      // console.log("item", item)
+      console.log("item", item)
       let path = this.$route.path
       this.$store.commit("fullLoading/SET_PATH", path)
-      if (item.toLink) {
-        this.$router.push({ name: item.toLink })
-      }
-      if (item.outLink) {
-        window.open(item.outLink)
-      }
-      if (item.title == "製程監控") {
-        // console.log("製程監控")
-        this.$router.push("/overview/manage/process")
-      }
-      if (item.title == "設備") {
-        this.$router.push("/overview/manage/device")
-      }
-      if (item.title == "產出") {
-        this.$router.push("/overview/manage/output")
-      }
-      if (item.title == "良率") {
-        this.$router.push("/overview/manage/yield")
-      }
-      // 切换右边的情况
-      // if(item.)
-      // 1. 外部链接  window.open 2. 自己写的代码 $router.push 跳转
-      // this.$router.push({ name: item.index })
     },
     // 获取当前时间
     getCurrentTime() {
@@ -348,11 +313,16 @@ i {
   height: 94%;
   overflow: auto;
 }
+.el-menu-item {
+  border-bottom: 1px solid #fff;
+  &:first-child {
+    border-top: 1px solid #fff;
+  }
+}
 .el-menu-item:hover {
   color: #ccc !important; // 菜单
   background: #1f5997 !important;
 }
-
 .el-menu-item.is-active {
   color: var(--menu-item-active) !important;
   font-weight: bold;
@@ -365,7 +335,6 @@ i {
   left: 0;
   width: 100%;
   height: 100%;
-  /* min-width: 1200px; */
   // 侧边栏
   .aside-container {
     position: relative;
@@ -375,15 +344,11 @@ i {
     scrollbar-width: none; /* firefox */
     -ms-overflow-style: none; /* IE 10+ */
     .top-title {
-      /* position: fixed;
-      top: 0;
-      left: 0; */
       height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
-      /* border-bottom: 1px solid #5ad1fa; */
-      /* background: #5ad1fa; */
+      border-bottom: 1px solid #fff;
       .logo {
         width: 32px;
         height: 32px;
@@ -403,9 +368,11 @@ i {
   }
   .light-container {
     background: url("~@/assets/images/_menu-bg.png") no-repeat center center !important;
+    /* background: yellow; */
   }
   .dark-container {
     background: url("~@/assets/images/menu-bg.png") no-repeat center center !important;
+    /* background: #000; */
   }
   // 右边主要区域
   .right-container {
@@ -429,7 +396,6 @@ i {
           letter-spacing: 10px;
           margin-top: 4px;
           color: #fff;
-          /* vertical-align: middle; */
         }
       }
       .header-right {
@@ -438,10 +404,8 @@ i {
         color: #fff;
         .currentTime {
           margin-right: 10px;
-          /* margin-right: 25px; */
         }
         .username {
-          /* padding: ; */
           padding: 0 8px;
           border-left: 4px solid #fff;
           border-right: 4px solid #fff;
@@ -467,7 +431,7 @@ i {
   }
 }
 
-@media screen and (max-width: 1500px) {
+/* @media screen and (max-width: 1600px) {
   .aside-container {
     width: 0px !important;
     transform: translateX(-100%);
@@ -475,5 +439,5 @@ i {
   .flod {
     display: none;
   }
-}
+} */
 </style>

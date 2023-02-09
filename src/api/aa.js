@@ -16,7 +16,7 @@ export let getYieldTop5 = () =>
   $post(`api/AAMachineRun/GetAAMachineMapYieldLoss/Location?${getTime()}`)
 // 获取下方机台信息的数据 及每个block
 export let getMachinesInfo = () =>
-  $post(`api/AAMachineRun/GetAAMachineRunInfos/Location?${getTime()}`)
+  $post(`api/AAMachineRun/GetAAMac hineRunInfos/Location?${getTime()}`)
 
 // 获取AA指定机台的近三天的生产信息
 export let getMachineThreeInfo = (ip) =>

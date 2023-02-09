@@ -3,6 +3,7 @@
     <router-view />
   </div>
 </template>
+
 <script>
 // 导入设置localstorage的函数
 import cache from "@/utils/cache.js"
@@ -33,3 +34,4 @@ export default {
   background-image: url("~@/assets/images/background17.png") no-repeat center center;
 }
 </style>
+

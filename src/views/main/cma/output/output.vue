@@ -18,6 +18,7 @@
     </el-row>
   </div>
 </template>
+
 <script>
 // 导入各子组件
 import MainLeft from "./cpns/main-left/main-left.vue"

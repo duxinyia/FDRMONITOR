@@ -25,6 +25,8 @@ export default {
         legends,
         yData: [data0, data1, data2, data3, data4, data5, data6, data7, data8, data9]
       } = this.config
+      // console.log("legends.slice(5)", legends.slice(5))
+      // console.log("legends.slice(0, 5)", legends.slice(0, 5))
       return {
         color: [
           "#5ad2fa",
@@ -42,26 +44,26 @@ export default {
           borderWidth: 0,
           top: 60,
           left: "6%",
-          right: "6%",
+          right: "7%",
           bottom: "10%",
           textStyle: {
             color: "#fff"
           }
         },
         legend: [
+          // {
+          //   data: legends.slice(6),
+          //   y: "25",
+          //   textStyle: {
+          //     color: themeColor, //更改坐标轴文字颜色
+          //     fontSize: 14
+          //   }
+          // },
           {
-            data: legends.slice(5),
-            y: "25",
-            textStyle: {
-              color: themeColor, //更改坐标轴文字颜色
-              fontSize: 14
-            }
-          },
-          {
-            data: legends.slice(0, 5),
+            data: legends,
             y: "0",
             textStyle: {
-              color: themeColor, //更改坐标轴文字颜色
+              color: themeColor, // 更改坐标轴文字颜色
               fontSize: 14
             }
           }
@@ -69,7 +71,7 @@ export default {
         tooltip: {
           show: true,
           trigger: "axis", //axis , item
-          backgroundColor: "RGBA(0, 49, 85, 1)",
+          backgroundColor: "rgba(0, 49, 85, 1)",
           borderColor: "rgba(0, 151, 251, 1)",
           borderWidth: 1,
           borderRadius: 0,

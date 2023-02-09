@@ -18,45 +18,6 @@
 <script>
 // 导入基础模板
 import baseEchart from "@/common/echart"
-// 修改这个值
-// let data1 = [
-//   {
-//     name: "濾芯預警",
-//     value: 7
-//   },
-//   {
-//     name: "Table預警",
-//     value: 8
-//   },
-//   {
-//     name: "Nozzle預警",
-//     value: 9
-//   },
-//   {
-//     name: "膠閥預警",
-//     value: 5
-//   }
-// ]
-
-// let xAxisData = []
-// let seriesData = []
-// let seriesData1 = []
-// let ciolData = []
-// let sum = 0
-// let bottomData = []
-// let topData = []
-
-// data1.forEach((item) => {
-//   xAxisData.push(item.name)
-//   seriesData.push(item.value)
-//   seriesData1.push({ name: "", value: item.value })
-//   ciolData.push({ name: "", value: "0" })
-//   sum += item.value
-// })
-// data1.forEach((item) => {
-//   bottomData.push({ name: "", value: sum - item.value })
-//   topData.push({ name: "", value: sum })
-// })
 export default {
   name: "bar-chart",
   props: {

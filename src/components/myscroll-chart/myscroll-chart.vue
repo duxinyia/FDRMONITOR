@@ -143,7 +143,6 @@ export default {
     display: flex;
     justify-content: space-between;
     .title {
-      /* display: inline-block; */
       display: flex;
       align-items: center;
       font-size: 20px;
@@ -165,7 +164,6 @@ export default {
         cursor: pointer;
         font-size: 20px;
         color: #00baff;
-        /* color: var(--chart-scroll-arraw); */
         &:hover {
           color: aqua;
         }
@@ -184,22 +182,19 @@ export default {
   .header {
     font-size: 16px;
     display: flex;
-    // background: #20316e;
+    /* color: #000; */
     background: var(--chart-scroll-header);
     text-align: center;
   }
   .rows {
-    // height: 36px;
-    // line-height: 36px;
     font-size: 14px;
     text-align: center;
     display: flex;
+    color: var(--base-text-color);
     &:nth-child(2n) {
-      // background: #003b51;
       background: var(--chart-scroll-odd);
     }
     &:nth-child(2n + 1) {
-      // background: #0a2732;
       background: var(--chart-scroll-even);
     }
   }

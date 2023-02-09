@@ -35,7 +35,12 @@
     <!-- 描述框 -->
     <div class="copyright-info">
       <div class="copyright">
-        <i class="el-icon-collection-tag icon"></i>Copyright © 2022. Foxconn All rights reserved
+        <i class="el-icon-collection-tag icon"></i>
+        Copyright © 2022. Foxconn All rights reserved
+        <span
+          class="location"
+          @click="toLocation"
+        >{{port == '8085' ? '正式地址' : '测试地址'}}</span>
       </div>
       <div class="author-info">
         <div>
@@ -77,21 +82,25 @@ export default {
       btnLoading: false,
       isRemPwd: false,
       lockUrl: require("@/assets/images/lock.png"),
-      logoUrl: require("@/assets/images/new_logo.png")
+      logoUrl: require("@/assets/images/new_logo.png"),
+      port: window.location.port
+      // http://10.147.214.111:8085/   http://10.147.214.130:8093/
     }
   },
   created() {
     window.addEventListener("keydown", this.keyDown)
   },
   methods: {
+    // 登录的接口
     toLogin() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
           this.btnLoading = true
           let res = await login(this.form)
           if (res.Resultflag == 1) {
+            // console.log("res======", res)
             // 表示用户名 和 密码正确
-            this.$store.commit("user/SET_USER", this.form)
+            this.$store.commit("user/SET_USER", { ...this.form, fullName: res.Resultvalue.Name })
             // 跳转页面
             this.$router.replace({ name: "overview" })
           }
@@ -110,6 +119,13 @@ export default {
       if (e.keyCode == 13) {
         this.toLogin()
       }
+    },
+    toLocation() {
+      if (this.port == 8085) {
+        window.open("http://10.147.214.130:8093")
+      } else {
+        window.open("http://10.147.214.111:8085")
+      }
     }
   },
   beforeDestroy() {
@@ -121,11 +137,12 @@ export default {
 .workno {
   .el-input__inner {
     background: url("~@/assets/images/user.png") no-repeat 10px center;
-    background-size: 16px 16px;
-    padding: 0px 10px 0px 40px;
+    /* background-size: 16px 16px; */
+    /* padding: 0px 10px 0px 40px; */
+    background-size: 0.8333vw 0.8333vw;
+    padding: 0px 0.5208vw 0px 2.0833vw;
     border: 1px solid #adb8ec;
     padding-left: 1px solid #adb8ec;
-
     position: relative;
     &::after {
       content: "";
@@ -144,6 +161,8 @@ export default {
     background: url("~@/assets/images/lock.png") no-repeat 10px center;
     background-size: 16px 16px;
     padding: 0px 10px 0px 40px;
+    /* background-size: 0.8333vw 0.8333vw;
+    padding: 0px 0.5208vw 0px 2.0833vw; */
     border: 1px solid #adb8ec;
   }
 }
@@ -162,17 +181,22 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("~@/assets/images/login-bg5.png") no-repeat;
-  background-position: 0 -55px;
+  background: url("~@/assets/images/login-bg5.png") no-repeat center center;
+  /* background-size: 100% 100%; */
+  /* background-position: 0 -55px; */
   .logo {
     position: absolute;
-    left: 40px;
-    top: 30px;
+    /* left: 40px;
+    top: 30px; */
+    top: 2.7778vh;
+    left: 2.0833vw;
   }
   .title-container {
     position: absolute;
-    top: 126px;
-    left: 860px;
+    /* top: 126px;
+    left: 860px; */
+    top: 6.5625vw;
+    left: 44.7917vw;
     color: #fff;
     .title {
       font-size: 50px;
@@ -217,6 +241,14 @@ export default {
     margin: auto;
     text-align: center;
     color: #fff;
+    .copyright {
+      .location {
+        margin-left: 10px;
+        text-decoration: underline;
+        cursor: pointer;
+        color: yellow;
+      }
+    }
     .icon {
       margin-right: 4px;
       vertical-align: middle;

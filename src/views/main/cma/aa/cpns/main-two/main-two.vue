@@ -41,7 +41,7 @@
                   :key="block_name"
                 >
                   <dv-decoration-7 :color="changeDv7Color" class="block-name">
-                    <span style="padding: 0 5px">{{ block_name || "" }}</span>
+                    <span class="name">{{ block_name || "" }}</span>
                   </dv-decoration-7>
                   <div class="grid-container">
                     <div class="machine-container" v-for="(item, index) in block_arr" :key="index">
@@ -50,9 +50,7 @@
                         @click="goDetail(item)"
                         :style="selectColor(item.runStatus)"
                       >
-                        <span :style="{ color: selectSpanColor() }">
-                          {{ item.machineName || "" }}
-                        </span>
+                        <span :style="{ color: selectSpanColor() }">{{ item.machineName || "" }}</span>
                       </div>
                       <div class="dots">
                         <template v-if="Object.keys(item.aaHeadCurrentRunStates).length > 0">
@@ -254,6 +252,7 @@ export default {
 ::v-deep .dv-border-box-11-title {
   font-size: 30px !important;
   font-weight: bold !important;
+  color: #000 !important;
 }
 ::v-deep .dv-percent-pond {
   margin: 0 auto;
@@ -320,6 +319,10 @@ export default {
           margin-bottom: 10px;
           text-align: center;
           border-bottom: 2px solid var(--aa-bottom-block-border);
+          .name {
+            padding: 0 5px;
+            color: var(--base-text-color);
+          }
         }
         .grid-container {
           height: calc(100% - 48px);

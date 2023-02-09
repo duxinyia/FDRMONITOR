@@ -1,4 +1,3 @@
-
 # 项目简介
 
 名称: 战情中心
@@ -44,6 +43,9 @@ https://blog.csdn.net/baidu_41388533/article/details/123645081
     min: (value) => Math.ceil(value.min - 1), // 指定最小值
     max: () => 100, // 指定最大值
  -->
+
+ ## 测试地址
+ http://10.147.214.111:8085/
 
 ## svg 使用
 

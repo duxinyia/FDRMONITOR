@@ -38,9 +38,11 @@
                     <!-- <span class="rate" v-if="folChecked">{{
                       item.values.FOL.hitRate | filterRate
                     }}</span>-->
-                    <span class="rate" @click.stop="textClick" v-if="folChecked">
-                      {{ item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%" }}
-                    </span>
+                    <span
+                      class="rate"
+                      @click.stop="textClick"
+                      v-if="folChecked"
+                    >{{ item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%" }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
                   </div>
@@ -73,9 +75,11 @@
                     <!-- <span class="rate" v-if="eolChecked">{{
                       item.values.EOL.hitRate | filterRate
                     }}</span>-->
-                    <span class="rate" @click.stop="textClick" v-if="eolChecked">
-                      {{ item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%" }}
-                    </span>
+                    <span
+                      class="rate"
+                      @click.stop="textClick"
+                      v-if="eolChecked"
+                    >{{ item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%" }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
                   </div>
@@ -331,6 +335,14 @@ export default {
             margin-top: 4px;
             text-align: center;
             color: var(--makewar-item-date);
+          }
+        }
+        &:last-child {
+          .text {
+            .date {
+              color: yellow;
+              font-weight: bold;
+            }
           }
         }
       }
