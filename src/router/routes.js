@@ -1,7 +1,7 @@
 export default [
   {
     path: "/",
-    redirect: () => "login4"
+    redirect: () => "login1"
   },
   {
     path: "/login",

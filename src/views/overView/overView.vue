@@ -255,7 +255,7 @@ export default {
       if (command == "layout") {
         // 清空缓存
         cache.deleteCache("user")
-        this.$router.replace("/login4")
+        this.$router.replace("/login1")
       } else {
         // this.$i18n.locale = lang
         let index = command == "dark" ? 0 : 1
@@ -313,12 +313,12 @@ i {
   height: 94%;
   overflow: auto;
 }
-.el-menu-item {
+/* .el-menu-item {
   border-bottom: 1px solid #fff;
   &:first-child {
     border-top: 1px solid #fff;
   }
-}
+} */
 .el-menu-item:hover {
   color: #ccc !important; // 菜单
   background: #1f5997 !important;

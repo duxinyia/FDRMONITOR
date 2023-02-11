@@ -30,11 +30,7 @@
               <el-form-item prop="name">
                 <el-input placeholder="工號" v-model.trim="form.name">
                   <i slot="prefix" style="display: flex; align-items: center">
-                    <el-image
-                      style="width: 15px; height: 17px"
-                      :src="user_icon"
-                      fit="cover"
-                    ></el-image>
+                    <el-image style="width: 15px; height: 17px" :src="user_icon" fit="cover"></el-image>
                   </i>
                 </el-input>
               </el-form-item>
@@ -48,11 +44,7 @@
               <el-form-item prop="paw">
                 <el-input placeholder="密碼" show-password v-model.trim="form.paw">
                   <i slot="prefix" style="display: flex; align-items: center">
-                    <el-image
-                      style="width: 15px; height: 17px"
-                      :src="lock_icon"
-                      fit="cover"
-                    ></el-image>
+                    <el-image style="width: 15px; height: 17px" :src="lock_icon" fit="cover"></el-image>
                   </i>
                 </el-input>
               </el-form-item>
@@ -80,8 +72,7 @@
                   @click="toLogin"
                   :loading="btnLoading"
                   :disabled="btnLoading"
-                  >{{ btnLoading ? "登 录 中 ~" : "登 录" }}</el-button
-                >
+                >{{ btnLoading ? "登 录 中 ~" : "登 录" }}</el-button>
               </el-form-item>
             </transition>
           </el-form>
@@ -98,15 +89,23 @@
       <div class="footer">
         <div class="copyright">
           <i class="el-icon-collection-tag icon"></i>Copyright © 2022. Foxconn All rights reserved
+          <span
+            class="location"
+            @click="toLocation"
+          >{{port == '8085' ? '正式地址' : '测试地址'}}</span>
         </div>
         <div class="author-info">
           <div>
-            <span class="author"> <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227 </span>
+            <span class="author">
+              <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227
+            </span>
             <span class="mail">
               <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
             </span>
             &nbsp;&nbsp;
-            <span class="author"> <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123 </span>
+            <span class="author">
+              <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123
+            </span>
             <span class="mail">
               <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
             </span>
@@ -115,11 +114,14 @@
       </div>
     </transition>
     <!-- 切换不同的登录 -->
-    <div class="every-login">
-      <div class="item" v-for="(item, index) in lgoinInfo" :key="index" @click="toLoginPage(item)">
-        {{ index }}
-      </div>
-    </div>
+    <!-- <div class="every-login">
+      <div
+        class="item"
+        v-for="(item, index) in lgoinInfo"
+        :key="index"
+        @click="toLoginPage(item)"
+      >{{ index }}</div>
+    </div>-->
   </div>
 </template>
 <script>
@@ -160,7 +162,8 @@ export default {
           id: 4,
           to: "/login3"
         }
-      ]
+      ],
+      port: window.location.port
     }
   },
   created() {
@@ -170,6 +173,13 @@ export default {
     toLoginPage(item) {
       if (this.$route.path == item.to) return
       this.$router.push(item.to)
+    },
+    toLocation() {
+      if (this.port == 8085) {
+        window.open("http://10.147.214.130:8093")
+      } else {
+        window.open("http://10.147.214.111:8085")
+      }
     },
     toLogin() {
       this.$refs.form.validate(async (valid) => {
@@ -316,6 +326,12 @@ export default {
     font-size: 0.7292vw;
     text-align: center;
     color: #fff;
+    .location {
+      margin-left: 10px;
+      text-decoration: underline;
+      cursor: pointer;
+      color: yellow;
+    }
     .icon {
       /* margin-right: 4px; */
       margin-right: 0.2083vw;
