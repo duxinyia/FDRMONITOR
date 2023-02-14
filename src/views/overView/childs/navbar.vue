@@ -1,0 +1,165 @@
+<template>
+  <el-header class="header-container">
+    <div class="header-left">
+      <i
+        class="flod"
+        style="display:none"
+        :class="menuFold ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
+        @click="changeMenuState"
+      ></i>
+      <span class="title">戰情中心</span>
+      <!-- 显示一个面包屑 -->
+      <!-- <el-breadcrumb separator="/">
+        <el-breadcrumb-item v-for="item in routes" :key="item.path">{{item.meta.title}}</el-breadcrumb-item>
+      </el-breadcrumb>-->
+    </div>
+    <div class="header-right">
+      <span class="currentTime">{{ currentTime }}</span>
+      <span class="username">{{ $store.state.user.user.fullName }}</span>
+      <el-dropdown @command="handleCommand" placement="bottom">
+        <span class="el-dropdown-link">
+          <i class="el-icon-user-solid user-icon"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item icon="el-icon-switch-button" command="layout">退出</el-dropdown-item>
+          <!-- <el-dropdown-item
+            :class="[$store.getters.theme == 'dark' ? 'active' : '']"
+            icon="el-icon-moon"
+            command="dark"
+            divided
+          >深色</el-dropdown-item>-->
+          <!-- <el-dropdown-item
+            :class="[$store.getters.theme != 'dark' ? 'active' : '']"
+            icon="el-icon-sunny"
+            command="light"
+            divided
+          >浅色</el-dropdown-item>-->
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+  </el-header>
+</template>
+
+<script>
+// 导入设置localstorage的函数
+import cache from "@/utils/cache.js"
+export default {
+  name: "navbar",
+  props: {
+    menuFold: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      timing: null,
+      currentTime: "",
+      routes: []
+    }
+  },
+  created() {
+    this.getCurrentTime()
+  },
+  // watch: {
+  //   $route(value) {
+  //     console.log("value", value)
+  //     this.routes = value.matched
+  //   }
+  // },
+  methods: {
+    handleCommand(command) {
+      if (command == "layout") {
+        // 清空缓存
+        cache.deleteCache("user")
+        this.$router.replace("/login5")
+      } else {
+        // this.$i18n.locale = lang
+        let index = command == "dark" ? 0 : 1
+        document.documentElement.setAttribute("theme", command)
+        this.$store.commit("fullLoading/SET_THEME", command)
+        this.$store.commit("fullLoading/SET_BGURL", {
+          index,
+          bg: `background:url(${this.$globalData.bgs[index]})`
+        })
+      }
+    },
+    getCurrentTime() {
+      this.timing = setInterval(() => {
+        this.currentTime = this.$moment().format("YYYY-MM-DD HH:mm:ss")
+      }, 1000)
+    },
+    changeMenuState() {
+      this.$emit("update:menuFold", !this.menuFold)
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.timing)
+  }
+}
+</script>
+<style lang="scss">
+.el-dropdown-menu {
+  padding: 0 0;
+}
+.el-dropdown-menu__item--divided {
+  margin-top: 0;
+}
+.el-dropdown-menu__item--divided:before {
+  display: none;
+}
+</style>
+
+<style lang="scss" scoped>
+.header-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 48px !important;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--overview-head-bg);
+  box-shadow: 0px 1px #ddd;
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  padding: 0 10px;
+  .header-left {
+    display: flex;
+    align-items: center;
+    .flod {
+      margin-right: 10px;
+    }
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 10px;
+      margin-top: 4px;
+      color: var(--icon-color);
+    }
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    color: var(--icon-color);
+    .currentTime {
+      margin-right: 10px;
+    }
+    .username {
+      padding: 0 8px;
+      border-left: 2px solid var(--icon-color);
+      border-right: 2px solid var(--icon-color);
+    }
+  }
+  .flod,
+  .user-icon {
+    cursor: pointer;
+    font-size: 25px;
+    color: var(--icon-color);
+    &:hover {
+      color: #0ff;
+    }
+  }
+  .user-icon {
+    margin-left: 10px;
+  }
+}
+</style>

@@ -50,7 +50,9 @@
                         @click="goDetail(item)"
                         :style="selectColor(item.runStatus)"
                       >
-                        <span :style="{ color: selectSpanColor() }">{{ item.machineName || "" }}</span>
+                        <span :style="{ color: selectSpanColor() }">{{
+                          item.machineName || ""
+                        }}</span>
                       </div>
                       <div class="dots">
                         <template v-if="Object.keys(item.aaHeadCurrentRunStates).length > 0">

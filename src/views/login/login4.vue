@@ -40,7 +40,11 @@
         <span
           class="location"
           @click="toLocation"
-        >{{port == '8085' ? '正式地址' : '测试地址'}}</span>
+        >
+          {{
+          port == "8085" ? "正式地址" : "测试地址"
+          }}
+        </span>
       </div>
       <div class="author-info">
         <div>
@@ -122,9 +126,9 @@ export default {
     },
     toLocation() {
       if (this.port == 8085) {
-        window.open("http://10.147.214.130:8093")
+        window.open(this.$globalData.PRODUCTION_ADDRESS)
       } else {
-        window.open("http://10.147.214.111:8085")
+        window.open(this.$globalData.TEST_ADDRESS)
       }
     }
   },

@@ -6,7 +6,8 @@ const state = {
   path: "",
   title: "", // 每个页面的标题
   bgUrl: {}, // 背景图
-  theme: "" // 系统的背景 深色 还是 浅色
+  theme: "", // 系统的背景 深色 还是 浅色
+  tags: []  // 标签
 }
 
 const mutations = {
@@ -27,6 +28,17 @@ const mutations = {
   SET_THEME(state, theme = "dark") {
     state.theme = theme
     cache.setCache("theme", theme)
+  },
+  SET_TAG(state, tag) {
+    if (Array.isArray(tag)) {
+      state.tags = tag
+    } else {
+      state.tags.push(tag)
+    }
+    cache.setCache("tags", state.tags)
+  },
+  DETELE_TAG(state, index) {
+    state.tags.splice(index, 1)
   }
 }
 const actions = {}

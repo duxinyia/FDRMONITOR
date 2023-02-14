@@ -2,7 +2,7 @@
   <div class="manage-container">
     <div class="title-container">
       <span class="title">{{ showDiv1[0].belong }}</span>
-      <el-image class="title-icon" :src="titleIcon" fit="cover"></el-image>
+      <!-- <el-image class="title-icon" :src="titleIcon" fit="cover"></el-image> -->
     </div>
     <div class="project-container">
       <div
@@ -24,7 +24,7 @@ export default {
   name: "manage",
   data() {
     return {
-      titleIcon: require("@/assets/images/title-icon.png")
+      // titleIcon: require("@/assets/images/title-icon.png")
     }
   },
   computed: {
@@ -52,8 +52,8 @@ export default {
 <style lang="scss" scoped>
 .manage-container {
   width: 100%;
-  position: absolute;
-  padding-right: 20px;
+  /* position: absolute; */
+  /* padding-right: 20px; */
   /* gap: 20px; */
   /* z-index: 999; */
   .title-container {
@@ -73,10 +73,10 @@ export default {
         background: var(--cma-title);
       }
     }
-    .title-icon {
+    /* .title-icon {
       width: 126px;
       height: 48px;
-    }
+    } */
   }
   .project-container {
     display: grid;

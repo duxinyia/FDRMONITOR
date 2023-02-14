@@ -14,7 +14,7 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  if (to.path.includes('login')) {
+  if (to.path.includes("login")) {
     if (cache.getCache("user")) {
       next("/overview")
     } else {

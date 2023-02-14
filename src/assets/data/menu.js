@@ -2,35 +2,63 @@
 export default [
   {
     icon: "el-icon-s-promotion",
+    title: "决策層",
+    index: "",
+    subs: [
+      {
+        icon: "el-icon-s-promotion",
+        title: "决策層",
+        index: "",
+      }
+    ]
+  },
+  {
+    icon: "el-icon-s-promotion",
     title: "管理層",
     index: "/overview/manage",
     subs: [
       {
         icon: "el-icon-s-data",
         title: "產出",
-        index: "/overview/manage/output",
+        index: "/overview/manage/output"
       },
       {
         icon: "el-icon-s-data",
         title: "良率",
-        index: "/overview/manage/yield",
+        index: "/overview/manage/yield"
       },
       {
         icon: "el-icon-s-data",
         title: "設備",
-        index: "/overview/manage/device",
+        index: "/overview/manage/device"
       },
       {
         icon: "el-icon-s-data",
         title: "製程監控",
         index: "/overview/manage/process",
+        subs: [
+          {
+            icon: "el-icon-s-data",
+            title: "子菜单",
+            index: "/overview/manage/process1",
+          },
+          {
+            icon: "el-icon-s-data",
+            title: "还是子菜单",
+            index: "/overview/manage/process2",
+            subs: [
+              {
+                icon: "el-icon-s-data",
+                title: "三级子菜单",
+                index: "/overview/manage/process22",
+              }
+            ]
+          }
+        ]
       }
     ]
   }
 ]
-
-
-
 
 // 侧边栏的配置文件
 // export default [

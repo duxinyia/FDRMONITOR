@@ -5,17 +5,13 @@
   --base-text-color: #fff;
 
   // overview 的色值
-  --overview-head-bg: linear-gradient(
-    90deg,
-    rgba(90, 210, 250, 1) 0%,
-    rgba(59, 92, 237, 1) 100%
-  );
+  --overview-head-bg:  linear-gradient(90deg, rgba(48, 65, 86, 1) 0%, rgba(56, 56, 56, 1) 100%);;
   /*晚上大的背景颜色*/
-  --overview-main-bg: #081453;
+  // --overview-main-bg: #081453;
   --overview-menu-bg: #162949;
   --icon-color: #fff;
   --menu-item-active: #fff;
-  --menu-item-active-bg: #07124c;
+  --menu-item-active-bg: linear-gradient(270deg, rgba(24, 98, 201, 0.2) 0%, rgba(17, 69, 143, 1) 50.69%, rgba(24, 98, 201, 0.2) 100%);
   --cma-container-border: #fff;
   --cma-title: #fff;
   --cma-box-shadow: transparent;

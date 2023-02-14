@@ -5,18 +5,14 @@
   --base-text-color: #000;
 
   // overview 的色值
-  --overview-head-bg: linear-gradient(
-    270deg,
-    rgba(39, 75, 232, 0.8) 0%,
-    rgba(90, 210, 250, 1) 100%
-  );
-  --overview-main-bg: rgba(255, 255, 255, 0.8);
+  --overview-head-bg: #fff;
+  // --overview-main-bg: rgba(255, 255, 255, 0.8);
   --overview-menu-bg: linear-gradient(
     180deg,
     rgba(29, 172, 219, 0.8) 0%,
     rgba(15, 32, 112, 0.8) 100%
   );
-  --icon-color: #fff;
+  --icon-color: #000;
   --menu-item-active: #3766f4;
   --menu-item-active-bg: #fff;
   --cma-container-border: #000;
