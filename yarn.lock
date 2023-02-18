@@ -324,15 +324,10 @@
     "esutils" "^2.0.2"
     "js-tokens" "^4.0.0"
 
-"@babel/parser@^7.16.7", "@babel/parser@^7.17.3":
-  "integrity" "sha512-7yJPvPV+ESz2IUTPbOL+YkIGyCqOyNIzdguKQuJGnH7bg1WTIifuM21YqokFt/THWh1AkCRn9IgoykTRCBVpzA=="
-  "resolved" "https://registry.npmmirror.com/@babel/parser/-/parser-7.17.3.tgz"
-  "version" "7.17.3"
-
-"@babel/parser@^7.7.0", "@babel/parser@^7.8.6":
-  "integrity" "sha1-TDt8422zfgYpvh8NUKVx0vhvbNQ="
-  "resolved" "https://registry.npm.taobao.org/@babel/parser/download/@babel/parser-7.8.8.tgz"
-  "version" "7.8.8"
+"@babel/parser@^7.16.7", "@babel/parser@^7.17.3", "@babel/parser@^7.18.4", "@babel/parser@^7.7.0", "@babel/parser@^7.8.6":
+  "integrity" "sha512-DI4a1oZuf8wC+oAJA9RW6ga3Zbe8RZFt7kD9i4qAspz3I/yHet1VvC3DiSy/fsUvv5pvJuNPh0LPOdCcqinDPg=="
+  "resolved" "https://registry.npmmirror.com/@babel/parser/-/parser-7.20.15.tgz"
+  "version" "7.20.15"
 
 "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@^7.16.7":
   "integrity" "sha512-anv/DObl7waiGEnC24O9zqL0pSuI9hljihqiDuFHC8d7/bjr/4RLGPWuc8rYOff/QPzbEPSkzG8wGG9aDuhHRg=="
@@ -1869,6 +1864,15 @@
     "request" "^2.88.2"
     "semver" "^6.1.0"
     "strip-ansi" "^6.0.0"
+
+"@vue/compiler-sfc@2.7.14":
+  "integrity" "sha512-aNmNHyLPsw+sVvlQFQ2/8sjNuLtK54TC6cuKnVzAY93ks4ZBrvwQSnkkIh7bsbNhum5hJBS00wSDipQ937f5DA=="
+  "resolved" "https://registry.npmmirror.com/@vue/compiler-sfc/-/compiler-sfc-2.7.14.tgz"
+  "version" "2.7.14"
+  dependencies:
+    "@babel/parser" "^7.18.4"
+    "postcss" "^8.4.14"
+    "source-map" "^0.6.1"
 
 "@vue/component-compiler-utils@^3.1.0", "@vue/component-compiler-utils@^3.1.2":
   "integrity" "sha512-97sfH2mYNU+2PzGrmK2haqffDpVASuib9/w2/noxiFi31Z54hW+q3izKQXXQZSNhtiUpAI36uSuYepeBe4wpHQ=="
@@ -3782,6 +3786,11 @@
   dependencies:
     "css-tree" "^1.1.2"
 
+"csstype@^3.1.0":
+  "integrity" "sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw=="
+  "resolved" "https://registry.npmmirror.com/csstype/-/csstype-3.1.1.tgz"
+  "version" "3.1.1"
+
 "cyclist@^1.0.1":
   "integrity" "sha512-NJGVKPS81XejHcLhaLJS7plab0fK3slPh11mESeeDq2W4ZI5kUKK/LRRdVDvjJseojbPB7ZwjnyOybg3Igea/A=="
   "resolved" "https://registry.npmmirror.com/cyclist/-/cyclist-1.0.1.tgz"
@@ -4180,6 +4189,16 @@
     "readable-stream" "^2.0.0"
     "stream-shift" "^1.0.0"
 
+"e-icon-picker@^1.1.7":
+  "integrity" "sha512-pDQ9DxUEAFd1XDhuOt4dtb2ymHI1GHv9Qh1/AfbkFiz99vzbg8m9F2lLxmBd4m6d/nKqdJ/S0REwjcwCI+GWQA=="
+  "resolved" "https://registry.npmmirror.com/e-icon-picker/-/e-icon-picker-1.1.7.tgz"
+  "version" "1.1.7"
+  dependencies:
+    "element-ui" "^2.15.6"
+    "font-awesome" "^4.7.0"
+    "svg-sprite-loader" "^5.0.0"
+    "vue" "^2.6.14"
+
 "easy-stack@^1.0.1":
   "integrity" "sha512-wK2sCs4feiiJeFXn3zvY0p41mdU5VUgbgs1rNsc/y5ngFUijdWd+iIN8eoyuZHKB8xN6BL4PdWmzqFmxNg6V2w=="
   "resolved" "https://registry.npmmirror.com/easy-stack/-/easy-stack-1.0.1.tgz"
@@ -4220,7 +4239,7 @@
   "resolved" "https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.73.tgz"
   "version" "1.4.73"
 
-"element-ui@^2.15.9":
+"element-ui@^2.15.6", "element-ui@^2.15.9":
   "integrity" "sha512-dx45nQLt4Hn87/Z9eRr3ex6KFZbxlFAwEU3QoW3wA5EsYftvHTyL9Pq7VnXXD7hu1Eiaup2jcs6kp+/VSFmXuA=="
   "resolved" "https://registry.npmmirror.com/element-ui/-/element-ui-2.15.9.tgz"
   "version" "2.15.9"
@@ -7078,6 +7097,11 @@
   "resolved" "https://registry.npmmirror.com/nan/-/nan-2.15.0.tgz"
   "version" "2.15.0"
 
+"nanoid@^3.3.4":
+  "integrity" "sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw=="
+  "resolved" "https://registry.npmmirror.com/nanoid/-/nanoid-3.3.4.tgz"
+  "version" "3.3.4"
+
 "nanomatch@^1.2.1", "nanomatch@^1.2.9":
   "integrity" "sha512-fpoe2T0RbHwBTBUOftAfBPaDEi06ufaUai0mE6Yn1kacc3SnTErfb/h+X94VXzI64rKFHYImXSvdwGGCmwOqCA=="
   "resolved" "https://registry.npmmirror.com/nanomatch/-/nanomatch-1.2.13.tgz"
@@ -8181,6 +8205,15 @@
     "picocolors" "^0.2.1"
     "source-map" "^0.6.1"
 
+"postcss@^8.4.14":
+  "integrity" "sha512-tP7u/Sn/dVxK2NnruI4H9BG+x+Wxz6oeZ1cJ8P6G/PZY0IKk4k/63TDsQf2kQq3+qoJeLm2kIBUNlZe3zgb4Zg=="
+  "resolved" "https://registry.npmmirror.com/postcss/-/postcss-8.4.21.tgz"
+  "version" "8.4.21"
+  dependencies:
+    "nanoid" "^3.3.4"
+    "picocolors" "^1.0.0"
+    "source-map-js" "^1.0.2"
+
 "posthtml-parser@^0.2.0", "posthtml-parser@^0.2.1":
   "integrity" "sha512-nPC53YMqJnc/+1x4fRYFfm81KV2V+G9NZY+hTohpYg64Ay7NemWWcV4UWuy/SgMupqQ3kJ88M/iRfZmSnxT+pw=="
   "resolved" "https://registry.npmmirror.com/posthtml-parser/-/posthtml-parser-0.2.1.tgz"
@@ -9207,6 +9240,11 @@
   "resolved" "https://registry.npmmirror.com/source-list-map/-/source-list-map-2.0.1.tgz"
   "version" "2.0.1"
 
+"source-map-js@^1.0.2":
+  "integrity" "sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw=="
+  "resolved" "https://registry.npmmirror.com/source-map-js/-/source-map-js-1.0.2.tgz"
+  "version" "1.0.2"
+
 "source-map-resolve@^0.5.0":
   "integrity" "sha512-Htz+RnsXWk5+P2slx5Jh3Q66vhQj1Cllm0zvnaY98+NFx+Dv2CF/f5O/t8x+KaNdrdIAsruNzoh/KpialbqAnw=="
   "resolved" "https://registry.npmmirror.com/source-map-resolve/-/source-map-resolve-0.5.3.tgz"
@@ -9613,7 +9651,7 @@
     "query-string" "^4.3.2"
     "traverse" "^0.6.6"
 
-"svg-sprite-loader@^6.0.11":
+"svg-sprite-loader@^5.0.0", "svg-sprite-loader@^6.0.11":
   "integrity" "sha512-TedsTf8wsHH6HgdwKjUveDZRC6q5gPloYV8A8/zZaRWP929J7x6TzQ6MvZFl+YYDJuJ0Akyuu/vNVJ+fbPuYXg=="
   "resolved" "https://registry.npmmirror.com/svg-sprite-loader/-/svg-sprite-loader-6.0.11.tgz"
   "version" "6.0.11"
@@ -10306,10 +10344,13 @@
   "resolved" "https://registry.npmmirror.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@^2.6.11":
-  "integrity" "sha1-dllNh31LEiNEBuhONSdcbVFBJcU="
-  "resolved" "https://registry.npm.taobao.org/vue/download/vue-2.6.11.tgz?cache=0&sync_timestamp=1583528900332&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue%2Fdownload%2Fvue-2.6.11.tgz"
-  "version" "2.6.11"
+"vue@^2.6.11", "vue@^2.6.14":
+  "integrity" "sha512-b2qkFyOM0kwqWFuQmgd4o+uHGU7T+2z3T+WQp8UBjADfEv2n4FEMffzBmCKNP0IGzOEEfYjvtcC62xaSKeQDrQ=="
+  "resolved" "https://registry.npmmirror.com/vue/-/vue-2.7.14.tgz"
+  "version" "2.7.14"
+  dependencies:
+    "@vue/compiler-sfc" "2.7.14"
+    "csstype" "^3.1.0"
 
 "vuex@^3.1.2":
   "integrity" "sha1-8q1z4/tzaRaYs4yT9m5Y4meUcYA="

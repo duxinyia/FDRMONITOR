@@ -30,7 +30,7 @@ export let getDateCodeOutputInfo = (params = {}) => {
 
 // 3. 获取中间统计区域的和饼图的数据
 export let getYearOutputInfoCollection = (params = {}) => {
-  let { PlantID = "8S01", ProductArea = "EOL", Year = `${moment().format("YYYY") - 1}` } = params
+  let { PlantID = "8S01", ProductArea = "EOL", Year = `${moment().format("YYYY")}` } = params
   return $get(
     `api/MESOutPut/GetYearOutputInfoCollection?PlantID=${PlantID}&ProductArea=${ProductArea}&Year=${Year}`
   )

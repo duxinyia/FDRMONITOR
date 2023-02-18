@@ -70,13 +70,9 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("fullLoading/SET_TITLE", "產出可視化平台")
-    this.$store.commit("fullLoading/SET_FULLLOADING", true)
+    this.$store.commit("fullLoading/SET_TITLE", "年度產出總覽")
+    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
-    // 每5分钟获取一次数据
-    // this.dataTiming = setInterval(() => {
-    //   this.initData()
-    // }, this.$globalData.CYCLE_TIME)
   },
   methods: {
     // 获取数据
@@ -90,7 +86,7 @@ export default {
         this.getDateCodeOutputInfo1()
       ]
       await Promise.all(requestArr)
-      this.$store.commit("fullLoading/SET_FULLLOADING", false)
+      // this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
     // 获取左上的数据
     async getYearOutputInfo() {
@@ -165,7 +161,7 @@ export default {
         this.leftScrollData.push([code, owner, targetOut, output, delta, hitRate])
       })
     },
-    // 获取左右下的数据
+    // 获取右下的数据
     async getDateCodeOutputInfo1() {
       let res = await getDateCodeOutputInfo({ DateTag: "month" })
       console.log("获取右下的数据", res)
@@ -173,7 +169,6 @@ export default {
       try {
         res.forEach((item) => {
           let { owner, targetOut, output, delta, hitRate = "-", dateCode } = item
-          // console.log("hitRate", hitRate)
           let code = dateCode.split("-")[1]
           this.rightScrollData.push([code, owner, targetOut, output, delta, hitRate])
         })

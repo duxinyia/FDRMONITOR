@@ -18,6 +18,7 @@
     "axios": "^0.26.0",
     "core-js": "^3.6.4",
     "dayjs": "^1.11.5",
+    "e-icon-picker": "^1.1.7",
     "echarts": "^4.6.0",
     "echarts-liquidfill": "^3.1.0",
     "element-ui": "^2.15.9",
@@ -31,6 +32,7 @@
     "nprogress": "^0.2.0",
     "os": "^0.1.2",
     "screenfull": "^4.2.0",
+    "svg-sprite-loader": "^6.0.11",
     "vue": "^2.6.11",
     "vue-awesome": "^4.0.2",
     "vue-count-to": "^1.0.13",
@@ -63,8 +65,7 @@
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
     "style-resources-loader": "^1.5.0",
-    "svg-sprite-loader": "^6.0.11",
-    "vue-template-compiler": "^2.6.11",
+    "vue-template-compiler": "latest",
     "webpack-bundle-analyzer": "^4.6.1"
   },
   "eslintConfig": {

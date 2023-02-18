@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <dv-border-box-10 :color="changeBoxColor">
-      <p class="title">{{ device.customName }}</p>
+      <p class="title">{{ showTitle.customName }}</p>
       <div class="container">
         <div class="left">
           <span class="every-num" v-for="(item, index) in getShowArr" :key="index">{{ item }}</span>
@@ -38,9 +38,11 @@
                     <!-- <span class="rate" v-if="folChecked">{{
                       item.values.FOL.hitRate | filterRate
                     }}</span>-->
-                    <span class="rate" @click.stop="textClick" v-if="folChecked">{{
+                    <span class="rate" @click.stop="textClick" v-if="folChecked">
+                      {{
                       item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%"
-                    }}</span>
+                      }}
+                    </span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
                   </div>
@@ -73,9 +75,11 @@
                     <!-- <span class="rate" v-if="eolChecked">{{
                       item.values.EOL.hitRate | filterRate
                     }}</span>-->
-                    <span class="rate" @click.stop="textClick" v-if="eolChecked">{{
+                    <span class="rate" @click.stop="textClick" v-if="eolChecked">
+                      {{
                       item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%"
-                    }}</span>
+                      }}
+                    </span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
                   </div>
@@ -94,6 +98,10 @@
 export default {
   name: "container",
   props: {
+    showTitle: {
+      type: String,
+      default: ""
+    },
     device: {
       type: Object,
       default: () => ({})

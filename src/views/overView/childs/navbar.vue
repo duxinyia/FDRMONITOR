@@ -3,7 +3,7 @@
     <div class="header-left">
       <i
         class="flod"
-        style="display:none"
+        style="display: none"
         :class="menuFold ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
         @click="changeMenuState"
       ></i>
@@ -121,7 +121,7 @@ export default {
   background: var(--overview-head-bg);
   box-shadow: 0px 1px #ddd;
   box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-  padding: 0 10px;
+  padding: 0 20px;
   .header-left {
     display: flex;
     align-items: center;

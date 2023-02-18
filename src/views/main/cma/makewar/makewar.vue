@@ -1,6 +1,8 @@
 <script>
 // 导入发送请求的函函數
-import { GetProductInfo } from "@/api/makewar.js"
+import { GetProductInfo, GetOutputInfoStatics, GetDeviceInfo } from "@/api/makewar.js"
+// 获取标题的接口
+import { GetStationName } from "@/api/output2.js"
 // 导入子组件
 import container from "./cpns/container.vue"
 export default {
@@ -13,6 +15,7 @@ export default {
       eolChecked: true,
       folChecked: true,
       configArr: [],
+      titles: [],
       outPutInfoDetails: [],
       maxOutput: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       maxTargetOut: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -24,16 +27,58 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("fullLoading/SET_TITLE", "製造戰情中心")
+    this.$store.commit("fullLoading/SET_TITLE", "每日產出看板")
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
-    this.initData()
+    // 获取上方的数据
+    GetOutputInfoStatics().then((res) => {
+      console.log("res", res)
+      this.configArr = [[res[0]], [res[1]]]
+    })
+    // 获取标题
+    GetStationName().then((res) => {
+      console.log("GetStationName", res)
+      this.titles = res
+      res.forEach((item, index) => {
+        GetDeviceInfo(item.deviceNo).then((r) => {
+          console.log("r", r)
+          this.$set(this.outPutInfoDetails, index, r)
+          // 找到最大值
+          // res.outPutInfoDetails.forEach((item, index) => {
+          // let tempMax = 0
+          r.dateValues.forEach((childItem) => {
+            // childItem.values.EOL.output  取出的是 output 的最大值
+            if (childItem.values.EOL.output > this.maxOutput[index]) {
+              this.maxOutput[index] = childItem.values.EOL.output
+            }
+            // childItem.values.FOL.output
+            if (childItem.values.FOL.output > this.maxOutput[index]) {
+              this.maxOutput[index] = childItem.values.FOL.output
+            }
+
+            // childItem.values.EOL.output  取出的是 output 的最大值
+            if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
+              this.maxTargetOut[index] = childItem.values.EOL.targetOut
+            }
+            // childItem.values.FOL.output
+            if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
+              this.maxTargetOut[index] = childItem.values.FOL.targetOut
+            }
+          })
+          // })
+        })
+      })
+      this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    })
+
+    // this.initData()
   },
   methods: {
     async initData() {
       let requestArr = [this.GetProductInfo()]
       await Promise.all(requestArr)
-      this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
+    // 获取上方的数据
+
     // 获取数据
     async GetProductInfo() {
       let res = await GetProductInfo()
@@ -41,8 +86,9 @@ export default {
         res.hitStatistics.forEach((item) => {
           item.hitRate = parseInt(item.hitRate) + "%"
         })
+        console.log("原先的数据为:", res)
         // 上方数据
-        this.configArr = [[res.hitStatistics[0]], [res.hitStatistics[1]]]
+        // this.configArr = [[res.hitStatistics[0]], [res.hitStatistics[1]]]
         // 下方数据
         this.outPutInfoDetails = res.outPutInfoDetails
         // 找到最大值
@@ -94,12 +140,7 @@ export default {
               <el-table-column align="center" prop="totalCount" label="計畫"></el-table-column>
               <el-table-column align="center" prop="hitCount" label="達成機種"></el-table-column>
               <el-table-column align="center" prop="notHitCount" label="未達成"></el-table-column>
-              <el-table-column
-                align="center"
-                width="100"
-                prop="hitRate"
-                label="達成率"
-              ></el-table-column>
+              <el-table-column align="center" width="100" prop="hitRate" label="達成率"></el-table-column>
             </el-table>
           </div>
         </dv-border-box-10>
@@ -128,7 +169,7 @@ export default {
     <!-- 下面的区域 -->
     <dv-border-box-13 :color="changeBoxColor" :key="Date.now()">
       <div class="table-chart">
-        <container
+        <!-- <container
           v-for="(item, index) in outPutInfoDetails"
           :eolChecked="eolChecked"
           :folChecked="folChecked"
@@ -137,6 +178,17 @@ export default {
           :key="index + index"
           :maxOutput="maxOutput[index]"
           :maxTargetOut="maxTargetOut[index]"
+        />-->
+        <container
+          v-for="(showTitle, index) in titles"
+          :eolChecked="eolChecked"
+          :folChecked="folChecked"
+          :device="outPutInfoDetails[index].device"
+          :dateValues="outPutInfoDetails[index].dateValues"
+          :key="index + index"
+          :maxOutput="maxOutput[index]"
+          :maxTargetOut="maxTargetOut[index]"
+          :showTitle="showTitle"
         />
       </div>
     </dv-border-box-13>
@@ -188,6 +240,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   margin: 25px 0;
+  /* height: 80px; */
   .container {
     &:first-child {
       margin-right: 40px;

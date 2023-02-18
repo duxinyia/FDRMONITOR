@@ -15,23 +15,18 @@ export default {
     baseEchart
   },
   props: ["seriesData"],
-  data() {
-    return {
-      // color: [
-      //   "rgba(220, 145, 255, 1)",
-      //   "rgba(245, 154, 108, 1)",
-      //   "rgba(139, 111, 255, 1)",
-      //   "rgba(120, 187, 255, 1)",
-      //   "rgba(124, 168, 255, 1)"
-      // ]
-    }
-  },
   computed: {
     options() {
       let { seriesData } = this
+      let legend = []
+      seriesData.forEach((item) => {
+        console.log("item", item)
+        legend.push(item.name)
+      })
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       return {
+        // color: ["#fc8251", "#5470c6", "#91cd77", "#ef6567", "#f9c956", "#75bedc"],
         color: [
           "#5ad2fa",
           "#b989f0",
@@ -53,34 +48,32 @@ export default {
         },
         legend: [
           {
-            orient: "vertical",
-            left: "74%",
             align: "auto",
-            top: "5%",
+            orient: "vertical",
+            icon: "square",
+            left: "right",
+            top: "center",
             itemWidth: 20, // 图例图形宽度
             itemHeight: 16,
             itemGap: 20,
             textStyle: {
-              color: themeColor,
-              align: "left",
-              verticalAlign: "middle",
-              rich: {
-                name: {
-                  color: themeColor,
-                  fontSize: 16,
-                  width: 100,
-                  padding: [0, 0, 0, 10]
-                },
-                value: {
-                  color: themeColor,
-                  fontSize: 18,
-                  fontFamily: "DIN",
-                  fontWeight: 500
-                }
-              }
-            },
-            x: "left"
+              color: "#fff"
+            }
+            // data: legend
           }
+          // {
+          //   orient: "vertical",
+          //   icon: "square",
+          //   left: "right",
+          //   top: "center",
+          //   itemWidth: 20, // 图例图形宽度
+          //   itemHeight: 16,
+          //   itemGap: 20,
+          //   textStyle: {
+          //     color: "#fff",
+          //     padding: [0, -100, 0, -60]
+          //   }
+          // }
         ],
         tooltip: {
           show: true

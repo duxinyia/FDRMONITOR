@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <!-- <e-icon-picker v-model="icon" style="width:500px" /> -->
     <div class="wrapper">
       <div class="text">404</div>
       <el-button type="success" @click="goBack" plain>返回</el-button>
@@ -9,6 +10,11 @@
 <script>
 export default {
   name: "notFound",
+  data() {
+    return {
+      icon: ""
+    }
+  },
   methods: {
     goBack() {
       this.$router.go(-1)

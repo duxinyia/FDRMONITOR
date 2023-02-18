@@ -53,11 +53,7 @@
         <span
           class="location"
           @click="toLocation"
-        >
-          {{
-          port == "8085" ? "正式地址" : "测试地址"
-          }}
-        </span>
+        >{{ port == "8085" ? "正式地址" : "测试地址" }}</span>
       </div>
       <div class="author-info">
         <div>
@@ -91,9 +87,9 @@ export default {
       btnLoading: false,
       port: window.location.port,
       left_logo: require("@/assets/images/left_logo.png"),
-      center_logo: require("@/assets/images/RP_logo_blue.png"),
+      center_logo: require("@/assets/images/new_logo.png"),
       right_logo: require("@/assets/images/right_logo.png"),
-      left_img: require("@/assets/images/left-img.png"),
+      left_img: require("@/assets/images/_left_img.png"),
       form: {
         name: "",
         paw: ""
@@ -186,17 +182,17 @@ export default {
   justify-content: center;
   align-items: center;
   /* position: relative; */
-  background: url("~@/assets/images/login-bg6.png") no-repeat center center;
+  background: url("~@/assets/images/login-bg7.png") no-repeat center center;
   background-size: 100% 100%;
   .top-container {
     position: fixed;
-    top: 50px;
+    top: 60px;
     display: flex;
     align-items: center;
     vertical-align: middle;
     .center_logo {
       width: 320px;
-      padding: 0 10px;
+      padding: 0 20px;
       margin-bottom: 10px;
     }
   }
@@ -224,7 +220,7 @@ export default {
       border-radius: 0px 9px 9px 0px;
       text-align: center;
       color: #fff;
-      background: linear-gradient(-38deg, #3e86fa, #005aeb);
+      background: linear-gradient(0deg, #003973, #64b3f4);
       .form-title {
         font-size: 26px;
         font-weight: 700;

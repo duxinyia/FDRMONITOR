@@ -68,10 +68,10 @@ export default {
       screenArr: [
         { id: 1, name: "AA設備總覽", path: "aa" },
         { id: 2, name: "FOL設備總覽", path: "fol" },
-        { id: 3, name: "產出可視化平台", path: "output" },
-        { id: 4, name: "九宮格產出看板", path: "output2" },
-        { id: 5, name: "製造層", path: "make" },
-        { id: 6, name: "製造戰情中心", path: "makewar" }
+        { id: 3, name: "年度產出總覽", path: "output" },
+        { id: 4, name: "By站位產出看板", path: "output2" },
+        { id: 5, name: "By時段產出看板", path: "make" },
+        { id: 6, name: "每日產出看板", path: "makewar" }
       ],
       imgUrl: cache.getCache("bgUrl")
         ? cache.getCache("bgUrl").bg

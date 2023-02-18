@@ -17,7 +17,12 @@
           </el-input>
         </el-form-item>
         <el-form-item prop="paw">
-          <el-input class="password" placeholder="密碼" show-password v-model.trim="form.paw"></el-input>
+          <el-input
+            class="password"
+            placeholder="密碼"
+            show-password
+            v-model.trim="form.paw"
+          ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -27,7 +32,8 @@
             @click="toLogin"
             :loading="btnLoading"
             :disabled="btnLoading"
-          >{{ btnLoading ? "登录中~" : "登录" }}</el-button>
+            >{{ btnLoading ? "登录中~" : "登录" }}</el-button
+          >
         </el-form-item>
         <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
       </el-form>
@@ -37,27 +43,18 @@
       <div class="copyright">
         <i class="el-icon-collection-tag icon"></i>
         Copyright © 2022. Foxconn All rights reserved
-        <span
-          class="location"
-          @click="toLocation"
-        >
-          {{
-          port == "8085" ? "正式地址" : "测试地址"
-          }}
+        <span class="location" @click="toLocation">
+          {{ port == "8085" ? "正式地址" : "测试地址" }}
         </span>
       </div>
       <div class="author-info">
         <div>
-          <span class="author">
-            <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227
-          </span>
+          <span class="author"> <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227 </span>
           <span class="mail">
             <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
           </span>
           &nbsp;&nbsp;
-          <span class="author">
-            <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123
-          </span>
+          <span class="author"> <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123 </span>
           <span class="mail">
             <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
           </span>

@@ -177,8 +177,8 @@ export default {
         },
         yAxis: [
           {
-            //min: (value) => Math.ceil(value.min), // 指定最小值
-            // max: (value) => Math.floor(value.max), // 指定最大值
+            min: (value) => Math.ceil(value.min), // 指定最小值
+            max: (value) => Math.floor(value.max) + 1000, // 指定最大值
             axisLabel: {
               // color: "#EEEEEE",
               color: themeColor,

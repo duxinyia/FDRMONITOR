@@ -1,7 +1,7 @@
 <template>
   <el-container class="overview">
     <!-- 侧边栏 -->
-    <el-aside :width="menuFold ? '65px' : '250px'" class="aside-container">
+    <el-aside :width="menuFold ? '65px' : '235px'" class="aside-container">
       <div class="top-title">
         <el-image class="logo" :src="changeLogo" fit="fill" />
         <h2 class="name" v-show="!menuFold">RAYPRUS</h2>
@@ -10,14 +10,13 @@
     </el-aside>
     <el-container class="right-container">
       <navbar :menuFold.sync="menuFold" />
-      <!-- 面包屑组件 -->
       <div class="bread-container">
         <router-link
-          v-for="(tag,index) in this.$store.state.fullLoading.tags"
+          v-for="(tag, index) in this.$store.state.fullLoading.tags"
           ref="tag"
           :key="tag.path"
-          :class="isActive(tag)?'active':''"
-          :to="{ path: tag.path}"
+          :class="isActive(tag) ? 'active' : ''"
+          :to="{ path: tag.path }"
           tag="span"
           class="tags-view-item"
           :style="activeStyle(tag)"
@@ -26,7 +25,7 @@
           <span
             v-if="!isActive(tag)"
             class="el-icon-close"
-            @click.prevent.stop="closeSelectedTag(tag,index)"
+            @click.prevent.stop="closeSelectedTag(tag, index)"
           />
         </router-link>
       </div>
@@ -36,8 +35,8 @@
             appear
             mode="out-in"
             :duration="1000"
-            enter-active-class="animate__animated animate__fadeInRight"
-            leave-active-class="animate__animated animate__backOutRight"
+            enter-active-class="animate__animated animate__fadeInLeftBig"
+            leave-active-class="animate__animated animate__fadeOutRight"
           >
             <router-view :key="key" />
           </transition>
@@ -61,6 +60,7 @@ export default {
   },
   data() {
     return {
+      icon: "",
       menuFold: false,
       theme: this.$store.getters.theme || "dark",
       // menus,
@@ -84,7 +84,7 @@ export default {
     activeStyle(tag) {
       if (!this.isActive(tag)) return {}
       return {
-        "background-color": "#409eff"
+        "background-color": "#304156"
       }
     },
     isAffix(tag) {
@@ -97,13 +97,10 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
 .active {
   background: rgba(87, 200, 249, 0.6);
 }
-
-
 .tags-view-item {
   display: inline-block;
   position: relative;
@@ -117,9 +114,6 @@ export default {
   font-size: 12px;
   margin-right: 8px;
   margin-top: 4px;
-  /* &:first-of-type {
-    margin-left: 15px;
-  } */
   &:last-of-type {
     margin-right: 15px;
   }
@@ -141,9 +135,6 @@ export default {
 }
 // 外层容器
 .overview {
-  /* position: fixed;
-  top: 0;
-  left: 0; */
   width: 100%;
   height: 100%;
   // 侧边栏
@@ -155,14 +146,15 @@ export default {
     scrollbar-width: none; /* firefox */
     -ms-overflow-style: none; /* IE 10+ */
     background: #304156;
-    box-shadow: 5px -6px 7px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 5px 3px 7px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 0px 0px 10px 10px;
     .top-title {
       height: 88px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       &::after {
         content: "";
         position: absolute;
@@ -196,7 +188,7 @@ export default {
     flex-direction: column;
     background: #eaedf0;
     .bread-container {
-      padding-left: 10px;
+      padding-left: 20px;
       height: 40px;
       background: #fff;
       line-height: 40px;
@@ -204,27 +196,16 @@ export default {
     }
     .main-container {
       width: 100%;
+      padding: 8px 15px 15px 15px;
       .container {
         width: 100%;
         height: 100%;
-        padding: 20px;
-        background: url("~@/assets/images/overview-bg.png");
+        border-radius: 10px;
+        padding: 30px 40px 20px 40px;
+        background: url("~@/assets/images/overview-bg1.png");
         background-size: 100% 100%;
         overflow: auto;
       }
-      /* background: url("~@/assets/images/overview-bg.png") no-repeat center center; */
-      /* width: 100%;
-      overflow: auto;
-      position: relative;
-      padding: 0px;
-      margin: 20px;
-      padding-right: 20px;
-      padding-left: 30px;
-      padding-top: 20px;
-      background: url("~@/assets/images/overview-bg.png") no-repeat center center;
-      background-size: 84.8958vw 100%;
-      transform: translateX(-20px);
-      background-clip: padding-box; */
     }
   }
 }

@@ -5,10 +5,10 @@
     active-text-color="#fff"
     background-color="transparent"
     :collapse="false"
-    router
+    unique-opened
     :default-active="$route.path"
   >
-    <template v-for="(item,i) in menus">
+    <template v-for="item in menus">
       <template v-if="item.subs">
         <el-submenu
           :index="item.index"
@@ -18,7 +18,7 @@
         >
           <template slot="title">
             <i :class="item.icon"></i>
-            <span slot="title">{{ item.title }}{{i}}</span>
+            <span slot="title">{{ item.title }}</span>
           </template>
           <template v-for="subItem in item.subs">
             <template v-if="subItem.subs">
@@ -26,10 +26,11 @@
                 :index="subItem.index"
                 :key="subItem.title"
                 @click.native.stop="itemClick(subItem)"
+                class="one-item"
               >
                 <template slot="title">
                   <i :class="subItem.icon"></i>
-                  <span slot="title">{{ subItem.title }}55</span>
+                  <span slot="title">{{ subItem.title }}</span>
                 </template>
                 <template v-for="subItem2 in subItem.subs">
                   <template v-if="subItem2.subs">
@@ -37,10 +38,11 @@
                       :index="subItem2.index"
                       :key="subItem2.title"
                       @click.native.stop="itemClick(subItem2)"
+                      class="two-item"
                     >
                       <template slot="title">
                         <i :class="subItem2.icon"></i>
-                        <span slot="title">{{ subItem2.title }}2892</span>
+                        <span slot="title">{{ subItem2.title }}</span>
                       </template>
                       <template v-for="subItem3 in subItem2.subs">
                         <template v-if="subItem3.subs">
@@ -71,7 +73,7 @@
                           @click.native.stop="itemClick(subItem3)"
                         >
                           <i :class="subItem3.icon"></i>
-                          <span slot="title">{{ subItem3.title }}88</span>
+                          <span slot="title">{{ subItem3.title }}</span>
                         </el-menu-item>
                       </template>
                     </el-submenu>
@@ -83,7 +85,7 @@
                     @click.native.stop="itemClick(subItem2)"
                   >
                     <i :class="subItem2.icon"></i>
-                    <span slot="title">{{ subItem2.title }}99</span>
+                    <span slot="title">{{ subItem2.title }}</span>
                   </el-menu-item>
                 </template>
               </el-submenu>
@@ -123,6 +125,9 @@ export default {
   methods: {
     itemClick(item) {
       console.log("item", item)
+      if (["產出", "良率", "設備", "製程監控"].includes(item.title)) {
+        this.$router.push(item.index)
+      }
       let path = this.$route.path
       if (!this.$store.state.fullLoading.tags.find((tag) => tag.path == item.index) && !item.subs) {
         this.$store.commit("fullLoading/SET_TAG", { title: item.title, path: item.index })
@@ -133,66 +138,104 @@ export default {
 }
 </script>
 <style lang="scss">
-.one-menu > div {
-  background: #fff !important;
-  color: #000 !important;
-  width: 90%;
+.one-menu > .el-submenu__title {
+  background: linear-gradient(90deg, #21aebe91 0%, #3357caf5 68.63%, #353cb8 100%);
+  width: 85%;
+  height: 38px;
+  line-height: 38px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 15px;
+  position: relative;
+  i {
+    color: #fff !important;
+  }
+  &::after {
+    background: transparent !important;
+  }
+}
+.one-menu > ul {
   position: relative;
   &::after {
     content: "";
     display: inline-block;
     position: absolute;
-    bottom: 0px;
-    right: 0px;
+    top: -11px;
+    right: 13px;
     width: 50px;
     height: 20px;
-    background: url("~@/assets/images/triangle.png") no-repeat center center;
-  }
-  i {
-    color: #000 !important;
+    z-index: 10;
+    background: url("~@/assets/images/new_triangle.png") no-repeat center center;
   }
 }
-/* .one-menu {
-  div {
-    background: red !important;
-  }
-} */
-</style>
 
-<style lang="scss" scoped>
-i {
-  color: #fff;
-}
-::v-deep .el-submenu__icon-arrow {
-  color: #fff;
-}
 .one-menu {
-  &:first-child {
-    margin-bottom: 20px;
+  .el-menu {
+    background: #2a4c73 !important;
   }
 }
-/* .el-menu {
-  height: 94%;
-  overflow: auto;
-} */
-/* .one-menu + .el-submenu__title {
-  background: #1f5997 !important;
-} */
-::v-deep .el-submenu__title {
-  /* background: #fff !important; */
-  border-radius: 20px;
-  height: 40px;
-  line-height: 40px;
+.one-item {
+  .el-menu--inline {
+    /* background: #001a33 !important;
+     */
+    /* background: #113763 !important;
+    box-shadow: inset 0px 3px 4px 0px rgba(0, 0, 0, 0.25); */
+    background: #113763 !important;
+    box-shadow: inset 0px 4px 5px 0px hsl(0, 0%, 0%, 0.25);
+  }
+  .el-submenu__title {
+    border-radius: 0 !important;
+    height: 50px !important;
+    line-height: 50px !important;
+    &:hover {
+      /* border-radius: 0; */
+      box-sizing: border-box;
+      color: #fff !important; // 菜单#1f5997
+      background: #002c5e !important;
+      /* border: 1px solid #3766f4; */
+    }
+  }
 }
-.el-menu-item:hover {
-  color: #ccc !important; // 菜单
-  background: #1f5997 !important;
+
+.two-item {
+  .el-menu--inline {
+    /* background: #00101f !important; */
+    /* background: rgb(0, 26, 51) !important;
+    box-shadow: inset 0px 3px 4px 0px rgb(0, 0, 0); */
+    background: #002445 !important;
+    box-shadow: inset 0px 3px 5px 0px hsl(0, 0%, 0%);
+  }
 }
+
 .el-menu-item {
+  transition: 0.2s;
   position: relative;
+  z-index: 100;
+  &:hover {
+    box-sizing: border-box;
+    color: #fff !important; // 菜单#1f5997
+    background: #022b52 !important;
+    /* border: 1px solid #3766f4; */
+    transform: scale(1.1);
+  }
+  /* &:first-child {
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 0px;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.01),
+        rgba(42, 130, 228, 1) 51.39%,
+        rgba(255, 255, 255, 0.01) 100%
+      );
+    }
+  } */
   &::after {
     content: "";
     position: absolute;
@@ -203,16 +246,71 @@ i {
     height: 2px;
     background: linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 50%,
-      rgba(255, 255, 255, 0) 100%
+      rgba(255, 255, 255, 0.01),
+      rgba(42, 130, 228, 1) 51.39%,
+      rgba(255, 255, 255, 0.01) 100%
     );
   }
 }
+.el-submenu__title {
+  transition: 0.2s;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 0px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.01),
+      rgba(42, 130, 228, 1) 51.39%,
+      rgba(255, 255, 255, 0.01) 100%
+    );
+  }
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+i {
+  color: #fff;
+}
+::v-deep .el-submenu__icon-arrow {
+  color: #fff;
+}
+.one-menu {
+  margin-bottom: 24px;
+}
+::v-deep .el-submenu__title {
+  border-radius: 20px;
+  height: 40px;
+  line-height: 40px;
+  z-index: 100;
+  /* &:hover {
+    border-radius: 0;
+    box-sizing: border-box;
+    color: #fff !important; // 菜单#1f5997
+    background: #304f78 !important;
+    border: 1px solid #3766f4;
+  } */
+}
+/* .el-menu-item:hover {
+  box-sizing: border-box;
+  color: #fff !important; // 菜单#1f5997
+  background: #022b52 !important;
+  border: 1px solid #3766f4;
+  transform: scale(1.2);
+} */
+
 .el-menu-item.is-active {
   color: var(--menu-item-active) !important;
   font-weight: bold;
   background: var(--menu-item-active-bg) !important;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 }
 .el-menu-vertical {
   border-right: 0;

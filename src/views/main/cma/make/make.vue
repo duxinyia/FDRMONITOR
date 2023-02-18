@@ -66,18 +66,8 @@
             ></el-table-column>
             <el-table-column align="center" prop="targetOut" label="計劃"></el-table-column>
             <el-table-column align="center" prop="inPut" label="實際"></el-table-column>
-            <el-table-column
-              align="center"
-              prop="hitRate"
-              width="100px"
-              label="達成率"
-            ></el-table-column>
-            <el-table-column
-              align="center"
-              prop="processYield"
-              width="100px"
-              label="良率"
-            ></el-table-column>
+            <el-table-column align="center" prop="hitRate" width="100px" label="達成率"></el-table-column>
+            <el-table-column align="center" prop="processYield" width="100px" label="良率"></el-table-column>
             <el-table-column align="center" prop="wip" label="WIP"></el-table-column>
             <el-table-column align="center" prop="maxWip" label="上限"></el-table-column>
             <el-table-column align="center" prop="minWip" label="下限"></el-table-column>
@@ -145,7 +135,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("fullLoading/SET_TITLE", "製造層")
+    this.$store.commit("fullLoading/SET_TITLE", "By時段產出看板")
     console.log(this.$route)
     this.GetRunningInfo(this.$route.params)
     let { customName, ProductArea } = this.$route.params
@@ -232,6 +222,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-col-10 {
+  height: 925px !important;
+  overflow: auto;
+}
 //整个table的背景颜色
 ::v-deep .el-table {
   font-size: 15px !important;

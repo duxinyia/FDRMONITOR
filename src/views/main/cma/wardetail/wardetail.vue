@@ -141,7 +141,7 @@ export default {
     }
   },
   mounted() {
-    // this.$store.commit("fullLoading/SET_TITLE", "製造戰情中心")
+    // this.$store.commit("fullLoading/SET_TITLE", "每日產出看板")
     // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     // this.initData()
   }

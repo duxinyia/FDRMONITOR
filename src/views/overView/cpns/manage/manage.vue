@@ -2,7 +2,6 @@
   <div class="manage-container">
     <div class="title-container">
       <span class="title">{{ showDiv1[0].belong }}</span>
-      <!-- <el-image class="title-icon" :src="titleIcon" fit="cover"></el-image> -->
     </div>
     <div class="project-container">
       <div
@@ -22,13 +21,9 @@
 import { changeCmaConfig } from "@/assets/data"
 export default {
   name: "manage",
-  data() {
-    return {
-      // titleIcon: require("@/assets/images/title-icon.png")
-    }
-  },
   computed: {
     showDiv1() {
+      console.log("this.$route.params", this.$route.params)
       let { type } = this.$route.params
       let theme = this.$store.getters.theme
       return changeCmaConfig(theme).get(type)
@@ -41,7 +36,6 @@ export default {
         window.open(to)
       } else {
         let path = this.$route.path
-        // this.$router.push({ name: to, query: { belong: target } })
         this.$router.push({ name: to })
         this.$store.commit("fullLoading/SET_PATH", path)
       }
@@ -52,10 +46,7 @@ export default {
 <style lang="scss" scoped>
 .manage-container {
   width: 100%;
-  /* position: absolute; */
-  /* padding-right: 20px; */
-  /* gap: 20px; */
-  /* z-index: 999; */
+  height: 100%;
   .title-container {
     display: flex;
     align-items: center;
@@ -73,32 +64,19 @@ export default {
         background: var(--cma-title);
       }
     }
-    /* .title-icon {
-      width: 126px;
-      height: 48px;
-    } */
   }
   .project-container {
     display: grid;
     grid-template-rows: repeat(4, 1fr);
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    /* justify-content: center; */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 50px 30px;
     align-content: center;
-    /* display: flex;
-    flex-wrap: wrap; */
-    padding-right: 20px;
     .container {
-      width: 300px;
-      height: 200px;
-      /* width: 15.625vw;
-      height: 10.4167vw; */
+      height: 180px;
       cursor: pointer;
       border: 1px solid var(--cma-container-border);
       position: relative;
       overflow: hidden;
-      /* margin-right: 80px;
-      margin-bottom: 80px; */
       border-radius: 5px;
       overflow: hidden;
       box-shadow: 0px 0px 15px var(--cma-box-shadow);
@@ -118,8 +96,6 @@ export default {
         text-align: center;
         line-height: 35px;
         background: rgba(204, 204, 204, 0.7);
-        /* background: rgba(0, 0, 0, 0.8); */
-        /* color: rgba(255, 255, 255, 0.8); */
         color: #fff;
         position: absolute;
         bottom: 0;
