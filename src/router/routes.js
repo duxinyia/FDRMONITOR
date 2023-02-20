@@ -107,14 +107,11 @@ export default [
       //   ]
       // },
 
-
       // 关于页面
       {
-        path: 'about',
+        path: "about",
         component: () =>
-          import(
-          /* webpackChunkName: "overview/about" */ "../views/overView/cpns/about/about.vue"
-          ),
+          import(/* webpackChunkName: "overview/about" */ "../views/overView/cpns/about/about.vue")
       }
     ]
   },

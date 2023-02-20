@@ -558,5 +558,5 @@ export default [
         index: "/overview/about"
       }
     ]
-  },
+  }
 ]

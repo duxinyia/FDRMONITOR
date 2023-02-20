@@ -5,7 +5,7 @@
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
   >
-    <p class="title">{{itemTitle.customName}}</p>
+    <p class="title">{{ itemTitle.customName }}</p>
     <el-row :gutter="6" class="headers">
       <el-col :span="3">WIP</el-col>
       <el-col :span="3" :offset="12">IO</el-col>

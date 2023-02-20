@@ -13,8 +13,16 @@ export let GetProductInfo = () =>
   )
 
 // 2-18新的接口 获取上方的数据
-export let GetOutputInfoStatics = () => $post(`api/MESOutPut/GetProductAreaDailyOutputInfoStatics?PlantID=8S01&ProductArea=ALL&DateTag=ALL&${getTime()}`)
+export let GetOutputInfoStatics = () =>
+  $post(
+    `api/MESOutPut/GetProductAreaDailyOutputInfoStatics?PlantID=8S01&ProductArea=ALL&DateTag=ALL&${getTime()}`
+  )
 
 // 获取各个机台的信息
-export let GetDeviceInfo = (device) => $post(`api/MESOutPut/GetDeviceProductAreaDailyOutputInfo?PlantID=8S01&ProductArea=ALL&DeviceNo=${device}&${getTimeAgo(48, true)}`)
-
+export let GetDeviceInfo = (device) =>
+  $post(
+    `api/MESOutPut/GetDeviceProductAreaDailyOutputInfo?PlantID=8S01&ProductArea=ALL&DeviceNo=${device}&${getTimeAgo(
+      48,
+      true
+    )}`
+  )
