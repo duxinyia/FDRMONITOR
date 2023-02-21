@@ -3,7 +3,7 @@
     class="machine"
     v-loading="loading"
     element-loading-spinner="el-icon-loading"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
+    element-loading-background="rgba(0, 0, 0, 1)"
   >
     <p class="title">{{ itemTitle.customName }}</p>
     <el-row :gutter="6" class="headers">
@@ -76,7 +76,7 @@ export default {
   },
   watch: {
     showData: {
-      handler(newValue) {
+      handler() {
         this.loading = false
       }
     }

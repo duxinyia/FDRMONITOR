@@ -29,9 +29,19 @@ export default {
       default: () => []
     }
   },
+  // data() {
+  //   return {
+  //     loading: true
+  //   }
+  // },
   components: {
     baseEchart
   },
+  // watch: {
+  //   targetOuts() {
+  //     this.loading = true
+  //   }
+  // },
   computed: {
     options() {
       // 设置变量

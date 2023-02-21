@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     itemClick(item) {
-      console.log("item", item)
+      // console.log("item", item)
       if (["產出", "良率", "設備", "製程監控"].includes(item.title)) {
         this.$router.push(item.index)
       }
@@ -176,10 +176,6 @@ export default {
 }
 .one-item {
   .el-menu--inline {
-    /* background: #001a33 !important;
-     */
-    /* background: #113763 !important;
-    box-shadow: inset 0px 3px 4px 0px rgba(0, 0, 0, 0.25); */
     background: #113763 !important;
     box-shadow: inset 0px 4px 5px 0px hsl(0, 0%, 0%, 0.25);
   }
@@ -188,20 +184,15 @@ export default {
     height: 50px !important;
     line-height: 50px !important;
     &:hover {
-      /* border-radius: 0; */
       box-sizing: border-box;
       color: #fff !important; // 菜单#1f5997
       background: #002c5e !important;
-      /* border: 1px solid #3766f4; */
     }
   }
 }
 
 .two-item {
   .el-menu--inline {
-    /* background: #00101f !important; */
-    /* background: rgb(0, 26, 51) !important;
-    box-shadow: inset 0px 3px 4px 0px rgb(0, 0, 0); */
     background: #002445 !important;
     box-shadow: inset 0px 3px 5px 0px hsl(0, 0%, 0%);
   }
@@ -215,27 +206,8 @@ export default {
     box-sizing: border-box;
     color: #fff !important; // 菜单#1f5997
     background: #022b52 !important;
-    /* border: 1px solid #3766f4; */
     transform: scale(1.1);
   }
-  /* &:first-child {
-    position: relative;
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      height: 0px;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.01),
-        rgba(42, 130, 228, 1) 51.39%,
-        rgba(255, 255, 255, 0.01) 100%
-      );
-    }
-  } */
   &::after {
     content: "";
     position: absolute;
@@ -279,6 +251,15 @@ export default {
 i {
   color: #fff;
 }
+::v-deep .el-icon-s-release {
+  color: rgba(204, 204, 204, 0.3) !important;
+}
+::v-deep .el-icon-s-release + span {
+  color: rgba(204, 204, 204, 0.3) !important;
+}
+/* ::v-deep .el-icon-s-release + .el-submenu__icon-arrow {
+  color: rgba(204, 204, 204, 0.3) !important;
+} */
 ::v-deep .el-submenu__icon-arrow {
   color: #fff;
 }
@@ -290,22 +271,7 @@ i {
   height: 40px;
   line-height: 40px;
   z-index: 100;
-  /* &:hover {
-    border-radius: 0;
-    box-sizing: border-box;
-    color: #fff !important; // 菜单#1f5997
-    background: #304f78 !important;
-    border: 1px solid #3766f4;
-  } */
 }
-/* .el-menu-item:hover {
-  box-sizing: border-box;
-  color: #fff !important; // 菜单#1f5997
-  background: #022b52 !important;
-  border: 1px solid #3766f4;
-  transform: scale(1.2);
-} */
-
 .el-menu-item.is-active {
   color: var(--menu-item-active) !important;
   font-weight: bold;

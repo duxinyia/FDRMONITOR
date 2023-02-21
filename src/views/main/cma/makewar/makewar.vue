@@ -12,11 +12,42 @@ export default {
   },
   data() {
     return {
+      loading: true,
       eolChecked: true,
       folChecked: true,
-      configArr: [],
-      titles: [],
-      outPutInfoDetails: [],
+      showArr: [true, true, true, true, true, true, true, true, true, true, true, true],
+      configArr: [
+        [{ hitCount: 0, hitRate: "0.00%", notHitCount: 0, productArea: "FOL", totalCount: 0 }],
+        [{ hitCount: 0, hitRate: "0.00%", notHitCount: 0, productArea: "EOL", totalCount: 0 }]
+      ],
+      titles: [
+        { customName: "" },
+        { customName: "" },
+        { customName: "" },
+        { customName: "" },
+        { customName: "" },
+        { customName: "" },
+        { customName: "" },
+        { customName: "" },
+        { customName: "" },
+        { customName: "" },
+        { customName: "" },
+        { customName: "" }
+      ],
+      outPutInfoDetails: [
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] }
+      ],
       maxOutput: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       maxTargetOut: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
@@ -26,25 +57,22 @@ export default {
       return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
     }
   },
-  mounted() {
+  created() {
+    // this.$store.commit("fullLoading/SET_FULLLOADING", false)
     this.$store.commit("fullLoading/SET_TITLE", "每日產出看板")
-    this.$store.commit("fullLoading/SET_FULLLOADING", true)
     // 获取上方的数据
     GetOutputInfoStatics().then((res) => {
-      console.log("res", res)
       this.configArr = [[res[0]], [res[1]]]
+      this.loading = false
     })
     // 获取标题
     GetStationName().then((res) => {
-      console.log("GetStationName", res)
+      // console.log("GetStationName", res)
       this.titles = res
+      // this.outPutInfoDetails = []
       res.forEach((item, index) => {
         GetDeviceInfo(item.deviceNo).then((r) => {
-          console.log("r", r)
           this.$set(this.outPutInfoDetails, index, r)
-          // 找到最大值
-          // res.outPutInfoDetails.forEach((item, index) => {
-          // let tempMax = 0
           r.dateValues.forEach((childItem) => {
             // childItem.values.EOL.output  取出的是 output 的最大值
             if (childItem.values.EOL.output > this.maxOutput[index]) {
@@ -64,65 +92,21 @@ export default {
               this.maxTargetOut[index] = childItem.values.FOL.targetOut
             }
           })
+          // setTimeout(() => {
+          //   this.$set(this.showArr, index, false)
+          // }, 500)
+          // this.$nextTick(() => {
+          this.$set(this.showArr, index, false)
           // })
         })
       })
-      this.$store.commit("fullLoading/SET_FULLLOADING", false)
     })
-
-    // this.initData()
   },
   methods: {
-    async initData() {
-      let requestArr = [this.GetProductInfo()]
-      await Promise.all(requestArr)
-    },
-    // 获取上方的数据
-
-    // 获取数据
-    async GetProductInfo() {
-      let res = await GetProductInfo()
-      if (res) {
-        res.hitStatistics.forEach((item) => {
-          item.hitRate = parseInt(item.hitRate) + "%"
-        })
-        console.log("原先的数据为:", res)
-        // 上方数据
-        // this.configArr = [[res.hitStatistics[0]], [res.hitStatistics[1]]]
-        // 下方数据
-        this.outPutInfoDetails = res.outPutInfoDetails
-        // 找到最大值
-        res.outPutInfoDetails.forEach((item, index) => {
-          // let tempMax = 0
-          item.dateValues.forEach((childItem) => {
-            // childItem.values.EOL.output  取出的是 output 的最大值
-            if (childItem.values.EOL.output > this.maxOutput[index]) {
-              this.maxOutput[index] = childItem.values.EOL.output
-            }
-            // childItem.values.FOL.output
-            if (childItem.values.FOL.output > this.maxOutput[index]) {
-              this.maxOutput[index] = childItem.values.FOL.output
-            }
-
-            // childItem.values.EOL.output  取出的是 output 的最大值
-            if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
-              this.maxTargetOut[index] = childItem.values.EOL.targetOut
-            }
-            // childItem.values.FOL.output
-            if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
-              this.maxTargetOut[index] = childItem.values.FOL.targetOut
-            }
-          })
-        })
-      }
-    },
     getRowClass() {
       let color = this.$store.getters.theme == "dark" ? "#1adafb" : "rgba(39, 75, 232, 1)"
       return `background:transparent !important;color:${color};`
     }
-  },
-  beforeDestroy() {
-    clearInterval(this.dataTiming)
   }
 }
 </script>
@@ -130,19 +114,22 @@ export default {
 <template>
   <!-- 主要区域 -->
   <div class="page-main">
-    <!-- 统计区域 -->
     <div class="count-container">
-      <div v-for="(item, index) in configArr" class="container" :key="index">
+      <div v-for="(item, index) in 2" class="container" :key="index">
         <dv-border-box-10 :color="changeBoxColor">
-          <div>
-            <el-table :data="item" :header-cell-style="getRowClass">
-              <el-table-column align="center" prop="productArea" label="名称"></el-table-column>
-              <el-table-column align="center" prop="totalCount" label="計畫"></el-table-column>
-              <el-table-column align="center" prop="hitCount" label="達成機種"></el-table-column>
-              <el-table-column align="center" prop="notHitCount" label="未達成"></el-table-column>
-              <el-table-column align="center" width="100" prop="hitRate" label="達成率"></el-table-column>
-            </el-table>
-          </div>
+          <el-table
+            v-loading="loading"
+            element-loading-spinner="el-icon-loading"
+            element-loading-background="rgba(0, 0, 0, 1)"
+            :data="configArr[index]"
+            :header-cell-style="getRowClass"
+          >
+            <el-table-column align="center" prop="productArea" label="名称"></el-table-column>
+            <el-table-column align="center" prop="totalCount" label="計畫"></el-table-column>
+            <el-table-column align="center" prop="hitCount" label="達成機種"></el-table-column>
+            <el-table-column align="center" prop="notHitCount" label="未達成"></el-table-column>
+            <el-table-column align="center" width="100" prop="hitRate" label="達成率"></el-table-column>
+          </el-table>
         </dv-border-box-10>
       </div>
       <div class="control">
@@ -166,30 +153,21 @@ export default {
         </div>
       </div>
     </div>
-    <!-- 下面的区域 -->
     <dv-border-box-13 :color="changeBoxColor" :key="Date.now()">
       <div class="table-chart">
-        <!-- <container
-          v-for="(item, index) in outPutInfoDetails"
-          :eolChecked="eolChecked"
-          :folChecked="folChecked"
-          :device="item.device"
-          :dateValues="item.dateValues"
-          :key="index + index"
-          :maxOutput="maxOutput[index]"
-          :maxTargetOut="maxTargetOut[index]"
-        />-->
-        <container
-          v-for="(showTitle, index) in titles"
-          :eolChecked="eolChecked"
-          :folChecked="folChecked"
-          :device="outPutInfoDetails[index].device"
-          :dateValues="outPutInfoDetails[index].dateValues"
-          :key="index + index"
-          :maxOutput="maxOutput[index]"
-          :maxTargetOut="maxTargetOut[index]"
-          :showTitle="showTitle"
-        />
+        <template v-for="(showTitle, index) in titles">
+          <container
+            :eolChecked="eolChecked"
+            :folChecked="folChecked"
+            :device="outPutInfoDetails[index].device"
+            :dateValues="outPutInfoDetails[index].dateValues"
+            :key="index + index"
+            :maxOutput="maxOutput[index]"
+            :maxTargetOut="maxTargetOut[index]"
+            :showTitle="showTitle"
+            :isShow.sync="showArr[index]"
+          />
+        </template>
       </div>
     </dv-border-box-13>
   </div>
@@ -200,7 +178,6 @@ export default {
 ::v-deep .el-table,
 .el-table__expanded-cell {
   background-color: transparent;
-  /* color: white; */
   color: var(--makewar-table-text);
   font-size: 18px;
 }
@@ -240,7 +217,6 @@ export default {
   display: flex;
   justify-content: flex-start;
   margin: 25px 0;
-  /* height: 80px; */
   .container {
     &:first-child {
       margin-right: 40px;
@@ -258,8 +234,6 @@ export default {
       cursor: pointer;
     }
     .eol-container {
-      /* // color: #58d5e0;
-      color: #3762ff; */
       .frame {
         border: 1px solid #3762ff;
       }

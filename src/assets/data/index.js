@@ -131,7 +131,7 @@ export let changeCmaConfig = (theme = "dark") => {
             theme == "dark"
               ? require("@/assets/images/sfc.png")
               : require("@/assets/images/_sfc.png"),
-          info: "SFC良率",
+          info: "SFC良率By月",
           target: "yield",
           belong: "管理层/良率",
           to: "sfc"
@@ -153,7 +153,7 @@ export let changeCmaConfig = (theme = "dark") => {
             theme == "dark"
               ? require("@/assets/images/defect.png")
               : require("@/assets/images/_defect.png"),
-          info: "Top 25 Defect Item",
+          info: "Top 25 Defect",
           target: "yield",
           belong: "管理层/良率",
           to: "defect"
@@ -282,7 +282,7 @@ export let changeCmaConfig = (theme = "dark") => {
         //   id: 4,
         //   isExternalLink: true,
         //   imgUrl: require("@/assets/images/spotcheck.jpg"),
-        //   info: "AA PDI AI 檢測界面",
+        //   info: "IAA Step看板",
         //   target: "device",
         //   belong: "管理层/设备",
         //   to: "http://10.142.117.50:32001/standard/design/#/share/OS4L2ZWV"
@@ -440,7 +440,7 @@ export let changeCmaConfig = (theme = "dark") => {
           id: 4,
           isExternalLink: true,
           imgUrl: require("@/assets/images/spotcheck.jpg"),
-          info: "AA PDI AI 檢測界面",
+          info: "IAA Step看板",
           target: "device",
           belong: "管理层/製程監控",
           to: "http://10.142.117.50:32001/standard/design/#/share/ZC1OY0JP"

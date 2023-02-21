@@ -69,7 +69,7 @@ export default {
     }
   },
   created() {
-    this.$store.commit("fullLoading/SET_TITLE", "Top 25 Defect Item")
+    this.$store.commit("fullLoading/SET_TITLE", "Top 25 Defect")
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.getDefectYieldInfo()
   },

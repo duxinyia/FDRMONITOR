@@ -2,7 +2,12 @@
   <div class="wrapper">
     <dv-border-box-10 :color="changeBoxColor">
       <p class="title">{{ showTitle.customName }}</p>
-      <div class="container">
+      <div
+        class="container"
+        v-loading="isShow"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 1)"
+      >
         <div class="left">
           <span class="every-num" v-for="(item, index) in getShowArr" :key="index">{{ item }}</span>
         </div>
@@ -21,7 +26,6 @@
                     3.達成比例:{{ item.values.FOL.dailyHitRate }}
                     <br />
                     <br />
-                    <!-- 3.達成比例:{{ changeReachRate(item) }}<br /><br /> -->
                     4.差異產出:{{ Number(item.values.FOL.output - item.values.FOL.targetOut) }}
                     <br />
                     <br />
@@ -31,16 +35,15 @@
                   <div
                     class="state-right state"
                     @click="toMake('FOL', item)"
-                    :style="changeHeight(item)"
+                    :style="changeHeight(item,'FOL',index)"
                     v-if="folChecked"
                   >
                     <!-- 定位显示比例 10 / 21改为显示 dailyHitRate-->
-                    <!-- <span class="rate" v-if="folChecked">{{
-                      item.values.FOL.hitRate | filterRate
-                    }}</span>-->
-                    <span class="rate" @click.stop="textClick" v-if="folChecked">
-                      {{ item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%" }}
-                    </span>
+                    <span
+                      class="rate"
+                      @click.stop="textClick"
+                      v-if="folChecked"
+                    >{{ item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%" }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
                   </div>
@@ -56,7 +59,6 @@
                     3.達成比例:{{ item.values.EOL.dailyHitRate }}
                     <br />
                     <br />
-                    <!-- 3.達成比例:{{ changeReachRate(item, "EOL") }}<br /><br /> -->
                     4.差異產出:{{ Number(item.values.EOL.output - item.values.EOL.targetOut) }}
                     <br />
                     <br />
@@ -70,12 +72,11 @@
                     v-if="eolChecked"
                   >
                     <!-- 定位显示 -->
-                    <!-- <span class="rate" v-if="eolChecked">{{
-                      item.values.EOL.hitRate | filterRate
-                    }}</span>-->
-                    <span class="rate" @click.stop="textClick" v-if="eolChecked">
-                      {{ item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%" }}
-                    </span>
+                    <span
+                      class="rate"
+                      @click.stop="textClick"
+                      v-if="eolChecked"
+                    >{{ item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%" }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
                   </div>
@@ -94,9 +95,13 @@
 export default {
   name: "container",
   props: {
+    isShow: {
+      type: Boolean,
+      default: true
+    },
     showTitle: {
-      type: String,
-      default: ""
+      type: Object,
+      default: () => ({})
     },
     device: {
       type: Object,
@@ -139,6 +144,11 @@ export default {
       return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
     }
   },
+  data() {
+    return {
+      loading: true
+    }
+  },
   filters: {
     // 去掉小数部分
     filterTargetOut(value) {
@@ -146,6 +156,14 @@ export default {
       return parseInt(value)
     }
   },
+  // watch: {
+  //   dateValues: {
+  //     handler() {
+  //       console.log("执行了怕 ")
+  //       this.loading = false
+  //     }
+  //   }
+  // },
   methods: {
     changeSpeed(item, name = "FOL") {
       // console.log("item=====", item)
@@ -217,24 +235,28 @@ export default {
                 )`
         }
       }
+      // this.loading = false
       return {
         height: result > 100 ? "100%" : `${result}%`,
         background: bgColor
       }
     },
-    changeHeight(item, name = "FOL") {
+    changeHeight(item, name = "FOL", index) {
       let height = ""
       if (item.values[name].targetOut == 0) {
         height = "150px"
       } else {
         height = `${(item.values[name].targetOut / this.maxTargetOut) * 150}px`
       }
+      // 发射时间
+      // if (index == 2) {
+      //   this.$emit("changeShow", false)
+      // }
       return {
         height
       }
     },
     toMake(ProductArea, item) {
-      console.log(ProductArea, item)
       let { deviceNo, plantID, customName, Opno } = this.device
       this.$router.push({
         name: "make",
@@ -249,7 +271,6 @@ export default {
       })
     },
     textClick() {
-      console.log("hello world")
       this.$router.push({ name: "wardetail" })
     }
   }
@@ -263,7 +284,8 @@ export default {
 .wrapper {
   width: 350px;
   font-size: 16px;
-  padding: 6px 4px;
+  margin: 6px 4px;
+  height: 255px;
   .title {
     text-align: center;
     font-size: 20px;
@@ -278,7 +300,6 @@ export default {
       display: flex;
       flex-direction: column;
       margin-top: 18px;
-      /* color: #69f9ff; */
       color: var(--makewar-item-num);
       .every-num {
         margin-bottom: 15px;

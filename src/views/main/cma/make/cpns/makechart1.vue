@@ -36,6 +36,16 @@ export default {
   components: {
     baseEchart
   },
+  // data() {
+  //   return {
+  //     loading: true
+  //   }
+  // },
+  // watch: {
+  //   targetOuts() {
+  //     this.loading = false
+  //   }
+  // },
   computed: {
     options() {
       // 设置变量

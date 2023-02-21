@@ -73,7 +73,6 @@ export default [
       //     /* webpackChunkName: "overview/manage11" */ "../views/overView/cpns/cma/output/output.vue"
       //   ),
       // },
-
       // 管理层
       {
         path: "manage/:type",
