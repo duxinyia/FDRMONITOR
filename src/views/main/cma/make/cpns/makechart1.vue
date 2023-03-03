@@ -1,5 +1,12 @@
 <template>
-  <base-echart :options="options" @echartClick="echartClick" />
+  <div
+    v-loading="loading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中"
+    element-loading-background="rgba(0, 0, 0, 1)"
+  >
+    <base-echart :options="options" @echartClick="echartClick" />
+  </div>
 </template>
 
 <script>
@@ -36,16 +43,16 @@ export default {
   components: {
     baseEchart
   },
-  // data() {
-  //   return {
-  //     loading: true
-  //   }
-  // },
-  // watch: {
-  //   targetOuts() {
-  //     this.loading = false
-  //   }
-  // },
+  data() {
+    return {
+      loading: true
+    }
+  },
+  watch: {
+    targetOuts() {
+      this.loading = false
+    }
+  },
   computed: {
     options() {
       // 设置变量
@@ -188,7 +195,7 @@ export default {
         yAxis: [
           {
             min: (value) => Math.ceil(value.min), // 指定最小值
-            max: (value) => Math.floor(value.max) + 1000, // 指定最大值
+            max: (value) => Math.floor(value.max) + 3000, // 指定最大值
             axisLabel: {
               // color: "#EEEEEE",
               color: themeColor,

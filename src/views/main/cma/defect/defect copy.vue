@@ -54,7 +54,9 @@
         <div class="text">
           <template v-for="(child, index) in item.defectNameList">
             <el-row :key="index">
-              <el-col :span="16" :class="{ especially: index <= 8 ? true : false }">{{ child.name }}</el-col>
+              <el-col :span="16" :class="{ especially: index <= 8 ? true : false }">{{
+                child.name
+              }}</el-col>
               <el-col
                 :span="4"
                 :class="{
@@ -62,8 +64,11 @@
                   'border-right': true,
                   especially: index <= 8 ? true : false
                 }"
-              >{{ child.failQty }}</el-col>
-              <el-col :span="4" :class="{ especially: index <= 8 ? true : false }">{{ child.rate }}</el-col>
+                >{{ child.failQty }}</el-col
+              >
+              <el-col :span="4" :class="{ especially: index <= 8 ? true : false }">{{
+                child.rate
+              }}</el-col>
             </el-row>
           </template>
         </div>

@@ -115,6 +115,15 @@ export let getTimeAgo = (hours = 12, special = false) => {
   return `St=${agoTime}&Et=${currentTime}`
 }
 
+// 获取完整的一天时间
+export let getOneDay = () => {
+  // 拿到一天前的六点
+  let oneDayAgo = moment().subtract(1, "days").format("YYYY-MM-DD 06:00:00")
+  // 拿到当天的六点
+  let currentDay = moment().format("YYYY-MM-DD 06:00:00")
+  return `St=${oneDayAgo}&Et=${currentDay}`
+}
+
 /**
  * "20.20%" -> 20 "30.00%" -> 30
  * @param {string} str

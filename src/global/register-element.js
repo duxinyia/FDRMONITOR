@@ -1,4 +1,6 @@
 import {
+  Tabs,
+  TabPane,
   Checkbox,
   Tag,
   Breadcrumb,
@@ -57,6 +59,8 @@ import {
 } from "element-ui"
 import "element-ui/lib/theme-chalk/index.css"
 const components = [
+  Tabs,
+  TabPane,
   Checkbox,
   Tag,
   Breadcrumb,

@@ -1,5 +1,12 @@
 <template>
-  <base-echart :options="options" />
+  <div
+    v-loading="loading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中"
+    element-loading-background="rgba(0, 0, 0, 1)"
+  >
+    <base-echart :options="options" />
+  </div>
 </template>
 
 <script>
@@ -29,19 +36,20 @@ export default {
       default: () => []
     }
   },
-  // data() {
-  //   return {
-  //     loading: true
-  //   }
-  // },
+  data() {
+    return {
+      loading: true
+    }
+  },
   components: {
     baseEchart
   },
-  // watch: {
-  //   targetOuts() {
-  //     this.loading = true
-  //   }
-  // },
+  watch: {
+    chart2TargetOut() {
+      this.loading = false
+      this.$emit("changeLoading", false)
+    }
+  },
   computed: {
     options() {
       // 设置变量
@@ -174,7 +182,7 @@ export default {
             // name: "ydata",
             position: "left",
             min: 0, // 指定最小值
-            max: (value) => value.max, // 指定最大值
+            max: (value) => Math.floor(value.max) + 3000, // 指定最大值
             axisLabel: {
               // color: "#EEEEEE",
               color: themeColor,
@@ -204,7 +212,7 @@ export default {
           {
             type: "value",
             min: (value) => Math.ceil(value.min), // 指定最小值
-            max: (value) => value.max, // 指定最大值
+            max: (value) => value.max + 50, // 指定最大值
             position: "right",
             splitLine: {
               show: false

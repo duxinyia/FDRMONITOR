@@ -14,6 +14,10 @@ service.interceptors.request.use((config) => {
   if (config.isLogin) {
     config.baseURL = process.env.VUE_APP_BASE_LOGIN
   }
+  // 获取菜单的时候更改基础地址
+  if (config.isMenu) {
+    config.baseURL = process.env.VUE_APP_MENU_API
+  }
   // 拦截操作
   return config
 })

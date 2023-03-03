@@ -15,11 +15,7 @@
         <div class="form-title">战情中心</div>
         <el-form ref="form" :rules="rules" :model="form">
           <el-form-item prop="name">
-            <el-input
-              prefix-icon="el-icon-user"
-              placeholder="工號"
-              v-model.trim="form.name"
-            ></el-input>
+            <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
           </el-form-item>
           <el-form-item prop="paw">
             <el-input
@@ -43,8 +39,7 @@
               @click="toLogin"
               :loading="btnLoading"
               :disabled="btnLoading"
-              >{{ btnLoading ? "登录中~" : "登录" }}</el-button
-            >
+            >{{ btnLoading ? "登录中~" : "登录" }}</el-button>
           </el-form-item>
           <!-- <div class="forget-pwd" @click="forgetPwd">忘記密碼</div> -->
         </el-form>
@@ -55,18 +50,27 @@
       <div class="copyright">
         <i class="el-icon-collection-tag icon"></i>
         Copyright © 2022. Foxconn All rights reserved
-        <span class="location" @click="toLocation">{{
+        <span
+          class="location"
+          @click="toLocation"
+        >
+          {{
           port == "8085" ? "正式地址" : "测试地址"
-        }}</span>
+          }}
+        </span>
       </div>
       <div class="author-info">
         <div>
-          <span class="author"> <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227 </span>
+          <span class="author">
+            <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227
+          </span>
           <span class="mail">
             <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
           </span>
           &nbsp;&nbsp;
-          <span class="author"> <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123 </span>
+          <span class="author">
+            <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123
+          </span>
           <span class="mail">
             <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
           </span>
@@ -113,8 +117,19 @@ export default {
             // console.log("res======", res)
             // 表示用户名 和 密码正确
             this.$store.commit("user/SET_USER", { ...this.form, fullName: res.Resultvalue.Name })
+            // 获取菜单路由
+            // this.$store
+            //   .dispatch("permission/GenerateRoutes", {
+            //     userJob: res.Resultvalue.Key,
+            //     nickName: res.Resultvalue.Name
+            //   })
+            //   .then((res) => {
+            //     console.log("回调的菜单为:", res)
+            //   })
+            // let menus = await getMenus(res.Resultvalue.Key, res.Resultvalue.Name)
+            // console.log("获取菜单路由", menus)
             // 跳转页面
-            this.$router.replace({ name: "overview" })
+            this.$router.replace({ name: "overview" }).catch((err) => {})
           }
           this.btnLoading = false
           this.$refs["form"].resetFields()

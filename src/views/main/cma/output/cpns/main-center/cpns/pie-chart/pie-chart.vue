@@ -20,7 +20,7 @@ export default {
       let { seriesData } = this
       let legend = []
       seriesData.forEach((item) => {
-        console.log("item", item)
+        // console.log("item", item)
         legend.push(item.name)
       })
       // 设置变量

@@ -51,6 +51,7 @@ export default [
       title: "登录五"
     }
   },
+
   {
     path: "/overview",
     name: "overview",
@@ -60,20 +61,18 @@ export default [
       title: "首页"
     },
     children: [
-      // {
-      //   path: "cma/:type",
-      //   name: "overview-cma",
-      //   component: () =>
-      //     import(/* webpackChunkName: "overview/cma" */ "../views/overView/cpns/cma/cma.vue")
-      // },
-      // 决策层
-      // {
-      //   path: 'output',
-      //   component: () => import(
-      //     /* webpackChunkName: "overview/manage11" */ "../views/overView/cpns/cma/output/output.vue"
-      //   ),
-      // },
       // 管理层
+      // {
+      //   path: "manage/:type",
+      //   name: "overview-manage",
+      //   component: () =>
+      //     import(
+      //       /* webpackChunkName: "overview/manage" */ "../views/overView/cpns/manage/manage.vue"
+      //     ),
+      //   meta: {
+      //     title: "管理层"
+      //   }
+      // },
       {
         path: "manage/:type",
         name: "overview-manage",
@@ -85,27 +84,6 @@ export default [
           title: "管理层"
         }
       },
-
-      // {
-      //   path: 'manage',
-      //   name: 'manage',
-      //   component: () =>
-      //     import(
-      //         /* webpackChunkName: "overview/manage" */ "../views/overView/cpns/manage/manage.vue"
-      //     ),
-      //   children: [
-      //     // 产出 良率  设备 製程監控
-      //     {
-      //       path: 'output',
-      //       component: () =>
-      //         import(
-      //           /* webpackChunkName: "overview/manage/output" */ "../views/overView/cpns/manage/manage.vue"
-      //         ),
-      //     },
-
-      //   ]
-      // },
-
       // 关于页面
       {
         path: "about",
@@ -114,11 +92,10 @@ export default [
       }
     ]
   },
-  // main 的路由
   {
     path: "/main",
     name: "main",
-    component: () => import(/* webpackChunkName: "main" */ "../views/main/cma/index.vue"),
+    component: () => import(/* webpackChunkName: "main" */ "../views/main/index.vue"),
     meta: {
       title: "总览"
     },
@@ -158,6 +135,15 @@ export default [
           title: "EOL"
         }
       },
+      // 2/23 新增 AA CT GA 看板
+      {
+        path: "aactga",
+        name: "aactga",
+        component: () => import(/* webpackChunkName: "aactga" */ "../views/main/cma/aactga/aactga.vue"),
+        meta: {
+          title: "aactga"
+        }
+      },
       // 年度產出總覽
       {
         path: "output",
@@ -185,7 +171,7 @@ export default [
         component: () => import(/* webpackChunkName: "make" */ "../views/main/cma/make/make.vue"),
         meta: { isJump: true, title: "make" }
       },
-      //每日產出看板
+      //By天產出看板
       {
         path: "makewar",
         name: "makewar",
@@ -195,7 +181,7 @@ export default [
           title: "makewar"
         }
       },
-      // 从 每日產出看板 达成率 跳转过来的路由
+      // 从 By天產出看板 达成率 跳转过来的路由
       {
         path: "wardetail",
         name: "wardetail",
@@ -257,4 +243,6 @@ export default [
       title: "notFound"
     }
   }
+
+
 ]

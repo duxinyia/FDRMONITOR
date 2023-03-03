@@ -41,7 +41,9 @@ const mutations = {
     state.tags.splice(index, 1)
   }
 }
-const actions = {}
+const actions = {
+  // 获取菜单的 actions
+}
 
 export default {
   namespaced: true,

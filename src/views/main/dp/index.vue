@@ -75,7 +75,7 @@ export default {
         { id: 3, name: "年度產出總覽", path: "output" },
         { id: 4, name: "By站位產出看板", path: "output2" },
         { id: 5, name: "By時段產出看板", path: "make" },
-        { id: 6, name: "每日產出看板", path: "makewar" }
+        { id: 6, name: "By天產出看板", path: "makewar" }
       ],
       imgUrl: cache.getCache("bgUrl")
         ? cache.getCache("bgUrl").bg

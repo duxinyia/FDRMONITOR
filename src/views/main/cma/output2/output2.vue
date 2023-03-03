@@ -61,14 +61,16 @@
           >
             <el-carousel-item v-for="(everyTitle, index) in getShowArray" :key="index">
               <div class="contaner">
-                <template v-for="(item, index) in everyTitle">
-                  <contaienr
-                    :index="index"
-                    :itemTitle="item"
-                    :showData="newData[index]"
-                    :key="index"
-                  />
-                </template>
+                <!-- {{index}} -->
+                <!-- <template> -->
+                <contaienr
+                  v-for="(item, i) in everyTitle"
+                  :index="i"
+                  :itemTitle="item"
+                  :showData="newData[ 3*index + i]"
+                  :key="i"
+                />
+                <!-- </template> -->
               </div>
             </el-carousel-item>
           </el-carousel>
@@ -92,7 +94,6 @@ export default {
   data() {
     return {
       dataTiming: null,
-      showData: [],
       selectArea: "ALL",
       currentIndex: 3,
       titles: [],
@@ -105,6 +106,7 @@ export default {
   },
   computed: {
     getShowArray() {
+      // console.log("this.titles", splitArray(this.titles, 3))
       return splitArray(this.titles, 3)
     }
   },
@@ -114,11 +116,14 @@ export default {
       this.titles = []
       this.newData = []
       let res = await GetStationName(this.selectArea)
+      // console.log("res======", res)
       this.titles = res
       res.forEach((item, index) => {
         GetDeviceInfo(this.selectArea, item.deviceNo).then((r) => {
+          // console.log("==========", r)
           if (r) {
             this.$set(this.newData, index, r[0].stationInfo)
+            // console.log("============", this.newData)
           } else {
             let tempObg = { targetOut: "", station: "", hitRate: "", outPut: "" }
             this.$set(this.newData, index, tempObg)

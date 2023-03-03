@@ -137,31 +137,31 @@ export default [
             index: "/overview/manage/output2"
           },
           {
-            icon: "el-icon-s-release",
+            icon: "el-icon-setting",
             title: "By機臺產出看板",
             index: "10",
             subs: [
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "AA/GA/CT",
                 index: "11",
                 outLink: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "ACF",
                 index: "12",
                 outLink: "http://10.151.128.45:8081/Kanban/MachineIOKanban.aspx?Type=ACF"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "TEST",
                 index: "13",
                 outLink:
                   "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.kanban.TestKanban"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "AVI",
                 index: "14",
                 outLink:
@@ -211,7 +211,7 @@ export default [
             ]
           },
           {
-            icon: "el-icon-s-release",
+            icon: "el-icon-setting",
             title: "Top 25 Defect",
             index: "22"
           },
@@ -271,7 +271,7 @@ export default [
             index: "28",
             subs: [
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "周產出/效率看板",
                 index: "29",
                 outLink: "http://10.147.214.130:8081/AA/Report"
@@ -282,7 +282,7 @@ export default [
                 index: "30"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "預警Top15看板",
                 index: "31",
                 outLink: "http://10.147.214.130:8081/AA/TopReport"
@@ -300,19 +300,19 @@ export default [
             index: "33",
             subs: [
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "ACF效率看板",
                 index: "34",
                 outLink: "http://10.147.214.130:8081/Test/ReportACF"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "SA效率看板",
                 index: "35",
                 outLink: "http://10.147.214.130:8081/Test/ReportSA"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "Test效率看板",
                 index: "36",
                 outLink: "http://10.147.214.130:8081/Test/ReportTEST"
@@ -344,19 +344,19 @@ export default [
         index: "/overview/manage/process",
         subs: [
           {
-            icon: "el-icon-s-release",
+            icon: "el-icon-setting",
             title: "SFR",
             index: "41",
             subs: [
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "AA機台SFR看板",
                 index: "42",
                 outLink:
                   "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AASFRKanban"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "鏡頭模穴SFR看板",
                 index: "43",
                 outLink:
@@ -365,7 +365,7 @@ export default [
             ]
           },
           {
-            icon: "el-icon-s-release",
+            icon: "el-icon-setting",
             title: "Particle",
             index: "44",
             subs: [
@@ -375,21 +375,21 @@ export default [
                 index: "44"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "AOI 不良率看板",
                 index: "45",
                 outLink:
                   "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AOINotice"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "AOI 8H趨勢看板",
                 index: "46",
                 outLink:
                   "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AOINoticeImgPage"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "DPC/LCB不良看板",
                 index: "47",
                 outLink: "http://10.151.128.45:8081/Kanban/LCBDPCTracknew.aspx"
@@ -397,12 +397,12 @@ export default [
             ]
           },
           {
-            icon: "el-icon-s-release",
+            icon: "el-icon-setting",
             title: "E-fail",
             index: "48",
             subs: [
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "FC不良看板",
                 index: "49",
                 outLink:
@@ -411,19 +411,19 @@ export default [
             ]
           },
           {
-            icon: "el-icon-s-release",
+            icon: "el-icon-setting",
             title: "Process(FOL)",
             index: "50",
             subs: [
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "FC高度報警看板",
                 index: "51",
                 outLink:
                   "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.FCAIterKanban"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "FC壓縮量看板",
                 index: "52",
                 outLink:
@@ -437,32 +437,32 @@ export default [
             index: "53",
             subs: [
               {
-                icon: "el-icon-setting",
+                icon: "el-icon-search",
                 title: "IAA Step看板",
                 index: "54",
                 outLink:
                   "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AAStepKanban"
               },
               {
-                icon: "el-icon-setting",
+                icon: "el-icon-search",
                 title: "實時統計",
                 index: "56",
                 outLink: "http://10.142.117.50:32001/share.html#/?token=KG3RHWT8"
               },
               {
-                icon: "el-icon-setting",
+                icon: "el-icon-search",
                 title: "歷史日統計",
                 index: "57",
                 outLink: "http://10.142.117.50:32001/share.html#/?token=PVAX4VH2"
               },
               {
-                icon: "el-icon-setting",
+                icon: "el-icon-search",
                 title: "歷史周統計",
                 index: "58",
                 outLink: "http://10.142.117.50:32001/share.html#/?token=AMM0V0AE"
               },
               {
-                icon: "el-icon-setting",
+                icon: "el-icon-search",
                 title: "歷史月統計",
                 index: "59",
                 outLink: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
@@ -470,12 +470,12 @@ export default [
             ]
           },
           {
-            icon: "el-icon-s-release",
+            icon: "el-icon-setting",
             title: "Process(EOL)",
             index: "60",
             subs: [
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "EOL 一次良率看板",
                 index: "61",
                 outLink:
@@ -487,14 +487,14 @@ export default [
                 index: "62"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "AVI 一次不良看板",
                 index: "63",
                 outLink:
                   "http://10.151.128.225:8091/Kanban/pageMenu?classname=MESReportTeamplate.Kanban.AVIFirstYieldKanban"
               },
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "Laser等級監控看板",
                 index: "64",
                 outLink:
@@ -503,12 +503,12 @@ export default [
             ]
           },
           {
-            icon: "el-icon-s-release",
+            icon: "el-icon-setting",
             title: "關鍵部件",
             index: "65",
             subs: [
               {
-                icon: "el-icon-s-release",
+                icon: "el-icon-search",
                 title: "FOL 零部件看板",
                 index: "66",
                 outLink:
@@ -534,29 +534,5 @@ export default [
         ]
       }
     ]
-  },
-  // {
-  //   icon: "el-icon-s-promotion",
-  //   title: "权限设定",
-  //   index: "8816454658",
-  //   subs: [
-  //     {
-  //       icon: "el-icon-s-promotion",
-  //       title: "角色设定",
-  //       index: ""
-  //     }
-  //   ]
-  // },
-  // {
-  //   icon: "el-icon-s-promotion",
-  //   title: "关于",
-  //   index: "/overview/about",
-  //   subs: [
-  //     {
-  //       icon: "el-icon-s-promotion",
-  //       title: "系统信息",
-  //       index: "/overview/about"
-  //     }
-  //   ]
-  // }
+  }
 ]

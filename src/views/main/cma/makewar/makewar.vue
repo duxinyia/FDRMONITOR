@@ -1,116 +1,3 @@
-<script>
-// 导入发送请求的函函數
-import { GetProductInfo, GetOutputInfoStatics, GetDeviceInfo } from "@/api/makewar.js"
-// 获取标题的接口
-import { GetStationName } from "@/api/output2.js"
-// 导入子组件
-import container from "./cpns/container.vue"
-export default {
-  name: "makewar",
-  components: {
-    container
-  },
-  data() {
-    return {
-      loading: true,
-      eolChecked: true,
-      folChecked: true,
-      showArr: [true, true, true, true, true, true, true, true, true, true, true, true],
-      configArr: [
-        [{ hitCount: 0, hitRate: "0.00%", notHitCount: 0, productArea: "FOL", totalCount: 0 }],
-        [{ hitCount: 0, hitRate: "0.00%", notHitCount: 0, productArea: "EOL", totalCount: 0 }]
-      ],
-      titles: [
-        { customName: "" },
-        { customName: "" },
-        { customName: "" },
-        { customName: "" },
-        { customName: "" },
-        { customName: "" },
-        { customName: "" },
-        { customName: "" },
-        { customName: "" },
-        { customName: "" },
-        { customName: "" },
-        { customName: "" }
-      ],
-      outPutInfoDetails: [
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] }
-      ],
-      maxOutput: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      maxTargetOut: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    }
-  },
-  computed: {
-    changeBoxColor() {
-      return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
-    }
-  },
-  created() {
-    // this.$store.commit("fullLoading/SET_FULLLOADING", false)
-    this.$store.commit("fullLoading/SET_TITLE", "每日產出看板")
-    // 获取上方的数据
-    GetOutputInfoStatics().then((res) => {
-      this.configArr = [[res[0]], [res[1]]]
-      this.loading = false
-    })
-    // 获取标题
-    GetStationName().then((res) => {
-      // console.log("GetStationName", res)
-      this.titles = res
-      // this.outPutInfoDetails = []
-      res.forEach((item, index) => {
-        GetDeviceInfo(item.deviceNo).then((r) => {
-          this.$set(this.outPutInfoDetails, index, r)
-          r.dateValues.forEach((childItem) => {
-            // childItem.values.EOL.output  取出的是 output 的最大值
-            if (childItem.values.EOL.output > this.maxOutput[index]) {
-              this.maxOutput[index] = childItem.values.EOL.output
-            }
-            // childItem.values.FOL.output
-            if (childItem.values.FOL.output > this.maxOutput[index]) {
-              this.maxOutput[index] = childItem.values.FOL.output
-            }
-
-            // childItem.values.EOL.output  取出的是 output 的最大值
-            if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
-              this.maxTargetOut[index] = childItem.values.EOL.targetOut
-            }
-            // childItem.values.FOL.output
-            if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
-              this.maxTargetOut[index] = childItem.values.FOL.targetOut
-            }
-          })
-          // setTimeout(() => {
-          //   this.$set(this.showArr, index, false)
-          // }, 500)
-          // this.$nextTick(() => {
-          this.$set(this.showArr, index, false)
-          // })
-        })
-      })
-    })
-  },
-  methods: {
-    getRowClass() {
-      let color = this.$store.getters.theme == "dark" ? "#1adafb" : "rgba(39, 75, 232, 1)"
-      return `background:transparent !important;color:${color};`
-    }
-  }
-}
-</script>
-
 <template>
   <!-- 主要区域 -->
   <div class="page-main">
@@ -172,6 +59,115 @@ export default {
     </dv-border-box-13>
   </div>
 </template>
+<script>
+// 导入发送请求的函函數
+import { GetOutputInfoStatics, GetDeviceInfo } from "@/api/makewar.js"
+// 获取标题的接口
+import { GetStationName } from "@/api/output2.js"
+// 导入子组件
+import container from "./cpns/container.vue"
+export default {
+  name: "makewar",
+  components: {
+    container
+  },
+  data() {
+    return {
+      loading: true,
+      eolChecked: true,
+      folChecked: true,
+      showArr: [true, true, true, true, true, true, true, true, true, true, true, true],
+      configArr: [
+        [{ hitCount: 0, hitRate: "0.00%", notHitCount: 0, productArea: "FOL", totalCount: 0 }],
+        [{ hitCount: 0, hitRate: "0.00%", notHitCount: 0, productArea: "EOL", totalCount: 0 }]
+      ],
+      titles: [
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" },
+        { customName: "", deviceNo: "" }
+      ],
+      outPutInfoDetails: [
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] },
+        { device: { customName: "" }, dateValues: [] }
+      ],
+      maxOutput: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      maxTargetOut: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  computed: {
+    changeBoxColor() {
+      return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
+    }
+  },
+  created() {
+    // this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    this.$store.commit("fullLoading/SET_TITLE", "By天產出看板")
+    // 获取上方的数据
+    GetOutputInfoStatics().then((res) => {
+      this.configArr = [[res[0]], [res[1]]]
+      this.loading = false
+    })
+    // 获取标题
+    GetStationName().then((res) => {
+      console.log("GetStationName", res)
+      this.titles = res
+      this.outPutInfoDetails = []
+      res.forEach((item, index) => {
+        GetDeviceInfo(item.deviceNo).then((r) => {
+          this.$set(this.outPutInfoDetails, index, r)
+          // console.log("-----", this.outPutInfoDetails)
+          r.dateValues.forEach((childItem) => {
+            // childItem.values.EOL.output  取出的是 output 的最大值
+            if (childItem.values.EOL.output > this.maxOutput[index]) {
+              this.maxOutput[index] = childItem.values.EOL.output
+            }
+            // childItem.values.FOL.output
+            if (childItem.values.FOL.output > this.maxOutput[index]) {
+              this.maxOutput[index] = childItem.values.FOL.output
+            }
+            // childItem.values.EOL.output  取出的是 output 的最大值
+            if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
+              this.maxTargetOut[index] = childItem.values.EOL.targetOut
+            }
+            // childItem.values.FOL.output
+            if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
+              this.maxTargetOut[index] = childItem.values.FOL.targetOut
+            }
+          })
+          this.$set(this.showArr, index, false)
+        })
+      })
+    })
+  },
+  methods: {
+    getRowClass() {
+      let color = this.$store.getters.theme == "dark" ? "#1adafb" : "rgba(39, 75, 232, 1)"
+      return `background:transparent !important;color:${color};`
+    }
+  }
+}
+</script>
+
+
 
 <style lang="scss" scoped>
 //整个table的背景颜色
@@ -209,6 +205,7 @@ export default {
   margin-top: 10px;
 }
 .table-chart {
+  height: 800px;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(5, 1fr);
   justify-content: space-between;

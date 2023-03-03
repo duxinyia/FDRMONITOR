@@ -17,8 +17,9 @@
           @click.native="itemClick(item)"
         >
           <template slot="title">
-            <i :class="item.icon"></i>
-            <span slot="title">{{ item.title }}</span>
+            <item :icon="item.icon" :title="item.title" />
+            <!-- <i :class="item.icon"></i>
+            <span slot="title">{{ item.title }}11</span>-->
           </template>
           <template v-for="subItem in item.subs">
             <template v-if="subItem.subs">
@@ -29,8 +30,9 @@
                 class="one-item"
               >
                 <template slot="title">
-                  <i :class="subItem.icon"></i>
-                  <span slot="title">{{ subItem.title }}</span>
+                  <item :icon="subItem.icon" :title="subItem.title" />
+                  <!-- <i :class="subItem.icon"></i>
+                  <span slot="title">{{ subItem.title }}22</span>-->
                 </template>
                 <template v-for="subItem2 in subItem.subs">
                   <template v-if="subItem2.subs">
@@ -41,8 +43,9 @@
                       class="two-item"
                     >
                       <template slot="title">
-                        <i :class="subItem2.icon"></i>
-                        <span slot="title">{{ subItem2.title }}</span>
+                        <item :icon="subItem2.icon" :title="subItem2.title" />
+                        <!-- <i :class="subItem2.icon"></i>
+                        <span slot="title">{{ subItem2.title }}</span>-->
                       </template>
                       <template v-for="subItem3 in subItem2.subs">
                         <template v-if="subItem3.subs">
@@ -52,8 +55,9 @@
                             @click.native.stop="itemClick(subItem3)"
                           >
                             <template slot="title">
-                              <i :class="subItem3.icon"></i>
-                              <span slot="title">{{ subItem3.title }}66</span>
+                              <item :icon="subItem3.icon" :title="subItem3.title" />
+                              <!-- <i :class="subItem3.icon"></i>
+                              <span slot="title">{{ subItem3.title }}66</span>-->
                             </template>
                             <el-menu-item
                               v-for="fiveItem in subItem3.subs"
@@ -61,8 +65,9 @@
                               :index="fiveItem.index"
                               @click.native.stop="itemClick(fiveItem)"
                             >
-                              <i :class="fiveItem.icon"></i>
-                              <span slot="title">{{ fiveItem.title }}77</span>
+                              <item :icon="fiveItem.icon" :title="fiveItem.title" />
+                              <!-- <i :class="fiveItem.icon"></i>
+                              <span slot="title">{{ fiveItem.title }}77</span>-->
                             </el-menu-item>
                           </el-submenu>
                         </template>
@@ -72,8 +77,9 @@
                           :key="subItem3.title"
                           @click.native.stop="itemClick(subItem3)"
                         >
-                          <i :class="subItem3.icon"></i>
-                          <span slot="title">{{ subItem3.title }}</span>
+                          <item :icon="subItem3.icon" :title="subItem3.title" />
+                          <!-- <i :class="subItem3.icon"></i>
+                          <span slot="title">{{ subItem3.title }}</span>-->
                         </el-menu-item>
                       </template>
                     </el-submenu>
@@ -84,8 +90,9 @@
                     :key="subItem2.title"
                     @click.native.stop="itemClick(subItem2)"
                   >
-                    <i :class="subItem2.icon"></i>
-                    <span slot="title">{{ subItem2.title }}</span>
+                    <item :icon="subItem2.icon" :title="subItem2.title" />
+                    <!-- <i :class="subItem2.icon"></i>
+                    <span slot="title">{{ subItem2.title }}</span>-->
                   </el-menu-item>
                 </template>
               </el-submenu>
@@ -96,16 +103,18 @@
               :key="subItem.title"
               @click.native.stop="itemClick(subItem)"
             >
-              <i :class="subItem.icon"></i>
-              <span slot="title">{{ subItem.title }}</span>
+              <item :icon="subItem.icon" :title="subItem.title" />
+              <!-- <i :class="subItem.icon"></i>
+              <span slot="title">{{ subItem.title }}</span>-->
             </el-menu-item>
           </template>
         </el-submenu>
       </template>
       <template v-else>
         <el-menu-item :index="item.index" :key="item.title">
-          <i :class="item.icon"></i>
-          <span slot="title">{{ item.title }}33</span>
+          <!-- <i :class="item.icon"></i>
+          <span slot="title">{{ item.title }}33</span>-->
+          <item :icon="item.icon" :title="item.title" />
         </el-menu-item>
       </template>
     </template>
@@ -113,25 +122,54 @@
 </template>
 
 <script>
-// 导入侧边栏配置文件
-import { menus } from "@/assets/data"
+// 导入侧边栏配置文件  $store.getters.menus
+// import { menus } from "@/assets/data"
+import Item from "./Item"
 export default {
   name: "menu-child",
-  data() {
-    return {
-      menus
-    }
+  components: {
+    Item
   },
+  props: ["menus"],
+  // data() {
+  //   return {
+  //     menus
+  //   }
+  // },
   methods: {
+    // openMenu(value) {
+    //   console.log("value", value)
+    // },
     itemClick(item) {
+      // 管理层 的 产出 设备 良率 才切换右边
+      // 点击子菜单跳转路由
       // console.log("item", item)
+      // if (item.outLink) {
+      //   window.open(item.outLink)
+      //   return
+      // }
+      // 如果index包含http 那么是跳转外部链接
+      if (item.index.includes("http")) {
+        window.open(item.index)
+        return
+      }
+      // if (item.index == "notFound") {
+      //   this.$router.push({ name: "404" })
+      // }
+      // 普通跳转路由的
+      if (!item.subs) {
+        item.index = item.index.split("/")[item.index.split("/").length - 1]
+        this.$router.push({ name: item.index })
+      }
+      // this.$store.
       if (["產出", "良率", "設備", "製程監控"].includes(item.title)) {
         this.$router.push(item.index)
       }
       let path = this.$route.path
-      if (!this.$store.state.fullLoading.tags.find((tag) => tag.path == item.index) && !item.subs) {
-        this.$store.commit("fullLoading/SET_TAG", { title: item.title, path: item.index })
-      }
+      // if (!this.$store.state.fullLoading.tags.find((tag) => tag.path == item.index) && !item.subs) {
+      //   this.$store.commit("fullLoading/SET_TAG", { title: item.title, path: item.index })
+      // }
+      console.log("path", path)
       this.$store.commit("fullLoading/SET_PATH", path)
     }
   }
@@ -248,15 +286,29 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+/* 更改 svg图标 的距离 */
+.el-menu-vertical .svg-icon {
+  margin-right: 13px;
+}
 i {
   color: #fff;
 }
+/* 没做的菜单的样子 */
 ::v-deep .el-icon-s-release {
   color: rgba(204, 204, 204, 0.3) !important;
 }
 ::v-deep .el-icon-s-release + span {
   color: rgba(204, 204, 204, 0.3) !important;
 }
+/* 外部链接 */
+::v-deep .el-icon-search {
+  color: rgba(255, 255, 0, 0.6) !important;
+}
+::v-deep .el-icon-search + span {
+  color: rgba(255, 255, 0, 0.6) !important;
+  /* text-decoration: underline; */
+}
+
 /* ::v-deep .el-icon-s-release + .el-submenu__icon-arrow {
   color: rgba(204, 204, 204, 0.3) !important;
 } */

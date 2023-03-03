@@ -1,13 +1,14 @@
 <template>
-  <div class="wrapper">
+  <div
+    class="wrapper"
+    v-loading="isShow"
+    element-loading-text="加载中..."
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="#111e40"
+  >
     <dv-border-box-10 :color="changeBoxColor">
       <p class="title">{{ showTitle.customName }}</p>
-      <div
-        class="container"
-        v-loading="isShow"
-        element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 1)"
-      >
+      <div class="container">
         <div class="left">
           <span class="every-num" v-for="(item, index) in getShowArr" :key="index">{{ item }}</span>
         </div>
@@ -35,15 +36,15 @@
                   <div
                     class="state-right state"
                     @click="toMake('FOL', item)"
-                    :style="changeHeight(item,'FOL',index)"
+                    :style="changeHeight(item, 'FOL', index)"
                     v-if="folChecked"
                   >
                     <!-- 定位显示比例 10 / 21改为显示 dailyHitRate-->
-                    <span
-                      class="rate"
-                      @click.stop="textClick"
-                      v-if="folChecked"
-                    >{{ item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%" }}</span>
+                    <span class="rate" @click.stop="textClick" v-if="folChecked">
+                      {{
+                      item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%"
+                      }}
+                    </span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
                   </div>
@@ -72,11 +73,11 @@
                     v-if="eolChecked"
                   >
                     <!-- 定位显示 -->
-                    <span
-                      class="rate"
-                      @click.stop="textClick"
-                      v-if="eolChecked"
-                    >{{ item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%" }}</span>
+                    <span class="rate" @click.stop="textClick" v-if="eolChecked">
+                      {{
+                      item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%"
+                      }}
+                    </span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
                   </div>
@@ -90,7 +91,6 @@
     </dv-border-box-10>
   </div>
 </template>
-
 <script>
 export default {
   name: "container",
@@ -105,7 +105,7 @@ export default {
     },
     device: {
       type: Object,
-      default: () => ({})
+      default: () => ({ deviceNo: "", plantID: "", customName: "", Opno: "" })
     },
     dateValues: {
       type: Array,
@@ -146,7 +146,7 @@ export default {
   },
   data() {
     return {
-      loading: true
+      loading: false
     }
   },
   filters: {
@@ -156,14 +156,11 @@ export default {
       return parseInt(value)
     }
   },
-  // watch: {
-  //   dateValues: {
-  //     handler() {
-  //       console.log("执行了怕 ")
-  //       this.loading = false
-  //     }
-  //   }
-  // },
+  watch: {
+    dateValues() {
+      this.loading = false
+    }
+  },
   methods: {
     changeSpeed(item, name = "FOL") {
       // console.log("item=====", item)
@@ -248,10 +245,6 @@ export default {
       } else {
         height = `${(item.values[name].targetOut / this.maxTargetOut) * 150}px`
       }
-      // 发射时间
-      // if (index == 2) {
-      //   this.$emit("changeShow", false)
-      // }
       return {
         height
       }

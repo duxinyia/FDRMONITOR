@@ -31,7 +31,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("fullLoading/SET_TITLE", "SFC总良率预览")
+    this.$store.commit("fullLoading/SET_TITLE", "SFC良率Daily")
     this.initData()
     // 每5分钟获取一次数据
     // this.dataTiming = setInterval(() => {

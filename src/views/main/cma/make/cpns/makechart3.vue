@@ -1,5 +1,12 @@
 <template>
-  <base-echart :options="options" />
+  <div
+    v-loading="chart3Loading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中"
+    element-loading-background="rgba(0, 0, 0, 1)"
+  >
+    <base-echart :options="options" />
+  </div>
 </template>
 
 <script>
@@ -27,11 +34,25 @@ export default {
     wips: {
       type: Array,
       default: () => []
+    },
+    chart3Loading: {
+      type: Boolean,
+      default: true
     }
   },
   components: {
     baseEchart
   },
+  // data() {
+  //   return {
+  //     loading: true
+  //   }
+  // },
+  // watch: {
+  //   xData() {
+  //     this.loading = false
+  //   }
+  // },
   computed: {
     options() {
       // 设置变量
@@ -142,7 +163,7 @@ export default {
         yAxis: [
           {
             min: (value) => Math.ceil(value.min), // 指定最小值
-            max: (value) => Math.floor(value.max), // 指定最大值
+            max: (value) => Math.floor(value.max) + 4000, // 指定最大值
             axisLabel: {
               // color: "#EEEEEE",
               color: themeColor,

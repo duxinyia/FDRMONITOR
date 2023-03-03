@@ -4,7 +4,13 @@
     <el-row :gutter="10">
       <el-col :span="14">
         <dv-border-box-12>
-          <div class="total-wrapper">
+          <div
+            class="total-wrapper"
+            v-loading="tableLoading"
+            element-loading-spinner="el-icon-loading"
+            element-loading-text="加载中"
+            element-loading-background="rgba(0, 0, 0, 1)"
+          >
             <div v-for="item in getShowValues" :key="item.id" class="total-container">
               <div class="name">{{ item.name }}</div>
               <div class="number">{{ item.value }}</div>
@@ -32,6 +38,7 @@
               :chart2Output="chart2Output"
               :chart2TargetOut="chart2TargetOut"
               :chart2HitRate="chart2HitRate"
+              @changeLoading="changeLoading"
             />
           </div>
         </dv-border-box-12>
@@ -45,47 +52,45 @@
               :wips="wips"
               :isFol="isFol"
               :isStanley="isStanley"
+              :chart3Loading="chart2Loading"
             />
           </div>
         </dv-border-box-12>
       </el-col>
       <el-col :span="10">
-        <el-table
-          :header-cell-style="getRowClass"
-          :data="tableData"
-          :highlight-current-row="true"
-          style="margin-top: 4px"
+        <div
+          v-loading="leftLoading"
+          element-loading-spinner="el-icon-loading"
+          element-loading-text="加载中"
+          element-loading-background="rgba(0, 0, 0, 1)"
         >
-          <el-table-column align="center" class="table-head" :label="tableLabel">
-            <el-table-column
-              align="center"
-              prop="station"
-              width="180px"
-              show-overflow-tooltip
-              label="站位"
-            ></el-table-column>
-            <el-table-column align="center" prop="targetOut" label="計劃"></el-table-column>
-            <el-table-column align="center" prop="inPut" label="實際"></el-table-column>
-            <el-table-column
-              align="center"
-              prop="hitRate"
-              width="100px"
-              label="達成率"
-            ></el-table-column>
-            <el-table-column
-              align="center"
-              prop="processYield"
-              width="100px"
-              label="良率"
-            ></el-table-column>
-            <el-table-column align="center" prop="wip" label="WIP"></el-table-column>
-            <el-table-column align="center" prop="maxWip" label="上限"></el-table-column>
-            <el-table-column align="center" prop="minWip" label="下限"></el-table-column>
-          </el-table-column>
-        </el-table>
-        <div class="ct">
-          <span class="name">CT(WIP总和/Pack站计划)</span>
-          <span class="number">{{ ctNum }}</span>
+          <el-table
+            :header-cell-style="getRowClass"
+            :data="tableData"
+            :highlight-current-row="true"
+            style="margin-top: 4px"
+          >
+            <el-table-column align="center" class="table-head" :label="tableLabel">
+              <el-table-column
+                align="center"
+                prop="station"
+                width="180px"
+                show-overflow-tooltip
+                label="站位"
+              ></el-table-column>
+              <el-table-column align="center" prop="targetOut" label="計劃"></el-table-column>
+              <el-table-column align="center" prop="inPut" label="實際"></el-table-column>
+              <el-table-column align="center" prop="hitRate" width="100px" label="達成率"></el-table-column>
+              <el-table-column align="center" prop="processYield" width="100px" label="良率"></el-table-column>
+              <el-table-column align="center" prop="wip" label="WIP"></el-table-column>
+              <el-table-column align="center" prop="maxWip" label="上限"></el-table-column>
+              <el-table-column align="center" prop="minWip" label="下限"></el-table-column>
+            </el-table-column>
+          </el-table>
+          <div class="ct">
+            <span class="name">CT(WIP总和/Pack站计划)</span>
+            <span class="number">{{ ctNum }}</span>
+          </div>
         </div>
       </el-col>
     </el-row>
@@ -130,7 +135,10 @@ export default {
       // preTime: "",
       ctNum: 0,
       isFol: false,
-      isStanley: false
+      isStanley: false,
+      tableLoading: true,
+      leftLoading: true,
+      chart2Loading: true
     }
   },
   computed: {
@@ -168,6 +176,8 @@ export default {
         stationInfo
       } = result
       this.headValues = [targetOut, outPut, hitRate, delta]
+      // 取消loading 效果
+      this.tableLoading = false
       // 取出 stationInfo 的最后一项的 opNo
       this.Opno = stationInfo[stationInfo.length - 1].opNo
       // 取出最后一项的名称
@@ -194,6 +204,7 @@ export default {
       this.ctNum = packPlan == 0 ? 0 : (totalWip / packPlan).toFixed(2)
       // 取出表格的数据
       this.tableData = stationInfo
+      this.leftLoading = false
     },
     // 获取左边中间区域的数据
     async GetStationTimeSpanOutputInfo(params) {
@@ -226,6 +237,9 @@ export default {
     },
     getRowClass() {
       return "background:transparent !important;color:#1adafb;'font-size':'30px'"
+    },
+    changeLoading() {
+      this.chart2Loading = false
     }
   }
 }

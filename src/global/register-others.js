@@ -19,6 +19,7 @@ import "@/assets/icons"
 //
 import "font-awesome/css/font-awesome.css"
 
+
 import eIconPicker from "e-icon-picker"
 import "e-icon-picker/lib/symbol.js" //基本彩色图标库
 import "e-icon-picker/lib/index.css" // 基本样式，包含基本图标

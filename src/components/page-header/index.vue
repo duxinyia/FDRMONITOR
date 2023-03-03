@@ -79,9 +79,6 @@ export default {
       required: true
     }
   },
-  components: {
-    // ProjectDialog
-  },
   data() {
     return {
       logoSrc: require("@/assets/images/RP_logo_blue.png"),
@@ -105,7 +102,10 @@ export default {
   },
   methods: {
     goHome() {
-      this.$router.push(this.$store.state.fullLoading.path)
+      let path = this.$store.state.fullLoading.path
+      // this.$store.state.fullLoading.path
+      // this.$router.replace("/overview/manage/output")
+      this.$router.replace(path)
     },
     initScreen() {
       if (screenfull.enabled) {

@@ -2,8 +2,9 @@
   <div
     class="machine"
     v-loading="loading"
+    element-loading-text="加载中..."
     element-loading-spinner="el-icon-loading"
-    element-loading-background="rgba(0, 0, 0, 1)"
+    element-loading-background="#111e40"
   >
     <p class="title">{{ itemTitle.customName }}</p>
     <el-row :gutter="6" class="headers">
@@ -77,6 +78,7 @@ export default {
   watch: {
     showData: {
       handler() {
+        // console.log("showData", this.showData)
         this.loading = false
       }
     }
@@ -141,6 +143,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-icon-loading {
+  font-size: 25px;
+}
 .percent-pond {
   width: 100px !important;
   height: 25px !important;
