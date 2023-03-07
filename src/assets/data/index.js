@@ -14,8 +14,6 @@ export default {
   PRODUCTION_ADDRESS: "http://10.147.214.130:8093"
 }
 
-
-
 // 需要展示的数据
 export let baseShowArr = {
   output: [
@@ -86,7 +84,6 @@ export let baseShowArr = {
     }
   ],
   device: [
-
     {
       id: 1,
       imgUrl: require("@/assets/images/aa.png"),
@@ -105,8 +102,6 @@ export let baseShowArr = {
       isShow: false,
       to: "fol"
     }
-
-
   ],
   process: [
     {
@@ -159,7 +154,6 @@ export let baseShowArr = {
       isShow: false,
       to: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
     }
-
   ]
 }
 
@@ -242,7 +236,6 @@ export let changeCmaConfig = () => {
     [
       "device",
       [
-
         {
           id: 1,
           imgUrl: require("@/assets/images/aa.png"),
@@ -261,8 +254,6 @@ export let changeCmaConfig = () => {
           isShow: false,
           to: "fol"
         }
-
-
       ]
     ],
     [
@@ -318,7 +309,6 @@ export let changeCmaConfig = () => {
           isShow: false,
           to: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
         }
-
       ]
     ]
   ])

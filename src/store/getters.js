@@ -4,7 +4,7 @@ const getters = {
   theme: (state) => state.fullLoading.theme,
   menus: (state) => state.permission.menus,
   showRouter: (state) => state.permission.routerArr,
-  routerTitles: state => state.permission.routerTitles,
-  showIndex: state => state.permission.showIndex,
+  routerTitles: (state) => state.permission.routerTitles,
+  showIndex: (state) => state.permission.showIndex
 }
 export default getters

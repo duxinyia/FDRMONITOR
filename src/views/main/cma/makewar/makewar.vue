@@ -167,8 +167,6 @@ export default {
 }
 </script>
 
-
-
 <style lang="scss" scoped>
 //整个table的背景颜色
 ::v-deep .el-table,

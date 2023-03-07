@@ -6,28 +6,7 @@
         <el-image class="logo" :src="changeLogo" fit="fill" />
         <h2 class="name" v-show="!menuFold">RAYPRUS</h2>
       </div>
-      <!-- 各种状态 -->
-      <!-- <div class="systems" style="margin-bottom:10px;color:#fff">
-        <div @click="currentComponent = 'MenuChild'" class="cma">CMA</div>
-        <div @click="currentComponent = 'MenuChild'" class="dp">DP</div>
-      </div>-->
-      <transition
-        appear
-        mode="out-in"
-        :duration="100"
-        enter-active-class="animate__animated animate__fadeInLeftBig"
-        leave-active-class="animate__animated animate__fadeOutRight"
-      >
-        <menu-child :menus="$store.getters.showRouter[$store.getters.showIndex]" />
-      </transition>
-      <!-- <el-tabs v-model="activeName">
-        <el-tab-pane label="CMA菜单" name="first">
-          <menu-child :menus="$store.getters.showRouter[1]" />
-        </el-tab-pane>
-        <el-tab-pane label="DP菜单" name="second">
-          <h1>这是dp的菜单</h1>
-        </el-tab-pane>
-      </el-tabs>-->
+      <menu-child :menus="$store.getters.showRouter[$store.getters.showIndex]" />
     </el-aside>
     <el-container class="right-container">
       <navbar :menuFold.sync="menuFold" />
@@ -35,26 +14,10 @@
         <span
           class="item"
           @click="itemClick(index)"
-          v-for="(item,index) in $store.getters.routerTitles"
+          v-for="(item, index) in $store.getters.routerTitles"
           :key="item"
-        >{{item}}</span>
-        <!-- <router-link
-          v-for="(tag, index) in this.$store.state.fullLoading.tags"
-          ref="tag"
-          :key="tag.path"
-          :class="isActive(tag) ? 'active' : ''"
-          :to="{ path: tag.path }"
-          tag="span"
-          class="tags-view-item"
-          :style="activeStyle(tag)"
-        >
-          {{ tag.title }}
-          <span
-            v-if="!isActive(tag)"
-            class="el-icon-close"
-            @click.prevent.stop="closeSelectedTag(tag, index)"
-          />
-        </router-link>-->
+          :class="{'item':true,'is-active':index == $store.getters.showIndex }"
+        >{{ item }}</span>
       </div>
       <el-main class="main-container">
         <div class="container">
@@ -74,10 +37,9 @@
 </template>
 <script>
 // 导入navbar
-import Navbar from "./childs/navbar.vue"
+import Navbar from "@/components/nav-bar/navbar.vue"
 // 导入左边菜单
-import MenuChild from "./childs/menu.vue"
-
+import MenuChild from "@/components/nav-menu/menu.vue"
 // 导入设置localstorage的函数
 import cache from "@/utils/cache.js"
 export default {
@@ -88,14 +50,11 @@ export default {
   },
   data() {
     return {
-      activeName: "first",
-      // currentComponent: "MenuChild",
+      currentIndex: 0,
       icon: "",
-      currentIndex: 2,
+
       menuFold: false,
-      theme: this.$store.getters.theme || "dark",
-      // menus,
-      tags: [{ title: "首页", path: "/overview/manage/output" }]
+      theme: this.$store.getters.theme || "dark"
     }
   },
   computed: {
@@ -109,21 +68,6 @@ export default {
     }
   },
   methods: {
-    isActive(route) {
-      return route.path === this.$route.path
-    },
-    activeStyle(tag) {
-      if (!this.isActive(tag)) return {}
-      return {
-        "background-color": "#304156"
-      }
-    },
-    isAffix(tag) {
-      return tag.meta && tag.meta.affix
-    },
-    closeSelectedTag(tag, index) {
-      this.$store.commit("fullLoading/DETELE_TAG", index)
-    },
     itemClick(index) {
       this.$store.commit("permission/SET_INDEX", index)
     }
@@ -132,21 +76,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* 修改tabs的样式 */
-/* ::v-deep .el-tabs__nav {
-  width: 100%;
-  display: flex;
-  text-align: center;
-} */
 ::v-deep .el-tabs__item {
   color: #fff;
-  /* flex: 1;
-  padding: 0; */
 }
 .active {
   background: rgba(87, 200, 249, 0.6);
 }
-.tags-view-item {
+/* .tags-view-item {
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -177,7 +113,8 @@ export default {
       margin-right: 2px;
     }
   }
-}
+} */
+
 // 外层容器
 .overview {
   width: 100%;
@@ -227,7 +164,7 @@ export default {
         margin-top: 5px;
       }
     }
-    .systems {
+    /* .systems {
       display: flex;
       justify-content: space-around;
       background: #42b983;
@@ -241,7 +178,7 @@ export default {
       .cma {
         background: red;
       }
-    }
+    } */
   }
   // 右边主要区域
   .right-container {
@@ -251,19 +188,27 @@ export default {
       padding-left: 20px;
       height: 40px;
       background: #fff;
+      color: #fff;
       line-height: 40px;
       box-shadow: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
       .item {
         cursor: pointer;
         display: inline-block;
-        /* width: 100px; */
-        padding: 0 10px;
-        height: 30px;
+        width: 112px;
         line-height: 30px;
-        border: 1px solid yellowgreen;
+        font-weight: bold;
         margin-right: 10px;
         text-align: center;
-        /* background: red; */
+        background: #2a4c73;
+        border-radius: 4px;
+        letter-spacing: 2px;
+        &:hover {
+          /* color: ; */
+          background: rgba(42, 76, 115, 0.8);
+        }
+      }
+      .is-active {
+        background: #3764f1;
       }
     }
     .main-container {

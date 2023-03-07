@@ -1,6 +1,8 @@
 <template>
   <div id="app" :style="appStyle">
-    <router-view />
+    <keep-alive include="overView">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
@@ -28,7 +30,5 @@ export default {
   width: 100vw;
   height: 100vh;
   min-width: 1200px;
-  /* background-image: url("~@/assets/images/background3.pngs") no-repeat center center; */
-  /* background-size: 100% 100%; */
 }
 </style>

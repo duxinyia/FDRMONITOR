@@ -13,13 +13,13 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
-            <div v-for="(item,index) in showArr" :key="index" class="every-item one-item">
-              <div class="show">{{item.Device}}</div>
-              <div class="show">{{item.Machine}}</div>
-              <div class="show">{{item.Target}}</div>
-              <div class="show">{{item.OutPut}}</div>
-              <div class="show">{{item.HitRate}}</div>
-              <div class="show">{{item['1st Yield']}}</div>
+            <div v-for="(item, index) in showArr" :key="index" class="every-item one-item">
+              <div class="show">{{ item.Device }}</div>
+              <div class="show">{{ item.Machine }}</div>
+              <div class="show">{{ item.Target }}</div>
+              <div class="show">{{ item.OutPut }}</div>
+              <div class="show">{{ item.HitRate }}</div>
+              <div class="show">{{ item["1st Yield"] }}</div>
             </div>
           </div>
           <div class="item">
@@ -31,13 +31,13 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
-            <div v-for="(item,index) in showArr" :key="index" class="every-item">
-              <div class="show">{{item.Device}}</div>
-              <div class="show">{{item.Machine}}</div>
-              <div class="show">{{item.Target}}</div>
-              <div class="show">{{item.OutPut}}</div>
-              <div class="show">{{item.HitRate}}</div>
-              <div class="show">{{item['1st Yield']}}</div>
+            <div v-for="(item, index) in showArr" :key="index" class="every-item">
+              <div class="show">{{ item.Device }}</div>
+              <div class="show">{{ item.Machine }}</div>
+              <div class="show">{{ item.Target }}</div>
+              <div class="show">{{ item.OutPut }}</div>
+              <div class="show">{{ item.HitRate }}</div>
+              <div class="show">{{ item["1st Yield"] }}</div>
             </div>
           </div>
           <div class="item">
@@ -49,13 +49,13 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
-            <div v-for="(item,index) in showArr" :key="index" class="every-item">
-              <div class="show">{{item.Device}}</div>
-              <div class="show">{{item.Machine}}</div>
-              <div class="show">{{item.Target}}</div>
-              <div class="show">{{item.OutPut}}</div>
-              <div class="show">{{item.HitRate}}</div>
-              <div class="show">{{item['1st Yield']}}</div>
+            <div v-for="(item, index) in showArr" :key="index" class="every-item">
+              <div class="show">{{ item.Device }}</div>
+              <div class="show">{{ item.Machine }}</div>
+              <div class="show">{{ item.Target }}</div>
+              <div class="show">{{ item.OutPut }}</div>
+              <div class="show">{{ item.HitRate }}</div>
+              <div class="show">{{ item["1st Yield"] }}</div>
             </div>
           </div>
         </div>
@@ -74,13 +74,13 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
-            <div v-for="(item,index) in showArr" :key="index" class="every-item">
-              <div class="show">{{item.Device}}</div>
-              <div class="show">{{item.Machine}}</div>
-              <div class="show">{{item.Target}}</div>
-              <div class="show">{{item.OutPut}}</div>
-              <div class="show">{{item.HitRate}}</div>
-              <div class="show">{{item['1st Yield']}}</div>
+            <div v-for="(item, index) in showArr" :key="index" class="every-item">
+              <div class="show">{{ item.Device }}</div>
+              <div class="show">{{ item.Machine }}</div>
+              <div class="show">{{ item.Target }}</div>
+              <div class="show">{{ item.OutPut }}</div>
+              <div class="show">{{ item.HitRate }}</div>
+              <div class="show">{{ item["1st Yield"] }}</div>
             </div>
           </div>
           <div class="item">
@@ -92,13 +92,13 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
-            <div v-for="(item,index) in showArr" :key="index" class="every-item">
-              <div class="show">{{item.Device}}</div>
-              <div class="show">{{item.Machine}}</div>
-              <div class="show">{{item.Target}}</div>
-              <div class="show">{{item.OutPut}}</div>
-              <div class="show">{{item.HitRate}}</div>
-              <div class="show">{{item['1st Yield']}}</div>
+            <div v-for="(item, index) in showArr" :key="index" class="every-item">
+              <div class="show">{{ item.Device }}</div>
+              <div class="show">{{ item.Machine }}</div>
+              <div class="show">{{ item.Target }}</div>
+              <div class="show">{{ item.OutPut }}</div>
+              <div class="show">{{ item.HitRate }}</div>
+              <div class="show">{{ item["1st Yield"] }}</div>
             </div>
           </div>
           <div class="item">
@@ -110,13 +110,13 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
-            <div v-for="(item,index) in showArr" :key="index" class="every-item">
-              <div class="show">{{item.Device}}</div>
-              <div class="show">{{item.Machine}}</div>
-              <div class="show">{{item.Target}}</div>
-              <div class="show">{{item.OutPut}}</div>
-              <div class="show">{{item.HitRate}}</div>
-              <div class="show">{{item['1st Yield']}}</div>
+            <div v-for="(item, index) in showArr" :key="index" class="every-item">
+              <div class="show">{{ item.Device }}</div>
+              <div class="show">{{ item.Machine }}</div>
+              <div class="show">{{ item.Target }}</div>
+              <div class="show">{{ item.OutPut }}</div>
+              <div class="show">{{ item.HitRate }}</div>
+              <div class="show">{{ item["1st Yield"] }}</div>
             </div>
           </div>
         </div>
@@ -135,13 +135,13 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
-            <div v-for="(item,index) in showArr" :key="index" class="every-item">
-              <div class="show">{{item.Device}}</div>
-              <div class="show">{{item.Machine}}</div>
-              <div class="show">{{item.Target}}</div>
-              <div class="show">{{item.OutPut}}</div>
-              <div class="show">{{item.HitRate}}</div>
-              <div class="show">{{item['1st Yield']}}</div>
+            <div v-for="(item, index) in showArr" :key="index" class="every-item">
+              <div class="show">{{ item.Device }}</div>
+              <div class="show">{{ item.Machine }}</div>
+              <div class="show">{{ item.Target }}</div>
+              <div class="show">{{ item.OutPut }}</div>
+              <div class="show">{{ item.HitRate }}</div>
+              <div class="show">{{ item["1st Yield"] }}</div>
             </div>
           </div>
           <div class="item">
@@ -153,13 +153,13 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
-            <div v-for="(item,index) in showArr" :key="index" class="every-item">
-              <div class="show">{{item.Device}}</div>
-              <div class="show">{{item.Machine}}</div>
-              <div class="show">{{item.Target}}</div>
-              <div class="show">{{item.OutPut}}</div>
-              <div class="show">{{item.HitRate}}</div>
-              <div class="show">{{item['1st Yield']}}</div>
+            <div v-for="(item, index) in showArr" :key="index" class="every-item">
+              <div class="show">{{ item.Device }}</div>
+              <div class="show">{{ item.Machine }}</div>
+              <div class="show">{{ item.Target }}</div>
+              <div class="show">{{ item.OutPut }}</div>
+              <div class="show">{{ item.HitRate }}</div>
+              <div class="show">{{ item["1st Yield"] }}</div>
             </div>
           </div>
           <div class="item">
@@ -171,13 +171,13 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
-            <div v-for="(item,index) in showArr" :key="index" class="every-item three-item">
-              <div class="show">{{item.Device}}</div>
-              <div class="show">{{item.Machine}}</div>
-              <div class="show">{{item.Target}}</div>
-              <div class="show">{{item.OutPut}}</div>
-              <div class="show">{{item.HitRate}}</div>
-              <div class="show is-red">{{item['1st Yield']}}</div>
+            <div v-for="(item, index) in showArr" :key="index" class="every-item three-item">
+              <div class="show">{{ item.Device }}</div>
+              <div class="show">{{ item.Machine }}</div>
+              <div class="show">{{ item.Target }}</div>
+              <div class="show">{{ item.OutPut }}</div>
+              <div class="show">{{ item.HitRate }}</div>
+              <div class="show is-red">{{ item["1st Yield"] }}</div>
             </div>
           </div>
         </div>

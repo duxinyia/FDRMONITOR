@@ -40,11 +40,11 @@
                     v-if="folChecked"
                   >
                     <!-- 定位显示比例 10 / 21改为显示 dailyHitRate-->
-                    <span class="rate" @click.stop="textClick" v-if="folChecked">
-                      {{
-                      item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%"
-                      }}
-                    </span>
+                    <span
+                      class="rate"
+                      @click.stop="textClick"
+                      v-if="folChecked"
+                    >{{ item.values.FOL.hitRate ? parseInt(item.values.FOL.hitRate) + "%" : "0%" }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item)"></span>
                   </div>
@@ -73,11 +73,11 @@
                     v-if="eolChecked"
                   >
                     <!-- 定位显示 -->
-                    <span class="rate" @click.stop="textClick" v-if="eolChecked">
-                      {{
-                      item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%"
-                      }}
-                    </span>
+                    <span
+                      class="rate"
+                      @click.stop="textClick"
+                      v-if="eolChecked"
+                    >{{ item.values.EOL.hitRate ? parseInt(item.values.EOL.hitRate) + "%" : "0%" }}</span>
                     <!-- 柱状图 -->
                     <span class="speed" :style="changeSpeed(item, 'EOL')"></span>
                   </div>
@@ -105,7 +105,9 @@ export default {
     },
     device: {
       type: Object,
-      default: () => ({ deviceNo: "", plantID: "", customName: "", Opno: "" })
+      default: () => ({})
+      // default: () => ({ deviceNo: "", plantID: "", customName: "", Opno: "" })
+      // required: true
     },
     dateValues: {
       type: Array,
@@ -296,6 +298,7 @@ export default {
       color: var(--makewar-item-num);
       .every-num {
         margin-bottom: 15px;
+        color: #33ffcc;
       }
     }
     .right {

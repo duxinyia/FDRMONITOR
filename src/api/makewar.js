@@ -12,7 +12,6 @@ import { getTimeAgo, getOneDay } from "@/utils"
 //     )}&PlantID=8S01&ProductArea=ALL`
 //   )
 
-
 // 2-18新的接口 获取上方的数据
 export let GetOutputInfoStatics = () =>
   $post(

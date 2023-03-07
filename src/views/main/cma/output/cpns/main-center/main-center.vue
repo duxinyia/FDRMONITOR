@@ -17,8 +17,6 @@
           <span class="title">機種產出分佈</span>
         </p>
         <pie-chart :showTitle="false" :seriesData="seriesData" />
-        <!-- <pie-chart v-if="seriesData.length == 0" :showTitle="false" :seriesData="seriesData" />
-        <p v-else>hello world</p>-->
       </div>
       <!-- 第三行 -->
       <div class="center-three">
@@ -26,12 +24,7 @@
           <img class="icon" src="@/assets/images/icon02.png" alt />
           <span class="title">未來7天開線數</span>
         </p>
-        <line-chart
-          height="400px"
-          :showTitle="false"
-          :config="lineChartConfig"
-          title="線體良率明細區:"
-        />
+        <line-chart height="400px" :showTitle="false" :config="lineChartConfig" title="線體良率明細區:" />
       </div>
     </dv-border-box-11>
   </div>

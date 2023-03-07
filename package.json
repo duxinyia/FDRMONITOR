@@ -3,7 +3,7 @@
   "version": "1.5.1",
   "private": true,
   "scripts": {
-    "init": "npm install",
+    "init": "cnpm install",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "prettier": "prettier --write .",

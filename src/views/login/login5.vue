@@ -53,11 +53,7 @@
         <span
           class="location"
           @click="toLocation"
-        >
-          {{
-          port == "8085" ? "正式地址" : "测试地址"
-          }}
-        </span>
+        >{{ port == "8085" ? "正式地址" : "测试地址" }}</span>
       </div>
       <div class="author-info">
         <div>

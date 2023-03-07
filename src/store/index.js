@@ -41,12 +41,12 @@ export function updateStoreData() {
   if (theme) {
     store.commit("fullLoading/SET_THEME", theme)
   }
-  if (tags) {
-    store.commit("fullLoading/SET_TAG", tags)
-  }
-  if (menus) {
-    store.commit("permission/SET_MENUS", menus)
-  }
+  // if (tags) {
+  //   store.commit("fullLoading/SET_TAG", tags)
+  // }
+  // if (menus) {
+  //   store.commit("permission/SET_MENUS", menus)
+  // }
 }
 
 export default store

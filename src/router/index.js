@@ -5,8 +5,6 @@ import NProgress from "nprogress"
 import "nprogress/nprogress.css"
 import cache from "@/utils/cache.js"
 import store from "../store"
-// 导入基础的数据
-// import { changeCmaConfig, baseShowArr } from "@/assets/data"
 
 let baseShowArr = {
   output: [
@@ -146,10 +144,28 @@ let baseShowArr = {
       belong: "管理层/製程監控",
       isShow: false,
       to: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
+    },
+    {
+      id: 112,
+      imgUrl: require("@/assets/images/spotcheck.jpg"),
+      title: "GA良率看板",
+      target: "process",
+      belong: "管理层/製程監控",
+      isShow: false,
+      to: "ga"
+    },
+    {
+      id: 113,
+      imgUrl: require("@/assets/images/spotcheck.jpg"),
+      title: "VA良率看板",
+      target: "process",
+      belong: "管理层/製程監控",
+      isShow: false,
+      to: "va"
     }
   ]
 }
-
+let menuScreen = []
 // 目前做好的界面
 let nowScreen = [
   "By天產出看板",
@@ -166,13 +182,17 @@ let nowScreen = [
   "實時統計",
   "歷史日統計",
   "歷史周統計",
-  "歷史月統計"
+  "歷史月統計",
+  "GA良率看板",
+  "VA良率看板"
 ]
 
+// 现在需要将cma 和 dp 分开
+
 // 防止连续点击多次路由报错
-const routerPush = VueRouter.prototype.push
+const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
-  return routerPush.call(this, location).catch((error) => error)
+  return originalPush.call(this, location).catch((err) => err)
 }
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -190,16 +210,13 @@ router.beforeEach(async (to, from, next) => {
       next()
     }
   } else {
-    // let accessRoutes = await store.dispatch("permission/GenerateRoutes", {
-    //   userJob: store.state.user.user.username,
-    //   nickName: store.state.user.user.fullName
-    // })
     if (hasRoles) {
       // handleAddRouter(accessRoutes)
       let accessRoutes = await store.dispatch("permission/GenerateRoutes", {
         userJob: store.state.user.user.username,
         nickName: store.state.user.user.fullName
       })
+      console.log("accessRoutes", accessRoutes)
       handleAddRouter(accessRoutes)
       hasRoles = false
       next({ ...to, replace: true })
@@ -211,7 +228,7 @@ router.beforeEach(async (to, from, next) => {
 router.afterEach(() => {
   NProgress.done()
 })
-let menuScreen = []
+
 // 动态添加路由的方法
 function handleAddRouter(routers) {
   // 添加路由并且将对应的数据挑选出来

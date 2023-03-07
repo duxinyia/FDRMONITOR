@@ -21,7 +21,7 @@
 // 导入需要跳转路由配置
 import { changeCmaConfig } from "@/assets/data"
 export default {
-  name: "cma",
+  name: "cma/manage",
   data() {
     return {
       titleIcon: require("@/assets/images/title-icon.png")
@@ -29,9 +29,10 @@ export default {
   },
   computed: {
     showDiv1() {
+      console.log("this.$route.params", this.$route.params)
       let { type } = this.$route.params
       let theme = this.$store.getters.theme
-      return changeCmaConfig(theme).get(type)
+      return changeCmaConfig(theme).get("yield")
     }
   },
   methods: {

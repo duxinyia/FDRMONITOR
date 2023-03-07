@@ -3,11 +3,11 @@ import App from "./App.vue"
 import store from "./store"
 import router from "./router"
 import { globalRegister } from "./global"
-import i18n from "./lang"
+// import i18n from "./lang"
 Vue.use(globalRegister)
 Vue.config.productionTip = false
 new Vue({
-  i18n,
+  // i18n,
   store,
   router,
   render: (h) => h(App)

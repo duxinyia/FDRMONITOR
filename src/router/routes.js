@@ -51,47 +51,52 @@ export default [
       title: "登录五"
     }
   },
-
+  // 登录以后的路由
   {
     path: "/overview",
     name: "overview",
-    component: () => import(/* webpackChunkName: "overView" */ "../views/overView/overView.vue"),
-    redirect: () => "overview/manage/output",
+    component: () => import(/* webpackChunkName: "overView" */ "../views/overView/index.vue"),
+    redirect: () => "overview/cma/manage/output",
     meta: {
       title: "首页"
     },
     children: [
-      // 管理层
-      // {
-      //   path: "manage/:type",
-      //   name: "overview-manage",
-      //   component: () =>
-      //     import(
-      //       /* webpackChunkName: "overview/manage" */ "../views/overView/cpns/manage/manage.vue"
-      //     ),
-      //   meta: {
-      //     title: "管理层"
-      //   }
-      // },
+      // dp的路由
       {
-        path: "manage/:type",
-        name: "overview-manage",
-        component: () =>
-          import(
-            /* webpackChunkName: "overview/manage" */ "../views/overView/cpns/manage/manage.vue"
-          ),
-        meta: {
-          title: "管理层"
-        }
+        path: "dp",
+        name: "overviewdp",
+        component: () => import(/* webpackChunkName: "overviewdp" */ "../views/overView/dp/dp.vue"),
+        redirect: () => "dp/manage/device",
+        children: [
+          // 分决策层和管理层
+          {
+            path: "manage/:type",
+            name: "cmamanage",
+            component: () =>
+              import(/* webpackChunkName: "cmamanage" */ "../views/overView/dp/manage/manage.vue")
+          }
+        ]
       },
-      // 关于页面
+      // cma的侧边路由
       {
-        path: "about",
+        path: "cma",
+        name: "overviewcma",
         component: () =>
-          import(/* webpackChunkName: "overview/about" */ "../views/overView/cpns/about/about.vue")
+          import(/* webpackChunkName: "overviewcma" */ "../views/overView/cma/index.vue"),
+        redirect: () => "cma/manage/device",
+        children: [
+          // 分决策层和管理层
+          {
+            path: "manage/:type",
+            name: "cmamanage",
+            component: () =>
+              import(/* webpackChunkName: "cmamanage" */ "../views/overView/cma/manage/manage.vue")
+          }
+        ]
       }
     ]
   },
+  // 主路由
   {
     path: "/main",
     name: "main",
@@ -100,140 +105,127 @@ export default [
       title: "总览"
     },
     children: [
-      // FOL看板的路由
+      // 这里也分 cma 路由 和 dp路由
       {
-        path: "fol",
-        name: "fol",
-        component: () => import(/* webpackChunkName: "fol" */ "../views/main/cma/fol/fol.vue"),
-        meta: {
-          title: "FOL"
-        }
-      },
-      // AA看板的路由
-      {
-        path: "aa",
-        name: "aa",
-        component: () => import(/* webpackChunkName: "aa" */ "../views/main/cma/aa/aa.vue"),
-        meta: {
-          title: "AA"
-        }
-      },
-      {
-        path: "text",
-        name: "text",
-        component: () => import(/* webpackChunkName: "text" */ "../views/main/cma/text/text.vue"),
-        meta: {
-          title: "TEXT"
-        }
-      },
-      // 11/18 新增加EOL的页面
-      {
-        path: "eol",
-        name: "eol",
-        component: () => import(/* webpackChunkName: "eol" */ "../views/main/cma/eol/eol.vue"),
-        meta: {
-          title: "EOL"
-        }
-      },
-      // 2/23 新增 AA CT GA 看板
-      {
-        path: "aactga",
-        name: "aactga",
-        component: () => import(/* webpackChunkName: "aactga" */ "../views/main/cma/aactga/aactga.vue"),
-        meta: {
-          title: "aactga"
-        }
-      },
-      // 年度產出總覽
-      {
-        path: "output",
-        name: "output",
-        component: () =>
-          import(/* webpackChunkName: "output" */ "../views/main/cma/output/output.vue"),
-        meta: {
-          title: "產出可視化"
-        }
-      },
-      // By站位產出看板
-      {
-        path: "output2",
-        name: "output2",
-        component: () =>
-          import(/* webpackChunkName: "output2" */ "../views/main/cma/output2/output2.vue"),
-        meta: {
-          title: "output2"
-        }
-      },
-      // 制造层
-      {
-        path: "make",
-        name: "make",
-        component: () => import(/* webpackChunkName: "make" */ "../views/main/cma/make/make.vue"),
-        meta: { isJump: true, title: "make" }
-      },
-      //By天產出看板
-      {
-        path: "makewar",
-        name: "makewar",
-        component: () =>
-          import(/* webpackChunkName: "makewar" */ "../views/main/cma/makewar/makewar.vue"),
-        meta: {
-          title: "makewar"
-        }
-      },
-      // 从 By天產出看板 达成率 跳转过来的路由
-      {
-        path: "wardetail",
-        name: "wardetail",
-        component: () =>
-          import(/* webpackChunkName: "wardetail" */ "../views/main/cma/wardetail/wardetail.vue"),
-        meta: {
-          title: "wardetail"
-        }
-      },
-      // 良率看板 SAP良率
-      {
-        path: "sap",
-        name: "sap",
-        component: () => import(/* webpackChunkName: "sap" */ "../views/main/cma/sap/sap.vue"),
-        meta: {
-          title: "wardetail"
-        }
-      },
-      {
-        path: "sfc",
-        name: "sfc",
-        component: () => import(/* webpackChunkName: "sfc" */ "../views/main/cma/sfc/sfc.vue"),
-        meta: {
-          title: "sfc"
-        }
-      },
-      {
-        path: "sfcdetail",
-        name: "sfcdetail",
-        component: () =>
-          import(/* webpackChunkName: "sfcdetail" */ "../views/main/cma/sfcdetail/sfcdetail.vue"),
-        meta: { isJump: true, title: "sfcdetail" }
-      },
-      {
-        path: "tsfc",
-        name: "tsfc",
-        component: () => import(/* webpackChunkName: "tsfc" */ "../views/main/cma/tsfc/tsfc.vue"),
-        meta: {
-          title: "tsfc"
-        }
-      },
-      {
-        path: "defect",
-        name: "defect",
-        component: () =>
-          import(/* webpackChunkName: "defect" */ "../views/main/cma/defect/defect.vue"),
-        meta: {
-          title: "defect"
-        }
+        path: "cma",
+        component: () => import(/* webpackChunkName: "maincma" */ "../views/main/cma/index.vue"),
+        children: [
+          // AA看板的路由
+          {
+            path: "aa",
+            name: "aa",
+            component: () => import(/* webpackChunkName: "aa" */ "../views/main/cma/aa/aa.vue")
+          },
+          // FOL看板的路由
+          {
+            path: "fol",
+            name: "fol",
+            component: () => import(/* webpackChunkName: "fol" */ "../views/main/cma/fol/fol.vue")
+          },
+          // 11/18 新增加EOL的页面
+          {
+            path: "eol",
+            name: "eol",
+            component: () => import(/* webpackChunkName: "eol" */ "../views/main/cma/eol/eol.vue")
+          },
+          // 2/23 新增 AA CT GA 看板
+          {
+            path: "aactga",
+            name: "aactga",
+            component: () =>
+              import(/* webpackChunkName: "aactga" */ "../views/main/cma/aactga/aactga.vue")
+          },
+          // 年度產出總覽
+          {
+            path: "output",
+            name: "output",
+            component: () =>
+              import(/* webpackChunkName: "output" */ "../views/main/cma/output/output.vue")
+          },
+          // By站位產出看板
+          {
+            path: "output2",
+            name: "output2",
+            component: () =>
+              import(/* webpackChunkName: "output2" */ "../views/main/cma/output2/output2.vue")
+          },
+          // 制造层
+          {
+            path: "make",
+            name: "make",
+            component: () =>
+              import(/* webpackChunkName: "make" */ "../views/main/cma/make/make.vue"),
+            meta: { isJump: true, title: "make" }
+          },
+          //By天產出看板
+          {
+            path: "makewar",
+            name: "makewar",
+            component: () =>
+              import(/* webpackChunkName: "makewar" */ "../views/main/cma/makewar/makewar.vue")
+          },
+          // 从 By天產出看板 达成率 跳转过来的路由
+          {
+            path: "wardetail",
+            name: "wardetail",
+            component: () =>
+              import(
+                /* webpackChunkName: "wardetail" */ "../views/main/cma/wardetail/wardetail.vue"
+              )
+          },
+          // 良率看板 SAP良率
+          {
+            path: "sap",
+            name: "sap",
+            component: () => import(/* webpackChunkName: "sap" */ "../views/main/cma/sap/sap.vue")
+          },
+          {
+            path: "sfc",
+            name: "sfc",
+            component: () => import(/* webpackChunkName: "sfc" */ "../views/main/cma/sfc/sfc.vue")
+          },
+          {
+            path: "sfcdetail",
+            name: "sfcdetail",
+            component: () =>
+              import(
+                /* webpackChunkName: "sfcdetail" */ "../views/main/cma/sfcdetail/sfcdetail.vue"
+              ),
+            meta: { isJump: true, title: "sfcdetail" }
+          },
+          {
+            path: "tsfc",
+            name: "tsfc",
+            component: () =>
+              import(/* webpackChunkName: "tsfc" */ "../views/main/cma/tsfc/tsfc.vue")
+          },
+          {
+            path: "defect",
+            name: "defect",
+            component: () =>
+              import(/* webpackChunkName: "defect" */ "../views/main/cma/defect/defect.vue")
+          },
+          {
+            path: "text",
+            name: "text",
+            component: () =>
+              import(/* webpackChunkName: "text" */ "../views/main/cma/text/text.vue")
+          },
+          {
+            path: "va",
+            name: "va",
+            component: () => import(/* webpackChunkName: "va" */ "../views/main/cma/va/va.vue")
+          },
+          {
+            path: "ga",
+            name: "ga",
+            component: () => import(/* webpackChunkName: "va" */ "../views/main/cma/ga/ga.vue")
+          }
+        ]
       }
     ]
   },
+
   // 没找到的路由
   {
     path: "*",
@@ -243,6 +235,4 @@ export default [
       title: "notFound"
     }
   }
-
-
 ]

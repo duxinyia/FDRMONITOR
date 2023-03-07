@@ -67,7 +67,7 @@
                   v-for="(item, i) in everyTitle"
                   :index="i"
                   :itemTitle="item"
-                  :showData="newData[ 3*index + i]"
+                  :showData="newData[3 * index + i]"
                   :key="i"
                 />
                 <!-- </template> -->

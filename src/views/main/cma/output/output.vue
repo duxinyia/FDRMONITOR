@@ -71,7 +71,6 @@ export default {
   },
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "年度產出總覽")
-    // this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.initData()
   },
   methods: {
@@ -86,7 +85,6 @@ export default {
         this.getDateCodeOutputInfo1()
       ]
       await Promise.all(requestArr)
-      // this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
     // 获取左上的数据
     async getYearOutputInfo() {

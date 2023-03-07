@@ -33,7 +33,7 @@ export default {
           "#b989f0",
           "#adf7b7",
           "#c9dd68",
-          "33ffcc",
+          "#33ffcc",
           "#FFC125",
           "#FF7F00",
           "#836FFF",
