@@ -13,11 +13,12 @@
       <div class="bread-container">
         <span
           class="item"
-          @click="itemClick(item,index)"
+          @click="itemClick(item, index)"
           v-for="(item, index) in $store.getters.routerTitles"
           :key="item.name"
           :class="{ item: true, 'is-active': index == $store.getters.showIndex }"
-        >{{ item.name }}</span>
+          >{{ item.name }}</span
+        >
       </div>
       <el-main class="main-container">
         <div class="container">
