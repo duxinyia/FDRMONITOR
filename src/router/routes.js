@@ -61,22 +61,18 @@ export default [
       title: "首页"
     },
     children: [
-      // dp的路由
-      {
-        path: "dp",
-        name: "overviewdp",
-        component: () => import(/* webpackChunkName: "overviewdp" */ "../views/overView/dp/dp.vue"),
-        redirect: () => "dp/manage/device",
-        children: [
-          // 分决策层和管理层
-          {
-            path: "manage/:type",
-            name: "cmamanage",
-            component: () =>
-              import(/* webpackChunkName: "cmamanage" */ "../views/overView/dp/manage/manage.vue")
-          }
-        ]
-      },
+      // {
+      //   path: "cma/manage/:type",
+      //   name: "cmamanage",
+      //   component: () =>
+      //     import(/* webpackChunkName: "cmamanage" */ "../views/overView/cma/manage/manage.vue")
+      // },
+      // {
+      //   path: "dp/manage/:type",
+      //   name: "dpmanage",
+      //   component: () =>
+      //     import(/* webpackChunkName: "dpmanage" */ "../views/overView/dp/manage/manage.vue")
+      // }
       // cma的侧边路由
       {
         path: "cma",
@@ -91,6 +87,22 @@ export default [
             name: "cmamanage",
             component: () =>
               import(/* webpackChunkName: "cmamanage" */ "../views/overView/cma/manage/manage.vue")
+          }
+        ]
+      },
+      // dp的路由
+      {
+        path: "dp",
+        name: "overviewdp",
+        component: () => import(/* webpackChunkName: "overviewdp" */ "../views/overView/dp/dp.vue"),
+        redirect: () => "dp/manage/device",
+        children: [
+          // 分决策层和管理层
+          {
+            path: "manage/:type",
+            name: "cmamanage",
+            component: () =>
+              import(/* webpackChunkName: "dpmanage" */ "../views/overView/dp/manage/manage.vue")
           }
         ]
       }

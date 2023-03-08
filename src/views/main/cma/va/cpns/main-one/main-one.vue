@@ -7,12 +7,12 @@
         </dv-border-box-12>
       </div>
       <div class="item">
-        <dv-border-box-12>
+        <dv-border-box-12 class="inner-box">
           <kline-chart />
         </dv-border-box-12>
       </div>
       <div class="item">
-        <dv-border-box-12>
+        <dv-border-box-12 class="inner-box">
           <kline-chart />
         </dv-border-box-12>
       </div>
@@ -33,16 +33,19 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-::v-deep .border-box-content {
-  padding: 10px;
-}
+<style lang="scss">
 .inner-box {
   .border-box-content {
     padding: 10px !important;
   }
 }
+</style>
+
+<style lang="scss" scoped>
+::v-deep .border-box-content {
+  padding: 10px;
+}
+
 .main-one {
   .container {
     display: flex;

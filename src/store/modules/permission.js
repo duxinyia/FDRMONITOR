@@ -44,6 +44,7 @@ const mutations = {
   },
   SET_INDEX: (state, index) => {
     state.showIndex = index
+    cache.setCache("showIndex", index)
   }
 }
 const actions = {
@@ -88,8 +89,8 @@ function handleRouter(routers, isTwo = true) {
     routers.forEach((item, i) => {
       // 取出各个一级标题
       if (isTwo) {
-        // console.log("item=======", item)
-        routeTitles.push(item.meta.title)
+        console.log("item=======", item)
+        routeTitles.push({ name: item.meta.title, path: item.path })
       }
       let tempRouter = []
       let children = ""

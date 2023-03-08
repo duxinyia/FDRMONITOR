@@ -2,9 +2,9 @@
   <div class="page-main">
     <dv-border-box-11 title="VA設備總覽">
       <main-one />
-      <!-- <main-two />
       <main-two />
-      <main-two />-->
+      <main-two />
+      <main-two />
     </dv-border-box-11>
   </div>
 </template>

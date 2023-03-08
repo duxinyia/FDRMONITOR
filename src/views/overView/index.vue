@@ -13,11 +13,11 @@
       <div class="bread-container">
         <span
           class="item"
-          @click="itemClick(index)"
+          @click="itemClick(item,index)"
           v-for="(item, index) in $store.getters.routerTitles"
-          :key="item"
-          :class="{'item':true,'is-active':index == $store.getters.showIndex }"
-        >{{ item }}</span>
+          :key="item.name"
+          :class="{ item: true, 'is-active': index == $store.getters.showIndex }"
+        >{{ item.name }}</span>
       </div>
       <el-main class="main-container">
         <div class="container">
@@ -57,6 +57,10 @@ export default {
       theme: this.$store.getters.theme || "dark"
     }
   },
+  // mounted() {
+  //   console.log("=======roter", this.$store.state.fullLoading.path)
+  //   this.$router.push(this.$store.state.fullLoading.path)
+  // },
   computed: {
     key() {
       return this.$route.path.replace(/\//g, "_")
@@ -68,7 +72,11 @@ export default {
     }
   },
   methods: {
-    itemClick(index) {
+    itemClick(item, index) {
+      console.log("index======", item, index, this.$route.path)
+      // 点击不同的按钮显示不同的子菜单
+      this.$router.push(item.path).catch(() => {})
+      this.$store.commit("fullLoading/SET_PATH", this.$route.path)
       this.$store.commit("permission/SET_INDEX", index)
     }
   }

@@ -53,7 +53,11 @@
         <span
           class="location"
           @click="toLocation"
-        >{{ port == "8085" ? "正式地址" : "测试地址" }}</span>
+        >
+          {{
+          port == "8085" ? "正式地址" : "测试地址"
+          }}
+        </span>
       </div>
       <div class="author-info">
         <div>
@@ -113,17 +117,6 @@ export default {
             // console.log("res======", res)
             // 表示用户名 和 密码正确
             this.$store.commit("user/SET_USER", { ...this.form, fullName: res.Resultvalue.Name })
-            // 获取菜单路由
-            // this.$store
-            //   .dispatch("permission/GenerateRoutes", {
-            //     userJob: res.Resultvalue.Key,
-            //     nickName: res.Resultvalue.Name
-            //   })
-            //   .then((res) => {
-            //     console.log("回调的菜单为:", res)
-            //   })
-            // let menus = await getMenus(res.Resultvalue.Key, res.Resultvalue.Name)
-            // console.log("获取菜单路由", menus)
             // 跳转页面
             this.$router.replace({ name: "overview" }).catch((err) => {})
           }

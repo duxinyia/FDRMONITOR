@@ -14,7 +14,7 @@ const mutations = {
   SET_FULLLOADING: (state, payload = false) => {
     state.fullLoading = payload
   },
-  SET_PATH: (state, path = "/overview/cma/device") => {
+  SET_PATH: (state, path = "/overview/cma/manage/device") => {
     state.path = path
     cache.setCache("path", path)
   },

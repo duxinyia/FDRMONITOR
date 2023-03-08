@@ -27,8 +27,9 @@ export function updateStoreData() {
   let path = cache.getCache("path")
   let bgUrl = cache.getCache("bgUrl")
   let theme = cache.getCache("theme")
-  let tags = cache.getCache("tags")
-  let menus = cache.getCache("menus")
+  let showIndex = cache.getCache("showIndex")
+  // let tags = cache.getCache("tags")
+  // let menus = cache.getCache("menus")
   if (user) {
     store.commit("user/SET_USER", user)
   }
@@ -40,6 +41,9 @@ export function updateStoreData() {
   }
   if (theme) {
     store.commit("fullLoading/SET_THEME", theme)
+  }
+  if (showIndex) {
+    store.commit("permission/SET_INDEX", showIndex)
   }
   // if (tags) {
   //   store.commit("fullLoading/SET_TAG", tags)

@@ -122,8 +122,6 @@
 </template>
 
 <script>
-// 导入侧边栏配置文件  $store.getters.menus
-// import { menus } from "@/assets/data"
 import Item from "./Item"
 export default {
   name: "menu-child",
@@ -131,31 +129,15 @@ export default {
     Item
   },
   props: ["menus"],
-  // data() {
-  //   return {
-  //     menus
-  //   }
-  // },
   methods: {
-    // openMenu(value) {
-    //   console.log("value", value)
-    // },
     itemClick(item) {
       // 管理层 的 产出 设备 良率 才切换右边
       // 点击子菜单跳转路由
-      // console.log("item", item)
-      // if (item.outLink) {
-      //   window.open(item.outLink)
-      //   return
-      // }
       // 如果index包含http 那么是跳转外部链接
       if (item.index.includes("http")) {
         window.open(item.index)
         return
       }
-      // if (item.index == "notFound") {
-      //   this.$router.push({ name: "404" })
-      // }
       // 普通跳转路由的
       if (!item.subs) {
         item.index = item.index.split("/")[item.index.split("/").length - 1]
@@ -166,9 +148,6 @@ export default {
         this.$router.push(item.index)
       }
       let path = this.$route.path
-      // if (!this.$store.state.fullLoading.tags.find((tag) => tag.path == item.index) && !item.subs) {
-      //   this.$store.commit("fullLoading/SET_TAG", { title: item.title, path: item.index })
-      // }
       console.log("path", path)
       this.$store.commit("fullLoading/SET_PATH", path)
     }
@@ -309,9 +288,6 @@ i {
   /* text-decoration: underline; */
 }
 
-/* ::v-deep .el-icon-s-release + .el-submenu__icon-arrow {
-  color: rgba(204, 204, 204, 0.3) !important;
-} */
 ::v-deep .el-submenu__icon-arrow {
   color: #fff;
 }
