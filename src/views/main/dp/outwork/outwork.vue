@@ -40,10 +40,6 @@ export default {
   },
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "人員出勤率看板")
-    // 每5分钟获取一次数据
-    // this.dataTiming = setInterval(() => {
-    //   this.initData()
-    // }, 50000)
   },
   methods: {}
 }
@@ -52,10 +48,4 @@ export default {
 ::v-deep .border-box-content {
   padding: 10px 20px 18px 20px;
 }
-// .content {
-//   display: grid;
-//   grid-template-rows: 33% 66%;
-//   grid-template-columns: 100%;
-//   gap: 10px;
-// }
 </style>

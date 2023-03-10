@@ -1,9 +1,8 @@
 <template>
   <div class="container">
-    <!-- <e-icon-picker v-model="icon" style="width:500px" /> -->
     <div class="wrapper">
-      <div class="text">404</div>
-      <el-button type="success" @click="goBack" plain>返回</el-button>
+      <el-image class="notfound" :src="img" fit="cover"></el-image>
+      <el-button class="back" type="success" @click="goBack" plain>返回</el-button>
     </div>
   </div>
 </template>
@@ -12,7 +11,7 @@ export default {
   name: "notFound",
   data() {
     return {
-      icon: ""
+      img: require("@/assets/images/404.png")
     }
   },
   methods: {
@@ -23,11 +22,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-::v-deep .dv-border-box-11-title {
-  font-size: 30px !important;
-  font-weight: bold !important;
-  background: greenyellow !important;
-}
 .container {
   width: 100vw;
   height: 100vh;
@@ -37,10 +31,17 @@ export default {
   align-items: center;
   text-align: center;
   .wrapper {
-    .text {
-      font-size: 400px;
-      line-height: 400px;
-      color: #343f69;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .notfound {
+      width: 500px;
+      margin-bottom: 50px;
+    }
+    .back {
+      width: 300px;
+      background: #144646;
     }
   }
 }

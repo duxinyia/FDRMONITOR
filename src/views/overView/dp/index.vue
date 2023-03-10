@@ -1,10 +1,8 @@
 <template>
   <router-view />
 </template>
-
-
 <script>
 export default {
-  name: "cma"
+  name: "dp"
 }
 </script>

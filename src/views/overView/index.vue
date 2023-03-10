@@ -3,13 +3,15 @@
     <!-- 侧边栏 -->
     <el-aside :width="menuFold ? '65px' : '235px'" class="aside-container">
       <div class="top-title">
-        <el-image class="logo" :src="changeLogo" fit="fill" />
+        <el-image class="logo" :src="logoUrl" fit="fill" />
         <h2 class="name" v-show="!menuFold">RAYPRUS</h2>
       </div>
       <menu-child :menus="$store.getters.showRouter[$store.getters.showIndex]" />
     </el-aside>
     <el-container class="right-container">
+      <!-- 左边菜单 -->
       <navbar :menuFold.sync="menuFold" />
+      <!-- 菜单下的区域 -->
       <div class="bread-container">
         <span
           class="item"
@@ -20,6 +22,7 @@
           >{{ item.name }}</span
         >
       </div>
+      <!-- 主要区域 -->
       <el-main class="main-container">
         <div class="container">
           <transition
@@ -41,8 +44,6 @@
 import Navbar from "@/components/nav-bar/navbar.vue"
 // 导入左边菜单
 import MenuChild from "@/components/nav-menu/menu.vue"
-// 导入设置localstorage的函数
-import cache from "@/utils/cache.js"
 export default {
   name: "overView",
   components: {
@@ -51,30 +52,17 @@ export default {
   },
   data() {
     return {
-      currentIndex: 0,
-      icon: "",
-
       menuFold: false,
-      theme: this.$store.getters.theme || "dark"
+      logoUrl: require("@/assets/images/_logo.png")
     }
   },
-  // mounted() {
-  //   console.log("=======roter", this.$store.state.fullLoading.path)
-  //   this.$router.push(this.$store.state.fullLoading.path)
-  // },
   computed: {
     key() {
       return this.$route.path.replace(/\//g, "_")
-    },
-    changeLogo() {
-      return this.$store.getters.theme == "dark"
-        ? this.$globalData.lightLogo
-        : this.$globalData.logoUrl
     }
   },
   methods: {
     itemClick(item, index) {
-      console.log("index======", item, index, this.$route.path)
       // 点击不同的按钮显示不同的子菜单
       this.$router.push(item.path).catch(() => {})
       this.$store.commit("fullLoading/SET_PATH", this.$route.path)
@@ -91,38 +79,6 @@ export default {
 .active {
   background: rgba(87, 200, 249, 0.6);
 }
-/* .tags-view-item {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-  height: 26px;
-  line-height: 26px;
-  border: 1px solid #d8dce5;
-  color: #495060;
-  background: #fff;
-  padding: 0 8px;
-  font-size: 12px;
-  margin-right: 8px;
-  margin-top: 4px;
-  &:last-of-type {
-    margin-right: 15px;
-  }
-  &.active {
-    background-color: #42b983;
-    color: #fff;
-    border-color: #42b983;
-    &::before {
-      content: "";
-      background: #fff;
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      position: relative;
-      margin-right: 2px;
-    }
-  }
-} */
 
 // 外层容器
 .overview {
@@ -173,21 +129,6 @@ export default {
         margin-top: 5px;
       }
     }
-    /* .systems {
-      display: flex;
-      justify-content: space-around;
-      background: #42b983;
-      line-height: 30px;
-      text-align: center;
-      cursor: pointer;
-      .cma,
-      .dp {
-        flex: 1;
-      }
-      .cma {
-        background: red;
-      }
-    } */
   }
   // 右边主要区域
   .right-container {

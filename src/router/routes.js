@@ -1,16 +1,17 @@
 export default [
   {
     path: "/",
-    redirect: () => "login5"
+    redirect: () => "login"
   },
   {
     path: "/login",
     name: "login",
-    component: () => import(/* webpackChunkName: "login" */ "../views/login/login.vue"),
+    component: () => import(/* webpackChunkName: "login4" */ "../views/login/login5.vue"),
     meta: {
       title: "登录一"
     }
   },
+
   {
     path: "/login1",
     name: "login1",
@@ -46,11 +47,12 @@ export default [
   {
     path: "/login5",
     name: "login5",
-    component: () => import(/* webpackChunkName: "login4" */ "../views/login/login5.vue"),
+    component: () => import(/* webpackChunkName: "login" */ "../views/login/login.vue"),
     meta: {
       title: "登录五"
     }
   },
+
   // 登录以后的路由
   {
     path: "/overview",
@@ -79,12 +81,19 @@ export default [
         name: "overviewcma",
         component: () =>
           import(/* webpackChunkName: "overviewcma" */ "../views/overView/cma/index.vue"),
-        redirect: () => "cma/manage/device",
+        // redirect: () => "cma/manage/device",
+        redirect: "cma/manage/device",
         children: [
           // 分决策层和管理层
           {
             path: "manage/:type",
             name: "cmamanage",
+            component: () =>
+              import(/* webpackChunkName: "cmamanage" */ "../views/overView/cma/manage/manage.vue")
+          },
+          {
+            path: "juec/:type",
+            name: "cmajuec",
             component: () =>
               import(/* webpackChunkName: "cmamanage" */ "../views/overView/cma/manage/manage.vue")
           }
@@ -94,20 +103,28 @@ export default [
       {
         path: "dp",
         name: "overviewdp",
-        component: () => import(/* webpackChunkName: "overviewdp" */ "../views/overView/dp/dp.vue"),
-        redirect: () => "dp/manage/device",
+        component: () =>
+          import(/* webpackChunkName: "overviewdp" */ "../views/overView/dp/index.vue"),
+        redirect: "dp/manage/output",
         children: [
           // 分决策层和管理层
           {
             path: "manage/:type",
-            name: "cmamanage",
+            name: "dpmanage",
             component: () =>
               import(/* webpackChunkName: "dpmanage" */ "../views/overView/dp/manage/manage.vue")
+          },
+          {
+            path: "juec/:type",
+            name: "cmajuec",
+            component: () =>
+              import(/* webpackChunkName: "cmamanage" */ "../views/overView/cma/manage/manage.vue")
           }
         ]
       }
     ]
   },
+
   // 主路由
   {
     path: "/main",
@@ -232,6 +249,18 @@ export default [
             path: "ga",
             name: "ga",
             component: () => import(/* webpackChunkName: "va" */ "../views/main/cma/ga/ga.vue")
+          }
+        ]
+      },
+      {
+        path: "dp",
+        component: () => import(/* webpackChunkName: "maindp" */ "../views/main/dp/index.vue"),
+        children: [
+          {
+            path: "outwork",
+            name: "outwork",
+            component: () =>
+              import(/* webpackChunkName: "outwork" */ "../views/main/dp/outwork/outwork.vue")
           }
         ]
       }

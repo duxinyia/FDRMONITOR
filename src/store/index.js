@@ -28,7 +28,6 @@ export function updateStoreData() {
   let bgUrl = cache.getCache("bgUrl")
   let theme = cache.getCache("theme")
   let showIndex = cache.getCache("showIndex")
-  // let tags = cache.getCache("tags")
   // let menus = cache.getCache("menus")
   if (user) {
     store.commit("user/SET_USER", user)
@@ -45,12 +44,6 @@ export function updateStoreData() {
   if (showIndex) {
     store.commit("permission/SET_INDEX", showIndex)
   }
-  // if (tags) {
-  //   store.commit("fullLoading/SET_TAG", tags)
-  // }
-  // if (menus) {
-  //   store.commit("permission/SET_MENUS", menus)
-  // }
 }
 
 export default store

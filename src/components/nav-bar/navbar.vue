@@ -8,10 +8,6 @@
         @click="changeMenuState"
       ></i>
       <span class="title">戰情中心</span>
-      <!-- 显示一个面包屑 -->
-      <!-- <el-breadcrumb separator="/">
-        <el-breadcrumb-item v-for="item in routes" :key="item.path">{{item.meta.title}}</el-breadcrumb-item>
-      </el-breadcrumb>-->
     </div>
     <div class="header-right">
       <span class="currentTime">{{ currentTime }}</span>
@@ -22,18 +18,6 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item icon="el-icon-switch-button" command="layout">退出</el-dropdown-item>
-          <!-- <el-dropdown-item
-            :class="[$store.getters.theme == 'dark' ? 'active' : '']"
-            icon="el-icon-moon"
-            command="dark"
-            divided
-          >深色</el-dropdown-item>-->
-          <!-- <el-dropdown-item
-            :class="[$store.getters.theme != 'dark' ? 'active' : '']"
-            icon="el-icon-sunny"
-            command="light"
-            divided
-          >浅色</el-dropdown-item>-->
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -54,34 +38,18 @@ export default {
   data() {
     return {
       timing: null,
-      currentTime: "",
-      routes: []
+      currentTime: ""
     }
   },
   created() {
     this.getCurrentTime()
   },
-  // watch: {
-  //   $route(value) {
-  //     console.log("value", value)
-  //     this.routes = value.matched
-  //   }
-  // },
   methods: {
     handleCommand(command) {
       if (command == "layout") {
         // 清空缓存
         cache.deleteCache("user")
-        this.$router.replace("/login5")
-      } else {
-        // this.$i18n.locale = lang
-        let index = command == "dark" ? 0 : 1
-        document.documentElement.setAttribute("theme", command)
-        this.$store.commit("fullLoading/SET_THEME", command)
-        this.$store.commit("fullLoading/SET_BGURL", {
-          index,
-          bg: `background:url(${this.$globalData.bgs[index]})`
-        })
+        this.$router.replace("/login")
       }
     },
     getCurrentTime() {
