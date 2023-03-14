@@ -136,31 +136,32 @@ export default {
       console.log("GetStationName", res)
       this.titles = res
       this.outPutInfoDetails = []
-      res.forEach((item, index) => {
-        GetDeviceInfo(item.deviceNo).then((r) => {
-          this.$set(this.outPutInfoDetails, index, r)
-          // console.log("-----", this.outPutInfoDetails)
-          r.dateValues.forEach((childItem) => {
-            // childItem.values.EOL.output  取出的是 output 的最大值
-            if (childItem.values.EOL.output > this.maxOutput[index]) {
-              this.maxOutput[index] = childItem.values.EOL.output
-            }
-            // childItem.values.FOL.output
-            if (childItem.values.FOL.output > this.maxOutput[index]) {
-              this.maxOutput[index] = childItem.values.FOL.output
-            }
-            // childItem.values.EOL.output  取出的是 output 的最大值
-            if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
-              this.maxTargetOut[index] = childItem.values.EOL.targetOut
-            }
-            // childItem.values.FOL.output
-            if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
-              this.maxTargetOut[index] = childItem.values.FOL.targetOut
-            }
+      res &&
+        res.forEach((item, index) => {
+          GetDeviceInfo(item.deviceNo).then((r) => {
+            this.$set(this.outPutInfoDetails, index, r)
+            // console.log("-----", this.outPutInfoDetails)
+            r.dateValues.forEach((childItem) => {
+              // childItem.values.EOL.output  取出的是 output 的最大值
+              if (childItem.values.EOL.output > this.maxOutput[index]) {
+                this.maxOutput[index] = childItem.values.EOL.output
+              }
+              // childItem.values.FOL.output
+              if (childItem.values.FOL.output > this.maxOutput[index]) {
+                this.maxOutput[index] = childItem.values.FOL.output
+              }
+              // childItem.values.EOL.output  取出的是 output 的最大值
+              if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
+                this.maxTargetOut[index] = childItem.values.EOL.targetOut
+              }
+              // childItem.values.FOL.output
+              if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
+                this.maxTargetOut[index] = childItem.values.FOL.targetOut
+              }
+            })
+            this.$set(this.showArr, index, false)
           })
-          this.$set(this.showArr, index, false)
         })
-      })
     })
   },
   methods: {

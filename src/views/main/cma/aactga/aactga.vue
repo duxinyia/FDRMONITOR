@@ -135,6 +135,7 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
+
             <div v-for="(item, index) in showArr" :key="index" class="every-item">
               <div class="show">{{ item.Device }}</div>
               <div class="show">{{ item.Machine }}</div>
@@ -171,6 +172,7 @@
               <div class="header-item">HitRate</div>
               <div class="header-item">1st Yield</div>
             </div>
+
             <div v-for="(item, index) in showArr" :key="index" class="every-item three-item">
               <div class="show">{{ item.Device }}</div>
               <div class="show">{{ item.Machine }}</div>
@@ -187,6 +189,8 @@
 </template>
 
 <script>
+// 导入发送请求的函数
+import { getData } from "@/api/aagact.js"
 export default {
   name: "aactga",
   data() {
@@ -245,7 +249,8 @@ export default {
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "AA/GA/CT")
-  }
+  },
+  methods: {}
 }
 </script>
 
@@ -279,6 +284,7 @@ export default {
         border-right: 1px solid #1683af;
       }
     }
+
     .every-item {
       display: flex;
       border-bottom: 1px solid #1683af;
@@ -290,6 +296,7 @@ export default {
         border-right: 1px solid #1683af;
       }
     }
+
     &:nth-child(2) {
       margin: 0 20px;
     }

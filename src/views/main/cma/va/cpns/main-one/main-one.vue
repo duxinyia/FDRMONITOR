@@ -36,7 +36,9 @@ export default {
 <style lang="scss">
 .inner-box {
   .border-box-content {
-    padding: 10px !important;
+    font-weight: bold;
+    font-size: 23px;
+    padding: 15px 10px 10px 10px !important;
   }
 }
 </style>
@@ -45,7 +47,6 @@ export default {
 ::v-deep .border-box-content {
   padding: 10px;
 }
-
 .main-one {
   .container {
     display: flex;

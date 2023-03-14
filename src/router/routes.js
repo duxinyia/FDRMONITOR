@@ -116,7 +116,7 @@ export default [
           },
           {
             path: "juec/:type",
-            name: "cmajuec",
+            name: "dpjuec",
             component: () =>
               import(/* webpackChunkName: "cmamanage" */ "../views/overView/cma/manage/manage.vue")
           }
@@ -258,9 +258,29 @@ export default [
         children: [
           {
             path: "outwork",
-            name: "outwork",
+            name: "dpoutwork",
             component: () =>
               import(/* webpackChunkName: "outwork" */ "../views/main/dp/outwork/outwork.vue")
+          },
+          {
+            path: "output",
+            name: "dpoutput",
+            component: () =>
+              import(/* webpackChunkName: "output" */ "../views/main/cma/output/output.vue")
+          },
+          //By天產出看板
+          {
+            path: "makewar",
+            name: "dpmakewar",
+            component: () =>
+              import(/* webpackChunkName: "makewar" */ "../views/main/cma/makewar/makewar.vue")
+          },
+          // By站位產出看板
+          {
+            path: "output2",
+            name: "dpoutput2",
+            component: () =>
+              import(/* webpackChunkName: "output2" */ "../views/main/cma/output2/output2.vue")
           }
         ]
       }

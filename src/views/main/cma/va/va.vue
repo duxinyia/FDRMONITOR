@@ -28,10 +28,10 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
-  padding: 70px 20px 20px 20px;
+  padding: 60px 20px 20px 20px;
 }
 .page-main {
   width: 100%;
-  height: 950px;
+  // height: 950px;
 }
 </style>

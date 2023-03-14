@@ -39,7 +39,6 @@ const actions = {
       getMenus(userJob, nickName).then((res) => {
         console.log("获取到的菜单路由为:", res.data)
         // 用于渲染侧边菜单的路由
-        let routerArr = handleRouter(res.data)
         newHandleRouter(res.data)
         // 将路由分开后 全部存到 allRouter 中了
         commit("SET_ROUTERARR", allRouter)
@@ -58,33 +57,25 @@ export default {
 }
 
 /**
- * 用于渲染侧边路由
+ * 循环dp cma 的子菜单, 将后端返回的名称修改一下 比如 前端需要的是subs ，后端返回的是children
  * @param {*} routers
  * @param {*} isTwo 标识是否为第一次的路由
  * @returns
  */
-function handleRouter(routers, isTwo = true) {
-  // 1. 先取出标题 将 路由拆开 [[cma路由],[dp路由].....]
-  //  点击cma的时候，侧边菜单
+function handleRouter(routers) {
   let routerArr = []
   routers &&
-    routers.forEach((item, i) => {
-      // 取出各个一级标题
-      if (isTwo) {
-        // console.log("item=======", item)
-        routeTitles.push({ name: item.meta.title, path: item.path })
-      }
-      let tempRouter = []
+    routers.forEach((item) => {
       let children = ""
-      // 标题 图标 inde = path children
-      let icon = item.meta.icon
-      let title = item.meta.title
-      let index = item.path
       if (item.children) {
-        children = handleRouter(item.children, false)
+        children = handleRouter(item.children)
       }
-      tempRouter = { title, icon, index, subs: children }
-      routerArr.push(tempRouter)
+      routerArr.push({
+        title: item.meta.title,
+        icon: item.meta.icon,
+        index: item.path,
+        subs: children
+      })
     })
   return routerArr
 }
@@ -96,9 +87,11 @@ function handleRouter(routers, isTwo = true) {
 let newHandleRouter = (routers) => {
   routers &&
     routers.forEach((item) => {
+      // 取出一级标题 和 路径
+      routeTitles.push({ name: item.meta.title, path: item.path })
       if (item.children) {
         // 调用该方法会 对 dp 和 cma 的
-        let newArr = handleRouter(item.children, false)
+        let newArr = handleRouter(item.children)
         allRouter.push(newArr)
       }
     })

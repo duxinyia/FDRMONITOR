@@ -180,7 +180,34 @@ let nowShowArr = {
           target: "output",
           belong: "管理层/產出",
           isShow: false,
-          to: "output"
+          to: "dpoutput"
+        },
+        {
+          id: 11,
+          imgUrl: require("@/assets/images/makewar.png"),
+          title: "By天產出看板",
+          target: "output",
+          belong: "管理层/產出",
+          isShow: false,
+          to: "dpmakewar"
+        },
+        {
+          id: 10,
+          imgUrl: require("@/assets/images/output2.png"),
+          title: "By站位產出看板",
+          target: "output",
+          belong: "管理层/產出",
+          isShow: false,
+          to: "dpoutput2"
+        },
+        {
+          id: 12,
+          imgUrl: require("@/assets/images/outwork.png"),
+          title: "人員出勤率看板",
+          target: "output",
+          belong: "管理层/產出",
+          isShow: false,
+          to: "dpoutwork"
         }
       ]
     },
@@ -231,7 +258,7 @@ function textHandleRouter(routers) {
   let cmaNames = []
   let dpNames = []
   routers.forEach((item) => {
-    console.log("item", item)
+    // console.log("item", item)
     if (item.name.includes("cma") && item.children) {
       cmaNames = childHandle(item.children)
     }
@@ -240,7 +267,7 @@ function textHandleRouter(routers) {
       dpNames = childHandle(item.children)
     }
   })
-  console.log("cmaNames", cmaNames) // 所有返回的cma的地址
+  //console.log("cmaNames", cmaNames) // 所有返回的cma的地址
   console.log("dpNames", dpNames) // 所有返回的dp的地址
 
   // 循环 cma 的地址
@@ -275,7 +302,6 @@ function textHandleRouter(routers) {
     }
     return { ...item }
   })
-
   // 全部处理完成后
   store.commit("permission/SET_TEXTSHOWARR", nowShowArr)
 }

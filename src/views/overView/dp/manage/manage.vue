@@ -5,7 +5,7 @@
     </div>
     <div class="project-container">
       <template v-for="(item, index) in showDiv1">
-        <div :key="index" class="container" @click="toProject(item)">
+        <div v-if="item.isShow" :key="index" class="container" @click="toProject(item)">
           <el-image class="image" fit="fill" :src="item.imgUrl"></el-image>
           <span class="title">{{ item.title }}</span>
         </div>

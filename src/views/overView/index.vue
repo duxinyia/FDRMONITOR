@@ -79,7 +79,6 @@ export default {
 .active {
   background: rgba(87, 200, 249, 0.6);
 }
-
 // 外层容器
 .overview {
   width: 100%;

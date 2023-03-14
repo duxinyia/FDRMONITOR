@@ -1,7 +1,7 @@
 <template>
   <div class="kline-chart">
-    <p>这是标题哦</p>
-    <base-echart :options="options" />
+    <p>VA1302 X/Y tilt</p>
+    <base-echart :options="options" height="200px" />
   </div>
 </template>
 
@@ -16,8 +16,6 @@ export default {
   computed: {
     options() {
       return {
-        // backgroundColor: "#fff",
-        // color: ["#FCB618"],
         xAxis: {
           boundaryGap: 0,
           gridIndex: 0,
@@ -47,22 +45,9 @@ export default {
         grid: {
           left: 30,
           right: 10,
-          bottom: 30,
-          top: 5
+          bottom: 20,
+          top: 10
         },
-        // legend: {
-        //   itemWidth: 10,
-        //   itemHeight: 10,
-        //   data: [
-        //     {
-        //       name: "时段01",
-        //       icon: "roundRect",
-        //       textStyle: {
-        //         color: "#454545"
-        //       }
-        //     }
-        //   ]
-        // },
         tooltip: {
           trigger: "axis",
           formatter: function (p) {
@@ -106,8 +91,10 @@ export default {
           {
             type: "candlestick",
             itemStyle: {
-              color: "#FCB618",
-              color0: "#FCB618",
+              // color: "#FCB618",
+              // color0: "#FCB618",
+              color: "#2e6099",
+              color0: "#2e6099",
               borderColor: "#fff",
               borderColor0: "#fff"
             },

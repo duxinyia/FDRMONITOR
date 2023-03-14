@@ -1,16 +1,16 @@
 <template>
   <div class="scatl-chat">
-    <p class="title">这是标题</p>
-    <base-echart :options="options" height="280px" />
+    <p class="title">VA1301 X/Y tilt</p>
+    <base-echart :options="options" height="200px" />
   </div>
 </template>
 
 <script>
 // 散点数据
 var nameList = ["散点1", "散点2", "散点3", "散点4", "散点5"]
-var xList = [0.12, -0.73, 0.5, 0.25, 0.35]
-var yList = [0.5, 0.6, 0.3, 0.4, 0.5]
-let center = [2, 90] //中心点
+var xList = [0.1, 0.1, -0.1, -0.1]
+var yList = [0.1, 0.1, -0.1, -0.1]
+let center = [0, 0] //中心点
 
 // 数据转换
 const marksData = nameList.map((item, index) => ({
@@ -36,42 +36,15 @@ export default {
               width: 1
             },
             label: {
-              backgroundColor: "#555"
+              backgroundColor: "#fff"
             }
-          },
-          position: function (point, params, dom, rect, size) {
-            // 提示框位置
-            let x = 0
-            let y = 0
-            if (point[0] + size.contentSize[0] + 10 > size.viewSize[0]) {
-              x = point[0] - size.contentSize[0] - 10
-            } else {
-              x = point[0] + 10
-            }
-            if (point[1] + size.contentSize[1] + 10 > size.viewSize[1]) {
-              y = point[1] - size.contentSize[1] - 10
-            } else {
-              y = point[1] + 10
-            }
-            return [x, y]
-          },
-          formatter: (params) => {
-            console.log(params)
-            const { name, value } = params
-            return `
-            <div style="font-size: 14px;font-family: Source Han Sans CN-Medium;font-weight: 500;color: #FFFFFF;margin-bottom:12px;">${name}</div>
-            <div style="font-size: 14px;font-family: Source Han Sans CN-Medium;font-weight: 500;color: #FFFFFF;margin-bottom:4px;">项目数量：${value[1]}个</div>
-                        <div style="font-size: 14px;font-family: Source Han Sans CN-Medium;font-weight: 500;color: #FFFFFF;">人均项目数量：${value[0]}个</div>
-         `
-          },
-          extraCssText:
-            "opacity: 0.8;background-color:#050F1B;padding:16px;box-shadow: 1px 6px 15px 1px rgba(0,0,0,0.13);border-radius: 4px;filter: blur(undefinedpx);border:none;"
+          }
         },
         grid: {
           left: 10,
           right: 10,
-          bottom: 30,
-          top: 5,
+          bottom: 0,
+          top: 10,
           containLabel: true
         },
         xAxis: {
@@ -120,7 +93,7 @@ export default {
           },
           splitLine: {
             lineStyle: {
-              color: "#fff",
+              color: "#eee",
               type: "dashed"
             }
           }
@@ -174,7 +147,5 @@ export default {
 <style lang="scss" scoped>
 .scatl-chat {
   text-align: center;
-  .title {
-  }
 }
 </style>

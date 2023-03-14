@@ -131,8 +131,14 @@ export default {
   props: ["menus"],
   methods: {
     itemClick(item) {
-      // 管理层 的 产出 设备 良率 才切换右边
-      // 点击子菜单跳转路由
+      console.log("点击的item", item)
+      /**
+       * 1. 后端如果是外链(http https), window.open 方法打开新窗口
+       * 2.
+       *
+       *
+       * fin: 把当前路径保存下来，用于跳转回来0
+       */
       // 如果index包含http 那么是跳转外部链接
       if (item.index.includes("http")) {
         window.open(item.index)
@@ -140,15 +146,15 @@ export default {
       }
       // 普通跳转路由的
       if (!item.subs) {
+        console.log("执行了哦")
         item.index = item.index.split("/")[item.index.split("/").length - 1]
         this.$router.push({ name: item.index })
       }
-      // this.$store.
+      // 点击了这些菜单，要跳转路由 切换右边的值 并且打开子菜单
       if (["產出", "良率", "設備", "製程監控"].includes(item.title)) {
         this.$router.push(item.index)
       }
       let path = this.$route.path
-      console.log("path", path)
       this.$store.commit("fullLoading/SET_PATH", path)
     }
   }
