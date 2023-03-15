@@ -280,7 +280,7 @@ export default [
             path: "output2",
             name: "dpoutput2",
             component: () =>
-              import(/* webpackChunkName: "output2" */ "../views/main/cma/output2/output2.vue")
+              import(/* webpackChunkName: "output2" */ "../views/main/dp/output2/output2.vue")
           }
         ]
       }
