@@ -283,11 +283,11 @@ export default [
               import(/* webpackChunkName: "dpoutput2" */ "../views/main/cma/output2/output2.vue")
           },
           {
-            path: "deviceoutput",
-            name: "deviceoutput",
+            path: "equipoutput",
+            name: "equipoutput",
             component: () =>
               import(
-                /* webpackChunkName: "dpdeviceoutput" */ "../views/main/dp/deviceoutput/deviceoutput.vue"
+                /* webpackChunkName: "dpdeviceoutput" */ "../views/main/dp/equipOutput/equipOutput.vue"
               )
           }
         ]

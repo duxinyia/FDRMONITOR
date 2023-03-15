@@ -207,7 +207,7 @@ let nowShowArr = {
           target: "output",
           belong: "管理层/產出",
           isShow: false,
-          to: "deviceoutput"
+          to: "equipoutput"
         },
         {
           id: 12,
@@ -277,16 +277,17 @@ let tempArr = []
 function textHandleRouter(routers) {
   let cmaNames = []
   let dpNames = []
-  routers.forEach((item) => {
-    // console.log("item", item)
-    if (item.name.includes("cma") && item.children) {
-      cmaNames = childHandle(item.children)
-    }
-    tempArr = []
-    if (item.name.includes("dp") && item.children) {
-      dpNames = childHandle(item.children)
-    }
-  })
+  routers &&
+    routers.forEach((item) => {
+      // console.log("item", item)
+      if (item.name.includes("cma") && item.children) {
+        cmaNames = childHandle(item.children)
+      }
+      tempArr = []
+      if (item.name.includes("dp") && item.children) {
+        dpNames = childHandle(item.children)
+      }
+    })
   //console.log("cmaNames", cmaNames) // 所有返回的cma的地址
   //console.log("dpNames", dpNames) // 所有返回的dp的地址
 
