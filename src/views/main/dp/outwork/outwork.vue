@@ -30,7 +30,6 @@
         <!-- 主要区域 -->
         <div class="main">
           <div class="contaner">
-            <!-- <p class="title">生產看板</p> -->
             <contaienr :cIndex="currentIndex" />
           </div>
         </div>
