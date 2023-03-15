@@ -1,51 +1,163 @@
 <template>
-  <!-- 主要区域 -->
   <div class="page-main">
-    <!-- 主要区域 -->
-    <!-- 第一行 -->
-    <main-one />
-    <div class="content">
-      <!-- 第二行 -->
-      <main-two :title="title" :config="config" />
-      <main-three :title="title" :config="config" />
-    </div>
+    <dv-border-box-12>
+      <div>
+        <div class="btns">
+          <div class="left">
+            <div class="control">
+              <div class="container" v-for="(item, index) in containerLeft" :key="index">
+                <span
+                  class="box box1"
+                  @click="changeIndex(index)"
+                  :style="{
+                    'box-shadow': currentIndex == index ? `inset 0 0 20px ${item}` : '',
+                    border: `2px solid ${item}`
+                  }"
+                ></span>
+                <span class="name">{{ index }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="control">
+              <div class="container" v-for="(item, index) in containerRight" :key="index">
+                <span class="box box2" :style="selectColor(index)"></span>
+                <span class="name">{{ index }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 主要区域 -->
+        <div class="main">
+          <div class="contaner">
+            <!-- <p class="title">生產看板</p> -->
+            <contaienr :cIndex="currentIndex" />
+          </div>
+        </div>
+      </div>
+    </dv-border-box-12>
   </div>
 </template>
 <script>
-// 导入第一行
-import mainOne from "./cpns/main-one/main-one.vue"
-// 导入底部区域
-import mainTwo from "./cpns/main-two/main-two.vue"
-import mainThree from "./cpns/main-three/main-three.vue"
-// 导入发送请求的函函數
+// 导入子组件
+import Contaienr from "./cpns/contaienr.vue"
 export default {
-  name: "sfc",
-  components: {
-    mainOne,
-    mainTwo,
-    mainThree
-  },
+  name: "equipOutput",
+  components: { Contaienr },
   data() {
     return {
-      title: ["By课 ", "By课 ", "By课 ", "By课 ", "By班别", "By班别 "],
-      config: {
-        xData: ["1/1", "1/2", "1/3", "1/4", "1/5", "1/6", "1/7"],
-        yData: [
-          [120.3, 132.9, 101.2, 134.8, 89.3, 170.2, 160.5],
-          [110.4, 112.5, 161.4, 104.2, 160.0, 130.2, 120.2]
-        ],
-        legends: ["D", "N"]
+      // 当前选中
+      currentIndex: "AA",
+      // 左边颜色
+      containerLeft: {
+        AA: "#ff99ff",
+        GA: "#0d60ae",
+        DA: "#0eb18a",
+        LA: "#ffff00",
+        ALN: "#ff99ff",
+        DTC: "#0d60ae",
+        TS: "#0eb18a",
+        ACF: "#ffff00",
+        SA: "#ff99ff",
+        LF: "#0d60ae",
+        RET: "#0eb18a",
+        TET: "#ffff00",
+        FTC: "#ff99ff",
+        AVI: "#0d60ae"
+      },
+      // 右边颜色
+      containerRight: {
+        RUN: "#92d050",
+        DOWN: "#ff5050",
+        IDLE: "#ffff99"
       }
     }
   },
   mounted() {
-    this.$store.commit("fullLoading/SET_TITLE", "人員出勤率看板")
+    this.$store.commit("fullLoading/SET_TITLE", "設備產出看板")
   },
-  methods: {}
+  computed: {},
+  methods: {
+    changeIndex(i) {
+      this.currentIndex = i
+    },
+    selectColor(state) {
+      let map = ""
+      map = new Map([
+        ["RUN", "radial-gradient(50% 50%,  #275875 0%,#92d050 100%)"],
+        ["DOWN", "radial-gradient(50% 50%,#275875  0%, #ff5050  100%)"],
+        ["IDLE", "radial-gradient(50% 50%,  #275875 0%, #ffff99 100%)"]
+      ])
+      return {
+        background: map.get(state)
+      }
+    }
+  },
+  beforeDestroy() {}
 }
 </script>
+
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
-  padding: 10px 20px 18px 20px;
+  padding: 20px;
+  position: relative;
+}
+
+.page-main {
+  margin-top: 20px;
+}
+.contaner {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(3, 1fr);
+}
+.btns {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  .right {
+    margin-right: 20px;
+  }
+  .right,
+  .left {
+    display: flex;
+    .control {
+      display: flex;
+      align-items: center;
+      .container {
+        display: flex;
+        align-items: center;
+        .box {
+          display: inline-block;
+          width: 25px;
+          height: 25px;
+          margin-right: 6px;
+        }
+        .box1 {
+          cursor: pointer;
+        }
+      }
+      .box2 {
+        animation: fade 2s infinite;
+      }
+      .box {
+        margin: 0 20px;
+      }
+    }
+  }
+}
+@keyframes fade {
+  0% {
+    box-shadow: inset 0 0 30px currentColor;
+  }
+  50% {
+    box-shadow: inset 0 0 10px currentColor;
+  }
+  100% {
+    box-shadow: inset 0 0 30px currentColor;
+  }
 }
 </style>

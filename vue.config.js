@@ -25,6 +25,7 @@ function getNetworkIp() {
   return needHost
 }
 module.exports = {
+  lintOnSave: false,
   publicPath: "./",
   productionSourceMap: false,
   chainWebpack: (config) => {
