@@ -1,7 +1,5 @@
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 const path = require("path")
 const os = require("os")
-// import { getNetworkIp } from "@/utils"
 const resolve = (dir) => {
   return path.join(__dirname, dir)
 }

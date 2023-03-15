@@ -201,6 +201,15 @@ let nowShowArr = {
           to: "dpoutput2"
         },
         {
+          id: 13,
+          imgUrl: require("@/assets/images/output2.png"),
+          title: "設備產出看板",
+          target: "output",
+          belong: "管理层/產出",
+          isShow: false,
+          to: "equipoutput"
+        },
+        {
           id: 12,
           imgUrl: require("@/assets/images/outwork.png"),
           title: "人員出勤率看板",
@@ -230,7 +239,10 @@ router.beforeEach(async (to, from, next) => {
   // 如果去的路由的 login
   if (to.path.includes("login")) {
     if (cache.getCache("user")) {
-      next("/overview")
+      // next("/overview")
+      // let path = store.state.permission.routerArr[0][0].subs[0].index || "404"
+      // console.log("path=====", path)
+      next(store.state.fullLoading.path)
     } else {
       next()
     }
@@ -242,7 +254,15 @@ router.beforeEach(async (to, from, next) => {
       })
       textHandleRouter(accessRoutes)
       hasRoles = false
-      next({ ...to, replace: true })
+      // next({ ...to, replace: true })
+      // 取出数组的第一项的subs的第一项 没有的话跳转到404
+      if (from.path == "/login") {
+        let path = store.state.permission.routerArr[0][0].subs[0].index || "404"
+        // console.log("path=====", path)
+        next(path)
+      } else {
+        next()
+      }
     } else {
       next()
     }
@@ -257,18 +277,19 @@ let tempArr = []
 function textHandleRouter(routers) {
   let cmaNames = []
   let dpNames = []
-  routers.forEach((item) => {
-    // console.log("item", item)
-    if (item.name.includes("cma") && item.children) {
-      cmaNames = childHandle(item.children)
-    }
-    tempArr = []
-    if (item.name.includes("dp") && item.children) {
-      dpNames = childHandle(item.children)
-    }
-  })
+  routers &&
+    routers.forEach((item) => {
+      // console.log("item", item)
+      if (item.name.includes("cma") && item.children) {
+        cmaNames = childHandle(item.children)
+      }
+      tempArr = []
+      if (item.name.includes("dp") && item.children) {
+        dpNames = childHandle(item.children)
+      }
+    })
   //console.log("cmaNames", cmaNames) // 所有返回的cma的地址
-  console.log("dpNames", dpNames) // 所有返回的dp的地址
+  //console.log("dpNames", dpNames) // 所有返回的dp的地址
 
   // 循环 cma 的地址
   nowShowArr.cma.manage.output = nowShowArr.cma.manage.output.map((item) => {

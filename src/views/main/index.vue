@@ -14,17 +14,6 @@ export default {
   mixins: [drawMixin],
   components: {
     PageHeader
-  },
-  data() {
-    return {
-      bgUrl: require("@/assets/images/background3.png")
-    }
-  },
-  computed: {
-    indexStyle() {
-      let isDark = this.$store.getters.theme == "dark"
-      return isDark ? this.bgUrl : { background: "transparent" }
-    }
   }
 }
 </script>
