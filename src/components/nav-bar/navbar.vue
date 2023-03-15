@@ -48,8 +48,9 @@ export default {
     handleCommand(command) {
       if (command == "layout") {
         // 清空缓存
-        cache.deleteCache("user")
+        cache.clearCache()
         this.$router.replace("/login")
+        this.$router.go(0)
       }
     },
     getCurrentTime() {

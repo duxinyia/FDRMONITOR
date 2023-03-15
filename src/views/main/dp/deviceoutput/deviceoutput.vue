@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>dpone</h1>
+    <h1>deviceoutput</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "dpone"
+  name: "deviceoutput"
 }
 </script>
 

@@ -21,8 +21,8 @@ export default {
   computed: {
     showDiv1() {
       let [a, b, c, d, e] = this.$route.path.split("/")
-      console.log(c, d, e)
-      let { type } = this.$route.params
+      // console.log(c, d, e)
+      // let { type } = this.$route.params
       return this.$store.state.permission.textShowArr[c][d][e] || []
     }
   },

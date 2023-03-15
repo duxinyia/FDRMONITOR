@@ -152,7 +152,6 @@ export default {
         border-radius: 4px;
         letter-spacing: 2px;
         &:hover {
-          /* color: ; */
           background: rgba(42, 76, 115, 0.8);
         }
       }

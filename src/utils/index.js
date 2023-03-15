@@ -98,7 +98,7 @@ export let getTime = (preTime = "") => {
     //     ? moment().format("YYYY-MM-DD HH:mm:ss")
     //     : `${preTime} 24:00:00`
     preTime = `${preTime} 06:00:00`
-    console.log(preTime, curTime, moment().format("YYYY-MM-DD"))
+    // console.log(preTime, curTime, moment().format("YYYY-MM-DD"))
   }
   return `St=${preTime}&Et=${curTime}`
 }

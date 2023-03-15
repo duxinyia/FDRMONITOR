@@ -6,7 +6,7 @@ export default [
   {
     path: "/login",
     name: "login",
-    component: () => import(/* webpackChunkName: "login4" */ "../views/login/login5.vue"),
+    component: () => import(/* webpackChunkName: "login5" */ "../views/login/login5.vue"),
     meta: {
       title: "登录一"
     }
@@ -58,7 +58,7 @@ export default [
     path: "/overview",
     name: "overview",
     component: () => import(/* webpackChunkName: "overView" */ "../views/overView/index.vue"),
-    redirect: () => "overview/cma/manage/output",
+    // redirect: () => "overview/cma/manage/output",
     meta: {
       title: "首页"
     },
@@ -260,27 +260,35 @@ export default [
             path: "outwork",
             name: "dpoutwork",
             component: () =>
-              import(/* webpackChunkName: "outwork" */ "../views/main/dp/outwork/outwork.vue")
+              import(/* webpackChunkName: "dpoutwork" */ "../views/main/dp/outwork/outwork.vue")
           },
           {
             path: "output",
             name: "dpoutput",
             component: () =>
-              import(/* webpackChunkName: "output" */ "../views/main/cma/output/output.vue")
+              import(/* webpackChunkName: "dpoutput" */ "../views/main/cma/output/output.vue")
           },
           //By天產出看板
           {
             path: "makewar",
             name: "dpmakewar",
             component: () =>
-              import(/* webpackChunkName: "makewar" */ "../views/main/cma/makewar/makewar.vue")
+              import(/* webpackChunkName: "dpmakewar" */ "../views/main/dp/makewar/makewar.vue")
           },
           // By站位產出看板
           {
             path: "output2",
             name: "dpoutput2",
             component: () =>
-              import(/* webpackChunkName: "output2" */ "../views/main/cma/output2/output2.vue")
+              import(/* webpackChunkName: "dpoutput2" */ "../views/main/cma/output2/output2.vue")
+          },
+          {
+            path: "deviceoutput",
+            name: "deviceoutput",
+            component: () =>
+              import(
+                /* webpackChunkName: "dpdeviceoutput" */ "../views/main/dp/deviceoutput/deviceoutput.vue"
+              )
           }
         ]
       }
