@@ -1,16 +1,6 @@
 <template>
   <!-- 主要区域 -->
   <div class="page-main">
-<<<<<<< HEAD
-    <!-- 主要区域 -->
-    <!-- 第一行 -->
-    <main-one />
-    <div class="content">
-      <!-- 第二行 -->
-      <main-two :title="title" :config="config" />
-      <main-three :title="title" :config="config" />
-    </div>
-=======
     <dv-border-box-12>
       <div>
         <div class="btns">
@@ -46,7 +36,6 @@
         </div>
       </div>
     </dv-border-box-12>
->>>>>>> f29aa551ca1cb1b6796eda473ca5db05314ae9b7
   </div>
 </template>
 <script>
@@ -79,9 +68,6 @@ export default {
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "人員出勤率看板")
   },
-<<<<<<< HEAD
-  methods: {}
-=======
   computed: {},
   methods: {
     changeIndex(i) {
@@ -89,14 +75,10 @@ export default {
     }
   },
   beforeDestroy() {}
->>>>>>> f29aa551ca1cb1b6796eda473ca5db05314ae9b7
 }
 </script>
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
-<<<<<<< HEAD
-  padding: 10px 20px 18px 20px;
-=======
   padding: 20px;
   position: relative;
 }
@@ -157,6 +139,5 @@ export default {
   100% {
     box-shadow: inset 0 0 25px currentColor;
   }
->>>>>>> f29aa551ca1cb1b6796eda473ca5db05314ae9b7
 }
 </style>
