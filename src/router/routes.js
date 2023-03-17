@@ -8,48 +8,7 @@ export default [
     name: "login",
     component: () => import(/* webpackChunkName: "login5" */ "../views/login/login5.vue"),
     meta: {
-      title: "登录一"
-    }
-  },
-
-  {
-    path: "/login1",
-    name: "login1",
-    component: () => import(/* webpackChunkName: "login1" */ "../views/login/login1.vue"),
-    meta: {
-      title: "登录二"
-    }
-  },
-  {
-    path: "/login2",
-    name: "login2",
-    component: () => import(/* webpackChunkName: "login2" */ "../views/login/login2.vue"),
-    meta: {
-      title: "登录三"
-    }
-  },
-  {
-    path: "/login3",
-    name: "login3",
-    component: () => import(/* webpackChunkName: "login3" */ "../views/login/login3.vue"),
-    meta: {
-      title: "登录四"
-    }
-  },
-  {
-    path: "/login4",
-    name: "login4",
-    component: () => import(/* webpackChunkName: "login4" */ "../views/login/login4.vue"),
-    meta: {
-      title: "登录五"
-    }
-  },
-  {
-    path: "/login5",
-    name: "login5",
-    component: () => import(/* webpackChunkName: "login" */ "../views/login/login.vue"),
-    meta: {
-      title: "登录五"
+      title: "登录"
     }
   },
 
@@ -63,18 +22,6 @@ export default [
       title: "首页"
     },
     children: [
-      // {
-      //   path: "cma/manage/:type",
-      //   name: "cmamanage",
-      //   component: () =>
-      //     import(/* webpackChunkName: "cmamanage" */ "../views/overView/cma/manage/manage.vue")
-      // },
-      // {
-      //   path: "dp/manage/:type",
-      //   name: "dpmanage",
-      //   component: () =>
-      //     import(/* webpackChunkName: "dpmanage" */ "../views/overView/dp/manage/manage.vue")
-      // }
       // cma的侧边路由
       {
         path: "cma",
@@ -95,7 +42,7 @@ export default [
             path: "juec/:type",
             name: "cmajuec",
             component: () =>
-              import(/* webpackChunkName: "cmamanage" */ "../views/overView/cma/manage/manage.vue")
+              import(/* webpackChunkName: "cmajuec" */ "../views/overView/cma/manage/manage.vue")
           }
         ]
       },
@@ -118,7 +65,7 @@ export default [
             path: "juec/:type",
             name: "dpjuec",
             component: () =>
-              import(/* webpackChunkName: "cmamanage" */ "../views/overView/cma/manage/manage.vue")
+              import(/* webpackChunkName: "dpjuec" */ "../views/overView/cma/manage/manage.vue")
           }
         ]
       }
@@ -252,6 +199,7 @@ export default [
           }
         ]
       },
+
       {
         path: "dp",
         component: () => import(/* webpackChunkName: "maindp" */ "../views/main/dp/index.vue"),
@@ -280,7 +228,7 @@ export default [
             path: "output2",
             name: "dpoutput2",
             component: () =>
-              import(/* webpackChunkName: "dpoutput2" */ "../views/main/cma/output2/output2.vue")
+              import(/* webpackChunkName: "dpoutput2" */ "../views/main/dp/output2/output2.vue")
           },
           {
             path: "equipoutput",

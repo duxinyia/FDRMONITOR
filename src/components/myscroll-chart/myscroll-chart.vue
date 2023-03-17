@@ -4,7 +4,7 @@
     v-loading="isLoading"
     element-loading-spinner="el-icon-loading"
     element-loading-text="加载中"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
+    element-loading-background="rgba(0, 0, 0, 1)"
   >
     <!-- 标题区域 -->
     <div class="title-container">

@@ -14,8 +14,6 @@
   </div>
 </template>
 <script>
-// 导入需要跳转路由配置
-// import { changeCmaConfig, baseShowArr } from "@/assets/data"
 export default {
   name: "manage",
   computed: {

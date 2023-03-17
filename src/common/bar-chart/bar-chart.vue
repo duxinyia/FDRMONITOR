@@ -8,7 +8,7 @@
     v-loading="isLoading"
     element-loading-spinner="el-icon-loading"
     element-loading-text="加载中"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
+    element-loading-background="rgba(0, 0, 0, 1)"
   >
     <p class="title" v-if="showTitle">{{ title }}</p>
     <base-echart :options="options" @echartClick="handlerClick" :height="height" />

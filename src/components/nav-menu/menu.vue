@@ -146,7 +146,7 @@ export default {
       }
       // 普通跳转路由的
       if (!item.subs) {
-        console.log("执行了哦")
+        // console.log("执行了哦")
         item.index = item.index.split("/")[item.index.split("/").length - 1]
         this.$router.push({ name: item.index })
       }

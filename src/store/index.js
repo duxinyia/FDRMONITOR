@@ -21,7 +21,7 @@ const store = new Vuex.Store({
   modules,
   getters
 })
-// 保证数据不失去
+// shuai保证数据不失去
 export function updateStoreData() {
   let user = cache.getCache("user")
   let path = cache.getCache("path")

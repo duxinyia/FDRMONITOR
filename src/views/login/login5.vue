@@ -181,7 +181,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* position: relative; */
   background: url("~@/assets/images/login-bg7.png") no-repeat center center;
   background-size: 100% 100%;
   .top-container {
@@ -197,12 +196,9 @@ export default {
     }
   }
   .form-container {
-    /* width: 41.6667vw;
-    height: 21.875vw; */
     width: 800px;
     height: 420px;
     display: flex;
-    /* margin-bottom: 80px; */
     .left-container {
       flex: 1;
       background: #fff;
@@ -234,14 +230,12 @@ export default {
         justify-content: space-between;
         .forpwd {
           cursor: pointer;
-          /* color: #ddd; */
           font-size: 14px;
           &:hover {
             color: #409eff;
           }
         }
       }
-
       .login-btn {
         width: 190px;
         background: #fff;
@@ -266,7 +260,6 @@ export default {
   .copyright-info {
     position: fixed;
     bottom: 50px;
-    /* bottom: 2.6042vw; */
     font-size: 14px;
     margin: auto;
     text-align: center;
@@ -291,7 +284,6 @@ export default {
     }
   }
 }
-
 @media screen and (max-width: 1280px) {
   .login-page {
     .form-container {

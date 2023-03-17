@@ -4,97 +4,167 @@
     <!-- <dv-border-box-12> -->
     <dv-border-box-10>
       <div class="contaienr">
-        <div class="item">
-          <dv-border-box-11 class="top-box" title="AA生產看板">
-            <div
-              class="item1"
-              v-loading="aaLoading"
-              element-loading-spinner="el-icon-loading"
-              element-loading-text="加载中"
-              element-loading-background="rgba(0, 0, 0, 1)"
-            >
-              <div class="header">
-                <div class="header-item">Device</div>
-                <div class="header-item">Machine</div>
-                <div class="header-item">Target</div>
-                <div class="header-item">OutPut</div>
-                <div class="header-item">HitRate</div>
-                <div class="header-item">1st Yield</div>
+        <!-- 使用轮播图来展示数据 -->
+        <el-carousel
+          style="height: 920px"
+          indicator-position="none"
+          :interval="15 * 1000"
+          ref="carousel"
+          arrow="never"
+        >
+          <el-carousel-item>
+            <div class="item1-container">
+              <div class="item">
+                <dv-border-box-11 class="top-box" title="AA生產看板">
+                  <div
+                    class="item1"
+                    v-loading="aaLoading"
+                    element-loading-spinner="el-icon-loading"
+                    element-loading-text="加载中"
+                    element-loading-background="rgba(0, 0, 0, 1)"
+                  >
+                    <div class="header">
+                      <div class="header-item">Device</div>
+                      <div class="header-item">Machine</div>
+                      <div class="header-item">Target</div>
+                      <div class="header-item">OutPut</div>
+                      <div class="header-item">HitRate</div>
+                      <div class="header-item">1st Yield</div>
+                    </div>
+                    <div class="item-container">
+                      <div v-for="(item, index) in aaData" :key="index" class="every-item">
+                        <div class="show">{{ item.device }}</div>
+                        <div class="show" :style="changeMachine(item.machineState)">
+                          {{ item.machine }}
+                        </div>
+                        <div class="show">{{ item.target }}</div>
+                        <div class="show">{{ item.outPut }}</div>
+                        <div class="show" :style="changeStyle(item.hitRate)">
+                          {{ item.hitRate }}
+                        </div>
+                        <div class="show" :style="changeYield(item.firstYield)">
+                          {{ item.firstYield }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dv-border-box-11>
               </div>
-              <div class="item-container">
-                <div v-for="(item, index) in aaData" :key="index" class="every-item">
-                  <div class="show">{{ item.device }}</div>
-                  <div class="show" :style="changeMachine(item.machineState)">
-                    {{ item.machine }}
-                  </div>
-                  <div class="show">{{ item.target }}</div>
-                  <div class="show">{{ item.outPut }}</div>
-                  <div class="show" :style="changeStyle(item.hitRate)">{{ item.hitRate }}</div>
-                  <div class="show" :style="changeYield(item.firstYield)">
-                    {{ item.firstYield }}
-                  </div>
-                </div>
+              <div class="item">
+                <dv-border-box-11 class="top-box" title="CT生產看板">
+                  <div
+                    class="item1"
+                    v-loading="ctLoading"
+                    element-loading-spinner="el-icon-loading"
+                    element-loading-text="加载中"
+                    element-loading-background="rgba(0, 0, 0, 1)"
+                  >
+                    <div class="header">
+                      <div class="header-item">Device</div>
+                      <div class="header-item">Machine</div>
+                      <div class="header-item">Target</div>
+                      <div class="header-item">OutPut</div>
+                      <div class="header-item">HitRate</div>
+                      <div class="header-item">1st Yield</div>
+                    </div>
+                    <div class="item-container">
+                      <div v-for="(item, index) in ctData" :key="index" class="every-item">
+                        <div class="show">{{ item.device }}</div>
+                        <div class="show">{{ item.machine }}</div>
+                        <div class="show">{{ item.target }}</div>
+                        <div class="show">{{ item.outPut }}</div>
+                        <div class="show" :style="changeStyle(item.hitRate)">
+                          {{ item.hitRate }}
+                        </div>
+                        <div class="show">
+                          {{ item.firstYield }}
+                        </div>
+                      </div>
+                    </div>
+                  </div></dv-border-box-11
+                >
+              </div>
+              <div class="item">
+                <dv-border-box-11 class="top-box" title="GA生產看板">
+                  <div
+                    class="item1"
+                    v-loading="gaLoading"
+                    element-loading-spinner="el-icon-loading"
+                    element-loading-text="加载中"
+                    element-loading-background="rgba(0, 0, 0, 1)"
+                  >
+                    <div class="header">
+                      <div class="header-item">Machine</div>
+                      <div class="header-item">Target</div>
+                      <div class="header-item">OutPut</div>
+                      <div class="header-item">HitRate</div>
+                    </div>
+                    <div class="item-container">
+                      <div v-for="(item, index) in gaData" :key="index" class="every-item">
+                        <div class="show">{{ item.machine }}</div>
+                        <div class="show">{{ item.target }}</div>
+                        <div class="show">{{ item.outPut }}</div>
+                        <div class="show" :style="changeStyle(item.hitRate)">
+                          {{ item.hitRate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div></dv-border-box-11
+                >
               </div>
             </div>
-          </dv-border-box-11>
-        </div>
-        <div class="item">
-          <dv-border-box-11 class="top-box" title="CT生產看板">
-            <div
-              class="item1"
-              v-loading="ctLoading"
-              element-loading-spinner="el-icon-loading"
-              element-loading-text="加载中"
-              element-loading-background="rgba(0, 0, 0, 1)"
-            >
-              <div class="header">
-                <div class="header-item">Device</div>
-                <div class="header-item">Machine</div>
-                <div class="header-item">Target</div>
-                <div class="header-item">OutPut</div>
-                <div class="header-item">HitRate</div>
-                <div class="header-item">1st Yield</div>
-              </div>
-              <div class="item-container">
-                <div v-for="(item, index) in ctData" :key="index" class="every-item">
-                  <div class="show">{{ item.device }}</div>
-                  <div class="show">{{ item.machine }}</div>
-                  <div class="show">{{ item.target }}</div>
-                  <div class="show">{{ item.outPut }}</div>
-                  <div class="show" :style="changeStyle(item.hitRate)">{{ item.hitRate }}</div>
-                  <div class="show">
-                    {{ item.firstYield }}
+          </el-carousel-item>
+          <el-carousel-item>
+            <div class="item">
+              <dv-border-box-11 class="top-box" title="ACF生產看板">
+                <div
+                  class="item1"
+                  v-loading="aaLoading"
+                  element-loading-spinner="el-icon-loading"
+                  element-loading-text="加载中"
+                  element-loading-background="rgba(0, 0, 0, 1)"
+                >
+                  <div class="header">
+                    <div class="header-item">Device</div>
+                    <div class="header-item">Machine</div>
+                    <div class="header-item">Target</div>
+                    <div class="header-item">OutPut</div>
+                    <div class="header-item">HitRate</div>
+                    <div class="header-item">1st Yield</div>
+                  </div>
+                  <div class="item-container">
+                    <div v-for="(item, index) in aaData" :key="index" class="every-item">
+                      <div class="show">{{ item.device }}</div>
+                      <div class="show" :style="changeMachine(item.machineState)">
+                        {{ item.machine }}
+                      </div>
+                      <div class="show">{{ item.target }}</div>
+                      <div class="show">{{ item.outPut }}</div>
+                      <div class="show" :style="changeStyle(item.hitRate)">
+                        {{ item.hitRate }}
+                      </div>
+                      <div class="show" :style="changeYield(item.firstYield)">
+                        {{ item.firstYield }}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div></dv-border-box-11
-          >
-        </div>
-        <div class="item">
-          <dv-border-box-11 class="top-box" title="GA生產看板">
-            <div
-              class="item1"
-              v-loading="gaLoading"
-              element-loading-spinner="el-icon-loading"
-              element-loading-text="加载中"
-              element-loading-background="rgba(0, 0, 0, 1)"
-            >
-              <div class="header">
-                <div class="header-item">Machine</div>
-                <div class="header-item">Target</div>
-                <div class="header-item">OutPut</div>
-                <div class="header-item">HitRate</div>
-              </div>
-              <div class="item-container">
-                <div v-for="(item, index) in gaData" :key="index" class="every-item">
-                  <div class="show">{{ item.machine }}</div>
-                  <div class="show">{{ item.target }}</div>
-                  <div class="show">{{ item.outPut }}</div>
-                  <div class="show" :style="changeStyle(item.hitRate)">{{ item.hitRate }}</div>
-                </div>
-              </div>
-            </div></dv-border-box-11
-          >
+              </dv-border-box-11>
+            </div>
+          </el-carousel-item>
+        </el-carousel>
+        <!-- 自定义两个切换按钮 -->
+        <div class="btns">
+          <span class="left-icon-container" @click="prev">
+            <i class="iconfont icon-shangyiye icon2"></i>
+            <i class="iconfont icon-shangyiye icon1"></i>
+            <i class="iconfont icon-shangyiye icon"></i>
+          </span>
+          <span @click="next">
+            <i class="iconfont icon-xiayiye icon"></i>
+            <i class="iconfont icon-xiayiye icon1"></i>
+            <i class="iconfont icon-xiayiye icon2"></i>
+          </span>
         </div>
       </div>
     </dv-border-box-10>
@@ -314,22 +384,20 @@ export default {
           "1st Yield": "98.73 %"
         }
       ],
+      // colors: ["#ff4500", "#008000", "#ff0"]
       // 红 绿  黄
-      colors: ["#f00", "#008000", "#ff0"]
+      colors: ["#ff0066", "#00FF00", "#ff0"]
     }
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "AA/GA/CT")
     getAAData().then((res) => {
-      console.log("getAAData", res)
       this.aaData = res
     })
     getGAData().then((res) => {
-      console.log("getGAData", res)
       this.gaData = res
     })
     getCTData().then((res) => {
-      console.log("getCTData", res)
       this.ctData = res
     })
   },
@@ -360,7 +428,9 @@ export default {
       // console.log(firstYield)
       let num = Number.parseFloat(firstYield)
       if (num < 99.4) {
-        return { color: "#9932CD" }
+        // return { color: "#9932CD" }
+        // return { color: "#9900ff" }
+        return { color: "#BF3EFF" }
       }
     },
     changeMachine(state) {
@@ -388,6 +458,14 @@ export default {
           return { color: this.colors[0] }
         }
       }
+    },
+    // 上一楼
+    prev() {
+      this.$refs.carousel.prev()
+    },
+    // 下一楼
+    next() {
+      this.$refs.carousel.next()
     }
   }
 }
@@ -403,19 +481,66 @@ export default {
 ::v-deep .border-box-content {
   padding: 20px;
 }
+::v-deep .el-carousel__container {
+  height: 100%;
+}
 
 .page-main {
   margin-top: 10px;
 }
-.contaienr {
+.item1-container {
   display: flex;
   .item {
     flex: 1;
+    // max-width: 800px;
+  }
+}
+.item {
+  max-width: 640px;
+}
+.contaienr {
+  // display: flex;
+  // .item {
+  //   flex: 1;
+  // }
+  .btns {
+    span {
+      position: absolute;
+      width: 120px;
+      height: 50px;
+      text-align: center;
+      animation: twinkle 2s infinite;
+      cursor: pointer;
+      &:nth-child(1) {
+        left: 10px;
+        top: 16px;
+        z-index: 10;
+      }
+      &:nth-child(2) {
+        right: 10px;
+        top: 16px;
+        z-index: 10;
+      }
+      .icon {
+        font-weight: bold;
+        font-size: 25px;
+        color: var(--aa-bottom-icon);
+      }
+      .icon1 {
+        font-weight: bold;
+        font-size: 25px;
+        color: var(--aa-bottom-icon1);
+      }
+      .icon2 {
+        font-weight: 800;
+        font-size: 25px;
+        color: var(--aa-bottom-icon2);
+      }
+    }
   }
 }
 .item1 {
   flex: 1;
-
   // overflow: auto;
   text-align: center;
   .header {
@@ -431,7 +556,7 @@ export default {
     }
   }
   .item-container {
-    height: 800px;
+    height: 810px;
     overflow: auto;
     .every-item {
       display: flex;
@@ -443,6 +568,18 @@ export default {
         border-right: 1px solid #1683af;
       }
     }
+  }
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>

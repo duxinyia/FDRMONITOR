@@ -3,7 +3,7 @@
   <div
     v-loading.fullscreen.lock="loading"
     element-loading-text="加載中..."
-    element-loading-background="rgba(0, 0, 0, 0.8)"
+    element-loading-background="rgba(0, 0, 0, 1)"
     class="main-two"
   >
     <dv-border-box-11 :color="changeBoxColor" :title="title">
@@ -11,7 +11,7 @@
         v-loading="isLoading"
         element-loading-spinner="el-icon-loading"
         element-loading-text="加载中"
-        element-loading-background="rgba(0, 0, 0, 0.8)"
+        element-loading-background="rgba(0, 0, 0, 1)"
       >
         <!-- 使用轮播图来展示数据 -->
         <el-carousel

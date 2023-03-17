@@ -3,7 +3,7 @@
     v-loading="isLoading"
     element-loading-spinner="el-icon-loading"
     element-loading-text="加载中"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
+    element-loading-background="rgba(0, 0, 0, 1)"
   >
     <span class="title">{{ title }}</span>
     <div class="container">
@@ -40,7 +40,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: "table-chart",
@@ -140,7 +139,6 @@ export default {
     background: var(--chart-slip);
   }
 }
-
 .tootip-container {
   width: 180px;
   line-height: 2em;
@@ -168,12 +166,10 @@ export default {
     }
   }
 }
-
 .container {
   width: 100%;
   height: 250px;
   font-size: 15px;
-
   .item-wrapper {
     height: 52px;
     .top {

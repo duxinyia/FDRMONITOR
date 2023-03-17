@@ -12,11 +12,7 @@
     </div>
     <!-- 各种操作按钮 -->
     <div class="operations">
-      <div class="left">
-        <!-- <el-tooltip content="戰情中心" placement="top">
-          <span class="iconfont icon-shezhi setup" @click="dialogVisible = true"></span>
-        </el-tooltip>-->
-      </div>
+      <div class="left"></div>
       <div class="right">
         <!-- 返回上一级 -->
         <el-tooltip v-if="$route.meta.isJump" content="返回上一级" placement="top">
@@ -44,7 +40,7 @@
     <div class="header-two">
       <div class="react-container">
         <div class="react-left">
-          <span class="address" v-html="address"></span>
+          <span class="address" v-html="changeAddress"></span>
         </div>
       </div>
       <div class="header-center">
@@ -59,18 +55,12 @@
         </div>
       </div>
     </div>
-    <!-- 不同项目切换 -->
-    <!-- <project-dialog :dialogVisible.sync="dialogVisible" /> -->
   </div>
 </template>
 
 <script>
-// 导入设置localstorage的函数
-import cache from "@/utils/cache.js"
 // 全屏
 import screenfull from "screenfull"
-// 导入弹框
-// import ProjectDialog from "@/components/project-dialog/project-dialog.vue"
 export default {
   name: "page-header",
   props: {
@@ -82,10 +72,8 @@ export default {
   data() {
     return {
       logoSrc: require("@/assets/images/RP_logo_blue.png"),
-      address: "深圳&nbsp;龍華&nbsp;三贏&nbsp;CMA",
       currentTime: "", // 当前的时间
       timing: null,
-      dialogVisible: false,
       isFullScreen: false
     }
   },
@@ -95,6 +83,13 @@ export default {
   computed: {
     changeColor() {
       return this.$store.getters.theme == "dark" ? ["#568aea", "#000000"] : ["#568aea", "#ecf6ff"]
+    },
+    changeAddress() {
+      if (this.$route.path.includes("cma")) {
+        return "深圳&nbsp;龍華&nbsp;三贏&nbsp;CMA"
+      } else {
+        return "深圳&nbsp;龍華&nbsp;三贏&nbsp;DP"
+      }
     }
   },
   created() {
@@ -103,8 +98,6 @@ export default {
   methods: {
     goHome() {
       let path = this.$store.state.fullLoading.path
-      // this.$store.state.fullLoading.path
-      // this.$router.replace("/overview/manage/output")
       this.$router.replace(path)
     },
     initScreen() {
@@ -212,25 +205,6 @@ export default {
         margin-left: 10px;
       }
     }
-    /* .left {
-      display: flex;
-      align-items: center;
-      .setup {
-        cursor: pointer;
-        font-size: 32px;
-        background: var(--page-head-icon);
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        &:hover {
-          color: aqua;
-        }
-      }
-      .select-bg {
-        @extend .setup;
-        font-size: 36px;
-        margin-left: 10px;
-      }
-    } */
   }
   .header-two {
     display: flex;
@@ -257,7 +231,6 @@ export default {
         height: 50px;
         line-height: 50px;
         vertical-align: bottom;
-        /* color: var(--page-head-title); */
         background: var(--page-head-title);
         background-clip: text;
         -webkit-text-fill-color: transparent;

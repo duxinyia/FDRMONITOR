@@ -1,5 +1,3 @@
-export { default as menus } from "./menu"
-
 // 一些不变的量  会被挂载到this.$globalData上
 export default {
   TIMEOUT: 10000,

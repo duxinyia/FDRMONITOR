@@ -115,11 +115,11 @@ export default {
     async getData() {
       this.titles = []
       this.newData = []
-      let res = await GetStationName(this.selectArea)
+      let res = await GetStationName(this.selectArea, true)
       // console.log("res======", res)
       this.titles = res
       res.forEach((item, index) => {
-        GetDeviceInfo(this.selectArea, item.deviceNo).then((r) => {
+        GetDeviceInfo(this.selectArea, item.deviceNo, true).then((r) => {
           // console.log("==========", r)
           if (r) {
             this.$set(this.newData, index, r[0].stationInfo)

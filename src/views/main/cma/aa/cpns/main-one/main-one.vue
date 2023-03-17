@@ -18,7 +18,7 @@
         v-loading="numLoading"
         element-loading-spinner="el-icon-loading"
         element-loading-text="加载中"
-        element-loading-background="rgba(0, 0, 0, 0.8)"
+        element-loading-background="rgba(0, 0, 0, 1)"
       >
         <div v-for="(item, index) in config3" :key="item.id" class="num-item">
           <!-- 普通版本 -->

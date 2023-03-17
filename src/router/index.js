@@ -150,7 +150,7 @@ let nowShowArr = {
         },
         {
           id: 112,
-          imgUrl: require("@/assets/images/spotcheck.jpg"),
+          imgUrl: require("@/assets/images/ga.png"),
           title: "GA良率看板",
           target: "process",
           belong: "管理层/製程監控",
@@ -159,7 +159,7 @@ let nowShowArr = {
         },
         {
           id: 113,
-          imgUrl: require("@/assets/images/spotcheck.jpg"),
+          imgUrl: require("@/assets/images/va.png"),
           title: "VA良率看板",
           target: "process",
           belong: "管理层/製程監控",
@@ -239,26 +239,31 @@ router.beforeEach(async (to, from, next) => {
   // 如果去的路由的 login
   if (to.path.includes("login")) {
     if (cache.getCache("user")) {
-      // next("/overview")
+      next("/overview")
       // let path = store.state.permission.routerArr[0][0].subs[0].index || "404"
       // console.log("path=====", path)
-      next(store.state.fullLoading.path)
+      // next(store.state.fullLoading.path)
     } else {
       next()
     }
   } else {
-    if (hasRoles) {
+    if (hasRoles || store.state.permission.routerArr.length == 0) {
       let accessRoutes = await store.dispatch("permission/GenerateRoutes", {
         userJob: store.state.user.user.username,
         nickName: store.state.user.user.fullName
       })
       textHandleRouter(accessRoutes)
       hasRoles = false
-      // next({ ...to, replace: true })
+      // gxl 动态添加路由的方法
+      // router.addRoute("main", {
+      //   path: "text2",
+      //   nem: "text2",
+      //   component: () => import(/* webpackChunkName: "text" */ "@/views/main/cma/text/text.vue")
+      // })
+      next({ ...to, replace: true })
       // 取出数组的第一项的subs的第一项 没有的话跳转到404
       if (from.path == "/login") {
         let path = store.state.permission.routerArr[0][0].subs[0].index || "404"
-        // console.log("path=====", path)
         next(path)
       } else {
         next()
@@ -279,7 +284,6 @@ function textHandleRouter(routers) {
   let dpNames = []
   routers &&
     routers.forEach((item) => {
-      // console.log("item", item)
       if (item.name.includes("cma") && item.children) {
         cmaNames = childHandle(item.children)
       }
@@ -290,7 +294,6 @@ function textHandleRouter(routers) {
     })
   //console.log("cmaNames", cmaNames) // 所有返回的cma的地址
   //console.log("dpNames", dpNames) // 所有返回的dp的地址
-
   // 循环 cma 的地址
   nowShowArr.cma.manage.output = nowShowArr.cma.manage.output.map((item) => {
     if (cmaNames.includes(item.title)) {

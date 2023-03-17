@@ -32,6 +32,5 @@ export default {
 }
 .page-main {
   width: 100%;
-  // height: 950px;
 }
 </style>

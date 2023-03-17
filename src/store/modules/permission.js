@@ -34,6 +34,8 @@ const mutations = {
 }
 const actions = {
   GenerateRoutes({ commit }, userInfo) {
+    allRouter = []
+    routeTitles = []
     let { userJob, nickName } = userInfo
     return new Promise((resolve) => {
       getMenus(userJob, nickName).then((res) => {

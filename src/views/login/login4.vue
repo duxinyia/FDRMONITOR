@@ -13,7 +13,7 @@
       <el-form ref="form" :rules="rules" :model="form">
         <el-form-item prop="name">
           <el-input class="workno" placeholder="工號" v-model.trim="form.name">
-            <el-image #prefix :src="lockUrl" fit="cover"></el-image>
+            <el-image :src="lockUrl" fit="cover"></el-image>
           </el-input>
         </el-form-item>
         <el-form-item prop="paw">

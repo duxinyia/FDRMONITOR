@@ -20,8 +20,10 @@ export let GetStationName = (area = "ALL", isDp = false) => {
 }
 
 // 根据名称获取对应的机台
-export let GetDeviceInfo = (area, device) => {
+export let GetDeviceInfo = (area, device, isDp = false) => {
+  let PlantID = isDp ? "9S01" : "8S01"
+  let ShowTag = isDp ? "BANFF" : "ALL"
   return $post(
-    `api/MESOutPut/Get_Device_KeyStationRunningInfo?PlantID=8S01&ProductArea=${area}&ShowTag=ALL&LotType=MP&${getTime()}&Device=${device}`
+    `api/MESOutPut/Get_Device_KeyStationRunningInfo?PlantID=${PlantID}&ProductArea=${area}&ShowTag=${ShowTag}&LotType=MP&${getTime()}&Device=${device}`
   )
 }

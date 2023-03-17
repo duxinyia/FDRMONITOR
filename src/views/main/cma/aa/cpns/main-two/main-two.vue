@@ -4,14 +4,14 @@
     class="main-two"
     v-loading.fullscreen.lock="loading"
     element-loading-text="加載中..."
-    element-loading-background="rgba(0, 0, 0, 0.8)"
+    element-loading-background="rgba(0, 0, 0, 1)"
   >
     <dv-border-box-11 :color="changeBoxColor" :title="title">
       <div
         v-loading="isLoading"
         element-loading-spinner="el-icon-loading"
         element-loading-text="加载中"
-        element-loading-background="rgba(0, 0, 0, 0.8)"
+        element-loading-background="rgba(0, 0, 0, 1)"
       >
         <!-- 定位显示颜色 -->
         <div class="machine-color-info">

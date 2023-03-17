@@ -49,8 +49,13 @@ export default {
       if (command == "layout") {
         // 清空缓存
         cache.clearCache()
+        // 将permission的数据清空
+        this.$store.commit("permission/SET_ROUTERARR", [])
+        // this.$store.commit("permission/SET_TEXTSHOWARR", {})
+        this.$store.commit("permission/SET_ROUTETITLE", [])
+        // this.$store.commit("permission/SET_INDEX", 0)
         this.$router.replace("/login")
-        this.$router.go(0)
+        // this.$router.go(0)
       }
     },
     getCurrentTime() {
