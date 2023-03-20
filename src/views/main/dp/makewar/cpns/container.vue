@@ -250,7 +250,7 @@ export default {
     toMake(ProductArea, item) {
       let { deviceNo, plantID, customName, Opno } = this.device
       this.$router.push({
-        name: "make",
+        name: "dpmake",
         params: {
           deviceNo,
           plantID,

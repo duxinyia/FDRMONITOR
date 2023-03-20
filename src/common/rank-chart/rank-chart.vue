@@ -73,6 +73,7 @@ export default {
             type: "none"
           },
           formatter: function (params) {
+            // console.log("params", params)
             let tempStr = ""
             params[0].data.detail.forEach((item, index) => {
               tempStr += `

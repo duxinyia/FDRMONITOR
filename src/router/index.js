@@ -95,6 +95,15 @@ let nowShowArr = {
           belong: "管理层/设备",
           isShow: false,
           to: "fol"
+        },
+        {
+          id: 3,
+          imgUrl: require("@/assets/images/fol.png"),
+          title: "周產出/效率看板",
+          target: "device",
+          belong: "管理层/设备",
+          isShow: false,
+          to: "wekoutput"
         }
       ],
       process: [

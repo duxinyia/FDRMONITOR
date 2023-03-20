@@ -382,8 +382,11 @@ export default {
         this.GetAOIScanInfo(combineID),
         this.GetConcentrationInfo(combineID)
       ]
-      await Promise.all(requestArr)
-      this.$emit("update:dialogVisible", true)
+      let res = await Promise.all(requestArr)
+      console.log("res======", res)
+      if (res[1]) {
+        this.$emit("update:dialogVisible", true)
+      }
       this.$emit("getDetailSuccess")
     },
     // 获取左边的数据
@@ -396,6 +399,7 @@ export default {
       this.infoArr[2].data = actualOut
       this.infoArr[3].data = (efficiencyLossTime / 60).toFixed(2) + " Min"
       this.efficiencyLoss = efficiencyLoss
+      return res
     },
     // 获取 右边 1，2表格的数据
     async GetAOIScanInfo(combineID) {
@@ -413,6 +417,7 @@ export default {
             this.finalData.push(rate.slice(0, rate.length - 1) * 1)
           }
         )
+      return res
     },
     // 获取右边下方的表格数据  GetConcentrationInfo
     async GetConcentrationInfo(combineID) {
@@ -489,8 +494,9 @@ export default {
           // this.threeTable.push({ carrierXY: `${j}-1`, text: `${i}` })
           this.threeTable.push({ carrierXY: [j, 1], carrierXYRate: `${i}` })
         }
-      } catch (error) {
-        console.log("error", error)
+      } catch (err) {
+        console.log("error", err)
+        return undefined
       }
     },
     clean() {

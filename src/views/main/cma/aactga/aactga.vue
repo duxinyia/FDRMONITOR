@@ -25,7 +25,7 @@
                   >
                     <div class="header">
                       <div class="header-item">Device</div>
-                      <div class="header-item">Machine</div>
+                      <div class="header-item" style="flex: 1.1">Machine</div>
                       <div class="header-item">Target</div>
                       <div class="header-item">OutPut</div>
                       <div class="header-item">HitRate</div>
@@ -34,16 +34,20 @@
                     <div class="item-container">
                       <div v-for="(item, index) in aaData" :key="index" class="every-item">
                         <div class="show">{{ item.device }}</div>
-                        <div class="show" :style="changeMachine(item.machineState)">
-                          {{ item.machine }}
+                        <div class="show lamp-container" style="flex: 1.1">
+                          <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                          <span class="text">{{ item.machine }}</span>
                         </div>
                         <div class="show">{{ item.target }}</div>
                         <div class="show">{{ item.outPut }}</div>
-                        <div class="show" :style="changeStyle(item.hitRate)">
-                          {{ item.hitRate }}
+                        <div class="show lamp-container">
+                          <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                          <span class="text">{{ item.hitRate }}</span>
                         </div>
-                        <div class="show" :style="changeYield(item.firstYield)">
-                          {{ item.firstYield }}
+                        <div class="show lamp-container">
+                          <!-- {{ item.firstYield }} -->
+                          <span class="lamp" :style="changeYield(item.firstYield)"></span>
+                          <span class="text">{{ item.firstYield }}</span>
                         </div>
                       </div>
                     </div>
@@ -73,8 +77,9 @@
                         <div class="show">{{ item.machine }}</div>
                         <div class="show">{{ item.target }}</div>
                         <div class="show">{{ item.outPut }}</div>
-                        <div class="show" :style="changeStyle(item.hitRate)">
-                          {{ item.hitRate }}
+                        <div class="show lamp-container">
+                          <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                          <span class="text">{{ item.hitRate }}</span>
                         </div>
                         <div class="show">
                           {{ item.firstYield }}
@@ -104,8 +109,10 @@
                         <div class="show">{{ item.machine }}</div>
                         <div class="show">{{ item.target }}</div>
                         <div class="show">{{ item.outPut }}</div>
-                        <div class="show" :style="changeStyle(item.hitRate)">
-                          {{ item.hitRate }}
+                        <div class="show lamp-container">
+                          <!-- {{ item.hitRate }} -->
+                          <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                          <span class="text">{{ item.hitRate }}</span>
                         </div>
                       </div>
                     </div>
@@ -135,16 +142,20 @@
                   <div class="item-container">
                     <div v-for="(item, index) in aaData" :key="index" class="every-item">
                       <div class="show">{{ item.device }}</div>
-                      <div class="show" :style="changeMachine(item.machineState)">
-                        {{ item.machine }}
+                      <div class="show lamp-container" style="width: 90px">
+                        <!-- {{ item.machine }} -->
+                        <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                        <span class="text">{{ item.machine }}</span>
                       </div>
                       <div class="show">{{ item.target }}</div>
                       <div class="show">{{ item.outPut }}</div>
-                      <div class="show" :style="changeStyle(item.hitRate)">
-                        {{ item.hitRate }}
+                      <div class="show lamp-container">
+                        <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                        <span class="text">{{ item.hitRate }}</span>
                       </div>
-                      <div class="show" :style="changeYield(item.firstYield)">
-                        {{ item.firstYield }}
+                      <div class="show lamp-container">
+                        <span class="lamp" :style="changeYield(item.firstYield)"></span>
+                        <span class="text">{{ item.firstYield }}</span>
                       </div>
                     </div>
                   </div>
@@ -181,212 +192,9 @@ export default {
       aaData: [],
       gaData: [],
       ctData: [],
-      showArr: [
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        },
-
-        {
-          Device: "JU",
-          Machine: "AA1206",
-          Target: "16,000",
-          OutPut: "2,434",
-          HitRate: "88.37 %",
-          "1st Yield": "98.73 %"
-        }
-      ],
       // colors: ["#ff4500", "#008000", "#ff0"]
       // 红 绿  黄
-      colors: ["#ff0066", "#00FF00", "#ff0"]
+      colors: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)"]
     }
   },
   created() {
@@ -417,11 +225,11 @@ export default {
       // console.log(Number.parseFloat(hitRate))
       let num = Number.parseFloat(hitRate) || 0
       if (num >= 100) {
-        return { color: this.colors[1] }
+        return { background: this.colors[1] }
       } else if (num < 95) {
-        return { color: this.colors[0] }
+        return { background: this.colors[0] }
       } else {
-        return { color: this.colors[2] }
+        return { background: this.colors[2] }
       }
     },
     changeYield(firstYield) {
@@ -430,17 +238,17 @@ export default {
       if (num < 99.4) {
         // return { color: "#9932CD" }
         // return { color: "#9900ff" }
-        return { color: "#BF3EFF" }
+        return { background: "#BF3EFF" }
       }
     },
     changeMachine(state) {
       // console.log("state", state)
       if (state == "Run") {
-        return { color: this.colors[1] }
+        return { background: this.colors[1] }
       } else if (state == "Down") {
-        return { color: this.colors[0] }
+        return { background: this.colors[0] }
       } else {
-        return { color: this.colors[2] }
+        return { background: this.colors[2] }
       }
     },
     changectStyle(device, firstYield) {
@@ -492,17 +300,12 @@ export default {
   display: flex;
   .item {
     flex: 1;
-    // max-width: 800px;
   }
 }
 .item {
   max-width: 640px;
 }
 .contaienr {
-  // display: flex;
-  // .item {
-  //   flex: 1;
-  // }
   .btns {
     span {
       position: absolute;
@@ -541,7 +344,6 @@ export default {
 }
 .item1 {
   flex: 1;
-  // overflow: auto;
   text-align: center;
   .header {
     display: flex;
@@ -566,6 +368,20 @@ export default {
       .show {
         flex: 1;
         border-right: 1px solid #1683af;
+      }
+      .lamp-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .lamp {
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          margin-left: 8px;
+        }
+        .text {
+          padding-right: 8px;
+        }
       }
     }
   }

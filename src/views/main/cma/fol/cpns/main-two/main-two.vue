@@ -239,9 +239,10 @@ export default {
     openDialog(machine) {
       // machineName
       if (!machine.combineID) return
-      this.loading = true
+
       this.combineID = machine.machineName.split(" ")[1]
       this.$refs["dialog"].getData(machine.combineID)
+      this.loading = true
     },
     // 子组件获取数据成功 关闭请求数据的loading效果
     getDetailSuccess() {

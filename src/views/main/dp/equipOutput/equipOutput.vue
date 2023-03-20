@@ -21,7 +21,7 @@
           <div class="right">
             <div class="control">
               <div class="container" v-for="(item, index) in containerRight" :key="index">
-                <span class="box box2" :style="selectColor(index)"></span>
+                <span class="box box2" :style="{ color: item }"></span>
                 <span class="name">{{ index }}</span>
               </div>
             </div>
@@ -80,17 +80,6 @@ export default {
   methods: {
     changeIndex(i) {
       this.currentIndex = i
-    },
-    selectColor(state) {
-      let map = ""
-      map = new Map([
-        ["RUN", "radial-gradient(50% 50%,  #275875 0%,#92d050 100%)"],
-        ["DOWN", "radial-gradient(50% 50%,#275875  0%, #ff5050  100%)"],
-        ["IDLE", "radial-gradient(50% 50%,  #275875 0%, #ffff99 100%)"]
-      ])
-      return {
-        background: map.get(state)
-      }
     }
   },
   beforeDestroy() {}
@@ -151,13 +140,13 @@ export default {
 }
 @keyframes fade {
   0% {
-    box-shadow: inset 0 0 30px currentColor;
+    box-shadow: inset 0 0 25px currentColor;
   }
   50% {
     box-shadow: inset 0 0 10px currentColor;
   }
   100% {
-    box-shadow: inset 0 0 30px currentColor;
+    box-shadow: inset 0 0 25px currentColor;
   }
 }
 </style>

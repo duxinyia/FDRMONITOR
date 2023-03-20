@@ -32,6 +32,7 @@ import {
   getDateCodeOutputInfo
 } from "@/api/output.js"
 export default {
+  name: "output1",
   components: {
     MainLeft,
     MainCenter,
@@ -91,11 +92,17 @@ export default {
       let res = await getYearOutputInfo({ DateTag: "quarter" })
       console.log("获取左上的数据", res)
       res.forEach((item) => {
-        let { dateCode, output, hitRate } = item
+        let { dateCode, output, hitRate, targetOut } = item
         // 取出name
         this.progressConfig.names.push(dateCode)
-        this.progressConfig.values.push(parseInt(output))
-        this.progressConfig.formatValues.push(hitRate)
+        // this.progressConfig.values.push(parseInt(output))
+        this.progressConfig.values.push({
+          value: parseInt(output),
+          output: parseInt(output),
+          targetOut: parseInt(targetOut)
+        })
+        // this.progressConfig.formatValues.push(hitRate)
+        this.progressConfig.formatValues.push({ value: hitRate, detail: hitRate })
       })
     },
     // 获取右上的数据
@@ -108,9 +115,13 @@ export default {
       // let tempArr = month <= 6 ? res.slice(0, 6) : res.slice(6)
       let tempArr = res.slice(6)
       tempArr.forEach((item) => {
-        let { dateCode, output, hitRate } = item
+        let { dateCode, output, hitRate, targetOut } = item
         this.rightTopData.names.push(dateCode)
-        this.rightTopData.values.push(parseInt(output))
+        this.rightTopData.values.push({
+          value: parseInt(output),
+          output: parseInt(output),
+          targetOut: parseInt(targetOut)
+        })
         this.rightTopData.formatValues.push(hitRate)
       })
     },

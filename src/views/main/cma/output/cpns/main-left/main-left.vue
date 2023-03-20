@@ -3,19 +3,7 @@
     <el-row>
       <el-col :span="24">
         <dv-border-box-11 :color="changeBoxColor" title="產出By季度達成">
-          <!-- <div class="progress-container">
-            <div class="progress-item" v-for="item in progressConfig" :key="item.name">
-              <div class="info">
-                <span class="name">{{item.name}}</span>
-                <span>{{item.value}}</span>
-              </div>
-              <div class="progress">
-                <span class="speed" :style="changeSpeedStyle(item)">{{item.hitRate}}</span>
-              </div>
-            </div>
-          </div>-->
           <rank-chart :config="progressConfig" />
-          <!-- <line-chart :progressConfig="progressConfig" /> -->
         </dv-border-box-11>
       </el-col>
     </el-row>
@@ -74,35 +62,4 @@ export default {
 ::v-deep .dv-border-box-13 .border-box-content {
   padding: 20px;
 }
-/* .progress-container {
-  height: 380px;
-  .progress-item {
-    margin-bottom: 40px;
-    &:first-child {
-      padding-top: 20px;
-    }
-    .info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-      .name {
-        font-size: 18px;
-        font-weight: bold;
-      }
-    }
-    .progress {
-      height: 35px;
-      border: 1px solid #fff;
-      .speed {
-        display: inline-block;
-        width: 100px;
-        height: 100%;
-        line-height: 34px;
-        text-align: right;
-        background: #383b86;
-      }
-    }
-  }
-} */
 </style>

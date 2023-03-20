@@ -93,7 +93,7 @@ export default {
     -ms-overflow-style: none; /* IE 10+ */
     background: #304156;
     box-shadow: 5px 3px 7px 0px rgba(0, 0, 0, 0.5);
-    border-radius: 0px 0px 10px 10px;
+    /* border-radius: 0px 0px 10px 10px; */
     .top-title {
       height: 88px;
       display: flex;

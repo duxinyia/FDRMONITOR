@@ -31,7 +31,7 @@
           </el-form-item>
           <!-- 记住密码和忘记密码 -->
           <div class="pwd-container">
-            <el-checkbox v-model="rempwd">记住密码</el-checkbox>
+            <el-checkbox v-model="rempwd" @change="pwdChange">记住密码</el-checkbox>
             <span class="forpwd" @click="forgetPwd">忘记密码</span>
           </div>
           <el-form-item>
@@ -46,11 +46,10 @@
               >{{ btnLoading ? "登录中~" : "登录" }}</el-button
             >
           </el-form-item>
-          <!-- <div class="forget-pwd" @click="forgetPwd">忘記密碼</div> -->
         </el-form>
       </div>
     </div>
-    <!-- 描述框 -->
+    <!-- 底部描述框 -->
     <div class="copyright-info">
       <div class="copyright">
         <i class="el-icon-collection-tag icon"></i>
@@ -79,6 +78,8 @@
 <script>
 // 导入登录的接口地址
 import { login } from "@/api/login.js"
+// 导入cookie
+import cookie from "@/utils/cookie.js"
 export default {
   name: "login5",
   data() {
@@ -102,15 +103,22 @@ export default {
   },
   created() {
     window.addEventListener("keydown", this.keyDown)
+    // 取出cookie的用户名和密码
+    let name = cookie.getCookie("name") || ""
+    let paw = cookie.getCookie("paw") || ""
+    this.form = { name, paw }
+    if (name && paw) {
+      this.rempwd = true
+    }
   },
   methods: {
+    // 登录的方法
     toLogin() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
           this.btnLoading = true
           let res = await login(this.form)
           if (res.Resultflag == 1) {
-            // console.log("res======", res)
             // 表示用户名 和 密码正确
             this.$store.commit("user/SET_USER", { ...this.form, fullName: res.Resultvalue.Name })
             // 跳转页面
@@ -132,11 +140,22 @@ export default {
         this.toLogin()
       }
     },
+    // 判断是否是测试环境还是正式环境
     toLocation() {
       if (this.port == 8085) {
         window.open(this.$globalData.PRODUCTION_ADDRESS)
       } else {
         window.open(this.$globalData.TEST_ADDRESS)
+      }
+    },
+    pwdChange(value) {
+      console.log("value", value)
+      if (!value) {
+        cookie.setCookie("", "", 0)
+      } else {
+        if (this.btnLoading == false) {
+          cookie.setCookie(this.form.name, this.form.paw, 7)
+        }
       }
     }
   },
@@ -245,21 +264,11 @@ export default {
         box-shadow: 5px 6px 5px 0px #134aa2;
         border-radius: 23px;
       }
-      .forget-pwd {
-        width: fit-content;
-        margin: auto;
-        font-size: 15px;
-        color: #ccc;
-        cursor: pointer;
-        &:hover {
-          color: #409eff;
-        }
-      }
     }
   }
   .copyright-info {
     position: fixed;
-    bottom: 50px;
+    bottom: 2.6042vw;
     font-size: 14px;
     margin: auto;
     text-align: center;

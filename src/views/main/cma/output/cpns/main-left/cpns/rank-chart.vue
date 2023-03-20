@@ -63,7 +63,7 @@ export default {
       const { names, values, formatValues } = this.config
       // 根据不同的theme 显示不同的颜色
       let rightText = this.$store.getters.theme == "dark" ? "#fff" : "#000"
-      // let rightText = "#fff"o
+
       return {
         grid: {
           left: "",
@@ -71,6 +71,19 @@ export default {
           bottom: 0,
           top: 10,
           containLabel: false
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: (params) => {
+            console.log("params", params)
+            let { output = "", targetOut = "" } = params.data
+            return `
+              <div>
+                <div style="background:#0a2732;padding:5px">计划产出: ${targetOut}</div>
+                <div style="background:#003b51;padding:5px">实际产出: ${output}</div>
+              </div>
+            `
+          }
         },
         xAxis: {
           show: false,
@@ -153,8 +166,8 @@ export default {
             type: "pictorialBar",
             symbol:
               "image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAMAAADWZboaAAAAZlBMVEUAAABe3uVe3+Vf3uVf3+Zf3uVg3+Zg3+Zf3+Vi4OZh4OZg3+Z86/Bh3+Zi4Odj4Odi4OZ86/B76/B86/Bj4ed56+9x5+xn4umB7/N87PB36e+A7/N+7fF/7vJ/7vJ+7fGA7/OB7/PReX+lAAAAIXRSTlMABQkVDREmIhk3MR10LEFFPHh7cUprXE35h2XnqMLAp+mHAG9cAAAB5ElEQVRIx83WjU7CMBQFYIoiKMqU/XUboHv/l/Tce7t2XamDNSacETEmX86tlK2rx4py150o+MstMBLwWRfHKo6JCVxLnvmFGBjFQ58oF1//sUZhGy/ClSTWObgnL4O+bkeN4nY2okfNMbkRt9/vtxz8InoTsWplJSCzFxPmO8+GpSIByX3YQAuGDWtRKhKjCnxDXhF6Z4yxnZ20Wgko7BMRDmxtSGVaI4kdTIgb+zTYoJQlIMlDlmUFgrcDWWC201qSayqlTkiCddWWeV62VU0YlnpRi9VOKaSUsiyq/N0krwq2Ugt7lVpZl5BfHNiytjagMi+XYp0kCR45hMlivVQrE/uU5pXSrCB5bM6d1t2lOZItMqmliT3q5uVxqxzyW/ccfYLNKx7ZTeykMvNyac2yt2Fbc61MHLSC0rwoxbiNdlQ3GBm1NLHQsHUrtEXppR/ljNpW6DbSCoqlFiVoN6YdaFlgsSFVPs1BdT8OaB5QyQzVcaqWDows/zepxR8ObLglTrdtCRVuRNj4Rrxh+//0ke2f8KVL+Kon3GCSbmsJN9OUW3j6g0Ns+LgCij2u0h+Sghc8mlMPBMgdx5DFh59VmOVHrvmDnoNxCz3J7MFWsMuaLyR089xz/xhlfijvwutR8gv3zk6BLUUeCgAAAABJRU5ErkJggg==",
-            symbolSize: [60, 60],
-            symbolOffset: [30, 0],
+            symbolSize: [80, 80],
+            symbolOffset: [35, 0],
             z: 10086,
             itemStyle: {
               normal: {

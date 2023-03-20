@@ -17,7 +17,6 @@ export default [
     path: "/overview",
     name: "overview",
     component: () => import(/* webpackChunkName: "overView" */ "../views/overView/index.vue"),
-    // redirect: () => "overview/cma/manage/output",
     meta: {
       title: "首页"
     },
@@ -28,7 +27,6 @@ export default [
         name: "overviewcma",
         component: () =>
           import(/* webpackChunkName: "overviewcma" */ "../views/overView/cma/index.vue"),
-        // redirect: () => "cma/manage/device",
         redirect: "cma/manage/device",
         children: [
           // 分决策层和管理层
@@ -195,7 +193,15 @@ export default [
           {
             path: "ga",
             name: "ga",
-            component: () => import(/* webpackChunkName: "va" */ "../views/main/cma/ga/ga.vue")
+            component: () => import(/* webpackChunkName: "ga" */ "../views/main/cma/ga/ga.vue")
+          },
+          {
+            path: "wekoutput",
+            name: "wekoutput",
+            component: () =>
+              import(
+                /* webpackChunkName: "wekoutput" */ "../views/main/cma/wekoutput/wekoutput.vue"
+              )
           }
         ]
       },
@@ -215,6 +221,14 @@ export default [
             name: "dpoutput",
             component: () =>
               import(/* webpackChunkName: "dpoutput" */ "../views/main/cma/output/output.vue")
+          },
+          // 制造层
+          {
+            path: "make",
+            name: "dpmake",
+            component: () =>
+              import(/* webpackChunkName: "dpmake" */ "../views/main/dp/make/make.vue"),
+            meta: { isJump: true, title: "make" }
           },
           //By天產出看板
           {

@@ -14,7 +14,7 @@ const mutations = {
     cache.deleteCache("user")
     cache.setCache("user", payload)
     const { name = "", paw = "", fullName = "" } = payload
-    cookie.setCookie(name, paw, 7)
+    // cookie.setCookie(name, paw, 7)
     state.user.username = name
     state.user.password = paw
     state.user.fullName = fullName

@@ -101,18 +101,18 @@ export default {
         { customName: "", deviceNo: "" }
       ],
       outPutInfoDetails: [
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] },
-        { device: { customName: "" }, dateValues: [] }
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
+        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] }
       ],
       maxOutput: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       maxTargetOut: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

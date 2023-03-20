@@ -7,7 +7,9 @@
     :collapse="false"
     unique-opened
     :default-active="$route.path"
+    @open="handleOpen"
   >
+    <!-- :default-active="$route.path" -->
     <template v-for="item in menus">
       <template v-if="item.subs">
         <el-submenu
@@ -156,6 +158,9 @@ export default {
       }
       let path = this.$route.path
       this.$store.commit("fullLoading/SET_PATH", path)
+    },
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath)
     }
   }
 }
