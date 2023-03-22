@@ -8,13 +8,12 @@
               <div class="container" v-for="(item, index) in containerLeft" :key="index">
                 <span
                   class="box box1"
-                  @click="changeIndex(index)"
                   :style="{
-                    'box-shadow': currentIndex == index ? `inset 0 0 20px ${item}` : '',
-                    border: `2px solid ${item}`
+                    'box-shadow': currentIndex == item.title ? `inset 0 0 20px ${item.color}` : '',
+                    border: `2px solid ${item.color}`
                   }"
                 ></span>
-                <span class="name">{{ index }}</span>
+                <span class="name">{{ item.title }}</span>
               </div>
             </div>
           </div>
@@ -31,7 +30,7 @@
         <div class="main">
           <div class="contaner">
             <!-- <p class="title">生產看板</p> -->
-            <contaienr :cIndex="currentIndex" />
+            <contaienr :cIndex="currentIndex" :titleData="containerLeft" @autoPlay="autoPlay" />
           </div>
         </div>
       </div>
@@ -49,22 +48,64 @@ export default {
       // 当前选中
       currentIndex: "AA",
       // 左边颜色
-      containerLeft: {
-        AA: "#ff99ff",
-        GA: "#0d60ae",
-        DA: "#0eb18a",
-        LA: "#ffff00",
-        ALN: "#ff99ff",
-        DTC: "#0d60ae",
-        TS: "#0eb18a",
-        ACF: "#ffff00",
-        SA: "#ff99ff",
-        LF: "#0d60ae",
-        RET: "#0eb18a",
-        TET: "#ffff00",
-        FTC: "#ff99ff",
-        AVI: "#0d60ae"
-      },
+      containerLeft: [
+        {
+          title: "AA",
+          color: "#ff99ff"
+        },
+        {
+          title: "GA",
+          color: "#0d60ae"
+        },
+        {
+          title: "DA",
+          color: "#0eb18a"
+        },
+        {
+          title: "LA",
+          color: "#ffff00"
+        },
+        {
+          title: "ALN",
+          color: "#ff99ff"
+        },
+        {
+          title: "DTC",
+          color: "#0d60ae"
+        },
+        {
+          title: "TS",
+          color: "#0eb18a"
+        },
+        {
+          title: "ACF",
+          color: "#ffff00"
+        },
+        {
+          title: "SA",
+          color: "#ff99ff"
+        },
+        {
+          title: "LF",
+          color: "#0d60ae"
+        },
+        {
+          title: "RET",
+          color: "#0eb18a"
+        },
+        {
+          title: "TET",
+          color: "#ffff00"
+        },
+        {
+          title: "FTC",
+          color: "#ff99ff"
+        },
+        {
+          title: "AVI",
+          color: "#0d60ae"
+        }
+      ],
       // 右边颜色
       containerRight: {
         RUN: "#92d050",
@@ -78,8 +119,8 @@ export default {
   },
   computed: {},
   methods: {
-    changeIndex(i) {
-      this.currentIndex = i
+    autoPlay(index) {
+      this.currentIndex = this.containerLeft[index].title
     }
   },
   beforeDestroy() {}
@@ -88,6 +129,7 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
+  // height: 890px;
   padding: 20px;
   position: relative;
 }
@@ -96,7 +138,7 @@ export default {
   margin-top: 20px;
 }
 .contaner {
-  height: 100%;
+  // height: 100%;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(3, 1fr);
@@ -126,7 +168,7 @@ export default {
           margin-right: 6px;
         }
         .box1 {
-          cursor: pointer;
+          // cursor: pointer;
         }
       }
       .box2 {
@@ -138,6 +180,7 @@ export default {
     }
   }
 }
+
 @keyframes fade {
   0% {
     box-shadow: inset 0 0 25px currentColor;
