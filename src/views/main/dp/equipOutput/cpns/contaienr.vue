@@ -23,6 +23,14 @@
               <div class="header">
                 <div
                   class="header-item"
+                  :style="
+                    (cIndex === 'RET' && index === 'machine') ||
+                    (cIndex === 'TET' && index === 'machine') ||
+                    (cIndex === 'FTC' && index === 'machine') ||
+                    (cIndex === 'AA' && index === 'machine')
+                      ? 'flex: 1.17'
+                      : ''
+                  "
                   v-show="
                     index !== 'hitRateColor' && index !== 'yieldColor' && index !== 'machineState'
                   "
@@ -254,7 +262,7 @@ export default {
   font-weight: bold;
 }
 .page-main-a {
-  width: 300%;
+  min-width: 300%;
   // height: 850px;
   padding-top: 5px;
   text-align: center;
@@ -299,9 +307,10 @@ export default {
   display: flex;
   .item {
     margin: 0 10px;
-    &:nth-child(2) {
-      margin: 0 20px;
-    }
+    // &:nth-child(2) {
+    //   margin: 0 20px;
+    // }
+    // text-align: center;
     flex: 1;
     .header {
       font-size: 18px;
@@ -336,14 +345,14 @@ export default {
 
         .show {
           // width: 5px;
-
+          white-space: nowrap;
           flex: 1;
           border-right: 1px solid #1683af;
         }
         .lamp-container {
           // background-color: #92d050;
           display: flex;
-          justify-content: center;
+          justify-content: space-around;
           align-items: center;
           .lamp {
             width: 12px;
