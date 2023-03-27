@@ -1,5 +1,5 @@
 <template>
-  <dv-border-box-11 :color="changeBoxColor" title="SFC 良率">
+  <dv-border-box-11 :color="changeBoxColor" title="Banff  系列">
     <base-echart height="350px" :options="options" />
   </dv-border-box-11>
 </template>

@@ -30,7 +30,13 @@
         <div class="main">
           <div class="contaner">
             <!-- <p class="title">生產看板</p> -->
-            <contaienr :cIndex="currentIndex" :titleData="containerLeft" @autoPlay="autoPlay" />
+            <contaienr
+              :resultvalue="showArr"
+              :cIndex="currentIndex"
+              :titleData="containerLeft"
+              :rColor="containerRight"
+              @autoPlay="autoPlay"
+            />
           </div>
         </div>
       </div>
@@ -38,6 +44,8 @@
   </div>
 </template>
 <script>
+// 导入发送请求的函数
+import { GetAaData } from "@/api/equipOutput.js"
 // 导入子组件
 import Contaienr from "./cpns/contaienr.vue"
 export default {
@@ -50,58 +58,72 @@ export default {
       // 左边颜色
       containerLeft: [
         {
+          inface: "AA",
           title: "AA",
           color: "#ff99ff"
         },
         {
+          inface: "GA",
           title: "GA",
           color: "#0d60ae"
         },
         {
+          inface: "DA",
           title: "DA",
           color: "#0eb18a"
         },
         {
+          inface: "LA",
           title: "LA",
           color: "#ffff00"
         },
         {
+          inface: "ALN",
           title: "ALN",
           color: "#ff99ff"
         },
         {
-          title: "DTC",
+          inface: "NTC",
+          title: "NTC",
           color: "#0d60ae"
         },
         {
+          inface: "TerminalSoldering",
           title: "TS",
           color: "#0eb18a"
         },
         {
+          inface: "ACF",
           title: "ACF",
           color: "#ffff00"
         },
         {
+          inface: "SA",
           title: "SA",
           color: "#ff99ff"
         },
         {
+          inface: "LaserFlipping",
           title: "LF",
           color: "#0d60ae"
         },
         {
+          inface: "RXEOL",
           title: "RET",
           color: "#0eb18a"
         },
         {
+          inface: "TXEOL",
           title: "TET",
           color: "#ffff00"
         },
         {
+          inface: "Compliance",
           title: "FTC",
           color: "#ff99ff"
         },
         {
+          inface: "AVI",
           title: "AVI",
           color: "#0d60ae"
         }
@@ -110,17 +132,33 @@ export default {
       containerRight: {
         RUN: "#92d050",
         DOWN: "#ff5050",
-        IDLE: "#ffff99"
-      }
+        IDLE: "#ffc000"
+      },
+      // 14个表格的数据
+      showArr: {}
     }
   },
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "設備產出看板")
+    // 循环调用接口
+    this.containerLeft.forEach((key, i) => {
+      this.getData(key.inface, key.title)
+    })
   },
   computed: {},
   methods: {
+    // 自动播放时选中上面的颜色框
     autoPlay(index) {
       this.currentIndex = this.containerLeft[index].title
+    },
+
+    // 获取数据
+    async getData(i, n) {
+      let res = await GetAaData(i)
+      res = Object.values(res)
+      this.$set(this.showArr, n, res)
+      // console.log("showArr======", this.showArr)
+      // console.log("res======", typeof res)
     }
   },
   beforeDestroy() {}

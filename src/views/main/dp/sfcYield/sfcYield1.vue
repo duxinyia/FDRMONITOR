@@ -48,21 +48,21 @@ export default {
       // 下方系列的数据
       lineChartConfigs: [
         {
-          deviceSeries: "JU"
+          deviceSeries: "E-fai"
           // monthWeekYieldList: [
           //   { device: "JU-Y", dateValues: [{ dateCode: "2022-10", values: { value: "98%" } }] },
           //   { device: "JU-G", dateValues: [{ dateCode: "2022-10" }] },
           //   { device: "JU-A", dateValues: [{ dateCode: "2022-10" }] }
           // ]
         },
-        { deviceSeries: "ML" },
-        { deviceSeries: "MD" },
-        { deviceSeries: "Stanley" }
+        { deviceSeries: "Power on +Setup Pl" },
+        { deviceSeries: "EE0A" },
+        { deviceSeries: "OS_Open Fail" }
       ]
     }
   },
   mounted() {
-    this.$store.commit("fullLoading/SET_TITLE", "SFC良率By月")
+    // this.$store.commit("fullLoading/SET_TITLE", "SFC良率By月")
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
     this.$store.commit("fullLoading/SET_FULLLOADING", false)
     this.initData()
