@@ -8,6 +8,7 @@
               <div class="container" v-for="(item, index) in containerLeft" :key="index">
                 <span
                   class="box box1"
+                  @click="redirectPage(item)"
                   :style="{
                     'box-shadow': currentIndex == item.title ? `inset 0 0 20px ${item.color}` : '',
                     border: `2px solid ${item.color}`
@@ -31,11 +32,13 @@
           <div class="contaner">
             <!-- <p class="title">生產看板</p> -->
             <contaienr
+              :plid="pid"
               :resultvalue="showArr"
               :cIndex="currentIndex"
               :titleData="containerLeft"
               :rColor="containerRight"
               @autoPlay="autoPlay"
+              @changeId="changeId"
             />
           </div>
         </div>
@@ -53,86 +56,31 @@ export default {
   components: { Contaienr },
   data() {
     return {
+      pid: 0,
       // 当前选中
       currentIndex: "AA",
       // 左边颜色
       containerLeft: [
-        {
-          inface: "AA",
-          title: "AA",
-          color: "#ff99ff"
-        },
-        {
-          inface: "GA",
-          title: "GA",
-          color: "#0d60ae"
-        },
-        {
-          inface: "DA",
-          title: "DA",
-          color: "#0eb18a"
-        },
-        {
-          inface: "LA",
-          title: "LA",
-          color: "#ffff00"
-        },
-        {
-          inface: "ALN",
-          title: "ALN",
-          color: "#ff99ff"
-        },
-        {
-          inface: "NTC",
-          title: "NTC",
-          color: "#0d60ae"
-        },
-        {
-          inface: "TerminalSoldering",
-          title: "TS",
-          color: "#0eb18a"
-        },
-        {
-          inface: "ACF",
-          title: "ACF",
-          color: "#ffff00"
-        },
-        {
-          inface: "SA",
-          title: "SA",
-          color: "#ff99ff"
-        },
-        {
-          inface: "LaserFlipping",
-          title: "LF",
-          color: "#0d60ae"
-        },
-        {
-          inface: "RXEOL",
-          title: "RET",
-          color: "#0eb18a"
-        },
-        {
-          inface: "TXEOL",
-          title: "TET",
-          color: "#ffff00"
-        },
-        {
-          inface: "Compliance",
-          title: "FTC",
-          color: "#ff99ff"
-        },
-        {
-          inface: "AVI",
-          title: "AVI",
-          color: "#0d60ae"
-        }
+        { id: 0, inface: "AA", title: "AA", color: "#ff99ff" },
+        { id: 1, inface: "GA", title: "GA", color: "#0d60ae" },
+        { id: 2, inface: "DA", title: "DA", color: "#0eb18a" },
+        { id: 3, inface: "LA", title: "LA", color: "#ffff00" },
+        { id: 4, inface: "ALN", title: "ALN", color: "#ff99ff" },
+        { id: 5, inface: "NTC", title: "NTC", color: "#0d60ae" },
+        { id: 6, inface: "TerminalSoldering", title: "TS", color: "#0eb18a" },
+        { id: 7, inface: "ACF", title: "ACF", color: "#ffff00" },
+        { id: 8, inface: "SA", title: "SA", color: "#ff99ff" },
+        { id: 9, inface: "LaserFlipping", title: "LF", color: "#0d60ae" },
+        { id: 10, inface: "RXEOL", title: "RET", color: "#0eb18a" },
+        { id: 11, inface: "TXEOL", title: "TET", color: "#ffff00" },
+        { id: 12, inface: "Compliance", title: "FTC", color: "#ff99ff" },
+        { id: 13, inface: "AVI", title: "AVI", color: "#0d60ae" }
       ],
       // 右边颜色
       containerRight: {
-        RUN: "#92d050",
-        DOWN: "#ff5050",
-        IDLE: "#ffc000"
+        RUN: "rgba(0, 255, 0, 0.9)",
+        DOWN: "rgba(255, 0, 102, 0.9)",
+        IDLE: "rgba(255, 255, 0, 0.9)"
       },
       // 14个表格的数据
       showArr: {}
@@ -146,10 +94,26 @@ export default {
     })
   },
   computed: {},
+  watch: {},
   methods: {
+    // i是1代表上一页，2代表下一页
+    changeId(plid, i) {
+      i === 1 ? (this.pid = plid - 1) : (this.pid = plid + 1)
+      if (this.pid < 0) {
+        this.pid = 13
+      } else if (this.pid > 13) {
+        this.pid = 0
+      }
+    },
+    //点击色块跳转
+    redirectPage(i) {
+      this.currentIndex = i.title
+      this.pid = i.id
+    },
     // 自动播放时选中上面的颜色框
     autoPlay(index) {
       this.currentIndex = this.containerLeft[index].title
+      this.pid = index
     },
 
     // 获取数据
