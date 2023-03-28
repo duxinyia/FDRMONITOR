@@ -1,6 +1,6 @@
 <template>
   <div class="kline-chart">
-    <p>VA1302 X/Y tilt</p>
+    <p>{{ machinename }} X/Y tilt</p>
     <base-echart :options="options" height="200px" />
   </div>
 </template>
@@ -10,115 +10,147 @@
 import baseEchart from "@/common/echart"
 export default {
   name: "kline-chart",
+  props: ["kLineData", "machinename"],
   components: {
     baseEchart
   },
   computed: {
     options() {
+      let { xData } = this.kLineData
       return {
-        xAxis: {
-          boundaryGap: 0,
-          gridIndex: 0,
-          data: ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"],
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: "#fff"
+        dataset: [
+          {
+            source: this.kLineData.showData
+          },
+          {
+            transform: {
+              type: "boxplot",
+              // "e {value}"
+              config: { itemNameFormatter: (params) => xData[params.value] }
             }
+          },
+          {
+            fromDatasetIndex: 1,
+            fromTransformResult: 1
+          }
+        ],
+        grid: {
+          left: 0,
+          right: 10,
+          bottom: 30,
+          top: 10,
+          containLabel: true
+        },
+        xAxis: {
+          type: "category",
+          // data: this.kLineData.xData,
+          nameGap: 30,
+          splitArea: {
+            show: false
           },
           axisLine: {
             show: true,
             lineStyle: {
               color: "#fff"
-            }
-          },
-          axisTick: {
-            show: false
+            },
+            symbol: ["none", "arrow"] // 只在末端显示箭头
           },
           axisLabel: {
-            show: true,
-            textStyle: {
-              color: "#fff"
+            color: "#fff",
+            showMaxLabel: false
+          },
+          splitLine: {
+            lineStyle: {
+              color: "#fff",
+              type: "dashed",
+              opacity: 0.1
             }
-          }
-        },
-        grid: {
-          left: 30,
-          right: 10,
-          bottom: 20,
-          top: 10
-        },
-        tooltip: {
-          trigger: "axis",
-          formatter: function (p) {
-            if (p.seriesType === "line") return ""
-            return `${p[0].name}<br/>${p[0].marker}中位数：${
-              (p[0].value[1] + p[0].value[2]) / 2
-            }次<br/>${p[0].marker}上四分位数：${p[0].value[1]}次<br/>${p[0].marker}下四分位数：${
-              p[0].value[2]
-            }次<br/>${p[0].marker}上极限：${p[0].value[4]}次<br/>${p[0].marker}下极限：${
-              p[0].value[3]
-            }次`
           }
         },
         yAxis: {
-          max: 140,
-          min: 0,
-          splitNumber: 7,
-          axisTick: {
-            show: true
-          },
-          axisLabel: {
-            show: true,
-            textStyle: {
-              color: "#fff"
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: "#fff"
-            }
-          },
+          type: "value",
+          min: 0.12,
+          max: 0.21,
+          // min: "dataMin", //取最小值为最小刻度
+          // max: "dataMax", //取最大值为最大刻度
           axisLine: {
             show: true,
             lineStyle: {
               color: "#fff"
+            },
+            symbol: ["none", "arrow"] // 只在末端显示箭头
+          },
+          axisLabel: {
+            color: "#fff",
+            showMaxLabel: false
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: "#eee",
+              type: "dashed",
+              opacity: 0.1
             }
+          },
+          splitArea: {
+            show: false
           }
         },
         series: [
           {
-            type: "candlestick",
-            itemStyle: {
-              // color: "#FCB618",
-              // color0: "#FCB618",
-              color: "#2e6099",
-              color0: "#2e6099",
-              borderColor: "#fff",
-              borderColor0: "#fff"
-            },
-            data: [
-              [55, 45, 38, 60],
-              [85, 65, 62, 90],
-              [110, 90, 85, 120],
-              [45, 75, 40, 80],
-              [90, 105, 85, 110],
-              [85, 65, 62, 90],
-              [60, 75, 55, 80],
-              [98, 110, 90, 120]
-            ]
+            name: "boxplot",
+            type: "boxplot",
+            datasetIndex: 1,
+            markLine: {
+              symbol: "none",
+              data: [
+                {
+                  silent: false, //鼠标悬停事件  true没有，false有
+                  lineStyle: {
+                    //警戒线的样式  ，虚实  颜色
+                    type: "solid",
+                    color: "#00b050"
+                  },
+                  label: {
+                    position: "end",
+                    formatter: ""
+                  },
+                  yAxis: 0.132 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                },
+                {
+                  silent: false, //鼠标悬停事件  true没有，false有
+                  lineStyle: {
+                    //警戒线的样式  ，虚实  颜色
+                    type: "solid",
+                    color: "#00b050"
+                  },
+                  label: {
+                    position: "end",
+                    formatter: "",
+                    fontSize: "8"
+                  },
+                  yAxis: 0.198 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                }
+              ]
+            }
           },
           {
-            name: "时段01",
-            type: "line",
-            data: [50, 75, 100, 60, 97, 75, 67, 104],
-            symbolSize: 0,
-            lineStyle: {
-              color: "#fff",
-              width: 1
-            },
-            z: 10
+            name: "outlier",
+            type: "scatter",
+            datasetIndex: 2
+          }
+        ],
+        // 数据量较多时 可采用X Y轴进行缩放
+        dataZoom: [
+          {
+            type: "slider", //slider表示有滑动块的，
+            roam: false,
+            show: true,
+            xAxisIndex: [0], //表示x轴折叠
+            height: 20, //这里可以设置dataZoom的尺寸
+            bottom: 10,
+            start: 0, //数据窗口范围的起始百分比,表示1%
+            end: 20 //数据窗口范围的结束百分比,表示20%坐标
           }
         ]
       }

@@ -1,26 +1,19 @@
 <template>
   <div class="scatl-chat">
-    <p class="title">VA1301 X/Y tilt</p>
+    <p class="title">{{ machinename }} X/Y tilt</p>
     <base-echart :options="options" height="200px" />
   </div>
 </template>
 
 <script>
 // 散点数据
-var nameList = ["散点1", "散点2", "散点3", "散点4", "散点5"]
-var xList = [0.1, 0.1, -0.1, -0.1]
-var yList = [0.1, 0.1, -0.1, -0.1]
-let center = [0, 0] //中心点
-
-// 数据转换
-const marksData = nameList.map((item, index) => ({
-  name: item,
-  value: [xList[index], yList[index]]
-}))
+// var nameList = ["散点1", "散点2", "散点3", "散点4", "散点5"]
+// let center = [0, 0] //中心点
 // 导入基础模板
 import baseEchart from "@/common/echart"
 export default {
   name: "scat-chat",
+  props: ["scats", "machinename"],
   components: {
     baseEchart
   },
@@ -50,6 +43,9 @@ export default {
         xAxis: {
           type: "value",
           name: "人均项目数",
+          // data: xAxisData,
+          min: -0.06, //取最小值为最小刻度
+          max: 0.06, //取最大值为最大刻度
           splitNumber: 5,
           nameTextStyle: {
             color: "rgba(0,0,0,0.65)",
@@ -59,7 +55,8 @@ export default {
           },
           axisLine: {
             lineStyle: {
-              color: "#fff"
+              color: "yellow",
+              opacity: 0.6
             }
           },
           axisLabel: {
@@ -68,8 +65,9 @@ export default {
           },
           splitLine: {
             lineStyle: {
-              color: "#eee",
-              type: "dashed"
+              color: "#fff",
+              type: "dashed",
+              opacity: 0.5
             }
           },
           axisTick: {
@@ -78,14 +76,18 @@ export default {
         },
         yAxis: {
           name: "项目数量",
+          min: -0.06, //取最小值为最小刻度
+          max: 0.06, //取最大值为最大刻度
           nameTextStyle: {
             color: "rgba(0,0,0,0.65)",
             align: "left",
             verticalAlign: "center"
           },
           axisLine: {
+            show: true,
             lineStyle: {
-              color: "#fff"
+              color: "yellow",
+              opacity: 0.6
             }
           },
           axisLabel: {
@@ -93,15 +95,19 @@ export default {
           },
           splitLine: {
             lineStyle: {
-              color: "#eee",
-              type: "dashed"
+              color: "#fff",
+              type: "dashed",
+              opacity: 0.5
             }
+          },
+          axisTick: {
+            show: false
           }
         },
         series: [
           {
             type: "scatter",
-            data: marksData,
+            data: this.scats,
             symbolSize: 10,
             label: {
               show: false
@@ -115,27 +121,87 @@ export default {
             emphasis: {
               scale: 1.5
             },
-            // 中心点交集象限轴
             markLine: {
-              silent: true, // 是否不响应鼠标事件
-              precision: 2, // 精度
               symbol: "none",
-              lineStyle: {
-                type: "solid",
-                color: "#fcfcfc"
-              },
-              label: {
-                show: false
-              },
               data: [
                 {
-                  xAxis: center[0]
+                  silent: false, //鼠标悬停事件  true没有，false有
+                  lineStyle: {
+                    //警戒线的样式  ，虚实  颜色
+                    type: "solid",
+                    color: "#00b050"
+                  },
+                  label: {
+                    position: "end",
+                    formatter: ""
+                  },
+                  yAxis: 0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 },
                 {
-                  yAxis: center[1]
+                  silent: false, //鼠标悬停事件  true没有，false有
+                  lineStyle: {
+                    //警戒线的样式  ，虚实  颜色
+                    type: "solid",
+                    color: "#00b050"
+                  },
+                  label: {
+                    position: "end",
+                    formatter: ""
+                  },
+                  xAxis: 0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                },
+                {
+                  silent: false, //鼠标悬停事件  true没有，false有
+                  lineStyle: {
+                    //警戒线的样式  ，虚实  颜色
+                    type: "solid",
+                    color: "#00b050"
+                  },
+                  label: {
+                    position: "end",
+                    formatter: "",
+                    fontSize: "8"
+                  },
+                  xAxis: -0.05,
+                  yAxis: -0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                },
+                {
+                  silent: false, //鼠标悬停事件  true没有，false有
+                  lineStyle: {
+                    //警戒线的样式  ，虚实  颜色
+                    type: "solid",
+                    color: "#00b050"
+                  },
+                  label: {
+                    position: "end",
+                    formatter: "",
+                    fontSize: "8"
+                  },
+                  xAxis: -0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 }
               ]
             }
+            // 中心点交集象限轴
+            // markLine: {
+            //   silent: true, // 是否不响应鼠标事件
+            //   precision: 2, // 精度
+            //   symbol: "none",
+            //   lineStyle: {
+            //     type: "solid",
+            //     color: "#fcfcfc"
+            //   },
+            //   label: {
+            //     show: false
+            //   },
+            //   data: [
+            //     {
+            //       xAxis: center[0]
+            //     },
+            //     {
+            //       yAxis: center[1]
+            //     }
+            //   ]
+            // }
           }
         ]
       }

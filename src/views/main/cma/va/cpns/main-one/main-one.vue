@@ -3,17 +3,17 @@
     <div class="container">
       <div class="item">
         <dv-border-box-12 class="inner-box">
-          <scat-chart />
+          <scat-chart :scats="scats" :machinename="machinename" />
         </dv-border-box-12>
       </div>
       <div class="item">
         <dv-border-box-12 class="inner-box">
-          <kline-chart />
+          <kline-chart :kLineData="kLineData" :machinename="machinename" />
         </dv-border-box-12>
       </div>
       <div class="item">
         <dv-border-box-12 class="inner-box">
-          <kline-chart />
+          <kline-chart :kLineData="getKLineHourData" :machinename="machinename" />
         </dv-border-box-12>
       </div>
     </div>
@@ -27,6 +27,7 @@ import KlineChart from "./cpns/kline-chart.vue"
 import ScatChart from "./cpns/scat-chat.vue"
 export default {
   name: "main-one",
+  props: ["scats", "kLineData", "machinename", "getKLineHourData"],
   components: {
     ScatChart,
     KlineChart

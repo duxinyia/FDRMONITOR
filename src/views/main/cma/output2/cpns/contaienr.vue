@@ -9,7 +9,9 @@
     <p class="title">{{ itemTitle.customName }}</p>
     <el-row :gutter="6" class="headers">
       <el-col :span="3">WIP</el-col>
-      <el-col :span="3" :offset="12">IO</el-col>
+      <el-col :span="4" :offset="4">Station</el-col>
+      <el-col :span="4">Output</el-col>
+      <el-col :span="3">IO</el-col>
       <el-col :span="3">Hit Rate</el-col>
       <el-col :span="3">Yield</el-col>
     </el-row>

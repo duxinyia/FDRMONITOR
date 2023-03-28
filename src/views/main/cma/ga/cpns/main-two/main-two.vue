@@ -1,7 +1,7 @@
 <template>
   <div class="main-two">
     <dv-border-box-12>
-      <line-chart />
+      <line-chart :lineData="lineData" :machinename="machinename" :limit="limit" />
     </dv-border-box-12>
   </div>
 </template>
@@ -11,6 +11,7 @@
 import LineChart from "./cpns/line-chart.vue"
 export default {
   name: "main-two",
+  props: ["lineData", "machinename", "limit"],
   components: {
     LineChart
   }
@@ -22,6 +23,6 @@ export default {
   padding: 8px !important;
 }
 .main-two {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 </style>

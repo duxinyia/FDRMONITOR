@@ -92,7 +92,14 @@
                 width="100px"
                 label="良率"
               ></el-table-column>
-              <el-table-column align="center" prop="wip" label="WIP"></el-table-column>
+              <el-table-column align="center" prop="wip" label="WIP">
+                <template slot-scope="{ row }">
+                  <div class="lamp-contaienr">
+                    <span class="lamp" :style="changewipStyle(row)"></span>
+                    <span>{{ row.wip || 0 }}</span>
+                  </div>
+                </template>
+              </el-table-column>
               <el-table-column align="center" prop="maxWip" label="上限"></el-table-column>
               <el-table-column align="center" prop="minWip" label="下限"></el-table-column>
             </el-table-column>
@@ -242,11 +249,22 @@ export default {
     // 处理 表一 的点击事件
     barClick({ opNo: Opno, station }) {
       this.Opno = Opno
+      // 修改第二个图的名称和一些字段
       this.chart2Ttitle = `${station} 時段產出`
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno })
     },
     getRowClass() {
       return "background:transparent !important;color:#1adafb;'font-size':'30px'"
+    },
+    changewipStyle(row) {
+      console.log("row", row)
+      if (row.wip && row.wip > row.maxWip) {
+        return { color: "red" }
+      } else if (row.wip && row.wip < row.minWip) {
+        return { color: "yellow" }
+      } else {
+        return { color: "transparent" }
+      }
     },
     changeLoading() {
       this.chart2Loading = false
@@ -360,6 +378,31 @@ export default {
     border: 1px solid #147aa4;
     border-left: none;
     background: rgba(79, 129, 189, 0.2);
+  }
+}
+.lamp-contaienr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 10px;
+  .lamp {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+
+    animation: fade 2s infinite;
+  }
+}
+@keyframes fade {
+  0% {
+    box-shadow: inset 0 0 5px currentColor;
+  }
+  50% {
+    box-shadow: inset 0 0 10px currentColor;
+  }
+  100% {
+    box-shadow: inset 0 0 5px currentColor;
   }
 }
 </style>

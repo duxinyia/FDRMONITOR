@@ -1,115 +1,103 @@
 <template>
   <div class="text">
     <div>hello world</div>
-    <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="用户管理" name="first">
-        <el-table :data="tableData" border style="width: 100%">
-          <el-table-column fixed prop="date" label="日期" width="150"> </el-table-column>
-          <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-          <el-table-column prop="province" label="省份" width="120"> </el-table-column>
-          <el-table-column prop="city" label="市区" width="120"> </el-table-column>
-          <el-table-column prop="address" label="地址" width="300"> </el-table-column>
-          <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
-            <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-              <el-button type="text" size="small">编辑</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-tab-pane>
-      <el-tab-pane label="配置管理" name="second">
-        <el-table :data="tableData" border style="width: 100%">
-          <el-table-column fixed prop="date" label="日期" width="150"> </el-table-column>
-          <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-          <el-table-column prop="province" label="省份" width="120"> </el-table-column>
-          <el-table-column prop="city" label="市区" width="120"> </el-table-column>
-          <el-table-column prop="address" label="地址" width="300"> </el-table-column>
-          <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
-            <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-              <el-button type="text" size="small">编辑</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-tab-pane>
-      <el-tab-pane label="角色管理" name="third">
-        <el-table :data="tableData" border style="width: 100%">
-          <el-table-column fixed prop="date" label="日期" width="150"> </el-table-column>
-          <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-          <el-table-column prop="province" label="省份" width="120"> </el-table-column>
-          <el-table-column prop="city" label="市区" width="120"> </el-table-column>
-          <el-table-column prop="address" label="地址" width="300"> </el-table-column>
-          <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
-            <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-              <el-button type="text" size="small">编辑</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-tab-pane>
-      <el-tab-pane label="定时任务补偿" name="fourth">
-        <el-table :data="tableData" border style="width: 100%">
-          <el-table-column fixed prop="date" label="日期" width="150"> </el-table-column>
-          <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-          <el-table-column prop="province" label="省份" width="120"> </el-table-column>
-          <el-table-column prop="city" label="市区" width="120"> </el-table-column>
-          <el-table-column prop="address" label="地址" width="300"> </el-table-column>
-          <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
-            <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-              <el-button type="text" size="small">编辑</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-tab-pane>
-    </el-tabs>
+    <base-echart :options="options" height="200px" />
   </div>
 </template>
 
 <script>
+// 导入基础模板
+import baseEchart from "@/common/echart"
 export default {
   name: "text",
+  components: {
+    baseEchart
+  },
   data() {
     return {
-      activeName: "fourth",
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
+      options: {
+        title: [
+          {
+            text: "Michelson-Morley Experiment",
+            left: "center"
+          },
+          {
+            text: "upper: Q3 + 1.5 * IQR \nlower: Q1 - 1.5 * IQR",
+            borderColor: "#999",
+            borderWidth: 1,
+            textStyle: {
+              fontWeight: "normal",
+              fontSize: 14,
+              lineHeight: 20
+            },
+            left: "10%",
+            top: "90%"
+          }
+        ],
+        dataset: [
+          {
+            // prettier-ignore
+            source: [
+                [850, 740, 900, 1070, 930, 850, 950, 980, 980, 880, 1000, 980, 930, 650, 760, 810, 1000, 1000, 960, 960],
+                [960, 940, 960, 940, 880, 800, 850, 880, 900, 840, 830, 790, 810, 880, 880, 830, 800, 790, 760, 800],
+                [880, 880, 880, 860, 720, 720, 620, 860, 970, 950, 880, 910, 850, 870, 840, 840, 850, 840, 840, 840],
+                [890, 810, 810, 820, 800, 770, 760, 740, 750, 760, 910, 920, 890, 860, 880, 720, 840, 850, 850, 780],
+                [890, 840, 780, 810, 760, 810, 790, 810, 820, 850, 870, 870, 810, 740, 810, 940, 950, 800, 810, 870]
+            ]
+          },
+          {
+            transform: {
+              type: "boxplot",
+              config: { itemNameFormatter: "expr {value}" }
+            }
+          },
+          {
+            fromDatasetIndex: 1,
+            fromTransformResult: 1
+          }
+        ],
+        tooltip: {
+          trigger: "item",
+          axisPointer: {
+            type: "shadow"
+          }
         },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1517 弄",
-          zip: 200333
+        grid: {
+          left: "10%",
+          right: "10%",
+          bottom: "15%"
         },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1519 弄",
-          zip: 200333
+        xAxis: {
+          type: "category",
+          boundaryGap: true,
+          nameGap: 30,
+          splitArea: {
+            show: false
+          },
+          splitLine: {
+            show: false
+          }
         },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1516 弄",
-          zip: 200333
-        }
-      ]
+        yAxis: {
+          type: "value",
+          name: "km/s minus 299,000",
+          splitArea: {
+            show: true
+          }
+        },
+        series: [
+          {
+            name: "boxplot",
+            type: "boxplot",
+            datasetIndex: 1
+          },
+          {
+            name: "outlier",
+            type: "scatter",
+            datasetIndex: 2
+          }
+        ]
+      }
     }
   }
 }

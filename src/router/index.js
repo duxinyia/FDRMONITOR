@@ -39,13 +39,22 @@ let nowShowArr = {
           to: "output2"
         },
         {
-          id: 10,
+          id: 11,
           imgUrl: require("@/assets/images/aactga.png"),
           title: "AA/GA/CT",
           target: "output",
           belong: "管理层/產出",
           isShow: false,
           to: "aactga"
+        },
+        {
+          id: 12,
+          imgUrl: require("@/assets/images/aactga.png"),
+          title: "ACF",
+          target: "output",
+          belong: "管理层/產出",
+          isShow: false,
+          to: "acf"
         }
       ],
       yield: [
@@ -160,7 +169,7 @@ let nowShowArr = {
         {
           id: 112,
           imgUrl: require("@/assets/images/ga.png"),
-          title: "GA良率看板",
+          title: "GA製程監控",
           target: "process",
           belong: "管理层/製程監控",
           isShow: false,
@@ -169,7 +178,7 @@ let nowShowArr = {
         {
           id: 113,
           imgUrl: require("@/assets/images/va.png"),
-          title: "VA良率看板",
+          title: "VA製程監控",
           target: "process",
           belong: "管理层/製程監控",
           isShow: false,

@@ -148,6 +148,8 @@ export default {
       return {
         tooltip: {
           trigger: "axis",
+          backgroundColor: "#303133",
+          extraCssText: "padding:5px;border:none;color:#fff",
           axisPointer: {
             type: "none"
           },
@@ -160,8 +162,11 @@ export default {
                 <div style="font-size:14px;padding:0 10px;display:flex;justify-content: space-between;background:${
                   index % 2 == 0 ? "#003b51" : "#0a2732"
                 }">
-                  <span style="margin-right:20px">${item.machine.replace("FOL ", "")}</span>
-                  <span style="color:${flag ? "#f40" : ""}">${item.remainTime}</span>
+                  <span style="margin-right:20px;color:#fff">${item.machine.replace(
+                    "FOL ",
+                    ""
+                  )}</span>
+                  <span style="color:${flag ? "#f40" : "#fff"}">${item.remainTime}</span>
                 </div>`
               })
             } else {
@@ -215,8 +220,8 @@ export default {
             }
 
             return [x, y]
-          },
-          extraCssText: "z-index:2"
+          }
+          // extraCssText: "z-index:2"
         },
         grid: {
           top: 20,

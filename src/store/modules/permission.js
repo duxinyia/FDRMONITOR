@@ -37,16 +37,17 @@ const actions = {
     allRouter = []
     routeTitles = []
     let { userJob, nickName } = userInfo
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       getMenus(userJob, nickName).then((res) => {
         console.log("获取到的菜单路由为:", res.data)
+        let { data = [] } = res
         // 用于渲染侧边菜单的路由
-        newHandleRouter(res.data)
+        newHandleRouter(data)
         // 将路由分开后 全部存到 allRouter 中了
         commit("SET_ROUTERARR", allRouter)
         // 需要渲染的各种系统的名称
         commit("SET_ROUTETITLE", routeTitles)
-        resolve(res.data)
+        data.length > 0 ? resolve(data) : reject(0)
       })
     })
   }

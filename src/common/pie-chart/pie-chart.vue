@@ -12,7 +12,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import baseEchart from "@/common/echart"
 export default {
@@ -62,6 +61,8 @@ export default {
       return {
         tooltip: {
           trigger: "item",
+          backgroundColor: "#303133",
+          extraCssText: "padding:5px;border:none;color:#fff",
           formatter: (params) => {
             let tempStr = ""
             if (params.data.machines.length > 0) {
@@ -74,7 +75,7 @@ export default {
               })
             }
             return `
-              <div style="width:200px;text-align: center;line-height:2em;font-size:14px;border:1px solid #003b51">
+              <div style="width:200px;text-align: center;line-height:2em;font-size:14px;border:1px solid #003b51;padding:0px">
                 <div style="display:flex;background:#20316e">
                   <span style="flex:1">top5机台</span>
                   <span style="flex:1">比率</span>
@@ -108,6 +109,7 @@ export default {
             type: "pie",
             radius: "75%",
             center: ["50%", "55%"],
+
             data: this.alloptions,
             emphasis: {
               itemStyle: {
@@ -118,6 +120,7 @@ export default {
             },
             label: {
               position: "inside",
+              textBorderWidth: 0,
               formatter: (params) => params.data.rate,
               fontSize: 15,
               color: "#000"
@@ -139,6 +142,9 @@ export default {
             label: {
               position: "outside",
               fontSize: 13,
+              textBorderWidth: 0,
+              backgroundColor: "none",
+              color: "#fff",
               formatter: function ({ name }) {
                 let newParamsName = ""
                 const paramsNameNumber = name.length // 文字总长度
@@ -162,6 +168,7 @@ export default {
             }
           }
         ],
+
         // 饼图各个样色
         color: ["#6395f9", "#62daab", "#00FFFF", "#f6c022", "#7FFF00"]
       }

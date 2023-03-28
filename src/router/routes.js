@@ -202,6 +202,11 @@ export default [
               import(
                 /* webpackChunkName: "wekoutput" */ "../views/main/cma/wekoutput/wekoutput.vue"
               )
+          },
+          {
+            path: "acf",
+            name: "acf",
+            component: () => import(/* webpackChunkName: "acf" */ "../views/main/cma/acf/acf.vue")
           }
         ]
       },

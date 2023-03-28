@@ -25,18 +25,13 @@ const store = new Vuex.Store({
 export function updateStoreData() {
   let user = cache.getCache("user")
   let path = cache.getCache("path")
-  let bgUrl = cache.getCache("bgUrl")
   let theme = cache.getCache("theme")
   let showIndex = cache.getCache("showIndex")
-  // let menus = cache.getCache("menus")
   if (user) {
     store.commit("user/SET_USER", user)
   }
   if (path) {
     store.commit("fullLoading/SET_PATH", path)
-  }
-  if (bgUrl) {
-    store.commit("fullLoading/SET_BGURL", bgUrl)
   }
   if (theme) {
     store.commit("fullLoading/SET_THEME", theme)
