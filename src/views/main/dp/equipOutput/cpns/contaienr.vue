@@ -25,14 +25,10 @@
                 <div
                   class="header-item"
                   :style="
-                    ((cIndex === 'RET' ||
-                      cIndex === 'TET' ||
-                      cIndex === 'FTC' ||
-                      cIndex === 'AA') &&
-                      index === 'machine' &&
-                      isMachineState) ||
-                    index === 'firstYield'
-                      ? 'flex: 1.18'
+                    index === 'machine' || index === 'firstYield' || index === 'hitRate'
+                      ? index === 'machine' && isMachineState
+                        ? 'flex: 1.4'
+                        : 'flex: 1.18'
                       : ''
                   "
                   v-show="
@@ -68,7 +64,13 @@
                   class="every-item"
                 >
                   <div
-                    :style="index === 'firstYield' ? 'flex: 1.18' : ''"
+                    :style="
+                      index === 'firstYield' || index === 'hitRate' || index === 'machine'
+                        ? index === 'machine' && isMachineState
+                          ? 'flex: 1.4'
+                          : 'flex: 1.18'
+                        : ''
+                    "
                     class="show"
                     :class="
                       index === 'hitRate' ||
@@ -158,7 +160,13 @@ export default {
   data() {
     return {
       // 判断是否有machineState,或者isMachineState不为红黄绿三个颜色
-      isMachineState: true
+      isMachineState: true,
+      colors1: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)"],
+      colors: [
+        "radial-gradient(50% 50%, rgba(255, 0, 102, 0.5) 50%, rgba(255, 0, 102, 1) 100%)",
+        "radial-gradient(50% 50%, rgba(0, 255, 0, 0.5) 50%, rgba(0, 255, 0, 1) 100%)",
+        "radial-gradient(50% 50%, rgba(255, 255, 0, 0.5) 50%, rgba(255, 255, 0, 1) 100%)"
+      ]
     }
   },
   mounted() {},
@@ -204,11 +212,11 @@ export default {
         if (i === "firstYield") {
           let yid = Number.parseFloat(y) || 0
           if (yid >= 97.5) {
-            return { color: "rgba(0, 255, 0, 0.9)" }
+            return { background: this.colors[1], color: this.colors1[1] }
           } else if (yid < 94.5) {
-            return { color: "rgba(255, 0, 102, 0.9)" }
+            return { background: this.colors[0], color: this.colors1[0] }
           } else {
-            return { color: "rgba(255, 255, 0, 0.9)" }
+            return { background: this.colors[2], color: this.colors1[2] }
           }
         }
       } else if (c == "TET") {
@@ -216,46 +224,46 @@ export default {
         if (i === "firstYield") {
           let yid = Number.parseFloat(y) || 0
           if (yid >= 97.5) {
-            return { color: "rgba(0, 255, 0, 0.9)" }
+            return { background: this.colors[1], color: this.colors1[1] }
           } else if (yid < 95) {
-            return { color: "rgba(255, 0, 102, 0.9)" }
+            return { background: this.colors[0], color: this.colors1[0] }
           } else {
-            return { color: "rgba(255, 255, 0, 0.9)" }
+            return { background: this.colors[2], color: this.colors1[2] }
           }
         }
       } else if (c == "FTC") {
         if (i === "firstYield") {
           let yid = Number.parseFloat(y) || 0
           if (yid >= 99.5) {
-            return { color: "rgba(0, 255, 0, 0.9)" }
+            return { background: this.colors[1], color: this.colors1[1] }
           } else if (yid < 95) {
-            return { color: "rgba(255, 0, 102, 0.9)" }
+            return { background: this.colors[0], color: this.colors1[0] }
           } else {
-            return { color: "rgba(255, 255, 0, 0.9)" }
+            return { background: this.colors[2], color: this.colors1[2] }
           }
         }
       } else if (c === "AA") {
         if (i == "firstYield") {
           let yid = Number.parseFloat(y) || 0
           if (yid > 99) {
-            return { color: "rgba(0, 255, 0, 0.9)" }
+            return { background: this.colors[1], color: this.colors1[1] }
           } else if (yid < 97) {
-            return { color: "rgba(255, 0, 102, 0.9)" }
+            return { background: this.colors[0], color: this.colors1[0] }
           } else {
-            return { color: "rgba(255, 255, 0, 0.9)" }
+            return { background: this.colors[2], color: this.colors1[2] }
           }
         }
       }
       if (i === "machine") {
         if (machineState == "Run") {
           this.isMachineState = true
-          return { color: "rgba(0, 255, 0, 0.9)" }
+          return { background: this.colors[1], color: this.colors1[1] }
         } else if (machineState == "Down") {
           this.isMachineState = true
-          return { color: "rgba(255, 0, 102, 0.9)" }
+          return { background: this.colors[0], color: this.colors1[0] }
         } else if (machineState == "Idle") {
           this.isMachineState = true
-          return { color: "rgba(255, 255, 0, 0.9)" }
+          return { background: this.colors[2], color: this.colors1[2] }
         } else {
           this.isMachineState = false
           return { display: "none" }
@@ -264,11 +272,11 @@ export default {
       if (i === "hitRate") {
         let hr = Number.parseFloat(r) || 0
         if (hr >= 100) {
-          return { color: "rgba(0, 255, 0, 0.9)" }
+          return { background: this.colors[1], color: this.colors1[1] }
         } else if (hr < 95) {
-          return { color: "rgba(255, 0, 102, 0.9)" }
+          return { background: this.colors[0], color: this.colors1[0] }
         } else {
-          return { color: "rgba(255, 255, 0, 0.9)" }
+          return { background: this.colors[2], color: this.colors1[2] }
         }
       }
     },
@@ -397,13 +405,12 @@ export default {
           border-right: 1px solid #1683af;
         }
         .lamp-container {
-          // background-color: #92d050;
           display: flex;
           justify-content: space-around;
           align-items: center;
           #lamp {
-            width: 12px;
-            height: 12px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             margin-left: 8px;
             margin-right: 2px;
@@ -422,13 +429,13 @@ export default {
 
 @keyframes fade {
   0% {
-    box-shadow: inset 0 0 10px currentColor;
+    box-shadow: inset 0 0 5px currentColor;
   }
   50% {
-    box-shadow: inset 0 0 14px currentColor;
+    box-shadow: inset 0 0 10px currentColor;
   }
   100% {
-    box-shadow: inset 0 0 10px currentColor;
+    box-shadow: inset 0 0 5px currentColor;
   }
 }
 .el-tooltip {
