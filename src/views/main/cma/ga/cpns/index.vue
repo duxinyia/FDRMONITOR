@@ -31,7 +31,7 @@ import {
   getLineData,
   getKLineData,
   getKLineHourData
-} from "@/api/vaga.js"
+} from "@/api/cma/vaga.js"
 // 导入第一行
 import mainOne from "./main-one/main-one.vue"
 // 导入底部区域

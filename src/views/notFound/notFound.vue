@@ -11,7 +11,7 @@ export default {
   name: "notFound",
   data() {
     return {
-      img: require("@/assets/images/404.png")
+      img: require("@/assets/images/other/404.png")
     }
   },
   methods: {

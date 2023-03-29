@@ -43,7 +43,7 @@
 
 <script>
 // 导入发送请求的函数
-import { getACFData } from "@/api/acf.js"
+import { getACFData } from "@/api/cma/acf.js"
 export default {
   name: "aactga",
   data() {

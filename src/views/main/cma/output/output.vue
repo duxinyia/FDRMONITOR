@@ -30,7 +30,7 @@ import {
   getYearOutputInfoCollection,
   getMPSOpenLineInfo,
   getDateCodeOutputInfo
-} from "@/api/output.js"
+} from "@/api/cma/output.js"
 export default {
   name: "output1",
   components: {

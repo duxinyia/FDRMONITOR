@@ -63,7 +63,7 @@ import LineChart3 from "./cpns/LineChart3.vue"
 import LineChart4 from "./cpns/LineChart4.vue"
 import LineChart5 from "./cpns/LineChart5.vue"
 // 导入发送请求的函函數
-// import { getMaintainInfo, getDeviceInfo, getMachineTop5, getProductInfo } from "@/api/fol.js"
+// import { getMaintainInfo, getDeviceInfo, getMachineTop5, getProductInfo } from "@/api/cma/fol.js"
 export default {
   name: "sap",
   components: {

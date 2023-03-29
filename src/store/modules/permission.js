@@ -1,7 +1,7 @@
 // 导入设置localstorage的函数
 import cache from "@/utils/cache.js"
 // 导入发送网络请求的函数
-import { getMenus } from "@/api/menu.js"
+import { getMenus } from "@/api/other/menu.js"
 
 // 所有拆开发路由
 let allRouter = []

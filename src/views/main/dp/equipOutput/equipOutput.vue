@@ -45,7 +45,7 @@
 </template>
 <script>
 // 导入发送请求的函数
-import { GetAaData } from "@/api/equipOutput.js"
+import { GetAaData } from "@/api/dp/equipOutput.js"
 // 导入子组件
 import Contaienr from "./cpns/contaienr.vue"
 export default {

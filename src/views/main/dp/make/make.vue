@@ -112,7 +112,7 @@ import MakeChart1 from "./cpns/makechart1.vue"
 import MakeChart2 from "./cpns/makechart2.vue"
 import MakeChart3 from "./cpns/makechart3.vue"
 // 导入请求函数
-import { GetRunningInfo, GetStationTimeSpanOutputInfo } from "@/api/make.js"
+import { GetRunningInfo, GetStationTimeSpanOutputInfo } from "@/api/cma/make.js"
 export default {
   name: "dpmake",
   components: {

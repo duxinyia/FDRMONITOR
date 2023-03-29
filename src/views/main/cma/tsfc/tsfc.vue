@@ -14,7 +14,7 @@
 // 导入折线图
 import LineChart from "./cpns/LineChart.vue"
 // 导入接口文档
-import { getDateCodeRunningYieldInfo } from "@/api/tsfc.js"
+import { getDateCodeRunningYieldInfo } from "@/api/cma/tsfc.js"
 export default {
   name: "tsfc",
   components: {

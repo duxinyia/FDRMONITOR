@@ -1,57 +1,62 @@
 <template>
-  <!-- 初版 -->
   <div class="login-page">
-    <div class="container">
-      <transition
-        appear
-        mode="in-out"
-        :duration="1000"
-        enter-active-class="animate__animated animate__fadeInRight"
-        leave-active-class="animate__animated animate__zoomOut"
-      >
-        <div class="left" v-if="leftShow"></div>
-      </transition>
-      <div class="right">
-        <!-- 按钮区域 -->
-        <div class="form-container">
-          <div class="form-title">用户登录</div>
-          <el-form ref="form" :rules="rules" :model="form">
-            <el-form-item prop="name">
-              <el-input
-                prefix-icon="el-icon-user"
-                placeholder="工號"
-                v-model.trim="form.name"
-              ></el-input>
-            </el-form-item>
-            <el-form-item prop="paw">
-              <el-input
-                prefix-icon="el-icon-lock"
-                placeholder="密碼"
-                show-password
-                v-model.trim="form.paw"
-              ></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button
-                round
-                type="primary"
-                class="login-btn"
-                @keyup.enter.native="toLogin"
-                @click="toLogin"
-                :loading="btnLoading"
-                :disabled="btnLoading"
-                >{{ btnLoading ? "登录中~" : "登录" }}</el-button
-              >
-            </el-form-item>
-            <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
-          </el-form>
-        </div>
+    <!-- 公司logo -->
+    <div class="top-container">
+      <el-image :src="left_logo"></el-image>
+      <el-image class="center_logo" :src="center_logo"></el-image>
+      <el-image :src="right_logo"></el-image>
+    </div>
+    <!-- 登录框 -->
+    <div class="form-container">
+      <div class="left-container">
+        <el-image class="left-img" :src="left_img"></el-image>
+      </div>
+      <div class="right-container">
+        <div class="form-title">战情中心</div>
+        <el-form ref="form" :rules="rules" :model="form">
+          <el-form-item prop="name">
+            <el-input
+              prefix-icon="el-icon-user"
+              placeholder="工號"
+              v-model.trim="form.name"
+            ></el-input>
+          </el-form-item>
+          <el-form-item prop="paw">
+            <el-input
+              prefix-icon="el-icon-lock"
+              placeholder="密碼"
+              show-password
+              v-model.trim="form.paw"
+            ></el-input>
+          </el-form-item>
+          <!-- 记住密码和忘记密码 -->
+          <div class="pwd-container">
+            <el-checkbox v-model="rempwd" @change="pwdChange">记住密码</el-checkbox>
+            <span class="forpwd" @click="forgetPwd">忘记密码</span>
+          </div>
+          <el-form-item>
+            <el-button
+              round
+              type="primary"
+              class="login-btn"
+              @keyup.enter.native="toLogin"
+              @click="toLogin"
+              :loading="btnLoading"
+              :disabled="btnLoading"
+              >{{ btnLoading ? "登录中~" : "登录" }}</el-button
+            >
+          </el-form-item>
+        </el-form>
       </div>
     </div>
-    <!-- 描述框 -->
+    <!-- 底部描述框 -->
     <div class="copyright-info">
       <div class="copyright">
-        <i class="el-icon-collection-tag icon"></i>Copyright © 2022. Foxconn All rights reserved
+        <i class="el-icon-collection-tag icon"></i>
+        Copyright © 2022. Foxconn All rights reserved
+        <span class="location" @click="toLocation">
+          {{ port == "8085" ? "正式地址" : "测试地址" }}
+        </span>
       </div>
       <div class="author-info">
         <div>
@@ -67,21 +72,25 @@
         </div>
       </div>
     </div>
-    <!-- 切换不同的登录 -->
-    <!-- <div class="every-login">
-      <div class="item" v-for="(item, index) in lgoinInfo" :key="index" @click="toLoginPage(item)">
-        {{ index }}
-      </div>
-    </div>-->
   </div>
 </template>
+
 <script>
 // 导入登录的接口地址
-import { login } from "@/api/login.js"
+import { login } from "@/api/other/login.js"
+// 导入cookie
+import cookie from "@/utils/cookie.js"
 export default {
-  name: "login",
+  name: "login5",
   data() {
     return {
+      rempwd: false,
+      btnLoading: false,
+      port: window.location.port,
+      left_logo: require("@/assets/images/other/left_logo.png"),
+      center_logo: require("@/assets/images/other/new_logo.png"),
+      right_logo: require("@/assets/images/other/right_logo.png"),
+      left_img: require("@/assets/images/other/_left_img.png"),
       form: {
         name: "",
         paw: ""
@@ -89,49 +98,31 @@ export default {
       rules: {
         name: [{ required: true, message: "請輸入工號", trigger: "blur" }],
         paw: [{ required: true, message: "請輸入密碼", trigger: "blur" }]
-      },
-      leftShow: true,
-      btnLoading: false,
-      isRemPwd: false,
-      lgoinInfo: [
-        {
-          id: 1,
-          to: "/login"
-        },
-        {
-          id: 2,
-          to: "/login1"
-        },
-        {
-          id: 3,
-          to: "/login2"
-        },
-        {
-          id: 4,
-          to: "/login3"
-        }
-      ]
+      }
     }
   },
   created() {
     window.addEventListener("keydown", this.keyDown)
+    // 取出cookie的用户名和密码
+    let name = cookie.getCookie("name") || ""
+    let paw = cookie.getCookie("paw") || ""
+    this.form = { name, paw }
+    if (name && paw) {
+      this.rempwd = true
+    }
   },
   methods: {
-    toLoginPage(item) {
-      if (this.$route.path == item.to) return
-      this.$router.push(item.to)
-    },
+    // 登录的方法
     toLogin() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
           this.btnLoading = true
           let res = await login(this.form)
           if (res.Resultflag == 1) {
-            // console.log("res======", res)
             // 表示用户名 和 密码正确
             this.$store.commit("user/SET_USER", { ...this.form, fullName: res.Resultvalue.Name })
             // 跳转页面
-            this.$router.replace({ name: "overview" })
+            this.$router.replace({ name: "overview" }).catch((err) => {})
           }
           this.btnLoading = false
           this.$refs["form"].resetFields()
@@ -148,6 +139,24 @@ export default {
       if (e.keyCode == 13) {
         this.toLogin()
       }
+    },
+    // 判断是否是测试环境还是正式环境
+    toLocation() {
+      if (this.port == 8085) {
+        window.open(this.$globalData.PRODUCTION_ADDRESS)
+      } else {
+        window.open(this.$globalData.TEST_ADDRESS)
+      }
+    },
+    pwdChange(value) {
+      console.log("value", value)
+      if (!value) {
+        cookie.setCookie("", "", 0)
+      } else {
+        if (this.btnLoading == false) {
+          cookie.setCookie(this.form.name, this.form.paw, 7)
+        }
+      }
     }
   },
   beforeDestroy() {
@@ -155,6 +164,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 ::v-deep .el-input {
   width: 80%;
@@ -163,72 +173,114 @@ export default {
   border-top: none;
   border-right: none;
   border-left: none;
-  border-bottom: 1px solid #dcdfe6;
+  border-bottom: 2px solid #dcdfe6;
   border-radius: 0px;
+  background: transparent;
+  color: #fff;
 }
-::v-deep {
-  .el-form-item__error {
-    left: 10%;
-  }
+::v-deep .el-form-item__error {
+  left: 10%;
+}
+::v-deep .el-form-item {
+  margin-bottom: 32px;
 }
 ::v-deep .el-checkbox__label {
-  padding-left: 5px;
+  color: #fff;
+}
+::v-deep .el-input__icon {
+  color: #fff;
+  font-size: 18px;
+}
+::v-deep input::placeholder {
+  color: #fff;
 }
 .login-page {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(300deg, #415381 20%, #537bcb);
-  position: relative;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  .container {
-    height: 400px;
+  background: url("~@/assets/images/other/login-bg7.png") no-repeat center center;
+  background-size: 100% 100%;
+  .top-container {
+    position: fixed;
+    top: 60px;
     display: flex;
-    box-shadow: 0 0 10px #0c1e4b;
-    .left {
-      width: 250px;
-      flex: 3;
-      background: linear-gradient(120deg, #3498db, #8e44ad);
-      padding: 20px 0px 0px 20px;
+    align-items: center;
+    vertical-align: middle;
+    .center_logo {
+      width: 320px;
+      padding: 0 20px;
+      margin-bottom: 10px;
     }
-    .right {
-      flex: 4;
-      text-align: center;
-      color: #000;
+  }
+  .form-container {
+    width: 800px;
+    height: 420px;
+    display: flex;
+    .left-container {
+      flex: 1;
       background: #fff;
-      width: 380px;
-      .form-container {
-        margin-top: 80px;
-        .form-title {
-          font-size: 26px;
-          font-weight: 700;
-          margin-bottom: 15px;
-        }
-        .login-btn {
-          width: 80%;
-          background: linear-gradient(to right, #4288d2, #6569c1);
-        }
-        .forget-pwd {
-          width: fit-content;
-          margin: auto;
-          font-size: 15px;
-          color: #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 9px 0px 0px 9px;
+      .left-img {
+        width: 80%;
+      }
+    }
+    .right-container {
+      padding-top: 70px;
+      flex: 1;
+      border-radius: 0px 9px 9px 0px;
+      text-align: center;
+      color: #fff;
+      background: linear-gradient(0deg, #003973, #64b3f4);
+      .form-title {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: 8px;
+      }
+      .pwd-container {
+        display: flex;
+        padding: 0 10%;
+        margin-bottom: 30px;
+        justify-content: space-between;
+        .forpwd {
           cursor: pointer;
+          font-size: 14px;
           &:hover {
             color: #409eff;
           }
         }
       }
+      .login-btn {
+        width: 190px;
+        background: #fff;
+        color: #196bf1;
+        font-size: 20px;
+        font-weight: bold;
+        box-shadow: 5px 6px 5px 0px #134aa2;
+        border-radius: 23px;
+      }
     }
   }
   .copyright-info {
     position: fixed;
-    bottom: 20px;
+    bottom: 2.6042vw;
     font-size: 14px;
+    margin: auto;
     text-align: center;
-    /* color: #d3c9c9; */
     color: #fff;
+    .copyright {
+      .location {
+        margin-left: 10px;
+        text-decoration: underline;
+        cursor: pointer;
+        color: yellow;
+      }
+    }
     .icon {
       margin-right: 4px;
       vertical-align: middle;
@@ -241,32 +293,15 @@ export default {
     }
   }
 }
-.every-login {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  color: #fff;
-  .item {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    border: 1px solid #8e44ad;
-    margin-left: 20px;
-    cursor: pointer;
-    &:hover {
-      background: #8e44ad;
-      color: #fff;
-    }
-  }
-}
 @media screen and (max-width: 1280px) {
   .login-page {
-    .container {
-      width: 300px;
-      .left {
+    .form-container {
+      width: 450px;
+      .left-container {
         display: none;
+      }
+      .right-container {
+        width: 500px !important;
       }
     }
   }

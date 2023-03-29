@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       menuFold: false,
-      logoUrl: require("@/assets/images/_logo.png")
+      logoUrl: require("@/assets/images/other/_logo.png")
     }
   },
   computed: {
@@ -167,7 +167,7 @@ export default {
         height: 100%;
         border-radius: 10px;
         padding: 30px 40px 20px 40px;
-        background: url("~@/assets/images/overview-bg1.png");
+        background: url("~@/assets/images/other/overview-bg1.png");
         background-size: 100% 100%;
         overflow: auto;
       }

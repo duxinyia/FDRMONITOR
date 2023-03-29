@@ -26,7 +26,7 @@ import {
   getEfficiencyTop5,
   getYieldTop5,
   getMachinesInfo
-} from "@/api/aa.js"
+} from "@/api/cma/aa.js"
 export default {
   name: "APPMain",
   components: {

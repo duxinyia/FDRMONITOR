@@ -6,9 +6,6 @@
 </template>
 
 <script>
-// 散点数据
-// var nameList = ["散点1", "散点2", "散点3", "散点4", "散点5"]
-// let center = [0, 0] //中心点
 // 导入基础模板
 import baseEchart from "@/common/echart"
 export default {
@@ -129,7 +126,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -142,7 +140,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -155,7 +154,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -170,7 +170,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -181,27 +182,6 @@ export default {
                 }
               ]
             }
-            // 中心点交集象限轴
-            // markLine: {
-            //   silent: true, // 是否不响应鼠标事件
-            //   precision: 2, // 精度
-            //   symbol: "none",
-            //   lineStyle: {
-            //     type: "solid",
-            //     color: "#fcfcfc"
-            //   },
-            //   label: {
-            //     show: false
-            //   },
-            //   data: [
-            //     {
-            //       xAxis: center[0]
-            //     },
-            //     {
-            //       yAxis: center[1]
-            //     }
-            //   ]
-            // }
           }
         ]
       }

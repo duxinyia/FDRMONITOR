@@ -101,7 +101,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -117,7 +118,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -142,7 +144,7 @@ export default {
             bottom: 10,
             xAxisIndex: [0], //表示x轴折叠
             start: 0, //数据窗口范围的起始百分比,表示1%
-            end: 20 //数据窗口范围的结束百分比,表示20%坐标
+            end: 100 //数据窗口范围的结束百分比,表示20%坐标
           }
         ]
       }

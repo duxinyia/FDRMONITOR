@@ -120,7 +120,7 @@
 
 <script>
 // 获取block的详细信息
-import { getMachineThreeInfo, getMachineHeadRunInfos } from "@/api/aa.js"
+import { getMachineThreeInfo, getMachineHeadRunInfos } from "@/api/cma/aa.js"
 export default {
   name: "detail-dialog",
   props: {

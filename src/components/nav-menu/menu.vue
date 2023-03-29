@@ -193,7 +193,7 @@ export default {
     width: 50px;
     height: 20px;
     z-index: 10;
-    background: url("~@/assets/images/new_triangle.png") no-repeat center center;
+    background: url("~@/assets/images/other/new_triangle.png") no-repeat center center;
   }
 }
 

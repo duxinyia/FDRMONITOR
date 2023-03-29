@@ -56,7 +56,7 @@
 
 <script>
 // 导入发送请求的函函數
-import { GetMachineProductInfo, GetAOIScanInfo, GetConcentrationInfo } from "@/api/fol.js"
+import { GetMachineProductInfo, GetAOIScanInfo, GetConcentrationInfo } from "@/api/cma/fol.js"
 // 导入基础模板
 import baseEchart from "@/common/echart"
 export default {

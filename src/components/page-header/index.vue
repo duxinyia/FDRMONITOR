@@ -71,7 +71,7 @@ export default {
   },
   data() {
     return {
-      logoSrc: require("@/assets/images/RP_logo_blue.png"),
+      logoSrc: require("@/assets/images/other/RP_logo_blue.png"),
       currentTime: "", // 当前的时间
       timing: null,
       isFullScreen: false

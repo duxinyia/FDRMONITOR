@@ -25,7 +25,7 @@
 </template>
 <script>
 // 导入接口请求函数
-import { getScatData, getLineData, getKLineData, getKLineHourData } from "@/api/vaga.js"
+import { getScatData, getLineData, getKLineData, getKLineHourData } from "@/api/cma/vaga.js"
 // 导入第一行
 import mainOne from "./main-one/main-one.vue"
 // 导入底部区域

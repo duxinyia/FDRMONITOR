@@ -13,7 +13,7 @@ import mainOne from "./cpns/main-one/main-one.vue"
 // 导入底部区域
 import mainTwo from "./cpns/main-two/main-two.vue"
 // 导入发送请求的函函數
-import { getMaintainInfo, getDeviceInfo, getMachineTop5, getProductInfo } from "@/api/fol.js"
+import { getMaintainInfo, getDeviceInfo, getMachineTop5, getProductInfo } from "@/api/cma/fol.js"
 export default {
   name: "fol",
   components: {

@@ -1,6 +1,6 @@
 /dist/*
 .local
-.output.js
+.cma/output.js
 /node_modules/**
 **/*.svg
 **/*.sh

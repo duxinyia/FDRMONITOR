@@ -3,7 +3,7 @@
     <dv-border-box-10>
       <div class="contaienr">
         <div class="item1-container">
-          <div class="item">
+          <div class="item" v-for="(acfData, index) in acfDatas" :key="index">
             <dv-border-box-12>
               <div
                 class="item1"
@@ -37,75 +37,6 @@
               </div>
             </dv-border-box-12>
           </div>
-          <div class="item">
-            <dv-border-box-12>
-              <div
-                class="item1"
-                v-loading="false"
-                element-loading-spinner="el-icon-loading"
-                element-loading-text="加载中"
-                element-loading-background="rgba(0, 0, 0, 1)"
-              >
-                <div class="header">
-                  <div class="header-item">Device</div>
-                  <div class="header-item">Machine</div>
-                  <div class="header-item">Target</div>
-                  <div class="header-item">OutPut</div>
-                  <div class="header-item">HitRate</div>
-                  <div class="header-item">1st Yield</div>
-                </div>
-                <div class="item-container">
-                  <div v-for="(item, index) in []" :key="index" class="every-item">
-                    <div class="show">{{ item.device }}</div>
-                    <div class="show">{{ item.machine }}</div>
-                    <div class="show">{{ item.target }}</div>
-                    <div class="show">{{ item.outPut }}</div>
-                    <div class="show lamp-container">
-                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
-                      <span class="text">{{ item.hitRate }}</span>
-                    </div>
-                    <div class="show">
-                      {{ item.firstYield }}
-                    </div>
-                  </div>
-                </div>
-              </div></dv-border-box-12
-            >
-          </div>
-          <div class="item">
-            <dv-border-box-12>
-              <div
-                class="item1"
-                v-loading="false"
-                element-loading-spinner="el-icon-loading"
-                element-loading-text="加载中"
-                element-loading-background="rgba(0, 0, 0, 1)"
-              >
-                <div class="header">
-                  <div class="header-item">Device</div>
-                  <div class="header-item">Machine</div>
-                  <div class="header-item">Target</div>
-                  <div class="header-item">OutPut</div>
-                  <div class="header-item">HitRate</div>
-                </div>
-                <div class="item-container">
-                  <div v-for="(item, index) in []" :key="index" class="every-item">
-                    <div class="show">{{ item.device }}</div>
-                    <div class="show lamp-container" style="width: 90px">
-                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
-                      <span class="text">{{ item.machine }}</span>
-                    </div>
-                    <div class="show">{{ item.target }}</div>
-                    <div class="show">{{ item.outPut }}</div>
-                    <div class="show lamp-container">
-                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
-                      <span class="text">{{ item.hitRate }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </dv-border-box-12>
-          </div>
         </div>
       </div>
     </dv-border-box-10>
@@ -114,12 +45,12 @@
 
 <script>
 // 导入发送请求的函数
-import { getACFData } from "@/api/acf.js"
+import { getACFData } from "@/api/cma/acf.js"
 export default {
-  name: "aactga",
+  name: "acf",
   data() {
     return {
-      acfData: [],
+      acfDatas: [],
       // 红 绿  黄
       colors1: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)"],
       colors: [
@@ -132,8 +63,18 @@ export default {
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "ACF")
     getACFData().then((res) => {
+      console.log("res", res)
       // 判断返回的值
-      this.acfData = res
+      // this.acfDatas = splitArray(res, 10)
+      // 以 25 一个
+      // this.acfDatas = res.slice(0, 25)
+      if (res.length <= 25) {
+        this.acfDatas = [res, [], []]
+      } else if (res.length <= 50) {
+        this.acfDatas = [res.slice(0, 25), res.slice(26, 50), []]
+      } else {
+        this.acfDatas = [res.slice(0, 25), res.slice(26, 50), res.slice(51)]
+      }
     })
   },
   computed: {
@@ -210,7 +151,7 @@ export default {
     }
   }
   .item-container {
-    height: 810px;
+    height: 850px;
     overflow: auto;
     .every-item {
       display: flex;

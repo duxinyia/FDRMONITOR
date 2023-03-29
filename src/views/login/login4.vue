@@ -66,7 +66,7 @@
 
 <script>
 // 导入登录的接口地址
-import { login } from "@/api/login.js"
+import { login } from "@/api/other/login.js"
 export default {
   name: "login4",
   data() {
@@ -83,7 +83,7 @@ export default {
       btnLoading: false,
       isRemPwd: false,
       lockUrl: require("@/assets/images/lock.png"),
-      logoUrl: require("@/assets/images/new_logo.png"),
+      logoUrl: require("@/assets/images/cma/new_logo.png"),
       port: window.location.port
       // http://10.147.214.111:8085/   http://10.147.214.130:8093/
     }

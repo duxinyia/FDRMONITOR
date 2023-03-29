@@ -130,7 +130,7 @@
 </template>
 <script>
 // 导入登录的接口地址
-import { login } from "@/api/login.js"
+import { login } from "@/api/other/login.js"
 export default {
   name: "login",
   data() {
