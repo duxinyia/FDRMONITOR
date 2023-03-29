@@ -10,7 +10,7 @@
       @change="carouselChange"
     >
       <el-carousel-item v-for="(item, index) in titleData" :key="index">
-        <dv-border-box-11 :title="`${item.title}生產看板`">
+        <dv-border-box-11 :title="`${cIndex}生產看板`">
           <div
             class="container"
             v-loading="loading"
@@ -20,15 +20,19 @@
           >
             <!-- <div class="container"> -->
             <div class="item" v-for="(i, index) in comLength" :key="index">
+              <!-- 表格头部 -->
               <div class="header">
                 <div
                   class="header-item"
                   :style="
-                    (cIndex === 'RET' && index === 'machine') ||
-                    (cIndex === 'TET' && index === 'machine') ||
-                    (cIndex === 'FTC' && index === 'machine') ||
-                    (cIndex === 'AA' && index === 'machine')
-                      ? 'flex: 1.17'
+                    ((cIndex === 'RET' ||
+                      cIndex === 'TET' ||
+                      cIndex === 'FTC' ||
+                      cIndex === 'AA') &&
+                      index === 'machine' &&
+                      isMachineState) ||
+                    index === 'firstYield'
+                      ? 'flex: 1.18'
                       : ''
                   "
                   v-show="
@@ -37,15 +41,22 @@
                   v-for="(item, index) in resultvalue[cIndex] ? resultvalue[cIndex][0] : {}"
                   :key="index"
                 >
-                  <text-over-tooltip
+                  <!--  tooltip的封装-->
+                  <!-- <text-over-tooltip
                     refName="testName2"
                     className="header-item"
                     :content="index"
-                  ></text-over-tooltip>
-                  <!-- {{ index }} -->
+                  ></text-over-tooltip> -->
+                  <!-- 将后端拿到的数据字段变成需求的表头名 -->
+                  {{
+                    index !== "firstYield"
+                      ? index.charAt(0).toUpperCase() + index.slice(1)
+                      : "1st Yield"
+                  }}
                 </div>
               </div>
               <div class="item-container">
+                <!-- 表格数据截断 -->
                 <div
                   v-for="(item, dindex) in resultvalue[cIndex]
                     ? resultvalue[cIndex].slice(
@@ -57,23 +68,32 @@
                   class="every-item"
                 >
                   <div
-                    class="show lamp-container"
+                    :style="index === 'firstYield' ? 'flex: 1.18' : ''"
+                    class="show"
+                    :class="
+                      index === 'hitRate' ||
+                      index === 'firstYield' ||
+                      (index === 'machine' && isMachineState)
+                        ? 'lamp-container'
+                        : ''
+                    "
                     v-show="
                       index !== 'hitRateColor' && index !== 'yieldColor' && index !== 'machineState'
                     "
                     v-for="(ii, index) in item"
                     :key="index"
                   >
+                    <!-- 状态颜色 -->
                     <span
                       v-if="index === 'hitRate' || index === 'firstYield' || index === 'machine'"
-                      class="lamp"
+                      id="lamp"
                       :style="
                         getColorStatus(
                           cIndex,
                           index,
-                          resultvalue[cIndex][dindex].hitRate,
-                          resultvalue[cIndex][dindex].firstYield,
-                          resultvalue[cIndex][dindex].machineState
+                          item.hitRate,
+                          item.firstYield,
+                          item.machineState
                         )
                       "
                     ></span>
@@ -109,32 +129,41 @@ export default {
   name: "contaienr",
   components: { TextOverTooltip },
   props: {
+    // 所有的数据
     resultvalue: {
       type: Object,
       default: () => ({})
     },
+    // 当前的
     cIndex: {
       type: String,
       default: "AA"
     },
+    // 上面颜色的综合
     titleData: {
       type: Array,
       default: () => []
     },
+    // 右边的颜色
     rColor: {
       type: Object,
       default: () => ({})
+    },
+    plid: {
+      type: Number,
+      default: 0
     }
   },
 
   data() {
     return {
-      tableTitle: [],
-      isArray: true
+      // 判断是否有machineState,或者isMachineState不为红黄绿三个颜色
+      isMachineState: true
     }
   },
   mounted() {},
   computed: {
+    // 数据没返回，有loading效果
     loading() {
       let count = 0
       for (let key in this.resultvalue[this.cIndex]) {
@@ -144,12 +173,11 @@ export default {
       }
       return count === 0
     },
+    // 计算页面表格列数，一列24行数据，只能出现三大列，多余的数据在第三列（可以滚动查看）
     comLength() {
       let count = 0
       for (let key in this.resultvalue[this.cIndex]) {
-        // if (this.resultvalue[this.cIndex].hasOwnProperty(key)) {
         count++
-        // }
       }
       let num = parseInt(count / 25) + 1 <= 3 ? parseInt(count / 25) + 1 : 3
       return num
@@ -157,88 +185,107 @@ export default {
   },
   watch: {},
   methods: {
-    getColorStatus(c, i, r, y, machineState) {
+    // globalStatus(max, min, gi, gy) {
+    //   if (gi === "firstYield") {
+    //     let yid = Number.parseFloat(gy) || 0
+    //     if (yid >= max) {
+    //       return { background: "#92d050" }
+    //     } else if (yid < min) {
+    //       return { background: "#ff5050" }
+    //     } else {
+    //       return { background: "rgba(255, 255, 0, 0.9)" }
+    //     }
+    //   }
+    // },
+    // 返回颜色状态 c代表是哪个看板，i代表哪一列，r代表当前的hitRate的值，y代表当前的firstYield的值，machineState代表当前machineState的值
+    getColorStatus(c, i, r, y, machineState = 0) {
       if (c == "RET") {
+        // this.globalStatus(97.5, 94.5, i, y)
         if (i === "firstYield") {
           let yid = Number.parseFloat(y) || 0
           if (yid >= 97.5) {
-            return { background: "#92d050" }
+            return { color: "rgba(0, 255, 0, 0.9)" }
           } else if (yid < 94.5) {
-            return { background: "#ff5050" }
+            return { color: "rgba(255, 0, 102, 0.9)" }
           } else {
-            return { background: "#ffc000" }
+            return { color: "rgba(255, 255, 0, 0.9)" }
           }
         }
       } else if (c == "TET") {
+        // this.globalStatus(97.5, 95, i, y)
         if (i === "firstYield") {
           let yid = Number.parseFloat(y) || 0
           if (yid >= 97.5) {
-            return { background: "#92d050" }
+            return { color: "rgba(0, 255, 0, 0.9)" }
           } else if (yid < 95) {
-            return { background: "#ff5050" }
+            return { color: "rgba(255, 0, 102, 0.9)" }
           } else {
-            return { background: "#ffc000" }
+            return { color: "rgba(255, 255, 0, 0.9)" }
           }
         }
       } else if (c == "FTC") {
         if (i === "firstYield") {
           let yid = Number.parseFloat(y) || 0
           if (yid >= 99.5) {
-            return { background: "#92d050" }
+            return { color: "rgba(0, 255, 0, 0.9)" }
           } else if (yid < 95) {
-            return { background: "#ff5050" }
+            return { color: "rgba(255, 0, 102, 0.9)" }
           } else {
-            return { background: "#ffc000" }
+            return { color: "rgba(255, 255, 0, 0.9)" }
           }
         }
-      } else {
-        if (i === "machine") {
-          if (machineState == "Run") {
-            return { background: "#92d050" }
-          } else if (machineState == "Down") {
-            return { background: "#ff5050" }
-          } else {
-            return { background: "#ffc000" }
-          }
-        }
-
-        if (i === "firstYield") {
+      } else if (c === "AA") {
+        if (i == "firstYield") {
           let yid = Number.parseFloat(y) || 0
           if (yid > 99) {
-            return { background: "#92d050" }
+            return { color: "rgba(0, 255, 0, 0.9)" }
           } else if (yid < 97) {
-            return { background: "#ff5050" }
+            return { color: "rgba(255, 0, 102, 0.9)" }
           } else {
-            return { background: "#ffc000" }
+            return { color: "rgba(255, 255, 0, 0.9)" }
           }
+        }
+      }
+      if (i === "machine") {
+        if (machineState == "Run") {
+          this.isMachineState = true
+          return { color: "rgba(0, 255, 0, 0.9)" }
+        } else if (machineState == "Down") {
+          this.isMachineState = true
+          return { color: "rgba(255, 0, 102, 0.9)" }
+        } else if (machineState == "Idle") {
+          this.isMachineState = true
+          return { color: "rgba(255, 255, 0, 0.9)" }
+        } else {
+          this.isMachineState = false
+          return { display: "none" }
         }
       }
       if (i === "hitRate") {
         let hr = Number.parseFloat(r) || 0
         if (hr >= 100) {
-          return { background: "#92d050" }
+          return { color: "rgba(0, 255, 0, 0.9)" }
         } else if (hr < 95) {
-          return { background: "#ff5050" }
+          return { color: "rgba(255, 0, 102, 0.9)" }
         } else {
-          return { background: "#ffc000" }
+          return { color: "rgba(255, 255, 0, 0.9)" }
         }
       }
     },
-    // 颜色的控制
-    // changeStyle(hitRate) {
-    //   return { background: "#92d050" }
-    // },
     // 回调的参数为 索引
     carouselChange(index) {
       this.$emit("autoPlay", index)
     },
     // 上一页
     prev() {
-      this.$refs.carousel.prev()
+      this.$refs.carousel.setActiveItem(this.plid - 1)
+      this.$emit("changeId", this.plid, 1)
     },
     // 下一页
     next() {
-      this.$refs.carousel.next()
+      this.$refs.carousel.setActiveItem(this.plid + 1)
+      this.$emit("changeId", this.plid, 2)
+      // this.$refs.carousel.next()
     }
   }
 }
@@ -354,12 +401,14 @@ export default {
           display: flex;
           justify-content: space-around;
           align-items: center;
-          .lamp {
+          #lamp {
             width: 12px;
             height: 12px;
             border-radius: 50%;
             margin-left: 8px;
             margin-right: 2px;
+            animation: fade 2s infinite;
+
             // border: 1px solid #fff;
           }
           .text {
@@ -368,6 +417,18 @@ export default {
         }
       }
     }
+  }
+}
+
+@keyframes fade {
+  0% {
+    box-shadow: inset 0 0 10px currentColor;
+  }
+  50% {
+    box-shadow: inset 0 0 14px currentColor;
+  }
+  100% {
+    box-shadow: inset 0 0 10px currentColor;
   }
 }
 .el-tooltip {
