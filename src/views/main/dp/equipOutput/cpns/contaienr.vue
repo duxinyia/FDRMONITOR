@@ -27,8 +27,8 @@
                   :style="
                     index === 'machine' || index === 'firstYield' || index === 'hitRate'
                       ? index === 'machine' && isMachineState
-                        ? 'flex: 1.4'
-                        : 'flex: 1.18'
+                        ? 'flex: 1.5'
+                        : 'flex: 1.4'
                       : ''
                   "
                   v-show="
@@ -67,8 +67,8 @@
                     :style="
                       index === 'firstYield' || index === 'hitRate' || index === 'machine'
                         ? index === 'machine' && isMachineState
-                          ? 'flex: 1.4'
-                          : 'flex: 1.18'
+                          ? 'flex: 1.5'
+                          : 'flex: 1.4'
                         : ''
                     "
                     class="show"
@@ -197,11 +197,11 @@ export default {
     //   if (gi === "firstYield") {
     //     let yid = Number.parseFloat(gy) || 0
     //     if (yid >= max) {
-    //       return { background: "#92d050" }
+    //       return { background: this.colors[1], color: this.colors1[1] }
     //     } else if (yid < min) {
-    //       return { background: "#ff5050" }
+    //        return { background: this.colors[0], color: this.colors1[0] }
     //     } else {
-    //       return { background: "rgba(255, 255, 0, 0.9)" }
+    //       return { background: this.colors[2], color: this.colors1[2] }
     //     }
     //   }
     // },
