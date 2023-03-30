@@ -27,7 +27,7 @@
                   :style="
                     index === 'machine' || index === 'firstYield' || index === 'hitRate'
                       ? index === 'machine' && isMachineState
-                        ? 'flex: 1.5'
+                        ? 'flex: 1.6'
                         : 'flex: 1.4'
                       : ''
                   "
@@ -67,7 +67,7 @@
                     :style="
                       index === 'firstYield' || index === 'hitRate' || index === 'machine'
                         ? index === 'machine' && isMachineState
-                          ? 'flex: 1.5'
+                          ? 'flex: 1.6'
                           : 'flex: 1.4'
                         : ''
                     "
@@ -177,6 +177,7 @@ export default {
       for (let key in this.resultvalue[this.cIndex]) {
         // if (this.resultvalue[this.cIndex].hasOwnProperty(key)) {
         count++
+
         // }
       }
       return count === 0
@@ -191,7 +192,13 @@ export default {
       return num
     }
   },
-  watch: {},
+  watch: {
+    cIndex: {
+      handler(newVal) {
+        this.isMachineState = true
+      }
+    }
+  },
   methods: {
     // globalStatus(max, min, gi, gy) {
     //   if (gi === "firstYield") {
@@ -255,18 +262,17 @@ export default {
         }
       }
       if (i === "machine") {
-        if (machineState == "Run") {
-          this.isMachineState = true
+        if (machineState == "Run" || machineState == "RUN") {
           return { background: this.colors[1], color: this.colors1[1] }
-        } else if (machineState == "Down") {
-          this.isMachineState = true
+        } else if (machineState == "Down" || machineState == "DOWN") {
           return { background: this.colors[0], color: this.colors1[0] }
-        } else if (machineState == "Idle") {
-          this.isMachineState = true
+        } else if (machineState == "Idle" || machineState == "IDLE") {
           return { background: this.colors[2], color: this.colors1[2] }
-        } else {
+        } else if (machineState == 0) {
           this.isMachineState = false
           return { display: "none" }
+        } else {
+          return { opacity: 0 }
         }
       }
       if (i === "hitRate") {

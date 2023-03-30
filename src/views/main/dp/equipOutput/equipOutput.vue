@@ -108,6 +108,7 @@ export default {
     //点击色块跳转
     redirectPage(i) {
       this.currentIndex = i.title
+      // console.log(i)
       this.pid = i.id
     },
     // 自动播放时选中上面的颜色框
