@@ -46,7 +46,9 @@
                   <!-- 将后端拿到的数据字段变成需求的表头名 -->
                   {{
                     index !== "firstYield"
-                      ? index.charAt(0).toUpperCase() + index.slice(1)
+                      ? index !== "buildNo"
+                        ? index.charAt(0).toUpperCase() + index.slice(1)
+                        : "Build"
                       : "1st Yield"
                   }}
                 </div>
@@ -412,7 +414,7 @@ export default {
         }
         .lamp-container {
           display: flex;
-          justify-content: space-around;
+          justify-content: space-between;
           align-items: center;
           #lamp {
             width: 15px;
