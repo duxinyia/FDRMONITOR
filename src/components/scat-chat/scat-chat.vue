@@ -1,6 +1,6 @@
 <template>
   <div class="scatl-chat">
-    <p class="title">{{ machinename }} X/Y tilt</p>
+    <p class="title">{{ machinename }}</p>
     <base-echart :options="options" height="200px" />
   </div>
 </template>
@@ -129,7 +129,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -142,7 +143,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -155,7 +157,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -170,7 +173,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -181,27 +185,6 @@ export default {
                 }
               ]
             }
-            // 中心点交集象限轴
-            // markLine: {
-            //   silent: true, // 是否不响应鼠标事件
-            //   precision: 2, // 精度
-            //   symbol: "none",
-            //   lineStyle: {
-            //     type: "solid",
-            //     color: "#fcfcfc"
-            //   },
-            //   label: {
-            //     show: false
-            //   },
-            //   data: [
-            //     {
-            //       xAxis: center[0]
-            //     },
-            //     {
-            //       yAxis: center[1]
-            //     }
-            //   ]
-            // }
           }
         ]
       }

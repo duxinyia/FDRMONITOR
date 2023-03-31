@@ -35,7 +35,7 @@ import { getMachines } from "@/api/cma/vaga.js"
 // 导入子组件
 import mainOne from "./cpns/index.vue"
 export default {
-  name: "va",
+  name: "ga",
   components: {
     mainOne
   },

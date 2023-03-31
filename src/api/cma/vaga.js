@@ -1,7 +1,7 @@
 import request from "@/network"
 let { post: $post } = request
 // 导入时间处理函数
-import { getTime } from "@/utils"
+import { getTimeAgo } from "@/utils"
 
 // 获取中间的数据
 export let getMachines = (params = {}) => {
@@ -14,7 +14,7 @@ export let getMachines = (params = {}) => {
 export let getScatData = (params = {}) => {
   let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E" } = params
   return $post(
-    `api/MachineData/VA_Data_TiltXY_Scatter_Chart?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&St=2023-03-17 06:00:00&Et=2023-03-18 07:00:00`
+    `api/MachineData/VA_Data_TiltXY_Scatter_Chart?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&${getTimeAgo()}`
   )
 }
 
@@ -27,7 +27,7 @@ export let getLineData = (params = {}) => {
     ValueItem = "CONFIGURABLETILTRAWX"
   } = params
   return $post(
-    `api/MachineData/VA_Data?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&St=2023-03-17 06:00:00&Et=2023-03-18 07:00:00`
+    `api/MachineData/VA_Data?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo()}`
   )
 }
 
@@ -40,7 +40,7 @@ export let getKLineData = (params = {}) => {
     ValueItem = "INSPECTIONZ"
   } = params
   return $post(
-    `api/MachineData/VA_Data_SUBSTRATENO_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&St=2023-03-17 06:00:00&Et=2023-03-18 07:00:00`
+    `api/MachineData/VA_Data_SUBSTRATENO_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo()}`
   )
 }
 
@@ -53,6 +53,6 @@ export let getKLineHourData = (params = {}) => {
     ValueItem = "INSPECTIONZ"
   } = params
   return $post(
-    `api/MachineData/VA_Data_Hour_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&St=2023-03-17 06:00:00&Et=2023-03-18 07:00:00`
+    `api/MachineData/VA_Data_Hour_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo()}`
   )
 }

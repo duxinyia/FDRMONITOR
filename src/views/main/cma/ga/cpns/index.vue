@@ -2,36 +2,32 @@
   <div class="page-main">
     <main-one
       :scats="scats"
-      :kLineData="kLineData"
-      :getKLineHourData="getKLineHourData"
+      :kLineDataX="kLineDataX"
+      :kLineDataY="kLineDataY"
+      :kLineDataZ="kLineDataZ"
       :machinename="machine"
     />
+
     <main-two
       :lineData="xLineData"
-      :machinename="`${machine} X tilt趨勢圖`"
+      :machinename="`${machine} X shift趨勢圖`"
       :limit="{ maxLimit: 0.05, minLimit: -0.05 }"
     />
     <main-two
       :lineData="yLineData"
-      :machinename="`${machine} Y tilt趨勢圖`"
+      :machinename="`${machine} Y shift趨勢圖`"
       :limit="{ maxLimit: 0.05, minLimit: -0.05 }"
     />
     <main-two
       :lineData="zLineData"
-      :machinename="`${machine} Z height趨勢圖`"
+      :machinename="`${machine} Rotation趨勢圖`"
       :limit="{ maxLimit: 0.198, minLimit: 0.132 }"
     />
   </div>
 </template>
 <script>
 // 导入接口请求函数
-import {
-  getMachines,
-  getScatData,
-  getLineData,
-  getKLineData,
-  getKLineHourData
-} from "@/api/cma/vaga.js"
+import { getScatData, getLineData, getKLineData } from "@/api/cma/vaga.js"
 // 导入第一行
 import mainOne from "./main-one/main-one.vue"
 // 导入底部区域
@@ -64,14 +60,19 @@ export default {
         xData: [],
         showData: []
       },
-      kLineData: {
+      kLineDataX: {
         xData: [],
         showData: []
       },
-      getKLineHourData: {
+      kLineDataY: {
         xData: [],
         showData: []
       },
+      kLineDataZ: {
+        xData: [],
+        showData: []
+      },
+
       allScats: []
     }
   },
@@ -110,20 +111,27 @@ export default {
             this.zLineData.xData.push(time)
           })
         })
-
-        getKLineData({ machinename }).then((res) => {
-          console.log("res箱线图", res)
+        // 获取ga看板的箱线图  INSPECTIONX  INSPECTIONY  INSPECTIONTHETA
+        getKLineData({ machinename, ValueItem: "INSPECTIONX" }).then((res) => {
+          console.log("res箱线图X", res)
           res.forEach((item) => {
-            this.kLineData.xData.push(item.shift())
-            this.kLineData.showData.push(item)
+            this.kLineDataX.xData.push(item.shift())
+            this.kLineDataX.showData.push(item)
           })
         })
-        getKLineHourData({ machinename }).then((res) => {
+        getKLineData({ machinename, ValueItem: "INSPECTIONY" }).then((res) => {
+          console.log("res箱线图Y", res)
           res.forEach((item) => {
-            this.getKLineHourData.xData.push(item.shift())
-            this.getKLineHourData.showData.push(item)
+            this.kLineDataY.xData.push(item.shift())
+            this.kLineDataY.showData.push(item)
           })
-          console.log("VA_Data小時箱線圖", machinename, this.getKLineHourData)
+        })
+        getKLineData({ machinename, ValueItem: "INSPECTIONTHETA" }).then((res) => {
+          console.log("res箱线图Z", res)
+          res.forEach((item) => {
+            this.kLineDataZ.xData.push(item.shift())
+            this.kLineDataZ.showData.push(item)
+          })
         })
       },
       immediate: true

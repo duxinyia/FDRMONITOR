@@ -8,7 +8,7 @@
 
 <script>
 // 导入散点图
-import LineChart from "./cpns/line-chart.vue"
+import LineChart from "@/components/line-chart/line-chart.vue"
 export default {
   name: "main-two",
   props: ["lineData", "machinename", "limit"],

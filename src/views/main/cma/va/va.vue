@@ -29,6 +29,7 @@
     </dv-border-box-12>
   </div>
 </template>
+
 <script>
 // 导入接口请求函数
 import { getMachines } from "@/api/cma/vaga.js"

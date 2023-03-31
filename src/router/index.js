@@ -55,6 +55,24 @@ let nowShowArr = {
           belong: "管理层/產出",
           isShow: false,
           to: "acf"
+        },
+        {
+          id: 13,
+          imgUrl: require("@/assets/images/cma/aactga.png"),
+          title: "TEST",
+          target: "output",
+          belong: "管理层/產出",
+          isShow: false,
+          to: "test"
+        },
+        {
+          id: 14,
+          imgUrl: require("@/assets/images/cma/aactga.png"),
+          title: "AVI",
+          target: "output",
+          belong: "管理层/產出",
+          isShow: false,
+          to: "avi"
         }
       ],
       yield: [

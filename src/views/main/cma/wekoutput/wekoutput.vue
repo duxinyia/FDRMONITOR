@@ -753,10 +753,19 @@ export default {
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
+  border: 1px solid #1683af;
 }
 ::v-deep .el-table tr {
   background: transparent;
   color: #fff;
+}
+::v-deep .el-table th {
+  border-right: 1px solid #1683af;
+  border-bottom: 1px solid #1683af !important;
+}
+::v-deep .el-table td {
+  border-right: 1px solid #1683af;
+  border-bottom: 1px solid #1683af;
 }
 ::v-deep .el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
   background: transparent;
@@ -766,5 +775,12 @@ export default {
 }
 ::v-deep .el-table th.el-table__cell > .cell {
   padding: 0px;
+}
+::v-deep .el-table::before,
+.el-table::after {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0px;
 }
 </style>

@@ -1,78 +1,50 @@
 <template>
-  <div class="kline-chart">
-    <p>{{ machinename }} X/Y tilt</p>
-    <base-echart :options="options" height="200px" />
+  <div class="line-chart">
+    <p>{{ machinename }}</p>
+    <base-echart :options="options" height="180px" />
   </div>
 </template>
 
 <script>
+// gxl cma 的 ga 和 va 公用这个组件
 // 导入基础模板
 import baseEchart from "@/common/echart"
 export default {
-  name: "kline-chart",
-  props: ["kLineData", "machinename"],
+  name: "line-chart",
+  props: ["lineData", "machinename", "limit"],
   components: {
     baseEchart
   },
   computed: {
     options() {
-      let { xData } = this.kLineData
       return {
-        dataset: [
-          {
-            source: this.kLineData.showData
-          },
-          {
-            transform: {
-              type: "boxplot",
-              // "e {value}"
-              config: { itemNameFormatter: (params) => xData[params.value] }
-            }
-          },
-          {
-            fromDatasetIndex: 1,
-            fromTransformResult: 1
-          }
-        ],
-        grid: {
-          left: 0,
-          right: 10,
-          bottom: 30,
-          top: 10,
-          containLabel: true
-        },
         xAxis: {
           type: "category",
-          // data: this.kLineData.xData,
-          nameGap: 30,
-          splitArea: {
-            show: false
-          },
+          data: this.lineData.xData,
           axisLine: {
             show: true,
             lineStyle: {
-              color: "#fff"
-            },
-            symbol: ["none", "arrow"] // 只在末端显示箭头
+              color: "#fff",
+              opacity: 0.2
+            }
           },
           axisLabel: {
             color: "#fff",
             showMaxLabel: false
           },
           splitLine: {
+            show: false,
             lineStyle: {
               color: "#fff",
               type: "dashed",
-              opacity: 0.1
+              opacity: 0
             }
           }
         },
         yAxis: {
           type: "value",
-          min: 0.12,
-          max: 0.21,
-          // min: "dataMin", //取最小值为最小刻度
-          // max: "dataMax", //取最大值为最大刻度
+          max: this.limit.maxLimit == 0.198 ? 0.22 : 0.06,
+          min: this.limit.minLimit == 0.132 ? 0.12 : -0.06,
           axisLine: {
             show: true,
             lineStyle: {
@@ -80,27 +52,41 @@ export default {
             },
             symbol: ["none", "arrow"] // 只在末端显示箭头
           },
-          axisLabel: {
-            color: "#fff",
-            showMaxLabel: false
-          },
           splitLine: {
             show: true,
             lineStyle: {
-              color: "#eee",
+              color: "#fff",
               type: "dashed",
               opacity: 0.1
             }
           },
-          splitArea: {
-            show: false
+          axisLabel: {
+            color: "#fff",
+            showMaxLabel: false
+          }
+        },
+        grid: {
+          borderWidth: 0,
+          top: 10,
+          left: 50,
+          right: 40,
+          bottom: 50,
+          textStyle: {
+            color: "#fff"
           }
         },
         series: [
           {
-            name: "boxplot",
-            type: "boxplot",
-            datasetIndex: 1,
+            data: this.lineData.showData,
+            type: "line",
+            symbolSize: 0,
+            symbol: "circle",
+            // itemStyle: {
+            //   color: "#0f0"
+            // },
+            lineStyle: {
+              color: "#5e84e4"
+            },
             markLine: {
               symbol: "none",
               data: [
@@ -114,9 +100,12 @@ export default {
                   },
                   label: {
                     position: "end",
-                    formatter: ""
+                    formatter: "UCL",
+                    fontSize: "16",
+                    backgroundColor: "none",
+                    color: "#fff"
                   },
-                  yAxis: 0.132 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                  yAxis: this.limit.maxLimit || 0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 },
                 {
                   silent: false, //鼠标悬停事件  true没有，false有
@@ -128,18 +117,15 @@ export default {
                   },
                   label: {
                     position: "end",
-                    formatter: "",
-                    fontSize: "8"
+                    formatter: "LCL",
+                    fontSize: "16",
+                    backgroundColor: "none",
+                    color: "#fff"
                   },
-                  yAxis: 0.198 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                  yAxis: this.limit.minLimit || -0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 }
               ]
             }
-          },
-          {
-            name: "outlier",
-            type: "scatter",
-            datasetIndex: 2
           }
         ],
         // 数据量较多时 可采用X Y轴进行缩放
@@ -148,9 +134,9 @@ export default {
             type: "slider", //slider表示有滑动块的，
             roam: false,
             show: true,
-            xAxisIndex: [0], //表示x轴折叠
             height: 20, //这里可以设置dataZoom的尺寸
             bottom: 10,
+            xAxisIndex: [0], //表示x轴折叠
             start: 0, //数据窗口范围的起始百分比,表示1%
             end: 100 //数据窗口范围的结束百分比,表示20%坐标
           }
@@ -162,7 +148,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.kline-chart {
+.line-chart {
   text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px auto;
 }
 </style>

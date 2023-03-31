@@ -1,42 +1,36 @@
 <template>
   <div class="page-main">
-    <dv-border-box-10>
-      <div class="contaienr">
-        <div class="item1-container">
-          <div class="item" v-for="(acfData, index) in acfDatas" :key="index">
-            <dv-border-box-12>
-              <div
-                class="item1"
-                v-loading="false"
-                element-loading-spinner="el-icon-loading"
-                element-loading-text="加载中"
-                element-loading-background="rgba(0, 0, 0, 1)"
-              >
-                <div class="header">
-                  <div class="header-item">Device</div>
-                  <div class="header-item">Machine</div>
-                  <div class="header-item">Target</div>
-                  <div class="header-item">OutPut</div>
-                  <div class="header-item">HitRate</div>
-                </div>
-                <div class="item-container">
-                  <div v-for="(item, index) in acfData" :key="index" class="every-item">
-                    <div class="show">{{ item.device }}</div>
-                    <div class="show lamp-container" style="width: 90px">
-                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
-                      <span class="text">{{ item.machine }}</span>
-                    </div>
-                    <div class="show">{{ item.target }}</div>
-                    <div class="show">{{ item.outPut }}</div>
-                    <div class="show lamp-container">
-                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
-                      <span class="text">{{ item.hitRate }}</span>
-                    </div>
+    <dv-border-box-10
+      v-loading="loading"
+      element-loading-spinner="el-icon-loading"
+      element-loading-text="加载中"
+      element-loading-background="rgba(0, 0, 0, 1)"
+    >
+      <div class="item1-container">
+        <div class="item" v-for="(acfData, index) in acfDatas" :key="index">
+          <dv-border-box-12>
+            <div class="item1">
+              <div class="header">
+                <div class="header-item">Device</div>
+                <div class="header-item">Machine</div>
+                <div class="header-item">Target</div>
+                <div class="header-item">OutPut</div>
+                <div class="header-item">HitRate</div>
+              </div>
+              <div class="item-container">
+                <div v-for="(item, index) in acfData" :key="index" class="every-item">
+                  <div class="show">{{ item.device }}</div>
+                  <div class="show">{{ item.machine }}</div>
+                  <div class="show">{{ item.target }}</div>
+                  <div class="show">{{ item.outPut }}</div>
+                  <div class="show lamp-container">
+                    <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                    <span class="text">{{ item.hitRate }}</span>
                   </div>
                 </div>
               </div>
-            </dv-border-box-12>
-          </div>
+            </div>
+          </dv-border-box-12>
         </div>
       </div>
     </dv-border-box-10>
@@ -50,13 +44,20 @@ export default {
   name: "acf",
   data() {
     return {
+      loading: true,
       acfDatas: [],
       // 红 绿  黄
-      colors1: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)"],
+      colors1: [
+        "rgba(255, 0, 102, 0.9)",
+        "rgba(0, 255, 0, 0.9)",
+        "rgba(255, 255, 0, 0.9)",
+        "rgba(255, 255, 255, 0.9)"
+      ],
       colors: [
         "radial-gradient(50% 50%, rgba(255, 0, 102, 0.5) 50%, rgba(255, 0, 102, 1) 100%)",
         "radial-gradient(50% 50%, rgba(0, 255, 0, 0.5) 50%, rgba(0, 255, 0, 1) 100%)",
-        "radial-gradient(50% 50%, rgba(255, 255, 0, 0.5) 50%, rgba(255, 255, 0, 1) 100%)"
+        "radial-gradient(50% 50%, rgba(255, 255, 0, 0.5) 50%, rgba(255, 255, 0, 1) 100%)",
+        "radial-gradient(50% 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 1) 100%)"
       ]
     }
   },
@@ -75,6 +76,7 @@ export default {
       } else {
         this.acfDatas = [res.slice(0, 25), res.slice(26, 50), res.slice(51)]
       }
+      this.loading = false
     })
   },
   computed: {
@@ -86,20 +88,17 @@ export default {
     changeStyle(hitRate) {
       let num = Number.parseFloat(hitRate) || 0
       if (num >= 100) {
+        // 绿色
         return { background: this.colors[1], color: this.colors1[1] }
-      } else if (num < 95) {
-        return { background: this.colors[0], color: this.colors1[0] }
-      } else {
+      } else if (num >= 95) {
+        // 白色
         return { background: this.colors[2], color: this.colors1[2] }
-      }
-    },
-    changeMachine(state) {
-      if (state == "Run") {
-        return { background: this.colors[1], color: this.colors1[1] }
-      } else if (state == "Down") {
-        return { background: this.colors[0], color: this.colors1[0] }
-      } else {
+      } else if (num >= 90) {
+        // 黄色
         return { background: this.colors[2], color: this.colors1[2] }
+      } else {
+        // 红色
+        return { background: this.colors[0], color: this.colors1[0] }
       }
     }
   }

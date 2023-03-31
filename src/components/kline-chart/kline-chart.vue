@@ -1,11 +1,12 @@
 <template>
   <div class="kline-chart">
-    <p>{{ machinename }} X/Y tilt</p>
+    <p>{{ machinename }}</p>
     <base-echart :options="options" height="200px" />
   </div>
 </template>
 
 <script>
+// gxl 由于 cma 的 ga 和 va 采用的都是这个组件 就抽到一起了
 // 导入基础模板
 import baseEchart from "@/common/echart"
 export default {
@@ -25,7 +26,6 @@ export default {
           {
             transform: {
               type: "boxplot",
-              // "e {value}"
               config: { itemNameFormatter: (params) => xData[params.value] }
             }
           },
@@ -43,7 +43,6 @@ export default {
         },
         xAxis: {
           type: "category",
-          // data: this.kLineData.xData,
           nameGap: 30,
           splitArea: {
             show: false
@@ -109,7 +108,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -122,7 +122,8 @@ export default {
                   lineStyle: {
                     //警戒线的样式  ，虚实  颜色
                     type: "solid",
-                    color: "#00b050"
+                    color: "#00b050",
+                    width: 3
                   },
                   label: {
                     position: "end",
@@ -150,7 +151,7 @@ export default {
             height: 20, //这里可以设置dataZoom的尺寸
             bottom: 10,
             start: 0, //数据窗口范围的起始百分比,表示1%
-            end: 20 //数据窗口范围的结束百分比,表示20%坐标
+            end: 100 //数据窗口范围的结束百分比,表示20%坐标
           }
         ]
       }
