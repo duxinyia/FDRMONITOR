@@ -34,7 +34,7 @@
 import LineChart1 from "./cpns/LineChart1.vue"
 import LineChart2 from "./cpns/LineChart2.vue"
 // 导入发送请求的函函數
-import { getCloseYieldInfo } from "@/api/sfc.js"
+import { getCloseYieldInfo } from "@/api/cma/sfc.js"
 export default {
   name: "sfc",
   components: {

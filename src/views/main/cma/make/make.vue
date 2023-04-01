@@ -79,7 +79,7 @@
                 label="站位"
               ></el-table-column>
               <el-table-column align="center" prop="targetOut" label="計劃"></el-table-column>
-              <el-table-column align="center" prop="inPut" label="實際"></el-table-column>
+              <el-table-column align="center" prop="outPut" label="實際"></el-table-column>
               <el-table-column
                 align="center"
                 prop="hitRate"
@@ -119,7 +119,7 @@ import MakeChart1 from "./cpns/makechart1.vue"
 import MakeChart2 from "./cpns/makechart2.vue"
 import MakeChart3 from "./cpns/makechart3.vue"
 // 导入请求函数
-import { GetRunningInfo, GetStationTimeSpanOutputInfo } from "@/api/make.js"
+import { GetRunningInfo, GetStationTimeSpanOutputInfo } from "@/api/cma/make.js"
 export default {
   name: "make",
   components: {
@@ -205,13 +205,14 @@ export default {
       // 循环取出头部区域
       let totalWip = 0
       stationInfo.forEach((item) => {
-        // station x轴的数据 inPut 输入的值
-        let { station, inPut, targetOut, maxWip, minWip, wip, opNo } = item
+        console.log("item", item)
+        // station x轴的数据 outPut 输入的值
+        let { station, outPut, targetOut, maxWip, minWip, wip, opNo } = item
         //
         this.xData.push(station)
         // 第一个需要的数据
         this.targetOuts.push({ opNo, station, value: targetOut })
-        this.inPuts.push({ opNo, station, value: inPut })
+        this.inPuts.push({ opNo, station, value: outPut })
         // 第二个 需要的数据
         this.maxWips.push(maxWip)
         this.minWips.push(minWip)
@@ -257,7 +258,7 @@ export default {
       return "background:transparent !important;color:#1adafb;'font-size':'30px'"
     },
     changewipStyle(row) {
-      console.log("row", row)
+      // console.log("row", row)
       if (row.wip && row.wip > row.maxWip) {
         return { color: "red" }
       } else if (row.wip && row.wip < row.minWip) {

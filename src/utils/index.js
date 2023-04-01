@@ -207,9 +207,9 @@ export function getRandomNumber(min, max) {
  * @returns
  */
 export function splitArray(array, size) {
-  let data = []
+  let tempArr = []
   for (let i = 0; i < array.length; i += size) {
-    data.push(array.slice(i, i + size))
+    tempArr.push(array.slice(i, i + size))
   }
-  return data
+  return tempArr
 }

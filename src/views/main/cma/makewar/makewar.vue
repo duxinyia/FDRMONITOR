@@ -66,9 +66,9 @@
 </template>
 <script>
 // 导入发送请求的函函數
-import { GetOutputInfoStatics, GetDeviceInfo } from "@/api/makewar.js"
+import { GetOutputInfoStatics, GetDeviceInfo } from "@/api/cma/makewar.js"
 // 获取标题的接口
-import { GetStationName } from "@/api/output2.js"
+import { GetStationName } from "@/api/cma/output2.js"
 // 导入子组件
 import container from "./cpns/container.vue"
 export default {

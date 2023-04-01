@@ -1,111 +1,91 @@
 <template>
-  <div class="text">
-    <div>hello world</div>
-    <base-echart :options="options" height="200px" />
+  <div class="page-main">
+    <el-table :data="tableData" :header-cell-style="{ background: 'transparent', color: '#fff' }">
+      <el-table-column prop="Device" align="center" label="不良項目"></el-table-column>
+      <el-table-column prop="Machine" align="center" label="機種"></el-table-column>
+      <el-table-column prop="Station" align="center" label="战位"></el-table-column>
+      <el-table-column label="日期" align="center">
+        <el-table-column prop="date" align="center" :label="date"></el-table-column>
+      </el-table-column>
+      <el-table-column label="October" align="center">
+        <el-table-column prop="c1" align="center"></el-table-column>
+      </el-table-column>
+      <el-table-column label="November" align="center">
+        <el-table-column prop="c2" align="center"></el-table-column>
+      </el-table-column>
+      <el-table-column label="WK47" align="center">
+        <el-table-column prop="c3" align="center"></el-table-column>
+      </el-table-column>
+      <el-table-column label="WK48" align="center">
+        <el-table-column prop="c4" align="center"></el-table-column>
+      </el-table-column>
+      <el-table-column label="WK49" align="center">
+        <el-table-column prop="c5" align="center"></el-table-column>
+      </el-table-column>
+      <el-table-column label="12/4" align="center">
+        <el-table-column prop="c6" align="center"></el-table-column>
+      </el-table-column>
+      <el-table-column label="12/5" align="center">
+        <el-table-column prop="c7" align="center"></el-table-column>
+      </el-table-column>
+      <el-table-column label="近三天平均" align="center">
+        <el-table-column prop="c3" align="center"></el-table-column>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
-// 导入基础模板
-import baseEchart from "@/common/echart"
 export default {
   name: "text",
-  components: {
-    baseEchart
-  },
   data() {
     return {
-      options: {
-        title: [
-          {
-            text: "Michelson-Morley Experiment",
-            left: "center"
-          },
-          {
-            text: "upper: Q3 + 1.5 * IQR \nlower: Q1 - 1.5 * IQR",
-            borderColor: "#999",
-            borderWidth: 1,
-            textStyle: {
-              fontWeight: "normal",
-              fontSize: 14,
-              lineHeight: 20
-            },
-            left: "10%",
-            top: "90%"
-          }
-        ],
-        dataset: [
-          {
-            // prettier-ignore
-            source: [
-                [850, 740, 900, 1070, 930, 850, 950, 980, 980, 880, 1000, 980, 930, 650, 760, 810, 1000, 1000, 960, 960],
-                [960, 940, 960, 940, 880, 800, 850, 880, 900, 840, 830, 790, 810, 880, 880, 830, 800, 790, 760, 800],
-                [880, 880, 880, 860, 720, 720, 620, 860, 970, 950, 880, 910, 850, 870, 840, 840, 850, 840, 840, 840],
-                [890, 810, 810, 820, 800, 770, 760, 740, 750, 760, 910, 920, 890, 860, 880, 720, 840, 850, 850, 780],
-                [890, 840, 780, 810, 760, 810, 790, 810, 820, 850, 870, 870, 810, 740, 810, 940, 950, 800, 810, 870]
-            ]
-          },
-          {
-            transform: {
-              type: "boxplot",
-              config: { itemNameFormatter: "expr {value}" }
-            }
-          },
-          {
-            fromDatasetIndex: 1,
-            fromTransformResult: 1
-          }
-        ],
-        tooltip: {
-          trigger: "item",
-          axisPointer: {
-            type: "shadow"
-          }
-        },
-        grid: {
-          left: "10%",
-          right: "10%",
-          bottom: "15%"
-        },
-        xAxis: {
-          type: "category",
-          boundaryGap: true,
-          nameGap: 30,
-          splitArea: {
-            show: false
-          },
-          splitLine: {
-            show: false
-          }
-        },
-        yAxis: {
-          type: "value",
-          name: "km/s minus 299,000",
-          splitArea: {
-            show: true
-          }
-        },
-        series: [
-          {
-            name: "boxplot",
-            type: "boxplot",
-            datasetIndex: 1
-          },
-          {
-            name: "outlier",
-            type: "scatter",
-            datasetIndex: 2
-          }
-        ]
-      }
+      date: "256",
+      tableData: [{ Device: "1", Machine: "2", Station: "3", date: "5" }]
     }
+  },
+  mounted() {
+    this.$store.commit("fullLoading/SET_TITLE", "VA製程監控")
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.text {
+.page-main {
+  height: calc(100% - 120px);
+}
+
+/* 修改表格的一些样式 */
+::v-deep .el-table {
+  background: transparent;
+  border: 1px solid #1683af;
+}
+::v-deep .el-table tr {
+  background: transparent;
+  color: #fff;
+}
+::v-deep .el-table th {
+  border-right: 1px solid #1683af;
+  border-bottom: 1px solid #1683af !important;
+}
+::v-deep .el-table td {
+  border-right: 1px solid #1683af;
+  border-bottom: 1px solid #1683af;
+}
+::v-deep .el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
+  background: transparent;
+}
+::v-deep .el-table .el-table__cell {
+  padding: 5px 0px;
+}
+::v-deep .el-table th.el-table__cell > .cell {
+  padding: 0px;
+}
+::v-deep .el-table::before,
+.el-table::after {
+  left: 0;
+  bottom: 0;
   width: 100%;
-  height: 950px;
+  height: 0px;
 }
 </style>

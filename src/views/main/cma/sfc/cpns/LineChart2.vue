@@ -161,6 +161,7 @@ export default {
               show: false
             },
             axisLine: {
+              show: true,
               symbol: ["none", "arrow"],
               lineStyle: {
                 // color: "#fff",

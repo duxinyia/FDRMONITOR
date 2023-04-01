@@ -6,7 +6,7 @@ export default [
   {
     path: "/login",
     name: "login",
-    component: () => import(/* webpackChunkName: "login5" */ "../views/login/login5.vue"),
+    component: () => import(/* webpackChunkName: "login5" */ "../views/login/login.vue"),
     meta: {
       title: "登录"
     }
@@ -27,7 +27,7 @@ export default [
         name: "overviewcma",
         component: () =>
           import(/* webpackChunkName: "overviewcma" */ "../views/overView/cma/index.vue"),
-        redirect: "cma/manage/device",
+        // redirect: "cma/manage/device",
         children: [
           // 分决策层和管理层
           {
@@ -50,7 +50,7 @@ export default [
         name: "overviewdp",
         component: () =>
           import(/* webpackChunkName: "overviewdp" */ "../views/overView/dp/index.vue"),
-        redirect: "dp/manage/output",
+        // redirect: "dp/manage/output",
         children: [
           // 分决策层和管理层
           {
@@ -168,6 +168,15 @@ export default [
             meta: { isJump: true, title: "sfcdetail" }
           },
           {
+            path: "yielddetail",
+            name: "yielddetail",
+            component: () =>
+              import(
+                /* webpackChunkName: "yielddetail" */ "../views/main/cma/yielddetail/yielddetail.vue"
+              ),
+            meta: { isJump: true, title: "yielddetail" }
+          },
+          {
             path: "tsfc",
             name: "tsfc",
             component: () =>
@@ -207,6 +216,41 @@ export default [
             path: "acf",
             name: "acf",
             component: () => import(/* webpackChunkName: "acf" */ "../views/main/cma/acf/acf.vue")
+          },
+          {
+            path: "test",
+            name: "test",
+            component: () =>
+              import(/* webpackChunkName: "test" */ "../views/main/cma/test/test.vue")
+          },
+          {
+            path: "avi",
+            name: "avi",
+            component: () => import(/* webpackChunkName: "test" */ "../views/main/cma/avi/avi.vue")
+          },
+          // cma的 决策层的
+          {
+            path: "jtest",
+            name: "jtest",
+            component: () =>
+              import(/* webpackChunkName: "jtest" */ "../views/main/cma/jtest/jtest.vue")
+          },
+          {
+            path: "folyield",
+            name: "folyield",
+            component: () =>
+              import(/* webpackChunkName: "jtest" */ "../views/main/cma/folyield/folyield.vue")
+          },
+          {
+            path: "jsa",
+            name: "jsa",
+            component: () => import(/* webpackChunkName: "jsa" */ "../views/main/cma/jsa/jsa.vue")
+          },
+          {
+            path: "javi",
+            name: "javi",
+            component: () =>
+              import(/* webpackChunkName: "javi" */ "../views/main/cma/javi/javi.vue")
           }
         ]
       },

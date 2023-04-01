@@ -81,7 +81,7 @@
 </template>
 <script>
 // 导入发送请求的函数
-import { GetStationName, GetDeviceInfo } from "@/api/output2.js"
+import { GetStationName, GetDeviceInfo } from "@/api/cma/output2.js"
 // 导入对应的分割函数
 import { splitArray } from "@/utils"
 // 导入子组件

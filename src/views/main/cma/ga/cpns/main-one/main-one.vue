@@ -3,17 +3,25 @@
     <div class="container">
       <div class="item">
         <dv-border-box-12 class="inner-box">
-          <scat-chart :scats="scats" :machinename="machinename" />
+          <scat-chart :scats="scats" :machinename="`${machinename} X/Y shift`" />
         </dv-border-box-12>
       </div>
       <div class="item">
         <dv-border-box-12 class="inner-box">
-          <kline-chart :kLineData="kLineData" :machinename="machinename" />
+          <kline-chart :kLineData="kLineDataX" :machinename="`${machinename} INSPECTIONX趨勢圖`" />
         </dv-border-box-12>
       </div>
       <div class="item">
         <dv-border-box-12 class="inner-box">
-          <kline-chart :kLineData="getKLineHourData" :machinename="machinename" />
+          <kline-chart :kLineData="kLineDataY" :machinename="`${machinename} INSPECTIONY趨勢圖`" />
+        </dv-border-box-12>
+      </div>
+      <div class="item">
+        <dv-border-box-12 class="inner-box">
+          <kline-chart
+            :kLineData="kLineDataZ"
+            :machinename="`${machinename} INSPECTIONTHETA趨勢圖`"
+          />
         </dv-border-box-12>
       </div>
     </div>
@@ -22,12 +30,12 @@
 
 <script>
 // 导入 k 线图
-import KlineChart from "./cpns/kline-chart.vue"
+import KlineChart from "@/components/kline-chart/kline-chart.vue"
 // 导入散点图
-import ScatChart from "./cpns/scat-chat.vue"
+import ScatChart from "@/components/scat-chat/scat-chat.vue"
 export default {
   name: "main-one",
-  props: ["scats", "kLineData", "machinename", "getKLineHourData"],
+  props: ["scats", "kLineData", "machinename", "kLineDataX", "kLineDataY", "kLineDataZ"],
   components: {
     ScatChart,
     KlineChart
@@ -38,7 +46,7 @@ export default {
 .inner-box {
   .border-box-content {
     font-weight: bold;
-    font-size: 23px;
+    font-size: 20px;
     padding: 15px 10px 10px 10px !important;
   }
 }

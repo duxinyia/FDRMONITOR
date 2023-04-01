@@ -86,7 +86,7 @@
 
 <script>
 // 导入发送请求的函函數
-import { GetDefectYieldInfo } from "@/api/defect.js"
+import { GetDefectYieldInfo } from "@/api/cma/defect.js"
 // 导入对应的函数
 import { splitArray } from "@/utils"
 export default {

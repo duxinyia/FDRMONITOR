@@ -13,7 +13,7 @@
       <!-- 第二行 -->
       <div class="center-two">
         <p class="title-info">
-          <img class="icon" src="@/assets/images/icon02.png" alt />
+          <img class="icon" src="@/assets/images/cma/icon02.png" alt />
           <span class="title">機種產出分佈</span>
         </p>
         <pie-chart :showTitle="false" :seriesData="seriesData" />
@@ -21,7 +21,7 @@
       <!-- 第三行 -->
       <div class="center-three">
         <p class="title-info">
-          <img class="icon" src="@/assets/images/icon02.png" alt />
+          <img class="icon" src="@/assets/images/cma/icon02.png" alt />
           <span class="title">未來7天開線數</span>
         </p>
         <line-chart

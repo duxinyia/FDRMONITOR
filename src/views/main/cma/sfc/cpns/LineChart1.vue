@@ -54,13 +54,13 @@ export default {
         }
       })
       // 一些基本的配置
-      let baseLengend = {
-        top: 40,
-        textStyle: {
-          color: themeColor,
-          fontSize: 12
-        }
-      }
+      // let baseLengend = {
+      //   top: 40,
+      //   textStyle: {
+      //     color: themeColor,
+      //     fontSize: 12
+      //   }
+      // }
       let baseSerie = {
         type: "line",
         symbol: "circle",
@@ -161,6 +161,7 @@ export default {
               }
             },
             axisLine: {
+              show: true,
               symbol: ["none", "arrow"],
               symbolOffset: [0, 10],
               lineStyle: {

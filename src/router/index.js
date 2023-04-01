@@ -13,7 +13,7 @@ let nowShowArr = {
       output: [
         {
           id: 9,
-          imgUrl: require("@/assets/images/output.png"),
+          imgUrl: require("@/assets/images/cma/output.png"),
           title: "年度產出總覽",
           target: "output",
           belong: "管理层/產出",
@@ -22,7 +22,7 @@ let nowShowArr = {
         },
         {
           id: 11,
-          imgUrl: require("@/assets/images/makewar.png"),
+          imgUrl: require("@/assets/images/cma/makewar.png"),
           title: "By天產出看板",
           target: "output",
           belong: "管理层/產出",
@@ -31,7 +31,7 @@ let nowShowArr = {
         },
         {
           id: 10,
-          imgUrl: require("@/assets/images/output2.png"),
+          imgUrl: require("@/assets/images/cma/output2.png"),
           title: "By站位產出看板",
           target: "output",
           belong: "管理层/產出",
@@ -40,7 +40,7 @@ let nowShowArr = {
         },
         {
           id: 11,
-          imgUrl: require("@/assets/images/aactga.png"),
+          imgUrl: require("@/assets/images/cma/aactga.png"),
           title: "AA/GA/CT",
           target: "output",
           belong: "管理层/產出",
@@ -49,18 +49,36 @@ let nowShowArr = {
         },
         {
           id: 12,
-          imgUrl: require("@/assets/images/aactga.png"),
+          imgUrl: require("@/assets/images/cma/aactga.png"),
           title: "ACF",
           target: "output",
           belong: "管理层/產出",
           isShow: false,
           to: "acf"
+        },
+        {
+          id: 13,
+          imgUrl: require("@/assets/images/cma/aactga.png"),
+          title: "TEST",
+          target: "output",
+          belong: "管理层/產出",
+          isShow: false,
+          to: "test"
+        },
+        {
+          id: 14,
+          imgUrl: require("@/assets/images/cma/aactga.png"),
+          title: "AVI",
+          target: "output",
+          belong: "管理层/產出",
+          isShow: false,
+          to: "avi"
         }
       ],
       yield: [
         {
           id: 13,
-          imgUrl: require("@/assets/images/sfc.png"),
+          imgUrl: require("@/assets/images/cma/sfc.png"),
           title: "SFC良率By月",
           target: "yield",
           belong: "管理层/良率",
@@ -69,7 +87,7 @@ let nowShowArr = {
         },
         {
           id: 14,
-          imgUrl: require("@/assets/images/tsfc.png"),
+          imgUrl: require("@/assets/images/cma/tsfc.png"),
           title: "SFC良率Daily",
           target: "yield",
           belong: "管理层/良率",
@@ -78,7 +96,7 @@ let nowShowArr = {
         },
         {
           id: 15,
-          imgUrl: require("@/assets/images/defect.png"),
+          imgUrl: require("@/assets/images/cma/defect.png"),
           title: "Top 25 Defect",
           target: "yield",
           belong: "管理层/良率",
@@ -89,7 +107,7 @@ let nowShowArr = {
       device: [
         {
           id: 1,
-          imgUrl: require("@/assets/images/aa.png"),
+          imgUrl: require("@/assets/images/cma/aa.png"),
           title: "AA設備總覽",
           target: "device",
           belong: "管理层/设备",
@@ -98,7 +116,7 @@ let nowShowArr = {
         },
         {
           id: 2,
-          imgUrl: require("@/assets/images/fol.png"),
+          imgUrl: require("@/assets/images/cma/fol.png"),
           title: "FOL設備總覽",
           target: "device",
           belong: "管理层/设备",
@@ -107,7 +125,7 @@ let nowShowArr = {
         },
         {
           id: 3,
-          imgUrl: require("@/assets/images/fol.png"),
+          imgUrl: require("@/assets/images/cma/fol.png"),
           title: "周產出/效率看板",
           target: "device",
           belong: "管理层/设备",
@@ -119,7 +137,7 @@ let nowShowArr = {
         {
           id: 4,
           isExternalLink: true,
-          imgUrl: require("@/assets/images/spotcheck.jpg"),
+          imgUrl: require("@/assets/images/cma/spotcheck.jpg"),
           title: "IAA Step看板",
           target: "device",
           belong: "管理层/製程監控",
@@ -129,7 +147,7 @@ let nowShowArr = {
         {
           id: 108,
           isExternalLink: true,
-          imgUrl: require("@/assets/images/device4.jpg"),
+          imgUrl: require("@/assets/images/cma/device4.jpg"),
           title: "實時統計",
           target: "process",
           belong: "管理层/製程監控",
@@ -139,7 +157,7 @@ let nowShowArr = {
         {
           id: 109,
           isExternalLink: true,
-          imgUrl: require("@/assets/images/device5.png"),
+          imgUrl: require("@/assets/images/cma/device5.png"),
           title: "歷史日統計",
           target: "process",
           belong: "管理层/製程監控",
@@ -149,7 +167,7 @@ let nowShowArr = {
         {
           id: 110,
           isExternalLink: true,
-          imgUrl: require("@/assets/images/device6.png"),
+          imgUrl: require("@/assets/images/cma/device6.png"),
           title: "歷史周統計",
           target: "process",
           belong: "管理层/製程監控",
@@ -159,7 +177,7 @@ let nowShowArr = {
         {
           id: 111,
           isExternalLink: true,
-          imgUrl: require("@/assets/images/device7.png"),
+          imgUrl: require("@/assets/images/cma/device7.png"),
           title: "歷史月統計",
           target: "process",
           belong: "管理层/製程監控",
@@ -168,7 +186,7 @@ let nowShowArr = {
         },
         {
           id: 112,
-          imgUrl: require("@/assets/images/ga.png"),
+          imgUrl: require("@/assets/images/cma/ga.png"),
           title: "GA製程監控",
           target: "process",
           belong: "管理层/製程監控",
@@ -177,7 +195,7 @@ let nowShowArr = {
         },
         {
           id: 113,
-          imgUrl: require("@/assets/images/va.png"),
+          imgUrl: require("@/assets/images/cma/va.png"),
           title: "VA製程監控",
           target: "process",
           belong: "管理层/製程監控",
@@ -186,14 +204,59 @@ let nowShowArr = {
         }
       ]
     },
-    juec: {}
+    juec: {
+      output: [
+        {
+          id: 1,
+          imgUrl: require("@/assets/images/cma/output.png"),
+          title: "TEST",
+          target: "output",
+          belong: "決策層/產出",
+          isShow: false,
+          to: "test"
+        }
+      ],
+      yield: [
+        {
+          id: 1,
+          imgUrl: require("@/assets/images/cma/output.png"),
+          title: "FOL Yield Report",
+          target: "output",
+          belong: "決策層/良率",
+          isShow: false,
+          to: "folyield"
+        }
+      ],
+      device: [
+        {
+          id: 1,
+          imgUrl: require("@/assets/images/cma/aa.png"),
+          title: "SA效率看板",
+          target: "device",
+          belong: "決策層/设备",
+          isShow: false,
+          to: "jsa"
+        }
+      ],
+      process: [
+        {
+          id: 1,
+          imgUrl: require("@/assets/images/cma/ga.png"),
+          title: "AVI效率看板",
+          target: "process",
+          belong: "決策層/製程監控",
+          isShow: false,
+          to: "javi"
+        }
+      ]
+    }
   },
   dp: {
     manage: {
       output: [
         {
           id: 9,
-          imgUrl: require("@/assets/images/output.png"),
+          imgUrl: require("@/assets/images/cma/output.png"),
           title: "年度產出總覽",
           target: "output",
           belong: "管理层/產出",
@@ -202,7 +265,7 @@ let nowShowArr = {
         },
         {
           id: 11,
-          imgUrl: require("@/assets/images/makewar.png"),
+          imgUrl: require("@/assets/images/cma/makewar.png"),
           title: "By天產出看板",
           target: "output",
           belong: "管理层/產出",
@@ -211,7 +274,7 @@ let nowShowArr = {
         },
         {
           id: 10,
-          imgUrl: require("@/assets/images/output2.png"),
+          imgUrl: require("@/assets/images/cma/output2.png"),
           title: "By站位產出看板",
           target: "output",
           belong: "管理层/產出",
@@ -220,7 +283,7 @@ let nowShowArr = {
         },
         {
           id: 13,
-          imgUrl: require("@/assets/images/output2.png"),
+          imgUrl: require("@/assets/images/cma/output2.png"),
           title: "設備產出看板",
           target: "output",
           belong: "管理层/產出",
@@ -229,7 +292,7 @@ let nowShowArr = {
         },
         {
           id: 12,
-          imgUrl: require("@/assets/images/outwork.png"),
+          imgUrl: require("@/assets/images/dp/outwork.png"),
           title: "人員出勤率看板",
           target: "output",
           belong: "管理层/產出",
@@ -332,6 +395,31 @@ function textHandleRouter(routers) {
     return { ...item }
   })
   nowShowArr.cma.manage.process = nowShowArr.cma.manage.process.map((item) => {
+    if (cmaNames.includes(item.title)) {
+      return { ...item, isShow: true }
+    }
+    return { ...item }
+  })
+  // 处理cma 决策层的
+  nowShowArr.cma.juec.output = nowShowArr.cma.juec.output.map((item) => {
+    if (cmaNames.includes(item.title)) {
+      return { ...item, isShow: true }
+    }
+    return { ...item }
+  })
+  nowShowArr.cma.juec.yield = nowShowArr.cma.juec.yield.map((item) => {
+    if (cmaNames.includes(item.title)) {
+      return { ...item, isShow: true }
+    }
+    return { ...item }
+  })
+  nowShowArr.cma.juec.device = nowShowArr.cma.juec.device.map((item) => {
+    if (cmaNames.includes(item.title)) {
+      return { ...item, isShow: true }
+    }
+    return { ...item }
+  })
+  nowShowArr.cma.juec.process = nowShowArr.cma.juec.process.map((item) => {
     if (cmaNames.includes(item.title)) {
       return { ...item, isShow: true }
     }

@@ -31,11 +31,11 @@
 </template>
 <script>
 // 导入接口请求函数
-import { getMachines } from "@/api/vaga.js"
+import { getMachines } from "@/api/cma/vaga.js"
 // 导入子组件
 import mainOne from "./cpns/index.vue"
 export default {
-  name: "va",
+  name: "ga",
   components: {
     mainOne
   },
@@ -46,7 +46,7 @@ export default {
   },
   mounted() {
     // 目标 获取到散点图的数据数组
-    this.$store.commit("fullLoading/SET_TITLE", "VA設備總覽")
+    this.$store.commit("fullLoading/SET_TITLE", "GA製程監控")
     getMachines({ MachineType: "GA" }).then((res) => {
       this.machines = res
     })

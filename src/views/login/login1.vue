@@ -16,7 +16,6 @@
             enter-active-class="animate__animated animate__fadeInRight"
           >
             <div class="top-container">
-              <!-- <el-image class="logo" :src="form_logo" fit="contain"></el-image> -->
               <h1 class="title">戰情中心</h1>
             </div>
           </transition>
@@ -117,20 +116,11 @@
         </div>
       </div>
     </transition>
-    <!-- 切换不同的登录 -->
-    <!-- <div class="every-login">
-      <div
-        class="item"
-        v-for="(item, index) in lgoinInfo"
-        :key="index"
-        @click="toLoginPage(item)"
-      >{{ index }}</div>
-    </div>-->
   </div>
 </template>
 <script>
 // 导入登录的接口地址
-import { login } from "@/api/login.js"
+import { login } from "@/api/other/login.js"
 export default {
   name: "login",
   data() {

@@ -114,7 +114,7 @@
 
 <script>
 // 导入发送请求的函数
-import { getAAData, getGAData, getCTData } from "@/api/aagact.js"
+import { getAAData, getGAData, getCTData } from "@/api/cma/aagact.js"
 export default {
   name: "aactga",
   data() {
