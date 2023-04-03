@@ -9,105 +9,742 @@
       arrow="never"
       @change="carouselChange"
     >
-      <el-carousel-item v-for="(item, index) in titleData" :key="index">
-        <dv-border-box-11 :title="`${cIndex}生產看板`">
-          <div
-            class="container"
-            v-loading="loading"
-            element-loading-text="加载中..."
-            element-loading-spinner="el-icon-loading"
-            element-loading-background="#111e40"
-          >
-            <!-- <div class="container"> -->
-            <div class="item" v-for="(i, index) in comLength" :key="index">
-              <!-- 表格头部 -->
-              <div class="header">
-                <div
-                  class="header-item"
-                  :style="
-                    index === 'machine' || index === 'firstYield' || index === 'hitRate'
-                      ? index === 'machine' && isMachineState
-                        ? 'flex: 1.6'
-                        : 'flex: 1.4'
-                      : ''
-                  "
-                  v-show="
-                    index !== 'hitRateColor' && index !== 'yieldColor' && index !== 'machineState'
-                  "
-                  v-for="(item, index) in resultvalue[cIndex] ? resultvalue[cIndex][0] : {}"
-                  :key="index"
-                >
-                  <!--  tooltip的封装-->
-                  <!-- <text-over-tooltip
-                    refName="testName2"
-                    className="header-item"
-                    :content="index"
-                  ></text-over-tooltip> -->
-                  <!-- 将后端拿到的数据字段变成需求的表头名 -->
-                  {{
-                    index !== "firstYield"
-                      ? index !== "buildNo"
-                        ? index.charAt(0).toUpperCase() + index.slice(1)
-                        : "Build"
-                      : "1st Yield"
-                  }}
+      <el-carousel-item class="item1-container">
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`AA生產看板`">
+            <div
+              class="container"
+              v-loading="loading('AA')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <div class="item" v-for="(i, index) in comLength('AA')" :key="index">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                  <div class="header-item" style="flex: 1.6">1st Yield</div>
                 </div>
-              </div>
-              <div class="item-container">
-                <!-- 表格数据截断 -->
-                <div
-                  v-for="(item, dindex) in resultvalue[cIndex]
-                    ? resultvalue[cIndex].slice(
-                        i * 24 - 24,
-                        i === 3 ? resultvalue[cIndex].length : i * 24
-                      )
-                    : {}"
-                  :key="dindex"
-                  class="every-item"
-                >
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
                   <div
-                    :style="
-                      index === 'firstYield' || index === 'hitRate' || index === 'machine'
-                        ? index === 'machine' && isMachineState
-                          ? 'flex: 1.6'
-                          : 'flex: 1.4'
-                        : ''
-                    "
-                    class="show"
-                    :class="
-                      index === 'hitRate' ||
-                      index === 'firstYield' ||
-                      (index === 'machine' && isMachineState)
-                        ? 'lamp-container'
-                        : ''
-                    "
-                    v-show="
-                      index !== 'hitRateColor' && index !== 'yieldColor' && index !== 'machineState'
-                    "
-                    v-for="(ii, index) in item"
-                    :key="index"
-                  >
-                    <!-- 状态颜色 -->
-                    <span
-                      v-if="index === 'hitRate' || index === 'firstYield' || index === 'machine'"
-                      id="lamp"
-                      :style="
-                        getColorStatus(
-                          cIndex,
-                          index,
-                          item.hitRate,
-                          item.firstYield,
-                          item.machineState
+                    v-for="(item, dindex) in resultvalue['AA']
+                      ? resultvalue['AA'].slice(
+                          i * 24 - 24,
+                          i === 3 ? resultvalue['AA'].length : i * 24
                         )
-                      "
-                    ></span>
-                    <span class="text"> {{ ii }}</span>
+                      : {}"
+                    :key="dindex"
+                    class="every-item"
+                  >
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeYield('AA', item.firstYield)"></span>
+                      <span class="text">{{ item.firstYield }}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </dv-border-box-11>
+          </dv-border-box-11>
+        </div>
+      </el-carousel-item>
+      <el-carousel-item class="item1-container">
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`DA生產看板`">
+            <div
+              class="container"
+              v-loading="loading('DA')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item">Device</div>
+                  <div class="header-item" style="flex: 1.1">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item">HitRate</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div v-for="(item, dindex) in resultvalue['DA']" :key="dindex" class="every-item">
+                    <div class="show">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.1"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`LA生產看板`">
+            <div
+              class="container"
+              v-loading="loading('LA')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item">Device</div>
+                  <div class="header-item" style="flex: 1.1">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item">HitRate</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div v-for="(item, dindex) in resultvalue['LA']" :key="dindex" class="every-item">
+                    <div class="show">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.1"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+      </el-carousel-item>
+      <el-carousel-item class="item1-container">
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`ALN生產看板`">
+            <div
+              class="container"
+              v-loading="loading('ALN')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div
+                    v-for="(item, dindex) in resultvalue['ALN']"
+                    :key="dindex"
+                    class="every-item"
+                  >
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`NTC生產看板`">
+            <div
+              class="container"
+              v-loading="loading('NTC')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div
+                    v-for="(item, dindex) in resultvalue['NTC']"
+                    :key="dindex"
+                    class="every-item"
+                  >
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`GA生產看板`">
+            <div
+              class="container"
+              v-loading="loading('GA')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div v-for="(item, dindex) in resultvalue['GA']" :key="dindex" class="every-item">
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+      </el-carousel-item>
+      <el-carousel-item class="item1-container">
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`TS生產看板`">
+            <div
+              class="container"
+              v-loading="loading('TS')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item" v-for="(i, index) in comLength('TS')" :key="index">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div
+                    v-for="(item, dindex) in resultvalue['TS']
+                      ? resultvalue['TS'].slice(
+                          i * 24 - 24,
+                          i === 3 ? resultvalue['TS'].length : i * 24
+                        )
+                      : {}"
+                    :key="dindex"
+                    class="every-item"
+                  >
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+      </el-carousel-item>
+      <el-carousel-item class="item1-container">
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`ACF生產看板`">
+            <div
+              class="container"
+              v-loading="loading('ACF')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div
+                    v-for="(item, dindex) in resultvalue['ACF']"
+                    :key="dindex"
+                    class="every-item"
+                  >
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`LF生產看板`">
+            <div
+              class="container"
+              v-loading="loading('LF')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div v-for="(item, dindex) in resultvalue['LF']" :key="dindex" class="every-item">
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`AVI生產看板`">
+            <div
+              class="container"
+              v-loading="loading('AVI')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div
+                    v-for="(item, dindex) in resultvalue['AVI']"
+                    :key="dindex"
+                    class="every-item"
+                  >
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+      </el-carousel-item>
+      <el-carousel-item class="item1-container">
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`SA生產看板`">
+            <div
+              class="container"
+              v-loading="loading('SA')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item" v-for="(i, index) in comLength('SA')" :key="index">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div
+                    v-for="(item, dindex) in resultvalue['SA']
+                      ? resultvalue['SA'].slice(
+                          i * 24 - 24,
+                          i === 3 ? resultvalue['SA'].length : i * 24
+                        )
+                      : {}"
+                    :key="dindex"
+                    class="every-item"
+                  >
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+      </el-carousel-item>
+      <el-carousel-item class="item1-container">
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`RET生產看板`">
+            <div
+              class="container"
+              v-loading="loading('RET')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item" v-for="(i, index) in comLength('RET')" :key="index">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                  <div class="header-item" style="flex: 1.6">1st Yield</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div
+                    v-for="(item, dindex) in resultvalue['RET']
+                      ? resultvalue['RET'].slice(
+                          i * 24 - 24,
+                          i === 3 ? resultvalue['RET'].length : i * 24
+                        )
+                      : {}"
+                    :key="dindex"
+                    class="every-item"
+                  >
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeYield('RET', item.firstYield)"></span>
+                      <span class="text">{{ item.firstYield }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+      </el-carousel-item>
+      <el-carousel-item class="item1-container">
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`TET生產看板`">
+            <div
+              class="container"
+              v-loading="loading('TET')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item" v-for="(i, index) in comLength('TET')" :key="index">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                  <div class="header-item" style="flex: 1.6">1st Yield</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div
+                    v-for="(item, dindex) in resultvalue['TET']
+                      ? resultvalue['TET'].slice(
+                          i * 24 - 24,
+                          i === 3 ? resultvalue['TET'].length : i * 24
+                        )
+                      : {}"
+                    :key="dindex"
+                    class="every-item"
+                  >
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeYield('TET', item.firstYield)"></span>
+                      <span class="text">{{ item.firstYield }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
+      </el-carousel-item>
+      <el-carousel-item class="item1-container">
+        <div class="deviceItem">
+          <dv-border-box-11 class="top-box" :title="`FTC生產看板`">
+            <div
+              class="container"
+              v-loading="loading('FTC')"
+              element-loading-text="加载中..."
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#111e40"
+            >
+              <!-- <div class="container"> -->
+              <div class="item" v-for="(i, index) in comLength('FTC')" :key="index">
+                <!-- 表格头部 -->
+                <div class="header">
+                  <div class="header-item" style="flex: 1.1">Device</div>
+                  <div class="header-item" style="flex: 1.8">Machine</div>
+                  <div class="header-item">Build</div>
+                  <div class="header-item">Target</div>
+                  <div class="header-item">OutPut</div>
+                  <div class="header-item" style="flex: 1.6">HitRate</div>
+                  <div class="header-item" style="flex: 1.6">1st Yield</div>
+                </div>
+                <div class="item-container">
+                  <!-- 表格数据截断 -->
+                  <div
+                    v-for="(item, dindex) in resultvalue['FTC']
+                      ? resultvalue['FTC'].slice(
+                          i * 24 - 24,
+                          i === 3 ? resultvalue['FTC'].length : i * 24
+                        )
+                      : {}"
+                    :key="dindex"
+                    class="every-item"
+                  >
+                    <div class="show" style="flex: 1.1">{{ item.device }}</div>
+                    <div
+                      class="show"
+                      :class="item.machineState ? 'lamp-container' : ''"
+                      style="flex: 1.8"
+                    >
+                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
+                      <span class="text">{{ item.machine }}</span>
+                    </div>
+                    <div class="show">{{ item.buildNo }}</div>
+                    <div class="show">{{ item.target }}</div>
+                    <div class="show">{{ item.outPut }}</div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+                      <span class="text">{{ item.hitRate }}</span>
+                    </div>
+                    <div class="show lamp-container" style="flex: 1.6">
+                      <span class="lamp" :style="changeYield('FTC', item.firstYield)"></span>
+                      <span class="text">{{ item.firstYield }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dv-border-box-11>
+        </div>
       </el-carousel-item>
     </el-carousel>
     <!-- 自定义两个切换按钮 -->
@@ -142,27 +779,14 @@ export default {
     cIndex: {
       type: String,
       default: "AA"
-    },
-    // 上面颜色的综合
-    titleData: {
-      type: Array,
-      default: () => []
-    },
-    // 右边的颜色
-    rColor: {
-      type: Object,
-      default: () => ({})
-    },
-    plid: {
-      type: Number,
-      default: 0
     }
   },
 
   data() {
     return {
-      // 判断是否有machineState,或者isMachineState不为红黄绿三个颜色
-      isMachineState: true,
+      // 当前的列数
+      columns: 3,
+      // 状态颜色
       colors1: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)"],
       colors: [
         "radial-gradient(50% 50%, rgba(255, 0, 102, 0.5) 50%, rgba(255, 0, 102, 1) 100%)",
@@ -172,116 +796,89 @@ export default {
     }
   },
   mounted() {},
-  computed: {
-    // 数据没返回，有loading效果
-    loading() {
-      let count = 0
-      for (let key in this.resultvalue[this.cIndex]) {
-        // if (this.resultvalue[this.cIndex].hasOwnProperty(key)) {
-        count++
+  computed: {},
 
-        // }
+  watch: {},
+  methods: {
+    // 数据没返回，有loading效果
+    loading(index) {
+      let count = 0
+      for (let key in this.resultvalue[index]) {
+        count++
       }
       return count === 0
     },
-    // 计算页面表格列数，一列24行数据，只能出现三大列，多余的数据在第三列（可以滚动查看）
-    comLength() {
+    // 计算列数，24行一列，最多三列
+    comLength(index) {
       let count = 0
-      for (let key in this.resultvalue[this.cIndex]) {
+      for (let key in this.resultvalue[index]) {
         count++
       }
+      if (count === 0) {
+        return
+      }
       let num = parseInt(count / 25) + 1 <= 3 ? parseInt(count / 25) + 1 : 3
+      this.columns = num
       return num
-    }
-  },
-  watch: {
-    cIndex: {
-      handler(newVal) {
-        this.isMachineState = true
+    },
+    // 机台状态
+    changeMachine(state = 0) {
+      if (state == "Run" || state == "RUN") {
+        return { background: this.colors[1], color: this.colors1[1] }
+      } else if (state == "Down" || state == "DOWN") {
+        return { background: this.colors[0], color: this.colors1[0] }
+      } else if (state == "Idle" || state == "IDLE") {
+        return { background: this.colors[2], color: this.colors1[2] }
+      } else {
+        return { visibility: "hidden" }
       }
-    }
-  },
-  methods: {
-    // globalStatus(max, min, gi, gy) {
-    //   if (gi === "firstYield") {
-    //     let yid = Number.parseFloat(gy) || 0
-    //     if (yid >= max) {
-    //       return { background: this.colors[1], color: this.colors1[1] }
-    //     } else if (yid < min) {
-    //        return { background: this.colors[0], color: this.colors1[0] }
-    //     } else {
-    //       return { background: this.colors[2], color: this.colors1[2] }
-    //     }
-    //   }
-    // },
-    // 返回颜色状态 c代表是哪个看板，i代表哪一列，r代表当前的hitRate的值，y代表当前的firstYield的值，machineState代表当前machineState的值
-    getColorStatus(c, i, r, y, machineState = 0) {
-      if (c == "RET") {
-        // this.globalStatus(97.5, 94.5, i, y)
-        if (i === "firstYield") {
-          let yid = Number.parseFloat(y) || 0
-          if (yid >= 97.5) {
-            return { background: this.colors[1], color: this.colors1[1] }
-          } else if (yid < 94.5) {
-            return { background: this.colors[0], color: this.colors1[0] }
-          } else {
-            return { background: this.colors[2], color: this.colors1[2] }
-          }
-        }
-      } else if (c == "TET") {
-        // this.globalStatus(97.5, 95, i, y)
-        if (i === "firstYield") {
-          let yid = Number.parseFloat(y) || 0
-          if (yid >= 97.5) {
-            return { background: this.colors[1], color: this.colors1[1] }
-          } else if (yid < 95) {
-            return { background: this.colors[0], color: this.colors1[0] }
-          } else {
-            return { background: this.colors[2], color: this.colors1[2] }
-          }
-        }
-      } else if (c == "FTC") {
-        if (i === "firstYield") {
-          let yid = Number.parseFloat(y) || 0
-          if (yid >= 99.5) {
-            return { background: this.colors[1], color: this.colors1[1] }
-          } else if (yid < 95) {
-            return { background: this.colors[0], color: this.colors1[0] }
-          } else {
-            return { background: this.colors[2], color: this.colors1[2] }
-          }
-        }
-      } else if (c === "AA") {
-        if (i == "firstYield") {
-          let yid = Number.parseFloat(y) || 0
-          if (yid > 99) {
-            return { background: this.colors[1], color: this.colors1[1] }
-          } else if (yid < 97) {
-            return { background: this.colors[0], color: this.colors1[0] }
-          } else {
-            return { background: this.colors[2], color: this.colors1[2] }
-          }
-        }
+    },
+    // hitRate状态
+    changeStyle(hitRate) {
+      let hr = Number.parseFloat(hitRate) || 0
+      if (hr >= 100) {
+        return { background: this.colors[1], color: this.colors1[1] }
+      } else if (hr < 95) {
+        return { background: this.colors[0], color: this.colors1[0] }
+      } else {
+        return { background: this.colors[2], color: this.colors1[2] }
       }
-      if (i === "machine") {
-        if (machineState == "Run" || machineState == "RUN") {
+    },
+    // firstYield状态
+    changeYield(type, firstYield) {
+      let num = Number.parseFloat(firstYield)
+      if (type == "AA") {
+        let yid = Number.parseFloat(num) || 0
+        if (yid > 99) {
           return { background: this.colors[1], color: this.colors1[1] }
-        } else if (machineState == "Down" || machineState == "DOWN") {
+        } else if (yid < 97) {
           return { background: this.colors[0], color: this.colors1[0] }
-        } else if (machineState == "Idle" || machineState == "IDLE") {
-          return { background: this.colors[2], color: this.colors1[2] }
-        } else if (machineState == 0) {
-          this.isMachineState = false
-          return { display: "none" }
         } else {
-          return { opacity: 0 }
+          return { background: this.colors[2], color: this.colors1[2] }
         }
-      }
-      if (i === "hitRate") {
-        let hr = Number.parseFloat(r) || 0
-        if (hr >= 100) {
+      } else if (type == "RET") {
+        let yid = Number.parseFloat(firstYield) || 0
+        if (yid >= 97.5) {
           return { background: this.colors[1], color: this.colors1[1] }
-        } else if (hr < 95) {
+        } else if (yid < 94.5) {
+          return { background: this.colors[0], color: this.colors1[0] }
+        } else {
+          return { background: this.colors[2], color: this.colors1[2] }
+        }
+      } else if (type == "TET") {
+        let yid = Number.parseFloat(firstYield) || 0
+        if (yid >= 97.5) {
+          return { background: this.colors[1], color: this.colors1[1] }
+        } else if (yid < 95) {
+          return { background: this.colors[0], color: this.colors1[0] }
+        } else {
+          return { background: this.colors[2], color: this.colors1[2] }
+        }
+      } else if (type == "FTC") {
+        let yid = Number.parseFloat(firstYield) || 0
+        if (yid >= 99.5) {
+          return { background: this.colors[1], color: this.colors1[1] }
+        } else if (yid < 95) {
           return { background: this.colors[0], color: this.colors1[0] }
         } else {
           return { background: this.colors[2], color: this.colors1[2] }
@@ -294,14 +891,11 @@ export default {
     },
     // 上一页
     prev() {
-      this.$refs.carousel.setActiveItem(this.plid - 1)
-      this.$emit("changeId", this.plid, 1)
+      this.$refs.carousel.prev()
     },
     // 下一页
     next() {
-      this.$refs.carousel.setActiveItem(this.plid + 1)
-      this.$emit("changeId", this.plid, 2)
-      // this.$refs.carousel.next()
+      this.$refs.carousel.next()
     }
   }
 }
@@ -314,21 +908,19 @@ export default {
 ::v-deep .border-box-content {
   padding: 60px 20px 20px 20px;
 }
-::v-deep .el-carousel__container {
-  // height: 100%;
-}
-::v-deep .el-carousel__item {
-  // height: 100%;
-}
 ::v-deep .dv-border-box-11-title {
   font-size: 25px;
   font-weight: bold;
 }
 .page-main-a {
   min-width: 300%;
-  // height: 850px;
   padding-top: 5px;
-  text-align: center;
+}
+.item1-container {
+  display: flex;
+  .deviceItem {
+    flex: 1;
+  }
 }
 .btns {
   span {
@@ -368,16 +960,13 @@ export default {
 .container {
   margin-top: 51px;
   display: flex;
+  height: calc(100% - 40px);
   .item {
+    text-align: center;
     margin: 0 10px;
-    // &:nth-child(2) {
-    //   margin: 0 20px;
-    // }
-    // text-align: center;
     flex: 1;
     .header {
       font-size: 18px;
-
       display: flex;
       border-top: 1px solid #1683af;
       border-bottom: 1px solid #1683af;
@@ -399,13 +988,11 @@ export default {
     .item-container {
       overflow: overlay;
       height: 744px;
-
       .every-item {
         display: flex;
         border-bottom: 1px solid #1683af;
         border-left: 1px solid #1683af;
         line-height: 30px;
-
         .show {
           // width: 5px;
           white-space: nowrap;
@@ -416,15 +1003,13 @@ export default {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          #lamp {
+          .lamp {
             width: 15px;
             height: 15px;
             border-radius: 50%;
             margin-left: 8px;
             margin-right: 2px;
             animation: fade 2s infinite;
-
-            // border: 1px solid #fff;
           }
           .text {
             padding-right: 8px;
@@ -445,13 +1030,5 @@ export default {
   100% {
     box-shadow: inset 0 0 5px currentColor;
   }
-}
-.el-tooltip {
-  // width: unset;
-  // height: unset;
-  background-color: unset;
-  border: unset;
-  font-size: unset;
-  color: unset;
 }
 </style>
