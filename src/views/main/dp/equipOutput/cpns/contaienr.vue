@@ -823,7 +823,7 @@ export default {
     },
     // 机台状态
     changeMachine(state = 0) {
-      if (state == "Run" || state == "RUN") {
+      if (state == "Run" || state == "RUN" || state == "RU001") {
         return { background: this.colors[1], color: this.colors1[1] }
       } else if (state == "Down" || state == "DOWN") {
         return { background: this.colors[0], color: this.colors1[0] }
