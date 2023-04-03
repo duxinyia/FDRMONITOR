@@ -53,7 +53,7 @@
 // 导入数字滚动组件
 import countTo from "vue-count-to"
 // 导入echarts中的饼图
-import pieChart from "@/common/pie-chart/pie-chart"
+import pieChart from "./cpns/pie-chart.vue"
 // 导入改装排名轮播表
 import rankingRotationChart from "@/components/ranking-rotation-chart/ranking-rotation-chart"
 // 导入自己封装的轮播图

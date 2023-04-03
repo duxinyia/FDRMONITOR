@@ -74,6 +74,8 @@ export default {
         },
         tooltip: {
           trigger: "item",
+          backgroundColor: "#303133",
+          extraCssText: "padding:5px;border:none;color:#fff",
           formatter: (params) => {
             console.log("params", params)
             let { output = "", targetOut = "" } = params.data

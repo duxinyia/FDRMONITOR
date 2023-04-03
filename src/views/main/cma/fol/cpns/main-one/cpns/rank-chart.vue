@@ -69,6 +69,8 @@ export default {
         },
         tooltip: {
           trigger: "axis",
+          backgroundColor: "#303133",
+          extraCssText: "padding:5px;border:none;color:#fff",
           axisPointer: {
             type: "none"
           },
@@ -210,7 +212,6 @@ export default {
 <style lang="scss" scoped>
 .rank-echart {
   .title {
-    /* display: inline-block; */
     display: flex;
     align-items: center;
     font-size: 20px;

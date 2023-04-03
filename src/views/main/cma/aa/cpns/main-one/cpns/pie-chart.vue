@@ -83,24 +83,6 @@ export default {
               ${tempStr}
               </div>
             `
-            // if (params.data.machines.length > 0) {
-            //   params.data.machines.forEach((item) => {
-            //     tempStr += `
-            //     <div style="display:flex;border-bottom: 1px solid #fff;">
-            //       <span style="flex:1">${item.machinename || "-"}</span>
-            //       <span style="flex:1">${item.totalRate}</span>
-            //     </div>`
-            //   })
-            // }
-            // return `
-            //   <div style="width:200px;border: 1px solid #fff;text-align: center;">
-            //     <div style="display:flex;border-bottom: 1px solid #fff;background:#20316e">
-            //       <span style="flex:1">top5机台</span>
-            //       <span style="flex:1">比率</span>
-            //     </div>
-            //   ${tempStr}
-            //   </div>
-            // `
           }
         },
         series: [
@@ -168,7 +150,6 @@ export default {
             }
           }
         ],
-
         // 饼图各个样色
         color: ["#6395f9", "#62daab", "#00FFFF", "#f6c022", "#7FFF00"]
       }

@@ -14,18 +14,11 @@
         </el-carousel-item>
       </el-carousel>
       <!-- 自定义两个切换按钮 -->
-      <div class="btns">
-        <span class="left-icon-container" @click="prev">
-          <i class="iconfont icon-shangyiye icon2"></i>
-          <i class="iconfont icon-shangyiye icon1"></i>
-          <i class="iconfont icon-shangyiye icon"></i>
-        </span>
-        <span @click="next">
-          <i class="iconfont icon-xiayiye icon"></i>
-          <i class="iconfont icon-xiayiye icon1"></i>
-          <i class="iconfont icon-xiayiye icon2"></i>
-        </span>
-      </div>
+      <change-switch
+        :leftConfig="{ left: '0px', top: '9px' }"
+        :rightConfig="{ right: '0px', top: '9px' }"
+        @directionChange="handleDirection"
+      />
     </dv-border-box-12>
   </div>
 </template>
@@ -53,13 +46,8 @@ export default {
     })
   },
   methods: {
-    // 上一楼
-    prev() {
-      this.$refs.carousel.prev()
-    },
-    // 下一楼
-    next() {
-      this.$refs.carousel.next()
+    handleDirection(direction) {
+      direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
     }
   }
 }
@@ -74,39 +62,5 @@ export default {
 }
 .page-main {
   height: calc(100% - 110px);
-}
-
-.btns {
-  span {
-    position: absolute;
-    width: 120px;
-    height: 50px;
-    text-align: center;
-    animation: twinkle 2s infinite;
-    cursor: pointer;
-    &:nth-child(1) {
-      left: 0px;
-      top: 9px;
-    }
-    &:nth-child(2) {
-      right: 0px;
-      top: 9px;
-    }
-    .icon {
-      font-weight: bold;
-      font-size: 25px;
-      color: var(--aa-bottom-icon);
-    }
-    .icon1 {
-      font-weight: bold;
-      font-size: 25px;
-      color: var(--aa-bottom-icon1);
-    }
-    .icon2 {
-      font-weight: 800;
-      font-size: 25px;
-      color: var(--aa-bottom-icon2);
-    }
-  }
 }
 </style>

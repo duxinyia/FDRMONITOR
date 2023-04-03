@@ -111,3 +111,9 @@ http://10.147.214.111:8085/
   </svg>
 </div>
 ```
+
+<!-- 4/ 3 将 左右的切换做成了组件 -->
+
+组件路径 ： @/components/change-switch/change-switch.vue
+
+组件使用实例见： views\main\cma\aa\cpns\main-two

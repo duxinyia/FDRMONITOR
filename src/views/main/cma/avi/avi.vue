@@ -36,16 +36,24 @@
         </el-table-column>
       </el-table>
     </dv-border-box-10>
+
+    <!-- 详情弹框 -->
+    <detail-dialog ref="dialog" :dialogVisible.sync="dialogVisible" />
   </div>
 </template>
 
 <script>
+// 导入详情弹框
+import DetailDialog from "./cpns/detail-dialog.vue"
 export default {
   name: "avi",
   props: {},
-  components: {},
+  components: {
+    DetailDialog
+  },
   data() {
     return {
+      dialogVisible: true,
       tableData1: [
         {
           Device: "1",

@@ -122,18 +122,11 @@
           </el-carousel-item>
         </el-carousel>
         <!-- 自定义两个切换按钮 -->
-        <div class="btns">
-          <span class="left-icon-container" @click="prev">
-            <i class="iconfont icon-shangyiye icon2"></i>
-            <i class="iconfont icon-shangyiye icon1"></i>
-            <i class="iconfont icon-shangyiye icon"></i>
-          </span>
-          <span @click="next">
-            <i class="iconfont icon-xiayiye icon"></i>
-            <i class="iconfont icon-xiayiye icon1"></i>
-            <i class="iconfont icon-xiayiye icon2"></i>
-          </span>
-        </div>
+        <change-switch
+          :leftConfig="{ left: '0px', top: '40px' }"
+          :rightConfig="{ right: '0px', top: '40px' }"
+          @directionChange="handleDirection"
+        />
       </div>
     </dv-border-box-11>
     <!-- 详情弹框 -->
@@ -148,6 +141,8 @@
 <script>
 // 导入详情弹框
 import DetailDialog from "./cpns/detail-dialog.vue"
+// 导入左右切换的组件
+import ChangeSwitch from "@/components/change-switch/change-switch.vue"
 // 导入不同的配置文件
 import { divArr2 } from "./config.js"
 export default {
@@ -163,7 +158,8 @@ export default {
     }
   },
   components: {
-    DetailDialog
+    DetailDialog,
+    ChangeSwitch
   },
 
   data() {
@@ -371,13 +367,8 @@ export default {
         }
       }
     },
-    // 上一楼
-    prev() {
-      this.$refs.carousel.prev()
-    },
-    // 下一楼
-    next() {
-      this.$refs["carousel"].next()
+    handleDirection(direction) {
+      direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
     }
   }
 }
@@ -523,39 +514,6 @@ export default {
       }
     }
   }
-  .btns {
-    span {
-      position: absolute;
-      width: 120px;
-      height: 50px;
-      text-align: center;
-      animation: twinkle 2s infinite;
-      cursor: pointer;
-      &:nth-child(1) {
-        left: 0px;
-        top: 40px;
-      }
-      &:nth-child(2) {
-        right: 0px;
-        top: 40px;
-      }
-      .icon {
-        font-weight: bold;
-        font-size: 25px;
-        color: var(--aa-bottom-icon);
-      }
-      .icon1 {
-        font-weight: bold;
-        font-size: 25px;
-        color: var(--aa-bottom-icon1);
-      }
-      .icon2 {
-        font-weight: 800;
-        font-size: 25px;
-        color: var(--aa-bottom-icon2);
-      }
-    }
-  }
 }
 .percent-pond {
   width: 95px;
@@ -581,17 +539,6 @@ export default {
   }
   to {
     transform: rotate(360deg);
-  }
-}
-@keyframes twinkle {
-  from {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-  to {
-    opacity: 1;
   }
 }
 </style>

@@ -82,7 +82,6 @@ export default {
         this.getMachinesInfo()
       ]
       await Promise.all(requestArr)
-      // this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
     // 获取保養任務公告
     async getAAMachineMaintainInfo() {
