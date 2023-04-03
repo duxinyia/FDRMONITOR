@@ -27,7 +27,6 @@ export default [
         name: "overviewcma",
         component: () =>
           import(/* webpackChunkName: "overviewcma" */ "../views/overView/cma/index.vue"),
-        // redirect: "cma/manage/device",
         children: [
           // 分决策层和管理层
           {
@@ -50,7 +49,6 @@ export default [
         name: "overviewdp",
         component: () =>
           import(/* webpackChunkName: "overviewdp" */ "../views/overView/dp/index.vue"),
-        // redirect: "dp/manage/output",
         children: [
           // 分决策层和管理层
           {
@@ -173,8 +171,7 @@ export default [
             component: () =>
               import(
                 /* webpackChunkName: "yielddetail" */ "../views/main/cma/yielddetail/yielddetail.vue"
-              ),
-            meta: { isJump: true, title: "yielddetail" }
+              )
           },
           {
             path: "tsfc",

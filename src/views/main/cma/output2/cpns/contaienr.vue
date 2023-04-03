@@ -153,7 +153,7 @@ export default {
   height: 25px !important;
 }
 .machine {
-  width: 600px;
+  /* width: 600px; */
   height: 100%;
   padding: 4px 6px 4px 6px;
   border-radius: 8px;

@@ -3,8 +3,12 @@
     <!-- 主要区域 -->
     <dv-border-box-10>
       <el-row :gutter="30" class="main-one">
-        <el-col v-for="item in 4" :key="item" :span="12">
+        <el-col v-for="item in 4" :key="item" :span="12" class="chart-item">
           <line-chart :config="chartConfig[item - 1]" />
+          <div class="btns">
+            <el-button @click="toDetail" type="success" size="mini">EOL</el-button>
+            <el-button @click="toDetail" type="success" size="mini">FOL</el-button>
+          </div>
         </el-col>
       </el-row>
     </dv-border-box-10>
@@ -13,7 +17,7 @@
 <script>
 // 导入折线图
 import LineChart from "./cpns/LineChart.vue"
-// 导入接口文档
+// 导入接口
 import { getDateCodeRunningYieldInfo } from "@/api/cma/tsfc.js"
 export default {
   name: "tsfc",
@@ -52,6 +56,11 @@ export default {
       if (res.length > 0) {
         this.chartConfig = res
       }
+    },
+
+    toDetail() {
+      console.log("toDetail")
+      // this.$router.push()
     }
   },
   beforeDestroy() {
@@ -65,5 +74,14 @@ export default {
 }
 .page-main {
   margin-top: 25px;
+}
+
+.chart-item {
+  position: relative;
+  .btns {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+  }
 }
 </style>

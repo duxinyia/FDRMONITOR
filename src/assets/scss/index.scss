@@ -41,3 +41,39 @@ h6 {
   font-weight: normal;
   font-size: 1em;
 }
+
+
+// 全局的btns的样式 这样不用在每个文件写这个样式
+// .btns {
+//   span {
+//     position: absolute;
+//     width: 120px;
+//     height: 50px;
+//     text-align: center;
+//     animation: twinkle 2s infinite;
+//     cursor: pointer;
+//     &:nth-child(1) {
+//       left: 0px;
+//       top: 9px;
+//     }
+//     &:nth-child(2) {
+//       right: 0px;
+//       top: 9px;
+//     }
+//     .icon {
+//       font-weight: bold;
+//       font-size: 25px;
+//       color: var(--aa-bottom-icon);
+//     }
+//     .icon1 {
+//       font-weight: bold;
+//       font-size: 25px;
+//       color: var(--aa-bottom-icon1);
+//     }
+//     .icon2 {
+//       font-weight: 800;
+//       font-size: 25px;
+//       color: var(--aa-bottom-icon2);
+//     }
+//   }
+// }

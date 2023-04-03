@@ -1,81 +1,66 @@
 <template>
   <div class="page-main">
     <dv-border-box-12>
-      <div>
-        <div class="btns">
-          <div class="left icon-wrapper" @click="toLeft">
-            <i class="iconfont icon-shangyiye icon2"></i>
-            <i class="iconfont icon-shangyiye icon1"></i>
-            <i class="iconfont icon-shangyiye icon"></i>
-          </div>
-          <div class="right">
-            <div class="control">
-              <div class="fol-container container">
-                <span
-                  class="fol-box"
-                  @click="changeIndex(1)"
-                  :style="{
-                    'box-shadow': currentIndex == 1 ? 'inset 0 0 20px #c987ed' : ''
-                  }"
-                ></span>
-                <span class="name">FOL</span>
-              </div>
-              <div class="eol-container container">
-                <span
-                  class="eol-box"
-                  @click="changeIndex(2)"
-                  :style="{
-                    'box-shadow': currentIndex == 2 ? 'inset 0 0 20px #58d5e0' : ''
-                  }"
-                ></span>
-                <span class="name">EOL</span>
-              </div>
-              <div class="all-container container">
-                <span
-                  class="all-box"
-                  @click="changeIndex(3)"
-                  :style="{
-                    'box-shadow': currentIndex == 3 ? 'inset 0 0 20px #fbeeca' : ''
-                  }"
-                ></span>
-                <span class="name">ALL</span>
-              </div>
+      <!-- 主要区域 -->
+      <div class="main">
+        <el-carousel
+          ref="carousel"
+          :autoplay="false"
+          height="880px"
+          :interval="5000"
+          arrow="never"
+          indicator-position="none"
+        >
+          <el-carousel-item v-for="(everyTitle, index) in getShowArray" :key="index">
+            <div class="contaner">
+              <contaienr
+                v-for="(item, i) in everyTitle"
+                :index="i"
+                :itemTitle="item"
+                :showData="newData[3 * index + i]"
+                :key="i"
+              />
             </div>
-            <div class="icon-wrapper" @click="toRight">
-              <i class="iconfont icon-xiayiye icon"></i>
-              <i class="iconfont icon-xiayiye icon1"></i>
-              <i class="iconfont icon-xiayiye icon2"></i>
-            </div>
-          </div>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <div class="control">
+        <div class="fol-container container">
+          <span
+            class="fol-box"
+            @click="changeIndex(1)"
+            :style="{
+              'box-shadow': currentIndex == 1 ? 'inset 0 0 20px #c987ed' : ''
+            }"
+          ></span>
+          <span class="name">FOL</span>
         </div>
-        <!-- 主要区域 -->
-        <div class="main">
-          <!-- 用轮播图显示 -->
-          <el-carousel
-            ref="carousel"
-            :autoplay="false"
-            height="880px"
-            :interval="5000"
-            arrow="never"
-            indicator-position="none"
-          >
-            <el-carousel-item v-for="(everyTitle, index) in getShowArray" :key="index">
-              <div class="contaner">
-                <!-- {{index}} -->
-                <!-- <template> -->
-                <contaienr
-                  v-for="(item, i) in everyTitle"
-                  :index="i"
-                  :itemTitle="item"
-                  :showData="newData[3 * index + i]"
-                  :key="i"
-                />
-                <!-- </template> -->
-              </div>
-            </el-carousel-item>
-          </el-carousel>
+        <div class="eol-container container">
+          <span
+            class="eol-box"
+            @click="changeIndex(2)"
+            :style="{
+              'box-shadow': currentIndex == 2 ? 'inset 0 0 20px #58d5e0' : ''
+            }"
+          ></span>
+          <span class="name">EOL</span>
+        </div>
+        <div class="all-container container">
+          <span
+            class="all-box"
+            @click="changeIndex(3)"
+            :style="{
+              'box-shadow': currentIndex == 3 ? 'inset 0 0 20px #fbeeca' : ''
+            }"
+          ></span>
+          <span class="name">ALL</span>
         </div>
       </div>
+      <change-switch
+        :leftConfig="{ left: '0px', top: '15px' }"
+        :rightConfig="{ right: '0px', top: '15px' }"
+        @directionChange="handleDirection"
+      />
     </dv-border-box-12>
   </div>
 </template>
@@ -86,10 +71,13 @@ import { GetStationName, GetDeviceInfo } from "@/api/cma/output2.js"
 import { splitArray } from "@/utils"
 // 导入子组件
 import Contaienr from "./cpns/contaienr.vue"
+// 导入左右切换的组件
+import ChangeSwitch from "@/components/change-switch/change-switch.vue"
 export default {
   name: "output2",
   components: {
-    Contaienr
+    Contaienr,
+    ChangeSwitch
   },
   data() {
     return {
@@ -106,7 +94,6 @@ export default {
   },
   computed: {
     getShowArray() {
-      // console.log("this.titles", splitArray(this.titles, 3))
       return splitArray(this.titles, 3)
     }
   },
@@ -141,11 +128,8 @@ export default {
       this.selectArea = map.get(index)
       this.getData()
     },
-    toLeft() {
-      this.$refs["carousel"].prev()
-    },
-    toRight() {
-      this.$refs["carousel"].next()
+    handleDirection(direction) {
+      direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
     }
   },
   beforeDestroy() {
@@ -159,90 +143,56 @@ export default {
   padding: 20px;
   position: relative;
 }
-
 .page-main {
   margin-top: 20px;
+  position: relative;
+  .main {
+    margin-top: 30px;
+  }
+  .control {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    display: flex;
+    align-items: center;
+    .container {
+      display: flex;
+      align-items: center;
+      span {
+        &:nth-child(1) {
+          display: inline-block;
+          width: 25px;
+          height: 25px;
+          margin-right: 6px;
+          cursor: pointer;
+        }
+      }
+    }
+    .fol-container {
+      margin-left: auto;
+      .fol-box {
+        border: 2px solid #d08bf5;
+      }
+    }
+    .eol-container {
+      margin: 0 10px;
+      .eol-box {
+        border: 2px solid #58d5e0;
+      }
+    }
+    .all-container {
+      margin-right: 100px;
+      .all-box {
+        border: 2px solid #fbeeca;
+      }
+    }
+  }
 }
 .contaner {
   height: 100%;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(3, 1fr);
-}
-.btns {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-  .right {
-    display: flex;
-    .control {
-      display: flex;
-      align-items: center;
-      .container {
-        display: flex;
-        align-items: center;
-        span {
-          &:nth-child(1) {
-            display: inline-block;
-            width: 25px;
-            height: 25px;
-            margin-right: 6px;
-            cursor: pointer;
-          }
-        }
-      }
-      .fol-container {
-        margin-left: auto;
-        .fol-box {
-          border: 2px solid #d08bf5;
-        }
-      }
-      .eol-container {
-        margin: 0 10px;
-        .eol-box {
-          border: 2px solid #58d5e0;
-        }
-      }
-      .all-container {
-        margin-right: 100px;
-        .all-box {
-          border: 2px solid #fbeeca;
-        }
-      }
-    }
-  }
-  .icon-wrapper {
-    cursor: pointer;
-    animation: twinkle 2s infinite;
-    .icon {
-      font-weight: bold;
-      font-size: 25px;
-      color: var(--aa-bottom-icon);
-    }
-    .icon1 {
-      font-weight: bold;
-      font-size: 25px;
-      color: var(--aa-bottom-icon1);
-    }
-    .icon2 {
-      font-weight: 800;
-      font-size: 25px;
-      color: var(--aa-bottom-icon2);
-    }
-  }
-}
-
-@keyframes twinkle {
-  from {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-  to {
-    opacity: 1;
-  }
+  column-gap: 15px;
 }
 </style>

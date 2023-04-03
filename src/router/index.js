@@ -102,6 +102,24 @@ let nowShowArr = {
           belong: "管理层/良率",
           isShow: false,
           to: "defect"
+        },
+        {
+          id: 16,
+          imgUrl: require("@/assets/images/cma/yielddetail.png"),
+          title: "FOL LCB差异层别",
+          target: "yield",
+          belong: "管理层/良率",
+          isShow: false,
+          to: "yielddetail"
+        },
+        {
+          id: 17,
+          imgUrl: require("@/assets/images/cma/yielddetail.png"),
+          title: "FOL DPC差异层别",
+          target: "yield",
+          belong: "管理层/良率",
+          isShow: false,
+          to: "yielddetail"
         }
       ],
       device: [
@@ -328,7 +346,7 @@ router.beforeEach(async (to, from, next) => {
       next()
     }
   } else {
-    if (hasRoles || store.state.permission.routerArr.length == 0) {
+    if (hasRoles && store.state.permission.routerArr.length == 0) {
       let accessRoutes = await store.dispatch("permission/GenerateRoutes", {
         userJob: store.state.user.user.username,
         nickName: store.state.user.user.fullName

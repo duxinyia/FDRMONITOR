@@ -80,18 +80,11 @@
             </el-carousel-item>
           </el-carousel>
           <!-- 自定义两个切换按钮 -->
-          <div class="btns">
-            <span class="left-icon-container" @click="prev">
-              <i class="iconfont icon-shangyiye icon2"></i>
-              <i class="iconfont icon-shangyiye icon1"></i>
-              <i class="iconfont icon-shangyiye icon"></i>
-            </span>
-            <span @click="next">
-              <i class="iconfont icon-xiayiye icon"></i>
-              <i class="iconfont icon-xiayiye icon1"></i>
-              <i class="iconfont icon-xiayiye icon2"></i>
-            </span>
-          </div>
+          <change-switch
+            :leftConfig="{ left: '15px', top: '46px' }"
+            :rightConfig="{ right: '15px', top: '46px' }"
+            @directionChange="handleDirection"
+          />
         </div>
       </div>
     </dv-border-box-11>
@@ -107,6 +100,8 @@
 <script>
 // 导入详情弹框
 import DetailDialog from "./cpns/detail-dialog.vue"
+// 导入左右切换的组件
+import ChangeSwitch from "@/components/change-switch/change-switch.vue"
 export default {
   name: "main-two",
   props: {
@@ -116,7 +111,8 @@ export default {
     }
   },
   components: {
-    DetailDialog
+    DetailDialog,
+    ChangeSwitch
   },
   data() {
     return {
@@ -239,13 +235,10 @@ export default {
       this.machineName = machineName
       this.$refs["dialog"].getData(ip)
     },
-    // 上一楼
-    prev() {
-      this.$refs.carousel.prev()
-    },
-    // 下一楼
-    next() {
-      this.$refs.carousel.next()
+
+    //
+    handleDirection(direction) {
+      direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
     }
   }
 }
@@ -375,39 +368,6 @@ export default {
         }
       }
     }
-    .btns {
-      span {
-        position: absolute;
-        width: 120px;
-        height: 50px;
-        text-align: center;
-        animation: twinkle 2s infinite;
-        cursor: pointer;
-        &:nth-child(1) {
-          left: 15px;
-          top: 46px;
-        }
-        &:nth-child(2) {
-          right: 15px;
-          top: 46px;
-        }
-        .icon {
-          font-weight: bold;
-          font-size: 25px;
-          color: var(--aa-bottom-icon);
-        }
-        .icon1 {
-          font-weight: bold;
-          font-size: 25px;
-          color: var(--aa-bottom-icon1);
-        }
-        .icon2 {
-          font-weight: 800;
-          font-size: 25px;
-          color: var(--aa-bottom-icon2);
-        }
-      }
-    }
   }
 }
 
@@ -420,17 +380,6 @@ export default {
   }
   100% {
     box-shadow: inset 0 0 15px currentColor;
-  }
-}
-@keyframes twinkle {
-  from {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-  to {
-    opacity: 1;
   }
 }
 </style>

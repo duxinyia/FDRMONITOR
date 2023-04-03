@@ -43,9 +43,9 @@
 
 <script>
 // 导入排名图
-import rankChart from "@/common/rank-chart/rank-chart.vue"
+import rankChart from "./cpns/rank-chart.vue"
 // 导入3d柱状图
-import barChart from "@/common/bar-chart/bar-chart.vue"
+import barChart from "./cpns/bar-chart.vue"
 // 导入自己封装的轮播图
 import MyscrollChart from "@/components/myscroll-chart/myscroll-chart.vue"
 export default {
