@@ -4,8 +4,9 @@
       <div>
         <div class="btns">
           <div class="left">
-            <div class="control">
-              <!-- <el-select v-model="value" clearable placeholder="请选择">
+            <div class="select-input">
+              <!-- :popper-append-to-body="false" -->
+              <el-select v-model="value" filterable clearable placeholder="請選擇">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -13,7 +14,7 @@
                   :value="item.value"
                 >
                 </el-option>
-              </el-select> -->
+              </el-select>
               <!-- <div class="container" v-for="(item, index) in containerLeft" :key="index">
                 <span
                   class="box box1"
@@ -45,6 +46,7 @@
               :cIndex="currentIndex"
               :titleData="containerLeft"
               :rColor="containerRight"
+              :newValue="value"
               @autoPlay="autoPlay"
             />
           </div>
@@ -90,7 +92,52 @@ export default {
         IDLE: "rgba(255, 255, 0, 0.9)"
       },
       // 14个表格的数据
-      showArr: {}
+      showArr: {},
+      // 下拉选择数据
+      options: [
+        {
+          value: "TAA",
+          label: "TAA"
+        },
+        {
+          value: "RAA",
+          label: "RAA"
+        },
+        {
+          value: "DA/LA",
+          label: "DA/LA"
+        },
+        {
+          value: "ALN/NTC/GA",
+          label: "ALN/NTC/GA"
+        },
+        {
+          value: "TS",
+          label: "TS"
+        },
+        {
+          value: "ACF/LF/AVI",
+          label: "ACF/LF/AVI"
+        },
+        {
+          value: "SA",
+          label: "SA"
+        },
+
+        {
+          value: "RET",
+          label: "RET"
+        },
+        {
+          value: "TET",
+          label: "TET"
+        },
+        {
+          value: "FTC",
+          label: "FTC"
+        }
+      ],
+      value: ""
     }
   },
   mounted() {
@@ -120,19 +167,13 @@ export default {
     // },
     // 自动播放时选中上面的颜色框
     autoPlay(index) {
-      this.currentIndex = this.containerLeft[index].title
+      // this.currentIndex = this.containerLeft[index].title
       // this.pid = index
     },
 
     // 获取数据
     async getData(i, n) {
       let res = await GetAaData(i)
-
-      // if (i === "AA" && res.machine) {
-      //   this.$set(this.showArr, n, res)
-      // } else if (i === "AA" && res.machine.indexof("RAA")) {
-      //   n = "RAA"
-      // }
       res = Object.values(res)
       let newTAdata = []
       let newRAdata = []
@@ -159,6 +200,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-input--suffix .el-input__inner {
+  background-color: rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  color: #fff;
+  border-color: #409eff;
+}
+::v-deep .el-select-dropdown {
+}
 ::v-deep .border-box-content {
   // height: 890px;
   padding: 20px;
@@ -168,6 +217,10 @@ export default {
 .page-main {
   margin-top: 20px;
 }
+.select-input {
+  margin: 2px 0px 0px 20px;
+}
+
 .contaner {
   // height: 100%;
   display: grid;

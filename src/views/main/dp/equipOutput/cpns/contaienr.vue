@@ -7,49 +7,50 @@
       :interval="15 * 1000"
       ref="carousel"
       arrow="never"
+      :autoplay="isAutoplay"
       @change="carouselChange"
     >
-      <el-carousel-item class="item1-container">
+      <el-carousel-item class="item1-container" name="TAA">
         <!-- 子组件 -->
         <child-table :currentIndex="'TAA'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container">
+      <el-carousel-item class="item1-container" name="RAA">
         <!-- 子组件 -->
         <child-table :currentIndex="'RAA'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container">
+      <el-carousel-item class="item1-container" name="DA/LA">
         <!-- 子组件 -->
         <child-table :currentIndex="'DA'" :allData="resultvalue" />
         <child-table :currentIndex="'LA'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container">
+      <el-carousel-item class="item1-container" name="ALN/NTC/GA">
         <!-- 子组件 -->
         <child-table :currentIndex="'ALN'" :allData="resultvalue" />
         <child-table :currentIndex="'NTC'" :allData="resultvalue" />
         <child-table :currentIndex="'GA'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container">
+      <el-carousel-item class="item1-container" name="TS">
         <!-- 子组件 -->
         <child-table :currentIndex="'TS'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container">
+      <el-carousel-item class="item1-container" name="ACF/LF/AVI">
         <!-- 子组件 -->
         <child-table :currentIndex="'ACF'" :allData="resultvalue" />
         <child-table :currentIndex="'LF'" :allData="resultvalue" />
         <child-table :currentIndex="'AVI'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container">
+      <el-carousel-item class="item1-container" name="SA">
         <child-table :currentIndex="'SA'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container">
+      <el-carousel-item class="item1-container" name="RET">
         <!-- 子组件 -->
         <child-table :currentIndex="'RET'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container">
+      <el-carousel-item class="item1-container" name="TET">
         <!-- 子组件 -->
         <child-table :currentIndex="'TET'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container">
+      <el-carousel-item class="item1-container" name="FTC">
         <!-- 子组件 -->
         <child-table :currentIndex="'FTC'" :allData="resultvalue" />
       </el-carousel-item>
@@ -67,11 +68,11 @@
         <i class="iconfont icon-xiayiye icon2"></i>
       </span>
     </div> -->
-    <change-switch
-      :leftConfig="{ left: '15px', top: '55px' }"
-      :rightConfig="{ right: '15px', top: '55px' }"
+    <!-- <change-switch
+      :leftConfig="{ left: '15px', top: '75px' }"
+      :rightConfig="{ right: '15px', top: '75px' }"
       @directionChange="handleDirection"
-    />
+    /> -->
   </div>
 </template>
 
@@ -94,17 +95,30 @@ export default {
     // 当前的
     cIndex: {
       type: String,
-      default: "AA"
+      default: "TAA"
+    },
+    newValue: {
+      type: String,
+      default: "TAA"
     }
   },
 
   data() {
-    return {}
+    return {
+      isAutoplay: true
+    }
   },
   mounted() {},
   computed: {},
 
-  watch: {},
+  watch: {
+    newValue: {
+      handler(newVal) {
+        this.$refs.carousel.setActiveItem(newVal)
+        this.isAutoplay = false
+      }
+    }
+  },
   methods: {
     handleDirection(direction) {
       direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
@@ -139,7 +153,7 @@ export default {
 }
 .page-main-a {
   min-width: 300%;
-  padding-top: 5px;
+  padding-top: 0px;
 }
 .item1-container {
   display: flex;
