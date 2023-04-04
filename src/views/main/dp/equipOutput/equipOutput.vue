@@ -6,7 +6,13 @@
           <div class="left">
             <div class="select-input">
               <!-- :popper-append-to-body="false" -->
-              <el-select v-model="value" filterable clearable placeholder="請選擇">
+              <el-select
+                :popper-append-to-body="false"
+                v-model="value"
+                filterable
+                clearable
+                placeholder="請選擇"
+              >
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -207,6 +213,21 @@ export default {
   border-color: #409eff;
 }
 ::v-deep .el-select-dropdown {
+  background-color: #000c1a;
+  .el-select-dropdown__item {
+    color: #fff;
+    // color: #243d97 !important;
+  }
+  .el-select-dropdown__item.hover,
+  .el-select-dropdown__item:hover {
+    background-color: #243d97;
+  }
+  .el-select-dropdown__item.selected {
+    background-color: #243d97 !important;
+  }
+  .popper__arrow:after {
+    border-bottom-color: #000c1a !important;
+  }
 }
 ::v-deep .border-box-content {
   // height: 890px;
