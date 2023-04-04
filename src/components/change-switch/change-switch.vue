@@ -32,6 +32,7 @@ export default {
 <style lang="scss" scoped>
 .switch-btns {
   span {
+    z-index: 1000;
     position: absolute;
     width: 120px;
     height: 50px;

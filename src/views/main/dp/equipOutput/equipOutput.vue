@@ -5,6 +5,15 @@
         <div class="btns">
           <div class="left">
             <div class="control">
+              <!-- <el-select v-model="value" clearable placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select> -->
               <!-- <div class="container" v-for="(item, index) in containerLeft" :key="index">
                 <span
                   class="box box1"
@@ -118,8 +127,29 @@ export default {
     // 获取数据
     async getData(i, n) {
       let res = await GetAaData(i)
+
+      // if (i === "AA" && res.machine) {
+      //   this.$set(this.showArr, n, res)
+      // } else if (i === "AA" && res.machine.indexof("RAA")) {
+      //   n = "RAA"
+      // }
       res = Object.values(res)
-      this.$set(this.showArr, n, res)
+      let newTAdata = []
+      let newRAdata = []
+      if (i === "AA") {
+        res.forEach((value) => {
+          if (value.machine.indexOf("TAA") != -1) {
+            newTAdata.push(value)
+            this.$set(this.showArr, "TAA", newTAdata)
+          } else if (value.machine.indexOf("RAA") != -1) {
+            newRAdata.push(value)
+            this.$set(this.showArr, "RAA", newRAdata)
+          }
+        })
+      } else {
+        this.$set(this.showArr, n, res)
+      }
+
       // console.log("showArr======", this.showArr)
       // console.log("res======", typeof res)
     }
