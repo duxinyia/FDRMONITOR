@@ -2,6 +2,7 @@
   <div class="deviceItem">
     <dv-border-box-11 class="top-box" :title="`${currentIndex}生產看板`">
       <div
+        ref="loadingContent"
         class="container"
         v-loading="loading(currentIndex)"
         element-loading-text="加载中..."
@@ -142,7 +143,7 @@ export default {
         index == "FTC" ||
         index == "TS"
       ) {
-        let num = parseInt(count / 25) + 1 <= 3 ? parseInt(count / 25) + 1 : 3
+        let num = parseInt(count / 26) + 1 <= 3 ? parseInt(count / 26) + 1 : 3
         return num
       } else {
         return 1
@@ -151,9 +152,9 @@ export default {
     // 计算表格每列数据，少于72条，一列24条数据，多于72条，一列的条数是总条数/3的值
     comLayout(type, index) {
       let len = this.allData[type].length
-      if (this.allData[type] && len <= 72) {
-        return this.allData[type].slice(index * 24 - 24, index === 3 ? len : index * 24)
-      } else if (this.allData[type] && len > 72) {
+      if (this.allData[type] && len <= 75) {
+        return this.allData[type].slice(index * 25 - 25, index === 3 ? len : index * 25)
+      } else if (this.allData[type] && len > 75) {
         let indexLen = index * len
         return this.allData[type].slice(
           parseInt(indexLen / 3) - parseInt(len / 3),
@@ -232,10 +233,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.deviceItem {
+  // margin-top: -1px;
+}
 .container {
   margin-top: 51px;
   display: flex;
-  height: calc(100% - 40px);
+  height: calc(100% - 20px);
   .item {
     text-align: center;
     margin: 0 10px;
@@ -262,7 +266,7 @@ export default {
     }
     .item-container {
       overflow: overlay;
-      height: 744px;
+      height: 800px;
       .every-item {
         display: flex;
         border-bottom: 1px solid #1683af;

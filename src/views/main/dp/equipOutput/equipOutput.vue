@@ -51,7 +51,6 @@
               :resultvalue="showArr"
               :cIndex="currentIndex"
               :titleData="containerLeft"
-              :rColor="containerRight"
               :newValue="value"
               @autoPlay="autoPlay"
             />
@@ -76,20 +75,20 @@ export default {
       currentIndex: "AA",
       // 左边颜色 inface:接口循环
       containerLeft: [
-        { id: 0, inface: "AA", title: "AA", color: "#ff99ff" },
-        { id: 1, inface: "DA", title: "DA", color: "#0eb18a" },
-        { id: 2, inface: "LA", title: "LA", color: "#ffff00" },
-        { id: 3, inface: "GA", title: "GA", color: "#0d60ae" },
-        { id: 4, inface: "ALN", title: "ALN", color: "#ff99ff" },
-        { id: 5, inface: "NTC", title: "NTC", color: "#0d60ae" },
-        { id: 6, inface: "TerminalSoldering", title: "TS", color: "#0eb18a" },
-        { id: 7, inface: "ACF", title: "ACF", color: "#ffff00" },
-        { id: 8, inface: "LaserFlipping", title: "LF", color: "#0d60ae" },
-        { id: 9, inface: "AVI", title: "AVI", color: "#0d60ae" },
-        { id: 10, inface: "SA", title: "SA", color: "#ff99ff" },
-        { id: 11, inface: "RXEOL", title: "RET", color: "#0eb18a" },
-        { id: 12, inface: "TXEOL", title: "TET", color: "#ffff00" },
-        { id: 13, inface: "Compliance", title: "FTC", color: "#ff99ff" }
+        { inface: "AA", title: "AA" },
+        { inface: "DA", title: "DA" },
+        { inface: "LA", title: "LA" },
+        { inface: "GA", title: "GA" },
+        { inface: "ALN", title: "ALN" },
+        { inface: "NTC", title: "NTC" },
+        { inface: "TerminalSoldering", title: "TS" },
+        { inface: "ACF", title: "ACF" },
+        { inface: "LaserFlipping", title: "LF" },
+        { inface: "AVI", title: "AVI" },
+        { inface: "SA", title: "SA" },
+        { inface: "RXEOL", title: "RET" },
+        { inface: "TXEOL", title: "TET" },
+        { inface: "Compliance", title: "FTC" }
       ],
       // 右边颜色
       containerRight: {
@@ -101,47 +100,16 @@ export default {
       showArr: {},
       // 下拉选择数据
       options: [
-        {
-          value: "TAA",
-          label: "TAA"
-        },
-        {
-          value: "RAA",
-          label: "RAA"
-        },
-        {
-          value: "DA/LA",
-          label: "DA/LA"
-        },
-        {
-          value: "ALN/NTC/GA",
-          label: "ALN/NTC/GA"
-        },
-        {
-          value: "TS",
-          label: "TS"
-        },
-        {
-          value: "ACF/LF/AVI",
-          label: "ACF/LF/AVI"
-        },
-        {
-          value: "SA",
-          label: "SA"
-        },
-
-        {
-          value: "RET",
-          label: "RET"
-        },
-        {
-          value: "TET",
-          label: "TET"
-        },
-        {
-          value: "FTC",
-          label: "FTC"
-        }
+        { value: "TAA", label: "TAA" },
+        { value: "RAA", label: "RAA" },
+        { value: "DA/LA", label: "DA/LA" },
+        { value: "ALN/NTC/GA", label: "ALN/NTC/GA" },
+        { value: "TS", label: "TS" },
+        { value: "ACF/LF/AVI", label: "ACF/LF/AVI" },
+        { value: "SA", label: "SA" },
+        { value: "RET", label: "RET" },
+        { value: "TET", label: "TET" },
+        { value: "FTC", label: "FTC" }
       ],
       value: ""
     }
@@ -231,15 +199,13 @@ export default {
 }
 ::v-deep .border-box-content {
   // height: 890px;
-  padding: 20px;
+  padding: 15px;
   position: relative;
 }
 
-.page-main {
-  margin-top: 20px;
-}
 .select-input {
-  margin: 2px 0px 0px 20px;
+  margin: 0px 0px 0px 20px;
+  z-index: 200;
 }
 
 .contaner {
@@ -253,7 +219,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  // margin-bottom: 8px;
   .right {
     margin-right: 20px;
   }
@@ -271,6 +237,7 @@ export default {
           width: 25px;
           height: 25px;
           margin-right: 6px;
+          margin-top: -10px;
         }
         .box1 {
           // cursor: pointer;

@@ -2,7 +2,7 @@
   <div class="page-main-a">
     <!-- 使用轮播图来展示数据 -->
     <el-carousel
-      style="height: 860px"
+      style="height: 884px"
       indicator-position="none"
       :interval="15 * 1000"
       ref="carousel"
@@ -23,7 +23,7 @@
         <child-table :currentIndex="'DA'" :allData="resultvalue" />
         <child-table :currentIndex="'LA'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container" name="ALN/NTC/GA">
+      <el-carousel-item class="item1-container item2-container" name="ALN/NTC/GA">
         <!-- 子组件 -->
         <child-table :currentIndex="'ALN'" :allData="resultvalue" />
         <child-table :currentIndex="'NTC'" :allData="resultvalue" />
@@ -33,7 +33,7 @@
         <!-- 子组件 -->
         <child-table :currentIndex="'TS'" :allData="resultvalue" />
       </el-carousel-item>
-      <el-carousel-item class="item1-container" name="ACF/LF/AVI">
+      <el-carousel-item class="item1-container item2-container" name="ACF/LF/AVI">
         <!-- 子组件 -->
         <child-table :currentIndex="'ACF'" :allData="resultvalue" />
         <child-table :currentIndex="'LF'" :allData="resultvalue" />
@@ -56,18 +56,6 @@
       </el-carousel-item>
     </el-carousel>
     <!-- 自定义两个切换按钮 -->
-    <!-- <div class="btns">
-      <span class="left-icon-container" @click="prev">
-        <i class="iconfont icon-shangyiye icon2"></i>
-        <i class="iconfont icon-shangyiye icon1"></i>
-        <i class="iconfont icon-shangyiye icon"></i>
-      </span>
-      <span @click="next">
-        <i class="iconfont icon-xiayiye icon"></i>
-        <i class="iconfont icon-xiayiye icon1"></i>
-        <i class="iconfont icon-xiayiye icon2"></i>
-      </span>
-    </div> -->
     <!-- <change-switch
       :leftConfig="{ left: '15px', top: '75px' }"
       :rightConfig="{ right: '15px', top: '75px' }"
@@ -120,21 +108,13 @@ export default {
     }
   },
   methods: {
-    handleDirection(direction) {
-      direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
-    },
+    // handleDirection(direction) {
+    //   direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
+    // },
 
     // 回调的参数为 索引
     carouselChange(index) {
       this.$emit("autoPlay", index)
-    },
-    // 上一页
-    prev() {
-      this.$refs.carousel.prev()
-    },
-    // 下一页
-    next() {
-      this.$refs.carousel.next()
     }
   }
 }
@@ -153,12 +133,15 @@ export default {
 }
 .page-main-a {
   min-width: 300%;
-  padding-top: 0px;
+  margin-top: -20px;
 }
 .item1-container {
   display: flex;
   .deviceItem {
     flex: 1;
   }
+}
+.item2-container {
+  padding-top: 15px;
 }
 </style>
