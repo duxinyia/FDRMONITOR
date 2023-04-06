@@ -239,7 +239,7 @@ export default {
 .container {
   margin-top: 51px;
   display: flex;
-  height: calc(100% - 20px);
+  height: calc(100% - 45px);
   .item {
     text-align: center;
     margin: 0 10px;

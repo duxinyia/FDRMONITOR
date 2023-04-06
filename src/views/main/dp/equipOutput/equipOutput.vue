@@ -70,6 +70,7 @@ export default {
   components: { Contaienr },
   data() {
     return {
+      dataTiming: null,
       // pid: 0,
       // 当前选中
       currentIndex: "AA",
@@ -116,14 +117,21 @@ export default {
   },
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "設備產出看板")
-    // 循环调用接口
-    this.containerLeft.forEach((key, i) => {
-      this.getData(key.inface, key.title)
-    })
+    this.initData()
+    // 每1分钟获取一次数据
+    this.dataTiming = setInterval(() => {
+      this.initData()
+    }, 60000)
   },
   computed: {},
   watch: {},
   methods: {
+    initData() {
+      // 循环调用接口
+      this.containerLeft.forEach((key, i) => {
+        this.getData(key.inface, key.title)
+      })
+    },
     // i是1代表上一页，2代表下一页
     // changeId(plid, i) {
     //   i === 1 ? (this.pid = plid - 1) : (this.pid = plid + 1)
@@ -169,7 +177,9 @@ export default {
       // console.log("res======", typeof res)
     }
   },
-  beforeDestroy() {}
+  beforeDestroy() {
+    clearInterval(this.dataTiming)
+  }
 }
 </script>
 
