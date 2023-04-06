@@ -301,12 +301,12 @@ let nowShowArr = {
         },
         {
           id: 13,
-          imgUrl: require("@/assets/images/cma/output2.png"),
+          imgUrl: require("@/assets/images/dp/equipoutput.png"),
           title: "設備產出看板",
           target: "output",
           belong: "管理层/產出",
           isShow: false,
-          to: "equipoutput"
+          to: "dpequipoutput"
         },
         {
           id: 12,

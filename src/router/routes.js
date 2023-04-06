@@ -292,7 +292,7 @@ export default [
           },
           {
             path: "equipoutput",
-            name: "equipoutput",
+            name: "dpequipoutput",
             component: () =>
               import(
                 /* webpackChunkName: "dpdeviceoutput" */ "../views/main/dp/equipOutput/equipOutput.vue"
