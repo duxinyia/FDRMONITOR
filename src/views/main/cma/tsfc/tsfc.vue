@@ -37,10 +37,6 @@ export default {
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "SFC良率Daily")
     this.initData()
-    // 每5分钟获取一次数据
-    // this.dataTiming = setInterval(() => {
-    //   this.initData()
-    // }, 50000)
   },
   methods: {
     async initData() {
@@ -60,7 +56,9 @@ export default {
 
     toDetail() {
       console.log("toDetail")
-      // this.$router.push()
+      this.$router.push({
+        name: "folyield"
+      })
     }
   },
   beforeDestroy() {

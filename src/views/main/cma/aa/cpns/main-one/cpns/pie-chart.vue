@@ -91,7 +91,6 @@ export default {
             type: "pie",
             radius: "75%",
             center: ["50%", "55%"],
-
             data: this.alloptions,
             emphasis: {
               itemStyle: {
@@ -157,7 +156,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .pie-chart {
   .title {

@@ -10,7 +10,7 @@
         <dv-border-box-12 class="inner-box">
           <kline-chart
             :kLineData="kLineData"
-            :machinename="`${machinename}Z heigh變化趨勢By carrier Location`"
+            :machinename="`${machinename} Z heigh變化趨勢By carrier Location`"
           />
         </dv-border-box-12>
       </div>
@@ -18,7 +18,7 @@
         <dv-border-box-12 class="inner-box">
           <kline-chart
             :kLineData="getKLineHourData"
-            :machinename="`${machinename}Z heigh變化趨勢By hour`"
+            :machinename="`${machinename} Z heigh變化趨勢By hour`"
           />
         </dv-border-box-12>
       </div>

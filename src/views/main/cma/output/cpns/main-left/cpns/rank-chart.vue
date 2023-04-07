@@ -13,7 +13,6 @@
     <base-echart :options="options" height="370px" />
   </div>
 </template>
-
 <script>
 // 导入基础模板
 import baseEchart from "@/common/echart"
@@ -63,7 +62,6 @@ export default {
       const { names, values, formatValues } = this.config
       // 根据不同的theme 显示不同的颜色
       let rightText = this.$store.getters.theme == "dark" ? "#fff" : "#000"
-
       return {
         grid: {
           left: "",
@@ -122,18 +120,12 @@ export default {
                 fontSize: "16"
               },
               align: "right",
-              padding: [0, 8, 20, 0],
+              padding: [0, 8, 20, 8],
               verticalAlign: "bottom",
-              lineHeight: 36,
+              lineHeight: 30,
               formatter: function (value) {
-                return `{a|${value}}`
-              },
-              rich: {
-                a: {
-                  color: rightText,
-                  fontSize: "16",
-                  padding: [0, 0, 20, 0]
-                }
+                // `{a|${value}}`
+                return `${value}`
               }
             },
             data: formatValues

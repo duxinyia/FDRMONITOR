@@ -71,7 +71,7 @@ export default {
   },
   data() {
     return {
-      logoSrc: require("@/assets/images/other/RP_logo_blue.png"),
+      logoSrc: require("@/assets/images/other/new_logo.png"),
       currentTime: "", // 当前的时间
       timing: null,
       isFullScreen: false
@@ -86,9 +86,9 @@ export default {
     },
     changeAddress() {
       if (this.$route.path.includes("cma")) {
-        return "Ruplus&nbsp;深圳&nbsp;龍華&nbsp;CMA"
+        return "RAYPRUS&nbsp;深圳&nbsp;龍華&nbsp;CMA"
       } else {
-        return "Ruplus&nbsp;深圳&nbsp;龍華&nbsp;DP"
+        return "RAYPRUS&nbsp;深圳&nbsp;龍華&nbsp;DP"
       }
     }
   },
@@ -98,7 +98,7 @@ export default {
   methods: {
     goHome() {
       let path = this.$store.state.fullLoading.path
-      this.$router.replace(path)
+      this.$router.replace(path).catch((err) => {})
     },
     initScreen() {
       if (screenfull.enabled) {

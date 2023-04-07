@@ -131,7 +131,7 @@ export default {
             // 表示用户名 和 密码正确
             this.$store.commit("user/SET_USER", { ...this.form, fullName: res.Resultvalue.Name })
             // 跳转页面
-            this.$router.replace({ name: "overview" })
+            this.$router.replace({ name: "overview" }).catch((err) => {})
           }
           this.btnLoading = false
           this.$refs["form"].resetFields()

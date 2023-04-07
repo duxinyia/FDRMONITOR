@@ -9,7 +9,6 @@
     :default-active="$route.path"
     @open="handleOpen"
   >
-    <!-- :default-active="$route.path" -->
     <template v-for="item in menus">
       <template v-if="item.subs">
         <el-submenu
@@ -150,11 +149,11 @@ export default {
       if (!item.subs) {
         // console.log("执行了哦")
         item.index = item.index.split("/")[item.index.split("/").length - 1]
-        this.$router.push({ name: item.index })
+        this.$router.push({ name: item.index }).catch(() => {})
       }
       // 点击了这些菜单，要跳转路由 切换右边的值 并且打开子菜单
       if (["產出", "良率", "設備", "製程監控"].includes(item.title)) {
-        this.$router.push(item.index)
+        this.$router.push(item.index).catch(() => {})
       }
       let path = this.$route.path
       this.$store.commit("fullLoading/SET_PATH", path)

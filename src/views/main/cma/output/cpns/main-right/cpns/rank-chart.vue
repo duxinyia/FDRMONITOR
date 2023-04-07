@@ -120,19 +120,19 @@ export default {
                 fontSize: "15"
               },
               align: "right",
-              padding: [0, 8, 5, 0],
+              padding: [0, 8, 5, 8],
               verticalAlign: "bottom",
-              lineHeight: 36,
+              lineHeight: 30,
               formatter: function (value) {
-                return `{a|${value}}`
-              },
-              rich: {
-                a: {
-                  color: rightText,
-                  fontSize: "15",
-                  padding: [0, 0, 5, 0]
-                }
+                return `${value}`
               }
+              // rich: {
+              //   a: {
+              //     color: rightText,
+              //     fontSize: "15",
+              //     padding: [0, 0, 5, 0]
+              //   }
+              // }
             },
             data: formatValues
           }

@@ -204,21 +204,6 @@ export default {
     async getDeviceInfo() {
       let result = await getDeviceInfo()
       if (Array.isArray(result)) {
-        // this.config2 = [
-        //   ["JU-X", 0, 7, 0, 5, 0, 0],
-        //   ["JU-2X", 2, 7, 2, 5, 0, 0],
-        //   ["JU-3X", 0, 7, 0, 5, 0, 0],
-        //   ["NH-X", 0, 1, 0, 1, 0, 0],
-        //   ["NH-2X", 0, 1, 0, 1, 0, 0],
-        //   ["MD-X", 0, 7, 0, 2, 0, 0],
-        //   ["MD-2X", 1, 7, 1, 2, 0, 0],
-        //   ["MD-3X", 4, 7, 4, 2, 0, 0],
-        //   ["ML-X", 3, 9, 3, 1, 1, 0],
-        //   ["ML-2X", 3, 9, 4, 1, 1, 1],
-        //   ["ML-3X", 0, 9, 0, 1, 1, 0],
-        //   ["Stanley", 0, 2, 0, 2, 0, 0],
-        //   ["IOWA-B", 0, 1, 0, 1, 0, 0]
-        // ]
         result.forEach((item) => {
           let {
             deviceSeries,

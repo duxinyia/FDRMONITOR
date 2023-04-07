@@ -109,10 +109,10 @@ export default {
             axisLine: "none",
             show: true,
             axisLabel: {
-              textStyle: {
-                color: rightText,
-                fontSize: "12"
-              },
+              // textStyle: {
+              color: rightText,
+              fontSize: "12",
+              // },
               align: "left",
               padding: [0, 0, 3, 8],
               verticalAlign: "bottom",
@@ -127,24 +127,26 @@ export default {
             axisLine: "none",
             show: true,
             axisLabel: {
-              textStyle: {
-                color: "#fff",
-                fontSize: "12"
-              },
+              // textStyle: {
+              color: "#fff",
+              fontSize: "12",
+              // },
               align: "right",
-              padding: [0, 8, 0, 0],
+              padding: [0, 0, 3, 8],
               verticalAlign: "bottom",
-              lineHeight: 36,
+              lineHeight: 30,
               formatter: function (value) {
-                return `{a|${value}}`
-              },
-              rich: {
-                a: {
-                  color: rightText,
-                  fontSize: "14",
-                  padding: [0, 0, 7, 0]
-                }
+                return `${value}`
               }
+
+              // 4
+              // rich: {
+              //   a: {
+              //     color: rightText,
+              //     fontSize: "14",
+              //     padding: [0, 0, 7, 0]
+              //   }
+              // }
             },
             data: formatValues
           }
@@ -155,19 +157,19 @@ export default {
             type: "bar",
             zlevel: 1,
             itemStyle: {
-              normal: {
-                barBorderRadius: 30,
-                color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                  {
-                    offset: 0,
-                    color: "rgb(10, 116, 255,1)"
-                  },
-                  {
-                    offset: 1,
-                    color: "rgb(127,237,241,1)"
-                  }
-                ])
-              }
+              // normal: {
+              borderRadius: 30,
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                {
+                  offset: 0,
+                  color: "rgb(10, 116, 255,1)"
+                },
+                {
+                  offset: 1,
+                  color: "rgb(127,237,241,1)"
+                }
+              ])
+              // }
             },
             z: 2,
             barWidth: 10,
@@ -182,9 +184,9 @@ export default {
             symbolOffset: [30, 0],
             z: 10086,
             itemStyle: {
-              normal: {
-                color: "#0A74FF"
-              }
+              // normal: {
+              color: "#0A74FF"
+              // }
             },
             data: getSymbolData(values)
           },
@@ -195,10 +197,10 @@ export default {
             barGap: "-100%",
             data: values[0],
             itemStyle: {
-              normal: {
-                color: "#004298",
-                barBorderRadius: 30
-              }
+              // normal: {
+              color: "#004298",
+              borderRadius: 30
+              // }
             },
             z: 1
           }

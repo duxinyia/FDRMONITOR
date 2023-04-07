@@ -41,39 +41,39 @@ let nowShowArr = {
         {
           id: 11,
           imgUrl: require("@/assets/images/cma/aactga.png"),
-          title: "AA/GA/CT",
+          title: "By機臺產出看板",
           target: "output",
           belong: "管理层/產出",
           isShow: false,
           to: "aactga"
-        },
-        {
-          id: 12,
-          imgUrl: require("@/assets/images/cma/aactga.png"),
-          title: "ACF",
-          target: "output",
-          belong: "管理层/產出",
-          isShow: false,
-          to: "acf"
-        },
-        {
-          id: 13,
-          imgUrl: require("@/assets/images/cma/aactga.png"),
-          title: "TEST",
-          target: "output",
-          belong: "管理层/產出",
-          isShow: false,
-          to: "test"
-        },
-        {
-          id: 14,
-          imgUrl: require("@/assets/images/cma/aactga.png"),
-          title: "AVI",
-          target: "output",
-          belong: "管理层/產出",
-          isShow: false,
-          to: "avi"
         }
+        // {
+        //   id: 12,
+        //   imgUrl: require("@/assets/images/cma/aactga.png"),
+        //   title: "ACF",
+        //   target: "output",
+        //   belong: "管理层/產出",
+        //   isShow: false,
+        //   to: "acf"
+        // },
+        // {
+        //   id: 13,
+        //   imgUrl: require("@/assets/images/cma/aactga.png"),
+        //   title: "TEST",
+        //   target: "output",
+        //   belong: "管理层/產出",
+        //   isShow: false,
+        //   to: "test"
+        // },
+        // {
+        //   id: 14,
+        //   imgUrl: require("@/assets/images/cma/aactga.png"),
+        //   title: "AVI",
+        //   target: "output",
+        //   belong: "管理层/產出",
+        //   isShow: false,
+        //   to: "avi"
+        // }
       ],
       yield: [
         {
@@ -306,7 +306,7 @@ let nowShowArr = {
           target: "output",
           belong: "管理层/產出",
           isShow: false,
-          to: "equipoutput"
+          to: "dpequipoutput"
         },
         {
           id: 12,

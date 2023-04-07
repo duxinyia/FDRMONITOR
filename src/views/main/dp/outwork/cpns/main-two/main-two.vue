@@ -172,6 +172,25 @@ export default {
                 return params.value + "%"
               }
             }
+          },
+          {
+            name: legends[1],
+            type: "line",
+            symbolSize: 10,
+            symbol: "circle",
+            data: yData[1],
+            smooth: true,
+            label: {
+              show: true,
+              position: "top",
+              textStyle: {
+                color: "#fff",
+                fontSize: 16
+              },
+              formatter: function (params) {
+                return params.value + "%"
+              }
+            }
           }
         ]
       }

@@ -1,284 +1,155 @@
 <template>
   <div class="page-main">
     <dv-border-box-10>
-      <div class="contaienr">
-        <div class="item1-container">
-          <div class="item">
-            <dv-border-box-11 class="top-box" title="AA生產看板">
-              <div
-                class="item1"
-                v-loading="aaLoading"
-                element-loading-spinner="el-icon-loading"
-                element-loading-text="加载中"
-                element-loading-background="rgba(0, 0, 0, 1)"
-              >
-                <div class="header">
-                  <div class="header-item">Device</div>
-                  <div class="header-item" style="flex: 1.1">Machine</div>
-                  <div class="header-item">Target</div>
-                  <div class="header-item">OutPut</div>
-                  <div class="header-item">HitRate</div>
-                  <div class="header-item">1st Yield</div>
-                </div>
-                <div class="item-container">
-                  <div v-for="(item, index) in aaData" :key="index" class="every-item">
-                    <div class="show">{{ item.device }}</div>
-                    <div class="show lamp-container" style="flex: 1.1">
-                      <span class="lamp" :style="changeMachine(item.machineState)"></span>
-                      <span class="text">{{ item.machine }}</span>
-                    </div>
-                    <div class="show">{{ item.target }}</div>
-                    <div class="show">{{ item.outPut }}</div>
-                    <div class="show lamp-container">
-                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
-                      <span class="text">{{ item.hitRate }}</span>
-                    </div>
-                    <div class="show lamp-container">
-                      <span class="lamp" :style="changeYield(item.firstYield)"></span>
-                      <span class="text">{{ item.firstYield }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </dv-border-box-11>
-          </div>
-          <div class="item">
-            <dv-border-box-11 class="top-box" title="CT生產看板">
-              <div
-                class="item1"
-                v-loading="ctLoading"
-                element-loading-spinner="el-icon-loading"
-                element-loading-text="加载中"
-                element-loading-background="rgba(0, 0, 0, 1)"
-              >
-                <div class="header">
-                  <div class="header-item">Device</div>
-                  <div class="header-item">Machine</div>
-                  <div class="header-item">Target</div>
-                  <div class="header-item">OutPut</div>
-                  <div class="header-item">HitRate</div>
-                  <div class="header-item">1st Yield</div>
-                </div>
-                <div class="item-container">
-                  <div v-for="(item, index) in ctData" :key="index" class="every-item">
-                    <div class="show">{{ item.device }}</div>
-                    <div class="show">{{ item.machine }}</div>
-                    <div class="show">{{ item.target }}</div>
-                    <div class="show">{{ item.outPut }}</div>
-                    <div class="show lamp-container">
-                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
-                      <span class="text">{{ item.hitRate }}</span>
-                    </div>
-                    <div class="show">
-                      {{ item.firstYield }}
-                    </div>
-                  </div>
-                </div>
-              </div></dv-border-box-11
-            >
-          </div>
-          <div class="item">
-            <dv-border-box-11 class="top-box" title="GA生產看板">
-              <div
-                class="item1"
-                v-loading="gaLoading"
-                element-loading-spinner="el-icon-loading"
-                element-loading-text="加载中"
-                element-loading-background="rgba(0, 0, 0, 1)"
-              >
-                <div class="header">
-                  <div class="header-item">Machine</div>
-                  <div class="header-item">Target</div>
-                  <div class="header-item">OutPut</div>
-                  <div class="header-item">HitRate</div>
-                </div>
-                <div class="item-container">
-                  <div v-for="(item, index) in gaData" :key="index" class="every-item">
-                    <div class="show">{{ item.machine }}</div>
-                    <div class="show">{{ item.target }}</div>
-                    <div class="show">{{ item.outPut }}</div>
-                    <div class="show lamp-container">
-                      <span class="lamp" :style="changeStyle(item.hitRate)"></span>
-                      <span class="text">{{ item.hitRate }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div></dv-border-box-11
-            >
-          </div>
-        </div>
-      </div>
+      <!-- 轮播图 -->
+      <el-carousel
+        style="height: 100%"
+        indicator-position="none"
+        :interval="150 * 1000"
+        ref="carousel"
+        arrow="never"
+        @change="changeCarousel"
+      >
+        <el-carousel-item>
+          <aagact-item />
+        </el-carousel-item>
+        <el-carousel-item>
+          <acf-item />
+        </el-carousel-item>
+        <el-carousel-item>
+          <test-item />
+        </el-carousel-item>
+        <el-carousel-item>
+          <avi-item />
+        </el-carousel-item>
+      </el-carousel>
     </dv-border-box-10>
+
+    <!-- 自定义两个切换按钮 -->
+    <change-switch
+      :leftConfig="{ left: '5px', top: '10px' }"
+      :rightConfig="{ right: '5px', top: '10px' }"
+      @directionChange="handleDirection"
+    />
+    <!-- 需要一个数组将 avi test  -->
+    <div class="select-container">
+      <div
+        :class="{ 'select-item': true, 'active-item': index == currentIndex }"
+        v-for="(item, index) in options"
+        :key="item.value"
+        @click="changeValue(index)"
+      >
+        {{ item.label }}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// 导入发送请求的函数
-import { getAAData, getGAData, getCTData } from "@/api/cma/aagact.js"
+// 导入左右切换的组件
+import ChangeSwitch from "@/components/change-switch/change-switch.vue"
+// ACF AA/GA/CT AVI TEST
+import AagactItem from "./cpns/aagact.vue"
+import AcfItem from "./cpns/acf.vue"
+import TestItem from "./cpns/test.vue"
+import AviItem from "./cpns/avi.vue"
 export default {
   name: "aactga",
   data() {
     return {
-      aaData: [],
-      gaData: [],
-      ctData: [],
-
-      // colors: ["#ff4500", "#008000", "#ff0"]
-      // 红 绿  黄
-      colors1: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)"],
-      colors: [
-        "radial-gradient(50% 50%, rgba(255, 0, 102, 0.5) 50%, rgba(255, 0, 102, 1) 100%)",
-        "radial-gradient(50% 50%, rgba(0, 255, 0, 0.5) 50%, rgba(0, 255, 0, 1) 100%)",
-        "radial-gradient(50% 50%, rgba(255, 255, 0, 0.5) 50%, rgba(255, 255, 0, 1) 100%)"
-      ]
+      options: [
+        { label: "AA/GA/CT", value: 1 },
+        { label: "ACF", value: 2 },
+        { label: "TEST", value: 3 },
+        { label: "AVI", value: 4 }
+      ],
+      currentIndex: 0
     }
+  },
+  components: {
+    ChangeSwitch,
+    AagactItem,
+    AcfItem,
+    TestItem,
+    AviItem
   },
   created() {
-    this.$store.commit("fullLoading/SET_TITLE", "AA/GA/CT")
-    getAAData().then((res) => {
-      this.aaData = res
-    })
-    getGAData().then((res) => {
-      this.gaData = res
-    })
-    getCTData().then((res) => {
-      this.ctData = res
-    })
-  },
-  computed: {
-    aaLoading() {
-      return this.aaData.length == 0
-    },
-    gaLoading() {
-      return this.gaData.length == 0
-    },
-    ctLoading() {
-      return this.ctData.length == 0
-    }
+    this.$store.commit("fullLoading/SET_TITLE", "By機臺產出看板")
   },
   methods: {
-    changeStyle(hitRate) {
-      // console.log(Number.parseFloat(hitRate))
-      let num = Number.parseFloat(hitRate) || 0
-      if (num >= 100) {
-        return { background: this.colors[1], color: this.colors1[1] }
-      } else if (num < 95) {
-        return { background: this.colors[0], color: this.colors1[0] }
-      } else {
-        return { background: this.colors[2], color: this.colors1[2] }
-      }
+    handleDirection(direction) {
+      direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
     },
-    changeYield(firstYield) {
-      let num = Number.parseFloat(firstYield)
-      if (num < 99.4) {
-        return {
-          background:
-            "radial-gradient(50% 50%, rgba(153, 0, 255,0.5) 50%, rgba(153, 0, 255,1) 100%)",
-          color: "#9900ff"
-        }
-      } else {
-        return {
-          visibility: "hidden"
-        }
-      }
+    changeValue(value) {
+      this.$refs.carousel.setActiveItem(value)
+      this.currentIndex = value
     },
-    changeMachine(state) {
-      if (state == "Run") {
-        return { background: this.colors[1], color: this.colors1[1] }
-      } else if (state == "Down") {
-        return { background: this.colors[0], color: this.colors1[0] }
-      } else {
-        return { background: this.colors[2], color: this.colors1[2] }
-      }
+    changeCarousel(index) {
+      this.currentIndex = index
     }
   }
 }
 </script>
 
 <style lang="scss">
-.top-box .border-box-content {
-  padding: 60px 20px 20px 20px !important;
+.el-select-dropdown__item.hover {
+  background: transparent !important;
+}
+.value-popprt {
+  background: transparent !important;
+  border: 1px solid #2e6099;
+  .el-select-dropdown__item {
+    color: #fff !important;
+    &:hover {
+      background: #2e6099;
+    }
+    & .hover {
+      background: transparent !important;
+    }
+  }
+  .selected {
+    background: #2e6099 !important;
+  }
 }
 </style>
 
 <style lang="scss" scoped>
+/* 更改下拉框的背景色 */
+::v-deep .el-input__inner {
+  background: transparent;
+  color: #fff;
+  font-size: 15px;
+  border: 1px solid #2e6099;
+  &:hover {
+    border: 1px solid #2e6099;
+  }
+}
 ::v-deep .border-box-content {
   padding: 20px;
 }
 ::v-deep .el-carousel__container {
   height: 100%;
+  margin-top: 15px;
 }
-
 .page-main {
   margin-top: 10px;
   height: calc(100% - 120px);
+  position: relative;
 }
-.item1-container {
+.select-container {
+  position: absolute;
+  top: 8px;
+  right: 150px;
   display: flex;
-  .item {
-    flex: 1;
+  /* width: 120px; */
+  .select-item {
+    border: 1px solid #0040ff;
+    padding: 2px 5px;
+    margin: 0px 5px;
+    cursor: pointer;
   }
-}
-.item {
-  max-width: 640px;
-}
-
-.item1 {
-  flex: 1;
-  text-align: center;
-  .header {
-    display: flex;
-    border-top: 1px solid #1683af;
-    border-bottom: 1px solid #1683af;
-    border-left: 1px solid #1683af;
-    line-height: 35px;
-    background: #243d97;
-    .header-item {
-      flex: 1;
-      border-right: 1px solid #1683af;
-    }
-  }
-  .item-container {
-    height: 810px;
-    overflow: auto;
-    .every-item {
-      display: flex;
-      border-bottom: 1px solid #1683af;
-      border-left: 1px solid #1683af;
-      line-height: 30px;
-      .show {
-        flex: 1;
-        border-right: 1px solid #1683af;
-      }
-      .lamp-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .lamp {
-          width: 15px;
-          height: 15px;
-          border-radius: 50%;
-          margin-left: 8px;
-          animation: fade 2s infinite;
-        }
-        .text {
-          padding-right: 8px;
-        }
-      }
-    }
-  }
-}
-
-@keyframes fade {
-  0% {
-    box-shadow: inset 0 0 5px currentColor;
-  }
-  50% {
-    box-shadow: inset 0 0 10px currentColor;
-  }
-  100% {
-    box-shadow: inset 0 0 5px currentColor;
+  .active-item {
+    background: #102768;
   }
 }
 </style>

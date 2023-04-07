@@ -209,22 +209,22 @@ export default [
                 /* webpackChunkName: "wekoutput" */ "../views/main/cma/wekoutput/wekoutput.vue"
               )
           },
-          {
-            path: "acf",
-            name: "acf",
-            component: () => import(/* webpackChunkName: "acf" */ "../views/main/cma/acf/acf.vue")
-          },
-          {
-            path: "test",
-            name: "test",
-            component: () =>
-              import(/* webpackChunkName: "test" */ "../views/main/cma/test/test.vue")
-          },
-          {
-            path: "avi",
-            name: "avi",
-            component: () => import(/* webpackChunkName: "test" */ "../views/main/cma/avi/avi.vue")
-          },
+          // {
+          //   path: "acf",
+          //   name: "acf",
+          //   component: () => import(/* webpackChunkName: "acf" */ "../views/main/cma/acf/acf.vue")
+          // },
+          // {
+          //   path: "test",
+          //   name: "test",
+          //   component: () =>
+          //     import(/* webpackChunkName: "test" */ "../views/main/cma/test/test.vue")
+          // },
+          // {
+          //   path: "avi",
+          //   name: "avi",
+          //   component: () => import(/* webpackChunkName: "test" */ "../views/main/cma/avi/avi.vue")
+          // },
           // cma的 决策层的
           {
             path: "jtest",
@@ -292,7 +292,7 @@ export default [
           },
           {
             path: "equipoutput",
-            name: "equipoutput",
+            name: "dpequipoutput",
             component: () =>
               import(
                 /* webpackChunkName: "dpdeviceoutput" */ "../views/main/dp/equipOutput/equipOutput.vue"

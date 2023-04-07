@@ -1,7 +1,6 @@
 <template>
   <!-- 饼图:https://www.isqqw.com/viewer?id=16192 -->
   <div class="pie-chart">
-    <!-- <p class="title">{{ title }}</p> -->
     <base-echart :options="options" height="300px" />
   </div>
 </template>
@@ -20,11 +19,8 @@ export default {
       let { seriesData } = this
       let legend = []
       seriesData.forEach((item) => {
-        // console.log("item", item)
         legend.push(item.name)
       })
-      // 设置变量
-      let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       return {
         // color: ["#fc8251", "#5470c6", "#91cd77", "#ef6567", "#f9c956", "#75bedc"],
         color: [
@@ -32,7 +28,7 @@ export default {
           "#b989f0",
           "#adf7b7",
           "#c9dd68",
-          "33ffcc",
+          "#33ffcc",
           "#FFC125",
           "#FF7F00",
           "#836FFF",
@@ -88,6 +84,16 @@ export default {
             label: {
               show: false
             },
+            //重点
+            // label: {
+            //   normal: {
+            //     formatter: "{d}%",
+            //     textStyle: {
+            //       fontWeight: "normal",
+            //       fontSize: 15
+            //     }
+            //   }
+            // },
             data: this.seriesData,
             labelLine: {
               show: false
