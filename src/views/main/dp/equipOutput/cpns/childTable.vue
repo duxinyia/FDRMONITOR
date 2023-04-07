@@ -50,6 +50,7 @@
               <div class="show" style="flex: 1.1">
                 {{ item.device }}
               </div>
+
               <div
                 class="show"
                 :class="item.machineState ? 'lamp-container' : ''"
@@ -59,11 +60,45 @@
                 <span class="text">{{ item.machine }}</span>
               </div>
               <div class="show">{{ item.buildNo }}</div>
-              <div class="show">{{ item.target }}</div>
-              <div class="show">{{ item.outPut }}</div>
+              <div class="show">
+                <span v-if="dindex == allData[currentIndex].length" class="number">
+                  {{ item.target }}</span
+                >
+                <countTo
+                  v-else
+                  :startVal="0"
+                  class="number"
+                  :endVal="item.target"
+                  :duration="5000"
+                ></countTo>
+              </div>
+
+              <div class="show">
+                <span v-if="dindex == allData[currentIndex].length" class="number">
+                  {{ item.outPut }}</span
+                >
+                <countTo
+                  v-else
+                  :startVal="0"
+                  class="number"
+                  :endVal="item.target"
+                  :duration="5000"
+                ></countTo>
+              </div>
               <div class="show lamp-container" style="flex: 1.6">
                 <span class="lamp" :style="changeStyle(item.hitRate)"></span>
-                <span class="text">{{ item.hitRate }}</span>
+                <span v-if="dindex == allData[currentIndex].length" class="text">{{
+                  item.hitRate
+                }}</span>
+                <countTo
+                  v-else
+                  :decimals="2"
+                  :startVal="0"
+                  class="number"
+                  :endVal="parseFloat(item.hitRate)"
+                  :duration="5000"
+                  suffix="%"
+                ></countTo>
               </div>
               <div
                 v-if="
@@ -77,7 +112,18 @@
                 style="flex: 1.6"
               >
                 <span class="lamp" :style="changeYield(currentIndex, item.firstYield)"></span>
-                <span class="text">{{ item.firstYield }}</span>
+                <span v-if="dindex == allData[currentIndex].length" class="text">{{
+                  item.firstYield
+                }}</span>
+                <countTo
+                  v-else
+                  :decimals="2"
+                  :startVal="0"
+                  class="number"
+                  :endVal="parseFloat(item.firstYield)"
+                  :duration="5000"
+                  suffix="%"
+                ></countTo>
               </div>
             </div>
           </div>
@@ -87,9 +133,11 @@
   </div>
 </template>
 <script>
+// 导入数字滚动组件
+import countTo from "vue-count-to"
 export default {
   name: "childTable",
-  components: {},
+  components: { countTo },
   props: {
     // 所有的数据
     allData: {
