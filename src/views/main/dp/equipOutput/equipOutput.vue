@@ -118,10 +118,10 @@ export default {
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "設備產出看板")
     this.initData()
-    // 每1分钟获取一次数据
+    // 每2分钟获取一次数据
     this.dataTiming = setInterval(() => {
       this.initData()
-    }, 60000)
+    }, 120000)
   },
   computed: {},
   watch: {},

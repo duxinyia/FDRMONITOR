@@ -103,10 +103,10 @@ export default {
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "By站位產出看板")
     this.getData()
-    // 每1分钟获取一次数据
+    // 每2分钟获取一次数据
     this.dataTiming = setInterval(() => {
       this.getData()
-    }, 60000)
+    }, 120000)
   },
   computed: {
     getShowArray() {
