@@ -35,7 +35,7 @@ export default {
     z-index: 1000;
     position: absolute;
     width: 120px;
-    height: 50px;
+    /* height: 50px; */
     text-align: center;
     animation: twinkle 2s infinite;
     cursor: pointer;

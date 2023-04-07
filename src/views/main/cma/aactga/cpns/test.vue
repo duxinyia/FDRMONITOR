@@ -1,46 +1,99 @@
 <template>
-  <div>
-    <!-- <div>
-      <div>JU-X</div>
-      <div>JU-2X</div>
-    </div> -->
+  <div class="test-main">
     <el-row>
-      <el-col span="1">JU-X</el-col>
-      <el-col span="1">JU-X</el-col>
-      <el-col span="1">JU-3X</el-col>
-      <el-col span="1">JU-4X</el-col>
+      <el-col
+        v-for="(item, index) in options"
+        @click.native="itemClick(index)"
+        :key="item"
+        :span="1"
+        >{{ item }}</el-col
+      >
+      <!-- <el-col :span="1">JU-X</el-col>
+      <el-col :span="1">JU-3X</el-col>
+      <el-col :span="1">JU-4X</el-col> -->
     </el-row>
-    <el-table :data="tableData1" :header-cell-style="{ background: 'transparent', color: '#fff' }">
-      <el-table-column prop="Device" align="center" label="Device"></el-table-column>
-      <el-table-column prop="Machine" align="center" label="Machine"></el-table-column>
-      <el-table-column label="2023-03-30" align="center">
-        <el-table-column prop="city1" align="center" label="Target"></el-table-column>
-        <el-table-column prop="city2" align="center" label="Output"></el-table-column>
-        <el-table-column prop="city3" align="center" label="HitRate"></el-table-column>
-        <el-table-column prop="city4" align="center" label="FirstYield"></el-table-column>
-        <el-table-column prop="city5" align="center" label="DPC"></el-table-column>
-        <el-table-column prop="city6" align="center" label="LCB"></el-table-column>
-        <el-table-column prop="city6" align="center" label="SFR"></el-table-column>
-      </el-table-column>
-      <el-table-column label="2023-03-29" align="center">
-        <el-table-column prop="city1" align="center" label="Target"></el-table-column>
-        <el-table-column prop="city2" align="center" label="Output"></el-table-column>
-        <el-table-column prop="city3" align="center" label="HitRate"></el-table-column>
-        <el-table-column prop="city4" align="center" label="FirstYield"></el-table-column>
-        <el-table-column prop="city5" align="center" label="DPC"></el-table-column>
-        <el-table-column prop="city6" align="center" label="LCB"></el-table-column>
-        <el-table-column prop="city6" align="center" label="SFR"></el-table-column>
-      </el-table-column>
-      <el-table-column label="2023-03-28" align="center">
-        <el-table-column prop="city1" align="center" label="Target"></el-table-column>
-        <el-table-column prop="city2" align="center" label="Output"></el-table-column>
-        <el-table-column prop="city3" align="center" label="HitRate"></el-table-column>
-        <el-table-column prop="city4" align="center" label="FirstYield"></el-table-column>
-        <el-table-column prop="city5" align="center" label="DPC"></el-table-column>
-        <el-table-column prop="city6" align="center" label="LCB"></el-table-column>
-        <el-table-column prop="city6" align="center" label="SFR"></el-table-column>
-      </el-table-column>
-    </el-table>
+    <!-- 轮播图 -->
+    <el-carousel
+      style="height: 100%"
+      indicator-position="none"
+      :interval="150 * 1000"
+      ref="carousel"
+      arrow="never"
+      @change="changeCarousel"
+    >
+      <el-carousel-item>
+        <el-table
+          :data="tableData1"
+          :header-cell-style="{ background: 'transparent', color: '#fff' }"
+        >
+          <el-table-column prop="Device" align="center" label="Device"></el-table-column>
+          <el-table-column prop="Machine" align="center" label="Machine"></el-table-column>
+          <el-table-column label="2023-03-30" align="center">
+            <el-table-column prop="city1" align="center" label="Target"></el-table-column>
+            <el-table-column prop="city2" align="center" label="Output"></el-table-column>
+            <el-table-column prop="city3" align="center" label="HitRate"></el-table-column>
+            <el-table-column prop="city4" align="center" label="FirstYield"></el-table-column>
+            <el-table-column prop="city5" align="center" label="DPC"></el-table-column>
+            <el-table-column prop="city6" align="center" label="LCB"></el-table-column>
+            <el-table-column prop="city6" align="center" label="SFR"></el-table-column>
+          </el-table-column>
+          <el-table-column label="2023-03-29" align="center">
+            <el-table-column prop="city1" align="center" label="Target"></el-table-column>
+            <el-table-column prop="city2" align="center" label="Output"></el-table-column>
+            <el-table-column prop="city3" align="center" label="HitRate"></el-table-column>
+            <el-table-column prop="city4" align="center" label="FirstYield"></el-table-column>
+            <el-table-column prop="city5" align="center" label="DPC"></el-table-column>
+            <el-table-column prop="city6" align="center" label="LCB"></el-table-column>
+            <el-table-column prop="city6" align="center" label="SFR"></el-table-column>
+          </el-table-column>
+          <el-table-column label="2023-03-28" align="center">
+            <el-table-column prop="city1" align="center" label="Target"></el-table-column>
+            <el-table-column prop="city2" align="center" label="Output"></el-table-column>
+            <el-table-column prop="city3" align="center" label="HitRate"></el-table-column>
+            <el-table-column prop="city4" align="center" label="FirstYield"></el-table-column>
+            <el-table-column prop="city5" align="center" label="DPC"></el-table-column>
+            <el-table-column prop="city6" align="center" label="LCB"></el-table-column>
+            <el-table-column prop="city6" align="center" label="SFR"></el-table-column>
+          </el-table-column>
+        </el-table>
+      </el-carousel-item>
+      <el-carousel-item>
+        <el-table
+          :data="tableData1"
+          :header-cell-style="{ background: 'transparent', color: '#fff' }"
+        >
+          <el-table-column prop="Device" align="center" label="Device"></el-table-column>
+          <el-table-column prop="Machine" align="center" label="Machine"></el-table-column>
+          <el-table-column label="2023-03-30" align="center">
+            <el-table-column prop="city1" align="center" label="Target"></el-table-column>
+            <el-table-column prop="city2" align="center" label="Output"></el-table-column>
+            <el-table-column prop="city3" align="center" label="HitRate"></el-table-column>
+            <el-table-column prop="city4" align="center" label="FirstYield"></el-table-column>
+            <el-table-column prop="city5" align="center" label="DPC"></el-table-column>
+            <el-table-column prop="city6" align="center" label="LCB"></el-table-column>
+            <el-table-column prop="city6" align="center" label="SFR"></el-table-column>
+          </el-table-column>
+          <el-table-column label="2023-03-29" align="center">
+            <el-table-column prop="city1" align="center" label="Target"></el-table-column>
+            <el-table-column prop="city2" align="center" label="Output"></el-table-column>
+            <el-table-column prop="city3" align="center" label="HitRate"></el-table-column>
+            <el-table-column prop="city4" align="center" label="FirstYield"></el-table-column>
+            <el-table-column prop="city5" align="center" label="DPC"></el-table-column>
+            <el-table-column prop="city6" align="center" label="LCB"></el-table-column>
+            <el-table-column prop="city6" align="center" label="SFR"></el-table-column>
+          </el-table-column>
+          <el-table-column label="2023-03-28" align="center">
+            <el-table-column prop="city1" align="center" label="Target"></el-table-column>
+            <el-table-column prop="city2" align="center" label="Output"></el-table-column>
+            <el-table-column prop="city3" align="center" label="HitRate"></el-table-column>
+            <el-table-column prop="city4" align="center" label="FirstYield"></el-table-column>
+            <el-table-column prop="city5" align="center" label="DPC"></el-table-column>
+            <el-table-column prop="city6" align="center" label="LCB"></el-table-column>
+            <el-table-column prop="city6" align="center" label="SFR"></el-table-column>
+          </el-table-column>
+        </el-table>
+      </el-carousel-item>
+    </el-carousel>
     <!-- <el-select v-model="value" placeholder="请选择" @change="changeValue">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
       </el-option>
@@ -57,9 +110,6 @@
 export default {
   name: "test",
   props: {},
-  // components: {
-  //   DetailDialog
-  // },
   data() {
     return {
       dialogVisible: true,
@@ -224,7 +274,19 @@ export default {
           city9: "5",
           city10: "6"
         }
-      ]
+      ],
+      options: ["JU-X", "JU-2X", "JU-3X"],
+      currentIndex: 0
+    }
+  },
+  methods: {
+    changeCarousel(index) {
+      this.currentIndex = index
+    },
+    itemClick(index) {
+      console.log("hello")
+      this.$refs.carousel.setActiveItem(index)
+      this.currentIndex = index
     }
   }
 }
@@ -233,6 +295,9 @@ export default {
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
   padding: 20px;
+}
+.test-main {
+  height: 100%;
 }
 /* 修改表格的一些样式 */
 ::v-deep .el-table {

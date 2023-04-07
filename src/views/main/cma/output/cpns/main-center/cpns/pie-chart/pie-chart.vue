@@ -77,27 +77,23 @@ export default {
         series: [
           {
             type: "pie",
-            radius: ["90%", "45%"],
+            // radius: ["90%", "45%"],
             center: ["45%", "50%"],
             hoverAnimation: true,
             z: 10,
-            label: {
-              show: false
-            },
-            //重点
             // label: {
-            //   normal: {
-            //     formatter: "{d}%",
-            //     textStyle: {
-            //       fontWeight: "normal",
-            //       fontSize: 15
-            //     }
-            //   }
+            //   show: false
             // },
-            data: this.seriesData,
-            labelLine: {
-              show: false
-            }
+            //重点
+            label: {
+              textBorderWidth: 0,
+              backgroundColor: "none",
+              color: "#fff",
+              formatter: "{b}: ({d}%)",
+              fontWeight: "normal",
+              fontSize: 15
+            },
+            data: this.seriesData
           }
         ]
       }

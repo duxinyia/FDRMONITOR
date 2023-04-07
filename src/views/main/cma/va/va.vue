@@ -89,9 +89,10 @@ export default {
 
 <style lang="scss">
 .el-select-dropdown__item.hover {
-  background: transparent !important;
+  color: #fff;
+  background: #274be8 !important;
 }
-.value-popprt {
+/* .value-popprt {
   background: transparent !important;
   border: 1px solid #2e6099;
   .el-select-dropdown__item {
@@ -106,19 +107,23 @@ export default {
   .selected {
     background: #2e6099 !important;
   }
-}
+} */
 </style>
 
 <style lang="scss" scoped>
 /* 更改下拉框的背景色 */
 ::v-deep .el-input__inner {
-  background: transparent;
+  /* background: transparent; */
+  background: linear-gradient(58deg, #3f77e8, #243d97);
   color: #fff;
   font-size: 15px;
-  border: 1px solid #2e6099;
-  &:hover {
+  height: 25px;
+  /* border: 1px solid #2e6099; */
+  border: none;
+  /* &:hover {
     border: 1px solid #2e6099;
-  }
+    border: none;
+  } */
 }
 ::v-deep .el-carousel__container {
   height: 100%;
@@ -133,7 +138,7 @@ export default {
 
 .selsect-container {
   position: absolute;
-  top: 5px;
+  top: 7px;
   right: 150px;
   width: 100px;
 }

@@ -30,6 +30,7 @@ export default {
   transform-origin: left top;
   overflow: hidden;
   box-sizing: border-box;
-  background: url("~@/assets/images/other/background.png") no-repeat center center !important;
+  /* background: url("~@/assets/images/other/background.png") no-repeat center center !important; */
+  background: #020308;
 }
 </style>
