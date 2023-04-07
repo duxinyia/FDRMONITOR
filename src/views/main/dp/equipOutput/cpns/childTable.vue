@@ -242,7 +242,7 @@ export default {
   height: calc(100% - 45px);
   .item {
     text-align: center;
-    margin: 0 10px;
+    margin: -5px 10px;
     flex: 1;
     .header {
       font-size: 18px;
