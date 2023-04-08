@@ -8,10 +8,12 @@
               <!-- :popper-append-to-body="false" -->
               <el-select
                 :popper-append-to-body="false"
+                ref="select"
                 v-model="value"
                 filterable
                 clearable
                 placeholder="請選擇"
+                @visible-change="visibleChange"
               >
                 <el-option
                   v-for="item in options"
@@ -175,6 +177,14 @@ export default {
 
       // console.log("showArr======", this.showArr)
       // console.log("res======", typeof res)
+    },
+    // element下拉框选项选中后未失焦的情况下，切屏其他应用后，再回到当前网页，下拉框选项会自动弹出,去掉filterable属性可以解决该问题，但是这不是解决问题的根本方法,所以用visibleChange这个方法去解决这个问题
+    visibleChange(flag) {
+      if (flag) {
+        this.$refs.select.focus()
+      } else {
+        this.$refs.select.blur()
+      }
     }
   },
   beforeDestroy() {
