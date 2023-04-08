@@ -61,16 +61,7 @@
               </div>
               <div class="show">{{ item.buildNo }}</div>
               <div class="show">
-                <span v-if="dindex == allData[currentIndex].length" class="number">
-                  {{ item.target }}</span
-                >
-                <countTo
-                  v-else
-                  :startVal="0"
-                  class="number"
-                  :endVal="item.target"
-                  :duration="5000"
-                ></countTo>
+                <span class="number"> {{ item.target }}</span>
               </div>
 
               <div class="show">
@@ -81,7 +72,7 @@
                   v-else
                   :startVal="0"
                   class="number"
-                  :endVal="item.target"
+                  :endVal="item.outPut"
                   :duration="5000"
                 ></countTo>
               </div>
