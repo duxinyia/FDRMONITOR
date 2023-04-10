@@ -114,8 +114,8 @@ export default {
         { value: "TET", label: "TET" },
         { value: "FTC", label: "FTC" }
       ],
-      value: "",
-      oldShowArr: {}
+      value: ""
+      // oldShowArr: {}
     }
   },
   mounted() {
@@ -124,32 +124,24 @@ export default {
     // 每 120000（2分钟）获取一次数据
     this.dataTiming = setInterval(() => {
       this.initData()
-      this.oldShowArr = this.showArr
+      // this.oldShowArr = this.showArr
     }, 120000)
   },
   computed: {},
   watch: {
-    oldShowArr: {
-      deep: true,
-      handler(newVal, oldVal) {
-        if (!oldVal) return
-        for (let keyoldShowArr in this.oldShowArr) {
-          this.oldShowArr[keyoldShowArr].forEach((key, index) => {
-            this.$set(this.showArr[keyoldShowArr][index], "oldhitRate", key.hitRate)
-            this.$set(this.showArr[keyoldShowArr][index], "oldoutPut", key.outPut)
-            this.$set(this.showArr[keyoldShowArr][index], "oldfirstYield", key.firstYield)
-          })
-        }
-
-        // for (let key in this.oldShowArr["RAA"]) {
-        //   this.$set(this.showArr["RAA"][key], "old", this.oldShowArr["RAA"][key].hitRate)
-        //   console.log(this.showArr)
-        // }
-        // if (oldval) {
-
-        // }
-      }
-    }
+    // oldShowArr: {
+    //   deep: true,
+    //   handler(newVal, oldVal) {
+    //     if (!oldVal) return
+    //     for (let keyoldShowArr in this.oldShowArr) {
+    //       this.oldShowArr[keyoldShowArr].forEach((key, index) => {
+    //         this.$set(this.showArr[keyoldShowArr][index], "oldhitRate", key.hitRate)
+    //         this.$set(this.showArr[keyoldShowArr][index], "oldoutPut", key.outPut)
+    //         this.$set(this.showArr[keyoldShowArr][index], "oldfirstYield", key.firstYield)
+    //       })
+    //     }
+    //   }
+    // }
   },
   methods: {
     initData() {

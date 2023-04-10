@@ -64,7 +64,7 @@
               </div>
               <div class="show">
                 <countTo
-                  :startVal="item.oldoutPut || 0"
+                  :startVal="0"
                   class="text"
                   :endVal="item.outPut"
                   :duration="2000"
@@ -74,7 +74,7 @@
                 <span class="lamp" :style="changeStyle(item.hitRate)"></span>
                 <countTo
                   :decimals="2"
-                  :startVal="parseFloat(item.oldhitRate) || 0"
+                  :startVal="0"
                   class="text"
                   :endVal="parseFloat(item.hitRate)"
                   :duration="2000"
@@ -95,7 +95,7 @@
                 <span class="lamp" :style="changeYield(currentIndex, item.firstYield)"></span>
                 <countTo
                   :decimals="2"
-                  :startVal="parseFloat(item.oldfirstYield) || 0"
+                  :startVal="0"
                   class="text"
                   :endVal="parseFloat(item.firstYield)"
                   :duration="2000"
