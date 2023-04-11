@@ -105,7 +105,7 @@ export default {
     this.getData()
     // 每2分钟获取一次数据
     this.dataTiming = setInterval(() => {
-      this.getData()
+      this.getContentData(this.titles)
     }, 120000)
   },
   computed: {
@@ -122,6 +122,9 @@ export default {
       let res = await GetStationName(this.selectArea, true)
       // console.log("res======", res)
       this.titles = res
+      this.getContentData(res)
+    },
+    getContentData(res) {
       res.forEach((item, index) => {
         GetDeviceInfo(this.selectArea, item.deviceNo, true).then((r) => {
           // console.log("==========", r)
