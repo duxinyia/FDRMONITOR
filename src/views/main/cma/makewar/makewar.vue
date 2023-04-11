@@ -1,80 +1,106 @@
 <template>
   <!-- 主要区域 -->
   <div class="page-main">
-    <div class="count-container">
-      <div v-for="(item, index) in 2" class="container" :key="index">
-        <dv-border-box-10 :color="changeBoxColor">
-          <el-table
-            v-loading="loading"
-            element-loading-spinner="el-icon-loading"
-            element-loading-background="rgba(0, 0, 0, 1)"
-            :data="configArr[index]"
-            :header-cell-style="getRowClass"
-          >
-            <el-table-column align="center" prop="productArea" label="名称"></el-table-column>
-            <el-table-column align="center" prop="totalCount" label="計畫"></el-table-column>
-            <el-table-column align="center" prop="hitCount" label="達成機種"></el-table-column>
-            <el-table-column align="center" prop="notHitCount" label="未達成"></el-table-column>
-            <el-table-column
-              align="center"
-              width="100"
-              prop="hitRate"
-              label="達成率"
-            ></el-table-column>
-          </el-table>
-        </dv-border-box-10>
-      </div>
-      <div class="control">
-        <div class="fol-container" @click="folChecked = !folChecked">
-          <span
-            class="frame"
-            :style="{
-              'box-shadow': folChecked ? 'inset 0 0 20px #5bdbe4' : ''
-            }"
-          ></span>
-          <span class="name">FOL</span>
+    <dv-border-box-13 :color="changeBoxColor">
+      <!-- 自定义两个切换按钮 -->
+      <change-switch
+        :leftConfig="{ left: '0px', top: '55px' }"
+        :rightConfig="{ right: '0px', top: '55px' }"
+        @directionChange="handleDirection"
+      />
+      <div class="count-container">
+        <div></div>
+        <div class="center">
+          <div v-for="(item, index) in 2" class="container" :key="index">
+            <dv-border-box-10 :color="changeBoxColor">
+              <el-table
+                v-loading="loading"
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0, 0, 0, 1)"
+                :data="configArr[index]"
+                :header-cell-style="getRowClass"
+              >
+                <el-table-column align="center" prop="productArea" label="名称"></el-table-column>
+                <el-table-column align="center" prop="totalCount" label="計畫"></el-table-column>
+                <el-table-column align="center" prop="hitCount" label="達成機種"></el-table-column>
+                <el-table-column align="center" prop="notHitCount" label="未達成"></el-table-column>
+                <el-table-column
+                  align="center"
+                  width="100"
+                  prop="hitRate"
+                  label="達成率"
+                ></el-table-column>
+              </el-table>
+            </dv-border-box-10>
+          </div>
         </div>
-        <div class="eol-container" @click="eolChecked = !eolChecked">
-          <span
-            class="frame"
-            :style="{
-              'box-shadow': eolChecked ? 'inset 0 0 20px #3762ff' : ''
-            }"
-          ></span>
-          <span class="name">EOL</span>
+        <div class="control">
+          <div class="fol-container" @click="folChecked = !folChecked">
+            <span
+              class="frame"
+              :style="{
+                'box-shadow': folChecked ? 'inset 0 0 20px #5bdbe4' : ''
+              }"
+            ></span>
+            <span class="name">FOL</span>
+          </div>
+          <div class="eol-container" @click="eolChecked = !eolChecked">
+            <span
+              class="frame"
+              :style="{
+                'box-shadow': eolChecked ? 'inset 0 0 20px #3762ff' : ''
+              }"
+            ></span>
+            <span class="name">EOL</span>
+          </div>
         </div>
       </div>
-    </div>
-    <dv-border-box-13 :color="changeBoxColor" :key="Date.now()">
       <div class="table-chart">
-        <template v-for="(showTitle, index) in titles">
-          <container
-            :eolChecked="eolChecked"
-            :folChecked="folChecked"
-            :device="outPutInfoDetails[index].device"
-            :dateValues="outPutInfoDetails[index].dateValues"
-            :key="index + index"
-            :maxOutput="maxOutput[index]"
-            :maxTargetOut="maxTargetOut[index]"
-            :showTitle="showTitle"
-            :isShow.sync="showArr[index]"
-          />
-        </template>
+        <!-- 使用轮播图来展示数据 -->
+        <el-carousel
+          style="height: 800px"
+          indicator-position="none"
+          :interval="15 * 10000"
+          ref="carousel"
+          arrow="never"
+        >
+          <el-carousel-item v-for="(everyArr, index) in splitArr" :key="index">
+            <!-- index * 分割的大小 + childIndex -->
+            <div class="child-container">
+              <container
+                v-for="(showTitle, childIndex) in everyArr"
+                :eolChecked="eolChecked"
+                :folChecked="folChecked"
+                :device="outPutInfoDetails[index * 15 + childIndex].device"
+                :dateValues="outPutInfoDetails[index * 15 + childIndex].dateValues"
+                :maxOutput="maxOutput[index * 15 + childIndex]"
+                :maxTargetOut="maxTargetOut[index * 15 + childIndex]"
+                :showTitle="showTitle"
+                :isShow.sync="showArr[index * 15 + childIndex]"
+                :key="index + childIndex"
+              />
+            </div>
+          </el-carousel-item>
+        </el-carousel>
       </div>
     </dv-border-box-13>
   </div>
 </template>
 <script>
+// 导入左右切换的组件
+import ChangeSwitch from "@/components/change-switch/change-switch.vue"
 // 导入发送请求的函函數
 import { GetOutputInfoStatics, GetDeviceInfo } from "@/api/cma/makewar.js"
 // 获取标题的接口
 import { GetStationName } from "@/api/cma/output2.js"
 // 导入子组件
 import container from "./cpns/container.vue"
+import { splitArray } from "@/utils"
 export default {
   name: "makewar",
   components: {
-    container
+    container,
+    ChangeSwitch
   },
   data() {
     return {
@@ -120,7 +146,12 @@ export default {
   },
   computed: {
     changeBoxColor() {
-      return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
+      // return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
+      return ["#6586ec", "#2cf7fe"]
+    },
+    // 分割形成不同的数组
+    splitArr() {
+      return splitArray(this.titles, 15)
     }
   },
   created() {
@@ -133,6 +164,7 @@ export default {
     })
     // 获取标题
     GetStationName().then((res) => {
+      // 分页处理 15 为一页
       console.log("GetStationName", res)
       this.titles = res
       this.outPutInfoDetails = []
@@ -168,12 +200,18 @@ export default {
     getRowClass() {
       let color = this.$store.getters.theme == "dark" ? "#1adafb" : "rgba(39, 75, 232, 1)"
       return `background:transparent !important;color:${color};`
+    },
+    handleDirection(direction) {
+      direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-carousel__container {
+  height: 100%;
+}
 //整个table的背景颜色
 ::v-deep .el-table,
 .el-table__expanded-cell {
@@ -204,28 +242,33 @@ export default {
 }
 ::v-deep .border-box-content {
   padding: 15px;
+  position: relative;
 }
 .page-main {
   margin-top: 10px;
 }
-.table-chart {
+.child-container {
   height: 800px;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(5, 1fr);
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .count-container {
   display: flex;
-  justify-content: flex-start;
-  margin: 25px 0;
-  .container {
-    &:first-child {
-      margin-right: 40px;
+  margin: 10px 0px 10px 0px;
+  padding: 0px 90px;
+  justify-content: space-around;
+  .center {
+    display: flex;
+    .container {
+      &:first-child {
+        margin-right: 100px;
+      }
     }
   }
+
   .control {
-    margin-left: auto;
-    align-self: flex-end;
+    /* margin: auto; */
     display: flex;
     align-items: center;
     .eol-container,

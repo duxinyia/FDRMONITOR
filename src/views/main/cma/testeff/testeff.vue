@@ -539,7 +539,7 @@
 // 导入子组件
 import mainOne from "./cpns/main-one/main-one.vue"
 export default {
-  name: "wekoutput",
+  name: "testeff",
   components: {
     mainOne
   },
@@ -729,7 +729,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("fullLoading/SET_TITLE", "周產出/效率看板")
+    this.$store.commit("fullLoading/SET_TITLE", "Test效率看板")
   }
 }
 </script>

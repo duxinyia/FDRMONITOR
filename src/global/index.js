@@ -3,7 +3,7 @@ import registerDatav from "./register-datav"
 import registerElement from "./register-element"
 import registerOthers from "./register-others"
 
-export function globalRegister(app) {
+export default function globalRegister(app) {
   app.use(registerDatav)
   app.use(registerElement)
   app.use(registerOthers)

@@ -24,7 +24,6 @@
         </el-carousel-item>
       </el-carousel>
     </dv-border-box-10>
-
     <!-- 自定义两个切换按钮 -->
     <change-switch
       :leftConfig="{ left: '5px', top: '10px' }"
@@ -91,28 +90,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.el-select-dropdown__item.hover {
-  background: transparent !important;
-}
-.value-popprt {
-  background: transparent !important;
-  border: 1px solid #2e6099;
-  .el-select-dropdown__item {
-    color: #fff !important;
-    &:hover {
-      background: #2e6099;
-    }
-    & .hover {
-      background: transparent !important;
-    }
-  }
-  .selected {
-    background: #2e6099 !important;
-  }
-}
-</style>
-
 <style lang="scss" scoped>
 /* 更改下拉框的背景色 */
 ::v-deep .el-input__inner {
@@ -141,7 +118,6 @@ export default {
   top: 8px;
   right: 150px;
   display: flex;
-  /* width: 120px; */
   .select-item {
     border: 1px solid #0040ff;
     padding: 2px 5px;
@@ -149,7 +125,7 @@ export default {
     cursor: pointer;
   }
   .active-item {
-    background: #102768;
+    background: linear-gradient(58deg, #3f77e8, #243d97);
   }
 }
 </style>

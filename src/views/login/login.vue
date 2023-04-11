@@ -81,7 +81,7 @@ import { login } from "@/api/other/login.js"
 // 导入cookie
 import cookie from "@/utils/cookie.js"
 export default {
-  name: "login5",
+  name: "login",
   data() {
     return {
       rempwd: false,

@@ -6,7 +6,7 @@ export default [
   {
     path: "/login",
     name: "login",
-    component: () => import(/* webpackChunkName: "login5" */ "../views/login/login.vue"),
+    component: () => import(/* webpackChunkName: "login" */ "../views/login/login.vue"),
     meta: {
       title: "登录"
     }
@@ -209,22 +209,34 @@ export default [
                 /* webpackChunkName: "wekoutput" */ "../views/main/cma/wekoutput/wekoutput.vue"
               )
           },
-          // {
-          //   path: "acf",
-          //   name: "acf",
-          //   component: () => import(/* webpackChunkName: "acf" */ "../views/main/cma/acf/acf.vue")
-          // },
-          // {
-          //   path: "test",
-          //   name: "test",
-          //   component: () =>
-          //     import(/* webpackChunkName: "test" */ "../views/main/cma/test/test.vue")
-          // },
-          // {
-          //   path: "avi",
-          //   name: "avi",
-          //   component: () => import(/* webpackChunkName: "test" */ "../views/main/cma/avi/avi.vue")
-          // },
+          // Test治具良率看板
+          {
+            path: "fixtrue",
+            name: "fixtrue",
+            component: () =>
+              import(/* webpackChunkName: "fixtrue" */ "../views/main/cma/fixtrue/fixtrue.vue")
+          },
+          {
+            path: "aawar",
+            name: "aawar",
+            component: () =>
+              import(/* webpackChunkName: "aawar" */ "../views/main/cma/aawar/aawar.vue")
+          },
+          {
+            path: "testeff",
+            name: "testeff",
+            component: () =>
+              import(/* webpackChunkName: "testeff" */ "../views/main/cma/testeff/testeff.vue")
+          },
+          {
+            path: "testfirst",
+            name: "testfirst",
+            component: () =>
+              import(
+                /* webpackChunkName: "testfirst" */ "../views/main/cma/testfirst/testfirst.vue"
+              )
+          },
+
           // cma的 决策层的
           {
             path: "jtest",

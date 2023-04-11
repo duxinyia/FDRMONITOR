@@ -11,17 +11,17 @@
     <main-two
       :lineData="xLineData"
       :machinename="`${machine} X shift趨勢圖`"
-      :limit="{ maxLimit: 0.05, minLimit: -0.05 }"
+      :limit="{ maxLimit: 0.025, minLimit: -0.025 }"
     />
     <main-two
       :lineData="yLineData"
       :machinename="`${machine} Y shift趨勢圖`"
-      :limit="{ maxLimit: 0.05, minLimit: -0.05 }"
+      :limit="{ maxLimit: 0.025, minLimit: -0.025 }"
     />
     <main-two
       :lineData="zLineData"
       :machinename="`${machine} Rotation趨勢圖`"
-      :limit="{ maxLimit: 0.198, minLimit: 0.132 }"
+      :limit="{ maxLimit: 0.5, minLimit: -0.5 }"
     />
   </div>
 </template>

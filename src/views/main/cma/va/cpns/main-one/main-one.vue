@@ -11,6 +11,7 @@
           <kline-chart
             :kLineData="kLineData"
             :machinename="`${machinename} Z heigh變化趨勢By carrier Location`"
+            :limit="{ maxLimit: 0.198, minLimit: 0.132 }"
           />
         </dv-border-box-12>
       </div>
@@ -19,6 +20,7 @@
           <kline-chart
             :kLineData="getKLineHourData"
             :machinename="`${machinename} Z heigh變化趨勢By hour`"
+            :limit="{ maxLimit: 0.198, minLimit: 0.132 }"
           />
         </dv-border-box-12>
       </div>

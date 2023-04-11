@@ -43,8 +43,11 @@ export default {
         },
         yAxis: {
           type: "value",
-          max: this.limit.maxLimit == 0.198 ? 0.22 : 0.06,
-          min: this.limit.minLimit == 0.132 ? 0.12 : -0.06,
+          // 0.198 -> 0.22
+          // max: this.limit.maxLimit == 0.198 ? 0.22 : 0.06,
+          // min: this.limit.minLimit == 0.132 ? 0.12 : -0.06,
+          max: this.changeYMax(this.limit.maxLimit),
+          min: this.changeYMin(this.limit.minLimit),
           axisLine: {
             show: true,
             lineStyle: {
@@ -81,9 +84,6 @@ export default {
             type: "line",
             symbolSize: 0,
             symbol: "circle",
-            // itemStyle: {
-            //   color: "#0f0"
-            // },
             lineStyle: {
               color: "#5e84e4"
             },
@@ -105,7 +105,7 @@ export default {
                     backgroundColor: "none",
                     color: "#fff"
                   },
-                  yAxis: this.limit.maxLimit || 0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                  yAxis: this.limit.maxLimit // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 },
                 {
                   silent: false, //鼠标悬停事件  true没有，false有
@@ -122,7 +122,7 @@ export default {
                     backgroundColor: "none",
                     color: "#fff"
                   },
-                  yAxis: this.limit.minLimit || -0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                  yAxis: this.limit.minLimit // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 }
               ]
             }
@@ -142,6 +142,49 @@ export default {
           }
         ]
       }
+    }
+  },
+  methods: {
+    changeYMax(maxLimit) {
+      let tempArr = 0
+      // 0.198 -> 0.22 0.05 -> 0.06 0.025 ->0.04 0.5-> 0.6
+      switch (maxLimit) {
+        case 0.198:
+          tempArr = 0.24
+          break
+        case 0.05:
+          tempArr = 0.08
+          break
+        case 0.025:
+          tempArr = 0.06
+          break
+        case 0.5:
+          tempArr = 0.8
+          break
+        default:
+          tempArr = 0.6
+          break
+      }
+      return tempArr
+    },
+    changeYMin(minLimit) {
+      let tempArr = 0
+      // 0.132 -> 0.12 -0.05 -> -0.06 -0.025 ->-0.03 -0.5-> -0.6
+      switch (minLimit) {
+        case 0.132:
+          tempArr = 0.11
+          break
+        case -0.05:
+          tempArr = -0.06
+          break
+        case -0.025:
+          tempArr = -0.04
+          break
+        default:
+          tempArr = -0.6
+          break
+      }
+      return tempArr
     }
   }
 }

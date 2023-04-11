@@ -3,17 +3,25 @@
     <div class="container">
       <div class="item">
         <dv-border-box-12 class="inner-box">
-          <scat-chart :scats="scats" :machinename="`${machinename} X/Y shift`" />
+          <scat-chart :scats="scats" :machinename="`${machinename} X/Y shift`" :limit="0.025" />
         </dv-border-box-12>
       </div>
       <div class="item">
         <dv-border-box-12 class="inner-box">
-          <kline-chart :kLineData="kLineDataX" :machinename="`${machinename} INSPECTIONX趨勢圖`" />
+          <kline-chart
+            :kLineData="kLineDataX"
+            :machinename="`${machinename} INSPECTIONX趨勢圖`"
+            :limit="{ maxLimit: 0.025, minLimit: -0.025 }"
+          />
         </dv-border-box-12>
       </div>
       <div class="item">
         <dv-border-box-12 class="inner-box">
-          <kline-chart :kLineData="kLineDataY" :machinename="`${machinename} INSPECTIONY趨勢圖`" />
+          <kline-chart
+            :kLineData="kLineDataY"
+            :machinename="`${machinename} INSPECTIONY趨勢圖`"
+            :limit="{ maxLimit: 0.025, minLimit: -0.025 }"
+          />
         </dv-border-box-12>
       </div>
       <div class="item">
@@ -21,6 +29,7 @@
           <kline-chart
             :kLineData="kLineDataZ"
             :machinename="`${machinename} INSPECTIONTHETA趨勢圖`"
+            :limit="{ maxLimit: 0.5, minLimit: -0.5 }"
           />
         </dv-border-box-12>
       </div>

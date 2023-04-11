@@ -13,7 +13,7 @@
 import baseEchart from "@/common/echart"
 export default {
   name: "scat-chat",
-  props: ["scats", "machinename"],
+  props: ["scats", "machinename", "limit"],
   components: {
     baseEchart
   },
@@ -76,8 +76,8 @@ export default {
         },
         yAxis: {
           name: "项目数量",
-          min: -0.06, //取最小值为最小刻度
-          max: 0.06, //取最大值为最大刻度
+          min: this.limit == 0.05 ? -0.06 : -0.05, //取最小值为最小刻度
+          max: this.limit == 0.05 ? 0.06 : 0.05, //取最大值为最大刻度
           nameTextStyle: {
             color: "rgba(0,0,0,0.65)",
             align: "left",
@@ -136,7 +136,7 @@ export default {
                     position: "end",
                     formatter: ""
                   },
-                  yAxis: 0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                  yAxis: this.limit || 0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 },
                 {
                   silent: false, //鼠标悬停事件  true没有，false有
@@ -150,7 +150,7 @@ export default {
                     position: "end",
                     formatter: ""
                   },
-                  xAxis: 0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                  xAxis: this.limit || 0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 },
                 {
                   silent: false, //鼠标悬停事件  true没有，false有
@@ -165,8 +165,8 @@ export default {
                     formatter: "",
                     fontSize: "8"
                   },
-                  xAxis: -0.05,
-                  yAxis: -0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                  // xAxis: -0.05,
+                  yAxis: -this.limit || -0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 },
                 {
                   silent: false, //鼠标悬停事件  true没有，false有
@@ -181,7 +181,7 @@ export default {
                     formatter: "",
                     fontSize: "8"
                   },
-                  xAxis: -0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                  xAxis: -this.limit || -0.05 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 }
               ]
             }

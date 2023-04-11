@@ -47,33 +47,6 @@ let nowShowArr = {
           isShow: false,
           to: "aactga"
         }
-        // {
-        //   id: 12,
-        //   imgUrl: require("@/assets/images/cma/aactga.png"),
-        //   title: "ACF",
-        //   target: "output",
-        //   belong: "管理层/產出",
-        //   isShow: false,
-        //   to: "acf"
-        // },
-        // {
-        //   id: 13,
-        //   imgUrl: require("@/assets/images/cma/aactga.png"),
-        //   title: "TEST",
-        //   target: "output",
-        //   belong: "管理层/產出",
-        //   isShow: false,
-        //   to: "test"
-        // },
-        // {
-        //   id: 14,
-        //   imgUrl: require("@/assets/images/cma/aactga.png"),
-        //   title: "AVI",
-        //   target: "output",
-        //   belong: "管理层/產出",
-        //   isShow: false,
-        //   to: "avi"
-        // }
       ],
       yield: [
         {
@@ -149,6 +122,42 @@ let nowShowArr = {
           belong: "管理层/设备",
           isShow: false,
           to: "wekoutput"
+        },
+        {
+          id: 4,
+          imgUrl: require("@/assets/images/cma/fol.png"),
+          title: "Test治具良率看板",
+          target: "device",
+          belong: "管理层/设备",
+          isShow: false,
+          to: "fixtrue"
+        },
+        {
+          id: 5,
+          imgUrl: require("@/assets/images/cma/fol.png"),
+          title: "Test一次不良Top15",
+          target: "device",
+          belong: "管理层/设备",
+          isShow: false,
+          to: "testfirst"
+        },
+        {
+          id: 6,
+          imgUrl: require("@/assets/images/cma/fol.png"),
+          title: "AA 機況排行榜",
+          target: "device",
+          belong: "管理层/设备",
+          isShow: false,
+          to: "aawar"
+        },
+        {
+          id: 7,
+          imgUrl: require("@/assets/images/cma/fol.png"),
+          title: "Test效率看板",
+          target: "device",
+          belong: "管理层/设备",
+          isShow: false,
+          to: "testeff"
         }
       ],
       process: [

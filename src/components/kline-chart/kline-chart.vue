@@ -11,7 +11,7 @@
 import baseEchart from "@/common/echart"
 export default {
   name: "kline-chart",
-  props: ["kLineData", "machinename"],
+  props: ["kLineData", "machinename", "limit"],
   components: {
     baseEchart
   },
@@ -68,8 +68,10 @@ export default {
         },
         yAxis: {
           type: "value",
-          min: 0.12,
-          max: 0.21,
+          // min: 0.12,
+          // max: 0.21,
+          max: this.changeYMax(this.limit.maxLimit),
+          min: this.changeYMin(this.limit.minLimit),
           // min: "dataMin", //取最小值为最小刻度
           // max: "dataMax", //取最大值为最大刻度
           axisLine: {
@@ -115,7 +117,7 @@ export default {
                     position: "end",
                     formatter: ""
                   },
-                  yAxis: 0.132 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                  yAxis: this.limit.minLimit // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 },
                 {
                   silent: false, //鼠标悬停事件  true没有，false有
@@ -130,7 +132,7 @@ export default {
                     formatter: "",
                     fontSize: "8"
                   },
-                  yAxis: 0.198 // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                  yAxis: this.limit.maxLimit // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                 }
               ]
             }
@@ -156,10 +158,49 @@ export default {
         ]
       }
     }
+  },
+  methods: {
+    changeYMax(maxLimit) {
+      let tempArr = 0
+      // 0.198 -> 0.21  0.025 ->0.04 0.5-> 0.6
+      switch (maxLimit) {
+        case 0.198:
+          tempArr = 0.21
+          break
+        case 0.025:
+          tempArr = 0.05
+          break
+        case 0.5:
+          tempArr = 0.7
+          break
+        default:
+          tempArr = 0.6
+          break
+      }
+      return tempArr
+    },
+    changeYMin(minLimit) {
+      let tempArr = 0
+      // 0.132 -> 0.12  -0.025 ->-0.03 -0.5-> -0.6
+      switch (minLimit) {
+        case 0.132:
+          tempArr = 0.12
+          break
+        case -0.025:
+          tempArr = -0.04
+          break
+        case -0.5:
+          tempArr = -0.6
+          break
+        default:
+          tempArr = -0.6
+          break
+      }
+      return tempArr
+    }
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .kline-chart {
   text-align: center;

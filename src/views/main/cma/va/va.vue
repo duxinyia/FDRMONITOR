@@ -1,4 +1,11 @@
+<!--
+ * @Date: 2023-04-08 14:53:45
+ * @LastEditors: GXL 1515533507@qq.com
+ * @LastEditTime: 2023-04-08 14:53:53
+ * @FilePath: \big-screen-manage\src\views\main\cma\va\va.vue
+-->
 <template>
+  <!-- Test治具良率看板页面 -->
   <div class="page-main">
     <dv-border-box-12>
       <!-- 使用轮播图来展示数据 -->
@@ -20,14 +27,9 @@
         :rightConfig="{ right: '0px', top: '9px' }"
         @directionChange="handleDirection"
       />
+      <!-- 下拉选择框 -->
       <div class="selsect-container">
-        <el-select
-          @change="changeValue"
-          popper-class="value-popprt"
-          size="mini"
-          v-model="value"
-          placeholder=""
-        >
+        <el-select @change="changeValue" size="mini" v-model="value" placeholder="">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -92,38 +94,16 @@ export default {
   color: #fff;
   background: #274be8 !important;
 }
-/* .value-popprt {
-  background: transparent !important;
-  border: 1px solid #2e6099;
-  .el-select-dropdown__item {
-    color: #fff !important;
-    &:hover {
-      background: #2e6099;
-    }
-    & .hover {
-      background: transparent !important;
-    }
-  }
-  .selected {
-    background: #2e6099 !important;
-  }
-} */
 </style>
 
 <style lang="scss" scoped>
 /* 更改下拉框的背景色 */
 ::v-deep .el-input__inner {
-  /* background: transparent; */
   background: linear-gradient(58deg, #3f77e8, #243d97);
   color: #fff;
   font-size: 15px;
   height: 25px;
-  /* border: 1px solid #2e6099; */
   border: none;
-  /* &:hover {
-    border: 1px solid #2e6099;
-    border: none;
-  } */
 }
 ::v-deep .el-carousel__container {
   height: 100%;

@@ -1,9 +1,10 @@
 <template>
   <div class="test-main">
-    <el-row>
+    <el-row class="select-contaienr">
       <el-col
         v-for="(item, index) in options"
         @click.native="itemClick(index)"
+        class="select-item"
         :key="item"
         :span="1"
         >{{ item }}</el-col
@@ -299,6 +300,22 @@ export default {
 .test-main {
   height: 100%;
 }
+
+.page-main {
+  height: calc(100% - 120px);
+  margin-top: 10px;
+}
+
+.select-contaienr {
+  .select-item {
+    border: 1px solid red;
+    margin-right: 10px;
+    padding: 5px 0px;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
@@ -331,9 +348,5 @@ export default {
   bottom: 0;
   width: 100%;
   height: 0px;
-}
-.page-main {
-  height: calc(100% - 120px);
-  margin-top: 10px;
 }
 </style>

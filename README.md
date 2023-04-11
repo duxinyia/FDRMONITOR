@@ -1,4 +1,4 @@
-# 注: node 版本需要安装@15，不要安装最新的
+# 注: node 版本需要安装@15 或者 @16，不要安装最新的
 
 # 项目简介
 
@@ -7,13 +7,7 @@
 前端: 郭小龙 560-82583
 后端: 吴思敏 560-23123
 
-# 对应页面的负责人
-
-吳成龍 22385 wwlh-wwfol-f1aateam@mail.foxconn.com AA 设备模块
-馮超 761405 wwlh-wwfol-pme01@mail.foxconn.com FOL 设备模块
-杨欧 372435
-
-赵军 75185 wwlh-wweol-pan.gh@mail.foxconn.com 战情中心
+# 菜单管理地址: http://10.151.130.135:70
 
 # 发布
 
