@@ -278,7 +278,7 @@ export default [
             path: "output",
             name: "dpoutput",
             component: () =>
-              import(/* webpackChunkName: "dpoutput" */ "../views/main/cma/output/output.vue")
+              import(/* webpackChunkName: "dpoutput" */ "../views/main/dp/output/output.vue")
           },
           // 制造层
           {

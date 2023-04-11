@@ -8,10 +8,12 @@
               <!-- :popper-append-to-body="false" -->
               <el-select
                 :popper-append-to-body="false"
+                ref="select"
                 v-model="value"
                 filterable
                 clearable
                 placeholder="請選擇"
+                @visible-change="visibleChange"
               >
                 <el-option
                   v-for="item in options"
@@ -73,7 +75,7 @@ export default {
       dataTiming: null,
       // pid: 0,
       // 当前选中
-      currentIndex: "AA",
+      currentIndex: "TAA",
       // 左边颜色 inface:接口循环
       containerLeft: [
         { inface: "AA", title: "AA" },
@@ -113,18 +115,34 @@ export default {
         { value: "FTC", label: "FTC" }
       ],
       value: ""
+      // oldShowArr: {}
     }
   },
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "設備產出看板")
     this.initData()
-    // 每2分钟获取一次数据
+    // 每 120000（2分钟）获取一次数据
     this.dataTiming = setInterval(() => {
       this.initData()
+      // this.oldShowArr = this.showArr
     }, 120000)
   },
   computed: {},
-  watch: {},
+  watch: {
+    // oldShowArr: {
+    //   deep: true,
+    //   handler(newVal, oldVal) {
+    //     if (!oldVal) return
+    //     for (let keyoldShowArr in this.oldShowArr) {
+    //       this.oldShowArr[keyoldShowArr].forEach((key, index) => {
+    //         this.$set(this.showArr[keyoldShowArr][index], "oldhitRate", key.hitRate)
+    //         this.$set(this.showArr[keyoldShowArr][index], "oldoutPut", key.outPut)
+    //         this.$set(this.showArr[keyoldShowArr][index], "oldfirstYield", key.firstYield)
+    //       })
+    //     }
+    //   }
+    // }
+  },
   methods: {
     initData() {
       // 循环调用接口
@@ -175,6 +193,14 @@ export default {
 
       // console.log("showArr======", this.showArr)
       // console.log("res======", typeof res)
+    },
+    // element下拉框选项选中后未失焦的情况下，切屏其他应用后，再回到当前网页，下拉框选项会自动弹出,去掉filterable属性可以解决该问题，但是这不是解决问题的根本方法,所以用visibleChange这个方法去解决这个问题
+    visibleChange(flag) {
+      if (flag) {
+        this.$refs.select.focus()
+      } else {
+        this.$refs.select.blur()
+      }
     }
   },
   beforeDestroy() {

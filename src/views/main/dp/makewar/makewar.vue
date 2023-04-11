@@ -51,8 +51,8 @@
           <container
             :eolChecked="eolChecked"
             :folChecked="folChecked"
-            :device="outPutInfoDetails[index].device"
-            :dateValues="outPutInfoDetails[index].dateValues"
+            :device="outPutInfoDetails[index] && outPutInfoDetails[index].device"
+            :dateValues="outPutInfoDetails[index] && outPutInfoDetails[index].dateValues"
             :key="index + index"
             :maxOutput="maxOutput[index]"
             :maxTargetOut="maxTargetOut[index]"
@@ -78,6 +78,7 @@ export default {
   },
   data() {
     return {
+      dataTiming: null,
       loading: true,
       eolChecked: true,
       folChecked: true,
@@ -114,49 +115,60 @@ export default {
   created() {
     // this.$store.commit("fullLoading/SET_FULLLOADING", false)
     this.$store.commit("fullLoading/SET_TITLE", "By天產出看板")
-    // 获取上方的数据
-    GetOutputInfoStatics(true).then((res) => {
-      this.configArr = [[res[0]], [res[1]]]
-      this.loading = false
-    })
-    // 获取标题
-    GetStationName("ALL", true).then((res) => {
-      // console.log("GetStationName", res)
-      this.titles = res
-      this.outPutInfoDetails = []
-      res &&
-        res.forEach((item, index) => {
-          GetDeviceInfo(item.deviceNo, true).then((r) => {
-            this.$set(this.outPutInfoDetails, index, r)
-            // console.log("-----", this.outPutInfoDetails)
-            r.dateValues.forEach((childItem) => {
-              // childItem.values.EOL.output  取出的是 output 的最大值
-              if (childItem.values.EOL.output > this.maxOutput[index]) {
-                this.maxOutput[index] = childItem.values.EOL.output
-              }
-              // childItem.values.FOL.output
-              if (childItem.values.FOL.output > this.maxOutput[index]) {
-                this.maxOutput[index] = childItem.values.FOL.output
-              }
-              // childItem.values.EOL.output  取出的是 output 的最大值
-              if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
-                this.maxTargetOut[index] = childItem.values.EOL.targetOut
-              }
-              // childItem.values.FOL.output
-              if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
-                this.maxTargetOut[index] = childItem.values.FOL.targetOut
-              }
-            })
-            this.$set(this.showArr, index, false)
-          })
-        })
-    })
+    this.getData()
+    // 每2分钟获取一次数据
+    this.dataTiming = setInterval(() => {
+      this.getData()
+    }, 120000)
   },
   methods: {
+    getData() {
+      // 获取上方的数据
+      GetOutputInfoStatics(true).then((res) => {
+        this.configArr = [[res[0]], [res[1]]]
+        this.loading = false
+      })
+      // 获取标题
+      GetStationName("ALL", true).then((res) => {
+        // console.log("GetStationName", res)
+        this.titles = res
+        this.outPutInfoDetails = []
+        res &&
+          res.forEach((item, index) => {
+            GetDeviceInfo(item.deviceNo, true).then((r) => {
+              this.$set(this.outPutInfoDetails, index, r)
+              // console.log("-----", this.outPutInfoDetails)
+              r.dateValues.forEach((childItem) => {
+                // childItem.values.EOL.output  取出的是 output 的最大值
+                if (childItem.values.EOL.output > this.maxOutput[index]) {
+                  this.maxOutput[index] = childItem.values.EOL.output
+                }
+                // childItem.values.FOL.output
+                if (childItem.values.FOL.output > this.maxOutput[index]) {
+                  this.maxOutput[index] = childItem.values.FOL.output
+                }
+                // childItem.values.EOL.output  取出的是 output 的最大值
+                if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
+                  this.maxTargetOut[index] = childItem.values.EOL.targetOut
+                }
+                // childItem.values.FOL.output
+                if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
+                  this.maxTargetOut[index] = childItem.values.FOL.targetOut
+                }
+              })
+              this.$set(this.showArr, index, false)
+            })
+          })
+      })
+    },
     getRowClass() {
       let color = this.$store.getters.theme == "dark" ? "#1adafb" : "rgba(39, 75, 232, 1)"
       return `background:transparent !important;color:${color};`
     }
+  },
+
+  beforeDestroy() {
+    clearInterval(this.dataTiming)
   }
 }
 </script>
