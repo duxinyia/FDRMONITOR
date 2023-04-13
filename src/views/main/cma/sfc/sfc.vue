@@ -8,21 +8,22 @@
         <div class="top-chart">
           <el-carousel height="380px" :interval="10000" indicator-position="none">
             <el-carousel-item>
-              <line-chart-1 :config="topLineChartConfig" :isYear="false" />
+              <line-chart-1 :config="allYearConfig" />
             </el-carousel-item>
             <el-carousel-item>
-              <line-chart-1 :config="topLineChartConfig" :isYear="true" />
+              <line-chart-1 :config="yearWeekConfig" />
             </el-carousel-item>
           </el-carousel>
         </div>
         <!-- 下面四个图 -->
         <el-carousel height="550px" :interval="10000" indicator-position="none">
-          <el-carousel-item>
-            <el-row :gutter="10">
-              <el-col v-for="item in 4" :key="item" :span="12">
-                <line-chart-2 :config="lineChartConfigs[item - 1]" />
-              </el-col>
-            </el-row>
+          <el-carousel-item v-for="(item, index) in splitArr" :key="index">
+            <el-col v-for="(childItem, childIndex) in item" :key="childIndex" :span="12">
+              <line-chart-2
+                :config="allDetails[4 * index + childIndex]"
+                :showTitle="allSeries[4 * index + childIndex].value"
+              />
+            </el-col>
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -34,7 +35,13 @@
 import LineChart1 from "./cpns/LineChart1.vue"
 import LineChart2 from "./cpns/LineChart2.vue"
 // 导入发送请求的函函數
-import { getCloseYieldInfo } from "@/api/cma/sfc.js"
+import {
+  getMESDeviceInfo,
+  getMESDeviceDetail,
+  getCloseYieldInfo,
+  getCloseYieldInfoTow
+} from "@/api/cma/sfc.js"
+import { splitArray } from "@/utils"
 export default {
   name: "sfc",
   components: {
@@ -49,48 +56,124 @@ export default {
       lineChartConfigs: [
         {
           deviceSeries: "JU"
-          // monthWeekYieldList: [
-          //   { device: "JU-Y", dateValues: [{ dateCode: "2022-10", values: { value: "98%" } }] },
-          //   { device: "JU-G", dateValues: [{ dateCode: "2022-10" }] },
-          //   { device: "JU-A", dateValues: [{ dateCode: "2022-10" }] }
-          // ]
         },
         { deviceSeries: "ML" },
         { deviceSeries: "MD" },
         { deviceSeries: "Stanley" }
-      ]
+      ],
+      // 12 个月的数据
+      allYearConfig: {
+        legends: [],
+        xData: [],
+        showData: []
+      },
+      // 两月四周的数据
+      yearWeekConfig: {
+        legends: [],
+        xData: [],
+        showData: []
+      },
+      // 所有的子类型
+      allSeries: [],
+      allDetails: []
+    }
+  },
+  computed: {
+    // 分割形成不同的数组
+    splitArr() {
+      return splitArray(this.allSeries, 4)
     }
   },
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "SFC良率By月")
-    this.$store.commit("fullLoading/SET_FULLLOADING", true)
-    this.$store.commit("fullLoading/SET_FULLLOADING", false)
     this.initData()
-    // 每5分钟获取一次数据
-    // this.dataTiming = setInterval(() => {
-    //   this.initData()
-    // }, 50000)
   },
   methods: {
     async initData() {
-      let requestArr = [this.getCloseYieldInfo()]
+      let requestArr = [
+        this.getCloseYieldInfo(),
+        this.getCloseYieldInfoTow(),
+        this.getMESDeviceInfo()
+      ]
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
+
+    // 获取所有的子类型
+    async getMESDeviceInfo() {
+      let res = await getMESDeviceInfo()
+      console.log("所有的子类型为:", res)
+      this.allSeries = res
+      // 根据子类型请求对应的详细数据
+      res.forEach((item, index) => {
+        getMESDeviceDetail({ serie: item.value }).then((r) => {
+          console.log("详细的数据为：", r)
+          let tempConfig = {
+            legends: [],
+            xData: [],
+            showData: []
+          }
+          r.forEach((item, index) => {
+            let tempData = []
+            // 1. 取出legends
+            tempConfig.legends.push(item.deviceSeries)
+            // 2. 取出xData中的值 但只能取一次
+            item.yieldList.forEach((childItem) => {
+              if (index == 0) {
+                tempConfig.xData.push(childItem.dateCode)
+              }
+              // 取出对应的值
+              tempData.push(parseFloat(childItem.values.value))
+            })
+            tempConfig.showData.push(tempData)
+          })
+          // this.allDetails[index] = tempConfig
+          this.$set(this.allDetails, index, tempConfig)
+        })
+      })
+    },
+    // 获取 12 个月的 数据
     async getCloseYieldInfo() {
       let res = await getCloseYieldInfo()
       console.log("获取对应的数据:", res)
-      // 取出  系列 2月4周 月份
-      this.topLineChartConfig = res.deviceSeriesInfos
-      if (res.deviceInfos.length > 0) {
-        // 先做系列的
-        this.lineChartConfigs = res.deviceInfos
-      }
+      // this.allYearData = res
+      res.forEach((item, index) => {
+        let tempData = []
+        // 1. 取出legends
+        this.allYearConfig.legends.push(item.deviceSeries)
+        // 2. 取出xData中的值 但只能取一次
+        item.yieldList.forEach((childItem) => {
+          if (index == 0) {
+            this.allYearConfig.xData.push(childItem.dateCode)
+          }
+          // 取出对应的值
+          tempData.push(parseFloat(childItem.values.value))
+        })
+        this.allYearConfig.showData.push(tempData)
+      })
+    },
+    // 获取 良率總覽 Close兩月四周
+    async getCloseYieldInfoTow() {
+      let res = await getCloseYieldInfoTow()
+      console.log("良率總覽 Close兩月四周", res)
+      res.forEach((item, index) => {
+        let tempData = []
+        // 1. 取出legends
+        this.yearWeekConfig.legends.push(item.deviceSeries)
+        // 2. 取出xData中的值 但只能取一次
+        item.yieldList.forEach((childItem) => {
+          if (index == 0) {
+            this.yearWeekConfig.xData.push(childItem.dateCode)
+          }
+          // 取出对应的值
+          tempData.push(parseFloat(childItem.values.value))
+        })
+        this.yearWeekConfig.showData.push(tempData)
+      })
+      console.log("this.yearWeekConfig", this.yearWeekConfig)
     }
   },
-  beforeDestroy() {
-    clearInterval(this.dataTiming)
-  }
+  beforeDestroy() {}
 }
 </script>
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <template>
-  <dv-border-box-11 :color="changeBoxColor" :title="`${config.deviceSeries || ''}系列`">
+  <dv-border-box-11 :color="changeBoxColor" :title="`${showTitle || ''}系列`">
     <span class="btn" @click="toDetail"></span>
     <base-echart :options="options" />
   </dv-border-box-11>
@@ -13,11 +13,15 @@ export default {
   components: {
     BaseEchart
   },
-  props: ["config"],
-  data() {
-    return {
-      xData: [],
-      legends: []
+  // props: ["config", "showTitle"],
+  props: {
+    config: {
+      type: Object,
+      default: () => ({ legends: [], xData: [], showData: [] })
+    },
+    showTitle: {
+      type: String,
+      default: "标题"
     }
   },
   computed: {
@@ -27,36 +31,23 @@ export default {
     options() {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
-      // 设置颜色数组，方便取值
-      // let colors = ["#5ad2fa", "#b989f0", "#adf7b7", "#3759f0"]
-      // 处理对应的数据
-      if (Object.keys(this.config).length > 1) {
-        // 取出 legend 的值
-        this.config.monthWeekYieldList.forEach((item, index) => {
-          // 取出lengds
-          this.legends.push(item.device)
-          // 给实例新增属性
-          this[item.device] = []
-          item.dateValues.forEach((item1) => {
-            if (index == 0) {
-              // 取出x轴的数据
-              this.xData.push(item1.dateCode)
-            }
-            // 取出剩下的数据
-            this[item.device].push(parseFloat(item1.values.value))
-          })
-        })
-      }
-
-      // 一些基本的配置
-      let baseLengend = {
-        top: 50,
-        textStyle: {
-          // color: "#FFFFFF",
-          color: themeColor,
-          fontSize: 12
-        }
-      }
+      // if (this.config) {
+      //   this.config.forEach((item, index) => {
+      //     let tempData = []
+      //     // 1. 取出legends
+      //     this.chartConfig.legends.push(item.deviceSeries)
+      //     // 2. 取出xData中的值 但只能取一次
+      //     item.yieldList.forEach((childItem) => {
+      //       if (index == 0) {
+      //         this.chartConfig.xData.push(childItem.dateCode)
+      //       }
+      //       // 取出对应的值
+      //       tempData.push(parseFloat(childItem.values.value))
+      //     })
+      //     this.chartConfig.showData.push(tempData)
+      //   })
+      // }
+      let { legends = [], xData = [], showData = [] } = this.config
       let baseSerie = {
         type: "line",
         symbol: "circle",
@@ -83,11 +74,10 @@ export default {
           top: 50,
           right: 50,
           textStyle: {
-            // color: "#fff",
             color: themeColor,
             fontSize: 14
           },
-          data: this.legends
+          data: legends
         },
         tooltip: {
           show: true,
@@ -110,7 +100,7 @@ export default {
           type: "category",
           boundaryGap: true,
           color: "#59588D",
-          data: this.xData,
+          data: xData,
           axisLabel: {
             margin: 10,
             // color: "#EEEEEE",
@@ -164,19 +154,15 @@ export default {
               show: true,
               symbol: ["none", "arrow"],
               lineStyle: {
-                // color: "#fff",
                 color: themeColor,
                 opacity: 1
               }
             }
           }
         ],
-        series: this.legends.map((item, index) => {
-          return {
-            ...baseSerie,
-            name: this.legends[index],
-            data: this[this.legends[index]]
-          }
+
+        series: legends.map((item, index) => {
+          return { ...baseSerie, name: legends[index], data: showData[index] }
         })
       }
     }
@@ -196,19 +182,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* .btn {
-  position: absolute;
-  right: 40px;
-  top: 36px;
-  display: inline-block;
-  width: 50px;
-  height: 25px;
-  text-align: center;
-  line-height: 25px;
-  border: 1px solid #ccc;
-  z-index: 9999;
-  cursor: pointer;
-} */
 .btn {
   position: absolute;
   right: 358px;

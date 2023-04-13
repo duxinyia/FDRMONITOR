@@ -17,8 +17,10 @@
 <script>
 // 导入折线图
 import LineChart from "./cpns/LineChart.vue"
+// 获取所有的子系列的
+import { getMESDeviceInfo } from "@/api/cma/sfc.js"
 // 导入接口
-import { getDateCodeRunningYieldInfo } from "@/api/cma/tsfc.js"
+import { getDateCodeRunningYieldInfo, getDeviceSeries } from "@/api/cma/tsfc.js"
 export default {
   name: "tsfc",
   components: {

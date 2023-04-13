@@ -46,10 +46,10 @@
           <div class="chart-container">
             <make-chart-3
               :title="chart3Ttitle"
-              :xData="chart2Xdata"
-              :maxWips="maxWips"
-              :minWips="minWips"
-              :wips="wips"
+              :xData="chart3Config.chat3Xdata"
+              :maxWips="chart3Config.chat3MaxWips"
+              :minWips="chart3Config.chat3MinWips"
+              :wips="chart3Config.chat3Wips"
               :isFol="isFol"
               :isStanley="isStanley"
               :chart3Loading="chart2Loading"
@@ -119,7 +119,11 @@ import MakeChart1 from "./cpns/makechart1.vue"
 import MakeChart2 from "./cpns/makechart2.vue"
 import MakeChart3 from "./cpns/makechart3.vue"
 // 导入请求函数
-import { GetRunningInfo, GetStationTimeSpanOutputInfo } from "@/api/cma/make.js"
+import {
+  GetRunningInfo,
+  GetStationTimeSpanOutputInfo,
+  getStationTimeSpanWIPInfo
+} from "@/api/cma/make.js"
 export default {
   name: "make",
   components: {
@@ -155,7 +159,14 @@ export default {
       isStanley: false,
       tableLoading: true,
       leftLoading: true,
-      chart2Loading: true
+      chart2Loading: true,
+      // 表格三的配置文件
+      chart3Config: {
+        chat3MaxWips: [],
+        chat3MinWips: [],
+        chat3Wips: [],
+        chat3Xdata: []
+      }
     }
   },
   computed: {
@@ -177,7 +188,6 @@ export default {
     // 获取到 Stanley 和 ProductArea 的值， 用于判断是否是 FOL 过来的
     this.isFol = ProductArea == "FOL"
     this.isStanley = customName == "Stanley"
-    // this.preTime = preTime
     // 各个表格的标题
     this.chart1Ttitle = `${customName} 產出達成狀況`
     this.chart3Ttitle = `${customName} 站位WIP狀況`
@@ -202,10 +212,13 @@ export default {
       // 取出最后一项的 pack 计划
       let packPlan = stationInfo[stationInfo.length - 1].targetOut
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno: this.Opno })
+
+      // 获取 左边最下面的数据
+      this.getStationTimeSpanWIPInfo({ ...this.$route.params, Opno: this.Opno })
       // 循环取出头部区域
       let totalWip = 0
       stationInfo.forEach((item) => {
-        console.log("item", item)
+        // console.log("item", item)
         // station x轴的数据 outPut 输入的值
         let { station, outPut, targetOut, maxWip, minWip, wip, opNo } = item
         //
@@ -246,6 +259,18 @@ export default {
         this.chart2HitRate.push(parseInt(hitRate))
       })
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    },
+    // 获取左边最下面区域数据
+    async getStationTimeSpanWIPInfo(params) {
+      let result = await getStationTimeSpanWIPInfo(params)
+      console.log("获取左边最下面区域数据", result)
+      // 取出对应的值
+      result.dateValues.forEach((item) => {
+        this.chart3Config.chat3Xdata.push(item.dateCode)
+        this.chart3Config.chat3MaxWips.push(item.values.value.maxWip)
+        this.chart3Config.chat3MinWips.push(item.values.value.minWip)
+        this.chart3Config.chat3Wips.push(item.values.value.wip)
+      })
     },
     // 处理 表一 的点击事件
     barClick({ opNo: Opno, station }) {

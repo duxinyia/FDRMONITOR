@@ -133,6 +133,15 @@ let nowShowArr = {
           to: "fixtrue"
         },
         {
+          id: 3,
+          imgUrl: require("@/assets/images/cma/fol.png"),
+          title: "效率看板",
+          target: "device",
+          belong: "管理层/设备",
+          isShow: false,
+          to: "effciency"
+        },
+        {
           id: 5,
           imgUrl: require("@/assets/images/cma/fol.png"),
           title: "Test一次不良Top15",
@@ -348,9 +357,6 @@ router.beforeEach(async (to, from, next) => {
   if (to.path.includes("login")) {
     if (cache.getCache("user")) {
       next("/overview")
-      // let path = store.state.permission.routerArr[0][0].subs[0].index || "404"
-      // console.log("path=====", path)
-      // next(store.state.fullLoading.path)
     } else {
       next()
     }
@@ -404,60 +410,33 @@ function textHandleRouter(routers) {
   //console.log("dpNames", dpNames) // 所有返回的dp的地址
   // 循环 cma 的地址
   nowShowArr.cma.manage.output = nowShowArr.cma.manage.output.map((item) => {
-    if (cmaNames.includes(item.title)) {
-      return { ...item, isShow: true }
-    }
-    return { ...item }
+    return { ...item, isShow: cmaNames.includes(item.title) }
   })
   nowShowArr.cma.manage.yield = nowShowArr.cma.manage.yield.map((item) => {
-    if (cmaNames.includes(item.title)) {
-      return { ...item, isShow: true }
-    }
-    return { ...item }
+    return { ...item, isShow: cmaNames.includes(item.title) }
   })
   nowShowArr.cma.manage.device = nowShowArr.cma.manage.device.map((item) => {
-    if (cmaNames.includes(item.title)) {
-      return { ...item, isShow: true }
-    }
-    return { ...item }
+    return { ...item, isShow: cmaNames.includes(item.title) }
   })
   nowShowArr.cma.manage.process = nowShowArr.cma.manage.process.map((item) => {
-    if (cmaNames.includes(item.title)) {
-      return { ...item, isShow: true }
-    }
-    return { ...item }
+    return { ...item, isShow: cmaNames.includes(item.title) }
   })
   // 处理cma 决策层的
   nowShowArr.cma.juec.output = nowShowArr.cma.juec.output.map((item) => {
-    if (cmaNames.includes(item.title)) {
-      return { ...item, isShow: true }
-    }
-    return { ...item }
+    return { ...item, isShow: cmaNames.includes(item.title) }
   })
   nowShowArr.cma.juec.yield = nowShowArr.cma.juec.yield.map((item) => {
-    if (cmaNames.includes(item.title)) {
-      return { ...item, isShow: true }
-    }
-    return { ...item }
+    return { ...item, isShow: cmaNames.includes(item.title) }
   })
   nowShowArr.cma.juec.device = nowShowArr.cma.juec.device.map((item) => {
-    if (cmaNames.includes(item.title)) {
-      return { ...item, isShow: true }
-    }
-    return { ...item }
+    return { ...item, isShow: cmaNames.includes(item.title) }
   })
   nowShowArr.cma.juec.process = nowShowArr.cma.juec.process.map((item) => {
-    if (cmaNames.includes(item.title)) {
-      return { ...item, isShow: true }
-    }
-    return { ...item }
+    return { ...item, isShow: cmaNames.includes(item.title) }
   })
   // 处理dp的地址
   nowShowArr.dp.manage.output = nowShowArr.dp.manage.output.map((item) => {
-    if (dpNames.includes(item.title)) {
-      return { ...item, isShow: true }
-    }
-    return { ...item }
+    return { ...item, isShow: dpNames.includes(item.title) }
   })
   // 全部处理完成后
   store.commit("permission/SET_TEXTSHOWARR", nowShowArr)

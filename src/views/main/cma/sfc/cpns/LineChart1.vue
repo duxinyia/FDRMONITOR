@@ -12,13 +12,7 @@ export default {
   components: {
     BaseEchart
   },
-  props: ["config", "isYear"],
-  data() {
-    return {
-      legends: [],
-      xData: []
-    }
-  },
+  props: ["config"],
   computed: {
     changeBoxColor() {
       return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
@@ -26,41 +20,7 @@ export default {
     options() {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
-      this.config.forEach((item, index) => {
-        // 取出 legend
-        this.legends.push(item.deviceSeries)
-        // 给实例新增属性 方便动态赋值
-        this[item.deviceSeries] = []
-        if (this.isYear) {
-          // 12 个月的情况
-          item.monthYieldList.forEach((item1) => {
-            if (index == 0) {
-              // 取出 x轴的值和数据
-              this.xData.push(item1.dateCode)
-            }
-            // 赋值操作
-            this[item.deviceSeries].push(parseFloat(item1.values.value))
-          })
-        } else {
-          // 2月四周的情况
-          item.monthWeekYieldList.forEach((item1) => {
-            if (index == 0) {
-              // 取出 x轴的值和数据
-              this.xData.push(item1.dateCode)
-            }
-            // 赋值操作
-            this[item.deviceSeries].push(parseFloat(item1.values.value))
-          })
-        }
-      })
-      // 一些基本的配置
-      // let baseLengend = {
-      //   top: 40,
-      //   textStyle: {
-      //     color: themeColor,
-      //     fontSize: 12
-      //   }
-      // }
+      let { legends = [], xData = [], showData = [] } = this.config
       let baseSerie = {
         type: "line",
         symbol: "circle",
@@ -75,7 +35,6 @@ export default {
         }
       }
       return {
-        // color: ["#5ad2fa", "#b989f0", "#adf7b7", "#c9dd68"],
         color: ["#9669ff", "#3766f4", "#43cf7c", "#ff8d1a"],
         grid: {
           top: 95,
@@ -90,7 +49,7 @@ export default {
             color: themeColor,
             fontSize: 14
           },
-          data: this.legends
+          data: legends
         },
         tooltip: {
           show: true,
@@ -113,7 +72,7 @@ export default {
           type: "category",
           boundaryGap: true,
           color: "#59588D",
-          data: this.xData,
+          data: xData,
           axisLabel: {
             margin: 10,
             color: themeColor,
@@ -171,8 +130,8 @@ export default {
             }
           }
         ],
-        series: this.legends.map((item, index) => {
-          return { ...baseSerie, name: this.legends[index], data: this[this.legends[index]] }
+        series: legends.map((item, index) => {
+          return { ...baseSerie, name: legends[index], data: showData[index] }
         })
       }
     }

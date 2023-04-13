@@ -217,6 +217,14 @@ export default [
               import(/* webpackChunkName: "fixtrue" */ "../views/main/cma/fixtrue/fixtrue.vue")
           },
           {
+            path: "effciency",
+            name: "effciency",
+            component: () =>
+              import(
+                /* webpackChunkName: "effciency" */ "../views/main/cma/effciency/effciency.vue"
+              )
+          },
+          {
             path: "aawar",
             name: "aawar",
             component: () =>
