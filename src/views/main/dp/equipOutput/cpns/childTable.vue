@@ -5,8 +5,8 @@
         ref="loadingContent"
         class="container"
         v-loading="loading(currentIndex)"
-        element-loading-text="加载中..."
-        element-loading-spinner="el-icon-loading"
+        :element-loading-text="loadingtext"
+        :element-loading-spinner="elicon"
         element-loading-background="#111e40"
       >
         <div class="item" v-for="(i, index) in comLength(currentIndex)" :key="index">
@@ -70,11 +70,14 @@
                   :duration="2000"
                 ></countTo>
               </div>
-              <div class="show lamp-container" style="flex: 1.6">
-                <span class="lamp" :style="changeStyle(item.hitRate)"></span>
+              <!-- 如果加上圆点记得加上这个class名 lamp-container -->
+              <div class="show" style="flex: 1.6">
+                <!-- 圆点效果 -->
+                <!-- <span class="lamp" :style="changeStyle(item.hitRate, 1)"></span> -->
                 <countTo
                   :decimals="2"
                   :startVal="0"
+                  :style="changeStyle(item.hitRate, 2)"
                   class="text"
                   :endVal="parseFloat(item.hitRate)"
                   :duration="2000"
@@ -89,14 +92,15 @@
                   currentIndex == 'TET' ||
                   currentIndex == 'FTC'
                 "
-                class="show lamp-container"
+                class="show"
                 style="flex: 1.6"
               >
-                <span class="lamp" :style="changeYield(currentIndex, item.firstYield)"></span>
+                <!-- <span class="lamp" :style="changeYield(currentIndex, item.firstYield, 1)"></span> -->
                 <countTo
                   :decimals="2"
                   :startVal="0"
                   class="text"
+                  :style="changeYield(currentIndex, item.firstYield, 2)"
                   :endVal="parseFloat(item.firstYield)"
                   :duration="2000"
                   suffix="%"
@@ -129,6 +133,9 @@ export default {
   },
   data() {
     return {
+      elicon: "",
+      // 加载中或者无数据文字展示
+      loadingtext: "",
       // 状态颜色
       colors1: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)"],
       colors: [
@@ -147,6 +154,14 @@ export default {
       let count = 0
       for (let key in this.allData[index]) {
         count++
+      }
+      // 数据没返回显示加载中，没数据显示无数据
+      if (!this.allData[index]) {
+        this.elicon = "el-icon-loading"
+        this.loadingtext = "加载中..."
+      } else if (count == 0) {
+        this.elicon = " "
+        this.loadingtext = "无数据"
       }
       return count === 0
     },
@@ -187,7 +202,6 @@ export default {
         )
       }
     },
-
     // 机台状态
     changeMachine(state = 0) {
       if (state == "Run" || state == "RUN" || state == "RU001") {
@@ -201,54 +215,84 @@ export default {
       }
     },
     // hitRate状态
-    changeStyle(hitRate) {
+    changeStyle(hitRate, flag) {
       let hr = Number.parseFloat(hitRate) || 0
       if (hr >= 100) {
-        return { background: this.colors[1], color: this.colors1[1] }
+        return flag === 1
+          ? { background: this.colors[1], color: this.colors1[1] }
+          : { color: this.colors1[1] }
       } else if (hr < 95) {
-        return { background: this.colors[0], color: this.colors1[0] }
+        return flag === 1
+          ? { background: this.colors[0], color: this.colors1[0] }
+          : { color: this.colors1[0] }
       } else {
-        return { background: this.colors[2], color: this.colors1[2] }
+        return flag === 1
+          ? { background: this.colors[2], color: this.colors1[2] }
+          : { color: this.colors1[2] }
       }
     },
     // firstYield状态
-    changeYield(type, firstYield) {
+    changeYield(type, firstYield, flag) {
       let num = Number.parseFloat(firstYield)
       if (type == "TAA" || type == "RAA") {
         let yid = Number.parseFloat(num) || 0
         if (yid > 99) {
-          return { background: this.colors[1], color: this.colors1[1] }
+          return flag === 1
+            ? { background: this.colors[1], color: this.colors1[1] }
+            : { color: this.colors1[1] }
         } else if (yid < 97) {
-          return { background: this.colors[0], color: this.colors1[0] }
+          return flag === 1
+            ? { background: this.colors[0], color: this.colors1[0] }
+            : { color: this.colors1[0] }
         } else {
-          return { background: this.colors[2], color: this.colors1[2] }
+          return flag === 1
+            ? { background: this.colors[2], color: this.colors1[2] }
+            : { color: this.colors1[2] }
         }
       } else if (type == "RET") {
         let yid = Number.parseFloat(firstYield) || 0
         if (yid >= 97.5) {
-          return { background: this.colors[1], color: this.colors1[1] }
+          return flag === 1
+            ? { background: this.colors[1], color: this.colors1[1] }
+            : { color: this.colors1[1] }
         } else if (yid < 94.5) {
-          return { background: this.colors[0], color: this.colors1[0] }
+          return flag === 1
+            ? { background: this.colors[0], color: this.colors1[0] }
+            : { color: this.colors1[0] }
         } else {
-          return { background: this.colors[2], color: this.colors1[2] }
+          return flag === 1
+            ? { background: this.colors[2], color: this.colors1[2] }
+            : { color: this.colors1[2] }
         }
       } else if (type == "TET") {
         let yid = Number.parseFloat(firstYield) || 0
         if (yid >= 97.5) {
-          return { background: this.colors[1], color: this.colors1[1] }
+          return flag === 1
+            ? { background: this.colors[1], color: this.colors1[1] }
+            : { color: this.colors1[1] }
         } else if (yid < 95) {
-          return { background: this.colors[0], color: this.colors1[0] }
+          return flag === 1
+            ? { background: this.colors[0], color: this.colors1[0] }
+            : { color: this.colors1[0] }
         } else {
-          return { background: this.colors[2], color: this.colors1[2] }
+          return flag === 1
+            ? { background: this.colors[2], color: this.colors1[2] }
+            : { color: this.colors1[2] }
         }
       } else if (type == "FTC") {
         let yid = Number.parseFloat(firstYield) || 0
         if (yid >= 99.5) {
-          return { background: this.colors[1], color: this.colors1[1] }
+          return flag === 1
+            ? { background: this.colors[1], color: this.colors1[1] }
+            : { color: this.colors1[1] }
         } else if (yid < 95) {
-          return { background: this.colors[0], color: this.colors1[0] }
+          return flag === 1
+            ? { background: this.colors[0], color: this.colors1[0] }
+            : { color: this.colors1[0] }
         } else {
-          return { background: this.colors[2], color: this.colors1[2] }
+          return flag === 1
+            ? { background: this.colors[2], color: this.colors1[2] }
+            : { color: this.colors1[2] }
         }
       }
     }
