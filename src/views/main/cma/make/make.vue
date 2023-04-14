@@ -190,7 +190,7 @@ export default {
     this.isStanley = customName == "Stanley"
     // 各个表格的标题
     this.chart1Ttitle = `${customName} 產出達成狀況`
-    this.chart3Ttitle = `${customName} 站位WIP狀況`
+    // this.chart3Ttitle = `${customName} 站位WIP狀況`
     this.tableLabel = `${customName} 產能達成狀況`
   },
   methods: {
@@ -209,6 +209,7 @@ export default {
       this.Opno = stationInfo[stationInfo.length - 1].opNo
       // 取出最后一项的名称
       this.chart2Ttitle = `${stationInfo[stationInfo.length - 1].station} 時段產出`
+      this.chart3Ttitle = `${stationInfo[stationInfo.length - 1].station} 站位WIP狀況`
       // 取出最后一项的 pack 计划
       let packPlan = stationInfo[stationInfo.length - 1].targetOut
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno: this.Opno })
@@ -240,6 +241,7 @@ export default {
     // 获取左边中间区域的数据
     async GetStationTimeSpanOutputInfo(params) {
       let result = await GetStationTimeSpanOutputInfo(params)
+      console.log("获取左边中间区域的数据", result)
       this.chart2Xdata = []
       this.chart2Output = []
       this.chart2TargetOut = []
@@ -263,10 +265,16 @@ export default {
     // 获取左边最下面区域数据
     async getStationTimeSpanWIPInfo(params) {
       let result = await getStationTimeSpanWIPInfo(params)
+      this.chart3Config = {
+        chat3MaxWips: [],
+        chat3MinWips: [],
+        chat3Wips: [],
+        chat3Xdata: []
+      }
       console.log("获取左边最下面区域数据", result)
       // 取出对应的值
       result.dateValues.forEach((item) => {
-        this.chart3Config.chat3Xdata.push(item.dateCode)
+        this.chart3Config.chat3Xdata.push(item.dateCode.split(" ")[1].slice(0, 5))
         this.chart3Config.chat3MaxWips.push(item.values.value.maxWip)
         this.chart3Config.chat3MinWips.push(item.values.value.minWip)
         this.chart3Config.chat3Wips.push(item.values.value.wip)
@@ -278,6 +286,9 @@ export default {
       // 修改第二个图的名称和一些字段
       this.chart2Ttitle = `${station} 時段產出`
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno })
+      // 修改第三个图的名称和字段
+      this.chart3Ttitle = `${station} 站位WIP狀況`
+      this.getStationTimeSpanWIPInfo({ ...this.$route.params, Opno })
     },
     getRowClass() {
       return "background:transparent !important;color:#1adafb;'font-size':'30px'"

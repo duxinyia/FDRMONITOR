@@ -101,9 +101,7 @@ export default {
     },
     device: {
       type: Object,
-      default: () => ({})
-      // default: () => ({ deviceNo: "", plantID: "", customName: "", Opno: "" })
-      // required: true
+      default: () => ({ device: { customName: "", plantID: "", Opno: "" }, dateValues: [] })
     },
     dateValues: {
       type: Array,

@@ -43,25 +43,11 @@ export default {
   components: {
     baseEchart
   },
-  // data() {
-  //   return {
-  //     loading: true
-  //   }
-  // },
-  // watch: {
-  //   xData() {
-  //     this.loading = false
-  //   }
-  // },
   computed: {
     options() {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       let { xData, maxWips, wips, title, minWips } = this
-      // let newXData = xData.length >= 6 ? xData.slice(5) : xData
-      // let newXData = xData
-      // let newWips = wips.length >= 6 ? wips.slice(5) : wips
-      // let newMinWips = minWips.length >= 6 ? minWips.slice(5) : minWips
       return {
         title: {
           text: title,
@@ -139,11 +125,9 @@ export default {
             textStyle: {
               fontSize: 12
             }
-            // rotate: "45"
           },
           axisLine: {
             lineStyle: {
-              // color: "#ffffff",
               color: themeColor,
               opacity: 1
             }
@@ -154,7 +138,6 @@ export default {
           splitLine: {
             show: true,
             lineStyle: {
-              // color: "#ffffff",
               color: themeColor,
               opacity: 0.5,
               type: "dotted"
@@ -163,8 +146,8 @@ export default {
         },
         yAxis: [
           {
-            min: (value) => Math.ceil(value.min), // 指定最小值
-            max: (value) => Math.floor(value.max) + 4000, // 指定最大值
+            min: (value) => (value.min == 0 ? 0 : Math.ceil(value.min)) - 1000, // 指定最小值
+            max: (value) => Math.floor(value.max) + 1000, // 指定最大值
             axisLabel: {
               // color: "#EEEEEE",
               color: themeColor,
@@ -200,30 +183,28 @@ export default {
             data: maxWips,
             barWidth: "16",
             itemStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "rgba(184,123,255,1)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(45,57,178,1)"
+                }
+              ]),
+              areaStyle: {
+                //区域填充样式
+                color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
                   {
                     offset: 0,
-                    color: "rgba(184,123,255,1)"
+                    color: "rgba(109, 101, 197, 0.1)"
                   },
                   {
                     offset: 1,
-                    color: "rgba(45,57,178,1)"
+                    color: "rgba(109, 101, 197, 0.5)"
                   }
-                ]),
-                areaStyle: {
-                  //区域填充样式
-                  color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                    {
-                      offset: 0,
-                      color: "rgba(109, 101, 197, 0.1)"
-                    },
-                    {
-                      offset: 1,
-                      color: "rgba(109, 101, 197, 0.5)"
-                    }
-                  ])
-                }
+                ])
               }
             }
           },
@@ -233,30 +214,28 @@ export default {
             data: minWips,
             barWidth: "16",
             itemStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "rgba(78, 243, 156,1)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(78, 243, 156,1)"
+                }
+              ]),
+              areaStyle: {
+                //区域填充样式
+                color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
                   {
                     offset: 0,
-                    color: "rgba(78, 243, 156,1)"
+                    color: "rgba(78, 243, 156, 0.1)"
                   },
                   {
                     offset: 1,
-                    color: "rgba(78, 243, 156,1)"
+                    color: "rgba(78, 243, 156, 0.5)"
                   }
-                ]),
-                areaStyle: {
-                  //区域填充样式
-                  color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                    {
-                      offset: 0,
-                      color: "rgba(78, 243, 156, 0.1)"
-                    },
-                    {
-                      offset: 1,
-                      color: "rgba(78, 243, 156, 0.5)"
-                    }
-                  ])
-                }
+                ])
               }
             }
           },
@@ -266,41 +245,37 @@ export default {
             data: wips,
             barWidth: "16",
             itemStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "rgba(48,227,235,1)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(16,127,212,1)"
+                }
+              ]),
+              areaStyle: {
+                //区域填充样式
+                color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
                   {
                     offset: 0,
-                    color: "rgba(48,227,235,1)"
+                    color: "rgba(35, 205, 241, 0.1)"
                   },
                   {
                     offset: 1,
-                    color: "rgba(16,127,212,1)"
+                    color: "rgba(35, 205, 241, 0.5)"
                   }
-                ]),
-                areaStyle: {
-                  //区域填充样式
-                  color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                    {
-                      offset: 0,
-                      color: "rgba(35, 205, 241, 0.1)"
-                    },
-                    {
-                      offset: 1,
-                      color: "rgba(35, 205, 241, 0.5)"
-                    }
-                  ])
-                }
+                ])
               }
             },
             label: {
-              normal: {
-                show: true,
-                position: "top",
-                fontSize: 12,
-                fontWeight: "bold",
-                // color: "#FFFFFF"
-                color: themeColor
-              }
+              show: true,
+              position: "top",
+              fontSize: 12,
+              fontWeight: "bold",
+              // color: "#FFFFFF"
+              color: themeColor
             }
           }
         ]

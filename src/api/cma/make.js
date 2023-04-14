@@ -27,10 +27,10 @@ export let GetStationTimeSpanOutputInfo = (params) => {
 
 // 4/13 第三个折线的数据
 export let getStationTimeSpanWIPInfo = (params) => {
-  let { plantID = "8S01", deviceNo, Opno } = params
+  let { plantID = "8S01", deviceNo, Opno, preTime } = params
   return $post(
-    `/api/MESOutPut/GetStationTimeSpanWIPInfo?PlantID=${plantID}&DeviceNo=${deviceNo}&Opno=${Opno}&LotType=MP&${getTimeAgo(
-      24
+    `/api/MESOutPut/GetStationTimeSpanWIPInfo?PlantID=${plantID}&DeviceNo=${deviceNo}&Opno=${Opno}&LotType=MP&${getTime(
+      preTime
     )}`
   )
 }

@@ -13,7 +13,6 @@ export default {
   components: {
     BaseEchart
   },
-  // props: ["config", "showTitle"],
   props: {
     config: {
       type: Object,
@@ -31,22 +30,6 @@ export default {
     options() {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
-      // if (this.config) {
-      //   this.config.forEach((item, index) => {
-      //     let tempData = []
-      //     // 1. 取出legends
-      //     this.chartConfig.legends.push(item.deviceSeries)
-      //     // 2. 取出xData中的值 但只能取一次
-      //     item.yieldList.forEach((childItem) => {
-      //       if (index == 0) {
-      //         this.chartConfig.xData.push(childItem.dateCode)
-      //       }
-      //       // 取出对应的值
-      //       tempData.push(parseFloat(childItem.values.value))
-      //     })
-      //     this.chartConfig.showData.push(tempData)
-      //   })
-      // }
       let { legends = [], xData = [], showData = [] } = this.config
       let baseSerie = {
         type: "line",
@@ -169,11 +152,12 @@ export default {
   },
   methods: {
     toDetail() {
-      if (!this.config.deviceSeries) return
+      console.log("toDetail", this.config)
       this.$router.push({
         name: "sfcdetail",
         query: {
-          tag: this.config.deviceSeries
+          device: this.config.deviceSeries
+          // device: 1
         }
       })
     }

@@ -27,15 +27,6 @@ export default {
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
       let { chart2Xdata, chart2TargetOut } = this
       return {
-        // title: {
-        //   text: title,
-        //   left: "center",
-        //   textStyle: {
-        //     color: "#369fb5",
-        //     fontWeight: "bold",
-        //     fontSize: 22
-        //   }
-        // },
         grid: {
           top: 40,
           right: 50,
@@ -79,9 +70,7 @@ export default {
           axisLabel: {
             margin: 10,
             color: themeColor,
-            textStyle: {
-              fontSize: 12
-            }
+            fontSize: 12
           },
           axisLine: {
             lineStyle: {
@@ -106,9 +95,7 @@ export default {
             position: "left",
             axisLabel: {
               color: themeColor,
-              textStyle: {
-                fontSize: 14
-              }
+              fontSize: 14
             },
             axisLine: {
               lineStyle: {
@@ -136,27 +123,23 @@ export default {
             data: chart2TargetOut,
             barWidth: "16",
             itemStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: "rgba(184,123,255,1)"
-                  },
-                  {
-                    offset: 1,
-                    color: "rgba(45,57,178,1)"
-                  }
-                ])
-              }
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "rgba(184,123,255,1)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(45,57,178,1)"
+                }
+              ])
             },
             label: {
-              normal: {
-                show: true,
-                position: "top",
-                fontSize: 12,
-                fontWeight: "bold",
-                color: themeColor
-              }
+              show: true,
+              position: "top",
+              fontSize: 12,
+              fontWeight: "bold",
+              color: themeColor
             }
           }
         ]

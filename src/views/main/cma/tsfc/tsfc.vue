@@ -2,16 +2,39 @@
   <div class="page-main">
     <!-- 主要区域 -->
     <dv-border-box-10>
-      <el-row :gutter="30" class="main-one">
-        <el-col v-for="item in 4" :key="item" :span="12" class="chart-item">
-          <line-chart :config="chartConfig[item - 1]" />
-          <div class="btns">
-            <el-button @click="toDetail" type="success" size="mini">EOL</el-button>
-            <el-button @click="toDetail" type="success" size="mini">FOL</el-button>
-          </div>
-        </el-col>
-      </el-row>
+      <!-- 使用轮播图来展示数据 -->
+      <el-carousel
+        style="height: 900px"
+        indicator-position="none"
+        :interval="15 * 10000"
+        ref="carousel"
+        arrow="never"
+      >
+        <el-carousel-item v-for="(item, index) in splitArr" :key="index">
+          <el-row :gutter="30" class="main-one">
+            <el-col
+              v-for="(childItem, childIndex) in item"
+              :key="childIndex"
+              :span="12"
+              class="chart-item"
+            >
+              <line-chart :config="allShowData[4 * index + childIndex]" />
+              <!-- {{ allShowData[4 * index + childIndex].xData }} -->
+              <div class="btns">
+                <el-button @click="toDetail" type="success" size="mini">EOL</el-button>
+                <el-button @click="toDetail" type="success" size="mini">FOL</el-button>
+              </div>
+            </el-col>
+          </el-row>
+        </el-carousel-item>
+      </el-carousel>
     </dv-border-box-10>
+    <!-- 自定义两个切换按钮 -->
+    <change-switch
+      :leftConfig="{ left: '0px', top: '12px' }"
+      :rightConfig="{ right: '0px', top: '12px' }"
+      @directionChange="handleDirection"
+    />
   </div>
 </template>
 <script>
@@ -20,19 +43,27 @@ import LineChart from "./cpns/LineChart.vue"
 // 获取所有的子系列的
 import { getMESDeviceInfo } from "@/api/cma/sfc.js"
 // 导入接口
-import { getDateCodeRunningYieldInfo, getDeviceSeries } from "@/api/cma/tsfc.js"
+import { getDeviceSeries } from "@/api/cma/tsfc.js"
+import { splitArray } from "@/utils"
+// 导入左右切换的组件
+import ChangeSwitch from "@/components/change-switch/change-switch.vue"
 export default {
   name: "tsfc",
   components: {
-    LineChart
+    LineChart,
+    ChangeSwitch
   },
   data() {
     return {
-      chartConfig: [
-        { deviceSeries: "" },
-        { deviceSeries: "" },
-        { deviceSeries: "" },
-        { deviceSeries: "" }
+      allDevice: [],
+      allShowData: [
+        { legends: [], xData: [], showData: [] },
+        { legends: [], xData: [], showData: [] },
+        { legends: [], xData: [], showData: [] },
+        { legends: [], xData: [], showData: [] },
+        { legends: [], xData: [], showData: [] },
+        { legends: [], xData: [], showData: [] },
+        { legends: [], xData: [], showData: [] }
       ]
     }
   },
@@ -40,27 +71,55 @@ export default {
     this.$store.commit("fullLoading/SET_TITLE", "SFC良率Daily")
     this.initData()
   },
+  computed: {
+    // 分割形成不同的数组
+    splitArr() {
+      return splitArray(this.allDevice, 4)
+    }
+  },
   methods: {
     async initData() {
-      this.$store.commit("fullLoading/SET_FULLLOADING", true)
-      let requestArr = [this.getDateCodeRunningYieldInfo()]
+      let requestArr = [this.getMESDeviceInfo()]
       await Promise.all(requestArr)
-      this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
-    // 获取对应的数据
-    async getDateCodeRunningYieldInfo() {
-      let res = await getDateCodeRunningYieldInfo()
-      console.log("获取对应的数据", res)
-      if (res.length > 0) {
-        this.chartConfig = res
-      }
+    // 获取所有的机台数据
+    async getMESDeviceInfo() {
+      let res = await getMESDeviceInfo()
+      this.allDevice = res
+      console.log("所有的机台数据为:", res)
+      // 根据不同机台请求不同的数据
+      res.forEach(async (item, index) => {
+        let detailRes = await getDeviceSeries({ device: item.value })
+        console.log("返回的数据为子系列:", detailRes)
+        let tempConfg = { xData: [], legends: [], showData: [] }
+        // 我们需要取出x轴的数据 xData    showData
+        detailRes[0].yieldList.forEach((item2, twoIndex) => {
+          let tempShowData = []
+          // 这里取出 legends
+          tempConfg.legends.push(item2.device.customName)
+          // 当前legends 对应
+          item2.dateValues.forEach((childItem) => {
+            if (twoIndex == 0) {
+              // 取出x轴的数据
+              tempConfg.xData.push(childItem.dateCode)
+            }
+            tempShowData.push(parseFloat(childItem.values.value))
+          })
+          tempConfg.showData.push(tempShowData)
+        })
+        this.$set(this.allShowData, index, tempConfg)
+      })
     },
-
+    // 去详情页面
     toDetail() {
       console.log("toDetail")
       this.$router.push({
         name: "folyield"
       })
+    },
+    //
+    handleDirection(direction) {
+      direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
     }
   },
   beforeDestroy() {
@@ -72,8 +131,13 @@ export default {
 ::v-deep .border-box-content {
   padding: 20px 20px 20px 20px;
 }
+
+::v-deep .el-carousel__container {
+  height: 100%;
+}
 .page-main {
   margin-top: 25px;
+  position: relative;
 }
 
 .chart-item {
@@ -81,7 +145,7 @@ export default {
   .btns {
     position: absolute;
     top: 40px;
-    left: 40px;
+    right: 40px;
   }
 }
 </style>

@@ -107,46 +107,19 @@ export default {
       loading: true,
       eolChecked: true,
       folChecked: true,
-      showArr: [true, true, true, true, true, true, true, true, true, true, true, true],
+      showArr: [],
       configArr: [
         [{ hitCount: 0, hitRate: "0.00%", notHitCount: 0, productArea: "FOL", totalCount: 0 }],
         [{ hitCount: 0, hitRate: "0.00%", notHitCount: 0, productArea: "EOL", totalCount: 0 }]
       ],
-      titles: [
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" },
-        { customName: "", deviceNo: "" }
-      ],
-      outPutInfoDetails: [
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] },
-        { device: { customName: "", plantID: "", Opno: "" }, dateValues: [] }
-      ],
-      maxOutput: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      maxTargetOut: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      titles: [],
+      outPutInfoDetails: [],
+      maxOutput: [],
+      maxTargetOut: []
     }
   },
   computed: {
     changeBoxColor() {
-      // return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
       return ["#6586ec", "#2cf7fe"]
     },
     // 分割形成不同的数组
@@ -155,7 +128,6 @@ export default {
     }
   },
   created() {
-    // this.$store.commit("fullLoading/SET_FULLLOADING", false)
     this.$store.commit("fullLoading/SET_TITLE", "By天產出看板")
     // 获取上方的数据
     GetOutputInfoStatics().then((res) => {
@@ -167,12 +139,17 @@ export default {
       // 分页处理 15 为一页
       console.log("GetStationName", res)
       this.titles = res
-      this.outPutInfoDetails = []
+      // 设置初始值
+      this.outPutInfoDetails = Array(res.length).fill({
+        device: { customName: "", plantID: "", Opno: "" },
+        dateValues: []
+      })
+      this.showArr = Array(res.length).fill(true)
+
       res &&
         res.forEach((item, index) => {
           GetDeviceInfo(item.deviceNo).then((r) => {
             this.$set(this.outPutInfoDetails, index, r)
-            // console.log("-----", this.outPutInfoDetails)
             r.dateValues.forEach((childItem) => {
               // childItem.values.EOL.output  取出的是 output 的最大值
               if (childItem.values.EOL.output > this.maxOutput[index]) {
@@ -268,7 +245,6 @@ export default {
   }
 
   .control {
-    /* margin: auto; */
     display: flex;
     align-items: center;
     .eol-container,

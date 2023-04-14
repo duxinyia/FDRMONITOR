@@ -87,7 +87,6 @@ export default {
             top: 0,
             right: 80,
             textStyle: {
-              // color: "#FFFFFF",
               color: themeColor,
               fontSize: 12
             },
@@ -97,7 +96,6 @@ export default {
             top: 0,
             right: 8,
             textStyle: {
-              // color: "#FFFFFF",
               color: themeColor,
               fontSize: 12
             },
@@ -111,9 +109,8 @@ export default {
           axisLabel: {
             margin: 10,
             color: themeColor,
-            textStyle: {
-              fontSize: 12
-            }
+
+            fontSize: 12
           },
           axisLine: {
             lineStyle: {
@@ -140,9 +137,8 @@ export default {
             //max: (value) => Math.floor(value.max) + 3000, // 指定最大值
             axisLabel: {
               color: themeColor,
-              // textStyle: {
+
               fontSize: 14
-              // }
             },
             axisLine: {
               lineStyle: {
@@ -170,28 +166,23 @@ export default {
             data: chart2TargetOut,
             barWidth: "16",
             itemStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: "rgba(184,123,255,1)"
-                  },
-                  {
-                    offset: 1,
-                    color: "rgba(45,57,178,1)"
-                  }
-                ])
-              }
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "rgba(184,123,255,1)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(45,57,178,1)"
+                }
+              ])
             },
             label: {
-              normal: {
-                show: true,
-                position: "top",
-                fontSize: 12,
-                fontWeight: "bold",
-                // color: "#FFFFFF"
-                color: themeColor
-              }
+              show: true,
+              position: "top",
+              fontSize: 12,
+              fontWeight: "bold",
+              color: themeColor
             }
           },
           {
@@ -200,28 +191,23 @@ export default {
             data: chart2Output,
             barWidth: "16",
             itemStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: "rgba(48,227,235,1)"
-                  },
-                  {
-                    offset: 1,
-                    color: "rgba(16,127,212,1)"
-                  }
-                ])
-              }
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: "rgba(48,227,235,1)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(16,127,212,1)"
+                }
+              ])
             },
             label: {
-              normal: {
-                show: true,
-                position: "top",
-                fontSize: 12,
-                fontWeight: "bold",
-                // color: "#FFFFFF"
-                color: themeColor
-              }
+              show: true,
+              position: "top",
+              fontSize: 12,
+              fontWeight: "bold",
+              color: themeColor
             }
           }
         ]
@@ -274,24 +260,17 @@ export default {
             clockwise: true,
             data: Data,
             itemStyle: {
-              normal: {
-                borderColor: "#fff",
-                borderWidth: 6
-              }
+              borderColor: "#fff",
+              borderWidth: 6
             },
             labelLine: {
-              normal: {
-                length: 30,
-                length2: 40
-                // lineStyle: {
-                //     color: '#24DCF7'
-                // }
-              }
+              length: 30,
+              length2: 40
             },
             label: {
-              textStyle: {
-                align: "left"
-              },
+              // textStyle: {
+              align: "left",
+              // },
               formatter: "{a|{d}%}\n {b|{b} }",
               padding: [20, 0, 0, 0],
               rich: {
