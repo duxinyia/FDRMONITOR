@@ -40,6 +40,12 @@ export default [
             name: "cmajuec",
             component: () =>
               import(/* webpackChunkName: "cmajuec" */ "../views/overView/cma/manage/manage.vue")
+          },
+          {
+            path: "report/:type",
+            name: "cmareport",
+            component: () =>
+              import(/* webpackChunkName: "cmareport" */ "../views/overView/cma/manage/manage.vue")
           }
         ]
       },
@@ -62,6 +68,12 @@ export default [
             name: "dpjuec",
             component: () =>
               import(/* webpackChunkName: "dpjuec" */ "../views/overView/cma/manage/manage.vue")
+          },
+          {
+            path: "report/:type",
+            name: "dpreport",
+            component: () =>
+              import(/* webpackChunkName: "dpreport" */ "../views/overView/cma/manage/manage.vue")
           }
         ]
       }
@@ -80,14 +92,15 @@ export default [
       // 这里也分 cma 路由 和 dp路由
       {
         path: "cma",
+        name: "cma",
         component: () => import(/* webpackChunkName: "maincma" */ "../views/main/cma/index.vue"),
         children: [
           // AA看板的路由
-          {
-            path: "aa",
-            name: "aa",
-            component: () => import(/* webpackChunkName: "aa" */ "../views/main/cma/aa/aa.vue")
-          },
+          // {
+          //   path: "aa",
+          //   name: "aa",
+          //   component: () => import(/* webpackChunkName: "aa" */ "../views/main/cma/aa/aa.vue")
+          // },
           // FOL看板的路由
           {
             path: "fol",
@@ -268,10 +281,16 @@ export default [
             name: "javi",
             component: () =>
               import(/* webpackChunkName: "javi" */ "../views/main/cma/javi/javi.vue")
+          },
+          // 4/15 新增报表的路由
+          {
+            path: "report1",
+            name: "cmamainreport",
+            component: () =>
+              import(/* webpackChunkName: "report1" */ "../views/main/cma/report1/report1.vue")
           }
         ]
       },
-
       {
         path: "dp",
         component: () => import(/* webpackChunkName: "maindp" */ "../views/main/dp/index.vue"),
@@ -321,6 +340,13 @@ export default [
         ]
       }
     ]
+  },
+
+  // {}
+  {
+    path: "/report",
+    name: "report",
+    component: () => import(/* webpackChunkName: "report" */ "../views/report/report.vue")
   },
 
   // 没找到的路由

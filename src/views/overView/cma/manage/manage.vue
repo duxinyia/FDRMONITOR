@@ -19,7 +19,7 @@ export default {
   computed: {
     showDiv1() {
       let [, , c, d, e] = this.$route.path.split("/")
-      return this.$store.state.permission.textShowArr[c][d][e] || []
+      return this.$store.state.permission.showArrConfig[c][d][e] || []
     }
   },
   methods: {

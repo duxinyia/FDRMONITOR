@@ -152,7 +152,7 @@ export default {
         this.$router.push({ name: item.index }).catch(() => {})
       }
       // 点击了这些菜单，要跳转路由 切换右边的值 并且打开子菜单
-      if (["產出", "良率", "設備", "製程監控"].includes(item.title)) {
+      if (["產出", "良率", "設備", "製程監控", "cma所有报表", "dp所有报表"].includes(item.title)) {
         this.$router.push(item.index).catch(() => {})
       }
       let path = this.$route.path

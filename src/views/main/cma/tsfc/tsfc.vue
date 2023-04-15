@@ -4,28 +4,22 @@
     <dv-border-box-10>
       <!-- 使用轮播图来展示数据 -->
       <el-carousel
-        style="height: 900px"
+        style="height: 100%"
         indicator-position="none"
         :interval="15 * 10000"
         ref="carousel"
         arrow="never"
       >
         <el-carousel-item v-for="(item, index) in splitArr" :key="index">
-          <el-row :gutter="30" class="main-one">
-            <el-col
-              v-for="(childItem, childIndex) in item"
-              :key="childIndex"
-              :span="12"
-              class="chart-item"
-            >
+          <div class="chart-container">
+            <div v-for="(childItem, childIndex) in item" :key="childIndex" class="chart-item">
               <line-chart :config="allShowData[4 * index + childIndex]" />
-              <!-- {{ allShowData[4 * index + childIndex].xData }} -->
               <div class="btns">
                 <el-button @click="toDetail" type="success" size="mini">EOL</el-button>
                 <el-button @click="toDetail" type="success" size="mini">FOL</el-button>
               </div>
-            </el-col>
-          </el-row>
+            </div>
+          </div>
         </el-carousel-item>
       </el-carousel>
     </dv-border-box-10>
@@ -56,15 +50,7 @@ export default {
   data() {
     return {
       allDevice: [],
-      allShowData: [
-        { legends: [], xData: [], showData: [] },
-        { legends: [], xData: [], showData: [] },
-        { legends: [], xData: [], showData: [] },
-        { legends: [], xData: [], showData: [] },
-        { legends: [], xData: [], showData: [] },
-        { legends: [], xData: [], showData: [] },
-        { legends: [], xData: [], showData: [] }
-      ]
+      allShowData: []
     }
   },
   mounted() {
@@ -91,9 +77,9 @@ export default {
       res.forEach(async (item, index) => {
         let detailRes = await getDeviceSeries({ device: item.value })
         console.log("返回的数据为子系列:", detailRes)
-        let tempConfg = { xData: [], legends: [], showData: [] }
+        let tempConfg = { title: detailRes.deviceSeries, xData: [], legends: [], showData: [] }
         // 我们需要取出x轴的数据 xData    showData
-        detailRes[0].yieldList.forEach((item2, twoIndex) => {
+        detailRes.yieldList.forEach((item2, twoIndex) => {
           let tempShowData = []
           // 这里取出 legends
           tempConfg.legends.push(item2.device.customName)
@@ -129,23 +115,30 @@ export default {
 </script>
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
 }
-
 ::v-deep .el-carousel__container {
   height: 100%;
 }
 .page-main {
-  margin-top: 25px;
+  height: calc(100% - 120px);
+  margin-top: 10px;
   position: relative;
 }
-
-.chart-item {
-  position: relative;
-  .btns {
-    position: absolute;
-    top: 40px;
-    right: 40px;
+.chart-container {
+  height: 100%;
+  display: grid;
+  margin-top: 5px;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 20px;
+  .chart-item {
+    position: relative;
+    .btns {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+    }
   }
 }
 </style>

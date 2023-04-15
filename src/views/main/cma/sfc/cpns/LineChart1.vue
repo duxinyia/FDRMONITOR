@@ -1,5 +1,12 @@
 <template>
-  <dv-border-box-11 :color="changeBoxColor" title="SFC 良率">
+  <dv-border-box-11
+    v-loading="isLoading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中..."
+    element-loading-background="rgba(0, 0, 0, 1)"
+    :color="changeBoxColor"
+    title="SFC 良率"
+  >
     <base-echart height="350px" :options="options" />
   </dv-border-box-11>
 </template>
@@ -12,7 +19,20 @@ export default {
   components: {
     BaseEchart
   },
-  props: ["config"],
+  props: {
+    config: {
+      type: Object,
+      default: () => ({ legends: [], xData: [], showData: [] })
+    }
+  },
+  data() {
+    return { isLoading: true }
+  },
+  watch: {
+    config() {
+      this.isLoading = false
+    }
+  },
   computed: {
     changeBoxColor() {
       return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]

@@ -1,6 +1,6 @@
 const getters = {
   theme: (state) => state.fullLoading.theme,
-  showRouter: (state) => state.permission.routerArr,
+  menus: (state) => state.permission.menus,
   routerTitles: (state) => state.permission.routerTitles,
   showIndex: (state) => state.permission.showIndex
 }

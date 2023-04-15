@@ -24,7 +24,12 @@ export default {
     },
     options: {
       type: Object,
-      default: () => ({})
+      default: () => ({
+        xAxis: {},
+        yAxis: {},
+        grid: {},
+        series: []
+      })
     }
   },
   data() {

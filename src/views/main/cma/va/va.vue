@@ -1,9 +1,3 @@
-<!--
- * @Date: 2023-04-08 14:53:45
- * @LastEditors: GXL 1515533507@qq.com
- * @LastEditTime: 2023-04-08 14:53:53
- * @FilePath: \big-screen-manage\src\views\main\cma\va\va.vue
--->
 <template>
   <!-- Test治具良率看板页面 -->
   <div class="page-main">

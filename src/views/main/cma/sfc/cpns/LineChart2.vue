@@ -1,5 +1,12 @@
 <template>
-  <dv-border-box-11 :color="changeBoxColor" :title="`${showTitle || ''}系列`">
+  <dv-border-box-11
+    v-loading="isLoading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中..."
+    element-loading-background="rgba(0, 0, 0, 1)"
+    :color="changeBoxColor"
+    :title="`${showTitle || ''}系列`"
+  >
     <span class="btn" @click="toDetail"></span>
     <base-echart :options="options" />
   </dv-border-box-11>
@@ -22,6 +29,9 @@ export default {
       type: String,
       default: "标题"
     }
+  },
+  data() {
+    return { isLoading: true }
   },
   computed: {
     changeBoxColor() {
@@ -148,6 +158,11 @@ export default {
           return { ...baseSerie, name: legends[index], data: showData[index] }
         })
       }
+    }
+  },
+  watch: {
+    config() {
+      this.isLoading = false
     }
   },
   methods: {

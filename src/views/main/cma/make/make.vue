@@ -274,7 +274,10 @@ export default {
       console.log("获取左边最下面区域数据", result)
       // 取出对应的值
       result.dateValues.forEach((item) => {
-        this.chart3Config.chat3Xdata.push(item.dateCode.split(" ")[1].slice(0, 5))
+        this.chart3Config.chat3Xdata.push(
+          this.$moment(item.dateCode).subtract(2, "hours").format("HH:mm")
+        )
+
         this.chart3Config.chat3MaxWips.push(item.values.value.maxWip)
         this.chart3Config.chat3MinWips.push(item.values.value.minWip)
         this.chart3Config.chat3Wips.push(item.values.value.wip)

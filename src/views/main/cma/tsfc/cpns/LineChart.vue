@@ -1,6 +1,13 @@
 <template>
-  <dv-border-box-11 :color="changeBoxColor" :title="`${1 || ''}系列`">
-    <base-echart height="400px" :options="options" />
+  <dv-border-box-11 :color="changeBoxColor" :title="`${config.title || ''}系列`">
+    <base-echart
+      v-loading="isLoading"
+      element-loading-spinner="el-icon-loading"
+      element-loading-text="加载中..."
+      element-loading-background="rgba(0, 0, 0, 1)"
+      height="400px"
+      :options="options"
+    />
   </dv-border-box-11>
 </template>
 <script>
@@ -11,7 +18,20 @@ export default {
   components: {
     BaseEchart
   },
-  props: ["config"],
+  props: {
+    config: {
+      type: Object,
+      default: () => ({ title: "", legends: [], xData: [], showData: [] })
+    }
+  },
+  data() {
+    return { isLoading: true }
+  },
+  watch: {
+    config() {
+      this.isLoading = false
+    }
+  },
   computed: {
     changeBoxColor() {
       return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
@@ -20,7 +40,17 @@ export default {
       let { legends = [], xData = [], showData = [] } = this.config
       console.log("執行了")
       return {
-        color: ["#9669ff", "#3766f4", "#43cf7c", "#ff8d1a"],
+        color: [
+          "#9669ff",
+          "#3766f4",
+          "#43cf7c",
+          "#ff8d1a",
+          "#05dad4",
+          "#1f33a2",
+          "#8aaafb",
+          "#05dad4",
+          "#2c97e1"
+        ],
         grid: {
           top: 100,
           right: 10,
@@ -114,13 +144,14 @@ export default {
           return {
             type: "line",
             symbol: "circle",
-            symbolSize: 15,
+            symbolSize: 10,
             smooth: true,
             lineStyle: {
-              width: 5
+              width: 3
             },
             label: {
               show: true,
+              color: "#fff",
               formatter: (params) => params.value + "%"
             },
             name: legends[index],

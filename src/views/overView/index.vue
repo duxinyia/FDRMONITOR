@@ -6,7 +6,7 @@
         <el-image class="logo" :src="logoUrl" fit="fill" />
         <h2 class="name" v-show="!menuFold">RAYPRUS</h2>
       </div>
-      <menu-child :menus="$store.getters.showRouter[$store.getters.showIndex]" />
+      <menu-child :menus="$store.getters.menus[$store.getters.showIndex]" />
     </el-aside>
     <el-container class="right-container">
       <!-- 左边菜单 -->
@@ -21,6 +21,7 @@
           :class="{ item: true, 'is-active': index == $store.getters.showIndex }"
           >{{ item.name }}</span
         >
+        <span class="item" @click="toReport">报表</span>
       </div>
       <!-- 主要区域 -->
       <el-main class="main-container">
@@ -67,6 +68,9 @@ export default {
       this.$router.push(item.path).catch(() => {})
       this.$store.commit("fullLoading/SET_PATH", this.$route.path)
       this.$store.commit("permission/SET_INDEX", index)
+    },
+    toReport() {
+      this.$router.push({ name: "report" })
     }
   }
 }
