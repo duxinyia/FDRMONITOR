@@ -74,6 +74,8 @@ export default {
         },
         tooltip: {
           trigger: "item",
+          backgroundColor: "#303133",
+          extraCssText: "padding:5px;border:none;color:#fff",
           formatter: (params) => {
             console.log("params", params)
             let { output = "", targetOut = "" } = params.data
@@ -181,7 +183,7 @@ export default {
             type: "bar",
             barWidth: 15,
             barGap: "-100%",
-            data: values[0],
+            data: values,
             itemStyle: {
               normal: {
                 color: "#004298",

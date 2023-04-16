@@ -32,7 +32,7 @@ import {
   getDateCodeOutputInfo
 } from "@/api/dp/output.js"
 export default {
-  name: "output1",
+  name: "output",
   components: {
     MainLeft,
     MainCenter,
@@ -73,8 +73,40 @@ export default {
   mounted() {
     this.$store.commit("fullLoading/SET_TITLE", "產出可視化平台")
     this.initData()
+    // 每 120000（2分钟）获取一次数据
+    this.dataTiming = setInterval(() => {
+      this.clearValue()
+      this.initData()
+    }, 120000)
   },
   methods: {
+    // 清空数据
+    clearValue() {
+      // 饼图的配置
+      (this.seriesData = []),
+        // 折线图的一些数据
+        (this.lineChartConfig = {
+          legends: [],
+          xData: [],
+          yData: []
+        }),
+        // 左上的数据
+        (this.progressConfig = {
+          names: [],
+          values: [],
+          formatValues: []
+        }),
+        // 左下的数据
+        (this.leftScrollData = []),
+        // 右上的数据
+        (this.rightTopData = {
+          names: [],
+          values: [],
+          formatValues: []
+        }),
+        // 右下的数据
+        (this.rightScrollData = [])
+    },
     // 获取数据
     async initData() {
       let requestArr = [
