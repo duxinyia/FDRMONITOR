@@ -13,7 +13,7 @@ export default {
     return {}
   },
   created() {
-    this.$store.commit("fullLoading/SET_TITLE", "CMA的第一个报表")
+    this.$store.commit("fullLoading/SET_TITLE", "CMA的第二个报表")
   },
   methods: {}
 }

@@ -288,6 +288,12 @@ export default [
             name: "cmamainreport",
             component: () =>
               import(/* webpackChunkName: "report1" */ "../views/main/cma/report1/report1.vue")
+          },
+          {
+            path: "report2",
+            name: "cmamainreport2",
+            component: () =>
+              import(/* webpackChunkName: "report2" */ "../views/main/cma/report2/report2.vue")
           }
         ]
       },

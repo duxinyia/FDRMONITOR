@@ -301,6 +301,15 @@ let showArrConfig = {
           belong: "报表/所有",
           isShow: false,
           to: "cmamainreport"
+        },
+        {
+          id: 2,
+          imgUrl: require("@/assets/images/cma/output.png"),
+          title: "cma的第二个报表",
+          target: "report",
+          belong: "报表/所有",
+          isShow: false,
+          to: "cmamainreport2"
         }
       ]
     }

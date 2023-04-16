@@ -86,7 +86,7 @@
       "no-debugger": "off",
       "no-console": "off",
       "no-unused-vars": "off",
-      "no-async-promise-executor":"off"
+      "no-async-promise-executor": "off"
     }
   },
   "browserslist": [
