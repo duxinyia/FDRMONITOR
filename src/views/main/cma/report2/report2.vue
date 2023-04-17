@@ -1,134 +1,152 @@
 <template>
   <div class="page-mian">
-    <el-form :model="ruleForm" :rules="rules" class="elForm" ref="ruleForm" label-width="150px">
-      <el-row>
-        <el-col :span="6">
-          <el-form-item label="Device" prop="device">
-            <el-select
-              :popper-append-to-body="false"
-              v-model="ruleForm.device"
-              placeholder="請選擇"
-            >
-              <el-option
-                v-for="item in deviceOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+    <div class="showContorl">
+      <el-button
+        class="showButton"
+        :icon="isShow ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"
+        circle
+        @click="Show"
+      ></el-button>
+    </div>
+    <div v-show="isShow == true">
+      <el-form :model="ruleForm" :rules="rules" class="elForm" ref="ruleForm" label-width="150px">
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="Device" prop="device">
+              <el-select
+                :popper-append-to-body="false"
+                v-model="ruleForm.device"
+                placeholder="請選擇"
               >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="Lottype" prop="lottype">
-            <el-select
-              :popper-append-to-body="false"
-              v-model="ruleForm.lottype"
-              placeholder="請選擇"
-            >
-              <el-option
-                v-for="item in lottypeOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                <el-option
+                  v-for="item in deviceOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Lottype" prop="lottype">
+              <el-select
+                :popper-append-to-body="false"
+                v-model="ruleForm.lottype"
+                placeholder="請選擇"
               >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="Tester" prop="tester">
-            <el-select
-              :popper-append-to-body="false"
-              v-model="ruleForm.tester"
-              multiple
-              placeholder="請選擇"
-            >
-              <el-option
-                v-for="item in testerOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                <el-option
+                  v-for="item in lottypeOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Tester" prop="tester">
+              <el-select
+                :popper-append-to-body="false"
+                v-model="ruleForm.tester"
+                multiple
+                collapse-tags
+                placeholder="請選擇"
               >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="Test station" prop="testStation">
-            <el-select
-              :popper-append-to-body="false"
-              v-model="ruleForm.testStation"
-              multiple
-              placeholder="請選擇"
-            >
-              <el-option
-                v-for="item in testStation"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                <el-option
+                  v-for="item in testerOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Test station" prop="testStation">
+              <el-select
+                :popper-append-to-body="false"
+                v-model="ruleForm.testStation"
+                multiple
+                collapse-tags
+                placeholder="請選擇"
               >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="6">
-          <el-form-item label="Test StartTime" prop="startTime">
-            <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="選擇日期時間">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="Test EndTime" prop="endTime">
-            <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="選擇日期時間">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="Material Vendor" prop="materialVendor">
-            <el-select
-              :popper-append-to-body="false"
-              v-model="ruleForm.materialVendor"
-              placeholder="請選擇"
-            >
-              <el-option
-                v-for="item in vendorOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                <el-option
+                  v-for="item in testStation"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="Test StartTime" prop="startTime">
+              <el-date-picker
+                v-model="ruleForm.startTime"
+                type="datetime"
+                placeholder="選擇日期時間"
               >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="Process" prop="process">
-            <el-select
-              :popper-append-to-body="false"
-              v-model="ruleForm.process"
-              multiple
-              placeholder="請選擇"
-            >
-              <el-option
-                v-for="item in processOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Test EndTime" prop="endTime">
+              <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="選擇日期時間">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Material Vendor" prop="materialVendor">
+              <el-select
+                :popper-append-to-body="false"
+                v-model="ruleForm.materialVendor"
+                placeholder="請選擇"
               >
-              </el-option>
-            </el-select>
+                <el-option
+                  v-for="item in vendorOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Process" prop="process">
+              <el-select
+                :popper-append-to-body="false"
+                v-model="ruleForm.process"
+                multiple
+                collapse-tags
+                placeholder="請選擇"
+              >
+                <el-option
+                  v-for="item in processOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-form-item style="float: right; margin-right: 80px">
+            <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查詢</el-button>
+            <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-form-item style="float: right; margin-right: 80px">
-          <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查詢</el-button>
-          <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-      </el-row>
-    </el-form>
+        </el-row>
+      </el-form>
+    </div>
+
     <!-- <el-table
       :data="tableData"
       :span-method="objectSpanMethod"
@@ -149,6 +167,7 @@
       border
       style="width: 100%; margin-top: 20px"
       :header-cell-style="headerCellStyle"
+      :height="isShow ? '690px' : '900px'"
     >
       <el-table-column
         v-for="(item, index) in tableHeader"
@@ -156,7 +175,7 @@
         :label="item.label"
         :prop="item.prop"
         align="center"
-        min-width="100px"
+        min-width="110px"
       >
         <el-table-column
           v-show="item.children"
@@ -168,8 +187,13 @@
         >
           <template slot-scope="scope">
             <div class="detail" v-if="scope.row[child.prop].includes('%') == true">
-              <el-popover placement="bottom" width="500" trigger="click">
-                <el-table :data="gridData" border height="200px">
+              <el-popover :append-to-body="false" placement="bottom" width="500" trigger="click">
+                <el-table
+                  :data="gridData"
+                  border
+                  height="200px"
+                  :header-cell-style="{ background: 'transparent', color: '#fff' }"
+                >
                   <el-table-column
                     width="200"
                     property="sn"
@@ -203,6 +227,7 @@ export default {
   components: {},
   data() {
     return {
+      isShow: true,
       tableData: [],
       tableHeader: [
         {
@@ -243,15 +268,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "数值 1（元）"
+              label: "数值 1"
             },
             {
               prop: "amount2",
-              label: "数值 2（元）"
+              label: "数值 2"
             },
             {
               prop: "amount3",
-              label: "数值 3（元）"
+              label: "数值 3"
             }
           ]
         },
@@ -261,15 +286,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "数值1（元）"
+              label: "数值1"
             },
             {
               prop: "amount2",
-              label: "数值2（元）"
+              label: "数值2"
             },
             {
               prop: "amount3",
-              label: "数值3（元）"
+              label: "数值3"
             }
           ]
         },
@@ -279,15 +304,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "数值 1（元）"
+              label: "数值 1"
             },
             {
               prop: "amount2",
-              label: "数值 2（元）"
+              label: "数值 2"
             },
             {
               prop: "amount3",
-              label: "数值 3（元）"
+              label: "数值 3"
             }
           ]
         },
@@ -297,15 +322,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "数值 1（元）"
+              label: "数值 1"
             },
             {
               prop: "amount2",
-              label: "数值 2（元）"
+              label: "数值 2"
             },
             {
               prop: "amount3",
-              label: "数值 3（元）"
+              label: "数值 3"
             }
           ]
         },
@@ -315,15 +340,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "数值 1（元）"
+              label: "数值 1"
             },
             {
               prop: "amount2",
-              label: "数值 2（元）"
+              label: "数值 2"
             },
             {
               prop: "amount3",
-              label: "数值 3（元）"
+              label: "数值 3"
             }
           ]
         },
@@ -333,15 +358,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "数值 1（元）"
+              label: "数值 1"
             },
             {
               prop: "amount2",
-              label: "数值 2（元）"
+              label: "数值 2"
             },
             {
               prop: "amount3",
-              label: "数值 3（元）"
+              label: "数值 3"
             }
           ]
         },
@@ -351,15 +376,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "数值 1（元）"
+              label: "数值 1"
             },
             {
               prop: "amount2",
-              label: "数值 2（元）"
+              label: "数值 2"
             },
             {
               prop: "amount3",
-              label: "数值 3（元）"
+              label: "数值 3"
             }
           ]
         },
@@ -369,15 +394,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "数值 1（元）"
+              label: "数值 1"
             },
             {
               prop: "amount2",
-              label: "数值 2（元）"
+              label: "数值 2"
             },
             {
               prop: "amount3",
-              label: "数值 3（元）"
+              label: "数值 3"
             }
           ]
         },
@@ -387,15 +412,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "数值 1（元）"
+              label: "数值 1"
             },
             {
               prop: "amount2",
-              label: "数值 2（元）"
+              label: "数值 2"
             },
             {
               prop: "amount3",
-              label: "数值 3（元）"
+              label: "数值 3"
             }
           ]
         },
@@ -405,15 +430,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "数值 1（元）"
+              label: "数值 1"
             },
             {
               prop: "amount2",
-              label: "数值 2（元）"
+              label: "数值 2"
             },
             {
               prop: "amount3",
-              label: "数值 3（元）"
+              label: "数值 3"
             }
           ]
         }
@@ -630,6 +655,76 @@ export default {
           amount1: "539",
           amount2: "4.1",
           amount3: " 15"
+        },
+        {
+          id: "12987122",
+          name: "王小虎",
+          amount1: "234",
+          amount2: "3.2%",
+          amount3: "10"
+        },
+        {
+          id: "12987123",
+          name: "王小虎",
+          amount1: "165",
+          amount2: "4.43",
+          amount3: "12"
+        },
+        {
+          id: "12987124",
+          name: "王小虎",
+          amount1: "324",
+          amount2: "1.9",
+          amount3: "9"
+        },
+        {
+          id: "12987125",
+          name: "王小虎",
+          amount1: "621",
+          amount2: "2.2%",
+          amount3: " 17"
+        },
+        {
+          id: "12987126",
+          name: "王小虎",
+          amount1: "539",
+          amount2: "4.1",
+          amount3: "15"
+        },
+        {
+          id: "12987122",
+          name: "王小虎",
+          amount1: "234",
+          amount2: "3.2%",
+          amount3: "10"
+        },
+        {
+          id: "12987123",
+          name: "王小虎",
+          amount1: "165",
+          amount2: "4.43",
+          amount3: "12"
+        },
+        {
+          id: "12987124",
+          name: "王小虎",
+          amount1: "324",
+          amount2: "1.9",
+          amount3: "9"
+        },
+        {
+          id: "12987125",
+          name: "王小虎",
+          amount1: "621",
+          amount2: "2.2%",
+          amount3: "17"
+        },
+        {
+          id: "12987126",
+          name: "王小虎",
+          amount1: "539",
+          amount2: "4.1",
+          amount3: " 15"
         }
       ]
 
@@ -658,6 +753,9 @@ export default {
           background: "#3a5588",
           color: "#fff"
         }
+    },
+    Show() {
+      this.isShow = !this.isShow
     }
   }
 }
@@ -678,7 +776,6 @@ export default {
   background: red;
 }
 </style>
-
 <style lang="scss" scoped>
 .page-mian {
   height: calc(100% - 120px);
@@ -688,7 +785,8 @@ export default {
 ::v-deep .el-table {
   background: transparent;
   border: 1px solid #1683af;
-  font-size: 13px !important;
+  // font-size: 13px !important;
+  height: calc(100% - 270px);
 }
 ::v-deep .el-table tr {
   background: transparent;
@@ -724,11 +822,20 @@ export default {
 .detail {
   cursor: pointer;
 }
+::v-deep .el-popper {
+  background-color: #000c1a;
+  .popper__arrow:after {
+    border-bottom-color: #000c1a;
+  }
+}
 
 // 查询区域样式
 .elForm {
   border: 1px solid #1683af;
+  margin-top: 10px;
   padding-top: 10px;
+  // max-height: 0;
+  transition: 100px 0.3s linear;
 }
 ::v-deep .el-form-item__label {
   font-size: 16px;
@@ -766,5 +873,23 @@ export default {
 .el-date-editor.el-input,
 .el-date-editor.el-input__inner {
   width: 240px;
+}
+
+// 控制查詢區域顯示隱藏
+.showContorl {
+  display: flex;
+  justify-content: center;
+  .el-button {
+    background-color: transparent;
+    color: #3762ff;
+    border: 2px solid #3762ff;
+    padding: 6px;
+  }
+}
+::v-deep .el-icon-arrow-up {
+  font-weight: 600;
+}
+::v-deep .el-icon-arrow-down {
+  font-weight: 600;
 }
 </style>
