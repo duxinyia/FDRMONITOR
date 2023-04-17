@@ -41,9 +41,9 @@ const actions = {
     commit("SET_MEUNS", menus)
     commit("SET_ROUTETITLE", titleArr)
     // 3. 将 ShowArrConfig 根据 路由 改变isShow属性
-    let showArr = mapShowArr(data)
-
-    commit("SET_SHOWARRCONFIG", showArr)
+    let { showArrConfig, asyncRoutes } = mapShowArr(data)
+    commit("SET_SHOWARRCONFIG", showArrConfig)
+    return asyncRoutes
   }
 }
 export default {

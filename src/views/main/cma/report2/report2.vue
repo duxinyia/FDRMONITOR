@@ -565,11 +565,26 @@ export default {
 }
 </script>
 
+<style scoped>
+::-webkit-scrollbar {
+  /* display: block !important; */
+  width: 20px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px #333;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: red;
+}
+</style>
+
 <style lang="scss" scoped>
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;
-  // border: 1px solid red;
 }
 /* 修改表格的一些样式 */
 ::v-deep .el-table {

@@ -23,7 +23,7 @@ export default {
     }
   },
   methods: {
-    toProject({ target, to, isExternalLink = false }) {
+    toProject({ to, isExternalLink = false }) {
       if (isExternalLink) {
         // 打开新窗口
         window.open(to)
