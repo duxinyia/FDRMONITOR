@@ -144,33 +144,33 @@ export default {
         device: { customName: "", plantID: "", Opno: "" },
         dateValues: []
       })
+      this.maxOutput = Array(res.length).fill(0)
+      this.maxTargetOut = Array(res.length).fill(0)
       this.showArr = Array(res.length).fill(true)
-
-      res &&
-        res.forEach((item, index) => {
-          GetDeviceInfo(item.deviceNo).then((r) => {
-            this.$set(this.outPutInfoDetails, index, r)
-            r.dateValues.forEach((childItem) => {
-              // childItem.values.EOL.output  取出的是 output 的最大值
-              if (childItem.values.EOL.output > this.maxOutput[index]) {
-                this.maxOutput[index] = childItem.values.EOL.output
-              }
-              // childItem.values.FOL.output
-              if (childItem.values.FOL.output > this.maxOutput[index]) {
-                this.maxOutput[index] = childItem.values.FOL.output
-              }
-              // childItem.values.EOL.output  取出的是 output 的最大值
-              if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
-                this.maxTargetOut[index] = childItem.values.EOL.targetOut
-              }
-              // childItem.values.FOL.output
-              if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
-                this.maxTargetOut[index] = childItem.values.FOL.targetOut
-              }
-            })
-            this.$set(this.showArr, index, false)
+      res.forEach((item, index) => {
+        GetDeviceInfo(item.deviceNo).then((r) => {
+          this.$set(this.outPutInfoDetails, index, r)
+          r.dateValues.forEach((childItem) => {
+            // childItem.values.EOL.output  取出的是 output 的最大值
+            if (childItem.values.EOL.output > this.maxOutput[index]) {
+              this.maxOutput[index] = childItem.values.EOL.output
+            }
+            // childItem.values.FOL.output
+            if (childItem.values.FOL.output > this.maxOutput[index]) {
+              this.maxOutput[index] = childItem.values.FOL.output
+            }
+            // childItem.values.EOL.output  取出的是 output 的最大值
+            if (childItem.values.EOL.targetOut > this.maxTargetOut[index]) {
+              this.maxTargetOut[index] = childItem.values.EOL.targetOut
+            }
+            // childItem.values.FOL.output
+            if (childItem.values.FOL.targetOut > this.maxTargetOut[index]) {
+              this.maxTargetOut[index] = childItem.values.FOL.targetOut
+            }
           })
+          this.$set(this.showArr, index, false)
         })
+      })
     })
   },
   methods: {

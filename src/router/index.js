@@ -28,20 +28,32 @@ router.beforeEach(async (to, from, next) => {
     }
   } else {
     if (hasRoles && store.state.permission.menus.length == 0) {
-      await store.dispatch("permission/getUserRoutes", {
+      let asyncRoutes = await store.dispatch("permission/getUserRoutes", {
         userJob: store.state.user.user.username,
         nickName: store.state.user.user.fullName
       })
+      console.log("异步路由", asyncRoutes)
+      // 加载异步路由
+      asyncRoutes.forEach((route) => {
+        if (route.isHasDetailArr) {
+          route.isHasDetailArr.forEach((detailRoute) => {
+            router.addRoute(detailRoute.meta.parentName, detailRoute)
+          })
+          delete route.isHasDetailArr
+        }
+        router.addRoute(route.meta.parentName, route)
+      })
+      router.addRoute({
+        path: "*",
+        name: "notFound",
+        component: () =>
+          import(/* webpackChunkName: "notFound" */ "../views/notFound/notFound.vue"),
+        meta: {
+          title: "notFound"
+        }
+      })
       hasRoles = false
-      // gxl 动态添加路由的方法
-      // router.addRoute("cma", {
-      //   path: "aa",
-      //   name: "aa",
-      //   component: () => import(/* webpackChunkName: "aa" */ "@/views/main/cma/aa/aa.vue")
-      // })
       next({ ...to, replace: true })
-      // router.addRoute()
-      // next()
     } else {
       next()
     }

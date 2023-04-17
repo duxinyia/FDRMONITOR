@@ -21,7 +21,7 @@
           :class="{ item: true, 'is-active': index == $store.getters.showIndex }"
           >{{ item.name }}</span
         >
-        <span class="item" @click="toReport">报表</span>
+        <!-- <span class="item" @click="toReport">报表</span> -->
       </div>
       <!-- 主要区域 -->
       <el-main class="main-container">
@@ -68,10 +68,10 @@ export default {
       this.$router.push(item.path).catch(() => {})
       this.$store.commit("fullLoading/SET_PATH", this.$route.path)
       this.$store.commit("permission/SET_INDEX", index)
-    },
-    toReport() {
-      this.$router.push({ name: "report" })
     }
+    // toReport() {
+    //   this.$router.push({ name: "report" })
+    // }
   }
 }
 </script>

@@ -36,7 +36,7 @@
                   <div
                     class="state-right state"
                     @click="toMake('FOL', item)"
-                    :style="changeHeight(item, 'FOL', index)"
+                    :style="changeHeight(item, 'FOL')"
                     v-if="folChecked"
                   >
                     <!-- 定位显示比例 10 / 21改为显示 dailyHitRate-->
@@ -234,13 +234,14 @@ export default {
         background: bgColor
       }
     },
-    changeHeight(item, name = "FOL", index) {
+    changeHeight(item, name = "FOL") {
       let height = ""
       if (item.values[name].targetOut == 0) {
         height = "150px"
       } else {
         height = `${(item.values[name].targetOut / this.maxTargetOut) * 150}px`
       }
+      console.log("高度为:", height)
       return {
         height
       }

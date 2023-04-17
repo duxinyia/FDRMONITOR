@@ -175,7 +175,7 @@ export default {
             type: "bar",
             barWidth: 20,
             barGap: "-100%",
-            data: values[0],
+            data: values,
             itemStyle: {
               normal: {
                 color: "#fff",
