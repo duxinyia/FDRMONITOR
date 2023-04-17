@@ -16,35 +16,19 @@
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
     </div>
 
-    <el-table :data="tableData" :header-cell-style="{ background: 'transparent', color: '#fff' }">
+    <el-table
+      :data="tableData"
+      :cell-style="cellStyle"
+      :header-cell-style="{ background: 'transparent', color: '#fff' }"
+    >
       <el-table-column
-        v-for="(taT, index) in tableTitle"
+        v-for="(item, index) in tableTitle"
         :key="index"
-        :width="taT.lable === 'Lens Vendor' ? '90' : ''"
-        prop="Device"
+        :prop="item.prop"
+        :label="item.lable"
         align="center"
-        :label="taT.lable"
-        :cell-class-style="{ color: 'red' }"
+        min-width="50px"
       >
-        <el-table-column
-          v-show="taT.children"
-          v-for="(c, index) in taT.children"
-          :key="index"
-          prop="date"
-          align="center"
-          :label="c.lable"
-          :cell-class-style="{ color: 'red' }"
-        >
-          <el-table-column
-            v-show="c.son"
-            v-for="(s, index) in c.son"
-            :key="index"
-            prop="c1"
-            align="center"
-            :label="s"
-            :cell-class-style="{ color: 'red' }"
-          ></el-table-column>
-        </el-table-column>
       </el-table-column>
     </el-table>
   </div>
@@ -59,27 +43,29 @@ export default {
     return {
       // 表头名称
       tableTitle: [
-        { lable: "Project" },
-        { lable: "Lens Vendor" },
-        { lable: "AA MC" },
-        {
-          lable: "06:00~Now累計生產狀況",
-          children: [
-            { lable: "AA Input" },
-            { lable: "FailRate" },
-            { lable: "Fail Rate", son: ["Para_A", "Para_B", "Para_C", "Para_D"] },
-            { lable: "Input", son: ["Para_A", "Para_B", "Para_C", "Para_D"] }
-          ]
-        },
-        {
-          lable: "近兩小時生產狀況",
-          children: [
-            { lable: "AA Input", son: ["AA Input"] },
-            { lable: "FailRate", son: ["FailRate"] },
-            { lable: "Fail Rate", son: ["Para_A", "Para_B", "Para_C", "Para_D"] },
-            { lable: "Input", son: ["Para_A", "Para_B", "Para_C", "Para_D"] }
-          ]
-        }
+        { lable: "Project", prop: "1" },
+        { lable: "AA MC", prop: "2" },
+        { lable: "AA Para", prop: "3" },
+        { lable: "Total In", prop: "4" },
+        { lable: "Total Rate", prop: "5" },
+        { lable: "A", prop: "a" },
+        { lable: "B", prop: "a" },
+        { lable: "C", prop: "a" },
+        { lable: "D", prop: "a" },
+        { lable: "E", prop: "a" },
+        { lable: "F", prop: "a" },
+        { lable: "G", prop: "a" },
+        { lable: "H", prop: "a" },
+        { lable: "A", prop: "a" },
+        { lable: "B", prop: "a" },
+        { lable: "C", prop: "a" },
+        { lable: "D", prop: "a" },
+        { lable: "E", prop: "a" },
+        { lable: "F", prop: "a" },
+        { lable: "G", prop: "a" },
+        { lable: "H", prop: "a" },
+        { lable: "Input", prop: "a" },
+        { lable: "Rate", prop: "a" }
       ],
       // 下拉框值
       selectData: [
@@ -137,326 +123,148 @@ export default {
       // 表格数据
       tableData: [
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "MW-E",
+          2: "AA1301",
+          3: "Para A",
+          4: "1760",
+          5: "0.02%",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "0.12%",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "1.12%",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         },
         {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
-        },
-        {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
-        },
-        {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
-        },
-        {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
-        },
-        {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
-        },
-        {
-          Device: "1",
-          Machine: "2",
-          Station: "3",
-          date: "5",
-          c1: "6",
-          c2: "6",
-          c3: "6",
-          c4: "6",
-          c5: "6",
-          c6: "6",
-          c7: "6",
-          c8: "6"
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
         }
       ]
     }
@@ -467,6 +275,26 @@ export default {
   methods: {
     getSearchData() {
       console.log(111)
+    },
+    cellStyle({ row, column, columnIndex }) {
+      if (row[column.property].includes("%")) {
+        if (parseFloat(row[column.property]) < 0.1) {
+          return {
+            background: "green"
+          }
+        } else if (
+          parseFloat(row[column.property]) >= 0.1 &&
+          parseFloat(row[column.property]) <= 0.3
+        ) {
+          return {
+            background: "yellow",
+            color: "#000"
+          }
+        } else
+          return {
+            background: "red"
+          }
+      }
     }
   }
 }

@@ -4,7 +4,11 @@
       <el-row>
         <el-col :span="6">
           <el-form-item label="Device" prop="device">
-            <el-select v-model="ruleForm.device" placeholder="请选择">
+            <el-select
+              :popper-append-to-body="false"
+              v-model="ruleForm.device"
+              placeholder="請選擇"
+            >
               <el-option
                 v-for="item in deviceOptions"
                 :key="item.value"
@@ -17,7 +21,11 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="Lottype" prop="lottype">
-            <el-select v-model="ruleForm.lottype" placeholder="请选择">
+            <el-select
+              :popper-append-to-body="false"
+              v-model="ruleForm.lottype"
+              placeholder="請選擇"
+            >
               <el-option
                 v-for="item in lottypeOptions"
                 :key="item.value"
@@ -30,7 +38,12 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="Tester" prop="tester">
-            <el-select v-model="ruleForm.tester" multiple placeholder="请选择">
+            <el-select
+              :popper-append-to-body="false"
+              v-model="ruleForm.tester"
+              multiple
+              placeholder="請選擇"
+            >
               <el-option
                 v-for="item in testerOptions"
                 :key="item.value"
@@ -43,7 +56,12 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="Test station" prop="testStation">
-            <el-select v-model="ruleForm.testStation" multiple placeholder="请选择">
+            <el-select
+              :popper-append-to-body="false"
+              v-model="ruleForm.testStation"
+              multiple
+              placeholder="請選擇"
+            >
               <el-option
                 v-for="item in testStation"
                 :key="item.value"
@@ -58,19 +76,23 @@
       <el-row>
         <el-col :span="6">
           <el-form-item label="Test StartTime" prop="startTime">
-            <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="选择日期时间">
+            <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="選擇日期時間">
             </el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="Test EndTime" prop="endTime">
-            <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="选择日期时间">
+            <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="選擇日期時間">
             </el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="Material Vendor" prop="materialVendor">
-            <el-select v-model="ruleForm.materialVendor" placeholder="请选择">
+            <el-select
+              :popper-append-to-body="false"
+              v-model="ruleForm.materialVendor"
+              placeholder="請選擇"
+            >
               <el-option
                 v-for="item in vendorOptions"
                 :key="item.value"
@@ -83,7 +105,12 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="Process" prop="process">
-            <el-select v-model="ruleForm.process" multiple placeholder="请选择">
+            <el-select
+              :popper-append-to-body="false"
+              v-model="ruleForm.process"
+              multiple
+              placeholder="請選擇"
+            >
               <el-option
                 v-for="item in processOptions"
                 :key="item.value"
@@ -97,7 +124,7 @@
       </el-row>
       <el-row>
         <el-form-item style="float: right; margin-right: 80px">
-          <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查询</el-button>
+          <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查詢</el-button>
           <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-row>
@@ -123,39 +150,57 @@
       style="width: 100%; margin-top: 20px"
       :header-cell-style="headerCellStyle"
     >
-      <template v-for="item in tableHeader">
-        <table-column
-          v-if="item.children && item.children.length"
-          :key="item.id"
-          :coloumn-header="item"
-          width="100px"
-        >
-        </table-column>
+      <el-table-column
+        v-for="(item, index) in tableHeader"
+        :key="index"
+        :label="item.label"
+        :prop="item.prop"
+        align="center"
+        min-width="100px"
+      >
         <el-table-column
-          v-else
-          :key="item.id"
-          :label="item.label"
-          :prop="item.prop"
+          v-show="item.children"
+          v-for="(child, index) in item.children"
+          :key="index"
+          :prop="child.prop"
+          :label="child.label"
           align="center"
-          width="100px"
         >
           <template slot-scope="scope">
-            <span>{{ scope.row[item.prop] }}</span>
+            <div class="detail" v-if="scope.row[child.prop].includes('%') == true">
+              <el-popover placement="bottom" width="500" trigger="click">
+                <el-table :data="gridData" border height="200px">
+                  <el-table-column
+                    width="200"
+                    property="sn"
+                    align="center"
+                    label="SN"
+                  ></el-table-column>
+                  <el-table-column
+                    width="300"
+                    property="name"
+                    align="center"
+                    label="不良名称"
+                  ></el-table-column>
+                </el-table>
+                <span slot="reference">{{ scope.row[child.prop] }}</span>
+              </el-popover>
+            </div>
+            <div v-else>
+              {{ scope.row[child.prop] }}
+            </div>
           </template>
         </el-table-column>
-      </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import TableColumn from "./tableColumn"
 export default {
   name: "report1",
   props: {},
-  components: {
-    TableColumn
-  },
+  components: {},
   data() {
     return {
       tableData: [],
@@ -199,16 +244,6 @@ export default {
             {
               prop: "amount1",
               label: "数值 1（元）"
-              // children: [
-              //   {
-              //     prop: "amount2",
-              //     label: "数值 2（元）"
-              //   },
-              //   {
-              //     prop: "amount3",
-              //     label: "数值 3（元）"
-              //   }
-              // ]
             },
             {
               prop: "amount2",
@@ -475,7 +510,33 @@ export default {
         endTime: "",
         materialVendor: "",
         process: ""
-      }
+      },
+      gridData: [
+        {
+          sn: "DNM3062000K81QDC1X",
+          name: "GetDPFileFromMIS（10003-0009）"
+        },
+        {
+          sn: "DNM3062000K81QDC1X",
+          name: "GetDPFileFromMIS（10003-0009）"
+        },
+        {
+          sn: "DNM3062000K81QDC1X",
+          name: "GetDPFileFromMIS（10003-0009）"
+        },
+        {
+          sn: "DNM3062000K81QDC1X",
+          name: "GetDPFileFromMIS（10003-0009）"
+        },
+        {
+          sn: "DNM3062000K81QDC1X",
+          name: "GetDPFileFromMIS（10003-0009）"
+        },
+        {
+          sn: "DNM3062000K81QDC1X",
+          name: "GetDPFileFromMIS（10003-0009）"
+        }
+      ]
     }
   },
   created() {
@@ -505,70 +566,70 @@ export default {
           name: "王小虎",
           amount1: "234",
           amount2: "3.2%",
-          amount3: 10
+          amount3: "10"
         },
         {
           id: "12987123",
           name: "王小虎",
           amount1: "165",
           amount2: "4.43",
-          amount3: 12
+          amount3: "12"
         },
         {
           id: "12987124",
           name: "王小虎",
           amount1: "324",
           amount2: "1.9",
-          amount3: 9
+          amount3: "9"
         },
         {
           id: "12987125",
           name: "王小虎",
           amount1: "621",
           amount2: "2.2%",
-          amount3: 17
+          amount3: " 17"
         },
         {
           id: "12987126",
           name: "王小虎",
           amount1: "539",
           amount2: "4.1",
-          amount3: 15
+          amount3: "15"
         },
         {
           id: "12987122",
           name: "王小虎",
           amount1: "234",
           amount2: "3.2%",
-          amount3: 10
+          amount3: "10"
         },
         {
           id: "12987123",
           name: "王小虎",
           amount1: "165",
           amount2: "4.43",
-          amount3: 12
+          amount3: "12"
         },
         {
           id: "12987124",
           name: "王小虎",
           amount1: "324",
           amount2: "1.9",
-          amount3: 9
+          amount3: "9"
         },
         {
           id: "12987125",
           name: "王小虎",
           amount1: "621",
           amount2: "2.2%",
-          amount3: 17
+          amount3: "17"
         },
         {
           id: "12987126",
           name: "王小虎",
           amount1: "539",
           amount2: "4.1",
-          amount3: 15
+          amount3: " 15"
         }
       ]
 
@@ -657,6 +718,12 @@ export default {
   width: 100%;
   height: 0px;
 }
+.el-button--mini {
+  font-size: 14px;
+}
+.detail {
+  cursor: pointer;
+}
 
 // 查询区域样式
 .elForm {
@@ -664,15 +731,40 @@ export default {
   padding-top: 10px;
 }
 ::v-deep .el-form-item__label {
-  font-size: 14px;
+  font-size: 16px;
   color: #fff;
 }
 ::v-deep .el-input--suffix .el-input__inner {
-  background: transparent;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-size: 16px;
   color: #fff;
+  border-color: #409eff;
 }
-::-webkit-scrollbar {
-  overflow-x: scroll;
-  white-space: nowrap;
+::v-deep .el-select-dropdown {
+  background-color: #000c1a;
+  .el-select-dropdown__item {
+    color: #fff;
+    // color: #243d97 !important;
+  }
+  .el-select-dropdown__item.hover,
+  .el-select-dropdown__item:hover {
+    background-color: #243d97;
+  }
+  .el-select-dropdown__item.selected {
+    color: #fff;
+    background-color: transparent !important;
+  }
+  .el-select-dropdown__item.selected:hover {
+    color: #fff;
+    background-color: #243d97 !important;
+  }
+
+  .popper__arrow:after {
+    border-bottom-color: #000c1a !important;
+  }
+}
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  width: 240px;
 }
 </style>
