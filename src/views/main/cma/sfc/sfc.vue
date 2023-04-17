@@ -35,12 +35,7 @@
 import LineChart1 from "./cpns/LineChart1.vue"
 import LineChart2 from "./cpns/LineChart2.vue"
 // 导入发送请求的函函數
-import {
-  getMESDeviceInfo,
-  getMESDeviceDetail,
-  getCloseYieldInfo,
-  getCloseYieldInfoTow
-} from "@/api/cma/sfc.js"
+import { getMESDeviceInfo, getMESDeviceDetail, getCloseYieldInfo, getCloseYieldInfoTow } from "@/api/cma/sfc.js"
 import { splitArray } from "@/utils"
 export default {
   name: "sfc",
@@ -90,11 +85,7 @@ export default {
   },
   methods: {
     async initData() {
-      let requestArr = [
-        this.getCloseYieldInfo(),
-        this.getCloseYieldInfoTow(),
-        this.getMESDeviceInfo()
-      ]
+      let requestArr = [this.getCloseYieldInfo(), this.getCloseYieldInfoTow(), this.getMESDeviceInfo()]
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },

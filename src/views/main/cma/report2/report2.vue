@@ -5,12 +5,7 @@
         <el-col :span="6">
           <el-form-item label="Device" prop="device">
             <el-select v-model="ruleForm.device" placeholder="请选择">
-              <el-option
-                v-for="item in deviceOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
+              <el-option v-for="item in deviceOptions" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
@@ -18,12 +13,7 @@
         <el-col :span="6">
           <el-form-item label="Lottype" prop="lottype">
             <el-select v-model="ruleForm.lottype" placeholder="请选择">
-              <el-option
-                v-for="item in lottypeOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
+              <el-option v-for="item in lottypeOptions" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
@@ -31,12 +21,7 @@
         <el-col :span="6">
           <el-form-item label="Tester" prop="tester">
             <el-select v-model="ruleForm.tester" multiple placeholder="请选择">
-              <el-option
-                v-for="item in testerOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
+              <el-option v-for="item in testerOptions" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
@@ -44,12 +29,7 @@
         <el-col :span="6">
           <el-form-item label="Test station" prop="testStation">
             <el-select v-model="ruleForm.testStation" multiple placeholder="请选择">
-              <el-option
-                v-for="item in testStation"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
+              <el-option v-for="item in testStation" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
@@ -58,25 +38,18 @@
       <el-row>
         <el-col :span="6">
           <el-form-item label="Test StartTime" prop="startTime">
-            <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="选择日期时间">
-            </el-date-picker>
+            <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="选择日期时间"> </el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="Test EndTime" prop="endTime">
-            <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="选择日期时间">
-            </el-date-picker>
+            <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="选择日期时间"> </el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="Material Vendor" prop="materialVendor">
             <el-select v-model="ruleForm.materialVendor" placeholder="请选择">
-              <el-option
-                v-for="item in vendorOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
+              <el-option v-for="item in vendorOptions" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
@@ -84,12 +57,7 @@
         <el-col :span="6">
           <el-form-item label="Process" prop="process">
             <el-select v-model="ruleForm.process" multiple placeholder="请选择">
-              <el-option
-                v-for="item in processOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
+              <el-option v-for="item in processOptions" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
@@ -117,28 +85,11 @@
       >
       </el-table-column>
     </el-table> -->
-    <el-table
-      :data="tableData"
-      border
-      style="width: 100%; margin-top: 20px"
-      :header-cell-style="headerCellStyle"
-    >
+    <el-table :data="tableData" border style="width: 100%; margin-top: 20px" :header-cell-style="headerCellStyle">
       <template v-for="item in tableHeader">
-        <table-column
-          v-if="item.children && item.children.length"
-          :key="item.id"
-          :coloumn-header="item"
-          width="100px"
-        >
+        <table-column v-if="item.children && item.children.length" :key="item.id" :coloumn-header="item" width="100px">
         </table-column>
-        <el-table-column
-          v-else
-          :key="item.id"
-          :label="item.label"
-          :prop="item.prop"
-          align="center"
-          width="100px"
-        >
+        <el-table-column v-else :key="item.id" :label="item.label" :prop="item.prop" align="center" width="100px">
           <template slot-scope="scope">
             <span>{{ scope.row[item.prop] }}</span>
           </template>

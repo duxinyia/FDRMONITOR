@@ -9,62 +9,25 @@
   >
     <svg-icon class="closeIcon" icon-class="close" @click="toClose" />
     <div style="height: 500px">
-      <el-table
-        :data="tableData1"
-        :header-cell-style="{ background: 'transparent', color: '#fff' }"
-      >
+      <el-table :data="tableData1" :header-cell-style="{ background: 'transparent', color: '#fff' }">
         <el-table-column prop="Device" width="80" align="center" label="不良类别">
-          <el-table-column
-            prop="Machine"
-            width="80"
-            align="center"
-            label="机台号"
-          ></el-table-column>
+          <el-table-column prop="Machine" width="80" align="center" label="机台号"></el-table-column>
         </el-table-column>
         <el-table-column prop="Machine" align="center" label="VCM area">
-          <el-table-column
-            prop="Machine"
-            width="80"
-            align="center"
-            label="Target"
-          ></el-table-column>
+          <el-table-column prop="Machine" width="80" align="center" label="Target"></el-table-column>
           <el-table-column prop="Machine" width="80" align="center" label="Input"></el-table-column>
         </el-table-column>
         <el-table-column prop="Machine" align="center" label="2022/11/16">
-          <el-table-column
-            prop="Machine"
-            align="center"
-            label="Top VCM surface Scratch"
-          ></el-table-column>
-          <el-table-column
-            prop="Machine"
-            align="center"
-            label="Top VCM surface Contamination"
-          ></el-table-column>
+          <el-table-column prop="Machine" align="center" label="Top VCM surface Scratch"></el-table-column>
+          <el-table-column prop="Machine" align="center" label="Top VCM surface Contamination"></el-table-column>
         </el-table-column>
         <el-table-column prop="Machine" align="center" label="2022/11/15">
-          <el-table-column
-            prop="Machine"
-            align="center"
-            label="Top VCM surface Scratch"
-          ></el-table-column>
-          <el-table-column
-            prop="Machine"
-            align="center"
-            label="Top VCM surface Contamination"
-          ></el-table-column>
+          <el-table-column prop="Machine" align="center" label="Top VCM surface Scratch"></el-table-column>
+          <el-table-column prop="Machine" align="center" label="Top VCM surface Contamination"></el-table-column>
         </el-table-column>
         <el-table-column prop="Machine" align="center" label="2022/11/14">
-          <el-table-column
-            prop="Machine"
-            align="center"
-            label="Top VCM surface Scratch"
-          ></el-table-column>
-          <el-table-column
-            prop="Machine"
-            align="center"
-            label="Top VCM surface Contamination"
-          ></el-table-column>
+          <el-table-column prop="Machine" align="center" label="Top VCM surface Scratch"></el-table-column>
+          <el-table-column prop="Machine" align="center" label="Top VCM surface Contamination"></el-table-column>
         </el-table-column>
       </el-table>
     </div>

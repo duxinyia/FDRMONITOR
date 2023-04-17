@@ -2,19 +2,9 @@
   <div class="login-page">
     <div class="wrapper">
       <el-image class="logo" :src="form_logo" fit="contain"></el-image>
-      <transition
-        appear
-        mode="out-in"
-        :duration="2000"
-        enter-active-class="animate__animated animate__slideInDown"
-      >
+      <transition appear mode="out-in" :duration="2000" enter-active-class="animate__animated animate__slideInDown">
         <div class="form-container">
-          <transition
-            appear
-            mode="in-out"
-            :duration="2000"
-            enter-active-class="animate__animated animate__fadeInRight"
-          >
+          <transition appear mode="in-out" :duration="2000" enter-active-class="animate__animated animate__fadeInRight">
             <div class="top-container">
               <h1 class="title">戰情中心</h1>
             </div>
@@ -29,11 +19,7 @@
               <el-form-item prop="name">
                 <el-input placeholder="工號" v-model.trim="form.name">
                   <i slot="prefix" style="display: flex; align-items: center">
-                    <el-image
-                      style="width: 15px; height: 17px"
-                      :src="user_icon"
-                      fit="cover"
-                    ></el-image>
+                    <el-image style="width: 15px; height: 17px" :src="user_icon" fit="cover"></el-image>
                   </i>
                 </el-input>
               </el-form-item>
@@ -47,11 +33,7 @@
               <el-form-item prop="paw">
                 <el-input placeholder="密碼" show-password v-model.trim="form.paw">
                   <i slot="prefix" style="display: flex; align-items: center">
-                    <el-image
-                      style="width: 15px; height: 17px"
-                      :src="lock_icon"
-                      fit="cover"
-                    ></el-image>
+                    <el-image style="width: 15px; height: 17px" :src="lock_icon" fit="cover"></el-image>
                   </i>
                 </el-input>
               </el-form-item>
@@ -64,12 +46,7 @@
             >
               <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
             </transition>
-            <transition
-              appear
-              mode="out-in"
-              :duration="1000"
-              enter-active-class="animate__animated animate__backInUp"
-            >
+            <transition appear mode="out-in" :duration="1000" enter-active-class="animate__animated animate__backInUp">
               <el-form-item>
                 <el-button
                   round
@@ -87,31 +64,20 @@
         </div>
       </transition>
     </div>
-    <transition
-      appear
-      mode="out-in"
-      :duration="1000"
-      enter-active-class="animate__animated animate__fadeInRight"
-    >
+    <transition appear mode="out-in" :duration="1000" enter-active-class="animate__animated animate__fadeInRight">
       <!-- 描述框 -->
       <div class="footer">
         <div class="copyright">
           <i class="el-icon-collection-tag icon"></i>Copyright © 2022. Foxconn All rights reserved
-          <span class="location" @click="toLocation">{{
-            port == "8085" ? "正式地址" : "测试地址"
-          }}</span>
+          <span class="location" @click="toLocation">{{ port == "8085" ? "正式地址" : "测试地址" }}</span>
         </div>
         <div class="author-info">
           <div>
             <span class="author"> <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227 </span>
-            <span class="mail">
-              <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
-            </span>
+            <span class="mail"> <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com </span>
             &nbsp;&nbsp;
             <span class="author"> <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123 </span>
-            <span class="mail">
-              <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
-            </span>
+            <span class="mail"> <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com </span>
           </div>
         </div>
       </div>

@@ -2,13 +2,7 @@
   <div class="page-main">
     <dv-border-box-12>
       <!-- 使用轮播图来展示数据 -->
-      <el-carousel
-        style="height: 1000px"
-        indicator-position="none"
-        :interval="15 * 10000"
-        ref="carousel"
-        arrow="never"
-      >
+      <el-carousel style="height: 1000px" indicator-position="none" :interval="15 * 10000" ref="carousel" arrow="never">
         <el-carousel-item v-for="(item, index) in machines" :key="index">
           <main-one :machine="item.machinename" />
         </el-carousel-item>
