@@ -158,43 +158,7 @@ export default {
   },
   data() {
     return {
-      tableData: [
-        {
-          id: "12987122",
-          name: "王小虎",
-          amount1: "234",
-          amount2: "3.2%",
-          amount3: 10
-        },
-        {
-          id: "12987123",
-          name: "王小虎",
-          amount1: "165",
-          amount2: "4.43",
-          amount3: 12
-        },
-        {
-          id: "12987124",
-          name: "王小虎",
-          amount1: "324",
-          amount2: "1.9",
-          amount3: 9
-        },
-        {
-          id: "12987125",
-          name: "王小虎",
-          amount1: "621",
-          amount2: "2.2%",
-          amount3: 17
-        },
-        {
-          id: "12987126",
-          name: "王小虎",
-          amount1: "539",
-          amount2: "4.1",
-          amount3: 15
-        }
-      ],
+      tableData: [],
       tableHeader: [
         {
           prop: "id",
@@ -262,15 +226,15 @@ export default {
           children: [
             {
               prop: "amount1",
-              label: "1（元）"
+              label: "数值1（元）"
             },
             {
               prop: "amount2",
-              label: "2（元）"
+              label: "数值2（元）"
             },
             {
               prop: "amount3",
-              label: "3（元）"
+              label: "数值3（元）"
             }
           ]
         },
@@ -535,6 +499,79 @@ export default {
     },
     // 查询
     submitForm(formName) {
+      this.tableData = [
+        {
+          id: "12987122",
+          name: "王小虎",
+          amount1: "234",
+          amount2: "3.2%",
+          amount3: 10
+        },
+        {
+          id: "12987123",
+          name: "王小虎",
+          amount1: "165",
+          amount2: "4.43",
+          amount3: 12
+        },
+        {
+          id: "12987124",
+          name: "王小虎",
+          amount1: "324",
+          amount2: "1.9",
+          amount3: 9
+        },
+        {
+          id: "12987125",
+          name: "王小虎",
+          amount1: "621",
+          amount2: "2.2%",
+          amount3: 17
+        },
+        {
+          id: "12987126",
+          name: "王小虎",
+          amount1: "539",
+          amount2: "4.1",
+          amount3: 15
+        },
+        {
+          id: "12987122",
+          name: "王小虎",
+          amount1: "234",
+          amount2: "3.2%",
+          amount3: 10
+        },
+        {
+          id: "12987123",
+          name: "王小虎",
+          amount1: "165",
+          amount2: "4.43",
+          amount3: 12
+        },
+        {
+          id: "12987124",
+          name: "王小虎",
+          amount1: "324",
+          amount2: "1.9",
+          amount3: 9
+        },
+        {
+          id: "12987125",
+          name: "王小虎",
+          amount1: "621",
+          amount2: "2.2%",
+          amount3: 17
+        },
+        {
+          id: "12987126",
+          name: "王小虎",
+          amount1: "539",
+          amount2: "4.1",
+          amount3: 15
+        }
+      ]
+
       this.$refs[formName].validate((valid) => {
         if (valid) {
           console.log("ruleForm", this.ruleForm)
@@ -552,12 +589,12 @@ export default {
       if (column.label.includes("数值")) {
         // console.log(column)
         return {
-          background: "pink",
+          background: "#696058",
           color: "#fff"
         }
       } else
         return {
-          background: "skyblue",
+          background: "#3a5588",
           color: "#fff"
         }
     }
@@ -565,11 +602,26 @@ export default {
 }
 </script>
 
+<style scoped>
+::-webkit-scrollbar {
+  /* display: block !important; */
+  width: 20px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px #333;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: red;
+}
+</style>
+
 <style lang="scss" scoped>
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;
-  // border: 1px solid red;
 }
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
@@ -619,7 +671,8 @@ export default {
   background: transparent;
   color: #fff;
 }
-// ::-webkit-scrollbar {
-//   display: none;
-// }
+::-webkit-scrollbar {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
 </style>

@@ -4,177 +4,268 @@ let showArrConfig = {
     manage: {
       output: [
         {
-          id: 9,
-          imgUrl: require("@/assets/images/cma/output.png"),
           title: "年度產出總覽",
-          target: "output",
+          imgUrl: require("@/assets/images/cma/output.png"),
           belong: "管理层/產出",
           isShow: false,
           to: "output",
-          textRoute: {
+          route: {
             path: "output",
             name: "output",
             component: () =>
-              import(/* webpackChunkName: "output" */ "../views/main/cma/output/output.vue")
+              import(/* webpackChunkName: "cmaoutput" */ "@/views/main/cma/output/output.vue"),
+            meta: { parentName: "cma" }
           }
         },
         {
-          id: 11,
-          imgUrl: require("@/assets/images/cma/makewar.png"),
           title: "By天產出看板",
-          target: "output",
+          imgUrl: require("@/assets/images/cma/makewar.png"),
           belong: "管理层/產出",
           isShow: false,
-          to: "makewar"
+          to: "makewar",
+          route: {
+            path: "makewar",
+            name: "makewar",
+            isHasDetailArr: [
+              {
+                path: "make",
+                name: "make",
+                component: () =>
+                  import(/* webpackChunkName: "cmamake" */ "@/views/main/cma/make/make.vue"),
+                meta: { parentName: "cma", isJump: true }
+              }
+            ],
+            component: () =>
+              import(/* webpackChunkName: "cmamakewar" */ "@/views/main/cma/makewar/makewar.vue"),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 10,
-          imgUrl: require("@/assets/images/cma/output2.png"),
           title: "By站位產出看板",
-          target: "output",
+          imgUrl: require("@/assets/images/cma/output2.png"),
           belong: "管理层/產出",
           isShow: false,
-          to: "output2"
+          to: "output2",
+          route: {
+            path: "output2",
+            name: "output2",
+            component: () =>
+              import(/* webpackChunkName: "cmaoutput2" */ "@/views/main/cma/output2/output2.vue"),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 11,
-          imgUrl: require("@/assets/images/cma/aactga.png"),
           title: "By機臺產出看板",
-          target: "output",
+          imgUrl: require("@/assets/images/cma/aactga.png"),
           belong: "管理层/產出",
           isShow: false,
-          to: "aactga"
+          to: "aactga",
+          route: {
+            path: "aactga",
+            name: "aactga",
+            component: () =>
+              import(/* webpackChunkName: "cmaaactga" */ "@/views/main/cma/aactga/aactga.vue"),
+            meta: { parentName: "cma" }
+          }
         }
       ],
       yield: [
         {
-          id: 13,
-          imgUrl: require("@/assets/images/cma/sfc.png"),
           title: "SFC良率By月",
-          target: "yield",
+          imgUrl: require("@/assets/images/cma/sfc.png"),
           belong: "管理层/良率",
           isShow: false,
-          to: "sfc"
+          to: "sfc",
+          route: {
+            path: "sfc",
+            name: "sfc",
+            component: () =>
+              import(/* webpackChunkName: "cmasfc" */ "@/views/main/cma/sfc/sfc.vue"),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 14,
-          imgUrl: require("@/assets/images/cma/tsfc.png"),
           title: "SFC良率Daily",
-          target: "yield",
+          imgUrl: require("@/assets/images/cma/tsfc.png"),
           belong: "管理层/良率",
           isShow: false,
-          to: "tsfc"
+          to: "tsfc",
+          route: {
+            path: "tsfc",
+            name: "tsfc",
+            component: () =>
+              import(/* webpackChunkName: "cmatsfc" */ "@/views/main/cma/tsfc/tsfc.vue"),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 15,
-          imgUrl: require("@/assets/images/cma/defect.png"),
           title: "Top 25 Defect",
-          target: "yield",
+          imgUrl: require("@/assets/images/cma/defect.png"),
           belong: "管理层/良率",
           isShow: false,
-          to: "defect"
+          to: "defect",
+          route: {
+            path: "defect",
+            name: "defect",
+            component: () =>
+              import(/* webpackChunkName: "cmadefect" */ "@/views/main/cma/defect/defect.vue"),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 16,
-          imgUrl: require("@/assets/images/cma/yielddetail.png"),
           title: "FOL LCB差异层别",
-          target: "yield",
+          imgUrl: require("@/assets/images/cma/yielddetail.png"),
           belong: "管理层/良率",
           isShow: false,
-          to: "yielddetail"
+          to: "yielddetail",
+          route: {
+            path: "yielddetail",
+            name: "yielddetail",
+            component: () =>
+              import(
+                /* webpackChunkName: "cmayielddetail" */ "@/views/main/cma/yielddetail/yielddetail.vue"
+              ),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 17,
-          imgUrl: require("@/assets/images/cma/yielddetail.png"),
           title: "FOL DPC差异层别",
-          target: "yield",
+          imgUrl: require("@/assets/images/cma/yielddetail.png"),
           belong: "管理层/良率",
           isShow: false,
           to: "yielddetail"
+          // route: {
+          //   path: "yielddetail",
+          //   name: "yielddetail",
+          //   component: () =>
+          //     import(
+          //       /* webpackChunkName: "cmayielddetail" */ "@/views/main/cma/yielddetail/yielddetail.vue"
+          //     ),
+          //   meta: { parentName: "cma" }
+          // }
         }
       ],
       device: [
         {
-          id: 1,
-          imgUrl: require("@/assets/images/cma/aa.png"),
           title: "AA設備總覽",
-          target: "device",
+          imgUrl: require("@/assets/images/cma/aa.png"),
           belong: "管理层/设备",
           isShow: false,
           to: "aa",
-          config: {
+          route: {
             path: "aa",
             name: "aa",
-            component: () => import(/* webpackChunkName: "aa" */ "@/views/main/cma/aa/aa.vue")
+            component: () => import(/* webpackChunkName: "cmaaa" */ "@/views/main/cma/aa/aa.vue"),
+            meta: { parentName: "cma" }
           }
         },
         {
-          id: 2,
-          imgUrl: require("@/assets/images/cma/fol.png"),
           title: "FOL設備總覽",
-          target: "device",
+          imgUrl: require("@/assets/images/cma/fol.png"),
           belong: "管理层/设备",
           isShow: false,
-          to: "fol"
+          to: "fol",
+          route: {
+            path: "fol",
+            name: "fol",
+            component: () =>
+              import(/* webpackChunkName: "cmafol" */ "@/views/main/cma/fol/fol.vue"),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 3,
-          imgUrl: require("@/assets/images/cma/fol.png"),
           title: "周產出/效率看板",
-          target: "device",
+          imgUrl: require("@/assets/images/cma/fol.png"),
           belong: "管理层/设备",
           isShow: false,
-          to: "wekoutput"
+          to: "wekoutput",
+          route: {
+            path: "wekoutput",
+            name: "wekoutput",
+            component: () =>
+              import(
+                /* webpackChunkName: "cmawekoutput" */ "@/views/main/cma/wekoutput/wekoutput.vue"
+              ),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 4,
-          imgUrl: require("@/assets/images/cma/fol.png"),
           title: "Test治具良率看板",
-          target: "device",
+          imgUrl: require("@/assets/images/cma/fol.png"),
           belong: "管理层/设备",
           isShow: false,
-          to: "fixtrue"
+          to: "fixtrue",
+          route: {
+            path: "fixtrue",
+            name: "fixtrue",
+            component: () =>
+              import(/* webpackChunkName: "cmafixtrue" */ "@/views/main/cma/fixtrue/fixtrue.vue"),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 3,
-          imgUrl: require("@/assets/images/cma/fol.png"),
           title: "效率看板",
-          target: "device",
+          imgUrl: require("@/assets/images/cma/fol.png"),
           belong: "管理层/设备",
           isShow: false,
-          to: "effciency"
+          to: "effciency",
+          route: {
+            path: "effciency",
+            name: "effciency",
+            component: () =>
+              import(
+                /* webpackChunkName: "effciency" */ "@/views/main/cma/effciency/effciency.vue"
+              ),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 5,
-          imgUrl: require("@/assets/images/cma/fol.png"),
           title: "Test一次不良Top15",
-          target: "device",
+          imgUrl: require("@/assets/images/cma/fol.png"),
           belong: "管理层/设备",
           isShow: false,
-          to: "testfirst"
+          to: "testfirst",
+          route: {
+            path: "testfirst",
+            name: "testfirst",
+            component: () =>
+              import(
+                /* webpackChunkName: "testfirst" */ "@/views/main/cma/testfirst/testfirst.vue"
+              ),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 6,
-          imgUrl: require("@/assets/images/cma/fol.png"),
           title: "AA 機況排行榜",
-          target: "device",
+          imgUrl: require("@/assets/images/cma/fol.png"),
           belong: "管理层/设备",
           isShow: false,
-          to: "aawar"
+          to: "aawar",
+          route: {
+            path: "aawar",
+            name: "aawar",
+            component: () =>
+              import(/* webpackChunkName: "aawar" */ "@/views/main/cma/aawar/aawar.vue"),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 7,
-          imgUrl: require("@/assets/images/cma/fol.png"),
           title: "Test效率看板",
-          target: "device",
+          imgUrl: require("@/assets/images/cma/fol.png"),
           belong: "管理层/设备",
           isShow: false,
-          to: "testeff"
+          to: "testeff",
+          route: {
+            path: "testeff",
+            name: "testeff",
+            component: () =>
+              import(/* webpackChunkName: "testeff" */ "@/views/main/cma/testeff/testeff.vue"),
+            meta: { parentName: "cma" }
+          }
         }
       ],
       process: [
         {
-          id: 4,
           isExternalLink: true,
           imgUrl: require("@/assets/images/cma/spotcheck.jpg"),
           title: "IAA Step看板",
@@ -184,7 +275,6 @@ let showArrConfig = {
           to: "http://10.142.117.50:32001/standard/design/#/share/ZC1OY0JP"
         },
         {
-          id: 108,
           isExternalLink: true,
           imgUrl: require("@/assets/images/cma/device4.jpg"),
           title: "實時統計",
@@ -194,7 +284,6 @@ let showArrConfig = {
           to: "http://10.142.117.50:32001/share.html#/?token=KG3RHWT8"
         },
         {
-          id: 109,
           isExternalLink: true,
           imgUrl: require("@/assets/images/cma/device5.png"),
           title: "歷史日統計",
@@ -204,7 +293,6 @@ let showArrConfig = {
           to: "http://10.142.117.50:32001/share.html#/?token=PVAX4VH2"
         },
         {
-          id: 110,
           isExternalLink: true,
           imgUrl: require("@/assets/images/cma/device6.png"),
           title: "歷史周統計",
@@ -214,7 +302,6 @@ let showArrConfig = {
           to: "http://10.142.117.50:32001/share.html#/?token=AMM0V0AE"
         },
         {
-          id: 111,
           isExternalLink: true,
           imgUrl: require("@/assets/images/cma/device7.png"),
           title: "歷史月統計",
@@ -224,68 +311,89 @@ let showArrConfig = {
           to: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
         },
         {
-          id: 112,
-          imgUrl: require("@/assets/images/cma/ga.png"),
           title: "GA製程監控",
-          target: "process",
+          imgUrl: require("@/assets/images/cma/ga.png"),
           belong: "管理层/製程監控",
           isShow: false,
-          to: "ga"
+          to: "ga",
+          route: {
+            path: "ga",
+            name: "ga",
+            component: () => import(/* webpackChunkName: "ga" */ "@/views/main/cma/ga/ga.vue"),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 113,
-          imgUrl: require("@/assets/images/cma/va.png"),
           title: "VA製程監控",
-          target: "process",
+          imgUrl: require("@/assets/images/cma/va.png"),
           belong: "管理层/製程監控",
           isShow: false,
-          to: "va"
+          to: "va",
+          route: {
+            path: "va",
+            name: "va",
+            component: () => import(/* webpackChunkName: "va" */ "@/views/main/cma/va/va.vue"),
+            meta: { parentName: "cma" }
+          }
         }
       ]
     },
     juec: {
       output: [
-        {
-          id: 1,
-          imgUrl: require("@/assets/images/cma/output.png"),
-          title: "TEST",
-          target: "output",
-          belong: "決策層/產出",
-          isShow: false,
-          to: "test"
-        }
+        // {
+        //   imgUrl: require("@/assets/images/cma/output.png"),
+        //   title: "TEST",
+        //   target: "output",
+        //   belong: "決策層/產出",
+        //   isShow: false,
+        //   to: "test"
+        // }
       ],
       yield: [
         {
-          id: 1,
-          imgUrl: require("@/assets/images/cma/output.png"),
           title: "FOL Yield Report",
-          target: "output",
+          imgUrl: require("@/assets/images/cma/output.png"),
           belong: "決策層/良率",
           isShow: false,
-          to: "folyield"
+          to: "folyield",
+          route: {
+            path: "folyield",
+            name: "folyield",
+            component: () =>
+              import(/* webpackChunkName: "jtest" */ "@/views/main/cma/folyield/folyield.vue"),
+            meta: { parentName: "cma" }
+          }
         }
       ],
       device: [
         {
-          id: 1,
-          imgUrl: require("@/assets/images/cma/aa.png"),
           title: "SA效率看板",
-          target: "device",
+          imgUrl: require("@/assets/images/cma/aa.png"),
           belong: "決策層/设备",
           isShow: false,
-          to: "jsa"
+          to: "jsa",
+          route: {
+            path: "jsa",
+            name: "jsa",
+            component: () => import(/* webpackChunkName: "jsa" */ "@/views/main/cma/jsa/jsa.vue"),
+            meta: { parentName: "cma" }
+          }
         }
       ],
       process: [
         {
-          id: 1,
-          imgUrl: require("@/assets/images/cma/ga.png"),
           title: "AVI效率看板",
-          target: "process",
+          imgUrl: require("@/assets/images/cma/ga.png"),
           belong: "決策層/製程監控",
           isShow: false,
-          to: "javi"
+          to: "javi",
+          route: {
+            path: "javi",
+            name: "javi",
+            component: () =>
+              import(/* webpackChunkName: "javi" */ "@/views/main/cma/javi/javi.vue"),
+            meta: { parentName: "cma" }
+          }
         }
       ]
     },
@@ -294,22 +402,46 @@ let showArrConfig = {
       // 所有从报表
       all: [
         {
-          id: 1,
-          imgUrl: require("@/assets/images/cma/output.png"),
           title: "cma第一个报表",
-          target: "report",
+          imgUrl: require("@/assets/images/cma/output.png"),
           belong: "报表/所有",
           isShow: false,
-          to: "cmamainreport"
+          to: "cmamainreport",
+          route: {
+            path: "report1",
+            name: "cmamainreport",
+            component: () =>
+              import(/* webpackChunkName: "report1" */ "@/views/main/cma/report1/report1.vue"),
+            meta: { parentName: "cma" }
+          }
         },
         {
-          id: 2,
-          imgUrl: require("@/assets/images/cma/output.png"),
           title: "cma的第二个报表",
-          target: "report",
+          imgUrl: require("@/assets/images/cma/output.png"),
           belong: "报表/所有",
           isShow: false,
-          to: "cmamainreport2"
+          to: "cmamainreport2",
+          route: {
+            path: "report2",
+            name: "cmamainreport2",
+            component: () =>
+              import(/* webpackChunkName: "report2" */ "@/views/main/cma/report2/report2.vue"),
+            meta: { parentName: "cma" }
+          }
+        },
+        {
+          title: "cma的第三个报表",
+          imgUrl: require("@/assets/images/cma/output.png"),
+          belong: "报表/所有",
+          isShow: false,
+          to: "cmamainreport3",
+          route: {
+            path: "report3",
+            name: "cmamainreport3",
+            component: () =>
+              import(/* webpackChunkName: "report3" */ "@/views/main/cma/report3/report3.vue"),
+            meta: { parentName: "cma" }
+          }
         }
       ]
     }
@@ -318,49 +450,85 @@ let showArrConfig = {
     manage: {
       output: [
         {
-          id: 9,
-          imgUrl: require("@/assets/images/cma/output.png"),
           title: "年度產出總覽",
-          target: "output",
+          imgUrl: require("@/assets/images/cma/output.png"),
           belong: "管理层/產出",
           isShow: false,
-          to: "dpoutput"
+          to: "dpoutput",
+          route: {
+            path: "output",
+            name: "dpoutput",
+            component: () =>
+              import(/* webpackChunkName: "dpoutput" */ "@/views/main/dp/output/output.vue"),
+            meta: { parentName: "dp" }
+          }
         },
         {
-          id: 11,
-          imgUrl: require("@/assets/images/cma/makewar.png"),
           title: "By天產出看板",
-          target: "output",
+          imgUrl: require("@/assets/images/cma/makewar.png"),
           belong: "管理层/產出",
           isShow: false,
-          to: "dpmakewar"
+          to: "dpmakewar",
+          route: {
+            path: "makewar",
+            name: "dpmakewar",
+            isHasDetailArr: [
+              {
+                path: "make",
+                name: "dpmake",
+                component: () =>
+                  import(/* webpackChunkName: "dpmake" */ "@/views/main/dp/make/make.vue"),
+                meta: { parentName: "dp", isJump: true }
+              }
+            ],
+            component: () =>
+              import(/* webpackChunkName: "dpmakewar" */ "@/views/main/dp/makewar/makewar.vue"),
+            meta: { parentName: "dp" }
+          }
         },
         {
-          id: 10,
-          imgUrl: require("@/assets/images/cma/output2.png"),
           title: "By站位產出看板",
-          target: "output",
+          imgUrl: require("@/assets/images/cma/output2.png"),
           belong: "管理层/產出",
           isShow: false,
-          to: "dpoutput2"
+          to: "dpoutput2",
+          route: {
+            path: "output2",
+            name: "dpoutput2",
+            component: () =>
+              import(/* webpackChunkName: "dpoutput2" */ "../views/main/dp/output2/output2.vue"),
+            meta: { parentName: "dp" }
+          }
         },
         {
-          id: 13,
-          imgUrl: require("@/assets/images/dp/equipoutput.png"),
           title: "設備產出看板",
-          target: "output",
+          imgUrl: require("@/assets/images/dp/equipoutput.png"),
           belong: "管理层/產出",
           isShow: false,
-          to: "dpequipoutput"
+          to: "dpequipoutput",
+          route: {
+            path: "equipoutput",
+            name: "dpequipoutput",
+            component: () =>
+              import(
+                /* webpackChunkName: "dpdeviceoutput" */ "@/views/main/dp/equipOutput/equipOutput.vue"
+              ),
+            meta: { parentName: "dp" }
+          }
         },
         {
-          id: 12,
-          imgUrl: require("@/assets/images/dp/outwork.png"),
           title: "人員出勤率看板",
-          target: "output",
+          imgUrl: require("@/assets/images/dp/outwork.png"),
           belong: "管理层/產出",
           isShow: false,
-          to: "dpoutwork"
+          to: "dpoutwork",
+          route: {
+            path: "outwork",
+            name: "dpoutwork",
+            component: () =>
+              import(/* webpackChunkName: "dpoutwork" */ "../views/main/dp/outwork/outwork.vue"),
+            meta: { parentName: "dp" }
+          }
         }
       ]
     },
@@ -369,82 +537,131 @@ let showArrConfig = {
     report: {
       // 所有从报表
       all: [
-        {
-          id: 1,
-          imgUrl: require("@/assets/images/cma/output.png"),
-          title: "dp第一个报表",
-          target: "report",
-          belong: "报表/所有",
-          isShow: false,
-          to: "output"
-        }
+        // {
+        //   imgUrl: require("@/assets/images/cma/output.png"),
+        //   title: "dp第一个报表",
+        //   belong: "报表/所有",
+        //   isShow: false,
+        //   to: "output"
+        // }
       ]
     }
   }
 }
 
-let tempArr = []
+let tempTitleArr = []
 
 export let mapShowArr = (allRouters) => {
+  let asyncRoutes = []
   let cmaNames = []
   let dpNames = []
   allRouters.forEach((item) => {
     if (item.name.includes("cma") && item.children) {
-      cmaNames = childHandle(item.children)
+      cmaNames = getAllTitle(item.children)
     }
-    tempArr = []
+    tempTitleArr = []
     if (item.name.includes("dp") && item.children) {
-      dpNames = childHandle(item.children)
+      dpNames = getAllTitle(item.children)
     }
   })
   //console.log("cmaNames", cmaNames) // 所有返回的cma的地址
   //console.log("dpNames", dpNames) // 所有返回的dp的地址
   // 循环 cma 的地址
   showArrConfig.cma.manage.output = showArrConfig.cma.manage.output.map((item) => {
+    if (cmaNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: cmaNames.includes(item.title) }
   })
   showArrConfig.cma.manage.yield = showArrConfig.cma.manage.yield.map((item) => {
+    if (cmaNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: cmaNames.includes(item.title) }
   })
   showArrConfig.cma.manage.device = showArrConfig.cma.manage.device.map((item) => {
+    if (cmaNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: cmaNames.includes(item.title) }
   })
   showArrConfig.cma.manage.process = showArrConfig.cma.manage.process.map((item) => {
+    if (cmaNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: cmaNames.includes(item.title) }
   })
   // 处理cma 决策层的
   showArrConfig.cma.juec.output = showArrConfig.cma.juec.output.map((item) => {
+    if (cmaNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: cmaNames.includes(item.title) }
   })
   showArrConfig.cma.juec.yield = showArrConfig.cma.juec.yield.map((item) => {
+    if (cmaNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: cmaNames.includes(item.title) }
   })
   showArrConfig.cma.juec.device = showArrConfig.cma.juec.device.map((item) => {
+    if (cmaNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: cmaNames.includes(item.title) }
   })
   showArrConfig.cma.juec.process = showArrConfig.cma.juec.process.map((item) => {
+    if (cmaNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: cmaNames.includes(item.title) }
   })
   // 处理cma 报表的
   showArrConfig.cma.report.all = showArrConfig.cma.report.all.map((item) => {
+    if (cmaNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: cmaNames.includes(item.title) }
   })
   // 处理dp的管理层地址
   showArrConfig.dp.manage.output = showArrConfig.dp.manage.output.map((item) => {
+    if (dpNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: dpNames.includes(item.title) }
   })
   // 处理dp的报表地址
   showArrConfig.dp.report.all = showArrConfig.dp.report.all.map((item) => {
+    if (dpNames.includes(item.title) && item.route) {
+      asyncRoutes.push(item.route)
+    }
+    delete item.route
     return { ...item, isShow: dpNames.includes(item.title) }
   })
-  return showArrConfig
+  return { showArrConfig, asyncRoutes }
 }
-function childHandle(routers) {
+
+/**
+ * 获取所有的title 比如获取后端返回的所有cma的标题
+ * @param {*} routers
+ * @returns
+ */
+function getAllTitle(routers) {
   routers.forEach((item) => {
-    tempArr.push(item.meta.title)
+    tempTitleArr.push(item.meta.title)
     if (item.children) {
-      childHandle(item.children)
+      getAllTitle(item.children)
     }
   })
-  return tempArr
+  return tempTitleArr
 }
