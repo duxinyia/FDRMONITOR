@@ -15,8 +15,13 @@
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
     </div>
+    <!-- :cell-style="{ background: 'transparent', color: '#fff' }" -->
 
-    <el-table :data="tableData" :header-cell-style="{ background: 'transparent', color: '#fff' }">
+    <el-table
+      :data="tableData"
+      :header-cell-style="{ background: '#f8cbad', color: '#000' }"
+      :cell-style="cellStyle"
+    >
       <el-table-column
         v-for="(taT, index) in tableTitle"
         :key="index"
@@ -24,7 +29,6 @@
         prop="Device"
         align="center"
         :label="taT.lable"
-        :cell-class-style="{ color: 'red' }"
       >
         <el-table-column
           v-show="taT.children"
@@ -33,7 +37,6 @@
           prop="date"
           align="center"
           :label="c.lable"
-          :cell-class-style="{ color: 'red' }"
         >
           <el-table-column
             v-show="c.son"
@@ -42,7 +45,6 @@
             prop="c1"
             align="center"
             :label="s"
-            :cell-class-style="{ color: 'red' }"
           ></el-table-column>
         </el-table-column>
       </el-table-column>
@@ -133,7 +135,6 @@ export default {
           }
         ]
       },
-      date: "256",
       // 表格数据
       tableData: [
         {
@@ -467,6 +468,16 @@ export default {
   methods: {
     getSearchData() {
       console.log(111)
+    },
+    cellStyle(row, column, rowIndex, columnIndex) {
+      console.log("row", row)
+      console.log("column", column)
+      console.log("rowIndex", rowIndex)
+      console.log("columnIndex", columnIndex)
+
+      if (row.Device !== row.Station && columnIndex === 13) {
+        return { color: "red" }
+      }
     }
   }
 }
