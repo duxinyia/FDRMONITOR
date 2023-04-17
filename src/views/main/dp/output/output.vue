@@ -83,7 +83,7 @@ export default {
     // 清空数据
     clearValue() {
       // 饼图的配置
-      (this.seriesData = []),
+      ;(this.seriesData = []),
         // 折线图的一些数据
         (this.lineChartConfig = {
           legends: [],
