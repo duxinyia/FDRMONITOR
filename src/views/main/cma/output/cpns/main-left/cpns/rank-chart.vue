@@ -1,5 +1,5 @@
 <template>
-  <!-- top5 好看的排位图
+  <!-- top5 好看的排位图  cma
         参考地址:https://www.isqqw.com/echartsdetail?id=16405
   -->
   <div
@@ -175,7 +175,7 @@ export default {
             type: "bar",
             barWidth: 20,
             barGap: "-100%",
-            data: values[0],
+            data: values,
             itemStyle: {
               normal: {
                 color: "#fff",

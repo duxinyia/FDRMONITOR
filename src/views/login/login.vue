@@ -15,19 +15,10 @@
         <div class="form-title">战情中心</div>
         <el-form ref="form" :rules="rules" :model="form">
           <el-form-item prop="name">
-            <el-input
-              prefix-icon="el-icon-user"
-              placeholder="工號"
-              v-model.trim="form.name"
-            ></el-input>
+            <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
           </el-form-item>
           <el-form-item prop="paw">
-            <el-input
-              prefix-icon="el-icon-lock"
-              placeholder="密碼"
-              show-password
-              v-model.trim="form.paw"
-            ></el-input>
+            <el-input prefix-icon="el-icon-lock" placeholder="密碼" show-password v-model.trim="form.paw"></el-input>
           </el-form-item>
           <!-- 记住密码和忘记密码 -->
           <div class="pwd-container">
@@ -61,14 +52,10 @@
       <div class="author-info">
         <div>
           <span class="author"> <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227 </span>
-          <span class="mail">
-            <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
-          </span>
+          <span class="mail"> <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com </span>
           &nbsp;&nbsp;
           <span class="author"> <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123 </span>
-          <span class="mail">
-            <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
-          </span>
+          <span class="mail"> <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com </span>
         </div>
       </div>
     </div>
@@ -120,9 +107,12 @@ export default {
           let res = await login(this.form)
           if (res.Resultflag == 1) {
             // 表示用户名 和 密码正确
-            this.$store.commit("user/SET_USER", { ...this.form, fullName: res.Resultvalue.Name })
+            this.$store.commit("user/SET_USER", {
+              ...this.form,
+              fullName: res.Resultvalue.Name
+            })
             // 跳转页面
-            this.$router.replace({ name: "overview" }).catch((err) => {})
+            this.$router.replace({ name: "overview" }).catch(() => {})
           }
           this.btnLoading = false
           this.$refs["form"].resetFields()

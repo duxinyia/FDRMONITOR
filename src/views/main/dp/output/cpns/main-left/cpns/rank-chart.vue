@@ -1,5 +1,5 @@
 <template>
-  <!-- top5 好看的排位图
+  <!-- top5 好看的排位图 dp
         参考地址:https://www.isqqw.com/echartsdetail?id=16405
   -->
   <div
