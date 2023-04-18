@@ -12,11 +12,7 @@
     </div>
     <!-- :cell-style="{ background: 'transparent', color: '#fff' }" -->
 
-    <el-table
-      :data="tableData"
-      :header-cell-style="{ background: '#f8cbad', color: '#000' }"
-      :cell-style="cellStyle"
-    >
+    <el-table :data="tableData" :header-cell-style="{ background: '#f8cbad', color: '#000' }" :cell-style="cellStyle">
       <el-table-column
         v-for="(taT, index) in tableTitle"
         :key="index"
