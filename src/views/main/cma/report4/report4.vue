@@ -1,12 +1,15 @@
 <template>
   <div class="page-mian">
-    <div class="select-two">
-      <div class="system-select" v-for="item in selectData" :key="item.name">
-        <span>{{ item.name }}:</span>
-        <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
-          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
+    <div class="queryArea">
+      <div class="datePicker">
+        <span>Start Date：</span>
+        <el-date-picker v-model="date.startDate" type="date" placeholder="請選擇日期"> </el-date-picker>
+        <span>Start Time：</span>
+        <el-time-picker v-model="date.startTime" placeholder="請選擇時間"> </el-time-picker>
+        <span>End Date：</span>
+        <el-date-picker v-model="date.EndDate" type="date" placeholder="請選擇日期"> </el-date-picker>
+        <span>End Time：</span>
+        <el-time-picker v-model="date.EndTime" placeholder="請選擇時間"> </el-time-picker>
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
     </div>
@@ -36,230 +39,96 @@ export default {
   components: {},
   data() {
     return {
+      //查詢參數
+      date: {
+        startDate: "",
+        startTime: "",
+        EndDate: "",
+        EndTime: ""
+      },
+
       // 表头名称
       tableTitle: [
         { lable: "Project", prop: "1" },
-        { lable: "AA MC", prop: "2" },
-        { lable: "AA Para", prop: "3" },
-        { lable: "Total In", prop: "4" },
-        { lable: "Total Rate", prop: "5" },
-        { lable: "A", prop: "a" },
-        { lable: "B", prop: "a" },
-        { lable: "C", prop: "a" },
-        { lable: "D", prop: "a" },
-        { lable: "E", prop: "a" },
-        { lable: "F", prop: "a" },
-        { lable: "G", prop: "a" },
-        { lable: "H", prop: "a" },
-        { lable: "A", prop: "a" },
-        { lable: "B", prop: "a" },
-        { lable: "C", prop: "a" },
-        { lable: "D", prop: "a" },
-        { lable: "E", prop: "a" },
-        { lable: "F", prop: "a" },
-        { lable: "G", prop: "a" },
-        { lable: "H", prop: "a" },
-        { lable: "Input", prop: "a" },
-        { lable: "Rate", prop: "a" }
+        { lable: "Machine", prop: "2" },
+        { lable: "Sensor Lot", prop: "3" },
+        { lable: "Lens Lot", prop: "4" },
+        { lable: "Input", prop: "5" },
+        { lable: "Fail Rate", prop: "a" }
       ],
-      // 下拉框值
-      selectData: [
-        { name: "DeviceSeries", value: "" },
-        { name: "Suppy", value: "" }
-      ],
-      // 两个下拉框的选项
-      options: {
-        DeviceSeries: [
-          {
-            value: "选项1",
-            label: "MW-X"
-          },
-          {
-            value: "选项2",
-            label: "MW-X2"
-          },
-          {
-            value: "选项3",
-            label: "MW-X3"
-          },
-          {
-            value: "选项4",
-            label: "MW-X4"
-          },
-          {
-            value: "选项5",
-            label: "MW-X5"
-          }
-        ],
-        Suppy: [
-          {
-            value: "选项1",
-            label: "Genius"
-          },
-          {
-            value: "选项2",
-            label: "Genius2"
-          },
-          {
-            value: "选项3",
-            label: "Genius3"
-          },
-          {
-            value: "选项4",
-            label: "Genius4"
-          },
-          {
-            value: "选项5",
-            label: "Genius5"
-          }
-        ]
-      },
-      date: "256",
       // 表格数据
       tableData: [
         {
           1: "MW-E",
           2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.02%",
-          a: "6"
+          3: "K3063Y003-01",
+          4: "MWC121826E123C",
+          5: "899",
+          a: "0.00%"
         },
         {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "0.12%",
-          a: "6"
+          1: "MW-E",
+          2: "AA1301",
+          3: "K3063Y003-01",
+          4: "MWC121826E123C",
+          5: "899",
+          a: "0.00%"
         },
         {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "1.12%",
-          a: "6"
+          1: "MW-E",
+          2: "AA1301",
+          3: "K3063Y003-01",
+          4: "MWC121826E123C",
+          5: "899",
+          a: "0.00%"
         },
         {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
+          1: "MW-E",
+          2: "AA1301",
+          3: "K3063Y003-01",
+          4: "MWC121826E123C",
+          5: "899",
+          a: "0.43%"
         },
         {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
+          1: "MW-E",
+          2: "AA1301",
+          3: "K3063Y003-01",
+          4: "MWC121826E123C",
+          5: "899",
+          a: "0.00%"
         },
         {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
+          1: "MW-E",
+          2: "AA1301",
+          3: "K3063Y003-01",
+          4: "MWC121826E123C",
+          5: "899",
+          a: "0.68%"
         },
         {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
+          1: "MW-E",
+          2: "AA1301",
+          3: "K3063Y003-01",
+          4: "MWC121826E123C",
+          5: "899",
+          a: "0.00%"
         },
         {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
+          1: "MW-E",
+          2: "AA1301",
+          3: "K3063Y003-01",
+          4: "MWC121826E123C",
+          5: "899",
+          a: "0.00%"
         },
         {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
-        },
-        {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
-        },
-        {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
-        },
-        {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
-        },
-        {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
-        },
-        {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
-        },
-        {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
-        },
-        {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
-        },
-        {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
-        },
-        {
-          1: "1",
-          2: "2",
-          3: "3",
-          4: "5",
-          5: "6",
-          a: "6"
+          1: "MW-E",
+          2: "AA1301",
+          3: "K3063Y003-01",
+          4: "MWC121826E123C",
+          5: "899",
+          a: "0.00%"
         }
       ]
     }
@@ -272,20 +141,12 @@ export default {
       console.log(111)
     },
     cellStyle({ row, column, columnIndex }) {
-      if (row[column.property].includes("%")) {
-        if (parseFloat(row[column.property]) < 0.1) {
+      if (columnIndex == 5) {
+        if (parseFloat(row[column.property]) > 0.3) {
           return {
-            background: "green"
+            color: "red"
           }
-        } else if (parseFloat(row[column.property]) >= 0.1 && parseFloat(row[column.property]) <= 0.3) {
-          return {
-            background: "yellow",
-            color: "#000"
-          }
-        } else
-          return {
-            background: "red"
-          }
+        }
       }
     }
   }
@@ -335,13 +196,13 @@ export default {
   height: 0px;
 }
 // 输入框的样式
-.select-two {
+.queryArea {
   display: flex;
   .btn {
     margin-left: 20px;
   }
 }
-.system-select {
+.datePicker {
   span {
     padding: 0 10px 0 25px;
   }

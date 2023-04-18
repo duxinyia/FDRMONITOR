@@ -54,6 +54,7 @@ import {
   // PageHeader,
   // CascaderPanel,
   DatePicker,
+  TimePicker,
   Loading,
   Avatar
 } from "element-ui"
@@ -114,6 +115,7 @@ const components = [
   // PageHeader,
   // CascaderPanel,
   DatePicker,
+  TimePicker,
   Loading,
   Avatar
 ]
