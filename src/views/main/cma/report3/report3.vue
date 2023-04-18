@@ -10,14 +10,29 @@
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
     </div>
+    <el-table :data="tableData1" :cell-style="cellStyle1" :header-cell-style="headerCellStyle1">
+      <el-table-column
+        v-for="(item, index) in tableTitle1"
+        :key="index"
+        :prop="item.prop"
+        :label="item.lable"
+        align="center"
+        min-width="50px"
+      >
+        <!-- <el-table-colum>
 
+          </el-table-colum> -->
+      </el-table-column>
+    </el-table>
     <el-table
-      :data="tableData"
-      :cell-style="cellStyle"
+      :data="tableData2"
+      :cell-style="cellStyle2"
       :header-cell-style="{ background: 'transparent', color: '#fff' }"
+      class="table2"
+      height="600px"
     >
       <el-table-column
-        v-for="(item, index) in tableTitle"
+        v-for="(item, index) in tableTitle2"
         :key="index"
         :prop="item.prop"
         :label="item.lable"
@@ -37,7 +52,32 @@ export default {
   data() {
     return {
       // 表头名称
-      tableTitle: [
+      tableTitle1: [
+        { lable: "MW-X Genius", prop: "1" },
+        { lable: "MW-X Genius", prop: "2" },
+        { lable: "MW-X Genius", prop: "3" },
+        { lable: "MW-X Genius", prop: "4" },
+        { lable: "Spec.", prop: "5" },
+        { lable: "SFR Fail Rate", prop: "a" },
+        { lable: "SFR Fail Rate", prop: "a" },
+        { lable: "SFR Fail Rate", prop: "a" },
+        { lable: "SFR Fail Rate", prop: "a" },
+        { lable: "SFR Fail Rate", prop: "a" },
+        { lable: "SFR Fail Rate", prop: "a" },
+        { lable: "SFR Fail Rate", prop: "a" },
+        { lable: "SFR Fail Rate", prop: "a" },
+        { lable: "SFR Input Qty", prop: "a" },
+        { lable: "SFR Input Qty", prop: "a" },
+        { lable: "SFR Input Qty", prop: "a" },
+        { lable: "SFR Input Qty", prop: "a" },
+        { lable: "SFR Input Qty", prop: "a" },
+        { lable: "SFR Input Qty", prop: "a" },
+        { lable: "SFR Input Qty", prop: "a" },
+        { lable: "SFR Input Qty", prop: "a" },
+        { lable: "近兩小時SFR F/R", prop: "a" },
+        { lable: "近兩小時SFR F/R", prop: "a" }
+      ],
+      tableTitle2: [
         { lable: "Project", prop: "1" },
         { lable: "AA MC", prop: "2" },
         { lable: "AA Para", prop: "3" },
@@ -62,6 +102,7 @@ export default {
         { lable: "Input", prop: "a" },
         { lable: "Rate", prop: "a" }
       ],
+
       // 下拉框值
       selectData: [
         { name: "DeviceSeries", value: "" },
@@ -116,7 +157,57 @@ export default {
       },
       date: "256",
       // 表格数据
-      tableData: [
+      tableData1: [
+        {
+          1: "MW-E",
+          2: "AA1301",
+          3: "Para A",
+          4: "1760",
+          5: "0.02%",
+          a: "6"
+        },
+        {
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "0.12%",
+          a: "6"
+        },
+        {
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "1.12%",
+          a: "6"
+        },
+        {
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
+        },
+        {
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
+        },
+        {
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "5",
+          5: "6",
+          a: "6"
+        }
+      ],
+      tableData2: [
         {
           1: "MW-E",
           2: "AA1301",
@@ -254,14 +345,15 @@ export default {
           a: "6"
         },
         {
-          1: "1",
+          1: "111111",
           2: "2",
           3: "3",
           4: "5",
           5: "6",
           a: "6"
         }
-      ]
+      ],
+      num: 0
     }
   },
   created() {
@@ -271,21 +363,55 @@ export default {
     getSearchData() {
       console.log(111)
     },
-    cellStyle({ row, column, columnIndex }) {
+    cellStyle1({ row, column, columnIndex }) {},
+    cellStyle2({ row, column, columnIndex }) {
       if (row[column.property].includes("%")) {
         if (parseFloat(row[column.property]) < 0.1) {
           return {
-            background: "green"
+            background: "#9acd32",
+            color: "#000"
           }
         } else if (parseFloat(row[column.property]) >= 0.1 && parseFloat(row[column.property]) <= 0.3) {
           return {
-            background: "yellow",
+            background: "#ffff00",
             color: "#000"
           }
         } else
           return {
-            background: "red"
+            background: "#ff80ff",
+            color: "#000"
           }
+      }
+    },
+
+    headerCellStyle1({ row, column, rowIndex, columnIndex }) {
+      // if (columnIndex < 22 && row[columnIndex + 1].label == row[columnIndex].label) {
+      //   this.num += 1
+      //   console.log("满足条件", this.num)
+      //   return {
+      //     background: "transparent",
+      //     color: "#fff"
+      //   }
+      // } else {
+      //   // this.num = 0
+      //   return {
+      //     background: "transparent",
+      //     color: "red"
+      //   }
+      // }
+
+      row[3].colSpan = 4 //第3个表头占4格
+      row[5].colSpan = 8
+      row[13].colSpan = 8
+      row[21].colSpan = 2
+      if ([0, 1, 2, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 22].includes(columnIndex)) {
+        //隐藏表头
+        row[columnIndex].colSpan = 0
+        return "display: none"
+      }
+      return {
+        background: "transparent",
+        color: "#fff"
       }
     }
   }
@@ -303,7 +429,7 @@ export default {
   background: transparent;
   border: 1px solid #1683af;
   margin-top: 20px;
-  height: calc(100% - 74.9px);
+
   // overflow: auto;
 }
 ::v-deep .el-table tr {

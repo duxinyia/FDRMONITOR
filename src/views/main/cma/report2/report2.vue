@@ -687,13 +687,13 @@ export default {
       if (column.label.includes("数值")) {
         // console.log(column)
         return {
-          background: "#696058",
-          color: "#fff"
+          background: "#b4c6e7",
+          color: "#4c4c4c"
         }
       } else
         return {
-          background: "#3a5588",
-          color: "#fff"
+          background: "#f8cbad",
+          color: "#4c4c4c"
         }
     },
     Show() {
