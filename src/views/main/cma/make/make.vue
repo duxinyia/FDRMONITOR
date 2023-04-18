@@ -80,18 +80,8 @@
               ></el-table-column>
               <el-table-column align="center" prop="targetOut" label="計劃"></el-table-column>
               <el-table-column align="center" prop="outPut" label="實際"></el-table-column>
-              <el-table-column
-                align="center"
-                prop="hitRate"
-                width="100px"
-                label="達成率"
-              ></el-table-column>
-              <el-table-column
-                align="center"
-                prop="processYield"
-                width="100px"
-                label="良率"
-              ></el-table-column>
+              <el-table-column align="center" prop="hitRate" width="100px" label="達成率"></el-table-column>
+              <el-table-column align="center" prop="processYield" width="100px" label="良率"></el-table-column>
               <el-table-column align="center" prop="wip" label="WIP">
                 <template slot-scope="{ row }">
                   <div class="lamp-contaienr">
@@ -119,11 +109,7 @@ import MakeChart1 from "./cpns/makechart1.vue"
 import MakeChart2 from "./cpns/makechart2.vue"
 import MakeChart3 from "./cpns/makechart3.vue"
 // 导入请求函数
-import {
-  GetRunningInfo,
-  GetStationTimeSpanOutputInfo,
-  getStationTimeSpanWIPInfo
-} from "@/api/cma/make.js"
+import { GetRunningInfo, GetStationTimeSpanOutputInfo, getStationTimeSpanWIPInfo } from "@/api/cma/make.js"
 export default {
   name: "make",
   components: {
@@ -274,9 +260,7 @@ export default {
       console.log("获取左边最下面区域数据", result)
       // 取出对应的值
       result.dateValues.forEach((item) => {
-        this.chart3Config.chat3Xdata.push(
-          this.$moment(item.dateCode).subtract(2, "hours").format("HH:mm")
-        )
+        this.chart3Config.chat3Xdata.push(this.$moment(item.dateCode).subtract(2, "hours").format("HH:mm"))
 
         this.chart3Config.chat3MaxWips.push(item.values.value.maxWip)
         this.chart3Config.chat3MinWips.push(item.values.value.minWip)

@@ -83,33 +83,13 @@ http://10.147.214.111:8085/
 ```html
 <div class="dv-decoration-7">
   <svg width="21px" height="18px">
-    <polyline
-      stroke-width="4"
-      fill="transparent"
-      :stroke="mergedColor[0]"
-      points="10, 2 19, 10 10, 18"
-    />
-    <polyline
-      stroke-width="2"
-      fill="transparent"
-      :stroke="mergedColor[1]"
-      points="2, 2 11, 10 2, 18"
-    />
+    <polyline stroke-width="4" fill="transparent" :stroke="mergedColor[0]" points="10, 2 19, 10 10, 18" />
+    <polyline stroke-width="2" fill="transparent" :stroke="mergedColor[1]" points="2, 2 11, 10 2, 18" />
   </svg>
   <slot></slot>
   <svg width="21px" height="20px">
-    <polyline
-      stroke-width="4"
-      fill="transparent"
-      :stroke="mergedColor[0]"
-      points="11, 2 2, 10 11, 18"
-    />
-    <polyline
-      stroke-width="2"
-      fill="transparent"
-      :stroke="mergedColor[1]"
-      points="19, 2 10, 10 19, 18"
-    />
+    <polyline stroke-width="4" fill="transparent" :stroke="mergedColor[0]" points="11, 2 2, 10 11, 18" />
+    <polyline stroke-width="2" fill="transparent" :stroke="mergedColor[1]" points="19, 2 10, 10 19, 18" />
   </svg>
 </div>
 ```

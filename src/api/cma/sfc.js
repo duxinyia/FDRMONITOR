@@ -13,14 +13,11 @@ export let getMESDeviceInfo = () => $post(`/api/MESBaseSetting/GetMESDeviceSerie
 // 根据系列请求对应的子数据
 export let getMESDeviceDetail = (params) => {
   let { serie } = params
-  return $post(
-    `/api/MESCloseYield/GetCloseYieldInfo_TowM_FourW_DEV?PlantID=8S01&LotType=MP&DeviceSeries_V0=${serie}`
-  )
+  return $post(`/api/MESCloseYield/GetCloseYieldInfo_TowM_FourW_DEV?PlantID=8S01&LotType=MP&DeviceSeries_V0=${serie}`)
 }
 
 // 良率總覽 Close十二月
-export let getCloseYieldInfo = () =>
-  $post(`/api/MESCloseYield/GetCloseYieldInfo_TwelveM_DS?PlantID=8S01&LotType=MP`)
+export let getCloseYieldInfo = () => $post(`/api/MESCloseYield/GetCloseYieldInfo_TwelveM_DS?PlantID=8S01&LotType=MP`)
 
 // 良率總覽 Close兩月四周
 export let getCloseYieldInfoTow = () =>

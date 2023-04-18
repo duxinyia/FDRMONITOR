@@ -1,11 +1,6 @@
 <template>
   <div class="text-over-tooltip-components">
-    <el-tooltip
-      :effect="effect"
-      :disabled="isDisabledTooltip"
-      :content="content"
-      :placement="placement"
-    >
+    <el-tooltip :effect="effect" :disabled="isDisabledTooltip" :content="content" :placement="placement">
       <div class="ellipsis" :class="className" @mouseover="onMouseOver(refName)">
         <span :ref="refName">{{ content }}</span>
       </div>

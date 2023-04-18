@@ -5,19 +5,10 @@
       <!-- <p class="welcome-text">你好，欢迎登陆战情中心</p> -->
       <el-form class="form" ref="form" :rules="rules" :model="form">
         <el-form-item prop="name">
-          <el-input
-            prefix-icon="el-icon-user"
-            placeholder="工號"
-            v-model.trim="form.name"
-          ></el-input>
+          <el-input prefix-icon="el-icon-user" placeholder="工號" v-model.trim="form.name"></el-input>
         </el-form-item>
         <el-form-item prop="paw">
-          <el-input
-            prefix-icon="el-icon-lock"
-            placeholder="密碼"
-            show-password
-            v-model.trim="form.paw"
-          ></el-input>
+          <el-input prefix-icon="el-icon-lock" placeholder="密碼" show-password v-model.trim="form.paw"></el-input>
         </el-form-item>
         <div class="forget-pwd" @click="forgetPwd">忘記密碼</div>
         <el-form-item>
@@ -42,14 +33,10 @@
       <div class="author-info">
         <div>
           <span class="author"> <i class="el-icon-user-solid icon"></i>郭小龍/5060-72227 </span>
-          <span class="mail">
-            <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com
-          </span>
+          <span class="mail"> <i class="el-icon-message icon"></i>wwlh-mis-feweb@mail.foxconn.com </span>
           &nbsp;&nbsp;
           <span class="author"> <i class="el-icon-user-solid icon"></i>吳思敏/5060-23123 </span>
-          <span class="mail">
-            <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com
-          </span>
+          <span class="mail"> <i class="el-icon-message icon"></i>shannon.sm.wu@mail.foxconn.com </span>
         </div>
       </div>
     </div>

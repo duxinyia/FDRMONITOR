@@ -40,17 +40,7 @@ export default {
       let { legends = [], xData = [], showData = [] } = this.config
       console.log("執行了")
       return {
-        color: [
-          "#9669ff",
-          "#3766f4",
-          "#43cf7c",
-          "#ff8d1a",
-          "#05dad4",
-          "#1f33a2",
-          "#8aaafb",
-          "#05dad4",
-          "#2c97e1"
-        ],
+        color: ["#9669ff", "#3766f4", "#43cf7c", "#ff8d1a", "#05dad4", "#1f33a2", "#8aaafb", "#05dad4", "#2c97e1"],
         grid: {
           top: 100,
           right: 10,

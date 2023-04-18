@@ -46,11 +46,7 @@ router.beforeEach(async (to, from, next) => {
       router.addRoute({
         path: "*",
         name: "notFound",
-        component: () =>
-          import(/* webpackChunkName: "notFound" */ "../views/notFound/notFound.vue"),
-        meta: {
-          title: "notFound"
-        }
+        component: () => import(/* webpackChunkName: "notFound" */ "@/views/notFound/notFound.vue")
       })
       hasRoles = false
       next({ ...to, replace: true })
@@ -62,5 +58,4 @@ router.beforeEach(async (to, from, next) => {
 router.afterEach(() => {
   NProgress.done()
 })
-
 export default router

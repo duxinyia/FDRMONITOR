@@ -16,14 +16,7 @@
       <el-col :span="3">Yield</el-col>
     </el-row>
     <div class="wrapper-container">
-      <el-row
-        v-for="(item, i) in showData"
-        type="flex"
-        align="middle"
-        :gutter="6"
-        :key="i"
-        class="data-info"
-      >
+      <el-row v-for="(item, i) in showData" type="flex" align="middle" :gutter="6" :key="i" class="data-info">
         <el-col :span="2" class="wip-num">{{ item.wip || 0 }}</el-col>
         <el-col :span="5">
           <el-tooltip effect="dark" placement="right">
@@ -126,9 +119,7 @@ export default {
         showValue = parseInt(item.wipRate) > 100 ? 100 : parseInt(item.wipRate)
       }
       let colors =
-        this.$store.getters.theme == "dark"
-          ? ["#3DE7C9", "#00BAFF"]
-          : ["rgba(13, 207, 255, 1)", "rgba(22, 43, 224, 1)"]
+        this.$store.getters.theme == "dark" ? ["#3DE7C9", "#00BAFF"] : ["rgba(13, 207, 255, 1)", "rgba(22, 43, 224, 1)"]
       let lineDashs = this.$store.getters.theme == "dark" ? [2, 2] : [2, 0]
       return {
         value: showValue,

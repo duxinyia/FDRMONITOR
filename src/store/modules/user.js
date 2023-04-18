@@ -12,7 +12,6 @@ const mutations = {
     cache.deleteCache("user")
     cache.setCache("user", payload)
     const { name = "", paw = "", fullName = "" } = payload
-
     state.user.username = name
     state.user.password = paw
     state.user.fullName = fullName

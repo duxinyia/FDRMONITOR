@@ -5,10 +5,7 @@
         <el-tab-pane label="Output"> -->
       <div style="display: flex">
         <div>
-          <el-table
-            :data="tableData1"
-            :header-cell-style="{ background: 'transparent', color: '#fff' }"
-          >
+          <el-table :data="tableData1" :header-cell-style="{ background: 'transparent', color: '#fff' }">
             <el-table-column prop="Device" align="center" label="Device"></el-table-column>
             <el-table-column prop="Machine" align="center" label="Machine"></el-table-column>
             <el-table-column prop="Station" align="center" label="Station"></el-table-column>
@@ -30,43 +27,15 @@
           </el-table>
         </div>
         <div style="padding: 0px 20px">
-          <el-table
-            :data="tableData"
-            :header-cell-style="{ background: 'transparent', color: '#fff' }"
-          >
+          <el-table :data="tableData" :header-cell-style="{ background: 'transparent', color: '#fff' }">
             <el-table-column prop="date" align="center" label="Taget"> </el-table-column>
             <el-table-column label="N" align="center">
               <el-table-column width="65" prop="city1" align="center" label="Avg"></el-table-column>
-              <el-table-column
-                width="65"
-                prop="city2"
-                align="center"
-                label="03/20"
-              ></el-table-column>
-              <el-table-column
-                width="65"
-                prop="city3"
-                align="center"
-                label="03/21"
-              ></el-table-column>
-              <el-table-column
-                width="65"
-                prop="city4"
-                align="center"
-                label="03/22"
-              ></el-table-column>
-              <el-table-column
-                width="65"
-                prop="city5"
-                align="center"
-                label="03/23"
-              ></el-table-column>
-              <el-table-column
-                width="65"
-                prop="city6"
-                align="center"
-                label="03/24"
-              ></el-table-column>
+              <el-table-column width="65" prop="city2" align="center" label="03/20"></el-table-column>
+              <el-table-column width="65" prop="city3" align="center" label="03/21"></el-table-column>
+              <el-table-column width="65" prop="city4" align="center" label="03/22"></el-table-column>
+              <el-table-column width="65" prop="city5" align="center" label="03/23"></el-table-column>
+              <el-table-column width="65" prop="city6" align="center" label="03/24"></el-table-column>
             </el-table-column>
           </el-table>
         </div>

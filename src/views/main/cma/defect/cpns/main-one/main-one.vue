@@ -157,8 +157,7 @@ export default {
           backgroundColor: "#fff",
           borderRadius: 5,
           confine: true, // 是否将tooltip框限制在图表的区域内
-          extraCssText:
-            "box-shadow: 8px 10px 15px 0px rgba(0, 0, 0, 0.34);padding: 12px 16px;z-index: 2;width: 160px;",
+          extraCssText: "box-shadow: 8px 10px 15px 0px rgba(0, 0, 0, 0.34);padding: 12px 16px;z-index: 2;width: 160px;",
           textStyle: {
             color: "#000",
             fontSize: 10

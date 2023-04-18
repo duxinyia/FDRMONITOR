@@ -24,13 +24,7 @@
       <!-- 下拉选择框 -->
       <div class="selsect-container">
         <el-select @change="changeValue" size="mini" v-model="value" placeholder="">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
         </el-select>
       </div>
     </dv-border-box-12>

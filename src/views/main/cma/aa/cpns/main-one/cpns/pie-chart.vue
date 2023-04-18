@@ -136,9 +136,7 @@ export default {
                     const start = p * provideNumber
                     const end = start + provideNumber
                     const tempStr =
-                      p === rowNumber - 1
-                        ? name.substring(start, paramsNameNumber)
-                        : name.substring(start, end) + "\n"
+                      p === rowNumber - 1 ? name.substring(start, paramsNameNumber) : name.substring(start, end) + "\n"
                     newParamsName += tempStr
                   }
                 } else {

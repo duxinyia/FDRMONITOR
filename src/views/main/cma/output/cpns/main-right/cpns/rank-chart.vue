@@ -1,5 +1,5 @@
 <template>
-  <!-- top5 好看的排位图
+  <!-- top5 好看的排位图  cma
         参考地址:https://www.isqqw.com/echartsdetail?id=16405
   -->
   <div
@@ -63,7 +63,6 @@ export default {
       const { names, values, formatValues } = this.config
       // 根据不同的theme 显示不同的颜色
       let rightText = this.$store.getters.theme == "dark" ? "#fff" : "#000"
-
       return {
         grid: {
           left: "",
@@ -74,6 +73,8 @@ export default {
         },
         tooltip: {
           trigger: "item",
+          backgroundColor: "#303133",
+          extraCssText: "padding:5px;border:none;color:#fff",
           formatter: (params) => {
             console.log("params", params)
             let { output = "", targetOut = "" } = params.data
@@ -99,10 +100,10 @@ export default {
             axisLabel: {
               textStyle: {
                 color: rightText,
-                fontSize: "15"
+                fontSize: "16"
               },
               align: "left",
-              padding: [0, 0, 5, 8],
+              padding: [0, 0, 20, 8],
               verticalAlign: "bottom",
               lineHeight: 30
             },
@@ -117,22 +118,16 @@ export default {
             axisLabel: {
               textStyle: {
                 color: "#fff",
-                fontSize: "15"
+                fontSize: "16"
               },
               align: "right",
-              padding: [0, 8, 5, 8],
+              padding: [0, 8, 20, 8],
               verticalAlign: "bottom",
               lineHeight: 30,
               formatter: function (value) {
+                // `{a|${value}}`
                 return `${value}`
               }
-              // rich: {
-              //   a: {
-              //     color: rightText,
-              //     fontSize: "15",
-              //     padding: [0, 0, 5, 0]
-              //   }
-              // }
             },
             data: formatValues
           }
@@ -158,7 +153,7 @@ export default {
               }
             },
             z: 2,
-            barWidth: 15,
+            barWidth: 20,
             data: values
           },
           {
@@ -166,8 +161,8 @@ export default {
             type: "pictorialBar",
             symbol:
               "image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAMAAADWZboaAAAAZlBMVEUAAABe3uVe3+Vf3uVf3+Zf3uVg3+Zg3+Zf3+Vi4OZh4OZg3+Z86/Bh3+Zi4Odj4Odi4OZ86/B76/B86/Bj4ed56+9x5+xn4umB7/N87PB36e+A7/N+7fF/7vJ/7vJ+7fGA7/OB7/PReX+lAAAAIXRSTlMABQkVDREmIhk3MR10LEFFPHh7cUprXE35h2XnqMLAp+mHAG9cAAAB5ElEQVRIx83WjU7CMBQFYIoiKMqU/XUboHv/l/Tce7t2XamDNSacETEmX86tlK2rx4py150o+MstMBLwWRfHKo6JCVxLnvmFGBjFQ58oF1//sUZhGy/ClSTWObgnL4O+bkeN4nY2okfNMbkRt9/vtxz8InoTsWplJSCzFxPmO8+GpSIByX3YQAuGDWtRKhKjCnxDXhF6Z4yxnZ20Wgko7BMRDmxtSGVaI4kdTIgb+zTYoJQlIMlDlmUFgrcDWWC201qSayqlTkiCddWWeV62VU0YlnpRi9VOKaSUsiyq/N0krwq2Ugt7lVpZl5BfHNiytjagMi+XYp0kCR45hMlivVQrE/uU5pXSrCB5bM6d1t2lOZItMqmliT3q5uVxqxzyW/ccfYLNKx7ZTeykMvNyac2yt2Fbc61MHLSC0rwoxbiNdlQ3GBm1NLHQsHUrtEXppR/ljNpW6DbSCoqlFiVoN6YdaFlgsSFVPs1BdT8OaB5QyQzVcaqWDows/zepxR8ObLglTrdtCRVuRNj4Rrxh+//0ke2f8KVL+Kon3GCSbmsJN9OUW3j6g0Ns+LgCij2u0h+Sghc8mlMPBMgdx5DFh59VmOVHrvmDnoNxCz3J7MFWsMuaLyR089xz/xhlfijvwutR8gv3zk6BLUUeCgAAAABJRU5ErkJggg==",
-            symbolSize: [60, 60],
-            symbolOffset: [25, 0],
+            symbolSize: [80, 80],
+            symbolOffset: [35, 0],
             z: 10086,
             itemStyle: {
               normal: {
@@ -179,12 +174,12 @@ export default {
           {
             name: "背景",
             type: "bar",
-            barWidth: 15,
+            barWidth: 20,
             barGap: "-100%",
-            data: values[0],
+            data: values,
             itemStyle: {
               normal: {
-                color: "#004298",
+                color: "#fff",
                 barBorderRadius: 30
               }
             },
