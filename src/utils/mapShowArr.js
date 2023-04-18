@@ -414,6 +414,32 @@ let showArrConfig = {
             component: () => import(/* webpackChunkName: "report3" */ "@/views/main/cma/report3/report3.vue"),
             meta: { parentName: "cma" }
           }
+        },
+        {
+          title: "cma的第四个报表",
+          imgUrl: require("@/assets/images/cma/output.png"),
+          belong: "报表/所有",
+          isShow: false,
+          to: "cmamainreport4",
+          route: {
+            path: "report3",
+            name: "cmamainreport4",
+            component: () => import(/* webpackChunkName: "report4" */ "@/views/main/cma/report4/report4.vue"),
+            meta: { parentName: "cma" }
+          }
+        },
+        {
+          title: "cma的第五个报表",
+          imgUrl: require("@/assets/images/cma/output.png"),
+          belong: "报表/所有",
+          isShow: false,
+          to: "cmamainreport5",
+          route: {
+            path: "report5",
+            name: "cmamainreport5",
+            component: () => import(/* webpackChunkName: "report5" */ "@/views/main/cma/report5/report5.vue"),
+            meta: { parentName: "cma" }
+          }
         }
       ]
     }
