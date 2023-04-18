@@ -19,6 +19,7 @@ let hasRoles = true
 // 用于动态添加路由
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
+
   // 如果去的路由的 login
   if (to.path.includes("login")) {
     if (cache.getCache("user")) {
@@ -27,11 +28,12 @@ router.beforeEach(async (to, from, next) => {
       next()
     }
   } else {
-    if (hasRoles && store.state.permission.menus.length == 0) {
+    if (hasRoles || store.state.permission.menus.length == 0) {
       let asyncRoutes = await store.dispatch("permission/getUserRoutes", {
         userJob: store.state.user.user.username,
         nickName: store.state.user.user.fullName
       })
+      hasRoles = false
       console.log("异步路由", asyncRoutes)
       // 加载异步路由
       asyncRoutes.forEach((route) => {
@@ -48,7 +50,6 @@ router.beforeEach(async (to, from, next) => {
         name: "notFound",
         component: () => import(/* webpackChunkName: "notFound" */ "@/views/notFound/notFound.vue")
       })
-      hasRoles = false
       next({ ...to, replace: true })
     } else {
       next()

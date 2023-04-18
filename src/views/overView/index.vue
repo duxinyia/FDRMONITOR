@@ -19,9 +19,9 @@
           v-for="(item, index) in $store.getters.routerTitles"
           :key="item.name"
           :class="{ item: true, 'is-active': index == $store.getters.showIndex }"
-          >{{ item.name }}</span
         >
-        <!-- <span class="item" @click="toReport">报表</span> -->
+          {{ item.name }}</span
+        >
       </div>
       <!-- 主要区域 -->
       <el-main class="main-container">
@@ -69,9 +69,6 @@ export default {
       this.$store.commit("fullLoading/SET_PATH", this.$route.path)
       this.$store.commit("permission/SET_INDEX", index)
     }
-    // toReport() {
-    //   this.$router.push({ name: "report" })
-    // }
   }
 }
 </script>
@@ -97,7 +94,6 @@ export default {
     -ms-overflow-style: none; /* IE 10+ */
     background: #304156;
     box-shadow: 5px 3px 7px 0px rgba(0, 0, 0, 0.5);
-    /* border-radius: 0px 0px 10px 10px; */
     .top-title {
       height: 88px;
       display: flex;

@@ -570,6 +570,21 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+::v-deep ::-webkit-scrollbar {
+  display: block;
+  /* width: 20px; */
+  height: 8px;
+}
+
+::v-deep ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px #333;
+  border-radius: 5px;
+}
+::v-deep ::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(55, 98, 255, 0.6);
+}
+
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;
@@ -622,8 +637,8 @@ export default {
   background: transparent;
   color: #fff;
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   overflow-x: scroll;
   white-space: nowrap;
-}
+} */
 </style>
