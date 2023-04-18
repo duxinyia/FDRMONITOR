@@ -8,96 +8,99 @@
         @click="Show"
       ></el-button>
     </div>
-    <div v-show="isShow == true">
-      <el-form :model="ruleForm" :rules="rules" class="elForm" ref="ruleForm" label-width="150px">
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="Device" prop="device">
-              <el-select :popper-append-to-body="false" v-model="ruleForm.device" placeholder="請選擇">
-                <el-option v-for="item in deviceOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+    <el-collapse-transition>
+      <div v-show="isShow">
+        <el-form :model="ruleForm" :rules="rules" class="elForm" ref="ruleForm" label-width="150px">
+          <el-row>
+            <el-col :span="6">
+              <el-form-item label="Device" prop="device">
+                <el-select :popper-append-to-body="false" v-model="ruleForm.device" placeholder="請選擇">
+                  <el-option v-for="item in deviceOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Lottype" prop="lottype">
+                <el-select :popper-append-to-body="false" v-model="ruleForm.lottype" placeholder="請選擇">
+                  <el-option v-for="item in lottypeOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Tester" prop="tester">
+                <el-select
+                  :popper-append-to-body="false"
+                  v-model="ruleForm.tester"
+                  multiple
+                  collapse-tags
+                  placeholder="請選擇"
+                >
+                  <el-option v-for="item in testerOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Test station" prop="testStation">
+                <el-select
+                  :popper-append-to-body="false"
+                  v-model="ruleForm.testStation"
+                  multiple
+                  collapse-tags
+                  placeholder="請選擇"
+                >
+                  <el-option v-for="item in testStation" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="6">
+              <el-form-item label="Test StartTime" prop="startTime">
+                <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="選擇日期時間">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Test EndTime" prop="endTime">
+                <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="選擇日期時間"> </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Material Vendor" prop="materialVendor">
+                <el-select :popper-append-to-body="false" v-model="ruleForm.materialVendor" placeholder="請選擇">
+                  <el-option v-for="item in vendorOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Process" prop="process">
+                <el-select
+                  :popper-append-to-body="false"
+                  v-model="ruleForm.process"
+                  multiple
+                  collapse-tags
+                  placeholder="請選擇"
+                >
+                  <el-option v-for="item in processOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-form-item style="float: right; margin-right: 80px">
+              <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查詢</el-button>
+              <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Lottype" prop="lottype">
-              <el-select :popper-append-to-body="false" v-model="ruleForm.lottype" placeholder="請選擇">
-                <el-option v-for="item in lottypeOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Tester" prop="tester">
-              <el-select
-                :popper-append-to-body="false"
-                v-model="ruleForm.tester"
-                multiple
-                collapse-tags
-                placeholder="請選擇"
-              >
-                <el-option v-for="item in testerOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Test station" prop="testStation">
-              <el-select
-                :popper-append-to-body="false"
-                v-model="ruleForm.testStation"
-                multiple
-                collapse-tags
-                placeholder="請選擇"
-              >
-                <el-option v-for="item in testStation" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="Test StartTime" prop="startTime">
-              <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="選擇日期時間"> </el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Test EndTime" prop="endTime">
-              <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="選擇日期時間"> </el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Material Vendor" prop="materialVendor">
-              <el-select :popper-append-to-body="false" v-model="ruleForm.materialVendor" placeholder="請選擇">
-                <el-option v-for="item in vendorOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Process" prop="process">
-              <el-select
-                :popper-append-to-body="false"
-                v-model="ruleForm.process"
-                multiple
-                collapse-tags
-                placeholder="請選擇"
-              >
-                <el-option v-for="item in processOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-form-item style="float: right; margin-right: 80px">
-            <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查詢</el-button>
-            <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
-          </el-form-item>
-        </el-row>
-      </el-form>
-    </div>
+          </el-row>
+        </el-form>
+      </div>
+    </el-collapse-transition>
 
     <!-- <el-table
       :data="tableData"
@@ -120,7 +123,9 @@
       style="width: 100%; margin-top: 20px"
       :header-cell-style="headerCellStyle"
       :height="isShow ? '690px' : '900px'"
+      class="table"
     >
+      <!--  -->
       <el-table-column
         v-for="(item, index) in tableHeader"
         :key="index"
@@ -719,6 +724,21 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
+::v-deep ::-webkit-scrollbar {
+  display: block;
+  /* width: 20px; */
+  height: 8px;
+}
+
+::v-deep ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px #333;
+  border-radius: 5px;
+}
+::v-deep ::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(55, 98, 255, 0.6);
+}
+
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;
@@ -833,5 +853,13 @@ export default {
 }
 ::v-deep .el-icon-arrow-down {
   font-weight: 600;
+}
+
+.table {
+  transition: height 0.01s;
+}
+
+::v-deep .el-table__body-wrapper {
+  height: 100%;
 }
 </style>
