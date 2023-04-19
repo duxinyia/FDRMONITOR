@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
     <keep-alive include="overView">
       <router-view />
     </keep-alive>
@@ -14,8 +14,9 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
-#app {
+.app {
   width: 100vw;
   height: 100vh;
   min-width: 1200px;

@@ -19,7 +19,6 @@ let hasRoles = true
 // 用于动态添加路由
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
-
   // 如果去的路由的 login
   if (to.path.includes("login")) {
     if (cache.getCache("user")) {
