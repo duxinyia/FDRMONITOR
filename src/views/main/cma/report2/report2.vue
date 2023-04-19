@@ -13,29 +13,35 @@
         <el-form :model="ruleForm" :rules="rules" class="elForm" ref="ruleForm" label-width="150px">
           <el-row>
             <el-col :span="6">
-              <el-form-item label="Device" prop="device">
-                <el-select :popper-append-to-body="false" v-model="ruleForm.device" placeholder="請選擇">
-                  <el-option v-for="item in deviceOptions" :key="item.value" :label="item.label" :value="item.value">
+              <el-form-item label="Device:" prop="DeviceNo">
+                <el-select
+                  :popper-append-to-body="false"
+                  v-model="ruleForm.DeviceNo"
+                  placeholder="請選擇"
+                  @change="handlerDeviceChange"
+                >
+                  <el-option v-for="item in deviceOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="Lottype" prop="lottype">
-                <el-select :popper-append-to-body="false" v-model="ruleForm.lottype" placeholder="請選擇">
+              <el-form-item label="Lottype:" prop="LotType">
+                <el-select :popper-append-to-body="false" v-model="ruleForm.LotType" placeholder="請選擇">
                   <el-option v-for="item in lottypeOptions" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="Tester" prop="tester">
+              <el-form-item label="Tester:" prop="Tester">
                 <el-select
                   :popper-append-to-body="false"
-                  v-model="ruleForm.tester"
+                  v-model="ruleForm.Tester"
                   multiple
                   collapse-tags
                   placeholder="請選擇"
+                  @change="handlerTesterChange"
                 >
                   <el-option v-for="item in testerOptions" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
@@ -43,15 +49,20 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="Test station" prop="testStation">
+              <el-form-item label="Test station:" prop="TestStation">
                 <el-select
                   :popper-append-to-body="false"
-                  v-model="ruleForm.testStation"
+                  v-model="ruleForm.TestStation"
                   multiple
                   collapse-tags
                   placeholder="請選擇"
                 >
-                  <el-option v-for="item in testStation" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option
+                    v-for="item in testStationOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -59,29 +70,42 @@
           </el-row>
           <el-row>
             <el-col :span="6">
-              <el-form-item label="Test StartTime" prop="startTime">
-                <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="選擇日期時間">
+              <el-form-item label="TestTime:" prop="DateCode">
+                <el-date-picker
+                  v-model="ruleForm.DateCode"
+                  value-format="yyyy-MM-dd"
+                  type="date"
+                  placeholder="選擇日期時間"
+                >
                 </el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="Test EndTime" prop="endTime">
-                <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="選擇日期時間"> </el-date-picker>
+              <el-form-item label="Material:" prop="Material">
+                <el-select
+                  :popper-append-to-body="false"
+                  v-model="ruleForm.Material"
+                  placeholder="請選擇"
+                  @change="handlerMaterialChange"
+                >
+                  <el-option v-for="item in materialOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="Material Vendor" prop="materialVendor">
-                <el-select :popper-append-to-body="false" v-model="ruleForm.materialVendor" placeholder="請選擇">
+              <el-form-item label="Material Vendor:" prop="MaterialVendor">
+                <el-select :popper-append-to-body="false" v-model="ruleForm.MaterialVendor" placeholder="請選擇">
                   <el-option v-for="item in vendorOptions" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="Process" prop="process">
+              <el-form-item label="Process:" prop="Process">
                 <el-select
                   :popper-append-to-body="false"
-                  v-model="ruleForm.process"
+                  v-model="ruleForm.Process"
                   multiple
                   collapse-tags
                   placeholder="請選擇"
@@ -101,22 +125,6 @@
         </el-form>
       </div>
     </el-collapse-transition>
-
-    <!-- <el-table
-      :data="tableData"
-      :span-method="objectSpanMethod"
-      border
-      style="width: 100%; margin-top: 20px"
-      :header-cell-style="{ background: 'transparent', color: '#fff' }"
-    >
-      <el-table-column
-        v-for="(item, index) in tableCols"
-        :key="index"
-        :prop="item.prop"
-        :label="item.label"
-      >
-      </el-table-column>
-    </el-table> -->
     <el-table
       :data="tableData"
       border
@@ -129,19 +137,20 @@
       <el-table-column
         v-for="(item, index) in tableHeader"
         :key="index"
-        :label="item.label"
-        :prop="item.prop"
+        :label="item.name"
+        :prop="item.id"
         align="center"
-        min-width="110px"
+        width="150px"
         show-overflow-tooltip
       >
         <el-table-column
-          v-show="item.children"
-          v-for="(child, index) in item.children"
+          v-show="item.chileColumn"
+          v-for="(child, index) in item.chileColumn"
           :key="index"
-          :prop="child.prop"
-          :label="child.label"
+          :prop="child.id"
+          :label="child.name"
           align="center"
+          width="150px"
           show-overflow-tooltip
         >
           <template slot-scope="scope">
@@ -170,6 +179,15 @@
 </template>
 
 <script>
+import {
+  GetDeviceInfo,
+  GetLotTypeInfo,
+  GetTesterInfo,
+  GetTestStationInfo,
+  GetMaterialInfo,
+  GetProcessInfo,
+  getTableDate
+} from "@/api/cma/report2"
 export default {
   name: "report1",
   props: {},
@@ -467,95 +485,22 @@ export default {
       rules: {
         // device: [{ required: true, message: "请输入活动名称", trigger: "blur" }]
       },
-      deviceOptions: [
-        {
-          value: "MW-E",
-          label: "MW-E"
-        },
-        {
-          value: "MW-F",
-          label: "MW-F"
-        },
-        {
-          value: "BWI",
-          label: "BWI"
-        }
-      ],
-      lottypeOptions: [
-        {
-          value: "ALL",
-          label: "ALL"
-        },
-        {
-          value: "MP",
-          label: "MP"
-        },
-        {
-          value: "ENG",
-          label: "ENG"
-        }
-      ],
-      testerOptions: [
-        {
-          value: "ALL",
-          label: "ALL"
-        },
-        {
-          value: "mp",
-          label: "z-cal test"
-        },
-        {
-          value: "ENG",
-          label: "MFG_UP_Test"
-        }
-      ],
-      testStation: [
-        {
-          value: "Zebra_UP",
-          label: "Zebra_UP"
-        },
-        {
-          value: "Zebra_Last",
-          label: "Zebra_Last"
-        },
-        {
-          value: "VCM1",
-          label: "VCM1"
-        }
-      ],
-      vendorOptions: [
-        {
-          value: "ALL",
-          label: "ALL"
-        },
-        {
-          value: "Alps",
-          label: "Alps"
-        },
-        {
-          value: "MTM",
-          label: "MTM"
-        }
-      ],
-      processOptions: [
-        {
-          value: "ALL",
-          label: "VCM Attch"
-        },
-        {
-          value: "Alps",
-          label: "Jet Solding"
-        }
-      ],
+      deviceOptions: [],
+      lottypeOptions: [],
+      testerOptions: [],
+      testStationOptions: [],
+      vendorOptions: [],
+      processOptions: [],
+      materialOptions: [],
       ruleForm: {
-        device: "",
-        lottype: "",
-        tester: "",
-        testStation: "",
-        startTime: "",
-        endTime: "",
-        materialVendor: "",
-        process: ""
+        DeviceNo: "",
+        LotType: "",
+        Tester: [],
+        TestStation: [],
+        DateCode: "",
+        MaterialVendor: "",
+        Process: [],
+        Material: ""
       },
       gridData: [
         {
@@ -587,8 +532,67 @@ export default {
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "CMA的第二个报表")
+    this.GetDeviceInfo()
+    this.GetLotTypeInfo()
   },
   methods: {
+    //获取Device下拉框数据
+    async GetDeviceInfo() {
+      let res = await GetDeviceInfo()
+      this.deviceOptions = res
+    },
+    //获取Lottype下拉框数据
+    async GetLotTypeInfo() {
+      let res = await GetLotTypeInfo()
+      this.lottypeOptions = res
+    },
+
+    //监听Device下拉框数据变化
+    async handlerDeviceChange(val) {
+      // 与device有绑定关系的下拉框选中的值都要清空
+      this.ruleForm.Tester = []
+      this.ruleForm.TestStation = []
+      this.ruleForm.Material = ""
+      this.ruleForm.MaterialVendor = ""
+      this.ruleForm.Process = []
+
+      //获取Tester下拉框数据
+      let res1 = await GetTesterInfo({ DeviceNo: val })
+      this.testerOptions = res1
+
+      // 获取Test station下拉框数据
+      if (this.ruleForm.Tester) {
+        let res2 = await GetTestStationInfo({ DeviceNo: val, Tester: this.ruleForm.Tester[0] })
+        this.testStationOptions = res2
+      }
+
+      //获取Material下拉框数据
+      let res3 = await GetMaterialInfo({ DeviceNo: val })
+      this.materialOptions = res3
+
+      //获取Material Vendor下拉框数据，material有值的时候才能获取数据
+      if (this.ruleForm.Material) {
+        let res4 = await GetMaterialInfo({ DeviceNo: val, Material: this.ruleForm.Material })
+        this.vendorOptions = res4
+      }
+
+      //获取MProcess下拉框数据
+      let res5 = await GetProcessInfo({ DeviceNo: val })
+      this.processOptions = res5
+    },
+    //监听Tester下拉框数据变化
+    async handlerTesterChange(val) {
+      // let res = await GetTesteStationInfo({ DeviceNo: this.ruleForm.device, Tester: val })
+      // this.testStationOptions = res
+    },
+
+    //监听Material下拉框数据变化,改变Material Vendor下拉框的选项
+    async handlerMaterialChange(val) {
+      this.ruleForm.MaterialVendor = ""
+      let res = await GetMaterialInfo({ DeviceNo: this.ruleForm.DeviceNo, Material: val })
+      this.vendorOptions = res
+    },
+
     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
       if (columnIndex === 0) {
         if (rowIndex % 2 === 0) {
@@ -605,7 +609,9 @@ export default {
       }
     },
     // 查询
-    submitForm(formName) {
+    async submitForm(formName) {
+      let res = getTableDate(this.ruleForm)
+      // console.log("查询参数", this.ruleForm)
       this.tableData = [
         {
           1: "Z-cal test",
@@ -2064,32 +2070,310 @@ export default {
           50: "550"
         }
       ]
-
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          console.log("ruleForm", this.ruleForm)
-        } else {
-          console.log("error submit!!")
-          return false
+      this.tableHeader = [
+        {
+          id: "0",
+          chileColumn: [],
+          name: "Tester",
+          capital: "Tester"
+        },
+        {
+          id: "1",
+          chileColumn: [],
+          name: "Test station",
+          capital: "Test station"
+        },
+        {
+          id: "2",
+          chileColumn: [],
+          name: "TestItem",
+          capital: "TestItem"
+        },
+        {
+          id: "3",
+          chileColumn: [],
+          name: "OIS Material",
+          capital: "OIS Material"
+        },
+        {
+          id: "4",
+          chileColumn: [],
+          name: "OIS Material Vendor",
+          capital: "OIS Material Vendor"
+        },
+        {
+          id: "5",
+          chileColumn: [],
+          name: "VCM Material",
+          capital: "VCM Material"
+        },
+        {
+          id: "6",
+          chileColumn: [],
+          name: "VCM Material Vendor",
+          capital: "VCM Material Vendor"
+        },
+        {
+          id: "7",
+          chileColumn: [],
+          name: "Test Date",
+          capital: "Test Date"
+        },
+        {
+          id: "8",
+          chileColumn: [],
+          name: "Input",
+          capital: "Input"
+        },
+        {
+          id: "9",
+          chileColumn: [],
+          name: "Fail Rate",
+          capital: "Fail Rate"
+        },
+        {
+          id: "10",
+          chileColumn: [
+            {
+              id: "10-0",
+              chileColumn: [],
+              name: "VA1315",
+              capital: "VA1315"
+            }
+          ],
+          name: "Fail Rate by VCM Attach",
+          capital: "Fail Rate by VCM Attach"
+        },
+        {
+          id: "11",
+          chileColumn: [
+            {
+              id: "11-0",
+              chileColumn: [],
+              name: "NULL",
+              capital: "NULL"
+            }
+          ],
+          name: "Fail Rate by Active alignment",
+          capital: "Fail Rate by Active alignment"
+        },
+        {
+          id: "12",
+          chileColumn: [
+            {
+              id: "12-0",
+              chileColumn: [],
+              name: "01",
+              capital: "01"
+            },
+            {
+              id: "12-1",
+              chileColumn: [],
+              name: "02",
+              capital: "02"
+            },
+            {
+              id: "12-2",
+              chileColumn: [],
+              name: "03",
+              capital: "03"
+            }
+          ],
+          name: "Fail Rate by OIS Assembly Line",
+          capital: "Fail Rate by OIS Assembly Line"
+        },
+        {
+          id: "13",
+          chileColumn: [
+            {
+              id: "13-0",
+              chileColumn: [],
+              name: "04",
+              capital: "04"
+            },
+            {
+              id: "13-1",
+              chileColumn: [],
+              name: "05",
+              capital: "05"
+            },
+            {
+              id: "13-2",
+              chileColumn: [],
+              name: "06",
+              capital: "06"
+            }
+          ],
+          name: "Fail Rate by VCM Assembly Line",
+          capital: "Fail Rate by VCM Assembly Line"
+        },
+        {
+          id: "14",
+          chileColumn: [
+            {
+              id: "14-0",
+              chileColumn: [],
+              name: "H1",
+              capital: "H1"
+            },
+            {
+              id: "14-1",
+              chileColumn: [],
+              name: "H2",
+              capital: "H2"
+            }
+          ],
+          name: "Fail Rate by OIS too&cavity",
+          capital: "Fail Rate by OIS too&cavity"
+        },
+        {
+          id: "15",
+          chileColumn: [
+            {
+              id: "15-0",
+              chileColumn: [],
+              name: "A4",
+              capital: "A4"
+            }
+          ],
+          name: "Fail Rate by VCM too&cavity",
+          capital: "Fail Rate by VCM too&cavity"
+        },
+        {
+          id: "16",
+          chileColumn: [
+            {
+              id: "16-0",
+              chileColumn: [],
+              name: "VA1315",
+              capital: "VA1315"
+            }
+          ],
+          name: "Input by VCM Attach",
+          capital: "Input by VCM Attach"
+        },
+        {
+          id: "17",
+          chileColumn: [
+            {
+              id: "17-0",
+              chileColumn: [],
+              name: "NULL",
+              capital: "NULL"
+            }
+          ],
+          name: "Input by Active alignment",
+          capital: "Input by Active alignment"
+        },
+        {
+          id: "18",
+          chileColumn: [
+            {
+              id: "18-0",
+              chileColumn: [],
+              name: "01",
+              capital: "01"
+            },
+            {
+              id: "18-1",
+              chileColumn: [],
+              name: "02",
+              capital: "02"
+            },
+            {
+              id: "18-2",
+              chileColumn: [],
+              name: "03",
+              capital: "03"
+            }
+          ],
+          name: "Input by OIS Assembly Line",
+          capital: "Input by OIS Assembly Line"
+        },
+        {
+          id: "19",
+          chileColumn: [
+            {
+              id: "19-0",
+              chileColumn: [],
+              name: "04",
+              capital: "04"
+            },
+            {
+              id: "19-1",
+              chileColumn: [],
+              name: "05",
+              capital: "05"
+            },
+            {
+              id: "19-2",
+              chileColumn: [],
+              name: "06",
+              capital: "06"
+            }
+          ],
+          name: "Input by VCM Assembly Line",
+          capital: "Input by VCM Assembly Line"
+        },
+        {
+          id: "20",
+          chileColumn: [
+            {
+              id: "20-0",
+              chileColumn: [],
+              name: "H1",
+              capital: "H1"
+            },
+            {
+              id: "20-1",
+              chileColumn: [],
+              name: "H2",
+              capital: "H2"
+            }
+          ],
+          name: "Input by OIS too&cavity",
+          capital: "Input by OIS too&cavity"
+        },
+        {
+          id: "21",
+          chileColumn: [
+            {
+              id: "21-0",
+              chileColumn: [],
+              name: "A4",
+              capital: "A4"
+            }
+          ],
+          name: "Input by VCM too&cavity",
+          capital: "Input by VCM too&cavity"
         }
-      })
+      ]
+      this.tableData = res.rows
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+      //     console.log("ruleForm", this.ruleForm)
+      //   } else {
+      //     console.log("error submit!!")
+      //     return false
+      //   }
+      // })
     },
     // 重置
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
     headerCellStyle({ row, column, columnIndex }) {
-      if (column.label.includes("数值")) {
-        // console.log(column)
-        return {
-          background: "#b4c6e7",
-          color: "#4c4c4c"
-        }
-      } else
-        return {
-          background: "#f8cbad",
-          color: "#4c4c4c"
-        }
+      // if (column.label.includes("数值")) {
+      // console.log(column)
+      return {
+        background: "#b4c6e7",
+        color: "#4c4c4c"
+      }
+      // } else
+      //   return {
+      //     background: "#f8cbad",
+      //     color: "#4c4c4c"
+      //   }
     },
     Show() {
       this.isShow = !this.isShow
