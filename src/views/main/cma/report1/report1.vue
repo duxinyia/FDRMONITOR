@@ -12,8 +12,8 @@
     </div>
     <el-table
       :row-style="{ height: '30px' }"
-      :data="tableData"
-      :header-cell-style="{ background: '#f8cbad', color: '#000' }"
+      :data="tabData"
+      :header-cell-style="{ background: '#3a5588' }"
       :cell-style="cellStyle"
       height="calc(100% - 74.9px)"
     >
@@ -21,7 +21,7 @@
         v-for="(taT, index) in tableTitle"
         :key="index"
         :width="taT.name === 'Lens Vendor' ? '90' : ''"
-        prop="value"
+        :prop="taT.id"
         align="center"
         :label="taT.name"
       >
@@ -29,7 +29,7 @@
           v-show="taT.chileColumn"
           v-for="(c, index) in taT.chileColumn"
           :key="index"
-          prop="value"
+          :prop="c.id"
           align="center"
           :label="c.name"
         >
@@ -37,7 +37,7 @@
             v-show="c.chileColumn"
             v-for="(s, index) in c.chileColumn"
             :key="index"
-            prop="value"
+            :prop="s.id"
             align="center"
             :label="s.name"
           ></el-table-column>
@@ -126,8 +126,27 @@ export default {
           }
         ]
       },
-      // 表格数据
-      tableData: []
+      // 从后端拿到的表格数据
+      tableData: [
+        // [
+        //   { columnID: "0", value: "www" },
+        //   { columnID: "1", value: "www1" },
+        //   { columnID: "2", value: "www2" },
+        //   { columnID: "3-0", value: "0.02%" },
+        //   { columnID: "3-1", value: "0.10%" },
+        //   { columnID: "3-2-0", value: "2.02%" },
+        //   { columnID: "3-2-1", value: "www6" },
+        //   { columnID: "3-2-2", value: "www7" },
+        //   { columnID: "3-2-3", value: "www8" },
+        //   { columnID: "3-3-0", value: "wwww9" },
+        //   { columnID: "3-3-1", value: "www10" }
+        // ]
+      ],
+      // 自己组成的新的表格数据
+      tabData: [],
+      // objKey+objValue=tabData
+      objKey: {}
+      // objValue: {}
     }
   },
   created() {
@@ -139,20 +158,31 @@ export default {
       let inputValue = this.selectData
       this.getData(inputValue[0].value, inputValue[1].value)
     },
-    async getData(devSer, spy) {
+    async getData(devSer = "", spy = "") {
+      this.tabData = []
       let res = await GetReport1Search(devSer, spy)
       this.tableTitle = res.columns
-      this.tableData = res.rows[0]
-      console.log(res)
+      console.log("res===", res)
+      this.tableData = res.rows
+      this.tableData.forEach((item) => {
+        this.objKey = {}
+        item.forEach((key) => {
+          this.objKey[key.columnID] = key.value
+        })
+        this.tabData.push(this.objKey)
+      })
     },
-    cellStyle(row, column, rowIndex, columnIndex) {
-      // console.log("row", row)
-      // console.log("column", column)
-      // console.log("rowIndex", rowIndex)
-      // console.log("columnIndex", columnIndex)
 
-      if (row.Device !== row.Station && columnIndex === 13) {
-        return { color: "red" }
+    cellStyle({ row, column, rowIndex, columnIndex }) {
+      let property = column.property
+      if (row[property] && row[property].includes("%")) {
+        if (parseFloat(row[property]) < 0.1) {
+          return { background: "#9acd32" }
+        } else if (parseFloat(row[property]) >= 0.1 && parseFloat(row[property]) <= 0.3) {
+          return { background: "#ffff00", color: "#000" }
+        } else {
+          return { background: "#ff0000" }
+        }
       }
     }
   }
