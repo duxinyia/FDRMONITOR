@@ -34,6 +34,7 @@ service.interceptors.response.use(
     }
   },
   (err) => {
+    console.log("error", err)
     Message({
       message: `請求超時${Data.TIMEOUT / 1000}s....`,
       type: "error"
@@ -61,6 +62,11 @@ const request = {
   // 封裝post請求
   post(url, params = "") {
     return service.post(`${url}${params}`)
+  },
+
+  // 封裝body post請求
+  bodypost(url, data) {
+    return service.post(url, data)
   }
 }
 export default request

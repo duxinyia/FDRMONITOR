@@ -2,13 +2,13 @@
   <div class="page-mian">
     <div class="queryArea">
       <div class="datePicker">
-        <span>Start Date：</span>
+        <span>Start Date:</span>
         <el-date-picker v-model="date.startDate" type="date" placeholder="請選擇日期"> </el-date-picker>
-        <span>Start Time：</span>
+        <span>Start Time:</span>
         <el-time-picker v-model="date.startTime" placeholder="請選擇時間"> </el-time-picker>
-        <span>End Date：</span>
+        <span>End Date:</span>
         <el-date-picker v-model="date.EndDate" type="date" placeholder="請選擇日期"> </el-date-picker>
-        <span>End Time：</span>
+        <span>End Time:</span>
         <el-time-picker v-model="date.EndTime" placeholder="請選擇時間"> </el-time-picker>
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
