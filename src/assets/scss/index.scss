@@ -11,32 +11,12 @@
 }
 body {
   line-height: 1.2em;
-  // font: 12px/1.5 tahoma, arial, 'Hiragino Sans GB', '\5b8b\4f53', sans-serif;
   font-family: arial, Helvetica, sans-serif;
 }
 // 去除滚动条
 ::-webkit-scrollbar {
   display: none;
-  // width: 20px;
-  // height: 10px;
 }
-// ::-webkit-scrollbar-track {
-//   box-shadow: inset 0 0 2px #333;
-//   border-radius: 5px;
-
-// }
-// ::-webkit-scrollbar-thumb {
-//   border-radius: 5px;
-//   background: red;
-// }
-
-// .scrollbar {
-//   display: none;
-// }
-
-// body::-webkit-scrollbar {
-//   width: 0px;
-//  }
 
 h1,
 h2,

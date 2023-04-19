@@ -8,96 +8,99 @@
         @click="Show"
       ></el-button>
     </div>
-    <div v-show="isShow == true">
-      <el-form :model="ruleForm" :rules="rules" class="elForm" ref="ruleForm" label-width="150px">
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="Device" prop="device">
-              <el-select :popper-append-to-body="false" v-model="ruleForm.device" placeholder="請選擇">
-                <el-option v-for="item in deviceOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+    <el-collapse-transition>
+      <div v-show="isShow">
+        <el-form :model="ruleForm" :rules="rules" class="elForm" ref="ruleForm" label-width="150px">
+          <el-row>
+            <el-col :span="6">
+              <el-form-item label="Device" prop="device">
+                <el-select :popper-append-to-body="false" v-model="ruleForm.device" placeholder="請選擇">
+                  <el-option v-for="item in deviceOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Lottype" prop="lottype">
+                <el-select :popper-append-to-body="false" v-model="ruleForm.lottype" placeholder="請選擇">
+                  <el-option v-for="item in lottypeOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Tester" prop="tester">
+                <el-select
+                  :popper-append-to-body="false"
+                  v-model="ruleForm.tester"
+                  multiple
+                  collapse-tags
+                  placeholder="請選擇"
+                >
+                  <el-option v-for="item in testerOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Test station" prop="testStation">
+                <el-select
+                  :popper-append-to-body="false"
+                  v-model="ruleForm.testStation"
+                  multiple
+                  collapse-tags
+                  placeholder="請選擇"
+                >
+                  <el-option v-for="item in testStation" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="6">
+              <el-form-item label="Test StartTime" prop="startTime">
+                <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="選擇日期時間">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Test EndTime" prop="endTime">
+                <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="選擇日期時間"> </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Material Vendor" prop="materialVendor">
+                <el-select :popper-append-to-body="false" v-model="ruleForm.materialVendor" placeholder="請選擇">
+                  <el-option v-for="item in vendorOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="Process" prop="process">
+                <el-select
+                  :popper-append-to-body="false"
+                  v-model="ruleForm.process"
+                  multiple
+                  collapse-tags
+                  placeholder="請選擇"
+                >
+                  <el-option v-for="item in processOptions" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-form-item style="float: right; margin-right: 80px">
+              <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查詢</el-button>
+              <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Lottype" prop="lottype">
-              <el-select :popper-append-to-body="false" v-model="ruleForm.lottype" placeholder="請選擇">
-                <el-option v-for="item in lottypeOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Tester" prop="tester">
-              <el-select
-                :popper-append-to-body="false"
-                v-model="ruleForm.tester"
-                multiple
-                collapse-tags
-                placeholder="請選擇"
-              >
-                <el-option v-for="item in testerOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Test station" prop="testStation">
-              <el-select
-                :popper-append-to-body="false"
-                v-model="ruleForm.testStation"
-                multiple
-                collapse-tags
-                placeholder="請選擇"
-              >
-                <el-option v-for="item in testStation" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="Test StartTime" prop="startTime">
-              <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="選擇日期時間"> </el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Test EndTime" prop="endTime">
-              <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="選擇日期時間"> </el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Material Vendor" prop="materialVendor">
-              <el-select :popper-append-to-body="false" v-model="ruleForm.materialVendor" placeholder="請選擇">
-                <el-option v-for="item in vendorOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Process" prop="process">
-              <el-select
-                :popper-append-to-body="false"
-                v-model="ruleForm.process"
-                multiple
-                collapse-tags
-                placeholder="請選擇"
-              >
-                <el-option v-for="item in processOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-form-item style="float: right; margin-right: 80px">
-            <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查詢</el-button>
-            <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
-          </el-form-item>
-        </el-row>
-      </el-form>
-    </div>
+          </el-row>
+        </el-form>
+      </div>
+    </el-collapse-transition>
 
     <!-- <el-table
       :data="tableData"
@@ -120,7 +123,9 @@
       style="width: 100%; margin-top: 20px"
       :header-cell-style="headerCellStyle"
       :height="isShow ? '690px' : '900px'"
+      class="table"
     >
+      <!--  -->
       <el-table-column
         v-for="(item, index) in tableHeader"
         :key="index"
@@ -128,6 +133,7 @@
         :prop="item.prop"
         align="center"
         min-width="110px"
+        show-overflow-tooltip
       >
         <el-table-column
           v-show="item.children"
@@ -136,6 +142,7 @@
           :prop="child.prop"
           :label="child.label"
           align="center"
+          show-overflow-tooltip
         >
           <template slot-scope="scope">
             <div class="detail" v-if="scope.row[child.prop].includes('%') == true">
@@ -173,214 +180,286 @@ export default {
       tableData: [],
       tableHeader: [
         {
-          prop: "id",
+          prop: "1",
           label: "Tester"
         },
         {
-          prop: "name",
+          prop: "2",
           label: "Tester Station"
         },
         {
-          prop: "id",
+          prop: "3",
           label: "TestItem"
         },
         {
-          prop: "name",
+          prop: "4",
           label: "Material"
         },
         {
-          prop: "id",
+          prop: "5",
           label: "Material Vendor"
         },
         {
-          prop: "name",
+          prop: "6",
           label: "Test Date"
         },
         {
-          prop: "id",
+          prop: "7",
           label: "Input"
         },
         {
-          prop: "name",
+          prop: "8",
           label: "Fail rate"
         },
         {
           prop: "",
-          label: "数值",
+          label: "Fail Rate by VCM attach",
           children: [
             {
-              prop: "amount1",
-              label: "数值 1"
+              prop: "9",
+              label: "VA01"
             },
             {
-              prop: "amount2",
-              label: "数值 2"
+              prop: "10",
+              label: "VA02"
             },
             {
-              prop: "amount3",
-              label: "数值 3"
+              prop: "11",
+              label: "VA03"
             }
           ]
         },
         {
           prop: "",
-          label: "数值",
+          label: "Fail Rate by Jet Solding",
           children: [
             {
-              prop: "amount1",
-              label: "数值1"
+              prop: "12",
+              label: "JS01"
             },
             {
-              prop: "amount2",
-              label: "数值2"
+              prop: "13",
+              label: "JS02"
             },
             {
-              prop: "amount3",
-              label: "数值3"
+              prop: "14",
+              label: "JS03"
             }
           ]
         },
         {
           prop: "",
-          label: "数值",
+          label: "Fail Rate by VCM Sealing",
           children: [
             {
-              prop: "amount1",
-              label: "数值 1"
+              prop: "15",
+              label: "VS01"
             },
             {
-              prop: "amount2",
-              label: "数值 2"
+              prop: "16",
+              label: "VS02"
             },
             {
-              prop: "amount3",
-              label: "数值 3"
+              prop: "17",
+              label: "VS03"
             }
           ]
         },
         {
           prop: "",
-          label: "数值",
+          label: "Fail Rate by Enclosure Aattch",
           children: [
             {
-              prop: "amount1",
-              label: "数值 1"
+              prop: "18",
+              label: "EA01"
             },
             {
-              prop: "amount2",
-              label: "数值 2"
+              prop: "19",
+              label: "EA02"
             },
             {
-              prop: "amount3",
-              label: "数值 3"
+              prop: "20",
+              label: "EA03"
             }
           ]
         },
         {
           prop: "",
-          label: "数值",
+          label: "Fail Rate by AA",
           children: [
             {
-              prop: "amount1",
-              label: "数值 1"
+              prop: "21",
+              label: "AA01"
             },
             {
-              prop: "amount2",
-              label: "数值 2"
+              prop: "22",
+              label: "AA02"
             },
             {
-              prop: "amount3",
-              label: "数值 3"
+              prop: "23",
+              label: "AA03"
             }
           ]
         },
         {
           prop: "",
-          label: "数值",
+          label: "Fail Rate by Assembly Line",
           children: [
             {
-              prop: "amount1",
-              label: "数值 1"
+              prop: "24",
+              label: "L01"
             },
             {
-              prop: "amount2",
-              label: "数值 2"
+              prop: "25",
+              label: "L02"
             },
             {
-              prop: "amount3",
-              label: "数值 3"
+              prop: "26",
+              label: "L03"
             }
           ]
         },
         {
           prop: "",
-          label: "数值",
+          label: "Fail Rate by too&cavity",
           children: [
             {
-              prop: "amount1",
-              label: "数值 1"
+              prop: "27",
+              label: "1"
             },
             {
-              prop: "amount2",
-              label: "数值 2"
+              prop: "28",
+              label: "2"
             },
             {
-              prop: "amount3",
-              label: "数值 3"
+              prop: "29",
+              label: "3"
             }
           ]
         },
         {
           prop: "",
-          label: "数值",
+          label: "Input by VCM attach",
           children: [
             {
-              prop: "amount1",
-              label: "数值 1"
+              prop: "30",
+              label: "VA01"
             },
             {
-              prop: "amount2",
-              label: "数值 2"
+              prop: "31",
+              label: "VA02"
             },
             {
-              prop: "amount3",
-              label: "数值 3"
+              prop: "31",
+              label: "VA03"
             }
           ]
         },
         {
           prop: "",
-          label: "数值",
+          label: "Input by Jet Solding",
           children: [
             {
-              prop: "amount1",
-              label: "数值 1"
+              prop: "33",
+              label: "JS01"
             },
             {
-              prop: "amount2",
-              label: "数值 2"
+              prop: "34",
+              label: "JS02"
             },
             {
-              prop: "amount3",
-              label: "数值 3"
+              prop: "35",
+              label: "JS03"
             }
           ]
         },
         {
           prop: "",
-          label: "数值",
+          label: "Input by VCM Sealing",
           children: [
             {
-              prop: "amount1",
-              label: "数值 1"
+              prop: "36",
+              label: "VS01"
             },
             {
-              prop: "amount2",
-              label: "数值 2"
+              prop: "37",
+              label: "VS02"
             },
             {
-              prop: "amount3",
-              label: "数值 3"
+              prop: "38",
+              label: "VS03"
+            }
+          ]
+        },
+        {
+          prop: "",
+          label: "Input by Enclosure Aattch",
+          children: [
+            {
+              prop: "39",
+              label: "EA01"
+            },
+            {
+              prop: "40",
+              label: "EA02"
+            },
+            {
+              prop: "41",
+              label: "EA03"
+            }
+          ]
+        },
+        {
+          prop: "",
+          label: "Input by AA",
+          children: [
+            {
+              prop: "42",
+              label: "AA1"
+            },
+            {
+              prop: "43",
+              label: "AA2"
+            },
+            {
+              prop: "44",
+              label: "AA3"
+            }
+          ]
+        },
+        {
+          prop: "",
+          label: "Input by Assembly Line",
+          children: [
+            {
+              prop: "45",
+              label: "L01"
+            },
+            {
+              prop: "46",
+              label: "L02"
+            },
+            {
+              prop: "47",
+              label: "L03"
+            }
+          ]
+        },
+        {
+          prop: "",
+          label: "Inpu by too&cavity",
+          children: [
+            {
+              prop: "48",
+              label: "1"
+            },
+            {
+              prop: "49",
+              label: "2"
+            },
+            {
+              prop: "50",
+              label: "3"
             }
           ]
         }
@@ -529,144 +608,1460 @@ export default {
     submitForm(formName) {
       this.tableData = [
         {
-          id: "12987122",
-          name: "王小虎",
-          amount1: "234",
-          amount2: "3.2%",
-          amount3: "10"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987123",
-          name: "王小虎",
-          amount1: "165",
-          amount2: "4.43",
-          amount3: "12"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987124",
-          name: "王小虎",
-          amount1: "324",
-          amount2: "1.9",
-          amount3: "9"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987125",
-          name: "王小虎",
-          amount1: "621",
-          amount2: "2.2%",
-          amount3: " 17"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987126",
-          name: "王小虎",
-          amount1: "539",
-          amount2: "4.1",
-          amount3: "15"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987122",
-          name: "王小虎",
-          amount1: "234",
-          amount2: "3.2%",
-          amount3: "10"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987123",
-          name: "王小虎",
-          amount1: "165",
-          amount2: "4.43",
-          amount3: "12"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987124",
-          name: "王小虎",
-          amount1: "324",
-          amount2: "1.9",
-          amount3: "9"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987125",
-          name: "王小虎",
-          amount1: "621",
-          amount2: "2.2%",
-          amount3: "17"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987126",
-          name: "王小虎",
-          amount1: "539",
-          amount2: "4.1",
-          amount3: " 15"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987122",
-          name: "王小虎",
-          amount1: "234",
-          amount2: "3.2%",
-          amount3: "10"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987123",
-          name: "王小虎",
-          amount1: "165",
-          amount2: "4.43",
-          amount3: "12"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987124",
-          name: "王小虎",
-          amount1: "324",
-          amount2: "1.9",
-          amount3: "9"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987125",
-          name: "王小虎",
-          amount1: "621",
-          amount2: "2.2%",
-          amount3: " 17"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987126",
-          name: "王小虎",
-          amount1: "539",
-          amount2: "4.1",
-          amount3: "15"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987122",
-          name: "王小虎",
-          amount1: "234",
-          amount2: "3.2%",
-          amount3: "10"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987123",
-          name: "王小虎",
-          amount1: "165",
-          amount2: "4.43",
-          amount3: "12"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987124",
-          name: "王小虎",
-          amount1: "324",
-          amount2: "1.9",
-          amount3: "9"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987125",
-          name: "王小虎",
-          amount1: "621",
-          amount2: "2.2%",
-          amount3: "17"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         },
         {
-          id: "12987126",
-          name: "王小虎",
-          amount1: "539",
-          amount2: "4.1",
-          amount3: " 15"
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
+        },
+        {
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
+        },
+        {
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
+        },
+        {
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
+        },
+        {
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
+        },
+        {
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
+        },
+        {
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
+        },
+        {
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
+        },
+        {
+          1: "Z-cal test",
+          2: "Zebra_UP",
+          3: "Zebra_OIS_OOV/Gian_Trim（1173&1174&1175）",
+          4: "OIS",
+          5: "MTM",
+          6: "2023/2/13",
+          7: "1350",
+          8: "0.07%",
+          9: "0",
+          10: "0.18%",
+          11: "0",
+          12: "0",
+          13: "0.18%",
+          14: "0",
+          15: "0.24%",
+          16: "0",
+          17: "0",
+          18: "",
+          19: "",
+          20: "",
+          21: "",
+          22: "",
+          23: "",
+          24: "0",
+          25: "0",
+          26: "0.29%",
+          27: "0.05%",
+          28: "0",
+          29: "0",
+          30: "350",
+          31: "550",
+          32: "450",
+          33: "350",
+          34: "550",
+          35: "450",
+          36: "420",
+          37: "480",
+          38: "450",
+          39: "",
+          40: "",
+          41: "",
+          42: "",
+          43: "",
+          44: "",
+          45: "1000",
+          46: "0",
+          47: "350",
+          48: "200",
+          49: "600",
+          50: "550"
         }
       ]
 
@@ -687,13 +2082,13 @@ export default {
       if (column.label.includes("数值")) {
         // console.log(column)
         return {
-          background: "#696058",
-          color: "#fff"
+          background: "#b4c6e7",
+          color: "#4c4c4c"
         }
       } else
         return {
-          background: "#3a5588",
-          color: "#fff"
+          background: "#f8cbad",
+          color: "#4c4c4c"
         }
     },
     Show() {
@@ -719,6 +2114,21 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
+::v-deep ::-webkit-scrollbar {
+  display: block;
+  /* width: 20px; */
+  height: 8px;
+}
+
+::v-deep ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px #333;
+  border-radius: 5px;
+}
+::v-deep ::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(55, 98, 255, 0.6);
+}
+
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;
@@ -833,5 +2243,13 @@ export default {
 }
 ::v-deep .el-icon-arrow-down {
   font-weight: 600;
+}
+
+.table {
+  transition: height 0.01s;
+}
+
+::v-deep .el-table__body-wrapper {
+  height: 100%;
 }
 </style>
