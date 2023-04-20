@@ -214,7 +214,7 @@ export default {
         LotType: "",
         Tester: [],
         TestStation: [],
-        DateCode: "",
+        DateCode: new Date(),
         MaterialVendor: "",
         Process: [],
         Material: ""
@@ -257,15 +257,16 @@ export default {
     async GetDeviceInfo() {
       let res = await GetDeviceInfo()
       this.deviceOptions = res
-    },
-    //获取Lottype下拉框数据
-    async GetLotTypeInfo() {
-      let res = await GetLotTypeInfo()
-      this.lottypeOptions = res
+      res.forEach((item) => {
+        if (item.selected) {
+          this.ruleForm.DeviceNo = item.id
+        }
+      })
+      this.DefaultSelected(this.ruleForm.DeviceNo)
     },
 
-    //监听Device下拉框数据变化
-    async handlerDeviceChange(val) {
+    //页面加载需要加载所有的选项默认值
+    async DefaultSelected(val) {
       // 与device有绑定关系的下拉框选中的值都要清空
       this.ruleForm.Tester = []
       this.ruleForm.TestStation = []
@@ -276,32 +277,133 @@ export default {
       //获取Tester下拉框数据
       let res1 = await GetTesterInfo({ DeviceNo: val })
       this.testerOptions = res1
+      res1.forEach((item) => {
+        if (item.selected) {
+          this.ruleForm.Tester.push(item.id)
+        }
+      })
 
       // 获取Test station下拉框数据
       if (this.ruleForm.Tester) {
         let res2 = await GetTestStationInfo({ DeviceNo: val, Tester: this.ruleForm.Tester })
         this.testStationOptions = res2
+        res2.forEach((item) => {
+          if (item.selected) {
+            this.ruleForm.TestStation.push(item.id)
+          }
+        })
       }
 
       //获取Material下拉框数据
       let res3 = await GetMaterialInfo({ DeviceNo: val })
       this.materialOptions = res3
+      res3.forEach((item) => {
+        if (item.selected) {
+          this.ruleForm.Material = item.id
+        }
+      })
 
       //获取Material Vendor下拉框数据，material有值的时候才能获取数据
       if (this.ruleForm.Material) {
         let res4 = await GetMaterialInfo({ DeviceNo: val, Material: this.ruleForm.Material })
         this.vendorOptions = res4
+        res4.forEach((item) => {
+          if (item.selected) {
+            this.ruleForm.MaterialVendor = item.id
+          }
+        })
       }
 
-      //获取MProcess下拉框数据
+      //获取Process下拉框数据
       let res5 = await GetProcessInfo({ DeviceNo: val })
       this.processOptions = res5
+      res5.forEach((item) => {
+        if (item.selected) {
+          this.ruleForm.Process.push(item.id)
+        }
+      })
+    },
+
+    //获取Lottype下拉框数据
+    async GetLotTypeInfo() {
+      let res = await GetLotTypeInfo()
+      this.lottypeOptions = res
+      res.forEach((item) => {
+        if (item.selected) {
+          this.ruleForm.LotType = item.id
+        }
+      })
+    },
+
+    //监听Device下拉框数据变化
+    async handlerDeviceChange(val) {
+      this.DefaultSelected(this.ruleForm.DeviceNo)
+      //   // 与device有绑定关系的下拉框选中的值都要清空
+      //   this.ruleForm.Tester = []
+      //   this.ruleForm.TestStation = []
+      //   this.ruleForm.Material = ""
+      //   this.ruleForm.MaterialVendor = ""
+      //   this.ruleForm.Process = []
+
+      //   //获取Tester下拉框数据
+      //   let res1 = await GetTesterInfo({ DeviceNo: val })
+      //   this.testerOptions = res1
+      //   res1.forEach((item) => {
+      //     if (item.selected) {
+      //       this.ruleForm.Tester = item.id
+      //     }
+      //   })
+
+      //   // 获取Test station下拉框数据
+      //   if (this.ruleForm.Tester) {
+      //     let res2 = await GetTestStationInfo({ DeviceNo: val, Tester: this.ruleForm.Tester })
+      //     this.testStationOptions = res2
+      //     res2.forEach((item) => {
+      //       if (item.selected) {
+      //         this.ruleForm.TestStation = item.id
+      //       }
+      //     })
+      //   }
+
+      //   //获取Material下拉框数据
+      //   let res3 = await GetMaterialInfo({ DeviceNo: val })
+      //   this.materialOptions = res3
+      //   res3.forEach((item) => {
+      //     if (item.selected) {
+      //       this.ruleForm.Material = item.id
+      //     }
+      //   })
+
+      //   //获取Material Vendor下拉框数据，material有值的时候才能获取数据
+      //   if (this.ruleForm.Material) {
+      //     let res4 = await GetMaterialInfo({ DeviceNo: val, Material: this.ruleForm.Material })
+      //     this.vendorOptions = res4
+      //     res4.forEach((item) => {
+      //       if (item.selected) {
+      //         this.ruleForm.MaterialVendor = item.id
+      //       }
+      //     })
+      //   }
+
+      //   //获取Process下拉框数据
+      //   let res5 = await GetProcessInfo({ DeviceNo: val })
+      //   this.processOptions = res5
+      //   res5.forEach((item) => {
+      //     if (item.selected) {
+      //       this.ruleForm.Process = item.id
+      //     }
+      //   })
     },
     //监听Tester下拉框数据变化
     async handlerTesterChange(val) {
       this.ruleForm.TestStation = []
       let res = await GetTestStationInfo({ DeviceNo: this.ruleForm.DeviceNo, Tester: val })
       this.testStationOptions = res
+      res.forEach((item) => {
+        if (item.selected) {
+          this.ruleForm.TestStation.push(item.id)
+        }
+      })
     },
 
     //监听Material下拉框数据变化,改变Material Vendor下拉框的选项
@@ -309,6 +411,11 @@ export default {
       this.ruleForm.MaterialVendor = ""
       let res = await GetMaterialInfo({ DeviceNo: this.ruleForm.DeviceNo, Material: val })
       this.vendorOptions = res
+      res.forEach((item) => {
+        if (item.selected) {
+          this.ruleForm.MaterialVendor = item.id
+        }
+      })
     },
 
     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
