@@ -10,7 +10,6 @@
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
     </div>
-
     <el-table
       :data="tableData"
       :cell-style="cellStyle"

@@ -18,10 +18,7 @@ export let GetTesterInfo = (params) => {
 }
 
 //获取Test station下拉框数据
-export let GetTestStationInfo = (params) => {
-  let { DeviceNo, Tester } = params
-  return $get(`/api/VCM/Load_Test_Station?DeviceNo=${DeviceNo}&Tester=${Tester}`)
-}
+export let GetTestStationInfo = (params) => $bodypost("/api/VCM/Load_Test_Station", params)
 
 //获取Material下拉框数据 获取Material Vendor下拉框数据
 export let GetMaterialInfo = (params) => {
