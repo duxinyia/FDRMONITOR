@@ -610,7 +610,7 @@ export default {
     },
     // 查询
     async submitForm(formName) {
-      let res = getTableDate(this.ruleForm)
+      let res = await getTableDate(this.ruleForm)
       // console.log("查询参数", this.ruleForm)
       this.tableData = [
         {
