@@ -8,14 +8,20 @@
           </el-option>
         </el-select>
       </div>
+      <div class="dateSelect">
+        <span>date:</span>
+        <el-date-picker v-model="DateCode" value-format="yyyy-MM-dd" type="date" placeholder="選擇日期時間">
+        </el-date-picker>
+      </div>
+
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
     </div>
-    <el-table :data="tableData1" :cell-style="cellStyle1" :header-cell-style="headerCellStyle1">
+    <el-table :data="tableData1" :cell-style="cellStyle1" :header-cell-style="headerCellStyle1" height="250px">
       <el-table-column
         v-for="(item, index) in tableTitle1"
         :key="index"
-        :prop="item.prop"
-        :label="item.lable"
+        :prop="item.id"
+        :label="item.capital"
         align="center"
         min-width="50px"
       >
@@ -34,8 +40,8 @@
       <el-table-column
         v-for="(item, index) in tableTitle2"
         :key="index"
-        :prop="item.prop"
-        :label="item.lable"
+        :prop="item.id"
+        :label="item.capital"
         align="center"
         min-width="50px"
       >
@@ -45,6 +51,8 @@
 </template>
 
 <script>
+import { GetTbale1Info, GetTbale2Info } from "@/api/cma/report3"
+import { handlerTableDate } from "@/utils/handlerTableData"
 export default {
   name: "report1",
   props: {},
@@ -52,64 +60,40 @@ export default {
   data() {
     return {
       // 表头名称
-      tableTitle1: [
-        { lable: "MW-X Genius", prop: "1" },
-        { lable: "MW-X Genius", prop: "2" },
-        { lable: "MW-X Genius", prop: "3" },
-        { lable: "MW-X Genius", prop: "4" },
-        { lable: "Spec.", prop: "5" },
-        { lable: "SFR Fail Rate", prop: "6" },
-        { lable: "SFR Fail Rate", prop: "7" },
-        { lable: "SFR Fail Rate", prop: "8" },
-        { lable: "SFR Fail Rate", prop: "9" },
-        { lable: "SFR Fail Rate", prop: "10" },
-        { lable: "SFR Fail Rate", prop: "11" },
-        { lable: "SFR Fail Rate", prop: "12" },
-        { lable: "SFR Fail Rate", prop: "13" },
-        { lable: "SFR Input Qty", prop: "14" },
-        { lable: "SFR Input Qty", prop: "15" },
-        { lable: "SFR Input Qty", prop: "16" },
-        { lable: "SFR Input Qty", prop: "17" },
-        { lable: "SFR Input Qty", prop: "18" },
-        { lable: "SFR Input Qty", prop: "19" },
-        { lable: "SFR Input Qty", prop: "20" },
-        { lable: "SFR Input Qty", prop: "21" },
-        { lable: "近兩小時SFR F/R", prop: "22" },
-        { lable: "近兩小時SFR F/R", prop: "23" }
-      ],
-      tableTitle2: [
-        { lable: "Project", prop: "1" },
-        { lable: "AA MC", prop: "2" },
-        { lable: "AA Para", prop: "3" },
-        { lable: "Total In", prop: "4" },
-        { lable: "Total Rate", prop: "5" },
-        { lable: "A", prop: "6" },
-        { lable: "B", prop: "7" },
-        { lable: "C", prop: "8" },
-        { lable: "D", prop: "9" },
-        { lable: "E", prop: "10" },
-        { lable: "F", prop: "11" },
-        { lable: "G", prop: "12" },
-        { lable: "H", prop: "13" },
-        { lable: "A", prop: "14" },
-        { lable: "B", prop: "15" },
-        { lable: "C", prop: "16" },
-        { lable: "D", prop: "17" },
-        { lable: "E", prop: "18" },
-        { lable: "F", prop: "19" },
-        { lable: "G", prop: "20" },
-        { lable: "H", prop: "21" },
-        { lable: "Input", prop: "22" },
-        { lable: "Rate", prop: "23" }
-      ],
+      tableTitle1: [],
+      tableTitle2: [],
 
       // 下拉框值
       selectData: [
+        { name: "DefectType", value: "" },
         { name: "DeviceSeries", value: "" },
         { name: "Suppy", value: "" }
       ],
+      DateCode: "",
       // 两个下拉框的选项
       options: {
+        DefectType: [
+          {
+            value: "选项1",
+            label: "MW-X"
+          },
+          {
+            value: "选项2",
+            label: "MW-X2"
+          },
+          {
+            value: "选项3",
+            label: "MW-X3"
+          },
+          {
+            value: "选项4",
+            label: "MW-X4"
+          },
+          {
+            value: "选项5",
+            label: "MW-X5"
+          }
+        ],
         DeviceSeries: [
           {
             value: "选项1",
@@ -157,594 +141,36 @@ export default {
       },
       date: "256",
       // 表格数据
-      tableData1: [
-        {
-          1: "",
-          2: "",
-          3: "",
-          4: "",
-          5: "0.40%",
-          6: "",
-          7: "",
-          8: "",
-          9: "",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "",
-          15: "",
-          16: "",
-          17: "",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "",
-          23: ""
-        },
-        {
-          1: "",
-          2: "",
-          3: "",
-          4: "",
-          5: "0.15%",
-          6: "2",
-          7: "",
-          8: "",
-          9: "",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "15.38%",
-          15: "",
-          16: "",
-          17: "",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "",
-          23: ""
-        },
-        {
-          1: "",
-          2: "",
-          3: "",
-          4: "",
-          5: "0.00%",
-          6: "7",
-          7: "8",
-          8: "12",
-          9: "8",
-          10: "1",
-          11: "8",
-          12: "1",
-          13: "1",
-          14: "53.85%",
-          15: "61.54%",
-          16: "92.31%",
-          17: "61.54%",
-          18: "7.69%",
-          19: "61.54%",
-          20: "7.69%",
-          21: "7.69%",
-          22: "",
-          23: ""
-        },
-        {
-          1: "",
-          2: "",
-          3: "",
-          4: "",
-          5: "YieldLoss",
-          6: "0.08%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "0.00%",
-          11: "0.00%",
-          12: "0.00%",
-          13: "0.00%",
-          14: "",
-          15: "",
-          16: "",
-          17: "",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "",
-          23: ""
-        },
-        {
-          1: "",
-          2: "",
-          3: "",
-          4: "",
-          5: "Tool Qty",
-          6: "8901",
-          7: "345",
-          8: "1812",
-          9: "139",
-          10: "1",
-          11: "4981",
-          12: "1",
-          13: "",
-          14: "",
-          15: "",
-          16: "",
-          17: "",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "",
-          23: ""
-        },
-        {
-          1: "",
-          2: "",
-          3: "",
-          4: "",
-          5: "Tool Rate",
-          6: "55.01%",
-          7: "2.13%",
-          8: "11.20%",
-          9: "0.88%",
-          10: "0.01%",
-          11: "30.78%",
-          12: "0.01%",
-          13: "",
-          14: "",
-          15: "",
-          16: "",
-          17: "",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "",
-          23: ""
-        }
-      ],
-      tableData2: [
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.16%",
-          6: "0.16%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "0.00%",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "1.47%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "",
-          8: "0.00%",
-          9: "",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "1.67%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.24%",
-          6: "0.38%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "Para A",
-          4: "1760",
-          5: "0.00%",
-          6: "0.00%",
-          7: "0.00%",
-          8: "0.00%",
-          9: "0.00%",
-          10: "",
-          11: "",
-          12: "",
-          13: "",
-          14: "1689",
-          15: "53",
-          16: "17",
-          17: "1",
-          18: "",
-          19: "",
-          20: "",
-          21: "",
-          22: "291",
-          23: "0.00%"
-        }
-      ],
-      num: 0
+      tableData1: [],
+      tableData2: [],
+      num: 0,
+      testData: []
     }
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "SFR不良率 by AA MC")
   },
   methods: {
-    getSearchData() {
-      console.log(111)
+    async getSearchData() {
+      // this.tableTitle1 = [
+      //   { capital: "MW", id: "a" },
+      //   { capital: "MW", id: "a" },
+      //   { capital: "MW", id: "a" },
+      //   { capital: "MW", id: "a" },
+      //   { capital: "ABC", id: "a" },
+      //   { capital: "EE", id: "a" },
+      //   { capital: "EE", id: "a" },
+      //   { capital: "EE", id: "a" }
+      // ]
+      let res1 = await GetTbale1Info({ DefectType: "SFR", DeviceSeriers: "MW", Supply: "Genius", date: "2023-2-14" })
+      this.tableTitle1 = res1.columns
+      this.tableData1 = []
+      this.tableData1 = handlerTableDate(res1.rows)
+      // console.log(this.tableData1)
+      let res2 = await GetTbale2Info({ DefectType: "SFR", DeviceSeriers: "MW", Supply: "Genius", date: "2023-2-14" })
+      this.tableTitle2 = res2.columns
+      this.tableData2 = res2.rows
+      // this.caculateColSpan()
     },
     cellStyle1({ row, column, columnIndex }) {},
     cellStyle2({ row, column, columnIndex }) {
@@ -767,6 +193,90 @@ export default {
       }
     },
 
+    /**
+     * 表头初始化数据及合并表头计算
+     */
+    caculateColSpan() {
+      let obj = {}
+      this.testData = []
+      this.tableTitle1.forEach((ele) => {
+        ele.colSpan = 1
+        obj["colSpan"] = 0
+        this.testData.push(obj)
+      })
+      // console.log("tableTitle1的值", this.testData.length, this.tableTitle1)
+      // let num = 1
+      // for (let i = 0; i < this.testData.length - 1; i++) {
+      //   if (this.tableTitle1[i].capital === this.tableTitle1[i + 1].capital) {
+      //     num += 1
+      //     console.log("一样的", i, num)
+      //     // this.testData[i].colSpan++
+      //   } else {
+      //     // this.testData[i].colSpan = num
+      //     this.$set(this.testData, i, { ...this.testData[i], colSpan: num })
+      //     console.log("不一样", num, i, this.testData[i].colSpan)
+      //     num = 1
+      //   }
+      //   if (i === this.testData.length - 2) {
+      //     console.log("最后一个了", num)
+      //     this.$set(this.testData, i, { ...this.testData[i], colSpan: num })
+      //   }
+      //   //  else {
+      //   //   // 跳过已经重复的数据
+      //   //   i += this.testData[i].colSpan - 1
+      //   //   break
+      //   // }
+      //   // 循环到最后，停止循环
+      //   // if (j === this.testData.length - 1) {
+      //   //   i = j
+      //   // }
+      // }
+      // console.log("处理后的值", this.testData)
+
+      for (let i = 0; i < this.tableTitle1.length - 1; i++) {
+        for (let j = i + 1; j < this.tableTitle1.length; j++) {
+          if (this.tableTitle1[i].capital === this.tableTitle1[j].capital) {
+            this.tableTitle1[i].colSpan++
+            this.tableTitle1[j].colSpan = 0
+          } else {
+            // 跳过已经重复的数据
+            i += this.tableTitle1[i].colSpan - 1
+            break
+          }
+          // 循环到最后，停止循环
+          if (j === this.tableTitle1.length - 1) {
+            i = j
+          }
+        }
+      }
+    },
+    /**
+     * 表头合并控制
+     */
+    // headerCellStyle1({ row, column, rowIndex, columnIndex }) {
+    //   if (rowIndex === 0) {
+    //     if (columnIndex > 0) {
+    //       // console.log("column.id", this.tableTitle1[columnIndex])
+    //       this.$nextTick(() => {
+    //         if (document.getElementsByClassName(column.id).length !== 0) {
+    //           console.log("this.tableTitle1", this.tableTitle1)
+    //           document
+    //             .getElementsByClassName(column.id)[0]
+    //             .setAttribute("colSpan", this.tableTitle1[columnIndex].colSpan)
+    //         }
+    //       })
+    //       // 被合并的列隐藏
+    //       if (this.tableTitle1[columnIndex].colSpan === 0) {
+    //         return { display: "none" }
+    //       } else {
+    //         return { background: "transparent", color: "#fff" }
+    //       }
+    //     }
+    //   } else if (rowIndex === 1) {
+    //     return { background: "transparent", color: "red" }
+    //   }
+    // }
+
     headerCellStyle1({ row, column, rowIndex, columnIndex }) {
       // if (columnIndex < 22 && row[columnIndex + 1].label == row[columnIndex].label) {
       //   this.num += 1
@@ -782,16 +292,15 @@ export default {
       //     color: "red"
       //   }
       // }
-
-      row[3].colSpan = 4 //第3个表头占4格
-      row[5].colSpan = 8
-      row[13].colSpan = 8
-      row[21].colSpan = 2
-      if ([0, 1, 2, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 22].includes(columnIndex)) {
-        //隐藏表头
-        row[columnIndex].colSpan = 0
-        return "display: none"
-      }
+      // row[3].colSpan = 4 //第3个表头占4格
+      // row[5].colSpan = 8
+      // row[13].colSpan = 8
+      // row[21].colSpan = 2
+      // if ([0, 1, 2, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 22].includes(columnIndex)) {
+      //   //隐藏表头
+      //   row[columnIndex].colSpan = 0
+      //   return "display: none"
+      // }
       return {
         background: "transparent",
         color: "#fff"
@@ -851,6 +360,11 @@ export default {
   }
 }
 .system-select {
+  span {
+    padding: 0 10px 0 25px;
+  }
+}
+.dateSelect {
   span {
     padding: 0 10px 0 25px;
   }

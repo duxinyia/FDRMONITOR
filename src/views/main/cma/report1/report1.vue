@@ -1,6 +1,7 @@
 <template>
   <div class="page-mian">
-    <div class="select-two">
+    <!-- 选择下拉框+搜索按钮 -->
+    <!-- <div class="select-two">
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
         <el-select clearable :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
@@ -9,14 +10,15 @@
         </el-select>
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
-    </div>
+    </div> -->
     <el-table
       :row-style="{ height: '30px' }"
       :data="tabData"
-      :header-cell-style="{ background: '#3a5588' }"
+      :header-cell-style="{ background: '#f8cbad', color: '#000' }"
       :cell-style="cellStyle"
-      height="calc(100% - 74.9px)"
+      height="calc(100% - 20.9px)"
     >
+      <!-- height="calc(100% - 74.9px)" 如果有下拉框换成这个-->
       <el-table-column
         v-for="(taT, index) in tableTitle"
         :key="index"
@@ -150,14 +152,15 @@ export default {
     }
   },
   created() {
-    this.$store.commit("fullLoading/SET_TITLE", "SFR不良率 by AA MC")
+    this.$store.commit("fullLoading/SET_TITLE", "FPDC by AA MC")
     this.getData()
+    console.log(this.tabData)
   },
   methods: {
-    getSearchData() {
-      let inputValue = this.selectData
-      this.getData(inputValue[0].value, inputValue[1].value)
-    },
+    // getSearchData() {
+    //   let inputValue = this.selectData
+    //   this.getData(inputValue[0].value, inputValue[1].value)
+    // },
     async getData(devSer = "", spy = "") {
       this.tabData = []
       let res = await GetReport1Search(devSer, spy)
@@ -177,11 +180,11 @@ export default {
       let property = column.property
       if (row[property] && row[property].includes("%")) {
         if (parseFloat(row[property]) < 0.1) {
-          return { background: "#9acd32" }
+          return { background: "#9acd32", color: "#000" }
         } else if (parseFloat(row[property]) >= 0.1 && parseFloat(row[property]) <= 0.3) {
           return { background: "#ffff00", color: "#000" }
         } else {
-          return { background: "#ff0000" }
+          return { background: "#ff80ff", color: "#000" }
         }
       }
     }
@@ -199,7 +202,7 @@ export default {
 ::v-deep .el-table {
   background: transparent;
   border: 1px solid #1683af;
-  margin-top: 20px;
+  // margin-top: 20px;
   // height: calc(100% - 74.9px);
   // overflow: auto;
 }
