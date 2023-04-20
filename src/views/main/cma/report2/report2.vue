@@ -366,7 +366,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+::v-deep .el-table__body-wrapper {
+  &::-webkit-scrollbar {
+    // 整个滚动条
+    width: 0; // 纵向滚动条的宽度
+    background: rgba(213, 215, 220, 0.3);
+    border: none;
+  }
+  &::-webkit-scrollbar-track {
+    // 滚动条轨道
+    border: none;
+  }
+}
+
 ::-webkit-scrollbar {
   /* display: block !important; */
   width: 20px;

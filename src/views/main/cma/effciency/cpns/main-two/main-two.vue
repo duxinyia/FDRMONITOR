@@ -218,24 +218,10 @@ export default {
         {
           name: "流动性紧缺",
           value: "37"
-        },
-        {
-          name: "供给性紧缺",
-          value: "29"
-        },
-        {
-          name: "小规模供给性紧缺",
-          value: "22"
-        },
-        {
-          name: "一般紧缺",
-          value: "14"
         }
       ]
-      // backgroundColor: "transparent",
       return {
         color: ["#12B796", "#1DADFF", "#3F89FF", "#02D8FF"],
-        backgroundColor: "transparent",
         legend: {
           icon: "circle",
           x: "center",
@@ -268,24 +254,10 @@ export default {
               length2: 40
             },
             label: {
-              // textStyle: {
               align: "left",
-              // },
-              formatter: "{a|{d}%}\n {b|{b} }",
+              // formatter: "{a|{d}%}\n {b|{b} }",
               padding: [20, 0, 0, 0],
-              rich: {
-                icon: {
-                  fontSize: 14
-                },
-                a: {
-                  fontSize: 14,
-                  padding: [0, 10, 6, 4],
-                  color: "#0172AB"
-                },
-                b: {
-                  fontSize: 14
-                }
-              }
+              color: "#fff"
             }
           },
           {
