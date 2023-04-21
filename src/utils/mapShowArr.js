@@ -377,7 +377,7 @@ let showArrConfig = {
       // 所有从报表
       all: [
         {
-          title: "cma第一个报表",
+          title: "Defect BY AAMC",
           imgUrl: require("@/assets/images/cma/output.png"),
           belong: "报表/所有",
           isShow: false,
@@ -390,7 +390,7 @@ let showArrConfig = {
           }
         },
         {
-          title: "cma的第二个报表",
+          title: "Yield Loss Track(VCM)",
           imgUrl: require("@/assets/images/cma/output.png"),
           belong: "报表/所有",
           isShow: false,
@@ -416,7 +416,7 @@ let showArrConfig = {
           }
         },
         {
-          title: "cma的第四个报表",
+          title: "SFR/FPDC by LensLot",
           imgUrl: require("@/assets/images/cma/output.png"),
           belong: "报表/所有",
           isShow: false,
