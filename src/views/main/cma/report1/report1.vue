@@ -1,28 +1,43 @@
 <template>
   <div class="page-mian">
     <!-- 选择下拉框+搜索按钮 -->
-    <!-- <div class="select-two">
+    <div class="select-two">
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
-        <el-select clearable :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
+        <el-select
+          v-if="item.type == 'select'"
+          clearable
+          :popper-append-to-body="false"
+          v-model="item.value"
+          placeholder="請選擇"
+        >
           <el-option v-for="item in options[item.name]" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
+
+        <el-date-picker
+          v-if="item.type == 'date'"
+          v-model="item.value"
+          value-format="yyyy-MM-dd"
+          type="date"
+          placeholder="選擇日期時間"
+        >
+        </el-date-picker>
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
-    </div> -->
+    </div>
     <el-table
       :row-style="{ height: '30px' }"
       :data="tabData"
       :header-cell-style="{ background: '#f8cbad', color: '#000' }"
       :cell-style="cellStyle"
-      height="calc(100% - 20.9px)"
+      height="calc(100% - 74.9px)"
     >
-      <!-- height="calc(100% - 74.9px)" 如果有下拉框换成这个-->
+      <!--height="calc(100% - 20.9px) " 如果没有下拉框换成这个-->
       <el-table-column
         v-for="(taT, index) in tableTitle"
         :key="index"
-        :width="taT.name === 'Lens Vendor' ? '90' : ''"
+        :width="taT.name == 'Lens Vendor' ? '110' : ''"
         :prop="taT.id"
         align="center"
         :label="taT.name"
@@ -58,73 +73,36 @@ export default {
   components: {},
   data() {
     return {
+      // 标题
+      title: "SFR BY AAMC",
       // 表头名称
       tableTitle: [],
       // 下拉框值
       selectData: [
-        { name: "DeviceSeries", value: "" },
-        { name: "Suppy", value: "" }
+        { name: "DefectType", value: "SFR", type: "select" },
+        { name: "DeviceSeriers", value: "MW", type: "select" },
+        { name: "datetime", value: new Date(), type: "date" }
       ],
       // 两个下拉框的选项
       options: {
-        DeviceSeries: [
+        DefectType: [
+          {
+            value: "SFR",
+            label: "SFR"
+          },
+          {
+            value: "FPDC",
+            label: "FPDC"
+          }
+        ],
+        DeviceSeriers: [
+          {
+            value: "MW",
+            label: "MW"
+          },
           {
             value: "MW-X",
             label: "MW-X"
-          },
-          {
-            value: "MW-F",
-            label: "MW-F"
-          },
-          {
-            value: "MW-E",
-            label: "MW-E"
-          },
-          {
-            value: "MW-X4",
-            label: "MW-X4"
-          },
-          {
-            value: "MW-X5",
-            label: "MW-X5"
-          },
-          {
-            value: "MW-X6",
-            label: "MW-X6"
-          },
-          {
-            value: "MW-X7",
-            label: "MW-X7"
-          },
-          {
-            value: "MW-X8",
-            label: "MW-X8"
-          },
-          {
-            value: "MW-X9",
-            label: "MW-X9"
-          }
-        ],
-        Suppy: [
-          {
-            value: "Genius",
-            label: "Genius"
-          },
-          {
-            value: "Genius2",
-            label: "Genius2"
-          },
-          {
-            value: "Genius3",
-            label: "Genius3"
-          },
-          {
-            value: "Genius4",
-            label: "Genius4"
-          },
-          {
-            value: "Genius5",
-            label: "Genius5"
           }
         ]
       },
@@ -152,20 +130,28 @@ export default {
     }
   },
   created() {
-    this.$store.commit("fullLoading/SET_TITLE", "SFR yield loss report")
+    this.$store.commit("fullLoading/SET_TITLE", this.title)
     this.getData()
-    console.log(this.tabData)
+    // console.log(this.tabData)
   },
   methods: {
-    // getSearchData() {
-    //   let inputValue = this.selectData
-    //   this.getData(inputValue[0].value, inputValue[1].value)
-    // },
-    async getData(devSer = "", spy = "") {
+    // 点击搜索按钮
+    getSearchData() {
+      let inputValue = this.selectData
+      if (inputValue[0].value == "FPDC") {
+        this.title = "FPDC BY AAMC"
+      } else {
+        this.title = "SFR BY AAMC"
+      }
+      this.$store.commit("fullLoading/SET_TITLE", this.title)
+      this.getData(inputValue[0].value, inputValue[1].value)
+    },
+    // 获取数据
+    async getData(type = "SFR", seriers = "MW") {
       this.tabData = []
-      let res = await GetReport1Search(devSer, spy)
+      let res = await GetReport1Search(type, seriers)
       this.tableTitle = res.columns
-      console.log("res===", res)
+      // console.log("res===", res)
       this.tableData = res.rows
       this.tableData.forEach((item) => {
         this.objKey = {}
@@ -175,10 +161,10 @@ export default {
         this.tabData.push(this.objKey)
       })
     },
-
+    // 单元格样式
     cellStyle({ row, column, rowIndex, columnIndex }) {
       let property = column.property
-      if (row[property] && row[property].includes("%")) {
+      if (row[property] && String(row[property]).includes("%")) {
         if (parseFloat(row[property]) < 0.1) {
           return { background: "#9acd32", color: "#000" }
         } else if (parseFloat(row[property]) >= 0.1 && parseFloat(row[property]) <= 0.3) {
@@ -186,6 +172,8 @@ export default {
         } else {
           return { background: "#ff80ff", color: "#000" }
         }
+      } else {
+        return { background: "transparent" }
       }
     }
   }
@@ -202,7 +190,7 @@ export default {
 ::v-deep .el-table {
   background: transparent;
   border: 1px solid #1683af;
-  // margin-top: 20px;
+  margin-top: 20px;
   // height: calc(100% - 74.9px);
   // overflow: auto;
 }
@@ -218,6 +206,7 @@ export default {
   border-right: 1px solid #1683af;
   border-bottom: 1px solid #1683af;
 }
+
 ::v-deep .el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
   background: transparent;
 }
