@@ -28,7 +28,7 @@ import {
   getDateCodeOutputInfo
 } from "@/api/dp/output.js"
 export default {
-  name: "output",
+  name: "output1",
   components: {
     MainLeft,
     MainCenter,
