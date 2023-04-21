@@ -4,13 +4,18 @@
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
         <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
-          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.label" :value="item.value">
+          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
           </el-option>
         </el-select>
       </div>
       <div class="dateSelect">
-        <span>date:</span>
-        <el-date-picker v-model="DateCode" value-format="yyyy-MM-dd" type="date" placeholder="選擇日期時間">
+        <span>datetime:</span>
+        <el-date-picker
+          v-model="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          type="datetime"
+          placeholder="選擇日期時間"
+        >
         </el-date-picker>
       </div>
 
@@ -51,10 +56,10 @@
 </template>
 
 <script>
-import { GetTbale1Info, GetTbale2Info } from "@/api/cma/report3"
+import { GetDefectType, GetDeviceSeriers, ToolingType, Supply, GetTbale1Info, GetTbale2Info } from "@/api/cma/report3"
 import { handlerTableDate } from "@/utils/handlerTableData"
 export default {
-  name: "report1",
+  name: "report3",
   props: {},
   components: {},
   data() {
@@ -67,77 +72,16 @@ export default {
       selectData: [
         { name: "DefectType", value: "" },
         { name: "DeviceSeries", value: "" },
+        { name: "ToolingType", value: "" },
         { name: "Suppy", value: "" }
       ],
-      DateCode: "",
+      datetime: "",
       // 两个下拉框的选项
       options: {
-        DefectType: [
-          {
-            value: "选项1",
-            label: "MW-X"
-          },
-          {
-            value: "选项2",
-            label: "MW-X2"
-          },
-          {
-            value: "选项3",
-            label: "MW-X3"
-          },
-          {
-            value: "选项4",
-            label: "MW-X4"
-          },
-          {
-            value: "选项5",
-            label: "MW-X5"
-          }
-        ],
-        DeviceSeries: [
-          {
-            value: "选项1",
-            label: "MW-X"
-          },
-          {
-            value: "选项2",
-            label: "MW-X2"
-          },
-          {
-            value: "选项3",
-            label: "MW-X3"
-          },
-          {
-            value: "选项4",
-            label: "MW-X4"
-          },
-          {
-            value: "选项5",
-            label: "MW-X5"
-          }
-        ],
-        Suppy: [
-          {
-            value: "选项1",
-            label: "Genius"
-          },
-          {
-            value: "选项2",
-            label: "Genius2"
-          },
-          {
-            value: "选项3",
-            label: "Genius3"
-          },
-          {
-            value: "选项4",
-            label: "Genius4"
-          },
-          {
-            value: "选项5",
-            label: "Genius5"
-          }
-        ]
+        DefectType: [],
+        DeviceSeries: [],
+        ToolingType: [],
+        Suppy: []
       },
       date: "256",
       // 表格数据
@@ -148,9 +92,43 @@ export default {
     }
   },
   created() {
+    this.getSelectInfo()
     this.$store.commit("fullLoading/SET_TITLE", "SFR不良率 by AA MC")
   },
   methods: {
+    async getSelectInfo() {
+      let res1 = await GetDefectType()
+      // console.log("res1", res1)
+      this.options.DefectType = res1
+      res1.forEach((item) => {
+        if (item.selected) {
+          this.selectData[0].value = item.id
+        }
+      })
+      let res2 = await GetDeviceSeriers()
+      this.options.DeviceSeries = res2
+      res2.forEach((item) => {
+        if (item.selected) {
+          this.selectData[1].value = item.id
+        }
+      })
+      let res3 = await ToolingType()
+      this.options.ToolingType = res3
+      console.log("res", this.options.ToolingType)
+      res3.forEach((item) => {
+        if (item.selected) {
+          this.selectData[2].value = item.id
+          console.log(this.selectData[2])
+        }
+      })
+      let res4 = await Supply()
+      this.options.Suppy = res4
+      res4.forEach((item) => {
+        if (item.selected) {
+          this.selectData[3].value = item.id
+        }
+      })
+    },
     async getSearchData() {
       // this.tableTitle1 = [
       //   { capital: "MW", id: "a" },
@@ -163,20 +141,22 @@ export default {
       //   { capital: "EE", id: "a" }
       // ]
       let res1 = await GetTbale1Info({
-        DefectType: "SFR",
-        DeviceSeriers: "MW",
-        Supply: "",
-        datetime: "2023-04-17"
+        DefectType: this.selectData[0].value,
+        DeviceSeriers: this.selectData[1].value,
+        ToolingType: this.selectData[2].value,
+        Supply: this.selectData[2].value,
+        datetime: this.datetime
       })
       this.tableTitle1 = res1.columns
       this.tableData1 = []
       this.tableData1 = handlerTableDate(res1.rows)
       // console.log(this.tableData1)
       let res2 = await GetTbale2Info({
-        DefectType: "SFR",
-        DeviceSeriers: "MW",
-        Supply: "",
-        datetime: "2023-04-17"
+        DefectType: this.selectData[0].value,
+        DeviceSeriers: this.selectData[1].value,
+        ToolingType: this.selectData[2].value,
+        Supply: this.selectData[2].value,
+        datetime: this.datetime
       })
       this.tableTitle2 = res2.columns
       this.tableData2 = handlerTableDate(res2.rows)
