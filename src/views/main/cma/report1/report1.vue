@@ -6,12 +6,11 @@
         <span>{{ item.name }}:</span>
         <el-select
           v-if="item.type == 'select'"
-          clearable
           :popper-append-to-body="false"
           v-model="item.value"
           placeholder="請選擇"
         >
-          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.label" :value="item.value">
+          <el-option v-for="item in options[item.name]" :key="item.id" :label="item.id" :value="item.value">
           </el-option>
         </el-select>
 
@@ -26,8 +25,8 @@
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
     </div>
+    <!-- :row-style="{ height: '30px' }" -->
     <el-table
-      :row-style="{ height: '30px' }"
       :data="tabData"
       :header-cell-style="{ background: '#f8cbad', color: '#000' }"
       :cell-style="cellStyle"
@@ -66,7 +65,7 @@
 
 <script>
 // 导入点击搜索数据
-import { GetReport1Search } from "@/api/cma/report1"
+import { GetReport1Search, GetDefectTypeInfo, GetDeviceSeriersInfo } from "@/api/cma/report1"
 export default {
   name: "report1",
   props: {},
@@ -79,32 +78,14 @@ export default {
       tableTitle: [],
       // 下拉框值
       selectData: [
-        { name: "DefectType", value: "SFR", type: "select" },
-        { name: "DeviceSeriers", value: "MW", type: "select" },
+        { name: "DefectType", value: "", type: "select" },
+        { name: "DeviceSeriers", value: "", type: "select" },
         { name: "datetime", value: new Date(), type: "date" }
       ],
       // 两个下拉框的选项
       options: {
-        DefectType: [
-          {
-            value: "SFR",
-            label: "SFR"
-          },
-          {
-            value: "FPDC",
-            label: "FPDC"
-          }
-        ],
-        DeviceSeriers: [
-          {
-            value: "MW",
-            label: "MW"
-          },
-          {
-            value: "MW-X",
-            label: "MW-X"
-          }
-        ]
+        DefectType: [],
+        DeviceSeriers: []
       },
       // 从后端拿到的表格数据
       tableData: [
@@ -131,18 +112,34 @@ export default {
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", this.title)
+    this.getselectData()
     this.getData()
     // console.log(this.tabData)
   },
   methods: {
+    // 获取下拉框数据
+    async getselectData() {
+      let res = await GetDefectTypeInfo()
+      console.log(res)
+      this.options["DefectType"] = res
+      res.forEach((item) => {
+        if (item.selected) {
+          this.selectData[0].value = item.value
+        }
+      })
+      let res1 = await GetDeviceSeriersInfo()
+      this.options["DeviceSeriers"] = res1
+      res1.forEach((item) => {
+        if (item.selected) {
+          this.selectData[1].value = item.value
+        }
+      })
+    },
+
     // 点击搜索按钮
     getSearchData() {
       let inputValue = this.selectData
-      if (inputValue[0].value == "FPDC") {
-        this.title = "FPDC BY AAMC"
-      } else {
-        this.title = "SFR BY AAMC"
-      }
+      inputValue[0].value == "FPDC" ? (this.title = "FPDC BY AAMC") : (this.title = "SFR BY AAMC")
       this.$store.commit("fullLoading/SET_TITLE", this.title)
       this.getData(inputValue[0].value, inputValue[1].value)
     },
