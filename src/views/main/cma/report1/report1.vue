@@ -152,7 +152,7 @@ export default {
     }
   },
   created() {
-    this.$store.commit("fullLoading/SET_TITLE", "FPDC by AA MC")
+    this.$store.commit("fullLoading/SET_TITLE", "SFR yield loss report")
     this.getData()
     console.log(this.tabData)
   },
