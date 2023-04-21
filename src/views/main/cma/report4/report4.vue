@@ -134,7 +134,7 @@ export default {
     }
   },
   created() {
-    this.$store.commit("fullLoading/SET_TITLE", "SFR不良率 by AA MC")
+    this.$store.commit("fullLoading/SET_TITLE", "SFR/FPDC by LensLot")
   },
   methods: {
     getSearchData() {

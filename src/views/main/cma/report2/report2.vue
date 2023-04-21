@@ -252,7 +252,7 @@ export default {
     }
   },
   created() {
-    this.$store.commit("fullLoading/SET_TITLE", "CMA的第二个报表")
+    this.$store.commit("fullLoading/SET_TITLE", "Yield Loss Track(VCM)")
     this.GetDeviceInfo()
     this.GetLotTypeInfo()
   },
