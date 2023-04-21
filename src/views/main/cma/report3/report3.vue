@@ -162,19 +162,29 @@ export default {
       //   { capital: "EE", id: "a" },
       //   { capital: "EE", id: "a" }
       // ]
-      let res1 = await GetTbale1Info({ DefectType: "SFR", DeviceSeriers: "MW", Supply: "Genius", date: "2023-2-14" })
+      let res1 = await GetTbale1Info({
+        DefectType: "SFR",
+        DeviceSeriers: "MW",
+        Supply: "",
+        datetime: "2023-04-17"
+      })
       this.tableTitle1 = res1.columns
       this.tableData1 = []
       this.tableData1 = handlerTableDate(res1.rows)
       // console.log(this.tableData1)
-      let res2 = await GetTbale2Info({ DefectType: "SFR", DeviceSeriers: "MW", Supply: "Genius", date: "2023-2-14" })
+      let res2 = await GetTbale2Info({
+        DefectType: "SFR",
+        DeviceSeriers: "MW",
+        Supply: "",
+        datetime: "2023-04-17"
+      })
       this.tableTitle2 = res2.columns
-      this.tableData2 = res2.rows
+      this.tableData2 = handlerTableDate(res2.rows)
       // this.caculateColSpan()
     },
     cellStyle1({ row, column, columnIndex }) {},
     cellStyle2({ row, column, columnIndex }) {
-      if (row[column.property].includes("%")) {
+      if (String(row[column.property]).includes("%")) {
         if (parseFloat(row[column.property]) < 0.1) {
           return {
             background: "#9acd32",
@@ -292,11 +302,11 @@ export default {
       //     color: "red"
       //   }
       // }
-      // row[3].colSpan = 4 //第3个表头占4格
+      // row[0].colSpan = 4 //第3个表头占4格
       // row[5].colSpan = 8
       // row[13].colSpan = 8
       // row[21].colSpan = 2
-      // if ([0, 1, 2, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 22].includes(columnIndex)) {
+      // if ([1, 2, 3].includes(columnIndex)) {
       //   //隐藏表头
       //   row[columnIndex].colSpan = 0
       //   return "display: none"
