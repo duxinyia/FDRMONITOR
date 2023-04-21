@@ -130,10 +130,13 @@
       border
       style="width: 100%; margin-top: 20px"
       :header-cell-style="headerCellStyle"
-      :height="isShow ? '690px' : '900px'"
       class="table"
+      :height="isShow ? '690px' : '900px'"
+      v-loading="isLoading"
+      element-loading-spinner="el-icon-loading"
+      element-loading-text="加载中..."
+      element-loading-background="rgba(0, 0, 0, 1)"
     >
-      <!--  -->
       <el-table-column
         v-for="(item, index) in tableHeader"
         :key="index"
@@ -196,6 +199,7 @@ export default {
   components: {},
   data() {
     return {
+      isLoading: false,
       isShow: true,
       tableData: [],
       tableHeader: [],
@@ -328,10 +332,12 @@ export default {
     },
     // 查询
     async submitForm(formName) {
+      this.isLoading = true
       let res = await getTableDate(this.ruleForm)
       this.tableData = []
       this.tableHeader = res.columns
       this.tableData = handlerTableDate(res.rows)
+      this.isLoading = false
 
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {
