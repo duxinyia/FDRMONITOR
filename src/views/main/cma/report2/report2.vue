@@ -154,7 +154,7 @@
           show-overflow-tooltip
         >
           <template slot-scope="scope">
-            <div class="detail" v-if="String(scope.row[child.id]).includes('%')">
+            <!-- <div class="detail" v-if="String(scope.row[child.id]).includes('%')">
               <el-popover :append-to-body="false" placement="bottom" width="500" trigger="click">
                 <el-table
                   :data="gridData"
@@ -168,9 +168,9 @@
                 <span slot="reference">{{ scope.row[child.id] }}</span>
               </el-popover>
             </div>
-            <div v-else>
-              {{ scope.row[child.id] }}
-            </div>
+            <div v-else> -->
+            {{ scope.row[child.id] }}
+            <!-- </div> -->
           </template>
         </el-table-column>
       </el-table-column>
