@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-  name: "App",
+  name: "App1",
   mounted() {
     this.$store.commit("fullLoading/SET_THEME", "dark")
     document.documentElement.setAttribute("theme", "dark")

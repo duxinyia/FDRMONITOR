@@ -378,7 +378,7 @@ let showArrConfig = {
       all: [
         {
           title: "Defect BY AAMC",
-          imgUrl: require("@/assets/images/cma/output.png"),
+          imgUrl: require("@/assets/images/cma/report1.png"),
           belong: "报表/所有",
           isShow: false,
           to: "cmamainreport",

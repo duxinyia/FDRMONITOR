@@ -15,20 +15,21 @@
         </el-select>
 
         <el-date-picker
-          v-if="item.type == 'date'"
+          v-if="item.type == 'datetime'"
+          :clearable="false"
           v-model="item.value"
-          value-format="yyyy-MM-dd"
-          type="date"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          type="datetime"
           placeholder="選擇日期時間"
         >
         </el-date-picker>
       </div>
-      <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
+      <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
     <!-- :row-style="{ height: '30px' }" -->
     <el-table
       :data="tabData"
-      :header-cell-style="{ background: '#f8cbad', color: '#000' }"
+      :header-cell-style="{ background: '#b4c6e7', color: '#000' }"
       :cell-style="cellStyle"
       height="calc(100% - 74.9px)"
     >
@@ -64,6 +65,7 @@
 </template>
 
 <script>
+import moment from "moment"
 // 导入点击搜索数据
 import { GetReport1Search, GetDefectTypeInfo, GetDeviceSeriersInfo } from "@/api/cma/report1"
 export default {
@@ -80,7 +82,7 @@ export default {
       selectData: [
         { name: "DefectType", value: "", type: "select" },
         { name: "DeviceSeriers", value: "", type: "select" },
-        { name: "datetime", value: new Date(), type: "date" }
+        { name: "datetime", value: "", type: "datetime" }
       ],
       // 两个下拉框的选项
       options: {
@@ -112,28 +114,33 @@ export default {
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", this.title)
-    this.getselectData()
-    this.getData()
     // console.log(this.tabData)
+  },
+  mounted() {
+    this.getselectData()
   },
   methods: {
     // 获取下拉框数据
     async getselectData() {
+      let inputValue = this.selectData
       let res = await GetDefectTypeInfo()
-      console.log(res)
+      // console.log(res)
       this.options["DefectType"] = res
       res.forEach((item) => {
         if (item.selected) {
-          this.selectData[0].value = item.value
+          inputValue[0].value = item.value
         }
       })
       let res1 = await GetDeviceSeriersInfo()
       this.options["DeviceSeriers"] = res1
       res1.forEach((item) => {
         if (item.selected) {
-          this.selectData[1].value = item.value
+          inputValue[1].value = item.value
         }
       })
+      var curDate = new Date()
+      inputValue[2].value = moment().format("YYYY-MM-DD HH:mm:ss")
+      this.getData(inputValue)
     },
 
     // 点击搜索按钮
@@ -141,12 +148,15 @@ export default {
       let inputValue = this.selectData
       inputValue[0].value == "FPDC" ? (this.title = "FPDC BY AAMC") : (this.title = "SFR BY AAMC")
       this.$store.commit("fullLoading/SET_TITLE", this.title)
-      this.getData(inputValue[0].value, inputValue[1].value)
+      this.getData(inputValue)
     },
     // 获取数据
-    async getData(type = "SFR", seriers = "MW") {
+    async getData(inputD) {
+      let type = inputD[0].value
+      let seriers = inputD[1].value
+      let t = inputD[2].value
       this.tabData = []
-      let res = await GetReport1Search(type, seriers)
+      let res = await GetReport1Search(type, seriers, t)
       this.tableTitle = res.columns
       // console.log("res===", res)
       this.tableData = res.rows
@@ -183,6 +193,7 @@ export default {
   margin-top: 10px;
   // border: 1px solid red;
 }
+
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
