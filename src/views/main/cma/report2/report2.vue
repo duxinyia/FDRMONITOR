@@ -125,40 +125,42 @@
         </el-form>
       </div>
     </el-collapse-transition>
-    <el-table
-      :data="tableData"
-      border
-      style="width: 100%; margin-top: 20px"
-      :height="isShow ? '690px' : '900px'"
-      :header-cell-style="headerCellStyle"
-      class="table"
-      v-loading="isLoading"
-      element-loading-spinner="el-icon-loading"
-      element-loading-text="加载中..."
-      element-loading-background="rgba(0, 0, 0, 1)"
-    >
-      <!-- :height="isShow ? '690px' : '900px'" -->
-      <el-table-column
-        v-for="(item, index) in tableHeader"
-        :key="index"
-        :label="item.capital"
-        :prop="item.id"
-        align="center"
-        min-width="150px"
-        show-overflow-tooltip
+    <div>
+      <el-table
+        :data="tableData"
+        border
+        ref="table"
+        style="width: 100%; margin-top: 20px"
+        :height="isShow ? '690px' : '900px'"
+        :header-cell-style="headerCellStyle"
+        class="table"
+        v-loading="isLoading"
+        element-loading-spinner="el-icon-loading"
+        element-loading-text="加载中..."
+        element-loading-background="rgba(0, 0, 0, 1)"
       >
+        <!-- :height="isShow ? '690px' : '900px'" -->
         <el-table-column
-          v-show="item.chileColumn"
-          v-for="(child, index) in item.chileColumn"
+          v-for="(item, index) in tableHeader"
           :key="index"
-          :prop="child.id"
-          :label="child.capital"
+          :label="item.capital"
+          :prop="item.id"
           align="center"
           min-width="150px"
           show-overflow-tooltip
         >
-          <template slot-scope="scope">
-            <!-- <div class="detail" v-if="String(scope.row[child.id]).includes('%')">
+          <el-table-column
+            v-show="item.chileColumn"
+            v-for="(child, index) in item.chileColumn"
+            :key="index"
+            :prop="child.id"
+            :label="child.capital"
+            align="center"
+            min-width="150px"
+            show-overflow-tooltip
+          >
+            <template slot-scope="scope">
+              <!-- <div class="detail" v-if="String(scope.row[child.id]).includes('%')">
               <el-popover :append-to-body="false" placement="bottom" width="500" trigger="click">
                 <el-table
                   :data="gridData"
@@ -173,12 +175,13 @@
               </el-popover>
             </div>
             <div v-else> -->
-            {{ scope.row[child.id] }}
-            <!-- </div> -->
-          </template>
+              {{ scope.row[child.id] }}
+              <!-- </div> -->
+            </template>
+          </el-table-column>
         </el-table-column>
-      </el-table-column>
-    </el-table>
+      </el-table>
+    </div>
   </div>
 </template>
 
@@ -194,7 +197,7 @@ import {
 } from "@/api/cma/report2"
 import { handlerTableDate } from "@/utils/handlerTableData"
 export default {
-  name: "report1",
+  name: "report2",
   props: {},
   components: {},
   data() {
@@ -218,7 +221,7 @@ export default {
         LotType: "",
         Tester: [],
         TestStation: [],
-        DateCode: new Date(),
+        DateCode: this.$moment().format("YYYY-MM-DD"),
         MaterialVendor: "",
         Process: [],
         Material: ""
@@ -480,10 +483,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .el-table__body-wrapper {
+/* ::v-deep .el-table__body-wrapper {
   &::-webkit-scrollbar {
     // 整个滚动条
-    width: 0; // 纵向滚动条的宽度
+    width: 5; // 纵向滚动条的宽度
     background: rgba(213, 215, 220, 0.3);
     border: none;
   }
@@ -491,11 +494,10 @@ export default {
     // 滚动条轨道
     border: none;
   }
-}
-::-webkit-scrollbar {
-  /* display: block !important; */
-  width: 20px;
-  height: 10px;
+} */
+/* ::-webkit-scrollbar {
+  width: 25px;
+  height: 15px;
 }
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 2px #333;
@@ -504,22 +506,23 @@ export default {
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
   background: red;
-}
+} */
 </style>
 <style lang="scss" scoped>
+::v-deep .el-table__header-wrapper {
+  padding-right: 20px;
+}
 ::v-deep ::-webkit-scrollbar {
   display: block;
-  /* width: 20px; */
-  height: 8px;
+  height: 15px;
 }
-
 ::v-deep ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 2px #333;
+  /* box-shadow: inset 0 0 2px #333; */
   border-radius: 5px;
 }
 ::v-deep ::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background: rgba(55, 98, 255, 0.6);
+  /* border-radius: 5px; */
+  background: #3b4e92;
 }
 
 .page-mian {
