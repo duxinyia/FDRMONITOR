@@ -139,7 +139,6 @@
         element-loading-text="加载中..."
         element-loading-background="rgba(0, 0, 0, 1)"
       >
-        <!-- :height="isShow ? '690px' : '900px'" -->
         <el-table-column
           v-for="(item, index) in tableHeader"
           :key="index"
@@ -150,7 +149,6 @@
           show-overflow-tooltip
         >
           <el-table-column
-            v-show="item.chileColumn"
             v-for="(child, index) in item.chileColumn"
             :key="index"
             :prop="child.id"
@@ -389,6 +387,7 @@ export default {
 
     // 页面加载默认参数访问接口获取数据
     async getDefaultData(formName) {
+      this.tableHeader = []
       this.isLoading = true
       let res = await getTableDate({
         DeviceNo: "APL007",
@@ -408,9 +407,12 @@ export default {
 
     // 查询
     async submitForm(formName) {
+      this.tableHeader = []
       this.isLoading = true
-      let res = await getTableDate(this.ruleForm)
+      this.tableHeader = []
       this.tableData = []
+      let res = await getTableDate(this.ruleForm)
+
       this.tableHeader = res.columns
       this.tableData = handlerTableDate(res.rows)
       this.isLoading = false
