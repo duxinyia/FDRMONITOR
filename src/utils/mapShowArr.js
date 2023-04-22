@@ -391,7 +391,7 @@ let showArrConfig = {
         },
         {
           title: "Yield Loss Track(VCM)",
-          imgUrl: require("@/assets/images/cma/output.png"),
+          imgUrl: require("@/assets/images/cma/report2.png"),
           belong: "报表/所有",
           isShow: false,
           to: "cmamainreport2",
@@ -403,8 +403,8 @@ let showArrConfig = {
           }
         },
         {
-          title: "cma的第三个报表",
-          imgUrl: require("@/assets/images/cma/output.png"),
+          title: "SFR/FDPC Report BY Tooling",
+          imgUrl: require("@/assets/images/cma/report3.png"),
           belong: "报表/所有",
           isShow: false,
           to: "cmamainreport3",
@@ -417,7 +417,7 @@ let showArrConfig = {
         },
         {
           title: "SFR/FPDC by LensLot",
-          imgUrl: require("@/assets/images/cma/output.png"),
+          imgUrl: require("@/assets/images/cma/report4.png"),
           belong: "报表/所有",
           isShow: false,
           to: "cmamainreport4",

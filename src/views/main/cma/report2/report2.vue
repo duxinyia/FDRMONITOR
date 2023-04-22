@@ -218,7 +218,7 @@ export default {
         LotType: "",
         Tester: [],
         TestStation: [],
-        DateCode: new Date(),
+        DateCode: this.$moment().format("YYYY-MM-DD"),
         MaterialVendor: "",
         Process: [],
         Material: ""
@@ -255,6 +255,7 @@ export default {
     this.$store.commit("fullLoading/SET_TITLE", "Yield Loss Track(VCM)")
     this.GetDeviceInfo()
     this.GetLotTypeInfo()
+    this.getDefaultData()
   },
   methods: {
     //获取Device下拉框数据
@@ -342,61 +343,6 @@ export default {
     //监听Device下拉框数据变化
     async handlerDeviceChange(val) {
       this.DefaultSelected(this.ruleForm.DeviceNo)
-      //   // 与device有绑定关系的下拉框选中的值都要清空
-      //   this.ruleForm.Tester = []
-      //   this.ruleForm.TestStation = []
-      //   this.ruleForm.Material = ""
-      //   this.ruleForm.MaterialVendor = ""
-      //   this.ruleForm.Process = []
-
-      //   //获取Tester下拉框数据
-      //   let res1 = await GetTesterInfo({ DeviceNo: val })
-      //   this.testerOptions = res1
-      //   res1.forEach((item) => {
-      //     if (item.selected) {
-      //       this.ruleForm.Tester = item.id
-      //     }
-      //   })
-
-      //   // 获取Test station下拉框数据
-      //   if (this.ruleForm.Tester) {
-      //     let res2 = await GetTestStationInfo({ DeviceNo: val, Tester: this.ruleForm.Tester })
-      //     this.testStationOptions = res2
-      //     res2.forEach((item) => {
-      //       if (item.selected) {
-      //         this.ruleForm.TestStation = item.id
-      //       }
-      //     })
-      //   }
-
-      //   //获取Material下拉框数据
-      //   let res3 = await GetMaterialInfo({ DeviceNo: val })
-      //   this.materialOptions = res3
-      //   res3.forEach((item) => {
-      //     if (item.selected) {
-      //       this.ruleForm.Material = item.id
-      //     }
-      //   })
-
-      //   //获取Material Vendor下拉框数据，material有值的时候才能获取数据
-      //   if (this.ruleForm.Material) {
-      //     let res4 = await GetMaterialInfo({ DeviceNo: val, Material: this.ruleForm.Material })
-      //     this.vendorOptions = res4
-      //     res4.forEach((item) => {
-      //       if (item.selected) {
-      //         this.ruleForm.MaterialVendor = item.id
-      //       }
-      //     })
-      //   }
-
-      //   //获取Process下拉框数据
-      //   let res5 = await GetProcessInfo({ DeviceNo: val })
-      //   this.processOptions = res5
-      //   res5.forEach((item) => {
-      //     if (item.selected) {
-      //       this.ruleForm.Process = item.id
-      //     }
-      //   })
     },
     //监听Tester下拉框数据变化
     async handlerTesterChange(val) {
@@ -437,6 +383,26 @@ export default {
         }
       }
     },
+
+    // 页面加载默认参数访问接口获取数据
+    async getDefaultData(formName) {
+      this.isLoading = true
+      let res = await getTableDate({
+        DeviceNo: "APL007",
+        LotType: "MP",
+        Tester: ["Zebra"],
+        TestStation: ["ALL"],
+        DateCode: this.$moment().format("YYYY-MM-DD"),
+        MaterialVendor: "ALL",
+        Process: ["VCM Attach"],
+        Material: "ALL"
+      })
+      this.tableData = []
+      this.tableHeader = res.columns
+      this.tableData = handlerTableDate(res.rows)
+      this.isLoading = false
+    },
+
     // 查询
     async submitForm(formName) {
       this.isLoading = true
@@ -445,32 +411,16 @@ export default {
       this.tableHeader = res.columns
       this.tableData = handlerTableDate(res.rows)
       this.isLoading = false
-
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //     console.log("ruleForm", this.ruleForm)
-      //   } else {
-      //     console.log("error submit!!")
-      //     return false
-      //   }
-      // })
     },
     // 重置
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
     headerCellStyle({ row, column, columnIndex }) {
-      // if (column.label.includes("数值")) {
-      // console.log(column)
       return {
         background: "#b4c6e7",
         color: "#4c4c4c"
       }
-      // } else
-      //   return {
-      //     background: "#f8cbad",
-      //     color: "#4c4c4c"
-      //   }
     },
     Show() {
       this.isShow = !this.isShow
