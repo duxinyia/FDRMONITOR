@@ -378,7 +378,7 @@ let showArrConfig = {
       all: [
         {
           title: "Defect BY AAMC",
-          imgUrl: require("@/assets/images/cma/output.png"),
+          imgUrl: require("@/assets/images/cma/report1.png"),
           belong: "报表/所有",
           isShow: false,
           to: "cmamainreport",
@@ -391,7 +391,7 @@ let showArrConfig = {
         },
         {
           title: "Yield Loss Track(VCM)",
-          imgUrl: require("@/assets/images/cma/output.png"),
+          imgUrl: require("@/assets/images/cma/report2.png"),
           belong: "报表/所有",
           isShow: false,
           to: "cmamainreport2",
@@ -404,7 +404,11 @@ let showArrConfig = {
         },
         {
           title: "SFR/FDPC Report BY Tooling",
+<<<<<<< HEAD
           imgUrl: require("@/assets/images/cma/output.png"),
+=======
+          imgUrl: require("@/assets/images/cma/report3.png"),
+>>>>>>> c740abc40a9eb78aabab460f1d02d79281c3c67a
           belong: "报表/所有",
           isShow: false,
           to: "cmamainreport3",
@@ -417,7 +421,7 @@ let showArrConfig = {
         },
         {
           title: "SFR/FPDC by LensLot",
-          imgUrl: require("@/assets/images/cma/output.png"),
+          imgUrl: require("@/assets/images/cma/report4.png"),
           belong: "报表/所有",
           isShow: false,
           to: "cmamainreport4",

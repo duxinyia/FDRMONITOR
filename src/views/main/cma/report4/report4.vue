@@ -26,13 +26,14 @@
         >
         </el-date-picker>
       </div>
-      <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
+      <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
 
     <el-table
       :data="tableData"
       :cell-style="cellStyle"
       :header-cell-style="{ background: 'transparent', color: '#fff' }"
+      height="calc(100% - 75px)"
     >
       <el-table-column
         v-for="(item, index) in tableTitle"
@@ -59,10 +60,8 @@ export default {
     return {
       //查詢參數
       date: {
-        startDate: "",
-        startTime: "",
-        EndDate: "",
-        EndTime: ""
+        startTime: this.$moment().subtract(1, "days").format("YYYY-MM-DD HH:mm:ss"),
+        EndTime: this.$moment().format("YYYY-MM-DD HH:mm:ss")
       },
       selectData: [
         { name: "DefectType", value: "" },
@@ -81,6 +80,7 @@ export default {
   },
   created() {
     this.getSelectInfo()
+    this.getDefaultData()
     this.$store.commit("fullLoading/SET_TITLE", "SFR/FPDC by LensLot")
   },
   methods: {
@@ -101,6 +101,18 @@ export default {
         }
       })
     },
+    //页面加载默认参数访问接口获取数据
+    async getDefaultData() {
+      let res = await GetTbaleInfo({
+        DefectType: "SFR",
+        Device: "APL007",
+        Starttime: this.date.startTime,
+        Endtime: this.date.EndTime
+      })
+      this.tableTitle = res.columns
+      this.tableData = handlerTableDate(res.rows)
+    },
+
     async getSearchData() {
       let res = await GetTbaleInfo({
         DefectType: this.selectData[0].value,

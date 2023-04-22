@@ -10,16 +10,11 @@
       </div>
       <div class="dateSelect">
         <span>datetime:</span>
-        <el-date-picker
-          v-model="datetime"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          type="datetime"
-          placeholder="選擇日期時間"
-        >
+        <el-date-picker type="datetime" value-format="yyyy-MM-dd HH:mm:ss" v-model="datetime" placeholder="請選擇時間">
         </el-date-picker>
       </div>
 
-      <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
+      <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
     <el-table :data="tableData1" :cell-style="cellStyle1" :header-cell-style="headerCellStyle1" height="250px">
       <el-table-column
@@ -40,7 +35,7 @@
       :cell-style="cellStyle2"
       :header-cell-style="{ background: 'transparent', color: '#fff' }"
       class="table2"
-      height="600px"
+      height="calc(100% - 345px)"
     >
       <el-table-column
         v-for="(item, index) in tableTitle2"
@@ -75,7 +70,7 @@ export default {
         { name: "ToolingType", value: "" },
         { name: "Suppy", value: "" }
       ],
-      datetime: "",
+      datetime: this.$moment().format("YYYY-MM-DD HH:mm:ss"),
       // 两个下拉框的选项
       options: {
         DefectType: [],
@@ -93,7 +88,9 @@ export default {
   },
   created() {
     this.getSelectInfo()
-    this.$store.commit("fullLoading/SET_TITLE", "SFR不良率 by AA MC")
+    this.getDefaultData()
+    console.log(`${this.selectData[0].value} BY ${this.selectData[2].value} Tooling`)
+    this.$store.commit("fullLoading/SET_TITLE", "SFR BY Lens Tooling")
   },
   methods: {
     async getSelectInfo() {
@@ -114,11 +111,11 @@ export default {
       })
       let res3 = await ToolingType()
       this.options.ToolingType = res3
-      console.log("res", this.options.ToolingType)
+      // console.log("res", this.options.ToolingType)
       res3.forEach((item) => {
         if (item.selected) {
           this.selectData[2].value = item.id
-          console.log(this.selectData[2])
+          // console.log(this.selectData[2])
         }
       })
       let res4 = await Supply()
@@ -128,23 +125,42 @@ export default {
           this.selectData[3].value = item.id
         }
       })
+      console.log("全部完了")
     },
+
+    //页面加载默认参数访问接口获取数据
+    async getDefaultData() {
+      this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[2].value} Tooling`)
+      let res1 = await GetTbale1Info({
+        DefectType: "SFR",
+        DeviceSeriers: "MW",
+        ToolingType: "Lens",
+        Supply: "",
+        datetime: this.datetime
+      })
+      this.tableTitle1 = res1.columns
+      this.tableData1 = []
+      this.tableData1 = handlerTableDate(res1.rows)
+      // console.log(this.tableData1)
+      let res2 = await GetTbale2Info({
+        DefectType: "SFR",
+        DeviceSeriers: "MW",
+        ToolingType: "Lens",
+        Supply: "",
+        datetime: this.datetime
+      })
+      this.tableTitle2 = res2.columns
+      this.tableData2 = handlerTableDate(res2.rows)
+      this.caculateColSpan()
+    },
+
     async getSearchData() {
-      // this.tableTitle1 = [
-      //   { capital: "MW", id: "a" },
-      //   { capital: "MW", id: "a" },
-      //   { capital: "MW", id: "a" },
-      //   { capital: "MW", id: "a" },
-      //   { capital: "ABC", id: "a" },
-      //   { capital: "E3", id: "a" },
-      //   { capital: "EE", id: "a" },
-      //   { capital: "EE", id: "a" }
-      // ]
+      this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[2].value} Tooling`)
       let res1 = await GetTbale1Info({
         DefectType: this.selectData[0].value,
         DeviceSeriers: this.selectData[1].value,
         ToolingType: this.selectData[2].value,
-        Supply: this.selectData[2].value,
+        Supply: this.selectData[3].value,
         datetime: this.datetime
       })
       this.tableTitle1 = res1.columns
@@ -155,7 +171,7 @@ export default {
         DefectType: this.selectData[0].value,
         DeviceSeriers: this.selectData[1].value,
         ToolingType: this.selectData[2].value,
-        Supply: this.selectData[2].value,
+        Supply: this.selectData[3].value,
         datetime: this.datetime
       })
       this.tableTitle2 = res2.columns
@@ -215,69 +231,26 @@ export default {
         obj["colSpan"] = 0
         this.testData.push(obj)
       })
-      console.log("tableTitle1的值", this.testData.length, this.tableTitle1)
       let num = 1
       for (let i = 0; i < this.testData.length - 1; i++) {
         if (this.tableTitle1[i].capital === this.tableTitle1[i + 1].capital) {
           num += 1
-          console.log("一样的", "第几个", i, num)
-          // this.testData[i].colSpan++
         } else {
-          // this.testData[i].colSpan = num
           this.$set(this.testData, i, { ...this.testData[i], colSpan: num })
-          console.log("不一样", "第几个", i, num, this.testData[i].colSpan)
           num = 1
         }
         if (i === this.testData.length - 2) {
-          console.log("最后一个了", "第几个", i, num)
           this.$set(this.testData, i + 1, { ...this.testData[i + 1], colSpan: num })
         }
-        //  else {
-        //   // 跳过已经重复的数据
-        //   i += this.testData[i].colSpan - 1
-        //   break
-        // }
-        // 循环到最后，停止循环
-        // if (j === this.testData.length - 1) {
-        //   i = j
-        // }
       }
-      // this.testData.forEach((item) => {
-      //   console.log("处理后的值", item.colSpan)
-      // })
-      console.log("testData[0].colSpan", this.testData[0].colSpan)
-      // for (let i = 0; i < this.testData.length - 1; i++) {
-      //   for (let j = i + 1; j < this.testData.length; j++) {
-      //     if (this.tableTitle1[i].capital === this.tableTitle1[j].capital) {
-      //       this.testData[i].colSpan++
-      //       this.testData[j].colSpan = 0
-      //       console.log("打印·一下·", this.testData)
-      //     } else {
-      //       // 跳过已经重复的数据
-      //       i += this.testData[i].colSpan - 1
-      //       break
-      //     }
-      //     // 循环到最后，停止循环
-      //     if (j === this.testData.length - 1) {
-      //       i = j
-      //     }
-      //   }
-      // }
-      // console.log(this.testData)
     },
     /**
      * 表头合并控制
      */
     headerCellStyle1({ row, column, rowIndex, columnIndex }) {
       if (this.testData[columnIndex]) {
-        // console.log("columnIndex", columnIndex, this.testData[0])
-        // var msg = eval("(" + this.tableTitle1[columnIndex] + ")")
-        // console.log("试试", msg, msg["colSpan"])
-        // console.log("column.id", this.testData[columnIndex].colSpan)
         this.$nextTick(() => {
-          // console.log("columnIndex", columnIndex, this.testData[columnIndex])
           if (document.getElementsByClassName(column.id).length !== 0) {
-            // console.log("this.tableTitle1", this.tableTitle1)
             document.getElementsByClassName(column.id)[0].setAttribute("colSpan", this.testData[columnIndex].colSpan)
           }
         })
@@ -287,36 +260,6 @@ export default {
         } else return { background: "transparent", color: "#fff" }
       }
     }
-
-    // headerCellStyle1({ row, column, rowIndex, columnIndex }) {
-    //   // if (columnIndex < 22 && row[columnIndex + 1].label == row[columnIndex].label) {
-    //   //   this.num += 1
-    //   //   console.log("满足条件", this.num)
-    //   //   return {
-    //   //     background: "transparent",
-    //   //     color: "#fff"
-    //   //   }
-    //   // } else {
-    //   //   // this.num = 0
-    //   //   return {
-    //   //     background: "transparent",
-    //   //     color: "red"
-    //   //   }
-    //   // }
-    //   // row[0].colSpan = 4 //第3个表头占4格
-    //   // row[5].colSpan = 8
-    //   // row[13].colSpan = 8
-    //   // row[21].colSpan = 2
-    //   // if ([1, 2, 3].includes(columnIndex)) {
-    //   //   //隐藏表头
-    //   //   row[columnIndex].colSpan = 0
-    //   //   return "display: none"
-    //   // }
-    //   return {
-    //     background: "transparent",
-    //     color: "#fff"
-    //   }
-    // }
   }
 }
 </script>
