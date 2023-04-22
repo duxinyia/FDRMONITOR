@@ -129,14 +129,15 @@
       :data="tableData"
       border
       style="width: 100%; margin-top: 20px"
+      :height="isShow ? '690px' : '900px'"
       :header-cell-style="headerCellStyle"
       class="table"
-      :height="isShow ? '690px' : '900px'"
       v-loading="isLoading"
       element-loading-spinner="el-icon-loading"
       element-loading-text="加载中..."
       element-loading-background="rgba(0, 0, 0, 1)"
     >
+      <!-- :height="isShow ? '690px' : '900px'" -->
       <el-table-column
         v-for="(item, index) in tableHeader"
         :key="index"
@@ -192,7 +193,6 @@ import {
   getTableDate
 } from "@/api/cma/report2"
 import { handlerTableDate } from "@/utils/handlerTableData"
-
 export default {
   name: "report1",
   props: {},
@@ -492,7 +492,6 @@ export default {
     border: none;
   }
 }
-
 ::-webkit-scrollbar {
   /* display: block !important; */
   width: 20px;
