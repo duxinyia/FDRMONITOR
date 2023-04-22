@@ -409,8 +409,10 @@ export default {
     async submitForm(formName) {
       this.tableHeader = []
       this.isLoading = true
-      let res = await getTableDate(this.ruleForm)
+      this.tableHeader = []
       this.tableData = []
+      let res = await getTableDate(this.ruleForm)
+
       this.tableHeader = res.columns
       this.tableData = handlerTableDate(res.rows)
       this.isLoading = false

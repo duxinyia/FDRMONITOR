@@ -16,7 +16,7 @@
 
       <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
-    <el-table :data="tableData1" :cell-style="cellStyle1" :header-cell-style="headerCellStyle1" height="250px">
+    <el-table :data="tableData1" :cell-style="cellStyle1" :header-cell-style="headerCellStyle1">
       <el-table-column
         v-for="(item, index) in tableTitle1"
         :key="index"
@@ -68,7 +68,7 @@ export default {
         { name: "DefectType", value: "" },
         { name: "DeviceSeries", value: "" },
         { name: "ToolingType", value: "" },
-        { name: "Suppy", value: "" }
+        { name: "Supplier", value: "" }
       ],
       datetime: this.$moment().format("YYYY-MM-DD HH:mm:ss"),
       // 两个下拉框的选项
