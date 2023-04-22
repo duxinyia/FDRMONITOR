@@ -403,7 +403,7 @@ let showArrConfig = {
           }
         },
         {
-          title: "cma的第三个报表",
+          title: "SFR/FDPC Report BY Tooling",
           imgUrl: require("@/assets/images/cma/output.png"),
           belong: "报表/所有",
           isShow: false,
