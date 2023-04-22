@@ -1,15 +1,30 @@
 <template>
   <div class="page-mian">
     <div class="queryArea">
+      <div class="system-select" v-for="item in selectData" :key="item.name">
+        <span>{{ item.name }}:</span>
+        <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
+          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
+          </el-option>
+        </el-select>
+      </div>
       <div class="datePicker">
-        <span>Start Date:</span>
-        <el-date-picker v-model="date.startDate" type="date" placeholder="請選擇日期"> </el-date-picker>
         <span>Start Time:</span>
-        <el-time-picker v-model="date.startTime" placeholder="請選擇時間"> </el-time-picker>
-        <span>End Date:</span>
-        <el-date-picker v-model="date.EndDate" type="date" placeholder="請選擇日期"> </el-date-picker>
+        <el-date-picker
+          type="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          v-model="date.startTime"
+          placeholder="請選擇時間"
+        >
+        </el-date-picker>
         <span>End Time:</span>
-        <el-time-picker v-model="date.EndTime" placeholder="請選擇時間"> </el-time-picker>
+        <el-date-picker
+          type="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          v-model="date.EndTime"
+          placeholder="請選擇時間"
+        >
+        </el-date-picker>
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
     </div>
@@ -22,8 +37,8 @@
       <el-table-column
         v-for="(item, index) in tableTitle"
         :key="index"
-        :prop="item.prop"
-        :label="item.lable"
+        :prop="item.id"
+        :label="item.capital"
         align="center"
         min-width="50px"
       >
@@ -33,6 +48,9 @@
 </template>
 
 <script>
+import { GetDefectType, GetDevice, GetTbaleInfo } from "@/api/cma/report4"
+import { handlerTableDate } from "@/utils/handlerTableData"
+
 export default {
   name: "report1",
   props: {},
@@ -46,99 +64,52 @@ export default {
         EndDate: "",
         EndTime: ""
       },
-
-      // 表头名称
-      tableTitle: [
-        { lable: "Project", prop: "1" },
-        { lable: "Machine", prop: "2" },
-        { lable: "Sensor Lot", prop: "3" },
-        { lable: "Lens Lot", prop: "4" },
-        { lable: "Input", prop: "5" },
-        { lable: "Fail Rate", prop: "a" }
+      selectData: [
+        { name: "DefectType", value: "" },
+        { name: "Device", value: "" }
       ],
+      // 两个下拉框的选项
+      options: {
+        DefectType: [],
+        Device: []
+      },
+      // 表头名称
+      tableTitle: [],
       // 表格数据
-      tableData: [
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "K3063Y003-01",
-          4: "MWC121826E123C",
-          5: "899",
-          a: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "K3063Y003-01",
-          4: "MWC121826E123C",
-          5: "899",
-          a: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "K3063Y003-01",
-          4: "MWC121826E123C",
-          5: "899",
-          a: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "K3063Y003-01",
-          4: "MWC121826E123C",
-          5: "899",
-          a: "0.43%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "K3063Y003-01",
-          4: "MWC121826E123C",
-          5: "899",
-          a: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "K3063Y003-01",
-          4: "MWC121826E123C",
-          5: "899",
-          a: "0.68%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "K3063Y003-01",
-          4: "MWC121826E123C",
-          5: "899",
-          a: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "K3063Y003-01",
-          4: "MWC121826E123C",
-          5: "899",
-          a: "0.00%"
-        },
-        {
-          1: "MW-E",
-          2: "AA1301",
-          3: "K3063Y003-01",
-          4: "MWC121826E123C",
-          5: "899",
-          a: "0.00%"
-        }
-      ]
+      tableData: []
     }
   },
   created() {
+    this.getSelectInfo()
     this.$store.commit("fullLoading/SET_TITLE", "SFR/FPDC by LensLot")
   },
   methods: {
-    getSearchData() {
-      console.log(111)
+    async getSelectInfo() {
+      let res1 = await GetDefectType()
+      // console.log("res1", res1)
+      this.options.DefectType = res1
+      res1.forEach((item) => {
+        if (item.selected) {
+          this.selectData[0].value = item.id
+        }
+      })
+      let res2 = await GetDevice()
+      this.options.Device = res2
+      res2.forEach((item) => {
+        if (item.selected) {
+          this.selectData[1].value = item.id
+        }
+      })
+    },
+    async getSearchData() {
+      let res = await GetTbaleInfo({
+        DefectType: this.selectData[0].value,
+        Device: this.selectData[1].value,
+        Starttime: this.date.startTime,
+        Endtime: this.date.EndTime
+      })
+      this.tableTitle = res.columns
+      this.tableData = handlerTableDate(res.rows)
     },
     cellStyle({ row, column, columnIndex }) {
       if (columnIndex == 5) {
@@ -200,6 +171,11 @@ export default {
   display: flex;
   .btn {
     margin-left: 20px;
+  }
+}
+.system-select {
+  span {
+    padding: 0 10px 0 25px;
   }
 }
 .datePicker {

@@ -79,7 +79,10 @@ export default {
             type: "pie",
             radius: ["90%", "45%"],
             center: ["45%", "50%"],
-            hoverAnimation: true,
+            emphasis: {
+              scale: false
+            },
+            // hoverAnimation: true,
             z: 10,
             label: {
               show: false

@@ -42,9 +42,9 @@ export default {
               show: false
             },
             axisLabel: {
-              textStyle: {
-                color: "#fff"
-              },
+              // textStyle: {
+              color: "#fff",
+              // },
               margin: 30
             },
             interval: 1
@@ -112,12 +112,12 @@ export default {
             symbolOffset: [0, 18],
             z: 10,
             itemStyle: {
-              normal: {
-                color: "transparent",
-                borderColor: "rgba(91,252,244,0.5)",
-                borderType: "solid",
-                borderWidth: 5
-              }
+              // normal: {
+              color: "transparent",
+              borderColor: "rgba(91,252,244,0.5)",
+              borderType: "solid",
+              borderWidth: 5
+              // }
             },
             data: yData
           },
@@ -128,19 +128,19 @@ export default {
             barGap: "10%", // Make series be overlap
             barCateGoryGap: "10%",
             itemStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 0.7, [
-                  {
-                    offset: 0,
-                    color: "rgba(210,210,210,0.3)"
-                  },
-                  {
-                    offset: 1,
-                    color: "#5BFCF4"
-                  }
-                ]),
-                opacity: 0.8
-              }
+              // normal: {
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 0.7, [
+                {
+                  offset: 0,
+                  color: "rgba(210,210,210,0.3)"
+                },
+                {
+                  offset: 1,
+                  color: "#5BFCF4"
+                }
+              ]),
+              opacity: 0.8
+              // }
             },
             data: yData
           }

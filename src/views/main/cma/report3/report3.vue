@@ -4,13 +4,18 @@
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
         <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
-          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.label" :value="item.value">
+          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
           </el-option>
         </el-select>
       </div>
       <div class="dateSelect">
-        <span>date:</span>
-        <el-date-picker v-model="DateCode" value-format="yyyy-MM-dd" type="date" placeholder="選擇日期時間">
+        <span>datetime:</span>
+        <el-date-picker
+          v-model="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          type="datetime"
+          placeholder="選擇日期時間"
+        >
         </el-date-picker>
       </div>
 
@@ -51,10 +56,10 @@
 </template>
 
 <script>
-import { GetTbale1Info, GetTbale2Info } from "@/api/cma/report3"
+import { GetDefectType, GetDeviceSeriers, ToolingType, Supply, GetTbale1Info, GetTbale2Info } from "@/api/cma/report3"
 import { handlerTableDate } from "@/utils/handlerTableData"
 export default {
-  name: "report1",
+  name: "report3",
   props: {},
   components: {},
   data() {
@@ -67,77 +72,16 @@ export default {
       selectData: [
         { name: "DefectType", value: "" },
         { name: "DeviceSeries", value: "" },
+        { name: "ToolingType", value: "" },
         { name: "Suppy", value: "" }
       ],
-      DateCode: "",
+      datetime: "",
       // 两个下拉框的选项
       options: {
-        DefectType: [
-          {
-            value: "选项1",
-            label: "MW-X"
-          },
-          {
-            value: "选项2",
-            label: "MW-X2"
-          },
-          {
-            value: "选项3",
-            label: "MW-X3"
-          },
-          {
-            value: "选项4",
-            label: "MW-X4"
-          },
-          {
-            value: "选项5",
-            label: "MW-X5"
-          }
-        ],
-        DeviceSeries: [
-          {
-            value: "选项1",
-            label: "MW-X"
-          },
-          {
-            value: "选项2",
-            label: "MW-X2"
-          },
-          {
-            value: "选项3",
-            label: "MW-X3"
-          },
-          {
-            value: "选项4",
-            label: "MW-X4"
-          },
-          {
-            value: "选项5",
-            label: "MW-X5"
-          }
-        ],
-        Suppy: [
-          {
-            value: "选项1",
-            label: "Genius"
-          },
-          {
-            value: "选项2",
-            label: "Genius2"
-          },
-          {
-            value: "选项3",
-            label: "Genius3"
-          },
-          {
-            value: "选项4",
-            label: "Genius4"
-          },
-          {
-            value: "选项5",
-            label: "Genius5"
-          }
-        ]
+        DefectType: [],
+        DeviceSeries: [],
+        ToolingType: [],
+        Suppy: []
       },
       date: "256",
       // 表格数据
@@ -148,9 +92,43 @@ export default {
     }
   },
   created() {
+    this.getSelectInfo()
     this.$store.commit("fullLoading/SET_TITLE", "SFR不良率 by AA MC")
   },
   methods: {
+    async getSelectInfo() {
+      let res1 = await GetDefectType()
+      // console.log("res1", res1)
+      this.options.DefectType = res1
+      res1.forEach((item) => {
+        if (item.selected) {
+          this.selectData[0].value = item.id
+        }
+      })
+      let res2 = await GetDeviceSeriers()
+      this.options.DeviceSeries = res2
+      res2.forEach((item) => {
+        if (item.selected) {
+          this.selectData[1].value = item.id
+        }
+      })
+      let res3 = await ToolingType()
+      this.options.ToolingType = res3
+      console.log("res", this.options.ToolingType)
+      res3.forEach((item) => {
+        if (item.selected) {
+          this.selectData[2].value = item.id
+          console.log(this.selectData[2])
+        }
+      })
+      let res4 = await Supply()
+      this.options.Suppy = res4
+      res4.forEach((item) => {
+        if (item.selected) {
+          this.selectData[3].value = item.id
+        }
+      })
+    },
     async getSearchData() {
       // this.tableTitle1 = [
       //   { capital: "MW", id: "a" },
@@ -158,32 +136,55 @@ export default {
       //   { capital: "MW", id: "a" },
       //   { capital: "MW", id: "a" },
       //   { capital: "ABC", id: "a" },
-      //   { capital: "EE", id: "a" },
+      //   { capital: "E3", id: "a" },
       //   { capital: "EE", id: "a" },
       //   { capital: "EE", id: "a" }
       // ]
       let res1 = await GetTbale1Info({
-        DefectType: "SFR",
-        DeviceSeriers: "MW",
-        Supply: "",
-        datetime: "2023-04-17"
+        DefectType: this.selectData[0].value,
+        DeviceSeriers: this.selectData[1].value,
+        ToolingType: this.selectData[2].value,
+        Supply: this.selectData[2].value,
+        datetime: this.datetime
       })
       this.tableTitle1 = res1.columns
       this.tableData1 = []
       this.tableData1 = handlerTableDate(res1.rows)
       // console.log(this.tableData1)
       let res2 = await GetTbale2Info({
-        DefectType: "SFR",
-        DeviceSeriers: "MW",
-        Supply: "",
-        datetime: "2023-04-17"
+        DefectType: this.selectData[0].value,
+        DeviceSeriers: this.selectData[1].value,
+        ToolingType: this.selectData[2].value,
+        Supply: this.selectData[2].value,
+        datetime: this.datetime
       })
       this.tableTitle2 = res2.columns
       this.tableData2 = handlerTableDate(res2.rows)
-      // this.caculateColSpan()
+      this.caculateColSpan()
     },
-    cellStyle1({ row, column, columnIndex }) {},
-    cellStyle2({ row, column, columnIndex }) {
+    cellStyle1({ row, column, columnIndex, rowIndex }) {
+      if (column.label == "Spec.") {
+        if (rowIndex == 0) {
+          return {
+            background: "#ff80ff",
+            color: "#000"
+          }
+        }
+        if (rowIndex == 1) {
+          return {
+            background: "#ffff00",
+            color: "#000"
+          }
+        }
+        if (rowIndex == 2) {
+          return {
+            background: "#9acd32",
+            color: "#000"
+          }
+        }
+      }
+    },
+    cellStyle2({ row, column, columnIndex, rowIndex }) {
       if (String(row[column.property]).includes("%")) {
         if (parseFloat(row[column.property]) < 0.1) {
           return {
@@ -214,108 +215,108 @@ export default {
         obj["colSpan"] = 0
         this.testData.push(obj)
       })
-      // console.log("tableTitle1的值", this.testData.length, this.tableTitle1)
-      // let num = 1
-      // for (let i = 0; i < this.testData.length - 1; i++) {
-      //   if (this.tableTitle1[i].capital === this.tableTitle1[i + 1].capital) {
-      //     num += 1
-      //     console.log("一样的", i, num)
-      //     // this.testData[i].colSpan++
-      //   } else {
-      //     // this.testData[i].colSpan = num
-      //     this.$set(this.testData, i, { ...this.testData[i], colSpan: num })
-      //     console.log("不一样", num, i, this.testData[i].colSpan)
-      //     num = 1
-      //   }
-      //   if (i === this.testData.length - 2) {
-      //     console.log("最后一个了", num)
-      //     this.$set(this.testData, i, { ...this.testData[i], colSpan: num })
-      //   }
-      //   //  else {
-      //   //   // 跳过已经重复的数据
-      //   //   i += this.testData[i].colSpan - 1
-      //   //   break
-      //   // }
-      //   // 循环到最后，停止循环
-      //   // if (j === this.testData.length - 1) {
-      //   //   i = j
-      //   // }
-      // }
-      // console.log("处理后的值", this.testData)
-
-      for (let i = 0; i < this.tableTitle1.length - 1; i++) {
-        for (let j = i + 1; j < this.tableTitle1.length; j++) {
-          if (this.tableTitle1[i].capital === this.tableTitle1[j].capital) {
-            this.tableTitle1[i].colSpan++
-            this.tableTitle1[j].colSpan = 0
-          } else {
-            // 跳过已经重复的数据
-            i += this.tableTitle1[i].colSpan - 1
-            break
-          }
-          // 循环到最后，停止循环
-          if (j === this.tableTitle1.length - 1) {
-            i = j
-          }
+      console.log("tableTitle1的值", this.testData.length, this.tableTitle1)
+      let num = 1
+      for (let i = 0; i < this.testData.length - 1; i++) {
+        if (this.tableTitle1[i].capital === this.tableTitle1[i + 1].capital) {
+          num += 1
+          console.log("一样的", "第几个", i, num)
+          // this.testData[i].colSpan++
+        } else {
+          // this.testData[i].colSpan = num
+          this.$set(this.testData, i, { ...this.testData[i], colSpan: num })
+          console.log("不一样", "第几个", i, num, this.testData[i].colSpan)
+          num = 1
         }
+        if (i === this.testData.length - 2) {
+          console.log("最后一个了", "第几个", i, num)
+          this.$set(this.testData, i + 1, { ...this.testData[i + 1], colSpan: num })
+        }
+        //  else {
+        //   // 跳过已经重复的数据
+        //   i += this.testData[i].colSpan - 1
+        //   break
+        // }
+        // 循环到最后，停止循环
+        // if (j === this.testData.length - 1) {
+        //   i = j
+        // }
       }
+      // this.testData.forEach((item) => {
+      //   console.log("处理后的值", item.colSpan)
+      // })
+      console.log("testData[0].colSpan", this.testData[0].colSpan)
+      // for (let i = 0; i < this.testData.length - 1; i++) {
+      //   for (let j = i + 1; j < this.testData.length; j++) {
+      //     if (this.tableTitle1[i].capital === this.tableTitle1[j].capital) {
+      //       this.testData[i].colSpan++
+      //       this.testData[j].colSpan = 0
+      //       console.log("打印·一下·", this.testData)
+      //     } else {
+      //       // 跳过已经重复的数据
+      //       i += this.testData[i].colSpan - 1
+      //       break
+      //     }
+      //     // 循环到最后，停止循环
+      //     if (j === this.testData.length - 1) {
+      //       i = j
+      //     }
+      //   }
+      // }
+      // console.log(this.testData)
     },
     /**
      * 表头合并控制
      */
-    // headerCellStyle1({ row, column, rowIndex, columnIndex }) {
-    //   if (rowIndex === 0) {
-    //     if (columnIndex > 0) {
-    //       // console.log("column.id", this.tableTitle1[columnIndex])
-    //       this.$nextTick(() => {
-    //         if (document.getElementsByClassName(column.id).length !== 0) {
-    //           console.log("this.tableTitle1", this.tableTitle1)
-    //           document
-    //             .getElementsByClassName(column.id)[0]
-    //             .setAttribute("colSpan", this.tableTitle1[columnIndex].colSpan)
-    //         }
-    //       })
-    //       // 被合并的列隐藏
-    //       if (this.tableTitle1[columnIndex].colSpan === 0) {
-    //         return { display: "none" }
-    //       } else {
-    //         return { background: "transparent", color: "#fff" }
-    //       }
-    //     }
-    //   } else if (rowIndex === 1) {
-    //     return { background: "transparent", color: "red" }
-    //   }
-    // }
-
     headerCellStyle1({ row, column, rowIndex, columnIndex }) {
-      // if (columnIndex < 22 && row[columnIndex + 1].label == row[columnIndex].label) {
-      //   this.num += 1
-      //   console.log("满足条件", this.num)
-      //   return {
-      //     background: "transparent",
-      //     color: "#fff"
-      //   }
-      // } else {
-      //   // this.num = 0
-      //   return {
-      //     background: "transparent",
-      //     color: "red"
-      //   }
-      // }
-      // row[0].colSpan = 4 //第3个表头占4格
-      // row[5].colSpan = 8
-      // row[13].colSpan = 8
-      // row[21].colSpan = 2
-      // if ([1, 2, 3].includes(columnIndex)) {
-      //   //隐藏表头
-      //   row[columnIndex].colSpan = 0
-      //   return "display: none"
-      // }
-      return {
-        background: "transparent",
-        color: "#fff"
+      if (this.testData[columnIndex]) {
+        // console.log("columnIndex", columnIndex, this.testData[0])
+        // var msg = eval("(" + this.tableTitle1[columnIndex] + ")")
+        // console.log("试试", msg, msg["colSpan"])
+        // console.log("column.id", this.testData[columnIndex].colSpan)
+        this.$nextTick(() => {
+          // console.log("columnIndex", columnIndex, this.testData[columnIndex])
+          if (document.getElementsByClassName(column.id).length !== 0) {
+            // console.log("this.tableTitle1", this.tableTitle1)
+            document.getElementsByClassName(column.id)[0].setAttribute("colSpan", this.testData[columnIndex].colSpan)
+          }
+        })
+        // 被合并的列隐藏
+        if (this.testData[columnIndex].colSpan === 0) {
+          return { display: "none" }
+        } else return { background: "transparent", color: "#fff" }
       }
     }
+
+    // headerCellStyle1({ row, column, rowIndex, columnIndex }) {
+    //   // if (columnIndex < 22 && row[columnIndex + 1].label == row[columnIndex].label) {
+    //   //   this.num += 1
+    //   //   console.log("满足条件", this.num)
+    //   //   return {
+    //   //     background: "transparent",
+    //   //     color: "#fff"
+    //   //   }
+    //   // } else {
+    //   //   // this.num = 0
+    //   //   return {
+    //   //     background: "transparent",
+    //   //     color: "red"
+    //   //   }
+    //   // }
+    //   // row[0].colSpan = 4 //第3个表头占4格
+    //   // row[5].colSpan = 8
+    //   // row[13].colSpan = 8
+    //   // row[21].colSpan = 2
+    //   // if ([1, 2, 3].includes(columnIndex)) {
+    //   //   //隐藏表头
+    //   //   row[columnIndex].colSpan = 0
+    //   //   return "display: none"
+    //   // }
+    //   return {
+    //     background: "transparent",
+    //     color: "#fff"
+    //   }
+    // }
   }
 }
 </script>
