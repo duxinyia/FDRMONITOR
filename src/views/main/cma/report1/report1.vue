@@ -14,22 +14,22 @@
           </el-option>
         </el-select>
 
-        <!-- <el-date-picker
-          v-if="item.type == 'date'"
+        <el-date-picker
+          v-if="item.type == 'datetime'"
           :clearable="false"
           v-model="item.value"
-          value-format="yyyy-MM-dd"
-          type="date"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          type="datetime"
           placeholder="選擇日期時間"
         >
-        </el-date-picker> -->
+        </el-date-picker>
       </div>
-      <el-button class="btn" type="primary" round @click="getSearchData">Search</el-button>
+      <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
     <!-- :row-style="{ height: '30px' }" -->
     <el-table
       :data="tabData"
-      :header-cell-style="{ background: '#f8cbad', color: '#000' }"
+      :header-cell-style="{ background: '#b4c6e7', color: '#000' }"
       :cell-style="cellStyle"
       height="calc(100% - 74.9px)"
     >
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-// import moment from "moment"
+import moment from "moment"
 // 导入点击搜索数据
 import { GetReport1Search, GetDefectTypeInfo, GetDeviceSeriersInfo } from "@/api/cma/report1"
 export default {
@@ -81,8 +81,8 @@ export default {
       // 下拉框值
       selectData: [
         { name: "DefectType", value: "", type: "select" },
-        { name: "DeviceSeriers", value: "", type: "select" }
-        // { name: "datetime", value: "", type: "date" }
+        { name: "DeviceSeriers", value: "", type: "select" },
+        { name: "datetime", value: "", type: "datetime" }
       ],
       // 两个下拉框的选项
       options: {
@@ -124,7 +124,7 @@ export default {
     async getselectData() {
       let inputValue = this.selectData
       let res = await GetDefectTypeInfo()
-      console.log(res)
+      // console.log(res)
       this.options["DefectType"] = res
       res.forEach((item) => {
         if (item.selected) {
@@ -138,7 +138,8 @@ export default {
           inputValue[1].value = item.value
         }
       })
-      // inputValue[2].value = moment().format("YYYY-MM-DD")
+      var curDate = new Date()
+      inputValue[2].value = moment().format("YYYY-MM-DD HH:mm:ss")
       this.getData(inputValue)
     },
 
@@ -153,9 +154,9 @@ export default {
     async getData(inputD) {
       let type = inputD[0].value
       let seriers = inputD[1].value
-      // let t = inputD[2].value
+      let t = inputD[2].value
       this.tabData = []
-      let res = await GetReport1Search(type, seriers)
+      let res = await GetReport1Search(type, seriers, t)
       this.tableTitle = res.columns
       // console.log("res===", res)
       this.tableData = res.rows
