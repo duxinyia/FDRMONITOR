@@ -3,7 +3,12 @@
     <div class="select-two">
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
-        <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
+        <el-select
+          :popper-append-to-body="false"
+          v-model="item.value"
+          placeholder="請選擇"
+          @change="handlerChange(item.name)"
+        >
           <!-- @change="handlerChange(item.name)" -->
           <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
           </el-option>
@@ -33,6 +38,7 @@
         :label="item.capital"
         align="center"
         min-width="50px"
+        show-overflow-tooltip
       >
         <!-- <el-table-colum>
 
@@ -53,6 +59,7 @@
         :label="item.capital"
         align="center"
         min-width="50px"
+        show-overflow-tooltip
       >
       </el-table-column>
     </el-table>
@@ -136,7 +143,6 @@ export default {
           this.selectData[1].value = item.id
         }
       })
-      // this.handlerChange("DeviceSeries")
       let res2 = await GetDeviceSeriers()
       this.options.DeviceSeries = res2
       res2.forEach((item) => {
@@ -162,20 +168,20 @@ export default {
       })
       // console.log("全部完了")
     },
-    //监听DeviceSeriers变化
-    // async handlerChange(item) {
-    //   if (item == "DeviceSeries") {
-    //     // console.log("调用这个方法")
-    //     let res4 = await Supply({ DeviceSeriers: this.selectData[0].value })
-    //     this.options.Suppy = res4
-    //     console.log("shuj", res4)
-    //     res4.forEach((item) => {
-    //       if (item.selected) {
-    //         this.selectData[3].value = item.id
-    //       }
-    //     })
-    //   }
-    // },
+    // 监听DeviceSeriers变化
+    async handlerChange(item) {
+      // console.log("改变了", item)
+      if (item == "DeviceSeries") {
+        let res4 = await Supply({ DeviceSeriers: this.selectData[0].value })
+        this.options.Suppy = res4
+        // console.log("shuj", res4)
+        res4.forEach((item) => {
+          if (item.selected) {
+            this.selectData[3].value = item.id
+          }
+        })
+      }
+    },
     //页面加载默认参数访问接口获取数据
     async getDefaultData() {
       // this.options.ToolingType.forEach((item) => {
@@ -184,7 +190,7 @@ export default {
       //   }
       // })
       // console.log(this.title)
-      this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[1].value} Tooling`)
+      // this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[1].value} Tooling`)
       let res1 = await GetTbale1Info({
         DefectType: "SFR",
         DeviceSeriers: "MW",
@@ -210,7 +216,7 @@ export default {
 
     async getSearchData() {
       this.isLoading = true
-      this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[2].value} Tooling`)
+      // this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[2].value} Tooling`)
       let res1 = await GetTbale1Info({
         DefectType: this.selectData[1].value,
         DeviceSeriers: this.selectData[0].value,

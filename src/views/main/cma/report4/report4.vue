@@ -42,6 +42,7 @@
         :label="item.capital"
         align="center"
         min-width="50px"
+        show-overflow-tooltip
       >
       </el-table-column>
     </el-table>
