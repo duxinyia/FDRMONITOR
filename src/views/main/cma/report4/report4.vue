@@ -42,6 +42,7 @@
         :label="item.capital"
         align="center"
         min-width="50px"
+        show-overflow-tooltip
       >
       </el-table-column>
     </el-table>
@@ -64,8 +65,8 @@ export default {
         EndTime: this.$moment().format("YYYY-MM-DD HH:mm:ss")
       },
       selectData: [
-        { name: "DefectType", value: "" },
-        { name: "Device", value: "" }
+        { name: "Device", value: "" },
+        { name: "DefectType", value: "" }
       ],
       // 两个下拉框的选项
       options: {
@@ -90,14 +91,14 @@ export default {
       this.options.DefectType = res1
       res1.forEach((item) => {
         if (item.selected) {
-          this.selectData[0].value = item.id
+          this.selectData[1].value = item.id
         }
       })
       let res2 = await GetDevice()
       this.options.Device = res2
       res2.forEach((item) => {
         if (item.selected) {
-          this.selectData[1].value = item.id
+          this.selectData[0].value = item.id
         }
       })
     },
@@ -115,8 +116,8 @@ export default {
 
     async getSearchData() {
       let res = await GetTbaleInfo({
-        DefectType: this.selectData[0].value,
-        Device: this.selectData[1].value,
+        DefectType: this.selectData[1].value,
+        Device: this.selectData[0].value,
         Starttime: this.date.startTime,
         Endtime: this.date.EndTime
       })

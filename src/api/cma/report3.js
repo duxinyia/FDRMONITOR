@@ -9,7 +9,12 @@ export let GetDeviceSeriers = () => $post(`/api/FPDCSFR/Load_DeviceSeriers`)
 //获取ToolingType下拉框数据
 export let ToolingType = () => $post(`/api/FPDCSFR/Load_ToolingType`)
 //获取Supply下拉框数据
-export let Supply = () => $post(`/api/FPDCSFR/Load_Supply`)
+// export let Supply = (param) => $post(`/api/FPDCSFR/Load_Supply`)
+
+export let Supply = (params) => {
+  let { DeviceSeriers } = params
+  return $post(`/api/FPDCSFR/Load_Supply?DeviceSeriers=${DeviceSeriers}`)
+}
 
 //获取第一个表格数据
 export let GetTbale1Info = (params) => {

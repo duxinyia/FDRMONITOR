@@ -3,7 +3,13 @@
     <div class="select-two">
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
-        <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
+        <el-select
+          :popper-append-to-body="false"
+          v-model="item.value"
+          placeholder="請選擇"
+          @change="handlerChange(item.name)"
+        >
+          <!-- @change="handlerChange(item.name)" -->
           <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
           </el-option>
         </el-select>
@@ -16,7 +22,15 @@
 
       <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
-    <el-table :data="tableData1" :cell-style="cellStyle1" :header-cell-style="headerCellStyle1">
+    <el-table
+      :data="tableData1"
+      :cell-style="cellStyle1"
+      :header-cell-style="headerCellStyle1"
+      v-loading="isLoading"
+      element-loading-spinner="el-icon-loading"
+      element-loading-text="加载中..."
+      element-loading-background="rgba(0, 0, 0, 1)"
+    >
       <el-table-column
         v-for="(item, index) in tableTitle1"
         :key="index"
@@ -24,6 +38,7 @@
         :label="item.capital"
         align="center"
         min-width="50px"
+        show-overflow-tooltip
       >
         <!-- <el-table-colum>
 
@@ -44,6 +59,7 @@
         :label="item.capital"
         align="center"
         min-width="50px"
+        show-overflow-tooltip
       >
       </el-table-column>
     </el-table>
@@ -59,14 +75,15 @@ export default {
   components: {},
   data() {
     return {
+      isLoading: false,
       // 表头名称
       tableTitle1: [],
       tableTitle2: [],
 
       // 下拉框值
       selectData: [
-        { name: "DefectType", value: "" },
         { name: "DeviceSeries", value: "" },
+        { name: "DefectType", value: "" },
         { name: "ToolingType", value: "" },
         { name: "Supplier", value: "" }
       ],
@@ -76,21 +93,45 @@ export default {
         DefectType: [],
         DeviceSeries: [],
         ToolingType: [],
-        Suppy: []
+        Supplier: []
       },
       date: "256",
       // 表格数据
       tableData1: [],
       tableData2: [],
       num: 0,
-      testData: []
+      testData: [],
+      title: ""
     }
   },
+
   created() {
     this.getSelectInfo()
     this.getDefaultData()
-    console.log(`${this.selectData[0].value} BY ${this.selectData[2].value} Tooling`)
     this.$store.commit("fullLoading/SET_TITLE", "SFR BY Lens Tooling")
+  },
+  // computed: {
+  //   selectData() {
+  //     return [
+  //       { name: "DeviceSeries", value: "" },
+  //       { name: "DefectType", value: "" },
+  //       { name: "ToolingType", value: "" },
+  //       { name: "Supplier", value: "" }
+  //     ]
+  //   }
+  // },
+  watch: {
+    selectData: {
+      handler(newValue) {
+        if (newValue[1].value && newValue[2].value) {
+          let firstTitle = this.options.DefectType.find((item) => item.id == newValue[1].value)
+          console.log("firstTitle", firstTitle.value)
+          let twoTitle = this.options.ToolingType.find((item) => item.id == newValue[2].value)
+          this.$store.commit("fullLoading/SET_TITLE", `${firstTitle.value} BY ${twoTitle.value} Tooling`)
+        }
+      },
+      deep: true
+    }
   },
   methods: {
     async getSelectInfo() {
@@ -99,14 +140,14 @@ export default {
       this.options.DefectType = res1
       res1.forEach((item) => {
         if (item.selected) {
-          this.selectData[0].value = item.id
+          this.selectData[1].value = item.id
         }
       })
       let res2 = await GetDeviceSeriers()
       this.options.DeviceSeries = res2
       res2.forEach((item) => {
         if (item.selected) {
-          this.selectData[1].value = item.id
+          this.selectData[0].value = item.id
         }
       })
       let res3 = await ToolingType()
@@ -118,24 +159,43 @@ export default {
           // console.log(this.selectData[2])
         }
       })
-      let res4 = await Supply()
-      this.options.Suppy = res4
+      let res4 = await Supply({ DeviceSeriers: this.selectData[0].value })
+      this.options.Supplier = res4
       res4.forEach((item) => {
         if (item.selected) {
           this.selectData[3].value = item.id
         }
       })
-      console.log("全部完了")
+      // console.log("全部完了")
     },
-
+    // 监听DeviceSeriers变化
+    async handlerChange(item) {
+      // console.log("改变了", item)
+      if (item == "DeviceSeries") {
+        let res4 = await Supply({ DeviceSeriers: this.selectData[0].value })
+        this.options.Suppy = res4
+        // console.log("shuj", res4)
+        res4.forEach((item) => {
+          if (item.selected) {
+            this.selectData[3].value = item.id
+          }
+        })
+      }
+    },
     //页面加载默认参数访问接口获取数据
     async getDefaultData() {
-      this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[2].value} Tooling`)
+      // this.options.ToolingType.forEach((item) => {
+      //   if (item.id == this.selectData[2].value) {
+      //     this.title = item.value
+      //   }
+      // })
+      // console.log(this.title)
+      // this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[1].value} Tooling`)
       let res1 = await GetTbale1Info({
         DefectType: "SFR",
         DeviceSeriers: "MW",
         ToolingType: "Lens",
-        Supply: "",
+        Supply: "ALL",
         datetime: this.datetime
       })
       this.tableTitle1 = res1.columns
@@ -146,7 +206,7 @@ export default {
         DefectType: "SFR",
         DeviceSeriers: "MW",
         ToolingType: "Lens",
-        Supply: "",
+        Supply: "ALL",
         datetime: this.datetime
       })
       this.tableTitle2 = res2.columns
@@ -155,10 +215,11 @@ export default {
     },
 
     async getSearchData() {
-      this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[2].value} Tooling`)
+      this.isLoading = true
+      // this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[2].value} Tooling`)
       let res1 = await GetTbale1Info({
-        DefectType: this.selectData[0].value,
-        DeviceSeriers: this.selectData[1].value,
+        DefectType: this.selectData[1].value,
+        DeviceSeriers: this.selectData[0].value,
         ToolingType: this.selectData[2].value,
         Supply: this.selectData[3].value,
         datetime: this.datetime
@@ -168,8 +229,8 @@ export default {
       this.tableData1 = handlerTableDate(res1.rows)
       // console.log(this.tableData1)
       let res2 = await GetTbale2Info({
-        DefectType: this.selectData[0].value,
-        DeviceSeriers: this.selectData[1].value,
+        DefectType: this.selectData[1].value,
+        DeviceSeriers: this.selectData[0].value,
         ToolingType: this.selectData[2].value,
         Supply: this.selectData[3].value,
         datetime: this.datetime
@@ -177,6 +238,7 @@ export default {
       this.tableTitle2 = res2.columns
       this.tableData2 = handlerTableDate(res2.rows)
       this.caculateColSpan()
+      this.isLoading = false
     },
     cellStyle1({ row, column, columnIndex, rowIndex }) {
       if (column.label == "Spec.") {

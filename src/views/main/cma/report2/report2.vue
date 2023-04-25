@@ -28,7 +28,7 @@
             <el-col :span="6">
               <el-form-item label="Lottype:" prop="LotType">
                 <el-select :popper-append-to-body="false" v-model="ruleForm.LotType" placeholder="請選擇">
-                  <el-option v-for="item in lottypeOptions" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="item in lottypeOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -43,7 +43,7 @@
                   placeholder="請選擇"
                   @change="handlerTesterChange"
                 >
-                  <el-option v-for="item in testerOptions" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="item in testerOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -57,12 +57,7 @@
                   collapse-tags
                   placeholder="請選擇"
                 >
-                  <el-option
-                    v-for="item in testStationOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  >
+                  <el-option v-for="item in testStationOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -88,7 +83,7 @@
                   placeholder="請選擇"
                   @change="handlerMaterialChange"
                 >
-                  <el-option v-for="item in materialOptions" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="item in materialOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -96,7 +91,7 @@
             <el-col :span="6">
               <el-form-item label="Material Vendor:" prop="MaterialVendor">
                 <el-select :popper-append-to-body="false" v-model="ruleForm.MaterialVendor" placeholder="請選擇">
-                  <el-option v-for="item in vendorOptions" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="item in vendorOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -110,7 +105,7 @@
                   collapse-tags
                   placeholder="請選擇"
                 >
-                  <el-option v-for="item in processOptions" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="item in processOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>

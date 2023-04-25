@@ -32,6 +32,10 @@
       :header-cell-style="{ background: '#b4c6e7', color: '#000' }"
       :cell-style="cellStyle"
       height="calc(100% - 74.9px)"
+      v-loading="isLoading"
+      element-loading-spinner="el-icon-loading"
+      element-loading-text="加载中..."
+      element-loading-background="rgba(0, 0, 0, 1)"
     >
       <!--height="calc(100% - 20.9px) " 如果没有下拉框换成这个-->
       <el-table-column
@@ -74,6 +78,7 @@ export default {
   components: {},
   data() {
     return {
+      isLoading: false,
       // 标题
       title: "SFR BY AAMC",
       // 表头名称
@@ -119,6 +124,15 @@ export default {
   mounted() {
     this.getselectData()
   },
+
+  watch: {
+    // tabData: {
+    //   immediate: true,
+    //   handler(newData) {
+    //     this.isLoading = !newData[0] ? true : false
+    //   }
+    // }
+  },
   methods: {
     // 获取下拉框数据
     async getselectData() {
@@ -146,12 +160,13 @@ export default {
     // 点击搜索按钮
     getSearchData() {
       let inputValue = this.selectData
-      inputValue[0].value == "FPDC" ? (this.title = "FPDC BY AAMC") : (this.title = "SFR BY AAMC")
+      this.title = inputValue[0].value == "FPDC" ? "FPDC BY AAMC" : "SFR BY AAMC"
       this.$store.commit("fullLoading/SET_TITLE", this.title)
       this.getData(inputValue)
     },
     // 获取数据
     async getData(inputD) {
+      this.isLoading = true
       let type = inputD[0].value
       let seriers = inputD[1].value
       let t = inputD[2].value
@@ -167,6 +182,7 @@ export default {
         })
         this.tabData.push(this.objKey)
       })
+      this.isLoading = false
     },
     // 单元格样式
     cellStyle({ row, column, rowIndex, columnIndex }) {
