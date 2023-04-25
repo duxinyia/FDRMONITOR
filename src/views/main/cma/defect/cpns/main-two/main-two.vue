@@ -15,7 +15,7 @@
       </div>
       <div class="main-row">
         <div class="row-item">DefectName</div>
-        <div class="row-item" v-for="item in 12" :key="item">
+        <div class="row-item" v-for="item in TargetYield" :key="item">
           <span class="qty">Qty</span>
           <span class="rate">Rate</span>
         </div>

@@ -13,6 +13,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: "manage",
@@ -36,6 +37,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 .manage-container {
   width: 100%;

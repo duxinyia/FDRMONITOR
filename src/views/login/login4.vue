@@ -105,7 +105,7 @@ export default {
     },
     // 忘记密码
     forgetPwd() {
-      window.open(this.$globalData.RESET_PWD_URL)
+      window.open(process.env.VUE_APP_CHANGE_PWD)
     },
     keyDown(e) {
       if (e.keyCode == 13) {

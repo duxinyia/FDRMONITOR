@@ -5,9 +5,10 @@
     </keep-alive>
   </div>
 </template>
+
 <script>
 export default {
-  name: "App1",
+  name: "App",
   mounted() {
     this.$store.commit("fullLoading/SET_THEME", "dark")
     document.documentElement.setAttribute("theme", "dark")

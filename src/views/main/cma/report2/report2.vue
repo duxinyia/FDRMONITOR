@@ -196,8 +196,6 @@ import {
 import { handlerTableDate } from "@/utils/handlerTableData"
 export default {
   name: "report2",
-  props: {},
-  components: {},
   data() {
     return {
       isLoading: false,

@@ -26,7 +26,8 @@ service.interceptors.response.use(
     if (res.data.status == false || res.data.Status == false) {
       Message({
         message: res.data.message || res.data.Message || "出错了~",
-        type: "error"
+        type: "error",
+        duration: 1500
       })
       return res.data.OtherValue || ""
     } else {
@@ -37,7 +38,8 @@ service.interceptors.response.use(
     console.log("error", err)
     Message({
       message: `請求超時${Data.TIMEOUT / 1000}s....`,
-      type: "error"
+      type: "error",
+      duration: 1500
     })
     return err
   }

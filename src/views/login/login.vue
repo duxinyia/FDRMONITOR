@@ -123,7 +123,9 @@ export default {
     },
     // 忘记密码
     forgetPwd() {
-      window.open(this.$globalData.RESET_PWD_URL)
+      console.log("hello world")
+      console.log(process.env)
+      window.open(process.env.VUE_APP_CHANGE_PWD)
     },
     keyDown(e) {
       if (e.keyCode == 13) {

@@ -64,8 +64,6 @@ export default {
       fol_process: [],
       eol_process: [],
       totalNum: []
-      // total: 10,
-      // currentPage: 1
     }
   },
   created() {
@@ -78,8 +76,13 @@ export default {
     async getDefectYieldInfo() {
       let res = await GetDefectYieldInfo()
       console.log("top25的数据", res)
+      let tempArr = res.filter((item) => {
+        return !item.device.includes("MW")
+        // return false
+      })
+      console.log("tempArr", tempArr)
       // 1. 取出x轴的数据
-      res.forEach((item) => {
+      tempArr.forEach((item) => {
         //
         let { device, overallYield, targetYield } = item
         // 取出x轴的数据
@@ -128,27 +131,9 @@ export default {
             this.eol_process.push({ rate: item1.rate, qty: item1.failQty })
           }
         })
-        // console.log("total", total)
         this.totalNum.push({ total, rate: (rate / 100).toFixed(2) + "%" })
       })
-      // if (res) {
-      //   this.total = res.length
-      //   this.$store.commit("fullLoading/SET_FULLLOADING", false)
-      //   this.showData = splitArray(res, 3)
-      //   res.forEach((item) => {
-      //     let fails = 0
-      //     let rates = 0
-      //     item.defectNameList.forEach((item) => {
-      //       fails += item.failQty
-      //       rates += parseFloat(item.rate) * 10
-      //     })
-      //     item.defectNameList.push({
-      //       name: "ALL",
-      //       failQty: fails,
-      //       rate: (rates / 10).toFixed(2) + "%"
-      //     })
-      //   })
-      // }
+
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
     }
   }
