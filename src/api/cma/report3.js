@@ -12,8 +12,8 @@ export let ToolingType = () => $post(`/api/FPDCSFR/Load_ToolingType`)
 // export let Supply = (param) => $post(`/api/FPDCSFR/Load_Supply`)
 
 export let Supply = (params) => {
-  let { DeviceSeriers } = params
-  return $post(`/api/FPDCSFR/Load_Supply?DeviceSeriers=${DeviceSeriers}`)
+  let { DeviceSeriers, ToolingType } = params
+  return $post(`/api/FPDCSFR/Load_Supply?DeviceSeriers=${DeviceSeriers}&ToolingType=${ToolingType}`)
 }
 
 //获取第一个表格数据

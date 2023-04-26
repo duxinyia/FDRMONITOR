@@ -159,7 +159,7 @@ export default {
           // console.log(this.selectData[2])
         }
       })
-      let res4 = await Supply({ DeviceSeriers: this.selectData[0].value })
+      let res4 = await Supply({ DeviceSeriers: this.selectData[0].value, ToolingType: this.selectData[2].value })
       this.options.Supplier = res4
       res4.forEach((item) => {
         if (item.selected) {
@@ -171,10 +171,9 @@ export default {
     // 监听DeviceSeriers变化
     async handlerChange(item) {
       // console.log("改变了", item)
-      if (item == "DeviceSeries") {
-        let res4 = await Supply({ DeviceSeriers: this.selectData[0].value })
-        this.options.Suppy = res4
-        // console.log("shuj", res4)
+      if (item == "DeviceSeries" || item == "ToolingType") {
+        let res4 = await Supply({ DeviceSeriers: this.selectData[0].value, ToolingType: this.selectData[2].value })
+        this.options.Supplier = res4
         res4.forEach((item) => {
           if (item.selected) {
             this.selectData[3].value = item.id
