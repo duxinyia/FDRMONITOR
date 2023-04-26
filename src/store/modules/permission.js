@@ -43,7 +43,6 @@ const actions = {
     // 3. 将 ShowArrConfig 根据 路由 改变isShow属性
     let { showArrConfig, asyncRoutes } = mapShowArr(data)
     commit("SET_SHOWARRCONFIG", showArrConfig)
-    console.log("getUserRoutes", asyncRoutes, showArrConfig)
     return asyncRoutes
   }
 }

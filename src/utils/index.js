@@ -99,7 +99,7 @@ export let getTime = (preTime = "") => {
   return `St=${preTime}&Et=${curTime}`
 }
 
-// 获取当前时间和多少小时前的时间
+// 获取当前时间和多少小时前的时间  hours 24 => 昨天的时间到今天的时间    hours -24 => 今天的时间到明天的时间
 export let getTimeAgo = (hours = 12, special = false) => {
   // 当前时间
   let currentTime = moment().format("YYYY-MM-DD HH:mm:ss")
@@ -108,7 +108,7 @@ export let getTimeAgo = (hours = 12, special = false) => {
   if (special) {
     agoTime = moment().subtract(hours, "hours").format("YYYY-MM-DD 06:00:00")
   }
-  return `St=${agoTime}&Et=${currentTime}`
+  return hours > 0 ? `St=${agoTime}&Et=${currentTime}` : `Et=${agoTime}&St=${currentTime}`
 }
 
 // 获取完整的一天时间

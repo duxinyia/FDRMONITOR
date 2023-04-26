@@ -23,7 +23,7 @@
       />
       <!-- 下拉选择框 -->
       <div class="selsect-container">
-        <el-select @change="changeValue" size="mini" v-model="value" placeholder="">
+        <el-select :popper-append-to-body="false" @change="changeValue" size="mini" v-model="value" placeholder="">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
         </el-select>
       </div>
@@ -67,7 +67,6 @@ export default {
       direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
     },
     changeValue(value) {
-      console.log(value)
       this.$refs.carousel.setActiveItem(value)
     },
     changeCarousel(index) {
@@ -92,6 +91,10 @@ export default {
   font-size: 15px;
   height: 25px;
   border: none;
+}
+::v-deep .el-select-dropdown {
+  background-color: #000c1a;
+  columns: #fff;
 }
 ::v-deep .el-carousel__container {
   height: 100%;

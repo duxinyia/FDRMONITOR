@@ -82,7 +82,7 @@ export default {
           {
             data: this.lineData.showData,
             type: "line",
-            symbolSize: 0,
+            symbolSize: 5,
             symbol: "circle",
             lineStyle: {
               color: "#5e84e4"

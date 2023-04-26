@@ -403,7 +403,7 @@ let showArrConfig = {
           }
         },
         {
-          title: "SFR/FDPC Report BY Tooling",
+          title: "SFR/FPDC Report BY Tooling",
           imgUrl: require("@/assets/images/cma/report3.png"),
           belong: "报表/所有",
           isShow: false,
