@@ -193,7 +193,7 @@ export default {
       let res1 = await GetTbale1Info({
         DefectType: "SFR",
         DeviceSeriers: "MW",
-        ToolingType: "Lens",
+        ToolingType: "G00001",
         Supply: "ALL",
         datetime: this.datetime
       })
@@ -204,7 +204,7 @@ export default {
       let res2 = await GetTbale2Info({
         DefectType: "SFR",
         DeviceSeriers: "MW",
-        ToolingType: "Lens",
+        ToolingType: "G00001",
         Supply: "ALL",
         datetime: this.datetime
       })
