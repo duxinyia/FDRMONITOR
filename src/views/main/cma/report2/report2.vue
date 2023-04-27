@@ -185,6 +185,7 @@ import {
   GetTesterInfo,
   GetTestStationInfo,
   GetMaterialInfo,
+  GetMaterialVendorInfo,
   GetProcessInfo,
   getTableDate
 } from "@/api/cma/report2"
@@ -304,7 +305,7 @@ export default {
 
       //获取Material Vendor下拉框数据，material有值的时候才能获取数据
       if (this.ruleForm.Material) {
-        let res4 = await GetMaterialInfo({ DeviceNo: val, Material: this.ruleForm.Material })
+        let res4 = await GetMaterialVendorInfo({ DeviceNo: val, Material: this.ruleForm.Material })
         this.vendorOptions = res4
         res4.forEach((item) => {
           if (item.selected) {
@@ -353,7 +354,7 @@ export default {
     //监听Material下拉框数据变化,改变Material Vendor下拉框的选项
     async handlerMaterialChange(val) {
       this.ruleForm.MaterialVendor = ""
-      let res = await GetMaterialInfo({ DeviceNo: this.ruleForm.DeviceNo, Material: val })
+      let res = await GetMaterialVendorInfo({ DeviceNo: this.ruleForm.DeviceNo, Material: val })
       this.vendorOptions = res
       res.forEach((item) => {
         if (item.selected) {
