@@ -44,20 +44,21 @@ export default {
       let baseSerie = {
         type: "line",
         symbol: "circle",
-        symbolSize: 15,
+        symbolSize: 5,
         smooth: true, // 设置拆线平滑
         lineStyle: {
-          width: 5
+          width: 3
         },
         label: {
           show: true,
+          color: "#fff",
           formatter: (params) => params.value + "%"
         }
       }
       return {
         color: ["#9669ff", "#3766f4", "#43cf7c", "#ff8d1a"],
         grid: {
-          top: 80,
+          top: 100,
           right: 50,
           left: 80,
           bottom: 40 //图表尺寸大小
@@ -161,8 +162,12 @@ export default {
     }
   },
   watch: {
-    config() {
-      this.isLoading = false
+    config: {
+      handler() {
+        this.isLoading = false
+      },
+      deep: true
+      // this.isLoading = false
     }
   },
   methods: {
@@ -172,7 +177,6 @@ export default {
         name: "sfcdetail",
         query: {
           device: this.config.deviceSeries
-          // device: 1
         }
       })
     }

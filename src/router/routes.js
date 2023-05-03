@@ -42,7 +42,7 @@ export default [
       {
         path: "dp",
         name: "overviewdp",
-        component: () => import(/* webpackChunkName: "overviewdp" */ "@/views/overView/dp/index.vue"),
+        component: () => import(/* webpackChunkName: "overviewdp" */ "@/views/overView/cma/index.vue"),
         children: [
           // 分决策层和管理层
           {

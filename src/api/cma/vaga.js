@@ -14,7 +14,7 @@ export let getScatData = (params = {}) => {
   let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E" } = params
   return $post(
     `api/MachineData/VA_Data_TiltXY_Scatter_Chart?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&${getTimeAgo(
-      -24
+      24
     )}`
   )
 }
@@ -24,7 +24,7 @@ export let getLineData = (params = {}) => {
   let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E", ValueItem = "CONFIGURABLETILTRAWX" } = params
   return $post(
     `api/MachineData/VA_Data?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
-      -24
+      24
     )}`
   )
 }
@@ -34,7 +34,7 @@ export let getKLineData = (params = {}) => {
   let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E", ValueItem = "INSPECTIONZ" } = params
   return $post(
     `api/MachineData/VA_Data_SUBSTRATENO_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
-      -24
+      24
     )}`
   )
 }
@@ -44,7 +44,7 @@ export let getKLineHourData = (params = {}) => {
   let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E", ValueItem = "INSPECTIONZ" } = params
   return $post(
     `api/MachineData/VA_Data_Hour_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
-      -24
+      24
     )}`
   )
 }

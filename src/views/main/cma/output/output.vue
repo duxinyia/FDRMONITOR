@@ -1,5 +1,4 @@
 <template>
-  <!-- 主要区域 -->
   <div class="page-main">
     <el-row :gutter="10">
       <el-col :span="7">
@@ -106,10 +105,11 @@ export default {
       let res = await getYearOutputInfo({ DateTag: "month" })
       console.log("获取右上的数据", res)
       // 取出当前月，判断是否小于6
-      let month = this.$moment().format("M")
+      // let month = this.$moment().format("M")
       // console.log("month", month)
       // let tempArr = month <= 6 ? res.slice(0, 6) : res.slice(6)
       let tempArr = res.slice(6)
+      // console.log("tempArr", tempArr)
       tempArr.forEach((item) => {
         let { dateCode, output, hitRate, targetOut } = item
         this.rightTopData.names.push(dateCode)

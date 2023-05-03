@@ -53,7 +53,7 @@
       <div class="table-chart">
         <!-- 使用轮播图来展示数据 -->
         <el-carousel
-          style="height: 800px"
+          style="height: 830px"
           indicator-position="none"
           :interval="15 * 10000"
           ref="carousel"
@@ -217,17 +217,18 @@ export default {
   position: relative;
 }
 .page-main {
+  height: calc(100% - 120px);
   margin-top: 10px;
 }
 .child-container {
-  height: 800px;
+  height: 100%;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(5, 1fr);
-  justify-content: space-evenly;
+  justify-items: center;
 }
 .count-container {
   display: flex;
-  margin: 10px 0px 10px 0px;
+  margin: 10px 0px 15px 0px;
   padding: 0px 90px;
   justify-content: space-around;
   .center {

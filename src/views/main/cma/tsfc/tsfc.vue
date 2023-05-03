@@ -9,8 +9,10 @@
             <div v-for="(childItem, childIndex) in item" :key="childIndex" class="chart-item">
               <line-chart :config="allShowData[4 * index + childIndex]" />
               <div class="btns">
-                <el-button @click="toDetail" type="success" size="mini">EOL</el-button>
-                <el-button @click="toDetail" type="success" size="mini">FOL</el-button>
+                <div @click="toDetail">EOL</div>
+                <div @click="toDetail">FOL</div>
+                <!-- <el-button @click="toDetail" round type="success" size="mini">EOL</el-button>
+                <el-button @click="toDetail" type="success" size="mini">FOL</el-button> -->
               </div>
             </div>
           </div>
@@ -132,6 +134,17 @@ export default {
       position: absolute;
       top: 40px;
       right: 40px;
+      display: flex;
+      div {
+        height: 25px;
+        width: 60px;
+        text-align: center;
+        line-height: 25px;
+        border-radius: 20px;
+        margin-left: 10px;
+        cursor: pointer;
+        background: linear-gradient(134.15deg, rgba(84, 93, 241, 1) 0%, rgba(75, 177, 250, 1) 100%);
+      }
     }
   }
 }

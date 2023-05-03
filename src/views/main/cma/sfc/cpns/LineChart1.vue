@@ -29,8 +29,11 @@ export default {
     return { isLoading: true }
   },
   watch: {
-    config() {
-      this.isLoading = false
+    config: {
+      handler() {
+        this.isLoading = false
+      },
+      deep: true
     }
   },
   computed: {
@@ -44,13 +47,15 @@ export default {
       let baseSerie = {
         type: "line",
         symbol: "circle",
-        symbolSize: 15,
+        symbolSize: 5,
+
         smooth: true, // 设置拆线平滑
         lineStyle: {
-          width: 5
+          width: 3
         },
         label: {
           show: true,
+          color: "#fff",
           formatter: (params) => params.value + "%"
         }
       }

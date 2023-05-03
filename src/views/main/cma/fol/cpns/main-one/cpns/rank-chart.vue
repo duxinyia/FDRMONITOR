@@ -10,7 +10,8 @@
     element-loading-background="rgba(0, 0, 0, 1)"
   >
     <p class="title">{{ title }}</p>
-    <base-echart :options="options" height="204px" />
+    <base-echart v-if="config.names.length > 0" :options="options" height="204px" />
+    <div class="nodata" v-else>暂无数据...</div>
   </div>
 </template>
 
@@ -231,6 +232,13 @@ export default {
       border-radius: 2px;
       background: var(--chart-slip);
     }
+  }
+  .nodata {
+    display: flex;
+    height: 204px;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 8px;
   }
 }
 </style>

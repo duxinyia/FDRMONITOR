@@ -115,45 +115,46 @@
             <el-form-item style="float: right; margin-right: 80px">
               <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查詢</el-button>
               <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
+              <el-button type="primary" size="mini" @click="exportXlsx">导出</el-button>
             </el-form-item>
           </el-row>
         </el-form>
       </div>
     </el-collapse-transition>
-    <div>
-      <el-table
-        :data="tableData"
-        border
-        ref="table"
-        style="width: 100%; margin-top: 20px"
-        :height="isShow ? '690px' : '900px'"
-        :header-cell-style="headerCellStyle"
-        class="table"
-        v-loading="isLoading"
-        element-loading-spinner="el-icon-loading"
-        element-loading-text="加载中..."
-        element-loading-background="rgba(0, 0, 0, 1)"
+    <el-table
+      :data="tableData"
+      border
+      id="exportTable"
+      ref="table"
+      style="width: 100%; margin-top: 20px"
+      :height="isShow ? '690px' : '900px'"
+      :header-cell-style="headerCellStyle"
+      class="table"
+      v-loading="isLoading"
+      element-loading-spinner="el-icon-loading"
+      element-loading-text="加载中..."
+      element-loading-background="rgba(0, 0, 0, 1)"
+    >
+      <el-table-column
+        v-for="(item, index) in tableHeader"
+        :key="index"
+        :label="item.capital"
+        :prop="item.id"
+        align="center"
+        min-width="150px"
+        show-overflow-tooltip
       >
         <el-table-column
-          v-for="(item, index) in tableHeader"
+          v-for="(child, index) in item.chileColumn"
           :key="index"
-          :label="item.capital"
-          :prop="item.id"
+          :prop="child.id"
+          :label="child.capital"
           align="center"
           min-width="150px"
           show-overflow-tooltip
         >
-          <el-table-column
-            v-for="(child, index) in item.chileColumn"
-            :key="index"
-            :prop="child.id"
-            :label="child.capital"
-            align="center"
-            min-width="150px"
-            show-overflow-tooltip
-          >
-            <template slot-scope="scope">
-              <!-- <div class="detail" v-if="String(scope.row[child.id]).includes('%')">
+          <template slot-scope="scope">
+            <!-- <div class="detail" v-if="String(scope.row[child.id]).includes('%')">
               <el-popover :append-to-body="false" placement="bottom" width="500" trigger="click">
                 <el-table
                   :data="gridData"
@@ -168,13 +169,12 @@
               </el-popover>
             </div>
             <div v-else> -->
-              {{ scope.row[child.id] }}
-              <!-- </div> -->
-            </template>
-          </el-table-column>
+            {{ scope.row[child.id] }}
+            <!-- </div> -->
+          </template>
         </el-table-column>
-      </el-table>
-    </div>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -189,6 +189,7 @@ import {
   GetProcessInfo,
   getTableDate
 } from "@/api/cma/report2"
+
 import { handlerTableDate } from "@/utils/handlerTableData"
 export default {
   name: "report2",
@@ -339,6 +340,7 @@ export default {
     async handlerDeviceChange(val) {
       this.DefaultSelected(this.ruleForm.DeviceNo)
     },
+
     //监听Tester下拉框数据变化
     async handlerTesterChange(val) {
       this.ruleForm.TestStation = []
@@ -380,7 +382,7 @@ export default {
     },
 
     // 页面加载默认参数访问接口获取数据
-    async getDefaultData(formName) {
+    async getDefaultData() {
       this.tableHeader = []
       this.isLoading = true
       let res = await getTableDate({
@@ -400,7 +402,7 @@ export default {
     },
 
     // 查询
-    async submitForm(formName) {
+    async submitForm() {
       this.tableHeader = []
       this.isLoading = true
       this.tableHeader = []
@@ -415,10 +417,19 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
-    headerCellStyle({ row, column, columnIndex }) {
+    // 导出表格为xlsx
+    exportXlsx() {
+      let workbook = this.$xlsx.utils.table_to_book(document.getElementById("exportTable")) //需要在table上定义一个id
+      try {
+        this.$xlsx.writeFile(workbook, "模板.xlsx")
+      } catch (e) {
+        console.log("e", e)
+      }
+    },
+    headerCellStyle() {
       return {
-        background: "#b4c6e7",
-        color: "#4c4c4c"
+        background: "#131540",
+        color: "#fff"
       }
     },
     Show() {
@@ -475,6 +486,7 @@ export default {
   height: calc(100% - 120px);
   margin-top: 10px;
 }
+
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
@@ -528,6 +540,7 @@ export default {
   border: 1px solid #1683af;
   margin-top: 10px;
   padding-top: 10px;
+  background: #131540;
   // max-height: 0;
   transition: 100px 0.3s linear;
 }

@@ -169,7 +169,6 @@ export default {
           splitLine: {
             show: true,
             lineStyle: {
-              // color: "#ffffff",
               color: themeColor,
               opacity: 0.5,
               type: "dotted"

@@ -5,6 +5,7 @@
     <router-view />
   </div>
 </template>
+
 <script>
 // 导入头部
 import PageHeader from "@/components/page-header/index.vue"
@@ -17,6 +18,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 #index {
   color: #fff;
@@ -30,7 +32,6 @@ export default {
   transform-origin: left top;
   overflow: hidden;
   box-sizing: border-box;
-  /* background: url("~@/assets/images/other/background.png") no-repeat center center !important; */
   background: #020308;
 }
 </style>

@@ -64,6 +64,7 @@ export default {
   },
   methods: {
     itemClick(item, index) {
+      console.log("item=====", item)
       // 点击不同的按钮显示不同的子菜单
       this.$router.push(item.path).catch(() => {})
       this.$store.commit("fullLoading/SET_PATH", this.$route.path)
