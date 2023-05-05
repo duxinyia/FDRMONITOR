@@ -96,7 +96,7 @@ export default {
       // 表头名称
       tableTitle1: [],
       tableTitle2: [],
-
+      datetime: this.$moment().format("YYYY-MM-DD HH:mm:ss"),
       // 下拉框值
       selectData: [
         { name: "DeviceSeries", value: "" },
@@ -104,7 +104,7 @@ export default {
         { name: "ToolingType", value: "" },
         { name: "Supplier", value: "" }
       ],
-      datetime: this.$moment().format("YYYY-MM-DD HH:mm:ss"),
+
       // 两个下拉框的选项
       options: {
         DefectType: [],
@@ -123,8 +123,7 @@ export default {
   },
 
   created() {
-    this.getSelectInfo()
-    this.getDefaultData()
+    this.initData()
     this.$store.commit("fullLoading/SET_TITLE", "SFR BY Lens Tooling")
   },
   // computed: {
@@ -142,7 +141,7 @@ export default {
       handler(newValue) {
         if (newValue[1].value && newValue[2].value) {
           let firstTitle = this.options.DefectType.find((item) => item.id == newValue[1].value)
-          console.log("firstTitle", firstTitle.value)
+          // console.log("firstTitle", firstTitle.value)
           let twoTitle = this.options.ToolingType.find((item) => item.id == newValue[2].value)
           this.$store.commit(
             "fullLoading/SET_TITLE",
@@ -208,19 +207,18 @@ export default {
       }
     },
     //页面加载默认参数访问接口获取数据
+    async initData() {
+      let requestArr = [this.getSelectInfo()]
+      await Promise.all(requestArr)
+      this.getDefaultData()
+    },
+
     async getDefaultData() {
-      // this.options.ToolingType.forEach((item) => {
-      //   if (item.id == this.selectData[2].value) {
-      //     this.title = item.value
-      //   }
-      // })
-      // console.log(this.title)
-      // this.$store.commit("fullLoading/SET_TITLE", `${this.selectData[0].value} BY ${this.selectData[1].value} Tooling`)
       let res1 = await GetTbale1Info({
-        DefectType: "SFR",
-        DeviceSeriers: "MW",
-        ToolingType: "G00001",
-        Supply: "ALL",
+        DefectType: this.selectData[1].value,
+        DeviceSeriers: this.selectData[0].value,
+        ToolingType: this.selectData[2].value,
+        Supply: this.selectData[3].value,
         datetime: this.datetime
       })
       this.tableTitle1 = res1.columns
@@ -228,10 +226,10 @@ export default {
       this.tableData1 = handlerTableDate(res1.rows)
       // console.log(this.tableData1)
       let res2 = await GetTbale2Info({
-        DefectType: "SFR",
-        DeviceSeriers: "MW",
-        ToolingType: "G00001",
-        Supply: "ALL",
+        DefectType: this.selectData[1].value,
+        DeviceSeriers: this.selectData[0].value,
+        ToolingType: this.selectData[2].value,
+        Supply: this.selectData[3].value,
         datetime: this.datetime
       })
       this.tableTitle2 = res2.columns

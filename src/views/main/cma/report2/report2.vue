@@ -292,9 +292,11 @@ export default {
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "Yield Loss Track(VCM)")
-    this.GetDeviceInfo()
-    this.GetLotTypeInfo()
-    this.getDefaultData()
+    // this.GetDeviceInfo()
+    // this.GetLotTypeInfo()
+  },
+  mounted() {
+    this.initData()
   },
   methods: {
     //获取Device下拉框数据
@@ -306,7 +308,7 @@ export default {
           this.ruleForm.DeviceNo = item.id
         }
       })
-      this.DefaultSelected(this.ruleForm.DeviceNo)
+      await this.DefaultSelected(this.ruleForm.DeviceNo)
     },
 
     //页面加载需要加载所有的选项默认值
@@ -423,21 +425,17 @@ export default {
         }
       }
     },
-
     // 页面加载默认参数访问接口获取数据
+    async initData() {
+      let requestArr = [this.GetDeviceInfo(), this.GetLotTypeInfo()]
+      await Promise.all(requestArr)
+      this.getDefaultData()
+    },
+
     async getDefaultData() {
       this.tableHeader = []
       this.isLoading = true
-      let res = await getTableDate({
-        DeviceNo: "APL007",
-        LotType: "MP",
-        Tester: ["Zebra"],
-        TestStation: ["ALL"],
-        DateCode: this.$moment().format("YYYY-MM-DD"),
-        MaterialVendor: "ALL",
-        Process: ["VCM Attach"],
-        Material: "ALL"
-      })
+      let res = await getTableDate(this.ruleForm)
       this.tableData = []
       this.tableHeader = res.columns
       this.tableData = handlerTableDate(res.rows)
