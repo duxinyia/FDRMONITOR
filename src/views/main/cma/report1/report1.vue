@@ -10,7 +10,12 @@
           v-model="item.value"
           placeholder="請選擇"
         >
-          <el-option v-for="item in options[item.name]" :key="item.id" :label="item.id" :value="item.value">
+          <el-option
+            v-for="item in options[item.name]"
+            :key="item.id"
+            :label="item.id"
+            :value="item.value"
+          >
           </el-option>
         </el-select>
 

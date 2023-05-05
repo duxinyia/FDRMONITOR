@@ -15,7 +15,12 @@
                 placeholder="請選擇"
                 @visible-change="visibleChange"
               >
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
                 </el-option>
               </el-select>
               <!-- <div class="container" v-for="(item, index) in containerLeft" :key="index">

@@ -10,13 +10,23 @@
           @change="handlerChange(item.name)"
         >
           <!-- @change="handlerChange(item.name)" -->
-          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
+          <el-option
+            v-for="item in options[item.name]"
+            :key="item.value"
+            :label="item.value"
+            :value="item.id"
+          >
           </el-option>
         </el-select>
       </div>
       <div class="dateSelect">
         <span>datetime:</span>
-        <el-date-picker type="datetime" value-format="yyyy-MM-dd HH:mm:ss" v-model="datetime" placeholder="請選擇時間">
+        <el-date-picker
+          type="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          v-model="datetime"
+          placeholder="請選擇時間"
+        >
         </el-date-picker>
       </div>
 
@@ -67,7 +77,14 @@
 </template>
 
 <script>
-import { GetDefectType, GetDeviceSeriers, ToolingType, Supply, GetTbale1Info, GetTbale2Info } from "@/api/cma/report3"
+import {
+  GetDefectType,
+  GetDeviceSeriers,
+  ToolingType,
+  Supply,
+  GetTbale1Info,
+  GetTbale2Info
+} from "@/api/cma/report3"
 import { handlerTableDate } from "@/utils/handlerTableData"
 export default {
   name: "report3",
@@ -127,7 +144,10 @@ export default {
           let firstTitle = this.options.DefectType.find((item) => item.id == newValue[1].value)
           console.log("firstTitle", firstTitle.value)
           let twoTitle = this.options.ToolingType.find((item) => item.id == newValue[2].value)
-          this.$store.commit("fullLoading/SET_TITLE", `${firstTitle.value} BY ${twoTitle.value} Tooling`)
+          this.$store.commit(
+            "fullLoading/SET_TITLE",
+            `${firstTitle.value} BY ${twoTitle.value} Tooling`
+          )
         }
       },
       deep: true
@@ -159,7 +179,10 @@ export default {
           // console.log(this.selectData[2])
         }
       })
-      let res4 = await Supply({ DeviceSeriers: this.selectData[0].value, ToolingType: this.selectData[2].value })
+      let res4 = await Supply({
+        DeviceSeriers: this.selectData[0].value,
+        ToolingType: this.selectData[2].value
+      })
       this.options.Supplier = res4
       res4.forEach((item) => {
         if (item.selected) {
@@ -172,7 +195,10 @@ export default {
     async handlerChange(item) {
       // console.log("改变了", item)
       if (item == "DeviceSeries" || item == "ToolingType") {
-        let res4 = await Supply({ DeviceSeriers: this.selectData[0].value, ToolingType: this.selectData[2].value })
+        let res4 = await Supply({
+          DeviceSeriers: this.selectData[0].value,
+          ToolingType: this.selectData[2].value
+        })
         this.options.Supplier = res4
         res4.forEach((item) => {
           if (item.selected) {
@@ -268,7 +294,10 @@ export default {
             background: "#9acd32",
             color: "#000"
           }
-        } else if (parseFloat(row[column.property]) >= 0.1 && parseFloat(row[column.property]) <= 0.3) {
+        } else if (
+          parseFloat(row[column.property]) >= 0.1 &&
+          parseFloat(row[column.property]) <= 0.3
+        ) {
           return {
             background: "#ffff00",
             color: "#000"
@@ -312,7 +341,9 @@ export default {
       if (this.testData[columnIndex]) {
         this.$nextTick(() => {
           if (document.getElementsByClassName(column.id).length !== 0) {
-            document.getElementsByClassName(column.id)[0].setAttribute("colSpan", this.testData[columnIndex].colSpan)
+            document
+              .getElementsByClassName(column.id)[0]
+              .setAttribute("colSpan", this.testData[columnIndex].colSpan)
           }
         })
         // 被合并的列隐藏

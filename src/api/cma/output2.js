@@ -6,13 +6,17 @@ import { getTime } from "@/utils"
 
 //
 export let GetKeyStationRunningInfo = (area = "ALL") =>
-  $post(`api/MESOutPut/GetKeyStationRunningInfo?PlantID=8S01&ProductArea=${area}&ShowTag=ALL&LotType=MP&${getTime()}`)
+  $post(
+    `api/MESOutPut/GetKeyStationRunningInfo?PlantID=8S01&ProductArea=${area}&ShowTag=ALL&LotType=MP&${getTime()}`
+  )
 
 // 2/16 获取机台的名称
 export let GetStationName = (area = "ALL", isDp = false) => {
   let PlantID = isDp ? "9S01" : "8S01"
   let ShowTag = isDp ? "BANFF" : "ALL"
-  return $post(`api/MESOutPut/Get_DeviceSet_KeyStation_Info?PlantID=${PlantID}&ShowTag=${ShowTag}&ProductArea=${area}`)
+  return $post(
+    `api/MESOutPut/Get_DeviceSet_KeyStation_Info?PlantID=${PlantID}&ShowTag=${ShowTag}&ProductArea=${area}`
+  )
 }
 
 // 根据名称获取对应的机台

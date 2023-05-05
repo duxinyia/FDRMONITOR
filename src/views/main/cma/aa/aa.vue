@@ -2,7 +2,13 @@
   <!-- 主要区域 -->
   <div class="page-main">
     <!-- 第一行 -->
-    <main-one :config1="config1" :config2="config2" :config3="config3" :config4="config4" :config5="config5" />
+    <main-one
+      :config1="config1"
+      :config2="config2"
+      :config3="config3"
+      :config4="config4"
+      :config5="config5"
+    />
     <!-- 第二行 -->
     <main-two :totalBlock="bottomData" />
   </div>
@@ -101,7 +107,13 @@ export default {
       if (Array.isArray(res)) {
         let tempArr = []
         res.forEach((item) => {
-          tempArr.push([item.customName, parseInt(item.planeOutPut), item.outPut, item.hitRate || "-", item.firstYield])
+          tempArr.push([
+            item.customName,
+            parseInt(item.planeOutPut),
+            item.outPut,
+            item.hitRate || "-",
+            item.firstYield
+          ])
         })
         // 现
         this.config5 = tempArr

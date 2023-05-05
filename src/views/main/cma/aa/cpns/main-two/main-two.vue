@@ -35,7 +35,11 @@
           >
             <el-carousel-item v-for="(blocks, floor_name) in totalBlock" :key="floor_name">
               <div class="wrapper">
-                <div class="block-container" v-for="(block_arr, block_name) in blocks" :key="block_name">
+                <div
+                  class="block-container"
+                  v-for="(block_arr, block_name) in blocks"
+                  :key="block_name"
+                >
                   <dv-decoration-7 :color="changeDv7Color" class="block-name">
                     <span class="name">{{ block_name || "" }}</span>
                   </dv-decoration-7>
@@ -60,7 +64,12 @@
                           ></span>
                         </template>
                         <template v-else>
-                          <span class="state-dot" :style="dotBgColor()" v-for="item in 4" :key="item"></span>
+                          <span
+                            class="state-dot"
+                            :style="dotBgColor()"
+                            v-for="item in 4"
+                            :key="item"
+                          ></span>
                         </template>
                       </div>
                       <dv-percent-pond class="percent" :config="selectConfig(item)" />
@@ -162,8 +171,14 @@ export default {
       } else {
         map = new Map([
           ["RUN", "radial-gradient(50% 50%, rgba(39, 75, 232, 1) 0%, rgba(90, 210, 250, 1) 100%)"],
-          ["DOWN", "radial-gradient(50% 50%, rgba(246, 211, 101, 1) 0%, rgba(252, 161, 134, 1) 100%)"],
-          ["IDLE", "radial-gradient(50% 50%, rgba(26, 156, 44, 1) 0%, rgba(125, 245, 141, 1) 100%)"],
+          [
+            "DOWN",
+            "radial-gradient(50% 50%, rgba(246, 211, 101, 1) 0%, rgba(252, 161, 134, 1) 100%)"
+          ],
+          [
+            "IDLE",
+            "radial-gradient(50% 50%, rgba(26, 156, 44, 1) 0%, rgba(125, 245, 141, 1) 100%)"
+          ],
           ["", "rgba(0, 0, 0, 0.3)"]
         ])
         return {

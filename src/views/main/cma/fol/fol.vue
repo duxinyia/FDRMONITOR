@@ -163,7 +163,12 @@ export default {
   },
   methods: {
     async initData() {
-      let requestArr = [this.getMaintainInfo(), this.getDeviceInfo(), this.getMachineTop5(), this.getProductInfo()]
+      let requestArr = [
+        this.getMaintainInfo(),
+        this.getDeviceInfo(),
+        this.getMachineTop5(),
+        this.getProductInfo()
+      ]
       await Promise.all(requestArr)
     },
     // 获取 配件到期提示區
@@ -200,8 +205,24 @@ export default {
       let result = await getDeviceInfo()
       if (Array.isArray(result)) {
         result.forEach((item) => {
-          let { deviceSeries, mpsPlan, allowLine, actualLine, planStopLine, exceptStopLine, overLine } = item
-          this.config2.push([deviceSeries, mpsPlan, allowLine, actualLine, planStopLine, exceptStopLine, overLine])
+          let {
+            deviceSeries,
+            mpsPlan,
+            allowLine,
+            actualLine,
+            planStopLine,
+            exceptStopLine,
+            overLine
+          } = item
+          this.config2.push([
+            deviceSeries,
+            mpsPlan,
+            allowLine,
+            actualLine,
+            planStopLine,
+            exceptStopLine,
+            overLine
+          ])
         })
       }
     },
@@ -252,7 +273,16 @@ export default {
         result.forEach((item) => {
           item.workShopInfos.forEach((childItem) => {
             childItem.machineInfos.forEach((threeItem) => {
-              const { customName, machineName, planeOutPut, outPut, hitRate, dpcRate, lcbRate, eFailRate } = threeItem
+              const {
+                customName,
+                machineName,
+                planeOutPut,
+                outPut,
+                hitRate,
+                dpcRate,
+                lcbRate,
+                eFailRate
+              } = threeItem
               customName &&
                 this.config3.push([
                   this.handleValue(machineName),

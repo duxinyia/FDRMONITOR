@@ -38,7 +38,12 @@ export default {
       loading: true,
       acfDatas: [],
       // 红 绿  黄
-      colors1: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)", "rgba(255, 255, 255, 0.9)"],
+      colors1: [
+        "rgba(255, 0, 102, 0.9)",
+        "rgba(0, 255, 0, 0.9)",
+        "rgba(255, 255, 0, 0.9)",
+        "rgba(255, 255, 255, 0.9)"
+      ],
       colors: [
         "radial-gradient(50% 50%, rgba(255, 0, 102, 0.5) 50%, rgba(255, 0, 102, 1) 100%)",
         "radial-gradient(50% 50%, rgba(0, 255, 0, 0.5) 50%, rgba(0, 255, 0, 1) 100%)",

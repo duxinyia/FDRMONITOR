@@ -44,7 +44,11 @@
             </div>
             <div class="efficiencyloss"><span class="text-justify">效率損失</span>:</div>
             <template v-if="Object.keys(item.mapYieldLoss).length > 0">
-              <div v-for="(eff, index) in item.efficiencyLoss" :key="eff.rejectType" class="eff-yiel-container">
+              <div
+                v-for="(eff, index) in item.efficiencyLoss"
+                :key="eff.rejectType"
+                class="eff-yiel-container"
+              >
                 <span class="mr-auto te-indent">{{ index + 1 }}.{{ eff.errormsg }}</span>
                 <span>{{ eff.rate }}</span>
               </div>
@@ -54,7 +58,11 @@
             </template>
             <div class="yieldloss"><span class="text-justify">良率損失</span>:</div>
             <template v-if="Object.keys(item.mapYieldLoss).length > 0">
-              <div v-for="(yiel, index) in item.mapYieldLoss" :key="yiel.rejectType" class="eff-yiel-container">
+              <div
+                v-for="(yiel, index) in item.mapYieldLoss"
+                :key="yiel.rejectType"
+                class="eff-yiel-container"
+              >
                 <span class="mr-auto te-indent">{{ index + 1 }}.{{ yiel.rejectType }}</span>
                 <span>{{ yiel.totalRate }}</span>
               </div>
@@ -72,7 +80,9 @@
           </div>
           <!-- 生成对应的时间 -->
           <div class="times-container">
-            <span class="time" v-for="(item, index) in timeNums" :key="item + index">{{ item }}</span>
+            <span class="time" v-for="(item, index) in timeNums" :key="item + index">{{
+              item
+            }}</span>
           </div>
           <!-- 生成对应的时间刻度 -->
           <div class="time-scale">
@@ -87,7 +97,8 @@
                 <span
                   class="stateDot"
                   :style="{
-                    color: item.runstate == 'RUN' ? 'rgba(51, 255, 102, 0.8)' : 'rgba(255, 0, 51, 0.5)'
+                    color:
+                      item.runstate == 'RUN' ? 'rgba(51, 255, 102, 0.8)' : 'rgba(255, 0, 51, 0.5)'
                   }"
                   >{{ item.runstate }}</span
                 >

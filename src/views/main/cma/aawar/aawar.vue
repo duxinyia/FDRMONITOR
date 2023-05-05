@@ -9,7 +9,12 @@
             <span class="title">AA機況看板</span>
             <div class="selsect-container">
               <el-select @change="changeValue" size="mini" v-model="value" placeholder="">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
                 </el-option>
               </el-select>
             </div>

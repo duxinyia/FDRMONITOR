@@ -4,7 +4,12 @@
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
         <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
-          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
+          <el-option
+            v-for="item in options[item.name]"
+            :key="item.value"
+            :label="item.value"
+            :value="item.id"
+          >
           </el-option>
         </el-select>
       </div>

@@ -11,7 +11,8 @@ export let getMaintainInfo = () => $post(`api/ADLineRun/GetMaintainInfo`)
 export let getDeviceInfo = () => $post(`api/ADLineRun/GetDeviceInfo?${getTime()}`)
 
 // 4. 获取 當日當機Top5
-export let getMachineTop5 = () => $post(`api/ADLineRun/GetMachineRunStateRecord/Location?${getTime()}`)
+export let getMachineTop5 = () =>
+  $post(`api/ADLineRun/GetMachineRunStateRecord/Location?${getTime()}`)
 
 // 3. 获取 各个机台对应的数据
 export let getProductInfo = () => $post(`api/ADLineRun/GetProductInfo?${getTime()}`)
@@ -23,7 +24,8 @@ export let GetMachineProductInfo = (combineID) =>
   $post(`api/ADLineRun/GetMachineProductInfo?${getTime()}&CombineID=${combineID}`)
 
 // 6.获取右边第一和第二的表格数据
-export let GetAOIScanInfo = (combineID) => $post(`api/ADLineRun/GetAOIScanInfo?${getTimeAgo()}&CombineID=${combineID}`)
+export let GetAOIScanInfo = (combineID) =>
+  $post(`api/ADLineRun/GetAOIScanInfo?${getTimeAgo()}&CombineID=${combineID}`)
 
 // 7.获取表格下方的数据
 // let str = "St=2022-09-26 06:00:00&Et=2022-09-26 12:00:00"

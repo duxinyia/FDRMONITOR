@@ -219,7 +219,11 @@ export default {
       }
       .left {
         margin-right: 20px;
-        background: linear-gradient(to right, rgba(90, 210, 250, 0) 26.1%, rgba(39, 75, 232, 1) 100%);
+        background: linear-gradient(
+          to right,
+          rgba(90, 210, 250, 0) 26.1%,
+          rgba(39, 75, 232, 1) 100%
+        );
       }
       .title-text {
         font-size: 35px;
@@ -233,7 +237,11 @@ export default {
       }
       .right {
         margin-left: 20px;
-        background: linear-gradient(to left, rgba(90, 210, 250, 0) 26.1%, rgba(39, 75, 232, 1) 100%);
+        background: linear-gradient(
+          to left,
+          rgba(90, 210, 250, 0) 26.1%,
+          rgba(39, 75, 232, 1) 100%
+        );
       }
     }
     .react-container {

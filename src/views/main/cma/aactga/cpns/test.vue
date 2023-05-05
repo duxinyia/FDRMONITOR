@@ -23,7 +23,10 @@
       @change="changeCarousel"
     >
       <el-carousel-item>
-        <el-table :data="tableData1" :header-cell-style="{ background: 'transparent', color: '#fff' }">
+        <el-table
+          :data="tableData1"
+          :header-cell-style="{ background: 'transparent', color: '#fff' }"
+        >
           <el-table-column prop="Device" align="center" label="Device"></el-table-column>
           <el-table-column prop="Machine" align="center" label="Machine"></el-table-column>
           <el-table-column label="2023-03-30" align="center">
@@ -56,7 +59,10 @@
         </el-table>
       </el-carousel-item>
       <el-carousel-item>
-        <el-table :data="tableData1" :header-cell-style="{ background: 'transparent', color: '#fff' }">
+        <el-table
+          :data="tableData1"
+          :header-cell-style="{ background: 'transparent', color: '#fff' }"
+        >
           <el-table-column prop="Device" align="center" label="Device"></el-table-column>
           <el-table-column prop="Machine" align="center" label="Machine"></el-table-column>
           <el-table-column label="2023-03-30" align="center">

@@ -8,7 +8,12 @@
             <span class="title">hello</span>
             <div class="selsect-container">
               <el-select @change="changeValue" size="mini" v-model="value" placeholder="">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
                 </el-option>
               </el-select>
             </div>
@@ -16,12 +21,18 @@
         </template>
         <el-table-column width="60" prop="Device" align="center" label="Testers"></el-table-column>
         <el-table-column width="60" prop="Machine" align="center" label="Input"></el-table-column>
-        <el-table-column width="60" prop="Station" align="center" label="Hit Rate"></el-table-column>
+        <el-table-column
+          width="60"
+          prop="Station"
+          align="center"
+          label="Hit Rate"
+        ></el-table-column>
         <el-table-column width="60" prop="Target" align="center" label="First"></el-table-column>
         <el-table-column width="60" prop="Target" align="center" label="Sockets"></el-table-column>
         <el-table-column width="60" v-for="item in 12" :key="item" label="6-8" align="center">
           <el-table-column width="63" prop="city1" align="center" label="Input"></el-table-column>
-          <el-table-column width="72" prop="city2" align="center" label="First Yield"> </el-table-column>
+          <el-table-column width="72" prop="city2" align="center" label="First Yield">
+          </el-table-column>
         </el-table-column>
       </el-table-column>
     </el-table>

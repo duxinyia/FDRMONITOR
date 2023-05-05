@@ -32,7 +32,10 @@ module.exports = {
     // 将moment 换成 dayjs
     config.resolve.alias.set("moment", "dayjs")
     if (process.env.NODE_ENV === "production") {
-      config.plugin("webpack-bundle-analyzer").use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin).end()
+      config
+        .plugin("webpack-bundle-analyzer")
+        .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin)
+        .end()
     }
     // 配置svg图标的使用方法
     config.module.rule("svg").exclude.add(resolve("src/assets/icons")).end()

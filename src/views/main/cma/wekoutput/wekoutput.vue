@@ -5,50 +5,190 @@
         <el-tab-pane label="Output">
           <div style="display: flex">
             <div>
-              <el-table :data="tableData1" :header-cell-style="{ background: 'transparent', color: '#fff' }">
-                <el-table-column width="65" prop="Device" align="center" label="Device"></el-table-column>
-                <el-table-column width="65" prop="Machine" align="center" label="Machine"></el-table-column>
-                <el-table-column width="65" prop="Station" align="center" label="Station"></el-table-column>
-                <el-table-column width="65" prop="Target" align="center" label="Target"></el-table-column>
+              <el-table
+                :data="tableData1"
+                :header-cell-style="{ background: 'transparent', color: '#fff' }"
+              >
+                <el-table-column
+                  width="65"
+                  prop="Device"
+                  align="center"
+                  label="Device"
+                ></el-table-column>
+                <el-table-column
+                  width="65"
+                  prop="Machine"
+                  align="center"
+                  label="Machine"
+                ></el-table-column>
+                <el-table-column
+                  width="65"
+                  prop="Station"
+                  align="center"
+                  label="Station"
+                ></el-table-column>
+                <el-table-column
+                  width="65"
+                  prop="Target"
+                  align="center"
+                  label="Target"
+                ></el-table-column>
                 <el-table-column label="N" align="center">
-                  <el-table-column width="65" prop="city1" align="center" label="Avg"></el-table-column>
-                  <el-table-column width="65" prop="city2" align="center" label="03/20"></el-table-column>
-                  <el-table-column width="65" prop="city3" align="center" label="03/21"></el-table-column>
-                  <el-table-column width="65" prop="city4" align="center" label="03/22"></el-table-column>
-                  <el-table-column width="65" prop="city5" align="center" label="03/23"></el-table-column>
-                  <el-table-column width="65" prop="city6" align="center" label="03/24"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city1"
+                    align="center"
+                    label="Avg"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city2"
+                    align="center"
+                    label="03/20"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city3"
+                    align="center"
+                    label="03/21"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city4"
+                    align="center"
+                    label="03/22"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city5"
+                    align="center"
+                    label="03/23"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city6"
+                    align="center"
+                    label="03/24"
+                  ></el-table-column>
                 </el-table-column>
                 <el-table-column label="H" align="center">
-                  <el-table-column width="65" prop="city7" align="center" label="h1"></el-table-column>
-                  <el-table-column width="65" prop="city8" align="center" label="h12"></el-table-column>
-                  <el-table-column width="65" prop="city9" align="center" label="h3"></el-table-column>
-                  <el-table-column width="65" prop="city10" align="center" label="h4"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city7"
+                    align="center"
+                    label="h1"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city8"
+                    align="center"
+                    label="h12"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city9"
+                    align="center"
+                    label="h3"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city10"
+                    align="center"
+                    label="h4"
+                  ></el-table-column>
                 </el-table-column>
               </el-table>
             </div>
             <div style="padding: 0px 20px">
-              <el-table :data="tableData" :header-cell-style="{ background: 'transparent', color: '#fff' }">
+              <el-table
+                :data="tableData"
+                :header-cell-style="{ background: 'transparent', color: '#fff' }"
+              >
                 <el-table-column prop="date" align="center" label="Taget"> </el-table-column>
                 <el-table-column label="N" align="center">
-                  <el-table-column width="65" prop="city1" align="center" label="Avg"></el-table-column>
-                  <el-table-column width="65" prop="city2" align="center" label="03/20"></el-table-column>
-                  <el-table-column width="65" prop="city3" align="center" label="03/21"></el-table-column>
-                  <el-table-column width="65" prop="city4" align="center" label="03/22"></el-table-column>
-                  <el-table-column width="65" prop="city5" align="center" label="03/23"></el-table-column>
-                  <el-table-column width="65" prop="city6" align="center" label="03/24"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city1"
+                    align="center"
+                    label="Avg"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city2"
+                    align="center"
+                    label="03/20"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city3"
+                    align="center"
+                    label="03/21"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city4"
+                    align="center"
+                    label="03/22"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city5"
+                    align="center"
+                    label="03/23"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city6"
+                    align="center"
+                    label="03/24"
+                  ></el-table-column>
                 </el-table-column>
               </el-table>
             </div>
             <div>
-              <el-table :data="tableData" :header-cell-style="{ background: 'transparent', color: '#fff' }">
-                <el-table-column width="65" prop="date" align="center" label="Taget"> </el-table-column>
+              <el-table
+                :data="tableData"
+                :header-cell-style="{ background: 'transparent', color: '#fff' }"
+              >
+                <el-table-column width="65" prop="date" align="center" label="Taget">
+                </el-table-column>
                 <el-table-column label="N" align="center">
-                  <el-table-column width="65" prop="city1" align="center" label="Avg"></el-table-column>
-                  <el-table-column width="65" prop="city2" align="center" label="03/20"></el-table-column>
-                  <el-table-column width="65" prop="city3" align="center" label="03/21"></el-table-column>
-                  <el-table-column width="65" prop="city4" align="center" label="03/22"></el-table-column>
-                  <el-table-column width="65" prop="city5" align="center" label="03/23"></el-table-column>
-                  <el-table-column width="65" prop="city6" align="center" label="03/24"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city1"
+                    align="center"
+                    label="Avg"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city2"
+                    align="center"
+                    label="03/20"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city3"
+                    align="center"
+                    label="03/21"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city4"
+                    align="center"
+                    label="03/22"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city5"
+                    align="center"
+                    label="03/23"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city6"
+                    align="center"
+                    label="03/24"
+                  ></el-table-column>
                 </el-table-column>
               </el-table>
             </div>
@@ -57,37 +197,143 @@
         <el-tab-pane label="Efficiency rate">
           <div style="display: flex">
             <div>
-              <el-table :data="tableData1" :header-cell-style="{ background: 'transparent', color: '#fff' }">
-                <el-table-column width="65" prop="Device" align="center" label="Device"></el-table-column>
-                <el-table-column width="65" prop="Machine" align="center" label="Machine"></el-table-column>
-                <el-table-column width="65" prop="Station" align="center" label="Station"></el-table-column>
-                <el-table-column width="65" prop="Target" align="center" label="Target"></el-table-column>
+              <el-table
+                :data="tableData1"
+                :header-cell-style="{ background: 'transparent', color: '#fff' }"
+              >
+                <el-table-column
+                  width="65"
+                  prop="Device"
+                  align="center"
+                  label="Device"
+                ></el-table-column>
+                <el-table-column
+                  width="65"
+                  prop="Machine"
+                  align="center"
+                  label="Machine"
+                ></el-table-column>
+                <el-table-column
+                  width="65"
+                  prop="Station"
+                  align="center"
+                  label="Station"
+                ></el-table-column>
+                <el-table-column
+                  width="65"
+                  prop="Target"
+                  align="center"
+                  label="Target"
+                ></el-table-column>
                 <el-table-column label="N" align="center">
-                  <el-table-column width="65" prop="city1" align="center" label="Avg"></el-table-column>
-                  <el-table-column width="65" prop="city2" align="center" label="03/20"></el-table-column>
-                  <el-table-column width="65" prop="city3" align="center" label="03/21"></el-table-column>
-                  <el-table-column width="65" prop="city4" align="center" label="03/22"></el-table-column>
-                  <el-table-column width="65" prop="city5" align="center" label="03/23"></el-table-column>
-                  <el-table-column width="65" prop="city6" align="center" label="03/24"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city1"
+                    align="center"
+                    label="Avg"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city2"
+                    align="center"
+                    label="03/20"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city3"
+                    align="center"
+                    label="03/21"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city4"
+                    align="center"
+                    label="03/22"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city5"
+                    align="center"
+                    label="03/23"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city6"
+                    align="center"
+                    label="03/24"
+                  ></el-table-column>
                 </el-table-column>
                 <el-table-column label="H" align="center">
-                  <el-table-column width="65" prop="city7" align="center" label="h1"></el-table-column>
-                  <el-table-column width="65" prop="city8" align="center" label="h12"></el-table-column>
-                  <el-table-column width="65" prop="city9" align="center" label="h3"></el-table-column>
-                  <el-table-column width="65" prop="city10" align="center" label="h4"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city7"
+                    align="center"
+                    label="h1"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city8"
+                    align="center"
+                    label="h12"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city9"
+                    align="center"
+                    label="h3"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city10"
+                    align="center"
+                    label="h4"
+                  ></el-table-column>
                 </el-table-column>
               </el-table>
             </div>
             <div style="padding: 0px 20px">
-              <el-table :data="tableData" :header-cell-style="{ background: 'transparent', color: '#fff' }">
+              <el-table
+                :data="tableData"
+                :header-cell-style="{ background: 'transparent', color: '#fff' }"
+              >
                 <el-table-column prop="date" align="center" label="Taget"> </el-table-column>
                 <el-table-column label="N" align="center">
-                  <el-table-column width="65" prop="city1" align="center" label="Avg"></el-table-column>
-                  <el-table-column width="65" prop="city2" align="center" label="03/20"></el-table-column>
-                  <el-table-column width="65" prop="city3" align="center" label="03/21"></el-table-column>
-                  <el-table-column width="65" prop="city4" align="center" label="03/22"></el-table-column>
-                  <el-table-column width="65" prop="city5" align="center" label="03/23"></el-table-column>
-                  <el-table-column width="65" prop="city6" align="center" label="03/24"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city1"
+                    align="center"
+                    label="Avg"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city2"
+                    align="center"
+                    label="03/20"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city3"
+                    align="center"
+                    label="03/21"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city4"
+                    align="center"
+                    label="03/22"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city5"
+                    align="center"
+                    label="03/23"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city6"
+                    align="center"
+                    label="03/24"
+                  ></el-table-column>
                 </el-table-column>
               </el-table>
             </div>
@@ -96,50 +342,190 @@
         <el-tab-pane label="Output">
           <div style="display: flex">
             <div>
-              <el-table :data="tableData1" :header-cell-style="{ background: 'transparent', color: '#fff' }">
-                <el-table-column width="65" prop="Device" align="center" label="Device"></el-table-column>
-                <el-table-column width="65" prop="Machine" align="center" label="Machine"></el-table-column>
-                <el-table-column width="65" prop="Station" align="center" label="Station"></el-table-column>
-                <el-table-column width="65" prop="Target" align="center" label="Target"></el-table-column>
+              <el-table
+                :data="tableData1"
+                :header-cell-style="{ background: 'transparent', color: '#fff' }"
+              >
+                <el-table-column
+                  width="65"
+                  prop="Device"
+                  align="center"
+                  label="Device"
+                ></el-table-column>
+                <el-table-column
+                  width="65"
+                  prop="Machine"
+                  align="center"
+                  label="Machine"
+                ></el-table-column>
+                <el-table-column
+                  width="65"
+                  prop="Station"
+                  align="center"
+                  label="Station"
+                ></el-table-column>
+                <el-table-column
+                  width="65"
+                  prop="Target"
+                  align="center"
+                  label="Target"
+                ></el-table-column>
                 <el-table-column label="N" align="center">
-                  <el-table-column width="65" prop="city1" align="center" label="Avg"></el-table-column>
-                  <el-table-column width="65" prop="city2" align="center" label="03/20"></el-table-column>
-                  <el-table-column width="65" prop="city3" align="center" label="03/21"></el-table-column>
-                  <el-table-column width="65" prop="city4" align="center" label="03/22"></el-table-column>
-                  <el-table-column width="65" prop="city5" align="center" label="03/23"></el-table-column>
-                  <el-table-column width="65" prop="city6" align="center" label="03/24"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city1"
+                    align="center"
+                    label="Avg"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city2"
+                    align="center"
+                    label="03/20"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city3"
+                    align="center"
+                    label="03/21"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city4"
+                    align="center"
+                    label="03/22"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city5"
+                    align="center"
+                    label="03/23"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city6"
+                    align="center"
+                    label="03/24"
+                  ></el-table-column>
                 </el-table-column>
                 <el-table-column label="H" align="center">
-                  <el-table-column width="65" prop="city7" align="center" label="h1"></el-table-column>
-                  <el-table-column width="65" prop="city8" align="center" label="h12"></el-table-column>
-                  <el-table-column width="65" prop="city9" align="center" label="h3"></el-table-column>
-                  <el-table-column width="65" prop="city10" align="center" label="h4"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city7"
+                    align="center"
+                    label="h1"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city8"
+                    align="center"
+                    label="h12"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city9"
+                    align="center"
+                    label="h3"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city10"
+                    align="center"
+                    label="h4"
+                  ></el-table-column>
                 </el-table-column>
               </el-table>
             </div>
             <div style="padding: 0px 20px">
-              <el-table :data="tableData" :header-cell-style="{ background: 'transparent', color: '#fff' }">
+              <el-table
+                :data="tableData"
+                :header-cell-style="{ background: 'transparent', color: '#fff' }"
+              >
                 <el-table-column prop="date" align="center" label="Taget"> </el-table-column>
                 <el-table-column label="N" align="center">
-                  <el-table-column width="65" prop="city1" align="center" label="Avg"></el-table-column>
-                  <el-table-column width="65" prop="city2" align="center" label="03/20"></el-table-column>
-                  <el-table-column width="65" prop="city3" align="center" label="03/21"></el-table-column>
-                  <el-table-column width="65" prop="city4" align="center" label="03/22"></el-table-column>
-                  <el-table-column width="65" prop="city5" align="center" label="03/23"></el-table-column>
-                  <el-table-column width="65" prop="city6" align="center" label="03/24"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city1"
+                    align="center"
+                    label="Avg"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city2"
+                    align="center"
+                    label="03/20"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city3"
+                    align="center"
+                    label="03/21"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city4"
+                    align="center"
+                    label="03/22"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city5"
+                    align="center"
+                    label="03/23"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city6"
+                    align="center"
+                    label="03/24"
+                  ></el-table-column>
                 </el-table-column>
               </el-table>
             </div>
             <div>
-              <el-table :data="tableData" :header-cell-style="{ background: 'transparent', color: '#fff' }">
-                <el-table-column width="65" prop="date" align="center" label="Taget"> </el-table-column>
+              <el-table
+                :data="tableData"
+                :header-cell-style="{ background: 'transparent', color: '#fff' }"
+              >
+                <el-table-column width="65" prop="date" align="center" label="Taget">
+                </el-table-column>
                 <el-table-column label="N" align="center">
-                  <el-table-column width="65" prop="city1" align="center" label="Avg"></el-table-column>
-                  <el-table-column width="65" prop="city2" align="center" label="03/20"></el-table-column>
-                  <el-table-column width="65" prop="city3" align="center" label="03/21"></el-table-column>
-                  <el-table-column width="65" prop="city4" align="center" label="03/22"></el-table-column>
-                  <el-table-column width="65" prop="city5" align="center" label="03/23"></el-table-column>
-                  <el-table-column width="65" prop="city6" align="center" label="03/24"></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city1"
+                    align="center"
+                    label="Avg"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city2"
+                    align="center"
+                    label="03/20"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city3"
+                    align="center"
+                    label="03/21"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city4"
+                    align="center"
+                    label="03/22"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city5"
+                    align="center"
+                    label="03/23"
+                  ></el-table-column>
+                  <el-table-column
+                    width="65"
+                    prop="city6"
+                    align="center"
+                    label="03/24"
+                  ></el-table-column>
                 </el-table-column>
               </el-table>
             </div>

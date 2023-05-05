@@ -50,7 +50,11 @@
               <div class="show" style="flex: 1.1">
                 {{ item.device }}
               </div>
-              <div class="show" :class="item.machineState ? 'lamp-container' : ''" style="flex: 1.8">
+              <div
+                class="show"
+                :class="item.machineState ? 'lamp-container' : ''"
+                style="flex: 1.8"
+              >
                 <span class="lamp" :style="changeMachine(item.machineState)"></span>
                 <span class="text">{{ item.machine }}</span>
               </div>
@@ -59,7 +63,12 @@
                 <span class="number"> {{ item.target }}</span>
               </div>
               <div class="show">
-                <countTo :startVal="0" class="text" :endVal="item.outPut" :duration="2000"></countTo>
+                <countTo
+                  :startVal="0"
+                  class="text"
+                  :endVal="item.outPut"
+                  :duration="2000"
+                ></countTo>
               </div>
               <!-- 如果加上圆点记得加上这个class名 lamp-container -->
               <div class="show" style="flex: 1.6">
@@ -209,11 +218,17 @@ export default {
     changeStyle(hitRate, flag) {
       let hr = Number.parseFloat(hitRate) || 0
       if (hr >= 100) {
-        return flag === 1 ? { background: this.colors[1], color: this.colors1[1] } : { color: this.colors1[1] }
+        return flag === 1
+          ? { background: this.colors[1], color: this.colors1[1] }
+          : { color: this.colors1[1] }
       } else if (hr < 95) {
-        return flag === 1 ? { background: this.colors[0], color: this.colors1[0] } : { color: this.colors1[0] }
+        return flag === 1
+          ? { background: this.colors[0], color: this.colors1[0] }
+          : { color: this.colors1[0] }
       } else {
-        return flag === 1 ? { background: this.colors[2], color: this.colors1[2] } : { color: this.colors1[2] }
+        return flag === 1
+          ? { background: this.colors[2], color: this.colors1[2] }
+          : { color: this.colors1[2] }
       }
     },
     // firstYield状态
@@ -222,38 +237,62 @@ export default {
       if (type == "TAA" || type == "RAA") {
         let yid = Number.parseFloat(num) || 0
         if (yid > 99) {
-          return flag === 1 ? { background: this.colors[1], color: this.colors1[1] } : { color: this.colors1[1] }
+          return flag === 1
+            ? { background: this.colors[1], color: this.colors1[1] }
+            : { color: this.colors1[1] }
         } else if (yid < 97) {
-          return flag === 1 ? { background: this.colors[0], color: this.colors1[0] } : { color: this.colors1[0] }
+          return flag === 1
+            ? { background: this.colors[0], color: this.colors1[0] }
+            : { color: this.colors1[0] }
         } else {
-          return flag === 1 ? { background: this.colors[2], color: this.colors1[2] } : { color: this.colors1[2] }
+          return flag === 1
+            ? { background: this.colors[2], color: this.colors1[2] }
+            : { color: this.colors1[2] }
         }
       } else if (type == "RET") {
         let yid = Number.parseFloat(firstYield) || 0
         if (yid >= 97.5) {
-          return flag === 1 ? { background: this.colors[1], color: this.colors1[1] } : { color: this.colors1[1] }
+          return flag === 1
+            ? { background: this.colors[1], color: this.colors1[1] }
+            : { color: this.colors1[1] }
         } else if (yid < 94.5) {
-          return flag === 1 ? { background: this.colors[0], color: this.colors1[0] } : { color: this.colors1[0] }
+          return flag === 1
+            ? { background: this.colors[0], color: this.colors1[0] }
+            : { color: this.colors1[0] }
         } else {
-          return flag === 1 ? { background: this.colors[2], color: this.colors1[2] } : { color: this.colors1[2] }
+          return flag === 1
+            ? { background: this.colors[2], color: this.colors1[2] }
+            : { color: this.colors1[2] }
         }
       } else if (type == "TET") {
         let yid = Number.parseFloat(firstYield) || 0
         if (yid >= 97.5) {
-          return flag === 1 ? { background: this.colors[1], color: this.colors1[1] } : { color: this.colors1[1] }
+          return flag === 1
+            ? { background: this.colors[1], color: this.colors1[1] }
+            : { color: this.colors1[1] }
         } else if (yid < 95) {
-          return flag === 1 ? { background: this.colors[0], color: this.colors1[0] } : { color: this.colors1[0] }
+          return flag === 1
+            ? { background: this.colors[0], color: this.colors1[0] }
+            : { color: this.colors1[0] }
         } else {
-          return flag === 1 ? { background: this.colors[2], color: this.colors1[2] } : { color: this.colors1[2] }
+          return flag === 1
+            ? { background: this.colors[2], color: this.colors1[2] }
+            : { color: this.colors1[2] }
         }
       } else if (type == "FTC") {
         let yid = Number.parseFloat(firstYield) || 0
         if (yid >= 99.5) {
-          return flag === 1 ? { background: this.colors[1], color: this.colors1[1] } : { color: this.colors1[1] }
+          return flag === 1
+            ? { background: this.colors[1], color: this.colors1[1] }
+            : { color: this.colors1[1] }
         } else if (yid < 95) {
-          return flag === 1 ? { background: this.colors[0], color: this.colors1[0] } : { color: this.colors1[0] }
+          return flag === 1
+            ? { background: this.colors[0], color: this.colors1[0] }
+            : { color: this.colors1[0] }
         } else {
-          return flag === 1 ? { background: this.colors[2], color: this.colors1[2] } : { color: this.colors1[2] }
+          return flag === 1
+            ? { background: this.colors[2], color: this.colors1[2] }
+            : { color: this.colors1[2] }
         }
       }
     }

@@ -11,7 +11,12 @@
   >
     <template v-for="item in menus">
       <template v-if="item.subs">
-        <el-submenu :index="item.index" class="one-menu" :key="item.title" @click.native="itemClick(item)">
+        <el-submenu
+          :index="item.index"
+          class="one-menu"
+          :key="item.title"
+          @click.native="itemClick(item)"
+        >
           <template slot="title">
             <item :icon="item.icon" :title="item.title" />
             <!-- <i :class="item.icon"></i>
@@ -93,7 +98,12 @@
                 </template>
               </el-submenu>
             </template>
-            <el-menu-item v-else :index="subItem.index" :key="subItem.title" @click.native.stop="itemClick(subItem)">
+            <el-menu-item
+              v-else
+              :index="subItem.index"
+              :key="subItem.title"
+              @click.native.stop="itemClick(subItem)"
+            >
               <item :icon="subItem.icon" :title="subItem.title" />
               <!-- <i :class="subItem.icon"></i>
               <span slot="title">{{ subItem.title }}</span>-->

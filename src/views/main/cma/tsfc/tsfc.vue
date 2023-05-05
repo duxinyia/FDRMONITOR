@@ -3,7 +3,13 @@
     <!-- 主要区域 -->
     <dv-border-box-10>
       <!-- 使用轮播图来展示数据 -->
-      <el-carousel style="height: 100%" indicator-position="none" :interval="15 * 10000" ref="carousel" arrow="never">
+      <el-carousel
+        style="height: 100%"
+        indicator-position="none"
+        :interval="15 * 10000"
+        ref="carousel"
+        arrow="never"
+      >
         <el-carousel-item v-for="(item, index) in splitArr" :key="index">
           <div class="chart-container">
             <div v-for="(childItem, childIndex) in item" :key="childIndex" class="chart-item">

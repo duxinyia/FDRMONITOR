@@ -7,7 +7,11 @@
   // overview 的色值
   --overview-head-bg: #fff;
   // --overview-main-bg: rgba(255, 255, 255, 0.8);
-  --overview-menu-bg: linear-gradient(180deg, rgba(29, 172, 219, 0.8) 0%, rgba(15, 32, 112, 0.8) 100%);
+  --overview-menu-bg: linear-gradient(
+    180deg,
+    rgba(29, 172, 219, 0.8) 0%,
+    rgba(15, 32, 112, 0.8) 100%
+  );
   --icon-color: #000;
   --menu-item-active: #3766f4;
   --menu-item-active-bg: #fff;
@@ -27,9 +31,21 @@
   --chart-title: rgba(63, 119, 232, 1);
   --chart-slip: rgba(38, 89, 191, 1);
   --chart-scroll-right-arraw: rgba(60, 125, 231, 1);
-  --chart-scroll-header: linear-gradient(259.26deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
-  --chart-scroll-even: linear-gradient(270deg, rgba(102, 213, 250, 1) 0%, rgba(93, 121, 245, 1) 100%); // 单
-  --chart-scroll-odd: linear-gradient(270deg, rgba(90, 210, 250, 1) 0%, rgba(39, 75, 232, 1) 100%); // 双
+  --chart-scroll-header: linear-gradient(
+    259.26deg,
+    rgba(0, 227, 210, 1) 0%,
+    rgba(63, 119, 232, 1) 100%
+  );
+  --chart-scroll-even: linear-gradient(
+    270deg,
+    rgba(102, 213, 250, 1) 0%,
+    rgba(93, 121, 245, 1) 100%
+  ); // 单
+  --chart-scroll-odd: linear-gradient(
+    270deg,
+    rgba(90, 210, 250, 1) 0%,
+    rgba(39, 75, 232, 1) 100%
+  ); // 双
   // background: linear-gradient(100.74deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
 
   // aa 看板的 色值
@@ -45,10 +61,18 @@
 
   // fol 的色值
   --fol-bar-text: rgba(88, 115, 150, 1);
-  --fol-bottom-item-bg: linear-gradient(259.02deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
+  --fol-bottom-item-bg: linear-gradient(
+    259.02deg,
+    rgba(0, 227, 210, 1) 0%,
+    rgba(63, 119, 232, 1) 100%
+  );
 
   // 九宫格的颜色
-  --output2-machine-bg: linear-gradient(259.26deg, rgba(0, 227, 210, 1) 0%, rgba(63, 119, 232, 1) 100%);
+  --output2-machine-bg: linear-gradient(
+    259.26deg,
+    rgba(0, 227, 210, 1) 0%,
+    rgba(63, 119, 232, 1) 100%
+  );
   --output2-header-item: #2b409b;
 
   // 制造戰情中心

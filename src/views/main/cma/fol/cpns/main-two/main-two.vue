@@ -45,7 +45,11 @@
                   <!-- 机台容器 -->
                   <div v-for="machine in block.machineInfos" :key="machine.ip" class="machine">
                     <div class="content">
-                      <div class="machine-head" :style="changeHead(machine)" @click="openDialog(machine)">
+                      <div
+                        class="machine-head"
+                        :style="changeHead(machine)"
+                        @click="openDialog(machine)"
+                      >
                         <i class="iconfont icon-flag" :style="changeIcon(machine)"></i>
                         <span class="state">{{ machine.machineName | changeMachineName }}</span>
                       </div>
@@ -54,12 +58,20 @@
                         <!-- 左边 -->
                         <div class="left">
                           <template v-if="machine.combineTag && machine.combineTag == 'DA'">
-                            <div v-for="item in divArr2[1]" :key="item.id" :style="changeDivStyle(item.style, machine)">
+                            <div
+                              v-for="item in divArr2[1]"
+                              :key="item.id"
+                              :style="changeDivStyle(item.style, machine)"
+                            >
                               {{ item.text }}
                             </div>
                           </template>
                           <template v-else>
-                            <div v-for="item in divArr2[0]" :key="item.id" :style="changeDivStyle(item.style, machine)">
+                            <div
+                              v-for="item in divArr2[0]"
+                              :key="item.id"
+                              :style="changeDivStyle(item.style, machine)"
+                            >
                               {{ item.text }}
                             </div>
                           </template>
@@ -67,7 +79,12 @@
                         <!-- 右边 -->
                         <div class="right">
                           <!-- 如果有机台 -->
-                          <el-tooltip v-if="machine.combineID" class="item" effect="dark" placement="right">
+                          <el-tooltip
+                            v-if="machine.combineID"
+                            class="item"
+                            effect="dark"
+                            placement="right"
+                          >
                             <div slot="content">dpc不良:{{ machine.dpcRate | changeRate }}</div>
                             <div class="dpc">
                               <span class="name">DPC</span>
@@ -87,9 +104,14 @@
                           </el-tooltip>
                           <el-tooltip class="item" effect="dark" placement="right">
                             <div slot="content">efail不良:{{ machine.eFailRate | changeRate }}</div>
-                            <div class="e-fail" :style="changeLcbStyle(machine, 'fail')">e-fail</div>
+                            <div class="e-fail" :style="changeLcbStyle(machine, 'fail')">
+                              e-fail
+                            </div>
                           </el-tooltip>
-                          <dv-percent-pond class="percent-pond" :config="handlePercentConfig(machine.hitRate)" />
+                          <dv-percent-pond
+                            class="percent-pond"
+                            :config="handlePercentConfig(machine.hitRate)"
+                          />
                         </div>
                       </div>
                     </div>
@@ -242,7 +264,8 @@ export default {
         } else {
           return {
             // border: "2px solid",
-            "border-image": "linear-gradient(to left,rgba(90, 210, 250, 1) 0%,rgba(39, 75, 232, 1) 100%) 2"
+            "border-image":
+              "linear-gradient(to left,rgba(90, 210, 250, 1) 0%,rgba(39, 75, 232, 1) 100%) 2"
           }
         }
       }
@@ -304,7 +327,8 @@ export default {
         } else {
           return {
             border: "2px solid rgba(39, 75, 232, 1)",
-            background: "radial-gradient(50% 50%, rgba(0, 227, 210, 0) 0%, rgba(63, 119, 232, 0.3) 100%)"
+            background:
+              "radial-gradient(50% 50%, rgba(0, 227, 210, 0) 0%, rgba(63, 119, 232, 0.3) 100%)"
           }
         }
       }

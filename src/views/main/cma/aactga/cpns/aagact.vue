@@ -162,7 +162,8 @@ export default {
       let num = Number.parseFloat(firstYield)
       if (num < 99.4) {
         return {
-          background: "radial-gradient(50% 50%, rgba(153, 0, 255,0.5) 50%, rgba(153, 0, 255,1) 100%)",
+          background:
+            "radial-gradient(50% 50%, rgba(153, 0, 255,0.5) 50%, rgba(153, 0, 255,1) 100%)",
           color: "#9900ff"
         }
       } else {

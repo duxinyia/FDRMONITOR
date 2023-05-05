@@ -162,7 +162,10 @@ export default {
                 <div style="font-size:14px;padding:0 10px;display:flex;justify-content: space-between;background:${
                   index % 2 == 0 ? "#003b51" : "#0a2732"
                 }">
-                  <span style="margin-right:20px;color:#fff">${item.machine.replace("FOL ", "")}</span>
+                  <span style="margin-right:20px;color:#fff">${item.machine.replace(
+                    "FOL ",
+                    ""
+                  )}</span>
                   <span style="color:${flag ? "#f40" : "#fff"}">${item.remainTime}</span>
                 </div>`
               })
