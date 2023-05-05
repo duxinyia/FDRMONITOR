@@ -15,7 +15,7 @@
       </div>
       <div class="main-row">
         <div class="row-item">DefectName</div>
-        <div class="row-item" v-for="item in 12" :key="item">
+        <div class="row-item" v-for="item in TargetYield" :key="item">
           <span class="qty">Qty</span>
           <span class="rate">Rate</span>
         </div>
@@ -125,15 +125,11 @@ export default {
   padding: 20px;
 }
 .is-bg {
-  /* background: var(--defect-row-one); */
   background: #264380;
   color: #fff !important;
 }
-/* .cur-pointer {
-  cursor: pointer;
-} */
+
 .row-one {
-  /* background: var(--defect-row-one); */
   background: #264380;
   color: #fff !important;
 }
@@ -151,7 +147,6 @@ export default {
     .row-item {
       width: 7.69%;
       text-align: center;
-
       border-right: 1px solid var(--defect-border);
       &:last-child {
         border-right: none;

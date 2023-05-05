@@ -106,7 +106,7 @@ let showArrConfig = {
         },
         {
           title: "FOL LCB差异层别",
-          imgUrl: require("@/assets/images/cma/yielddetail.png"),
+          imgUrl: require("@/assets/images/other/repair.png"),
           belong: "管理层/良率",
           isShow: false,
           to: "yielddetail",
@@ -120,7 +120,7 @@ let showArrConfig = {
         },
         {
           title: "FOL DPC差异层别",
-          imgUrl: require("@/assets/images/cma/yielddetail.png"),
+          imgUrl: require("@/assets/images/other/repair.png"),
           belong: "管理层/良率",
           isShow: false,
           to: "yielddetail"
@@ -164,7 +164,7 @@ let showArrConfig = {
         },
         {
           title: "周產出/效率看板",
-          imgUrl: require("@/assets/images/cma/fol.png"),
+          imgUrl: require("@/assets/images/other/repair.png"),
           belong: "管理层/设备",
           isShow: false,
           to: "wekoutput",
@@ -177,7 +177,7 @@ let showArrConfig = {
         },
         {
           title: "Test治具良率看板",
-          imgUrl: require("@/assets/images/cma/fol.png"),
+          imgUrl: require("@/assets/images/other/repair.png"),
           belong: "管理层/设备",
           isShow: false,
           to: "fixtrue",
@@ -190,7 +190,7 @@ let showArrConfig = {
         },
         {
           title: "效率看板",
-          imgUrl: require("@/assets/images/cma/fol.png"),
+          imgUrl: require("@/assets/images/other/repair.png"),
           belong: "管理层/设备",
           isShow: false,
           to: "effciency",
@@ -203,7 +203,7 @@ let showArrConfig = {
         },
         {
           title: "Test一次不良Top15",
-          imgUrl: require("@/assets/images/cma/fol.png"),
+          imgUrl: require("@/assets/images/other/repair.png"),
           belong: "管理层/设备",
           isShow: false,
           to: "testfirst",
@@ -216,7 +216,7 @@ let showArrConfig = {
         },
         {
           title: "AA 機況排行榜",
-          imgUrl: require("@/assets/images/cma/fol.png"),
+          imgUrl: require("@/assets/images/other/repair.png"),
           belong: "管理层/设备",
           isShow: false,
           to: "aawar",
@@ -229,7 +229,7 @@ let showArrConfig = {
         },
         {
           title: "Test效率看板",
-          imgUrl: require("@/assets/images/cma/fol.png"),
+          imgUrl: require("@/assets/images/other/repair.png"),
           belong: "管理层/设备",
           isShow: false,
           to: "testeff",

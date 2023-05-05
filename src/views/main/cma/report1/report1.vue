@@ -29,7 +29,7 @@
     <!-- :row-style="{ height: '30px' }" -->
     <el-table
       :data="tabData"
-      :header-cell-style="{ background: '#b4c6e7', color: '#000' }"
+      :header-cell-style="{ background: '#131540', color: '#fff' }"
       :cell-style="cellStyle"
       height="calc(100% - 74.9px)"
       v-loading="isLoading"
@@ -250,6 +250,9 @@ export default {
 // 输入框的样式
 .select-two {
   display: flex;
+  padding: 10px 0px;
+  background: #131540;
+  border: 1px solid #1683af;
   .btn {
     margin-left: 20px;
   }

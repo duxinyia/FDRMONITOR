@@ -17,8 +17,9 @@
             </div>
           </div>
         </dv-border-box-12>
-        <dv-border-box-12>
-          <div class="chart-container">
+
+        <div style="margin: 8px 0px">
+          <dv-border-box-12>
             <make-chart-1
               :title="chart1Ttitle"
               :xData="xData"
@@ -28,10 +29,10 @@
               :isStanley="isStanley"
               @barClick="barClick"
             />
-          </div>
-        </dv-border-box-12>
-        <dv-border-box-12>
-          <div class="chart-container">
+          </dv-border-box-12>
+        </div>
+        <div style="margin-bottom: 8px">
+          <dv-border-box-12>
             <make-chart-2
               :title="chart2Ttitle"
               :chart2Xdata="chart2Xdata"
@@ -40,21 +41,20 @@
               :chart2HitRate="chart2HitRate"
               @changeLoading="changeLoading"
             />
-          </div>
-        </dv-border-box-12>
+          </dv-border-box-12>
+        </div>
+
         <dv-border-box-12>
-          <div class="chart-container">
-            <make-chart-3
-              :title="chart3Ttitle"
-              :xData="chart3Config.chat3Xdata"
-              :maxWips="chart3Config.chat3MaxWips"
-              :minWips="chart3Config.chat3MinWips"
-              :wips="chart3Config.chat3Wips"
-              :isFol="isFol"
-              :isStanley="isStanley"
-              :chart3Loading="chart2Loading"
-            />
-          </div>
+          <make-chart-3
+            :title="chart3Ttitle"
+            :xData="chart3Config.chat3Xdata"
+            :maxWips="chart3Config.chat3MaxWips"
+            :minWips="chart3Config.chat3MinWips"
+            :wips="chart3Config.chat3Wips"
+            :isFol="isFol"
+            :isStanley="isStanley"
+            :chart3Loading="chart2Loading"
+          />
         </dv-border-box-12>
       </el-col>
       <el-col :span="10">
@@ -64,36 +64,14 @@
           element-loading-text="加载中"
           element-loading-background="rgba(0, 0, 0, 1)"
         >
-          <el-table
-            :header-cell-style="getRowClass"
-            :data="tableData"
-            :highlight-current-row="true"
-            style="margin-top: 4px"
-          >
-            <el-table-column align="center" class="table-head" :label="tableLabel">
-              <el-table-column
-                align="center"
-                prop="station"
-                width="180px"
-                show-overflow-tooltip
-                label="站位"
-              ></el-table-column>
-              <el-table-column align="center" prop="targetOut" label="計劃"></el-table-column>
-              <el-table-column align="center" prop="outPut" label="實際"></el-table-column>
-              <el-table-column align="center" prop="hitRate" width="100px" label="達成率"></el-table-column>
-              <el-table-column align="center" prop="processYield" width="100px" label="良率"></el-table-column>
-              <el-table-column align="center" prop="wip" label="WIP">
-                <template slot-scope="{ row }">
-                  <div class="lamp-contaienr">
-                    <span class="lamp" :style="changewipStyle(row)"></span>
-                    <span>{{ row.wip || 0 }}</span>
-                  </div>
-                </template>
-              </el-table-column>
-              <el-table-column align="center" prop="maxWip" label="上限"></el-table-column>
-              <el-table-column align="center" prop="minWip" label="下限"></el-table-column>
-            </el-table-column>
-          </el-table>
+          <ces-table :tableData="tableData" :tableCols="tableCols">
+            <template #wip="{ row }">
+              <div class="lamp-contaienr">
+                <span class="lamp" :style="changewipStyle(row)"></span>
+                <span>{{ row.wip || 0 }}</span>
+              </div>
+            </template>
+          </ces-table>
           <div class="ct">
             <span class="name">CT(WIP总和/Pack站计划)</span>
             <span class="number">{{ ctNum }}</span>
@@ -119,6 +97,23 @@ export default {
   },
   data() {
     return {
+      // 表格列配置
+      tableCols: [
+        {
+          prop: "",
+          label: `${this.$route.params.customName} 產能達成狀況`,
+          childColumn: [
+            { prop: "station", label: "站位", width: "180" },
+            { prop: "targetOut", label: "計劃" },
+            { prop: "outPut", label: "實際" },
+            { prop: "hitRate", label: "達成率", width: "100" },
+            { prop: "processYield", label: "良率", width: "100" },
+            { prop: "wip", label: "WIP" },
+            { prop: "maxWip", label: "上限" },
+            { prop: "minWip", label: "下限" }
+          ]
+        }
+      ],
       // 表格的数据
       tableData: [],
       // x 轴的标题
@@ -139,7 +134,6 @@ export default {
       chart2Output: [],
       chart2TargetOut: [],
       chart2HitRate: [],
-      // preTime: "",
       ctNum: 0,
       isFol: false,
       isStanley: false,
@@ -176,14 +170,12 @@ export default {
     this.isStanley = customName == "Stanley"
     // 各个表格的标题
     this.chart1Ttitle = `${customName} 產出達成狀況`
-    // this.chart3Ttitle = `${customName} 站位WIP狀況`
     this.tableLabel = `${customName} 產能達成狀況`
   },
   methods: {
     // 获取右边表格的数据
     async GetRunningInfo(params) {
       let result = await GetRunningInfo(params)
-      // console.log("result", result)
       let {
         productAreaInfo: { targetOut, outPut, hitRate, delta },
         stationInfo
@@ -205,7 +197,6 @@ export default {
       // 循环取出头部区域
       let totalWip = 0
       stationInfo.forEach((item) => {
-        // console.log("item", item)
         // station x轴的数据 outPut 输入的值
         let { station, outPut, targetOut, maxWip, minWip, wip, opNo } = item
         //
@@ -232,7 +223,6 @@ export default {
       this.chart2Output = []
       this.chart2TargetOut = []
       this.chart2HitRate = []
-      // console.log("result====", result)
       // 需要生成 x轴的值 三种y的值
       result.dateValues.forEach((item) => {
         let {
@@ -261,7 +251,6 @@ export default {
       // 取出对应的值
       result.dateValues.forEach((item) => {
         this.chart3Config.chat3Xdata.push(this.$moment(item.dateCode).subtract(2, "hours").format("HH:mm"))
-
         this.chart3Config.chat3MaxWips.push(item.values.value.maxWip)
         this.chart3Config.chat3MinWips.push(item.values.value.minWip)
         this.chart3Config.chat3Wips.push(item.values.value.wip)
@@ -281,7 +270,7 @@ export default {
       return "background:transparent !important;color:#1adafb;'font-size':'30px'"
     },
     changewipStyle(row) {
-      // console.log("row", row)
+      console.log("row", row)
       if (row.wip && row.wip > row.maxWip) {
         return { color: "red" }
       } else if (row.wip && row.wip < row.minWip) {
@@ -302,46 +291,11 @@ export default {
   height: 925px !important;
   overflow: auto;
 }
-//整个table的背景颜色
-::v-deep .el-table {
-  font-size: 15px !important;
-  /* color: #000; */
-  color: var(--make-base-text);
-  border: 1px solid #1683af;
-  background-color: transparent !important; //主体框透明透明
-}
-::v-deep .cell {
-  padding: 0px !important;
-}
-::v-deep .el-table th {
-  padding: 7px 0 !important;
-  background-color: transparent;
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af !important;
-}
-::v-deep .el-table td {
-  padding: 7px 0 !important;
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af;
-}
-::v-deep .el-table tr {
-  background-color: transparent !important; //每一行透明
-}
-::v-deep .el-table::before,
-.el-table::after {
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 0px;
-}
-::v-deep .el-table tbody tr:hover > td {
-  background-color: transparent !important;
-}
 ::v-deep .border-box-content {
   padding: 10px;
 }
 ::v-deep .dv-border-box-13 {
-  padding: 10px 10px;
+  padding: 10px;
 }
 .page-main {
   margin-top: 10px;

@@ -51,14 +51,6 @@ export default {
           }
         },
         legend: [
-          // {
-          //   data: legends.slice(6),
-          //   y: "25",
-          //   textStyle: {
-          //     color: themeColor, //更改坐标轴文字颜色
-          //     fontSize: 14
-          //   }
-          // },
           {
             data: legends,
             y: "0",
@@ -108,7 +100,7 @@ export default {
             axisLabel: {
               interval: 0,
               color: themeColor,
-              fontSize: 20
+              fontSize: 16
             },
             data: xData
           }
@@ -117,7 +109,11 @@ export default {
           {
             type: "value",
             splitLine: {
-              show: true
+              show: true,
+              lineStyle: {
+                opacity: 0.5,
+                type: "dotted"
+              }
             },
             axisLine: {
               show: true, //隐藏X轴轴线
@@ -133,7 +129,7 @@ export default {
             axisLabel: {
               interval: 0,
               color: themeColor,
-              fontSize: 20,
+              fontSize: 16,
               formatter: (params) => {
                 return params + ""
               }

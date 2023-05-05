@@ -68,7 +68,7 @@ export default {
           left: "",
           right: 8,
           bottom: 0,
-          top: 10,
+          top: 15,
           containLabel: false
         },
         tooltip: {
@@ -103,7 +103,7 @@ export default {
                 fontSize: "16"
               },
               align: "left",
-              padding: [0, 0, 20, 8],
+              padding: [0, 0, 10, 8],
               verticalAlign: "bottom",
               lineHeight: 30
             },
@@ -121,11 +121,10 @@ export default {
                 fontSize: "16"
               },
               align: "right",
-              padding: [0, 8, 20, 8],
+              padding: [0, 8, 10, 8],
               verticalAlign: "bottom",
               lineHeight: 30,
               formatter: function (value) {
-                // `{a|${value}}`
                 return `${value}`
               }
             },

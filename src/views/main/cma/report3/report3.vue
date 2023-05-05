@@ -368,6 +368,9 @@ export default {
 // 输入框的样式
 .select-two {
   display: flex;
+  padding: 10px 0px;
+  background: #131540;
+  border: 1px solid #1683af;
   .btn {
     margin-left: 20px;
   }

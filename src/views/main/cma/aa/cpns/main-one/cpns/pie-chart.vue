@@ -3,6 +3,7 @@
   <div class="pie-chart">
     <span class="title" v-if="showTitle">{{ title }}</span>
     <div
+      v-if="alloptions.length > 0"
       v-loading="isLoading"
       element-loading-spinner="el-icon-loading"
       element-loading-text="加载中..."
@@ -10,6 +11,7 @@
     >
       <base-echart :options="options" />
     </div>
+    <div v-else class="nodata">暂无数据...</div>
   </div>
 </template>
 <script>
@@ -24,11 +26,11 @@ export default {
     alloptions: {
       type: Array,
       default: () => [
-        { value: 1048, name: "Search Engine" },
-        { value: 735, name: "Direct" },
-        { value: 580, name: "Email" },
-        { value: 484, name: "Union Ads" },
-        { value: 300, name: "Video Ads" }
+        // { value: 1048, name: "Search Engine" },
+        // { value: 735, name: "Direct" },
+        // { value: 580, name: "Email" },
+        // { value: 484, name: "Union Ads" },
+        // { value: 300, name: "Video Ads" }
       ]
     },
     showTitle: {
@@ -174,6 +176,13 @@ export default {
       border-radius: 2px;
       background: var(--chart-slip);
     }
+  }
+  .nodata {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 8px;
+    height: 250px;
   }
 }
 </style>

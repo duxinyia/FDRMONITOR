@@ -19,17 +19,24 @@ import "@/assets/icons"
 //
 import "font-awesome/css/font-awesome.css"
 
+import * as xlsx from "xlsx"
+
 import eIconPicker from "e-icon-picker"
 import "e-icon-picker/lib/symbol.js" //基本彩色图标库
 import "e-icon-picker/lib/index.css" // 基本样式，包含基本图标
 import "font-awesome/css/font-awesome.min.css" //font-awesome 图标库
 import "element-ui/lib/theme-chalk/icon.css" //element-ui 图标库
 
+// 导入自己封装的组件
+import CesTable from "@/common/ces-table"
+
 export default function (app) {
   app.prototype.$moment = moment
   app.prototype.$echarts = echarts
   app.prototype.$globalData = globalData
   app.prototype.$message = Message
+  app.prototype.$xlsx = xlsx
   updateStoreData()
   app.use(eIconPicker, { FontAwesome: true, ElementUI: true, eIcon: true, eIconSymbol: true })
+  app.component("ces-table", CesTable)
 }

@@ -2,14 +2,14 @@
   <div class="login-page">
     <!-- 公司logo -->
     <div class="top-container">
-      <el-image :src="left_logo"></el-image>
-      <el-image class="center_logo" :src="center_logo"></el-image>
-      <el-image :src="right_logo"></el-image>
+      <el-image :src="left_logo" />
+      <el-image class="center_logo" :src="center_logo" />
+      <el-image :src="right_logo" />
     </div>
     <!-- 登录框 -->
     <div class="form-container">
       <div class="left-container">
-        <el-image class="left-img" :src="left_img"></el-image>
+        <el-image class="left-img" :src="left_img" />
       </div>
       <div class="right-container">
         <div class="form-title">战情中心</div>
@@ -123,7 +123,7 @@ export default {
     },
     // 忘记密码
     forgetPwd() {
-      window.open(this.$globalData.RESET_PWD_URL)
+      window.open(process.env.VUE_APP_CHANGE_PWD)
     },
     keyDown(e) {
       if (e.keyCode == 13) {

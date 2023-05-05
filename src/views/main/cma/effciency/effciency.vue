@@ -14,7 +14,6 @@ import mainOne from "./cpns/main-one/main-one.vue"
 import mainTwo from "./cpns/main-two/main-two.vue"
 export default {
   name: "effciency",
-  props: {},
   components: {
     mainOne,
     mainTwo
@@ -24,8 +23,7 @@ export default {
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "效率看板")
-  },
-  methods: {}
+  }
 }
 </script>
 

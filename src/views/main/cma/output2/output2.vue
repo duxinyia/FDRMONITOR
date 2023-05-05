@@ -103,19 +103,10 @@ export default {
       this.titles = []
       this.newData = []
       let res = await GetStationName(this.selectArea)
-      // console.log("res======", res)
       this.titles = res
-      res.forEach((item, index) => {
-        GetDeviceInfo(this.selectArea, item.deviceNo).then((r) => {
-          // console.log("==========", r)
-          if (r) {
-            this.$set(this.newData, index, r[0].stationInfo)
-            // console.log("============", this.newData)
-          } else {
-            let tempObg = { targetOut: "", station: "", hitRate: "", outPut: "" }
-            this.$set(this.newData, index, tempObg)
-          }
-        })
+      res.forEach(async (item, index) => {
+        let r = await GetDeviceInfo(this.selectArea, item.deviceNo)
+        this.$set(this.newData, index, r[0].stationInfo)
       })
     },
     changeIndex(index) {

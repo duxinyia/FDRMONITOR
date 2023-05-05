@@ -67,7 +67,7 @@ export default {
           left: "",
           right: 8,
           bottom: 0,
-          top: 10,
+          top: 15,
           containLabel: false
         },
         tooltip: {
@@ -75,7 +75,7 @@ export default {
           backgroundColor: "#303133",
           extraCssText: "padding:5px;border:none;color:#fff",
           formatter: (params) => {
-            console.log("params", params)
+            // console.log("params", params)
             let { output = "", targetOut = "" } = params.data
             return `
               <div>
@@ -120,7 +120,7 @@ export default {
                 fontSize: "16"
               },
               align: "right",
-              padding: [0, 8, 20, 8],
+              padding: [0, 0, 20, 8],
               verticalAlign: "bottom",
               lineHeight: 30,
               formatter: function (value) {

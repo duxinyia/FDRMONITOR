@@ -1,5 +1,5 @@
 <template>
-  <el-row class="main-two">
+  <!-- <el-row class="main-two">
     <el-col :span="8">
       <dv-border-box-11 title="By周設備效率Top5" style="height: 320px">
         <base-echart :options="options" />
@@ -33,7 +33,46 @@
         </el-row>
       </dv-border-box-11>
     </el-col>
-  </el-row>
+  </el-row> -->
+  <div class="main-two">
+    <dv-border-box-12>
+      <el-row class="main-two">
+        <el-col :span="8">
+          <dv-border-box-11 title="By周設備效率Top5" style="height: 320px">
+            <base-echart :options="options" />
+          </dv-border-box-11>
+          <dv-border-box-11 title="By周設備效率損失Top5" style="height: 320px">
+            <el-row class="dot-container" v-for="item in 5" :key="item">
+              <el-col :span="5">DT23&nbsp;&nbsp;89.2%</el-col>
+              <el-col class="dot-item" :span="3" :offset="4"><span></span></el-col>
+              <el-col class="dot-item" :span="3"><span></span></el-col>
+              <el-col class="dot-item" :span="3"><span></span></el-col>
+              <el-col class="dot-item" :span="3"><span></span></el-col>
+              <el-col class="dot-item" :span="3"><span></span></el-col>
+            </el-row>
+          </dv-border-box-11>
+        </el-col>
+        <el-col :span="8" style="height: 100%">
+          <base-echart :options="options1" />
+        </el-col>
+        <el-col :span="8">
+          <dv-border-box-11 title="By天設備效率Top5" style="height: 320px">
+            <base-echart :options="options" />
+          </dv-border-box-11>
+          <dv-border-box-11 title="By天設備效率損失Top5" style="height: 320px">
+            <el-row class="dot-container" v-for="item in 5" :key="item">
+              <el-col :span="5">DT23&nbsp;&nbsp;89.2%</el-col>
+              <el-col class="dot-item" :span="3" :offset="4"><span></span></el-col>
+              <el-col class="dot-item" :span="3"><span></span></el-col>
+              <el-col class="dot-item" :span="3"><span></span></el-col>
+              <el-col class="dot-item" :span="3"><span></span></el-col>
+              <el-col class="dot-item" :span="3"><span></span></el-col>
+            </el-row>
+          </dv-border-box-11>
+        </el-col>
+      </el-row>
+    </dv-border-box-12>
+  </div>
 </template>
 
 <script>
@@ -371,7 +410,7 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
-  padding: 60px 20px 20px 20px;
+  padding: 20px;
 }
 .main-two {
   margin-top: 20px;

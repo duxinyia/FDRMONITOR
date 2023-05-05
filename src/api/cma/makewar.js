@@ -7,7 +7,7 @@ import { getTimeAgo, getOneDay } from "@/utils"
 export let GetOutputInfoStatics = (isDp = false) => {
   let PlantID = isDp ? "9S01" : "8S01"
   return $post(
-    `api/MESOutPut/GetProductAreaDailyOutputInfoStatics?PlantID=${PlantID}&ProductArea=ALL&DateTag=ALL&${getOneDay()}`
+    `api/MESOutPut/GetProductAreaDailyOutputInfoStatics?PlantID=${PlantID}&ProductArea=ALL&ShowTag=ALL&${getOneDay()}`
   )
 }
 

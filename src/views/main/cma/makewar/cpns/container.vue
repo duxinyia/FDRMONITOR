@@ -241,7 +241,6 @@ export default {
       } else {
         height = `${(item.values[name].targetOut / this.maxTargetOut) * 150}px`
       }
-      console.log("高度为:", height)
       return {
         height
       }
@@ -274,7 +273,7 @@ export default {
 .wrapper {
   width: 350px;
   font-size: 16px;
-  margin: 6px 4px;
+  /* margin: 6px 4px; */
   height: 255px;
   .title {
     text-align: center;
@@ -292,7 +291,7 @@ export default {
       margin-top: 18px;
       color: var(--makewar-item-num);
       .every-num {
-        margin-bottom: 15px;
+        margin-bottom: 17px;
         color: #33ffcc;
       }
     }

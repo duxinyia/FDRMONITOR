@@ -38,18 +38,17 @@ export default {
     },
     options() {
       let { legends = [], xData = [], showData = [] } = this.config
-      console.log("執行了")
       return {
         color: ["#9669ff", "#3766f4", "#43cf7c", "#ff8d1a", "#05dad4", "#1f33a2", "#8aaafb", "#05dad4", "#2c97e1"],
         grid: {
-          top: 100,
+          top: 110,
           right: 10,
           left: 60,
-          bottom: 75 //图表尺寸大小1
+          bottom: 45 //图表尺寸大小1
         },
         legend: {
           top: 50,
-          right: 50,
+          left: 10,
           textStyle: {
             color: "#fff",
             fontSize: 14
@@ -82,7 +81,7 @@ export default {
             margin: 10,
             color: "#fff",
             fontSize: 14,
-            rotate: "30" //标签倾斜的角度，旋转的角度是-90到90度
+            rotate: "20" //标签倾斜的角度，旋转的角度是-90到90度
           },
           axisLine: {
             symbol: ["none", "arrow"],

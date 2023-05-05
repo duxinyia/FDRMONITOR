@@ -27,9 +27,11 @@
         </el-date-picker>
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
+      <el-button class="btn" type="primary" round @click="exportXlsx">导出</el-button>
     </div>
 
     <el-table
+      id="exportTable"
       :data="tableData"
       :cell-style="cellStyle"
       :header-cell-style="{ background: 'transparent', color: '#fff' }"
@@ -81,7 +83,7 @@ export default {
   },
   created() {
     this.initData()
-    this.$store.commit("fullLoading/SET_TITLE", "SFR/FPDC by LensLot")
+    this.$store.commit("fullLoading/SET_TITLE", "Defect BY Lens Lot")
   },
   methods: {
     async getSelectInfo() {
@@ -116,6 +118,17 @@ export default {
       })
       this.tableTitle = res.columns
       this.tableData = handlerTableDate(res.rows)
+    },
+
+    // 导出表格为xlsx
+    exportXlsx() {
+      console.log()
+      let workbook = this.$xlsx.utils.table_to_book(document.getElementById("exportTable")) //需要在table上定义一个id
+      try {
+        this.$xlsx.writeFile(workbook, `${this.$moment().format("YYYY/MM/DD HH:mm:ss")}表格.xlsx`)
+      } catch (e) {
+        console.log("e", e)
+      }
     },
 
     async getSearchData() {
@@ -186,6 +199,9 @@ export default {
 // 输入框的样式
 .queryArea {
   display: flex;
+  padding: 10px 0px;
+  background: #131540;
+  border: 1px solid #1683af;
   .btn {
     margin-left: 20px;
   }

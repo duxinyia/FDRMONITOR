@@ -22,7 +22,7 @@ import {
   getMachinesInfo
 } from "@/api/cma/aa.js"
 export default {
-  name: "APPMain",
+  name: "aa",
   components: {
     mainOne,
     mainTwo
@@ -161,12 +161,12 @@ export default {
     // 获取良率损失top5
     async getYieldTop5() {
       let res = await getYieldTop5()
-      if (Array.isArray(res)) {
-        this.config2 = res.map((item) => {
-          let { rejectType: name, total: value, totalRate: rate, machines } = item
-          return { name, value, rate, machines }
-        })
-      }
+      console.log("res===", res)
+
+      this.config2 = res.map((item) => {
+        let { rejectType: name, total: value, totalRate: rate, machines } = item
+        return { name, value, rate, machines }
+      })
     },
     // 获取下方机台信息的数据 及每个block
     async getMachinesInfo() {

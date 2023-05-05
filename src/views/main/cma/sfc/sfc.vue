@@ -126,45 +126,56 @@ export default {
     // 获取 12 个月的 数据
     async getCloseYieldInfo() {
       let res = await getCloseYieldInfo()
-      console.log("获取对应的数据:", res)
+      let tempConfig = {
+        legends: [],
+        xData: [],
+        showData: []
+      }
+      console.log("获取对应的数据获取 12 个月的 数据:", res)
       // this.allYearData = res
       res.forEach((item, index) => {
         let tempData = []
         // 1. 取出legends
-        this.allYearConfig.legends.push(item.deviceSeries)
+        tempConfig.legends.push(item.deviceSeries)
         // 2. 取出xData中的值 但只能取一次
         item.yieldList.forEach((childItem) => {
           if (index == 0) {
-            this.allYearConfig.xData.push(childItem.dateCode)
+            tempConfig.xData.push(childItem.dateCode)
           }
           // 取出对应的值
           tempData.push(parseFloat(childItem.values.value))
         })
-        this.allYearConfig.showData.push(tempData)
+        tempConfig.showData.push(tempData)
       })
+      this.allYearConfig = tempConfig
     },
     // 获取 良率總覽 Close兩月四周
     async getCloseYieldInfoTow() {
       let res = await getCloseYieldInfoTow()
+      let tempConfig = {
+        legends: [],
+        xData: [],
+        showData: []
+      }
       console.log("良率總覽 Close兩月四周", res)
       res.forEach((item, index) => {
         let tempData = []
         // 1. 取出legends
-        this.yearWeekConfig.legends.push(item.deviceSeries)
+        tempConfig.legends.push(item.deviceSeries)
         // 2. 取出xData中的值 但只能取一次
         item.yieldList.forEach((childItem) => {
           if (index == 0) {
-            this.yearWeekConfig.xData.push(childItem.dateCode)
+            tempConfig.xData.push(childItem.dateCode)
           }
           // 取出对应的值
           tempData.push(parseFloat(childItem.values.value))
         })
-        this.yearWeekConfig.showData.push(tempData)
+        tempConfig.showData.push(tempData)
       })
+      this.yearWeekConfig = tempConfig
       console.log("this.yearWeekConfig", this.yearWeekConfig)
     }
-  },
-  beforeDestroy() {}
+  }
 }
 </script>
 <style lang="scss" scoped>
