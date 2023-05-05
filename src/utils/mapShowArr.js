@@ -12,7 +12,8 @@ let showArrConfig = {
           route: {
             path: "output",
             name: "output",
-            component: () => import(/* webpackChunkName: "cmaoutput" */ "@/views/main/cma/output/output.vue"),
+            component: () =>
+              import(/* webpackChunkName: "cmaoutput" */ "@/views/main/cma/output/output.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -29,11 +30,13 @@ let showArrConfig = {
               {
                 path: "make",
                 name: "make",
-                component: () => import(/* webpackChunkName: "cmamake" */ "@/views/main/cma/make/make.vue"),
+                component: () =>
+                  import(/* webpackChunkName: "cmamake" */ "@/views/main/cma/make/make.vue"),
                 meta: { parentName: "cma", isJump: true }
               }
             ],
-            component: () => import(/* webpackChunkName: "cmamakewar" */ "@/views/main/cma/makewar/makewar.vue"),
+            component: () =>
+              import(/* webpackChunkName: "cmamakewar" */ "@/views/main/cma/makewar/makewar.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -46,7 +49,8 @@ let showArrConfig = {
           route: {
             path: "output2",
             name: "output2",
-            component: () => import(/* webpackChunkName: "cmaoutput2" */ "@/views/main/cma/output2/output2.vue"),
+            component: () =>
+              import(/* webpackChunkName: "cmaoutput2" */ "@/views/main/cma/output2/output2.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -59,7 +63,8 @@ let showArrConfig = {
           route: {
             path: "aactga",
             name: "aactga",
-            component: () => import(/* webpackChunkName: "cmaaactga" */ "@/views/main/cma/aactga/aactga.vue"),
+            component: () =>
+              import(/* webpackChunkName: "cmaaactga" */ "@/views/main/cma/aactga/aactga.vue"),
             meta: { parentName: "cma" }
           }
         }
@@ -74,7 +79,8 @@ let showArrConfig = {
           route: {
             path: "sfc",
             name: "sfc",
-            component: () => import(/* webpackChunkName: "cmasfc" */ "@/views/main/cma/sfc/sfc.vue"),
+            component: () =>
+              import(/* webpackChunkName: "cmasfc" */ "@/views/main/cma/sfc/sfc.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -87,7 +93,8 @@ let showArrConfig = {
           route: {
             path: "tsfc",
             name: "tsfc",
-            component: () => import(/* webpackChunkName: "cmatsfc" */ "@/views/main/cma/tsfc/tsfc.vue"),
+            component: () =>
+              import(/* webpackChunkName: "cmatsfc" */ "@/views/main/cma/tsfc/tsfc.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -100,7 +107,8 @@ let showArrConfig = {
           route: {
             path: "defect",
             name: "defect",
-            component: () => import(/* webpackChunkName: "cmadefect" */ "@/views/main/cma/defect/defect.vue"),
+            component: () =>
+              import(/* webpackChunkName: "cmadefect" */ "@/views/main/cma/defect/defect.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -114,7 +122,9 @@ let showArrConfig = {
             path: "yielddetail",
             name: "yielddetail",
             component: () =>
-              import(/* webpackChunkName: "cmayielddetail" */ "@/views/main/cma/yielddetail/yielddetail.vue"),
+              import(
+                /* webpackChunkName: "cmayielddetail" */ "@/views/main/cma/yielddetail/yielddetail.vue"
+              ),
             meta: { parentName: "cma" }
           }
         },
@@ -158,7 +168,8 @@ let showArrConfig = {
           route: {
             path: "fol",
             name: "fol",
-            component: () => import(/* webpackChunkName: "cmafol" */ "@/views/main/cma/fol/fol.vue"),
+            component: () =>
+              import(/* webpackChunkName: "cmafol" */ "@/views/main/cma/fol/fol.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -171,7 +182,10 @@ let showArrConfig = {
           route: {
             path: "wekoutput",
             name: "wekoutput",
-            component: () => import(/* webpackChunkName: "cmawekoutput" */ "@/views/main/cma/wekoutput/wekoutput.vue"),
+            component: () =>
+              import(
+                /* webpackChunkName: "cmawekoutput" */ "@/views/main/cma/wekoutput/wekoutput.vue"
+              ),
             meta: { parentName: "cma" }
           }
         },
@@ -184,7 +198,8 @@ let showArrConfig = {
           route: {
             path: "fixtrue",
             name: "fixtrue",
-            component: () => import(/* webpackChunkName: "cmafixtrue" */ "@/views/main/cma/fixtrue/fixtrue.vue"),
+            component: () =>
+              import(/* webpackChunkName: "cmafixtrue" */ "@/views/main/cma/fixtrue/fixtrue.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -197,7 +212,10 @@ let showArrConfig = {
           route: {
             path: "effciency",
             name: "effciency",
-            component: () => import(/* webpackChunkName: "effciency" */ "@/views/main/cma/effciency/effciency.vue"),
+            component: () =>
+              import(
+                /* webpackChunkName: "effciency" */ "@/views/main/cma/effciency/effciency.vue"
+              ),
             meta: { parentName: "cma" }
           }
         },
@@ -210,7 +228,10 @@ let showArrConfig = {
           route: {
             path: "testfirst",
             name: "testfirst",
-            component: () => import(/* webpackChunkName: "testfirst" */ "@/views/main/cma/testfirst/testfirst.vue"),
+            component: () =>
+              import(
+                /* webpackChunkName: "testfirst" */ "@/views/main/cma/testfirst/testfirst.vue"
+              ),
             meta: { parentName: "cma" }
           }
         },
@@ -223,7 +244,8 @@ let showArrConfig = {
           route: {
             path: "aawar",
             name: "aawar",
-            component: () => import(/* webpackChunkName: "aawar" */ "@/views/main/cma/aawar/aawar.vue"),
+            component: () =>
+              import(/* webpackChunkName: "aawar" */ "@/views/main/cma/aawar/aawar.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -236,7 +258,22 @@ let showArrConfig = {
           route: {
             path: "testeff",
             name: "testeff",
-            component: () => import(/* webpackChunkName: "testeff" */ "@/views/main/cma/testeff/testeff.vue"),
+            component: () =>
+              import(/* webpackChunkName: "testeff" */ "@/views/main/cma/testeff/testeff.vue"),
+            meta: { parentName: "cma" }
+          }
+        },
+        {
+          title: "Lens Reject rate",
+          imgUrl: require("@/assets/images/other/repair.png"),
+          belong: "管理层/设备",
+          isShow: false,
+          to: "rerate",
+          route: {
+            path: "rerate",
+            name: "rerate",
+            component: () =>
+              import(/* webpackChunkName: "rerate" */ "@/views/main/cma/rerate/rerate.vue"),
             meta: { parentName: "cma" }
           }
         }
@@ -254,7 +291,7 @@ let showArrConfig = {
         {
           isExternalLink: true,
           imgUrl: require("@/assets/images/cma/device4.jpg"),
-          title: "實時統計",
+          title: "AA AI實時統計",
           target: "process",
           belong: "管理层/製程監控",
           isShow: false,
@@ -263,7 +300,7 @@ let showArrConfig = {
         {
           isExternalLink: true,
           imgUrl: require("@/assets/images/cma/device5.png"),
-          title: "歷史日統計",
+          title: "AA AI歷史日統計",
           target: "process",
           belong: "管理层/製程監控",
           isShow: false,
@@ -272,7 +309,7 @@ let showArrConfig = {
         {
           isExternalLink: true,
           imgUrl: require("@/assets/images/cma/device6.png"),
-          title: "歷史周統計",
+          title: "AA AI歷史周統計",
           target: "process",
           belong: "管理层/製程監控",
           isShow: false,
@@ -281,12 +318,50 @@ let showArrConfig = {
         {
           isExternalLink: true,
           imgUrl: require("@/assets/images/cma/device7.png"),
-          title: "歷史月統計",
+          title: "AA AI歷史月統計",
           target: "process",
           belong: "管理层/製程監控",
           isShow: false,
           to: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
         },
+
+        {
+          isExternalLink: true,
+          imgUrl: require("@/assets/images/cma/device8.png"),
+          title: "ACF 鏡頭AI檢測",
+          target: "process",
+          belong: "管理层/製程監控",
+          isShow: false,
+          to: "http://10.142.117.50:32001/share.html#/?token=KG3RHWT8"
+        },
+        {
+          isExternalLink: true,
+          imgUrl: require("@/assets/images/cma/device9.png"),
+          title: "ACF AI日統計",
+          target: "process",
+          belong: "管理层/製程監控",
+          isShow: false,
+          to: "http://10.142.117.50:32001/share.html#/?token=PVAX4VH2"
+        },
+        {
+          isExternalLink: true,
+          imgUrl: require("@/assets/images/cma/device10.png"),
+          title: "ACF AI歷史周統計",
+          target: "process",
+          belong: "管理层/製程監控",
+          isShow: false,
+          to: "http://10.142.117.50:32001/share.html#/?token=AMM0V0AE"
+        },
+        {
+          isExternalLink: true,
+          imgUrl: require("@/assets/images/cma/device11.png"),
+          title: "ACF AI歷史月統計",
+          target: "process",
+          belong: "管理层/製程監控",
+          isShow: false,
+          to: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
+        },
+
         {
           title: "GA製程監控",
           imgUrl: require("@/assets/images/cma/ga.png"),
@@ -336,7 +411,8 @@ let showArrConfig = {
           route: {
             path: "folyield",
             name: "folyield",
-            component: () => import(/* webpackChunkName: "jtest" */ "@/views/main/cma/folyield/folyield.vue"),
+            component: () =>
+              import(/* webpackChunkName: "jtest" */ "@/views/main/cma/folyield/folyield.vue"),
             meta: { parentName: "cma" }
           }
         }
@@ -366,7 +442,8 @@ let showArrConfig = {
           route: {
             path: "javi",
             name: "javi",
-            component: () => import(/* webpackChunkName: "javi" */ "@/views/main/cma/javi/javi.vue"),
+            component: () =>
+              import(/* webpackChunkName: "javi" */ "@/views/main/cma/javi/javi.vue"),
             meta: { parentName: "cma" }
           }
         }
@@ -385,7 +462,8 @@ let showArrConfig = {
           route: {
             path: "report1",
             name: "cmamainreport",
-            component: () => import(/* webpackChunkName: "report1" */ "@/views/main/cma/report1/report1.vue"),
+            component: () =>
+              import(/* webpackChunkName: "report1" */ "@/views/main/cma/report1/report1.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -398,7 +476,8 @@ let showArrConfig = {
           route: {
             path: "report2",
             name: "cmamainreport2",
-            component: () => import(/* webpackChunkName: "report2" */ "@/views/main/cma/report2/report2.vue"),
+            component: () =>
+              import(/* webpackChunkName: "report2" */ "@/views/main/cma/report2/report2.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -411,7 +490,8 @@ let showArrConfig = {
           route: {
             path: "report3",
             name: "cmamainreport3",
-            component: () => import(/* webpackChunkName: "report3" */ "@/views/main/cma/report3/report3.vue"),
+            component: () =>
+              import(/* webpackChunkName: "report3" */ "@/views/main/cma/report3/report3.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -424,7 +504,8 @@ let showArrConfig = {
           route: {
             path: "report4",
             name: "cmamainreport4",
-            component: () => import(/* webpackChunkName: "report4" */ "@/views/main/cma/report4/report4.vue"),
+            component: () =>
+              import(/* webpackChunkName: "report4" */ "@/views/main/cma/report4/report4.vue"),
             meta: { parentName: "cma" }
           }
         },
@@ -437,7 +518,8 @@ let showArrConfig = {
           route: {
             path: "report5",
             name: "cmamainreport5",
-            component: () => import(/* webpackChunkName: "report5" */ "@/views/main/cma/report5/report5.vue"),
+            component: () =>
+              import(/* webpackChunkName: "report5" */ "@/views/main/cma/report5/report5.vue"),
             meta: { parentName: "cma" }
           }
         }
@@ -456,7 +538,8 @@ let showArrConfig = {
           route: {
             path: "output",
             name: "dpoutput",
-            component: () => import(/* webpackChunkName: "dpoutput" */ "@/views/main/dp/output/output.vue"),
+            component: () =>
+              import(/* webpackChunkName: "dpoutput" */ "@/views/main/dp/output/output.vue"),
             meta: { parentName: "dp" }
           }
         },
@@ -473,11 +556,13 @@ let showArrConfig = {
               {
                 path: "make",
                 name: "dpmake",
-                component: () => import(/* webpackChunkName: "dpmake" */ "@/views/main/dp/make/make.vue"),
+                component: () =>
+                  import(/* webpackChunkName: "dpmake" */ "@/views/main/dp/make/make.vue"),
                 meta: { parentName: "dp", isJump: true }
               }
             ],
-            component: () => import(/* webpackChunkName: "dpmakewar" */ "@/views/main/dp/makewar/makewar.vue"),
+            component: () =>
+              import(/* webpackChunkName: "dpmakewar" */ "@/views/main/dp/makewar/makewar.vue"),
             meta: { parentName: "dp" }
           }
         },
@@ -490,7 +575,8 @@ let showArrConfig = {
           route: {
             path: "output2",
             name: "dpoutput2",
-            component: () => import(/* webpackChunkName: "dpoutput2" */ "../views/main/dp/output2/output2.vue"),
+            component: () =>
+              import(/* webpackChunkName: "dpoutput2" */ "../views/main/dp/output2/output2.vue"),
             meta: { parentName: "dp" }
           }
         },
@@ -504,7 +590,9 @@ let showArrConfig = {
             path: "equipoutput",
             name: "dpequipoutput",
             component: () =>
-              import(/* webpackChunkName: "dpdeviceoutput" */ "@/views/main/dp/equipOutput/equipOutput.vue"),
+              import(
+                /* webpackChunkName: "dpdeviceoutput" */ "@/views/main/dp/equipOutput/equipOutput.vue"
+              ),
             meta: { parentName: "dp" }
           }
         },
@@ -517,7 +605,8 @@ let showArrConfig = {
           route: {
             path: "outwork",
             name: "dpoutwork",
-            component: () => import(/* webpackChunkName: "dpoutwork" */ "../views/main/dp/outwork/outwork.vue"),
+            component: () =>
+              import(/* webpackChunkName: "dpoutwork" */ "../views/main/dp/outwork/outwork.vue"),
             meta: { parentName: "dp" }
           }
         }

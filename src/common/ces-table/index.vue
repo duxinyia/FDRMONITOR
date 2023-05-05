@@ -26,9 +26,11 @@
         v-loading="loading"
       >
         <!-- 是否有前面的多选效果 -->
-        <el-table-column type="selection" width="55" align="center" v-if="isSelection"> </el-table-column>
+        <el-table-column type="selection" width="55" align="center" v-if="isSelection">
+        </el-table-column>
         <!-- 是否显示前面的序号 -->
-        <el-table-column v-if="isIndex" type="index" :label="indexLabel" align="center" width="50"> </el-table-column>
+        <el-table-column v-if="isIndex" type="index" :label="indexLabel" align="center" width="50">
+        </el-table-column>
         <!-- 表格的每一项：表格列数据 -->
         <el-table-column
           v-for="item in tableCols"
@@ -50,6 +52,23 @@
               :sortable="childitem.isSortable || false"
               :width="childitem.width"
             >
+              <template v-if="childitem.childColumn">
+                <el-table-column
+                  v-for="childitem2 in childitem.childColumn"
+                  :prop="childitem2.prop"
+                  :label="childitem2.label"
+                  align="center"
+                  :key="childitem2.prop"
+                  :sortable="childitem2.isSortable || false"
+                  :width="childitem2.width"
+                >
+                  <template #default="scope">
+                    <slot :name="childitem2.prop" :row="scope.row">
+                      {{ scope.row[childitem2.prop] }}
+                    </slot>
+                  </template>
+                </el-table-column>
+              </template>
               <template #default="scope">
                 <slot :name="childitem.prop" :row="scope.row">
                   {{ scope.row[childitem.prop] }}
@@ -57,7 +76,7 @@
               </template>
             </el-table-column>
           </template>
-          <template v-else #default="scope">
+          <template #default="scope">
             <slot :name="item.prop" :row="scope.row">
               {{ scope.row[item.prop] }}
             </slot>

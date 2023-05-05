@@ -21,7 +21,12 @@ export let getScatData = (params = {}) => {
 
 // 获取折线图的数据
 export let getLineData = (params = {}) => {
-  let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E", ValueItem = "CONFIGURABLETILTRAWX" } = params
+  let {
+    machinename = "VA1302",
+    PlantID = "8S01",
+    Device = "MW-E",
+    ValueItem = "CONFIGURABLETILTRAWX"
+  } = params
   return $post(
     `api/MachineData/VA_Data?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
       24
@@ -31,7 +36,12 @@ export let getLineData = (params = {}) => {
 
 // 获取k线图的数据 位置
 export let getKLineData = (params = {}) => {
-  let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E", ValueItem = "INSPECTIONZ" } = params
+  let {
+    machinename = "VA1302",
+    PlantID = "8S01",
+    Device = "MW-E",
+    ValueItem = "INSPECTIONZ"
+  } = params
   return $post(
     `api/MachineData/VA_Data_SUBSTRATENO_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
       24
@@ -41,7 +51,12 @@ export let getKLineData = (params = {}) => {
 
 // 获取k线图的数据 时间
 export let getKLineHourData = (params = {}) => {
-  let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E", ValueItem = "INSPECTIONZ" } = params
+  let {
+    machinename = "VA1302",
+    PlantID = "8S01",
+    Device = "MW-E",
+    ValueItem = "INSPECTIONZ"
+  } = params
   return $post(
     `api/MachineData/VA_Data_Hour_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
       24

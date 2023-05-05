@@ -26,10 +26,9 @@
       </div>
       <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
-    <!-- :row-style="{ height: '30px' }" -->
     <el-table
       :data="tabData"
-      :header-cell-style="{ background: '#131540', color: '#fff' }"
+      :header-cell-style="{ background: '#131540', color: '#fff', 'font-weight': 700 }"
       :cell-style="cellStyle"
       height="calc(100% - 74.9px)"
       v-loading="isLoading"
@@ -253,6 +252,7 @@ export default {
   padding: 10px 0px;
   background: #131540;
   border: 1px solid #1683af;
+  border-radius: 4px;
   .btn {
     margin-left: 20px;
   }

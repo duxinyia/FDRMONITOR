@@ -35,7 +35,12 @@
 import LineChart1 from "./cpns/LineChart1.vue"
 import LineChart2 from "./cpns/LineChart2.vue"
 // 导入发送请求的函函數
-import { getMESDeviceInfo, getMESDeviceDetail, getCloseYieldInfo, getCloseYieldInfoTow } from "@/api/cma/sfc.js"
+import {
+  getMESDeviceInfo,
+  getMESDeviceDetail,
+  getCloseYieldInfo,
+  getCloseYieldInfoTow
+} from "@/api/cma/sfc.js"
 import { splitArray } from "@/utils"
 export default {
   name: "sfc",
@@ -49,9 +54,7 @@ export default {
       topLineChartConfig: [],
       // 下方系列的数据
       lineChartConfigs: [
-        {
-          deviceSeries: "JU"
-        },
+        { deviceSeries: "JU" },
         { deviceSeries: "ML" },
         { deviceSeries: "MD" },
         { deviceSeries: "Stanley" }
@@ -85,7 +88,11 @@ export default {
   },
   methods: {
     async initData() {
-      let requestArr = [this.getCloseYieldInfo(), this.getCloseYieldInfoTow(), this.getMESDeviceInfo()]
+      let requestArr = [
+        this.getCloseYieldInfo(),
+        this.getCloseYieldInfoTow(),
+        this.getMESDeviceInfo()
+      ]
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
@@ -104,21 +111,21 @@ export default {
             xData: [],
             showData: []
           }
-          r.forEach((item, index) => {
-            let tempData = []
-            // 1. 取出legends
-            tempConfig.legends.push(item.deviceSeries)
-            // 2. 取出xData中的值 但只能取一次
-            item.yieldList.forEach((childItem) => {
-              if (index == 0) {
-                tempConfig.xData.push(childItem.dateCode)
-              }
-              // 取出对应的值
-              tempData.push(parseFloat(childItem.values.value))
+          r &&
+            r.forEach((item, index) => {
+              let tempData = []
+              // 1. 取出legends
+              tempConfig.legends.push(item.deviceSeries)
+              // 2. 取出xData中的值 但只能取一次
+              item.yieldList.forEach((childItem) => {
+                if (index == 0) {
+                  tempConfig.xData.push(childItem.dateCode)
+                }
+                // 取出对应的值
+                tempData.push(parseFloat(childItem.values.value))
+              })
+              tempConfig.showData.push(tempData)
             })
-            tempConfig.showData.push(tempData)
-          })
-          // this.allDetails[index] = tempConfig
           this.$set(this.allDetails, index, tempConfig)
         })
       })
@@ -173,7 +180,7 @@ export default {
         tempConfig.showData.push(tempData)
       })
       this.yearWeekConfig = tempConfig
-      console.log("this.yearWeekConfig", this.yearWeekConfig)
+      // console.log("this.yearWeekConfig", this.yearWeekConfig)
     }
   }
 }
