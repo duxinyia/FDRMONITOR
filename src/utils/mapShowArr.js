@@ -403,7 +403,7 @@ let showArrConfig = {
           }
         },
         {
-          title: "SFR/FPDC Report BY Tooling",
+          title: "Defect BY Tooling",
           imgUrl: require("@/assets/images/cma/report3.png"),
           belong: "报表/所有",
           isShow: false,
@@ -416,7 +416,7 @@ let showArrConfig = {
           }
         },
         {
-          title: "SFR/FPDC by LensLot",
+          title: "Defect BY Lens Lot",
           imgUrl: require("@/assets/images/cma/report4.png"),
           belong: "报表/所有",
           isShow: false,

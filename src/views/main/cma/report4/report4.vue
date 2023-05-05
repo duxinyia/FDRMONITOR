@@ -80,8 +80,7 @@ export default {
     }
   },
   created() {
-    this.getSelectInfo()
-    this.getDefaultData()
+    this.initData()
     this.$store.commit("fullLoading/SET_TITLE", "SFR/FPDC by LensLot")
   },
   methods: {
@@ -103,10 +102,15 @@ export default {
       })
     },
     //页面加载默认参数访问接口获取数据
+    async initData() {
+      let requestArr = [this.getSelectInfo()]
+      await Promise.all(requestArr)
+      this.getDefaultData()
+    },
     async getDefaultData() {
       let res = await GetTbaleInfo({
-        DefectType: "SFR",
-        Device: "APL007",
+        DefectType: this.selectData[1].value,
+        Device: this.selectData[0].value,
         Starttime: this.date.startTime,
         Endtime: this.date.EndTime
       })
