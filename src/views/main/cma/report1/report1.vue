@@ -11,10 +11,10 @@
           placeholder="請選擇"
         >
           <el-option
-            v-for="item in options[item.name]"
-            :key="item.id"
-            :label="item.id"
-            :value="item.value"
+            v-for="optionsItem in options[item.name]"
+            :key="optionsItem.id"
+            :label="optionsItem.id"
+            :value="optionsItem.value"
           >
           </el-option>
         </el-select>
@@ -130,7 +130,7 @@ export default {
   },
 
   watch: {
-    // tabData: {
+    // tableTitle: {
     //   immediate: true,
     //   handler(newData) {
     //     this.isLoading = !newData[0] ? true : false
@@ -156,7 +156,6 @@ export default {
           inputValue[1].value = item.value
         }
       })
-      var curDate = new Date()
       inputValue[2].value = moment().format("YYYY-MM-DD HH:mm:ss")
       this.getData(inputValue)
     },
