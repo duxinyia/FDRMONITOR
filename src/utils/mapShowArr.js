@@ -510,6 +510,20 @@ let showArrConfig = {
           }
         },
         {
+          title: "数据分析",
+          imgUrl: require("@/assets/images/cma/report4.png"),
+          belong: "报表/所有",
+          isShow: false,
+          to: "cmamainreport6",
+          route: {
+            path: "report6",
+            name: "cmamainreport6",
+            component: () =>
+              import(/* webpackChunkName: "report4" */ "@/views/main/cma/report6/report6.vue"),
+            meta: { parentName: "cma" }
+          }
+        },
+        {
           title: "cma的第五个报表",
           imgUrl: require("@/assets/images/cma/output.png"),
           belong: "报表/所有",
