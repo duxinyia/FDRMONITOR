@@ -3,8 +3,7 @@
         参考地址:https://www.isqqw.com/viewer?id=15337
   -->
   <div class="line-chart">
-    <p class="title" v-if="showTitle">{{ title }}</p>
-    <base-echart :options="options" height="350px" />
+    <base-echart :options="options" :height="height" />
   </div>
 </template>
 <script>
@@ -12,7 +11,7 @@
 import baseEchart from "@/common/echart"
 export default {
   name: "line-chart",
-  props: ["title", "config", "height", "showTitle"],
+  props: ["title", "config", "height"],
   components: {
     baseEchart
   },
@@ -20,15 +19,16 @@ export default {
     options() {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
-      console.log(5, this.config)
       let {
         xData,
         legends,
         yData: [data0, data1, data2, data3, data4, data5, data6, data7, data8, data9]
       } = this.config
-      // console.log("legends.slice(5)", legends.slice(5))
-      // console.log("legends.slice(0, 5)", legends.slice(0, 5))
       return {
+        title: {
+          text: "Stacked Line",
+          textStyle: { color: "#fff" }
+        },
         color: [
           "#5ad2fa",
           "#b989f0",
@@ -222,15 +222,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.rank-echart {
-  .title {
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 5px;
-    color: var(--chart-title);
-    padding-left: 5px;
-    border-left: 4px solid var(--chart-slip);
-  }
-}
-</style>
+<style lang="scss" scoped></style>

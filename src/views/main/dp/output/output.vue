@@ -168,6 +168,7 @@ export default {
         let { owner, output } = item
         this.seriesData.push({ name: owner, value: parseInt(output) })
       })
+      console.log("获取年度的统计数据", this.seriesData)
     },
     // 获取中间折线图部分
     async getMPSOpenLineInfo() {
