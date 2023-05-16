@@ -6,6 +6,7 @@ export let mapMenus = (routers) => {
   // 需要返回的数据
   let titleArr = [] // 菜单数组
   let menus = [] // 处理后的除了cma和dp的所有子数组
+  // 名称和页面id 的数组
   routers.forEach((item) => {
     // 取出一级标题和路径
     titleArr.push({ name: item.meta.title, path: item.path })

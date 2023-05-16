@@ -114,35 +114,31 @@ let showArrConfig = {
         },
         {
           title: "FOL LCB差异层别",
-          imgUrl: require("@/assets/images/other/repair.png"),
+          imgUrl: require("@/assets/images/cma/follcb.png"),
           belong: "管理层/良率",
           isShow: false,
-          to: "yielddetail",
+          to: "follcb",
           route: {
-            path: "yielddetail",
-            name: "yielddetail",
+            path: "follcb",
+            name: "follcb",
             component: () =>
-              import(
-                /* webpackChunkName: "cmayielddetail" */ "@/views/main/cma/yielddetail/yielddetail.vue"
-              ),
+              import(/* webpackChunkName: "follcb" */ "@/views/main/cma/follcb/index.vue"),
             meta: { parentName: "cma" }
           }
         },
         {
           title: "FOL DPC差异层别",
-          imgUrl: require("@/assets/images/other/repair.png"),
+          imgUrl: require("@/assets/images/cma/foldpc.png"),
           belong: "管理层/良率",
           isShow: false,
-          to: "yielddetail"
-          // route: {
-          //   path: "yielddetail",
-          //   name: "yielddetail",
-          //   component: () =>
-          //     import(
-          //       /* webpackChunkName: "cmayielddetail" */ "@/views/main/cma/yielddetail/yielddetail.vue"
-          //     ),
-          //   meta: { parentName: "cma" }
-          // }
+          to: "foldpc",
+          route: {
+            path: "foldpc",
+            name: "foldpc",
+            component: () =>
+              import(/* webpackChunkName: "foldpc" */ "@/views/main/cma/foldpc/index.vue"),
+            meta: { parentName: "cma" }
+          }
         }
       ],
       device: [
@@ -282,7 +278,7 @@ let showArrConfig = {
         {
           isExternalLink: true,
           imgUrl: require("@/assets/images/cma/spotcheck.jpg"),
-          title: "IAA Step看板",
+          title: "AA 膠型AI檢測",
           target: "device",
           belong: "管理层/製程監控",
           isShow: false,
@@ -332,7 +328,7 @@ let showArrConfig = {
           target: "process",
           belong: "管理层/製程監控",
           isShow: false,
-          to: "http://10.142.117.50:32001/share.html#/?token=KG3RHWT8"
+          to: "http://10.142.117.51:32001/share.html#/?token=BGZC2DMS"
         },
         {
           isExternalLink: true,
@@ -341,7 +337,7 @@ let showArrConfig = {
           target: "process",
           belong: "管理层/製程監控",
           isShow: false,
-          to: "http://10.142.117.50:32001/share.html#/?token=PVAX4VH2"
+          to: "http://10.142.117.51:32001/share.html#/?token=5NV6LK5V"
         },
         {
           isExternalLink: true,
@@ -350,7 +346,7 @@ let showArrConfig = {
           target: "process",
           belong: "管理层/製程監控",
           isShow: false,
-          to: "http://10.142.117.50:32001/share.html#/?token=AMM0V0AE"
+          to: "http://10.142.117.51:32001/share.html#/?token=HSMAUVEN"
         },
         {
           isExternalLink: true,
@@ -359,7 +355,7 @@ let showArrConfig = {
           target: "process",
           belong: "管理层/製程監控",
           isShow: false,
-          to: "http://10.142.117.50:32001/share.html#/?token=YBWWHR2M"
+          to: "http://10.142.117.51:32001/share.html#/?token=6LV6R28M"
         },
 
         {
@@ -633,114 +629,127 @@ let tempTitleArr = []
 
 export let mapShowArr = (allRouters) => {
   let asyncRoutes = []
-  let cmaNames = []
-  let dpNames = []
+  let cmaNamesIds = []
+  let dpNamesIds = []
   allRouters.forEach((item) => {
     if (item.name.includes("cma") && item.children) {
-      cmaNames = getAllTitle(item.children)
+      cmaNamesIds = getAllTitleAndId(item.children)
     }
     tempTitleArr = []
     if (item.name.includes("dp") && item.children) {
-      dpNames = getAllTitle(item.children)
+      dpNamesIds = getAllTitleAndId(item.children)
     }
   })
   //console.log("cmaNames", cmaNames) // 所有返回的cma的地址
   //console.log("dpNames", dpNames) // 所有返回的dp的地址
   // 循环 cma 的地址
   showArrConfig.cma.manage.output = showArrConfig.cma.manage.output.map((item) => {
-    if (cmaNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = cmaNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: cmaNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
   showArrConfig.cma.manage.yield = showArrConfig.cma.manage.yield.map((item) => {
-    if (cmaNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = cmaNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: cmaNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
   showArrConfig.cma.manage.device = showArrConfig.cma.manage.device.map((item) => {
-    if (cmaNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = cmaNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: cmaNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
   showArrConfig.cma.manage.process = showArrConfig.cma.manage.process.map((item) => {
-    if (cmaNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = cmaNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: cmaNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
   // 处理cma 决策层的
   showArrConfig.cma.juec.output = showArrConfig.cma.juec.output.map((item) => {
-    if (cmaNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = cmaNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: cmaNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
   showArrConfig.cma.juec.yield = showArrConfig.cma.juec.yield.map((item) => {
-    if (cmaNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = cmaNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: cmaNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
   showArrConfig.cma.juec.device = showArrConfig.cma.juec.device.map((item) => {
-    if (cmaNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = cmaNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: cmaNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
   showArrConfig.cma.juec.process = showArrConfig.cma.juec.process.map((item) => {
-    if (cmaNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = cmaNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: cmaNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
   // 处理cma 报表的
   showArrConfig.cma.report.all = showArrConfig.cma.report.all.map((item) => {
-    if (cmaNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = cmaNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: cmaNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
   // 处理dp的管理层地址
   showArrConfig.dp.manage.output = showArrConfig.dp.manage.output.map((item) => {
-    if (dpNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = dpNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: dpNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
   // 处理dp的报表地址
   showArrConfig.dp.report.all = showArrConfig.dp.report.all.map((item) => {
-    if (dpNames.includes(item.title) && item.route) {
-      asyncRoutes.push(item.route)
+    let result = dpNamesIds.find((_item) => _item.pageName == item.title)
+    if (result && item.route) {
+      asyncRoutes.push({ ...item.route, meta: { ...item.route.meta, pageId: result.pageId } })
     }
     delete item.route
-    return { ...item, isShow: dpNames.includes(item.title) }
+    return { ...item, isShow: Boolean(result) }
   })
+
   return { showArrConfig, asyncRoutes }
 }
 
 /**
- * 获取所有的title 比如获取后端返回的所有cma的标题
+ * 获取所有的title 比如获取后端返回的所有cma的标题 和 页面 id
  * @param {*} routers
  * @returns
  */
-function getAllTitle(routers) {
+function getAllTitleAndId(routers) {
   routers.forEach((item) => {
-    tempTitleArr.push(item.meta.title)
+    // console.log("子页面id：", routers)
+    tempTitleArr.push({ pageName: item.meta.title, pageId: item.id })
     if (item.children) {
-      getAllTitle(item.children)
+      getAllTitleAndId(item.children)
     }
   })
   return tempTitleArr

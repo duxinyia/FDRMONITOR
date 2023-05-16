@@ -6,6 +6,11 @@
         <el-image class="logo" :src="logoUrl" fit="fill" />
         <h2 class="name" v-show="!menuFold">RAYPRUS</h2>
       </div>
+      <!-- 菜单设置 -->
+      <!-- <div class="end-set" @click="toMenuSet">
+        <svg-icon icon-class="link" />
+        <span class="title">菜单设置</span>
+      </div> -->
       <menu-child :menus="$store.getters.menus[$store.getters.showIndex]" />
     </el-aside>
     <el-container class="right-container">
@@ -20,8 +25,8 @@
           :key="item.name"
           :class="{ item: true, 'is-active': index == $store.getters.showIndex }"
         >
-          {{ item.name }}</span
-        >
+          {{ item.name }}
+        </span>
       </div>
       <!-- 主要区域 -->
       <el-main class="main-container">
@@ -64,11 +69,13 @@ export default {
   },
   methods: {
     itemClick(item, index) {
-      console.log("item=====", item)
       // 点击不同的按钮显示不同的子菜单
       this.$router.push(item.path).catch(() => {})
       this.$store.commit("fullLoading/SET_PATH", this.$route.path)
       this.$store.commit("permission/SET_INDEX", index)
+    },
+    toMenuSet() {
+      window.open("http://10.151.130.135:70/")
     }
   }
 }
@@ -129,6 +136,22 @@ export default {
         margin-top: 5px;
       }
     }
+    /* .end-set {
+      padding: 0px 20px;
+      margin: auto;
+      width: 85%;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 14px;
+      background: linear-gradient(90deg, #21aebe91 0%, #3357caf5 68.63%, #353cb8 100%);
+      .title {
+        margin-left: 13px;
+      }
+    } */
   }
   // 右边主要区域
   .right-container {

@@ -17,8 +17,8 @@
       </el-carousel>
       <!-- 自定义两个切换按钮 -->
       <change-switch
-        :leftConfig="{ left: '0px', top: '9px' }"
-        :rightConfig="{ right: '0px', top: '9px' }"
+        :leftConfig="{ left: '20px', top: '9px' }"
+        :rightConfig="{ right: '20px', top: '9px' }"
         @directionChange="handleDirection"
       />
       <!-- 下拉选择框 -->

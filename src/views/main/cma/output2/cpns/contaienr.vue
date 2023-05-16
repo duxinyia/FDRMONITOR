@@ -25,25 +25,26 @@
         class="data-info"
       >
         <el-col :span="2" class="wip-num">{{ item.wip || 0 }}</el-col>
+
         <el-col :span="5">
           <el-tooltip effect="dark" placement="right">
             <div slot="content">
-              <span>上限WIP: {{ item.minWip }}</span>
+              <span>上限WIP: {{ item.maxWip }}</span>
               <br />
               <br />
-              <span>下限WIP: {{ item.maxWip }}</span>
+              <span>下限WIP: {{ item.minWip }}</span>
             </div>
             <div>
               <dv-percent-pond :config="changeConfig(item)" class="percent-pond" />
             </div>
           </el-tooltip>
         </el-col>
+
         <el-col :span="8">
           <div class="battery">
             <el-tooltip effect="dark" :content="item.station" placement="bottom">
               <span class="name">{{ item.station }}</span>
             </el-tooltip>
-
             <el-tooltip effect="dark" placement="right">
               <div slot="content">
                 <span>實際產出: {{ item.outPut }}</span>
@@ -61,8 +62,10 @@
           </div>
         </el-col>
         <el-col :span="3">{{ item.targetOut || "-" }}</el-col>
-        <el-col :span="3">{{ item.hitRate || "-" }}</el-col>
-        <el-col :span="3">{{ item.overallYield || "-" }}</el-col>
+        <el-col :span="3">
+          {{ item.hitRate ? parseInt(item.hitRate) + "%" : "-" }}
+        </el-col>
+        <el-col :span="3">{{ parseInt(item.overallYield) + "%" || "-" }}</el-col>
       </el-row>
     </div>
   </div>
@@ -74,68 +77,94 @@ export default {
   props: ["itemTitle", "showData", "index"],
   data() {
     return {
-      loading: true
+      loading: true,
+      colors1: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)"],
+      colors: [
+        "radial-gradient(50% 50%, rgba(255, 0, 102, 0.5) 50%, rgba(255, 0, 102, 1) 100%)",
+        "radial-gradient(50% 50%, rgba(0, 255, 0, 0.5) 50%, rgba(0, 255, 0, 1) 100%)",
+        "radial-gradient(50% 50%, rgba(255, 255, 0, 0.5) 50%, rgba(255, 255, 0, 1) 100%)"
+      ]
     }
   },
   watch: {
     showData: {
       handler() {
-        // console.log("showData", this.showData)
         this.loading = false
       }
     }
   },
   methods: {
     changeContainerStyle(item) {
-      let borders = this.$store.getters.theme == "dark" ? "#1694ed" : "#fff"
-      let bgs = this.$store.getters.theme == "dark" ? "#093f65" : "transparent"
-      return {
-        border: `1px solid ${borders}`,
-        background: bgs
+      let borderColor =
+        item.wip > item.maxWip
+          ? "rgba(0, 176, 80, 0.9)"
+          : item.wip < item.minWip
+          ? "rgba(255, 0, 0, 0.9)"
+          : "#1694ed"
+      if (parseInt(item.hitRate)) {
+        return {
+          border: `1px solid ${borderColor}`
+        }
       }
+      return { border: `1px solid #1694ed` }
     },
     changeCenterStyle(item) {
+      // wip > targetOut 亮绿色 wip < targetOut 亮红色
       //  数字
       let result = parseInt(item.hitRate)
       if (item.targetOut == 0) {
         result = 0
       }
-      let bgs0 = [
-        "linear-gradient(to right,rgba(153, 102, 255, 0.3) 10%,rgba(153, 102, 255, 0.6) 50%,rgba(153, 102, 255, 0.9) 100%)",
-        "linear-gradient(270deg, rgba(45, 60, 128, 1) 0%, rgba(39, 75, 232, 1) 100%)"
+      let bgs = [
+        "linear-gradient(to right,rgba(0, 176, 80, 0.3) 10%,rgba(0, 176, 80, 0.6) 50%,rgba(0, 176, 80, 0.9) 100%)",
+        "linear-gradient(to right,rgba(255, 0, 0, 0.3) 10%,rgba(255, 0, 0, 0.6) 50%,rgba(255, 0, 0, 0.9) 100%)",
+        "linear-gradient(to right,rgba(153, 102, 255, 0.3) 10%,rgba(153, 102, 255, 0.6) 50%,rgba(153, 102, 255, 0.9) 100%)"
       ]
-      let bgs1 = [
-        "linear-gradient(tot right,rgba(34, 177, 249, 0.3) 10%,rgba(34, 177, 249, 0.6) 50%,rgba(34, 177, 249, 0.9) 100%)",
-        "linear-gradient(270deg, rgba(222, 184, 47, 1) 0%, rgba(255, 140, 26, 1) 100%)"
-      ]
+      let bg = item.wip > item.maxWip ? bgs[0] : item.wip < item.minWip ? bgs[1] : bgs[2]
 
       if (result > 100) {
         return {
           width: "100%",
-          background: this.$store.getters.theme == "dark" ? bgs0[0] : bgs0[1]
+          background: bg
         }
       }
       return {
         width: `${result}%`,
-        background: this.$store.getters.theme == "dark" ? bgs0[0] : bgs1[1]
+        background: bg
       }
     },
     changeConfig(item) {
+      console.log("item", item)
+      // wip > targetOut 亮黄色 wip < targetOut 亮红色
       let showValue = 0
       if (item.wipRate) {
-        showValue = parseInt(item.wipRate) > 100 ? 100 : parseInt(item.wipRate)
+        // showValue = parseInt(item.wipRate) > 100 ? 100 : parseInt(item.wipRate)
+        showValue = (item.wip / item.maxWip) * 100
+        console.log(showValue)
       }
       let colors =
-        this.$store.getters.theme == "dark"
-          ? ["#3DE7C9", "#00BAFF"]
-          : ["rgba(13, 207, 255, 1)", "rgba(22, 43, 224, 1)"]
-      let lineDashs = this.$store.getters.theme == "dark" ? [2, 2] : [2, 0]
+        item.wip > item.maxWip
+          ? ["#ff0", "#ff0"]
+          : item.wip < item.minWip
+          ? ["#f00", "#f00"]
+          : ["#3DE7C9", "#00BAFF"]
+      if (item.wip && item.maxWip) {
+        return {
+          value: showValue,
+          formatter: "",
+          colors,
+          borderRadius: 1,
+          lineDash: [1, 1],
+          borderWidth: 1,
+          localGradient: false
+        }
+      }
       return {
         value: showValue,
         formatter: "",
-        colors,
+        colors: ["#3DE7C9", "#00BAFF"],
         borderRadius: 1,
-        lineDash: lineDashs,
+        lineDash: [1, 1],
         borderWidth: 1,
         localGradient: false
       }
@@ -153,7 +182,6 @@ export default {
   height: 25px !important;
 }
 .machine {
-  /* width: 600px; */
   height: 100%;
   padding: 4px 6px 4px 6px;
   border-radius: 8px;
@@ -214,6 +242,18 @@ export default {
       justify-content: flex-start;
       align-items: center;
     }
+  }
+}
+
+@keyframes fade {
+  0% {
+    box-shadow: inset 0 0 5px currentColor;
+  }
+  50% {
+    box-shadow: inset 0 0 10px currentColor;
+  }
+  100% {
+    box-shadow: inset 0 0 5px currentColor;
   }
 }
 </style>

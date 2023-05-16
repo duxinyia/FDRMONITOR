@@ -3,7 +3,7 @@
     <dv-border-box-12>
       <!-- 使用轮播图来展示数据 -->
       <el-carousel
-        style="height: 1000px"
+        style="height: 1020px"
         indicator-position="none"
         :interval="15 * 10000"
         @change="changeCarousel"
@@ -16,8 +16,8 @@
       </el-carousel>
       <!-- 自定义两个切换按钮 -->
       <change-switch
-        :leftConfig="{ left: '0px', top: '9px' }"
-        :rightConfig="{ right: '0px', top: '9px' }"
+        :leftConfig="{ left: '20px', top: '9px' }"
+        :rightConfig="{ right: '20px', top: '9px' }"
         @directionChange="handleDirection"
       />
       <!-- 下拉选择框 -->
