@@ -11,7 +11,13 @@
         @change="changeCarousel"
       >
         <el-carousel-item>
-          <aagact-item />
+          <aa-item />
+        </el-carousel-item>
+        <el-carousel-item>
+          <ga-item />
+        </el-carousel-item>
+        <el-carousel-item>
+          <ct-item />
         </el-carousel-item>
         <el-carousel-item>
           <acf-item />
@@ -48,7 +54,9 @@
 // 导入左右切换的组件
 import ChangeSwitch from "@/components/change-switch/change-switch.vue"
 // ACF AA/GA/CT AVI TEST
-import AagactItem from "./cpns/aagact.vue"
+import AaItem from "./cpns/aa.vue"
+import GaItem from "./cpns/ga.vue"
+import CtItem from "./cpns/ct.vue"
 import AcfItem from "./cpns/acf.vue"
 import TestItem from "./cpns/test.vue"
 import AviItem from "./cpns/avi.vue"
@@ -57,17 +65,21 @@ export default {
   data() {
     return {
       options: [
-        { label: "AA/GA/CT", value: 1 },
-        { label: "ACF", value: 2 },
-        { label: "TEST", value: 3 },
-        { label: "AVI", value: 4 }
+        { label: "AA", value: 1 },
+        { label: "GA", value: 2 },
+        { label: "CT", value: 3 },
+        { label: "ACF", value: 4 },
+        { label: "TEST", value: 5 },
+        { label: "AVI", value: 6 }
       ],
       currentIndex: 0
     }
   },
   components: {
     ChangeSwitch,
-    AagactItem,
+    AaItem,
+    GaItem,
+    CtItem,
     AcfItem,
     TestItem,
     AviItem

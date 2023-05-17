@@ -18,6 +18,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item icon="el-icon-switch-button" command="layout">退出</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-switch-button" command="end">后台管理</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -54,7 +55,8 @@ export default {
         this.$store.commit("permission/SET_MEUNS", [])
         this.$store.commit("permission/SET_ROUTETITLE", [])
         this.$store.commit("permission/SET_INDEX", 0)
-        // this.$router.go(0)
+      } else {
+        window.open("http://10.151.130.135:70/")
       }
     },
     getCurrentTime() {

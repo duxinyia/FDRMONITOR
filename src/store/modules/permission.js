@@ -38,6 +38,7 @@ const actions = {
     console.log("获取到的菜单路由为:", data)
     // 将路由映射成侧边菜单和取出菜单
     let { titleArr, menus } = mapMenus(data)
+    console.log("menus", menus)
     commit("SET_MEUNS", menus)
     commit("SET_ROUTETITLE", titleArr)
     // 3. 将 ShowArrConfig 根据 路由 改变isShow属性

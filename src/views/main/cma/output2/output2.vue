@@ -57,8 +57,8 @@
         </div>
       </div>
       <change-switch
-        :leftConfig="{ left: '0px', top: '15px' }"
-        :rightConfig="{ right: '0px', top: '15px' }"
+        :leftConfig="{ left: '20px', top: '15px' }"
+        :rightConfig="{ right: '20px', top: '15px' }"
         @directionChange="handleDirection"
       />
     </dv-border-box-12>

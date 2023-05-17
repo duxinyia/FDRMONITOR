@@ -28,7 +28,7 @@ import "font-awesome/css/font-awesome.min.css" //font-awesome 图标库
 import "element-ui/lib/theme-chalk/icon.css" //element-ui 图标库
 
 // 导入自己封装的组件
-import CesTable from "@/common/ces-table"
+import CesTable from "@/common/ces-table/ces-table.vue"
 
 export default function (app) {
   app.prototype.$moment = moment

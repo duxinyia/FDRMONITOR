@@ -4,8 +4,8 @@
     <dv-border-box-13 :color="changeBoxColor">
       <!-- 自定义两个切换按钮 -->
       <change-switch
-        :leftConfig="{ left: '0px', top: '55px' }"
-        :rightConfig="{ right: '0px', top: '55px' }"
+        :leftConfig="{ left: '25px', top: '55px' }"
+        :rightConfig="{ right: '25px', top: '55px' }"
         @directionChange="handleDirection"
       />
       <div class="count-container">

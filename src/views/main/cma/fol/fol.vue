@@ -154,6 +154,7 @@ export default {
     }
   },
   mounted() {
+    console.log("this.$router", this.$route)
     this.$store.commit("fullLoading/SET_TITLE", "FOL設備總覽")
     this.initData()
     // 每5分钟获取一次数据

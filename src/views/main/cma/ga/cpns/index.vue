@@ -7,7 +7,6 @@
       :kLineDataZ="kLineDataZ"
       :machinename="machine"
     />
-
     <main-two
       :lineData="xLineData"
       :machinename="`${machine} X shift趨勢圖`"
@@ -23,11 +22,16 @@
       :machinename="`${machine} Rotation趨勢圖`"
       :limit="{ maxLimit: 0.5, minLimit: -0.5 }"
     />
+    <main-two
+      :lineData="fourLineData"
+      :machinename="`${machine} INSPECTIONWIDTH趨勢圖`"
+      :limit="{ maxLimit: 0.65, minLimit: 0.45 }"
+    />
   </div>
 </template>
 <script>
 // 导入接口请求函数
-import { getScatData, getLineData, getKLineData } from "@/api/cma/vaga.js"
+import { getScatData, getLineData, getKLineHourData } from "@/api/cma/vaga.js"
 // 导入第一行
 import mainOne from "./main-one/main-one.vue"
 // 导入底部区域
@@ -60,6 +64,10 @@ export default {
         xData: [],
         showData: []
       },
+      fourLineData: {
+        xData: [],
+        showData: []
+      },
       kLineDataX: {
         xData: [],
         showData: []
@@ -85,7 +93,7 @@ export default {
           this.scats = res
         })
         // x 的
-        getLineData({ machinename, ValueItem: "CONFIGURABLETILTRAWX" }).then((res) => {
+        getLineData({ machinename, ValueItem: "INSPECTIONX", isGa: true }).then((res) => {
           console.log("折线图", res)
           res.data.forEach((item) => {
             let [showItem, time] = item
@@ -94,7 +102,7 @@ export default {
           })
         })
         // y 的
-        getLineData({ machinename, ValueItem: "CONFIGURABLETILTRAWY" }).then((res) => {
+        getLineData({ machinename, ValueItem: "INSPECTIONY", isGa: true }).then((res) => {
           console.log("折线图", res)
           res.data.forEach((item) => {
             let [showItem, time] = item
@@ -103,30 +111,40 @@ export default {
           })
         })
         // z 的
-        getLineData({ machinename, ValueItem: "INSPECTIONZ" }).then((res) => {
-          console.log("折线图", res)
+        getLineData({ machinename, ValueItem: "INSPECTIONTHETA", isGa: true }).then((res) => {
+          console.log("折线图INSPECTIONZ", res)
           res.data.forEach((item) => {
             let [showItem, time] = item
             this.zLineData.showData.push(showItem)
             this.zLineData.xData.push(time)
           })
         })
+        // 23-05-16 新增
+        getLineData({ machinename, ValueItem: "INSPECTIONWIDTH", isGa: true }).then((res) => {
+          console.log("折线图INSPECTIONWIDTH", res)
+          res &&
+            res.data.forEach((item) => {
+              let [showItem, time] = item
+              this.fourLineData.showData.push(showItem)
+              this.fourLineData.xData.push(time)
+            })
+        })
         // 获取ga看板的箱线图  INSPECTIONX  INSPECTIONY  INSPECTIONTHETA
-        getKLineData({ machinename, ValueItem: "INSPECTIONX" }).then((res) => {
+        getKLineHourData({ machinename, ValueItem: "INSPECTIONX", isGa: true }).then((res) => {
           console.log("res箱线图X", res)
           res.forEach((item) => {
             this.kLineDataX.xData.push(item.shift())
             this.kLineDataX.showData.push(item)
           })
         })
-        getKLineData({ machinename, ValueItem: "INSPECTIONY" }).then((res) => {
+        getKLineHourData({ machinename, ValueItem: "INSPECTIONY", isGa: true }).then((res) => {
           console.log("res箱线图Y", res)
           res.forEach((item) => {
             this.kLineDataY.xData.push(item.shift())
             this.kLineDataY.showData.push(item)
           })
         })
-        getKLineData({ machinename, ValueItem: "INSPECTIONTHETA" }).then((res) => {
+        getKLineHourData({ machinename, ValueItem: "INSPECTIONTHETA", isGa: true }).then((res) => {
           console.log("res箱线图Z", res)
           res.forEach((item) => {
             this.kLineDataZ.xData.push(item.shift())
@@ -145,6 +163,7 @@ export default {
   padding: 20px;
 }
 .page-main {
-  height: calc(100% - 110px);
+  height: 100%;
+  overflow-y: auto;
 }
 </style>

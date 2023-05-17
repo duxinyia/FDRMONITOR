@@ -59,12 +59,13 @@
       </el-col>
       <el-col :span="10">
         <div
+          style="margin-top: 5px"
           v-loading="leftLoading"
           element-loading-spinner="el-icon-loading"
           element-loading-text="加载中"
           element-loading-background="rgba(0, 0, 0, 1)"
         >
-          <ces-table :tableData="tableData" :tableCols="tableCols">
+          <ces-table :tableData="tableData" :tableCols="tableCols" :tableWidths="tableWidths">
             <template #wip="{ row }">
               <div class="lamp-contaienr">
                 <span class="lamp" :style="changewipStyle(row)"></span>
@@ -104,20 +105,21 @@ export default {
       // 表格列配置
       tableCols: [
         {
-          prop: "",
-          label: `${this.$route.params.customName} 產能達成狀況`,
-          childColumn: [
-            { prop: "station", label: "站位", width: "180" },
-            { prop: "targetOut", label: "計劃" },
-            { prop: "outPut", label: "實際" },
-            { prop: "hitRate", label: "達成率", width: "100" },
-            { prop: "processYield", label: "良率", width: "100" },
-            { prop: "wip", label: "WIP" },
-            { prop: "maxWip", label: "上限" },
-            { prop: "minWip", label: "下限" }
+          id: "",
+          name: `${this.$route.params.customName} 產能達成狀況`,
+          chileColumn: [
+            { id: "station", name: "站位" },
+            { id: "targetOut", name: "計劃" },
+            { id: "outPut", name: "實際" },
+            { id: "hitRate", name: "達成率" },
+            { id: "processYield", name: "良率" },
+            { id: "wip", name: "WIP" },
+            { id: "maxWip", name: "上限" },
+            { id: "minWip", name: "下限" }
           ]
         }
       ],
+      tableWidths: [180, "", "", 100, 100],
       // 表格的数据
       tableData: [],
       // x 轴的标题

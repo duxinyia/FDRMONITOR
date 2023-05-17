@@ -11,9 +11,11 @@ export let getMachines = (params = {}) => {
 
 // 获取散点图的数据
 export let getScatData = (params = {}) => {
-  let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E" } = params
+  let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E", isGa = false } = params
   return $post(
-    `api/MachineData/VA_Data_TiltXY_Scatter_Chart?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&${getTimeAgo(
+    `api/MachineData/${
+      isGa ? "GA" : "VA"
+    }_Data_TiltXY_Scatter_Chart?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&${getTimeAgo(
       24
     )}`
   )
@@ -25,10 +27,13 @@ export let getLineData = (params = {}) => {
     machinename = "VA1302",
     PlantID = "8S01",
     Device = "MW-E",
-    ValueItem = "CONFIGURABLETILTRAWX"
+    ValueItem = "CONFIGURABLETILTRAWX",
+    isGa = false
   } = params
   return $post(
-    `api/MachineData/VA_Data?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
+    `api/MachineData/${
+      isGa ? "GA" : "VA"
+    }_Data?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
       24
     )}`
   )
@@ -40,10 +45,13 @@ export let getKLineData = (params = {}) => {
     machinename = "VA1302",
     PlantID = "8S01",
     Device = "MW-E",
-    ValueItem = "INSPECTIONZ"
+    ValueItem = "INSPECTIONZ",
+    isGa = false
   } = params
   return $post(
-    `api/MachineData/VA_Data_SUBSTRATENO_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
+    `api/MachineData/${
+      isGa ? "GA" : "VA"
+    }_Data_SUBSTRATENO_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
       24
     )}`
   )
@@ -55,10 +63,13 @@ export let getKLineHourData = (params = {}) => {
     machinename = "VA1302",
     PlantID = "8S01",
     Device = "MW-E",
-    ValueItem = "INSPECTIONZ"
+    ValueItem = "INSPECTIONZ",
+    isGa = false
   } = params
   return $post(
-    `api/MachineData/VA_Data_Hour_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
+    `api/MachineData/${
+      isGa ? "GA" : "VA"
+    }_Data_Hour_Box_Plot?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
       24
     )}`
   )

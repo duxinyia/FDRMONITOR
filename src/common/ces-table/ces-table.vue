@@ -21,9 +21,13 @@
       <el-table
         :header-cell-style="{ background: 'transparent !important', color: '#1adafb' }"
         :data="tableData"
-        style="width: 100%"
         :border="isBorder"
-        v-loading="loading"
+        v-loading="isloading"
+        element-loading-text="加载中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 1)"
+        :height="tableHeight"
+        :span-method="objectSpanMethod"
       >
         <!-- 是否有前面的多选效果 -->
         <el-table-column type="selection" width="55" align="center" v-if="isSelection">
@@ -33,52 +37,55 @@
         </el-table-column>
         <!-- 表格的每一项：表格列数据 -->
         <el-table-column
-          v-for="item in tableCols"
-          :prop="item.prop"
-          :label="item.label"
+          v-for="(item, index) in tableCols"
+          :prop="item.id"
+          :label="item.name"
           align="center"
-          :key="item.prop"
+          :key="item.id"
           :sortable="item.isSortable || false"
-          :width="item.width"
+          :width="tableWidths[index]"
+          show-overflow-tooltip
         >
           <!-- 如果嵌套标题 -->
-          <template v-if="item.childColumn">
+          <template v-if="item.chileColumn">
             <el-table-column
-              v-for="childitem in item.childColumn"
-              :prop="childitem.prop"
-              :label="childitem.label"
+              v-for="(childitem, chileIndex) in item.chileColumn"
+              :prop="childitem.id"
+              :label="childitem.name"
               align="center"
-              :key="childitem.prop"
+              :key="childitem.id"
               :sortable="childitem.isSortable || false"
-              :width="childitem.width"
+              :width="tableWidths[index + chileIndex]"
+              show-overflow-tooltip
             >
-              <template v-if="childitem.childColumn">
+              <template v-if="childitem.chileColumn">
                 <el-table-column
-                  v-for="childitem2 in childitem.childColumn"
-                  :prop="childitem2.prop"
-                  :label="childitem2.label"
+                  v-for="(childitem2, childIndex2) in childitem.chileColumn"
+                  :prop="childitem2.id"
+                  :label="childitem2.name"
                   align="center"
-                  :key="childitem2.prop"
+                  :key="childitem2.id"
                   :sortable="childitem2.isSortable || false"
-                  :width="childitem2.width"
+                  :width="tableWidths[index + chileIndex + childIndex2]"
+                  show-overflow-tooltip
                 >
                   <template #default="scope">
-                    <slot :name="childitem2.prop" :row="scope.row">
-                      {{ scope.row[childitem2.prop] }}
+                    <slot :name="childitem2.id" :row="scope.row">
+                      {{ scope.row[childitem2.id] || "-" }}
                     </slot>
                   </template>
                 </el-table-column>
               </template>
               <template #default="scope">
-                <slot :name="childitem.prop" :row="scope.row">
-                  {{ scope.row[childitem.prop] }}
+                <slot :name="childitem.id" :row="scope.row">
+                  {{ scope.row[childitem.id] || "-" }}
                 </slot>
               </template>
             </el-table-column>
           </template>
           <template #default="scope">
-            <slot :name="item.prop" :row="scope.row">
-              {{ scope.row[item.prop] }}
+            <slot :name="item.id" :row="scope.row">
+              {{ scope.row[item.id] || "-" }}
             </slot>
           </template>
         </el-table-column>
@@ -102,7 +109,7 @@
 
 <script>
 export default {
-  name: "cesTable",
+  name: "ces-table",
   props: {
     // 1. 表格的尺寸大小 mini,medium,small
     size: { type: String, default: "medium" },
@@ -126,9 +133,34 @@ export default {
     tableData: { type: Array, default: () => [] },
     // 7. 表格列数据
     tableCols: { type: Array, default: () => [] },
-    // 8. 表格上面的操作
+    // 8. 表格各列的宽度
+    tableWidths: { type: Array, default: () => [] },
+    // 9. 表格上面的操作
     isHandle: { type: Boolean, default: false },
+    // 10. 表格的高度 用于显示滚动条
+    tableHeight: { type: String, default: "" },
+    // 11. 合并表格的方法
+    handleColumn: {
+      type: Function,
+      default: () => {
+        return Function
+      }
+    },
+    isHasHandle: { type: Boolean, default: false },
     tableHandles: { type: Array, default: () => [] }
+  },
+  data() {
+    return {
+      isloading: true
+    }
+  },
+  watch: {
+    tableData: {
+      handler() {
+        this.isloading = false
+      },
+      deep: true
+    }
   },
   methods: {
     /**
@@ -145,70 +177,46 @@ export default {
     },
     nextClick(page) {
       this.$emit("nextPageChange", page)
+    },
+    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      // console.log(this.handleColumn)
+      if (!this.isHasHandle) return
+      return this.handleColumn({ row, column, rowIndex, columnIndex })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-/* 修改表格的一些样式 */
-/* ::v-deep .el-table {
-  background: transparent;
-  border: 1px solid #1683af;
-}
-::v-deep .el-table tr {
-  background: transparent;
-  color: #fff;
-}
-::v-deep .el-table th {
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af !important;
-}
-::v-deep .el-table td {
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af;
-}
-::v-deep .el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
-  background: transparent;
-}
-::v-deep .el-table .el-table__cell {
-  padding: 5px 0px;
-}
-::v-deep .el-table th.el-table__cell > .cell {
-  padding: 0px;
-}
-::v-deep .el-table::before,
-.el-table::after {
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 0px;
-}
-::v-deep .el-table td {
-  padding: 7px 0 !important;
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af;
-} */
-
 //整个table的背景颜色
 ::v-deep .el-table {
   font-size: 15px !important;
   color: var(--make-base-text);
-  border: 1px solid #1683af;
-  background-color: transparent !important; //主体框透明透明
+  border-top: 1px solid #1683af;
+  border-left: none;
+  background-color: transparent !important;
 }
 ::v-deep .cell {
   padding: 0px !important;
 }
 ::v-deep .el-table th {
-  padding: 7px 0 !important;
+  padding: 7px 0;
+  /* padding: 0px; */
   background-color: transparent;
+  /* border-left: 1px solid #1683af; */
   border-right: 1px solid #1683af;
   border-bottom: 1px solid #1683af !important;
+  &:first-child {
+    border-left: 1px solid #1683af;
+  }
 }
 ::v-deep .el-table td {
-  padding: 7px 0 !important;
+  padding: 7px 0;
+  /* padding: 0px; */
   border-right: 1px solid #1683af;
   border-bottom: 1px solid #1683af;
+  &:first-child {
+    border-left: 1px solid #1683af;
+  }
 }
 ::v-deep .el-table tr {
   background-color: transparent !important; //每一行透明

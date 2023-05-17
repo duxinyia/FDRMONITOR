@@ -14,44 +14,79 @@ export default {
       tableData: [],
       tableCols: [
         {
-          prop: "",
-          label: "Cft",
-          childColumn: [{ prop: "device", label: "機種" }]
+          id: "",
+          name: "Cft",
+          chileColumn: [{ id: "device", name: "機種" }]
         },
         {
-          prop: "",
-          label: "Mc",
-          childColumn: [{ prop: "device", label: "機種" }]
+          id: "",
+          name: "Mc",
+          chileColumn: [{ id: "device", name: "機種" }]
         },
         {
-          prop: "",
-          label: "Mc",
-          childColumn: [
+          id: "",
+          name: "History Input",
+          chileColumn: [
             {
-              prop: "device",
-              label: "投入數量",
-              childColumn: [
-                { prop: "device", label: "機種" },
-                { prop: "device", label: "機種" },
-                { prop: "device", label: "機種" }
+              id: "device",
+              name: "投入數量",
+              chileColumn: [
+                { id: "device", name: "Today-3" },
+                { id: "device", name: "Today-2" },
+                { id: "device", name: "Today-1" }
               ]
             }
           ]
         },
         {
-          prop: "",
-          label: "Mc",
-          childColumn: [
+          id: "",
+          name: "History Fail Qty",
+          chileColumn: [
             {
-              prop: "device",
-              label: "投入數量",
-              childColumn: [
-                { prop: "device", label: "機種" },
-                { prop: "device", label: "機種" },
-                { prop: "device", label: "機種" }
+              id: "device",
+              name: "不良數量",
+              chileColumn: [
+                { id: "device", name: "Today-3" },
+                { id: "device", name: "Today-2" },
+                { id: "device", name: "Today-1" }
               ]
             }
           ]
+        },
+        {
+          id: "",
+          name: "History Rate%",
+          chileColumn: [
+            {
+              id: "device",
+              name: "不良比率",
+              chileColumn: [
+                { id: "device", name: "Today-3" },
+                { id: "device", name: "Today-2" },
+                { id: "device", name: "Today-1" }
+              ]
+            }
+          ]
+        },
+        {
+          id: "",
+          name: "Input",
+          chileColumn: [{ id: "device", name: "投入数量" }]
+        },
+        {
+          id: "",
+          name: "Fail QTY",
+          chileColumn: [{ id: "device", name: "不良数" }]
+        },
+        {
+          id: "",
+          name: "Rate%",
+          chileColumn: [{ id: "device", name: "不良比率" }]
+        },
+        {
+          id: "",
+          name: "Rate%",
+          chileColumn: [{ id: "device", name: "不良比率" }]
         }
       ]
     }
@@ -64,6 +99,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.rerate {
-}
+/* .rerate {
+} */
 </style>

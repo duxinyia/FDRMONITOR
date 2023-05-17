@@ -12,7 +12,6 @@
 
 <script>
 import { isExternal } from "@/utils/validate"
-
 export default {
   name: "SvgIcon",
   props: {

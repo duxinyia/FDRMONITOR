@@ -34,7 +34,7 @@ export default {
   span {
     z-index: 1000;
     position: absolute;
-    width: 120px;
+    /* width: 120px; */
     /* height: 50px; */
     text-align: center;
     animation: twinkle 2s infinite;
