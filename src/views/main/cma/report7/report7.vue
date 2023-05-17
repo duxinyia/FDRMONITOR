@@ -21,9 +21,9 @@
           <el-form-item :label="item.name">
             <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
               <el-option
-                v-for="optionsItem in options[item.name]"
+                v-for="optionsItem in options[item.key]"
                 :key="optionsItem.id"
-                :label="optionsItem.id"
+                :label="optionsItem.value"
                 :value="optionsItem.value"
               >
               </el-option>
@@ -31,7 +31,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="5" class="timesWidth" v-if="item.type == 'datetime'">
+        <el-col :span="5" v-if="item.type == 'datetime'">
           <el-form-item :label="item.name">
             <el-date-picker
               :clearable="false"
@@ -56,53 +56,25 @@
       element-loading-text="加载中"
       element-loading-background="rgba(0, 0, 0, 1)"
     >
-      <ces-table :tableData="tabData" :tableCols="tableTitle"> </ces-table>
-    </div>
-    <!-- <el-table
-      :data="tabData"
-      :header-cell-style="{ background: '#131540', color: '#fff', 'font-weight': 700 }"
-      :cell-style="cellStyle"
-      height="calc(100% - 74.9px)"
-      v-loading="isLoading"
-      element-loading-spinner="el-icon-loading"
-      element-loading-text="加载中..."
-      element-loading-background="rgba(0, 0, 0, 1)"
-    > -->
-    <!--height="calc(100% - 20.9px) " 如果没有下拉框换成这个-->
-    <!-- <el-table-column
-        v-for="(taT, index) in tableTitle"
-        :key="index"
-        :width="taT.name == 'Lens Vendor' ? '110' : ''"
-        :prop="taT.id"
-        align="center"
-        :label="taT.name"
+      <ces-table
+        tableHeight="860px"
+        :tableData="tabData"
+        :tableCols="tableTitle"
+        :header-cell-style="{
+          background: '#131540',
+          color: '#fff',
+          'font-weight': 700
+        }"
       >
-        <el-table-column
-          v-show="taT.chileColumn"
-          v-for="(c, index) in taT.chileColumn"
-          :key="index"
-          :prop="c.id"
-          align="center"
-          :label="c.name"
-        >
-          <el-table-column
-            v-show="c.chileColumn"
-            v-for="(s, index) in c.chileColumn"
-            :key="index"
-            :prop="s.id"
-            align="center"
-            :label="s.name"
-          ></el-table-column>
-        </el-table-column>
-      </el-table-column>
-    </el-table> -->
+      </ces-table>
+    </div>
   </div>
 </template>
 
 <script>
 import moment from "moment"
 // 导入点击搜索数据
-import { GetReport7TableData } from "@/api/cma/report7"
+import { GetReport7TableData, GetProductNoInfo } from "@/api/cma/report7"
 export default {
   name: "report7",
   props: {},
@@ -111,77 +83,31 @@ export default {
     return {
       isLoading: false,
       // 表头名称
-      tableTitle: [
-        { prop: "machine", label: "機種" },
-        { prop: "masterlot", label: "母批" },
-        { prop: "quantityWork", label: "工單數量" },
-        { prop: "manufacturer", label: "廠商" },
-        { prop: "consumableName", label: "耗材名稱" },
-        { prop: "materialNumber", label: "料號" },
-        { prop: "batchNumber", label: "批號" },
-        { prop: "lotNumber", label: "Lot數量" },
-        { prop: "bindTime", label: "綁定工單時間" }
-      ],
+      tableTitle: [],
       // 下拉框值
       selectData: [
-        { name: "機種:", value: "", type: "select", key: "machine" },
-        { name: "母批:", value: "", type: "input", key: "masterlot" },
-        // { name: "物料類型:", value: "", type: "select", key: "materialType" },
-        { name: "料號:", value: "", type: "input", key: "materialNumber" },
-        // { name: "廠商:", value: "", type: "select", key: "manufacturer" },
-        { name: "開始時間:", value: "", type: "datetime", key: "startTime" },
-        { name: "結束時間:", value: "", type: "datetime", key: "endTime" }
+        { name: "機種:", value: "", type: "select", key: "ProductNo" },
+        { name: "母批:", value: "", type: "input", key: "MotherLot" },
+        { name: "料號:", value: "", type: "input", key: "DeviceNo" },
+        { name: "開始時間:", value: "", type: "datetime", key: "Starttime" },
+        { name: "結束時間:", value: "", type: "datetime", key: "Endtime" }
       ],
-      // 两个下拉框的选项
+      // 下拉框的选项
       options: {
-        DefectType: [],
-        DeviceSeriers: []
+        ProductNo: []
       },
       // 从后端拿到的表格数据
       tableData: [
         [
-          { columnID: "machine", value: "www" },
-          { columnID: "masterlot", value: "www1" },
-          { columnID: "quantityWork", value: "www2" },
-          { columnID: "manufacturer", value: "0.02%" },
-          { columnID: "consumableName", value: "0.10%" },
-          { columnID: "materialNumber", value: "2.02%" },
-          { columnID: "batchNumber", value: "www6" },
-          { columnID: "lotNumber", value: "www7" },
-          { columnID: "bindTime", value: "www8" }
-        ],
-        [
-          { columnID: "machine", value: "www" },
-          { columnID: "masterlot", value: "www1" },
-          { columnID: "quantityWork", value: "www2" },
-          { columnID: "manufacturer", value: "0.02%" },
-          { columnID: "consumableName", value: "0.10%" },
-          { columnID: "materialNumber", value: "2.02%" },
-          { columnID: "batchNumber", value: "www6" },
-          { columnID: "lotNumber", value: "www7" },
-          { columnID: "bindTime", value: "www8" }
-        ],
-        [
-          { columnID: "machine", value: "www" },
-          { columnID: "masterlot", value: "www1" },
-          { columnID: "quantityWork", value: "www2" },
-          { columnID: "manufacturer", value: "0.02%" },
-          { columnID: "consumableName", value: "0.10%" },
-          { columnID: "materialNumber", value: "2.02%" },
-          { columnID: "batchNumber", value: "www6" },
-          { columnID: "lotNumber", value: "www7" },
-          { columnID: "bindTime", value: "www8" }
-        ],
-        [
-          { columnID: "machine", value: "www" },
-          { columnID: "masterlot", value: "www1" },
-          { columnID: "quantityWork", value: "www2" },
-          { columnID: "manufacturer", value: "0.02%" },
-          { columnID: "consumableName", value: "0.10%" },
-          { columnID: "materialNumber", value: "2.02%" },
-          { columnID: "batchNumber", value: "www6" },
-          { columnID: "lotNumber", value: "www7" },
-          { columnID: "bindTime", value: "www8" }
+          { columnID: "0", value: "www" },
+          { columnID: "1", value: "www1" },
+          { columnID: "2", value: "www2" },
+          { columnID: "3", value: "0.02%" },
+          { columnID: "4", value: "0.10%" },
+          { columnID: "5", value: "2.02%" },
+          { columnID: "6", value: "www6" },
+          { columnID: "7", value: "www7" },
+          { columnID: "8", value: "www8" }
         ]
       ],
       // 自己组成的新的表格数据
@@ -195,27 +121,40 @@ export default {
     this.$store.commit("fullLoading/SET_TITLE", "查询报表")
   },
   mounted() {
-    this.getData()
+    this.getselectData()
   },
 
   watch: {},
   methods: {
     // 获取下拉框数据
-    async getselectData() {},
+    async getselectData() {
+      let inputValue = this.selectData
+      let res = await GetProductNoInfo()
+      this.options["ProductNo"] = res
+      res.forEach((item) => {
+        if (item.selected) {
+          inputValue[0].value = item.value
+        }
+      })
+      this.getData()
+    },
 
     // 点击搜索按钮
-    getSearchData() {},
+    getSearchData() {
+      this.getData()
+    },
     // 获取数据
     async getData() {
-      let res = await GetReport7TableData()
-      console.log("res===", res)
       this.isLoading = true
-
+      let ruleForm = {}
+      this.selectData.forEach((item) => {
+        ruleForm[item.key] = item.value
+      })
+      let res = await GetReport7TableData(ruleForm)
+      console.log("res===", res)
+      this.tableTitle = res.columns
       this.tabData = []
-      // let res = await GetReport1Search(type, seriers, t)
-      // this.tableTitle = res.columns
-      // console.log("res===", res)
-      this.tableData = this.tableData
+      // this.tableData = res.rows
       this.tableData.forEach((item) => {
         this.objKey = {}
         item.forEach((key) => {
@@ -223,7 +162,6 @@ export default {
         })
         this.tabData.push(this.objKey)
       })
-      console.log(11, this.tabData)
       this.isLoading = false
     }
   }
@@ -271,11 +209,6 @@ export default {
 }
 .inputStyle {
   display: flex;
-}
-.timesWidth {
-  ::v-deep .el-input__inner {
-    width: 110%;
-  }
 }
 
 ::v-deep .el-input--suffix .el-input__inner {

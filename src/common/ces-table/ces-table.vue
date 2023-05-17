@@ -19,7 +19,7 @@
     <!-- 表格组件 -->
     <section class="ces-table">
       <el-table
-        :header-cell-style="{ background: 'transparent !important', color: '#1adafb' }"
+        :header-cell-style="headerCellStyle"
         :data="tableData"
         :border="isBorder"
         v-loading="isloading"
@@ -144,6 +144,13 @@ export default {
       type: Function,
       default: () => {
         return Function
+      }
+    },
+    // 表头样式
+    headerCellStyle: {
+      type: Object,
+      default: () => {
+        return { background: "transparent !important", color: "#1adafb" }
       }
     },
     isHasHandle: { type: Boolean, default: false },
