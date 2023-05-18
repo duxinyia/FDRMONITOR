@@ -5,20 +5,21 @@
       <!-- <div > -->
       <!-- <div class="system-select" v-for="item in selectData" :key="item.name"> -->
       <el-form
+        ref="ruleForm"
         class="system-select"
         v-for="item in selectData"
         :key="item.name"
         label-position="right"
-        label-width="90px"
+        label-width="91px"
         :model="item"
       >
         <el-col class="inputStyle" v-if="item.type == 'input'" :span="5">
-          <el-form-item :label="item.name">
+          <el-form-item :label="item.name" :prop="item.key">
             <el-input placeholder="請輸入內容" v-model="item.value" clearable> </el-input>
           </el-form-item>
         </el-col>
         <el-col v-if="item.type == 'select'" :span="5">
-          <el-form-item :label="item.name">
+          <el-form-item :label="item.name" :prop="item.key">
             <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
               <el-option
                 v-for="optionsItem in options[item.key]"
@@ -32,7 +33,7 @@
         </el-col>
 
         <el-col :span="5" v-if="item.type == 'datetime'">
-          <el-form-item :label="item.name">
+          <el-form-item :label="item.name" :prop="item.key">
             <el-date-picker
               :clearable="false"
               v-model="item.value"
@@ -46,7 +47,14 @@
       </el-form>
       <!-- </div> -->
       <el-col :span="1">
-        <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
+        <el-button
+          class="btn"
+          :type="!disabled ? 'primary' : 'info'"
+          round
+          @click="getSearchData"
+          :disabled="disabled"
+          >查詢</el-button
+        >
       </el-col>
       <!-- </div> -->
     </el-row>
@@ -79,11 +87,27 @@ export default {
   name: "report7",
   props: {},
   components: {},
+  computed: {
+    disabled() {
+      return [0, 1, 3, 4].every((index) => this.selectData[index].value) ||
+        [0, 2, 3, 4].every((index) => this.selectData[index].value)
+        ? false
+        : true
+    }
+  },
+  watch: {},
   data() {
     return {
       isLoading: false,
       // 表头名称
       tableTitle: [],
+      // rules: {
+      //   ProductNo: [{ required: true, message: "请选择机种", trigger: "blur" }],
+      //   MotherLot: [{ required: true, message: "请输入母批", trigger: "change" }],
+      //   DeviceNo: [{ type: "date", required: true, message: "请输入料号", trigger: "change" }],
+      //   Starttime: [{ type: "date", required: true, message: "请选择时间", trigger: "change" }],
+      //   Endtime: [{ type: "date", required: true, message: "请选择时间", trigger: "change" }]
+      // },
       // 下拉框值
       selectData: [
         { name: "機種:", value: "", type: "select", key: "ProductNo" },
@@ -94,27 +118,13 @@ export default {
       ],
       // 下拉框的选项
       options: {
+        // 机种
         ProductNo: []
       },
       // 从后端拿到的表格数据
-      tableData: [
-        [
-          { columnID: "0", value: "www" },
-          { columnID: "1", value: "www1" },
-          { columnID: "2", value: "www2" },
-          { columnID: "3", value: "0.02%" },
-          { columnID: "4", value: "0.10%" },
-          { columnID: "5", value: "2.02%" },
-          { columnID: "6", value: "www6" },
-          { columnID: "7", value: "www7" },
-          { columnID: "8", value: "www8" }
-        ]
-      ],
+      tableData: [],
       // 自己组成的新的表格数据
-      tabData: [],
-      // objKey+objValue=tabData
-      objKey: {}
-      // objValue: {}
+      tabData: []
     }
   },
   created() {
@@ -124,10 +134,10 @@ export default {
     this.getselectData()
   },
 
-  watch: {},
   methods: {
     // 获取下拉框数据
     async getselectData() {
+      this.tabData = []
       let inputValue = this.selectData
       let res = await GetProductNoInfo()
       this.options["ProductNo"] = res
@@ -136,13 +146,13 @@ export default {
           inputValue[0].value = item.value
         }
       })
-      this.getData()
     },
 
     // 点击搜索按钮
     getSearchData() {
       this.getData()
     },
+
     // 获取数据
     async getData() {
       this.isLoading = true
@@ -156,11 +166,11 @@ export default {
       this.tabData = []
       // this.tableData = res.rows
       this.tableData.forEach((item) => {
-        this.objKey = {}
+        let objKey = {}
         item.forEach((key) => {
-          this.objKey[key.columnID] = key.value
+          objKey[key.columnID] = key.value
         })
-        this.tabData.push(this.objKey)
+        this.tabData.push(objKey)
       })
       this.isLoading = false
     }
@@ -202,8 +212,6 @@ export default {
   color: #fff;
 }
 
-.system-select {
-}
 ::v-deep .el-select-dropdown {
   width: 238px;
 }
