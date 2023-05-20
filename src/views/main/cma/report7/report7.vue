@@ -25,7 +25,7 @@
                 v-for="optionsItem in options[item.key]"
                 :key="optionsItem.id"
                 :label="optionsItem.value"
-                :value="optionsItem.value"
+                :value="optionsItem.id"
               >
               </el-option>
             </el-select>
@@ -101,13 +101,6 @@ export default {
       isLoading: false,
       // 表头名称
       tableTitle: [],
-      // rules: {
-      //   ProductNo: [{ required: true, message: "请选择机种", trigger: "blur" }],
-      //   MotherLot: [{ required: true, message: "请输入母批", trigger: "change" }],
-      //   DeviceNo: [{ type: "date", required: true, message: "请输入料号", trigger: "change" }],
-      //   Starttime: [{ type: "date", required: true, message: "请选择时间", trigger: "change" }],
-      //   Endtime: [{ type: "date", required: true, message: "请选择时间", trigger: "change" }]
-      // },
       // 下拉框值
       selectData: [
         { name: "機種:", value: "", type: "select", key: "ProductNo" },
