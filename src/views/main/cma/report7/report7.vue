@@ -40,6 +40,7 @@
               value-format="yyyy-MM-dd HH:mm:ss"
               type="datetime"
               placeholder="選擇日期時間"
+              default-time="06:00:00"
             >
             </el-date-picker>
           </el-form-item>
@@ -103,16 +104,16 @@ export default {
       tableTitle: [],
       // 下拉框值
       selectData: [
-        { name: "機種:", value: "", type: "select", key: "ProductNo" },
+        { name: "機種:", value: "", type: "select", key: "DeviceNo" },
         { name: "母批:", value: "", type: "input", key: "MotherLot" },
-        { name: "料號:", value: "", type: "input", key: "DeviceNo" },
+        { name: "料號:", value: "", type: "input", key: "ProductNo" },
         { name: "開始時間:", value: "", type: "datetime", key: "Starttime" },
         { name: "結束時間:", value: "", type: "datetime", key: "Endtime" }
       ],
       // 下拉框的选项
       options: {
         // 机种
-        ProductNo: []
+        DeviceNo: []
       },
       // 从后端拿到的表格数据
       tableData: [],
@@ -133,10 +134,10 @@ export default {
       this.tabData = []
       let inputValue = this.selectData
       let res = await GetProductNoInfo()
-      this.options["ProductNo"] = res
+      this.options["DeviceNo"] = res
       res.forEach((item) => {
         if (item.selected) {
-          inputValue[0].value = item.value
+          inputValue[0].value = item.id
         }
       })
     },
