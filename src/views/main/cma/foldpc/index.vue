@@ -1,42 +1,44 @@
 <template>
   <div class="page-main">
-    <!-- 使用轮播图来展示数据 -->
-    <el-carousel
-      style="height: 1000px"
-      indicator-position="none"
-      :interval="15 * 10000"
-      ref="carousel"
-      arrow="never"
-      @change="changeCarousel"
-    >
-      <el-carousel-item v-for="(item, index) in options" :key="index" :name="item.value">
-        <fol-dpc :device="item.value" />
-      </el-carousel-item>
-    </el-carousel>
-    <!-- 自定义两个切换按钮 -->
-    <change-switch
-      :leftConfig="{ left: '0px', top: '9px' }"
-      :rightConfig="{ right: '0px', top: '9px' }"
-      @directionChange="handleDirection"
-    />
-    <!-- 下拉选择框 -->
-    <div class="selsect-container">
-      <el-select
-        :popper-append-to-body="false"
-        @change="changeValue"
-        size="mini"
-        v-model="value"
-        placeholder=""
+    <dv-border-box-12>
+      <!-- 使用轮播图来展示数据 -->
+      <el-carousel
+        style="height: 1000px"
+        indicator-position="none"
+        :interval="15 * 10000"
+        ref="carousel"
+        arrow="never"
+        @change="changeCarousel"
       >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+        <el-carousel-item v-for="(item, index) in options" :key="index" :name="item.value">
+          <fol-dpc :device="item.value" />
+        </el-carousel-item>
+      </el-carousel>
+      <!-- 自定义两个切换按钮 -->
+      <change-switch
+        :leftConfig="{ left: '25px', top: '15px' }"
+        :rightConfig="{ right: '25px', top: '15px' }"
+        @directionChange="handleDirection"
+      />
+      <!-- 下拉选择框 -->
+      <div class="selsect-container">
+        <el-select
+          :popper-append-to-body="false"
+          @change="changeValue"
+          size="mini"
+          v-model="value"
+          placeholder=""
         >
-        </el-option>
-      </el-select>
-    </div>
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+      </div>
+    </dv-border-box-12>
   </div>
 </template>
 
@@ -89,6 +91,10 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+::v-deep .border-box-content {
+  padding: 50px 20px 20px;
+  position: relative;
+}
 /* 更改下拉框的背景色 */
 ::v-deep .el-input__inner {
   background: linear-gradient(58deg, #3f77e8, #243d97);
@@ -107,13 +113,11 @@ export default {
 .page-main {
   margin-top: 10px;
   height: calc(100% - 120px);
-  padding-top: 40px;
-  position: relative;
 }
 
 .selsect-container {
   position: absolute;
-  top: 7px;
+  top: 14px;
   right: 150px;
   width: 100px;
 }

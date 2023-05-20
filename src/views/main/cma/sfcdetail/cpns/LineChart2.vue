@@ -88,6 +88,18 @@ export default {
             fontSize: 16,
             align: "left"
           },
+          formatter: function (params) {
+            var html = params[0].name + "<br>"
+            for (var i = 0; i < params.length; i++) {
+              html += `<div style="display:flex;justify-content: space-between;">
+                  <div> <span style="display:inline-block;margin-right:2px;border-radius:10px;width:10px;height:10px;background:${
+                    params[i].color
+                  };"></span>   ${params[i].seriesName}</div>
+                  <div style="margin-left:10px">${params[i].value || "-"}%</div>
+                  </div>`
+            }
+            return html
+          },
           axisPointer: {
             // 坐标轴指示器，坐标轴触发有效
             type: "shadow" // 默认为直线，可选为：'line' | 'shadow'

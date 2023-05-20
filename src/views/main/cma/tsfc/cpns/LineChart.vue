@@ -39,17 +39,7 @@ export default {
     options() {
       let { legends = [], xData = [], showData = [] } = this.config
       return {
-        color: [
-          "#9669ff",
-          "#3766f4",
-          "#43cf7c",
-          "#ff8d1a",
-          "#05dad4",
-          "#1f33a2",
-          "#8aaafb",
-          "#05dad4",
-          "#2c97e1"
-        ],
+        color: ["#9669ff", "#3766f4", "#43cf7c", "#ff8d1a", "#05dad4", "#1f33a2", "#8aaafb", "#05dad4", "#2c97e1"],
         grid: {
           top: 110,
           right: 10,
@@ -76,6 +66,18 @@ export default {
             color: "#BCE9FC",
             fontSize: 16,
             align: "left"
+          },
+          formatter: function (params) {
+            var html = params[0].name + "<br>"
+            for (var i = 0; i < params.length; i++) {
+              html += `<div style="display:flex;justify-content: space-between;">
+                  <div> <span style="display:inline-block;margin-right:2px;border-radius:10px;width:10px;height:10px;background:${
+                    params[i].color
+                  };"></span>   ${params[i].seriesName}</div>
+                  <div style="margin-left:10px">${params[i].value || "-"}%</div>
+                  </div>`
+            }
+            return html
           },
           axisPointer: {
             // 坐标轴指示器，坐标轴触发有效

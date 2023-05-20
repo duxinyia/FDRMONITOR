@@ -48,7 +48,6 @@
 import LineChart from "./echarts/line-chart.vue"
 import PieChart from "./echarts/pie-chart.vue"
 import BarChart from "./echarts/bar-chart.vue"
-
 export default {
   name: "report6",
   props: {},
@@ -105,7 +104,7 @@ export default {
         { name: "NH-2X", value: 2668478 }
       ],
       isLoading: false,
-      flag: 2,
+      flag: 1,
       // 下拉框值
       selectData: [
         { name: "機臺類型", value: "", type: "select", key: "machineType" },

@@ -147,7 +147,7 @@ export default {
   methods: {
     changeYMax(maxLimit) {
       let tempArr = 0
-      // 0.198 -> 0.22 0.05 -> 0.06 0.025 ->0.04 0.5-> 0.6
+      // 0.198 -> 0.22 0.05 -> 0.06 0.025 ->0.04 0.5-> 0.6  0.65 -> 0.8
       switch (maxLimit) {
         case 0.198:
           tempArr = 0.24
@@ -160,6 +160,9 @@ export default {
           break
         case 0.5:
           tempArr = 0.8
+          break
+        case 0.65:
+          tempArr = 0.75
           break
         default:
           tempArr = 0.6
@@ -179,6 +182,9 @@ export default {
           break
         case -0.025:
           tempArr = -0.04
+          break
+        case 0.45:
+          tempArr = 0.4
           break
         default:
           tempArr = -0.6

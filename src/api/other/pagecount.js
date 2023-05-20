@@ -1,2 +1,4 @@
 import request from "@/network"
-let { get: $get } = request
+let { post: $post } = request
+
+export let addPageCount = (pageId) => $post(`api/SysAccess/${pageId}`)

@@ -39,12 +39,7 @@
             <base-echart height="200px" :options="options" />
           </div>
           <div class="right-three" :style="changeRightStyle">
-            <div
-              v-for="(item, index) in threeTable"
-              :key="index"
-              class="grid-item"
-              :style="changeItemStyle(item)"
-            >
+            <div v-for="(item, index) in threeTable" :key="index" class="grid-item" :style="changeItemStyle(item)">
               {{ item.carrierXYRate || "" }}
             </div>
           </div>
@@ -185,6 +180,7 @@ export default {
             fontSize: 16,
             align: "left"
           },
+
           axisPointer: {
             // 坐标轴指示器，坐标轴触发有效
             type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
@@ -408,15 +404,13 @@ export default {
       this.oneTableData = res.aoiScanInfoTotal
       // 第二个表的数据
       res.aoiScanInfoTimeSpan &&
-        res.aoiScanInfoTimeSpan.forEach(
-          ({ date, input, detectrate = "0%", cleanrate = "0%", rate = "0%" }) => {
-            this.xData.push(date.slice(5, 13))
-            this.inputData.push(input * 1)
-            this.defectData.push(detectrate.slice(0, detectrate.length - 1) * 1)
-            this.cleanData.push(cleanrate.slice(0, cleanrate.length - 1) * 1)
-            this.finalData.push(rate.slice(0, rate.length - 1) * 1)
-          }
-        )
+        res.aoiScanInfoTimeSpan.forEach(({ date, input, detectrate = "0%", cleanrate = "0%", rate = "0%" }) => {
+          this.xData.push(date.slice(5, 13))
+          this.inputData.push(input * 1)
+          this.defectData.push(detectrate.slice(0, detectrate.length - 1) * 1)
+          this.cleanData.push(cleanrate.slice(0, cleanrate.length - 1) * 1)
+          this.finalData.push(rate.slice(0, rate.length - 1) * 1)
+        })
       return res
     },
     // 获取右边下方的表格数据  GetConcentrationInfo

@@ -37,9 +37,13 @@
           :style="`height: ${avgHeight}px;line-height: ${avgHeight}px;`"
           :key="index"
         >
-          <template v-for="(row, i) in rows">
-            <span class="row" :style="`width:${widths[i]}px`" :key="i" v-html="row"></span>
-          </template>
+          <span
+            v-for="(row, i) in rows"
+            class="row"
+            :style="`width:${widths[i]}px`"
+            :key="i"
+            v-html="row"
+          ></span>
         </div>
       </el-carousel-item>
     </el-carousel>

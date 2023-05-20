@@ -1,21 +1,21 @@
 <template>
   <!-- 主要区域 -->
-  <div class="page-main">
-    <!-- 第一个图 -->
+  <!-- <div class="page-main">
     <dv-border-box-10>
       <div class="top-chart">
         <line-chart-1 :config="topLineChartConfig" :title="tag" />
       </div>
-      <!-- 下面四个图 -->
       <el-row :gutter="20">
         <el-col v-for="item in 4" :key="item" :span="12">
           <line-chart-2 :config="lineChartConfig[item - 1]" />
         </el-col>
       </el-row>
     </dv-border-box-10>
-  </div>
+  </div> -->
+  <sfc />
 </template>
 <script>
+import sfc from "../sfc/sfc.vue"
 // 导入5个折线图
 import LineChart1 from "./cpns/LineChart1.vue"
 import LineChart2 from "./cpns/LineChart2.vue"
@@ -25,7 +25,8 @@ export default {
   name: "sfcdetail",
   components: {
     LineChart1,
-    LineChart2
+    LineChart2,
+    sfc
   },
   data() {
     return {
@@ -36,25 +37,14 @@ export default {
   },
   computed: {},
   mounted() {
-    this.tag = this.$route.query.tag
+    this.tag = this.$route.query.tag || "MD"
     this.$store.commit("fullLoading/SET_TITLE", `${this.tag}系列良率`)
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
-    // this.$store.commit("fullLoading/SET_FULLLOADING", false)
     this.initData()
-    // 每5分钟获取一次数据
-    // this.dataTiming = setInterval(() => {
-    //   this.initData()
-    // }, 50000)
   },
   methods: {
     async initData() {
-      let requestArr = [
-        this.getCloseNGYieldInfo()
-        // this.getMaintainInfo(),
-        // this.getDeviceInfo(),
-        // this.getMachineTop5(),
-        // this.getProductInfo()
-      ]
+      let requestArr = [this.getCloseNGYieldInfo()]
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },

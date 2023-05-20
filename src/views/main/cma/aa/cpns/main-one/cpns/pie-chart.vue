@@ -25,13 +25,7 @@ export default {
     },
     alloptions: {
       type: Array,
-      default: () => [
-        // { value: 1048, name: "Search Engine" },
-        // { value: 735, name: "Direct" },
-        // { value: 580, name: "Email" },
-        // { value: 484, name: "Union Ads" },
-        // { value: 300, name: "Video Ads" }
-      ]
+      default: () => []
     },
     showTitle: {
       type: Boolean,
@@ -138,9 +132,7 @@ export default {
                     const start = p * provideNumber
                     const end = start + provideNumber
                     const tempStr =
-                      p === rowNumber - 1
-                        ? name.substring(start, paramsNameNumber)
-                        : name.substring(start, end) + "\n"
+                      p === rowNumber - 1 ? name.substring(start, paramsNameNumber) : name.substring(start, end) + "\n"
                     newParamsName += tempStr
                   }
                 } else {

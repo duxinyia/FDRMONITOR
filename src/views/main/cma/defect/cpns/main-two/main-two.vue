@@ -3,7 +3,9 @@
     <div class="main-two">
       <div class="main-row row-one">
         <div class="row-item">Time</div>
-        <div class="row-item" v-for="(item, index) in xData" :key="index">{{ item }}</div>
+        <div class="row-item device" v-for="(item, index) in xData" :key="index" @click="toDetail">
+          {{ item }}
+        </div>
       </div>
       <div class="main-row">
         <div class="row-item">Overall Yield</div>
@@ -116,6 +118,11 @@ export default {
     changeBoxColor() {
       return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
     }
+  },
+  methods: {
+    toDetail() {
+      this.$router.push({ name: "defectdetail" })
+    }
   }
 }
 </script>
@@ -132,6 +139,9 @@ export default {
 .row-one {
   background: #264380;
   color: #fff !important;
+  .device {
+    cursor: pointer;
+  }
 }
 .main-two {
   border: 1px solid var(--defect-border);

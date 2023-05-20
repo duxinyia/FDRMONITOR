@@ -77,13 +77,7 @@ export default {
   props: ["itemTitle", "showData", "index"],
   data() {
     return {
-      loading: true,
-      colors1: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)"],
-      colors: [
-        "radial-gradient(50% 50%, rgba(255, 0, 102, 0.5) 50%, rgba(255, 0, 102, 1) 100%)",
-        "radial-gradient(50% 50%, rgba(0, 255, 0, 0.5) 50%, rgba(0, 255, 0, 1) 100%)",
-        "radial-gradient(50% 50%, rgba(255, 255, 0, 0.5) 50%, rgba(255, 255, 0, 1) 100%)"
-      ]
+      loading: true
     }
   },
   watch: {
@@ -95,64 +89,50 @@ export default {
   },
   methods: {
     changeContainerStyle(item) {
-      let borderColor =
-        item.wip > item.maxWip
-          ? "rgba(0, 176, 80, 0.9)"
-          : item.wip < item.minWip
-          ? "rgba(255, 0, 0, 0.9)"
-          : "#1694ed"
-      if (parseInt(item.hitRate)) {
+      // hitRate <= 95% 红色
+      let result = parseInt(item.hitRate)
+      if (result && result < 95) {
         return {
-          border: `1px solid ${borderColor}`
+          border: `1px solid #EE6363`
         }
       }
       return { border: `1px solid #1694ed` }
     },
+
     changeCenterStyle(item) {
-      // wip > targetOut 亮绿色 wip < targetOut 亮红色
+      // hitRate <= 95% 红色
       //  数字
       let result = parseInt(item.hitRate)
       if (item.targetOut == 0) {
         result = 0
       }
-      let bgs = [
-        "linear-gradient(to right,rgba(0, 176, 80, 0.3) 10%,rgba(0, 176, 80, 0.6) 50%,rgba(0, 176, 80, 0.9) 100%)",
-        "linear-gradient(to right,rgba(255, 0, 0, 0.3) 10%,rgba(255, 0, 0, 0.6) 50%,rgba(255, 0, 0, 0.9) 100%)",
-        "linear-gradient(to right,rgba(153, 102, 255, 0.3) 10%,rgba(153, 102, 255, 0.6) 50%,rgba(153, 102, 255, 0.9) 100%)"
-      ]
-      let bg = item.wip > item.maxWip ? bgs[0] : item.wip < item.minWip ? bgs[1] : bgs[2]
-
-      if (result > 100) {
+      if (result < 95) {
         return {
-          width: "100%",
-          background: bg
+          width: `${result}%`,
+          background:
+            "linear-gradient(to right,rgba(238, 99, 99, 0.3) 10%,rgba(238, 99, 99, 0.6) 50%,rgba(238, 99, 99, 0.9) 100%)"
         }
       }
       return {
         width: `${result}%`,
-        background: bg
+        background:
+          "linear-gradient(to right,rgba(153, 102, 255, 0.3) 10%,rgba(153, 102, 255, 0.6) 50%,rgba(153, 102, 255, 0.9) 100%)"
       }
     },
     changeConfig(item) {
       console.log("item", item)
-      // wip > targetOut 亮黄色 wip < targetOut 亮红色
+      // wip < minWip 亮红色
       let showValue = 0
       if (item.wipRate) {
         // showValue = parseInt(item.wipRate) > 100 ? 100 : parseInt(item.wipRate)
         showValue = (item.wip / item.maxWip) * 100
-        console.log(showValue)
       }
-      let colors =
-        item.wip > item.maxWip
-          ? ["#ff0", "#ff0"]
-          : item.wip < item.minWip
-          ? ["#f00", "#f00"]
-          : ["#3DE7C9", "#00BAFF"]
-      if (item.wip && item.maxWip) {
+      // let colors = item.wip < item.minWip
+      if (item.wip && item.minWip && item.wip < item.minWip) {
         return {
           value: showValue,
           formatter: "",
-          colors,
+          colors: ["#EE6363", "#EE6363"],
           borderRadius: 1,
           lineDash: [1, 1],
           borderWidth: 1,

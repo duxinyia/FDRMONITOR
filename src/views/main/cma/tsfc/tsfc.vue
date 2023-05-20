@@ -17,8 +17,6 @@
               <div class="btns">
                 <div @click="toDetail">EOL</div>
                 <div @click="toDetail">FOL</div>
-                <!-- <el-button @click="toDetail" round type="success" size="mini">EOL</el-button>
-                <el-button @click="toDetail" type="success" size="mini">FOL</el-button> -->
               </div>
             </div>
           </div>
@@ -27,8 +25,8 @@
     </dv-border-box-10>
     <!-- 自定义两个切换按钮 -->
     <change-switch
-      :leftConfig="{ left: '0px', top: '12px' }"
-      :rightConfig="{ right: '0px', top: '12px' }"
+      :leftConfig="{ left: '25px', top: '12px' }"
+      :rightConfig="{ right: '25px', top: '12px' }"
       @directionChange="handleDirection"
     />
   </div>

@@ -39,8 +39,6 @@ import mainOne from "./cpns/main-one/main-one.vue"
 import mainTwo from "./cpns/main-two/main-two.vue"
 // 导入发送请求的函數
 import { GetDefectYieldInfo } from "@/api/cma/defect.js"
-// 导入对应的函数
-import { splitArray } from "@/utils"
 export default {
   name: "defect",
   components: {
@@ -133,7 +131,6 @@ export default {
         })
         this.totalNum.push({ total, rate: (rate / 100).toFixed(2) + "%" })
       })
-
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
     }
   }

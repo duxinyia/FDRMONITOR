@@ -27,6 +27,7 @@ import {
   getYieldTop5,
   getMachinesInfo
 } from "@/api/cma/aa.js"
+
 export default {
   name: "aa",
   components: {

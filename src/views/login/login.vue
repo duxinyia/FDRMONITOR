@@ -102,6 +102,7 @@ export default {
     }
   },
   created() {
+    // console.log("this.$router", this.$route)
     window.addEventListener("keydown", this.keyDown)
     // 取出cookie的用户名和密码
     let name = cookie.getCookie("name") || ""
