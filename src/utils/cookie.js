@@ -7,8 +7,7 @@ class LocalCookie {
     date.setTime(date.getTime() + 24 * 60 * 60 * 1000 * days) // 保存的天数
     // 字符串拼接cookie
     window.document.cookie = "name" + "=" + name + ";path=/;expires=" + date.toGMTString()
-    window.document.cookie =
-      "paw" + "=" + Base64.encode(paw) + ";path=/;expires=" + date.toGMTString()
+    window.document.cookie = "paw" + "=" + Base64.encode(paw) + ";path=/;expires=" + date.toGMTString()
   }
   // 读取cookie 将用户名和密码回显到input框中
   getCookie(key) {

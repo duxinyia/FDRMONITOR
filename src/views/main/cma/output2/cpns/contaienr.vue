@@ -16,14 +16,7 @@
       <el-col :span="3">Yield</el-col>
     </el-row>
     <div class="wrapper-container">
-      <el-row
-        v-for="(item, i) in showData"
-        type="flex"
-        align="middle"
-        :gutter="6"
-        :key="i"
-        class="data-info"
-      >
+      <el-row v-for="(item, i) in showData" type="flex" align="middle" :gutter="6" :key="i" class="data-info">
         <el-col :span="2" class="wip-num">{{ item.wip || 0 }}</el-col>
 
         <el-col :span="5">

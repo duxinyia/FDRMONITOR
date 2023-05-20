@@ -30,11 +30,9 @@
         :span-method="objectSpanMethod"
       >
         <!-- 是否有前面的多选效果 -->
-        <el-table-column type="selection" width="55" align="center" v-if="isSelection">
-        </el-table-column>
+        <el-table-column type="selection" width="55" align="center" v-if="isSelection"> </el-table-column>
         <!-- 是否显示前面的序号 -->
-        <el-table-column v-if="isIndex" type="index" :label="indexLabel" align="center" width="50">
-        </el-table-column>
+        <el-table-column v-if="isIndex" type="index" :label="indexLabel" align="center" width="50"> </el-table-column>
         <!-- 表格的每一项：表格列数据 -->
         <el-table-column
           v-for="(item, index) in tableCols"

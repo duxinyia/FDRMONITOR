@@ -1,11 +1,6 @@
 <template>
   <div class="page-main">
-    <main-one
-      :scats="scats"
-      :kLineData="kLineData"
-      :getKLineHourData="getKLineHourData"
-      :machinename="machine"
-    />
+    <main-one :scats="scats" :kLineData="kLineData" :getKLineHourData="getKLineHourData" :machinename="machine" />
     <main-two
       :lineData="xLineData"
       :machinename="`${machine} X tilt趨勢圖`"

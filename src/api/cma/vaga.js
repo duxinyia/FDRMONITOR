@@ -15,9 +15,7 @@ export let getScatData = (params = {}) => {
   return $post(
     `api/MachineData/${
       isGa ? "GA" : "VA"
-    }_Data_TiltXY_Scatter_Chart?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&${getTimeAgo(
-      24
-    )}`
+    }_Data_TiltXY_Scatter_Chart?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&${getTimeAgo(24)}`
   )
 }
 
@@ -33,21 +31,13 @@ export let getLineData = (params = {}) => {
   return $post(
     `api/MachineData/${
       isGa ? "GA" : "VA"
-    }_Data?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(
-      24
-    )}`
+    }_Data?MachineName=${machinename}&PlantID=${PlantID}&Device=${Device}&ValueItem=${ValueItem}&${getTimeAgo(24)}`
   )
 }
 
 // 获取k线图的数据 位置
 export let getKLineData = (params = {}) => {
-  let {
-    machinename = "VA1302",
-    PlantID = "8S01",
-    Device = "MW-E",
-    ValueItem = "INSPECTIONZ",
-    isGa = false
-  } = params
+  let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E", ValueItem = "INSPECTIONZ", isGa = false } = params
   return $post(
     `api/MachineData/${
       isGa ? "GA" : "VA"
@@ -59,13 +49,7 @@ export let getKLineData = (params = {}) => {
 
 // 获取k线图的数据 时间
 export let getKLineHourData = (params = {}) => {
-  let {
-    machinename = "VA1302",
-    PlantID = "8S01",
-    Device = "MW-E",
-    ValueItem = "INSPECTIONZ",
-    isGa = false
-  } = params
+  let { machinename = "VA1302", PlantID = "8S01", Device = "MW-E", ValueItem = "INSPECTIONZ", isGa = false } = params
   return $post(
     `api/MachineData/${
       isGa ? "GA" : "VA"

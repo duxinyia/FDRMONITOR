@@ -5,11 +5,7 @@
         <main-left :progressConfig="progressConfig" :scrollData="leftScrollData" />
       </el-col>
       <el-col :span="10">
-        <main-center
-          :yearInfo="yearInfo"
-          :seriesData="seriesData"
-          :lineChartConfig="lineChartConfig"
-        />
+        <main-center :yearInfo="yearInfo" :seriesData="seriesData" :lineChartConfig="lineChartConfig" />
       </el-col>
       <el-col :span="7">
         <main-right :scrollData="rightScrollData" :rightTopData="rightTopData" />

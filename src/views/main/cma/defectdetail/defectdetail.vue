@@ -4,20 +4,8 @@
       <div class="operate">
         <!-- 下拉选择框 -->
         <div class="selsect-container">
-          <el-select
-            :popper-append-to-body="false"
-            @change="changeValue"
-            size="mini"
-            v-model="value"
-            placeholder=""
-          >
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            >
-            </el-option>
+          <el-select :popper-append-to-body="false" @change="changeValue" size="mini" v-model="value" placeholder="">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
           </el-select>
         </div>
         <div class="date-container">
