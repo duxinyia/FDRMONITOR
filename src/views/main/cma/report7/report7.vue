@@ -36,7 +36,6 @@
           <el-form-item :label="item.name" :prop="item.key">
             <el-date-picker
               v-model="item.value"
-
               :picker-options="pickerOptions"
               type="datetimerange"
               start-placeholder="開始時間"
@@ -53,7 +52,6 @@
               :picker-options="item.option"
             >
             </el-date-picker> -->
-            </el-date-picker>
           </el-form-item>
         </el-col>
       </el-form>
@@ -113,6 +111,7 @@ export default {
       choiceDate: null,
       //将日期时间选择器控制在只能选择7天以内
       pickerOptions: {
+        //onPick：是选中日期时的回调函数，可以在这里对选中的日期进行处{maxDate：后选中日期；minDate：第一个选中的日期}
         onPick: ({ maxDate, minDate }) => {
           // 把选择的第一个日期赋值给一个变量。
           this.choiceDate = minDate.getTime()
@@ -207,13 +206,16 @@ export default {
       this.isLoading = true
       let ruleForm = {}
       this.selectData.forEach((item) => {
-        if(item.key==="times"){
-          let value = new Map([['Starttime', item.value[0]], ['Endtime',item.value[1]]])
-          value.forEach((valueItem,key)=>{
-          this.$set(ruleForm,key, moment(valueItem).format("YYYY-MM-DD HH:mm:ss"))
+        if (item.key === "times") {
+          let value = new Map([
+            ["Starttime", item.value[0]],
+            ["Endtime", item.value[1]]
+          ])
+          value.forEach((valueItem, key) => {
+            this.$set(ruleForm, key, moment(valueItem).format("YYYY-MM-DD HH:mm:ss"))
           })
-        }else {
-        ruleForm[item.key] = item.value
+        } else {
+          ruleForm[item.key] = item.value
         }
       })
       let res = await GetReport7TableData(ruleForm)
@@ -241,17 +243,16 @@ export default {
   // border: 1px solid red;
 }
 // 时间选择器样式
-::v-deep .el-range-editor.el-input__inner{
-   border: 1px solid #1683af;
+::v-deep .el-range-editor.el-input__inner {
+  border: 1px solid #1683af;
   background: transparent;
 }
-::v-deep  .el-date-editor .el-range-input{
+::v-deep .el-date-editor .el-range-input {
   font-size: 16px;
-color: #fff!important;
-  }
-::v-deep .el-range-editor .el-range-input{
+  color: #fff !important;
+}
+::v-deep .el-range-editor .el-range-input {
   background: transparent;
-
 }
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
