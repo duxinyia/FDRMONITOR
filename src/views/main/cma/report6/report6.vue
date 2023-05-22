@@ -88,7 +88,7 @@ export default {
       selectData: [
         { name: "機臺類型", value: "", type: "select", key: "machineType" },
         { name: "維度", value: "", type: "select", key: "dimension" },
-        { name: "圖表", value: "柱状图", type: "select", key: "charts" }
+        { name: "圖表", value: "折线图", type: "select", key: "charts" }
       ],
       // 两个下拉框的选项
       options: {

@@ -25,7 +25,7 @@
                 v-for="optionsItem in options[item.key]"
                 :key="optionsItem.id"
                 :label="optionsItem.value"
-                :value="optionsItem.value"
+                :value="optionsItem.id"
               >
               </el-option>
             </el-select>
@@ -35,13 +35,23 @@
         <el-col :span="5" v-if="item.type == 'datetime'">
           <el-form-item :label="item.name" :prop="item.key">
             <el-date-picker
+              v-model="item.value"
+              :picker-options="pickerOptions"
+              type="datetimerange"
+              start-placeholder="開始時間"
+              end-placeholder="結束時間"
+              :default-time="['06:00:00', '06:00:00']"
+            />
+            <!-- <el-date-picker
               :clearable="false"
               v-model="item.value"
               value-format="yyyy-MM-dd HH:mm:ss"
               type="datetime"
               placeholder="選擇日期時間"
+              default-time="06:00:00"
+              :picker-options="item.option"
             >
-            </el-date-picker>
+            </el-date-picker> -->
           </el-form-item>
         </el-col>
       </el-form>
@@ -89,8 +99,8 @@ export default {
   components: {},
   computed: {
     disabled() {
-      return [0, 1, 3, 4].every((index) => this.selectData[index].value) ||
-        [0, 2, 3, 4].every((index) => this.selectData[index].value)
+      return [0, 1, 3].every((index) => this.selectData[index].value) ||
+        [0, 2, 3].every((index) => this.selectData[index].value)
         ? false
         : true
     }
@@ -98,28 +108,66 @@ export default {
   watch: {},
   data() {
     return {
+      choiceDate: null,
+      //将日期时间选择器控制在只能选择7天以内
+      pickerOptions: {
+        //onPick：是选中日期时的回调函数，可以在这里对选中的日期进行处{maxDate：后选中日期；minDate：第一个选中的日期}
+        onPick: ({ maxDate, minDate }) => {
+          // 把选择的第一个日期赋值给一个变量。
+          this.choiceDate = minDate.getTime()
+          // 如何你选择了两个日期了，就把那个变量置空
+          if (maxDate) this.choiceDate = ""
+        },
+        disabledDate: (time) => {
+          // 如果选择了一个日期
+          if (this.choiceDate) {
+            // 7天的时间戳
+            const one = 7 * 24 * 3600 * 1000
+            // 当前日期 - one = 7天之前
+            const minTime = this.choiceDate - one
+            // 当前日期 + one = 7天之后
+            const maxTime = this.choiceDate + one
+            return (
+              time.getTime() < minTime ||
+              time.getTime() > maxTime ||
+              // 限制不能选择今天及以后
+              time.getTime() > Date.now()
+            )
+          } else {
+            // 如果没有选择日期，就要限制不能选择今天及以后
+            return time.getTime() > Date.now()
+          }
+        }
+      },
+
       isLoading: false,
       // 表头名称
       tableTitle: [],
-      // rules: {
-      //   ProductNo: [{ required: true, message: "请选择机种", trigger: "blur" }],
-      //   MotherLot: [{ required: true, message: "请输入母批", trigger: "change" }],
-      //   DeviceNo: [{ type: "date", required: true, message: "请输入料号", trigger: "change" }],
-      //   Starttime: [{ type: "date", required: true, message: "请选择时间", trigger: "change" }],
-      //   Endtime: [{ type: "date", required: true, message: "请选择时间", trigger: "change" }]
-      // },
       // 下拉框值
       selectData: [
-        { name: "機種:", value: "", type: "select", key: "ProductNo" },
+        { name: "機種:", value: "", type: "select", key: "DeviceNo" },
         { name: "母批:", value: "", type: "input", key: "MotherLot" },
-        { name: "料號:", value: "", type: "input", key: "DeviceNo" },
-        { name: "開始時間:", value: "", type: "datetime", key: "Starttime" },
-        { name: "結束時間:", value: "", type: "datetime", key: "Endtime" }
+        { name: "料號:", value: "", type: "input", key: "ProductNo" },
+        { name: "時間範圍:", value: "", type: "datetime", key: "times" }
+        // {
+        //   name: "開始時間:",
+        //   value: "",
+        //   type: "datetime",
+        //   key: "Starttime",
+        //   option: "pickerOptions"
+        // },
+        // {
+        //   name: "結束時間:",
+        //   value: "",
+        //   type: "datetime",
+        //   key: "Endtime",
+        //   option: "pickerOptionsend"
+        // }
       ],
       // 下拉框的选项
       options: {
         // 机种
-        ProductNo: []
+        DeviceNo: []
       },
       // 从后端拿到的表格数据
       tableData: [],
@@ -140,10 +188,10 @@ export default {
       this.tabData = []
       let inputValue = this.selectData
       let res = await GetProductNoInfo()
-      this.options["ProductNo"] = res
+      this.options["DeviceNo"] = res
       res.forEach((item) => {
         if (item.selected) {
-          inputValue[0].value = item.value
+          inputValue[0].value = item.id
         }
       })
     },
@@ -158,13 +206,23 @@ export default {
       this.isLoading = true
       let ruleForm = {}
       this.selectData.forEach((item) => {
-        ruleForm[item.key] = item.value
+        if (item.key === "times") {
+          let value = new Map([
+            ["Starttime", item.value[0]],
+            ["Endtime", item.value[1]]
+          ])
+          value.forEach((valueItem, key) => {
+            this.$set(ruleForm, key, moment(valueItem).format("YYYY-MM-DD HH:mm:ss"))
+          })
+        } else {
+          ruleForm[item.key] = item.value
+        }
       })
       let res = await GetReport7TableData(ruleForm)
-      console.log("res===", res)
+      // console.log("res===", res)
       this.tableTitle = res.columns
       this.tabData = []
-      // this.tableData = res.rows
+      this.tableData = res.rows
       this.tableData.forEach((item) => {
         let objKey = {}
         item.forEach((key) => {
@@ -184,7 +242,18 @@ export default {
   margin-top: 10px;
   // border: 1px solid red;
 }
-
+// 时间选择器样式
+::v-deep .el-range-editor.el-input__inner {
+  border: 1px solid #1683af;
+  background: transparent;
+}
+::v-deep .el-date-editor .el-range-input {
+  font-size: 16px;
+  color: #fff !important;
+}
+::v-deep .el-range-editor .el-range-input {
+  background: transparent;
+}
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
@@ -201,7 +270,7 @@ export default {
   border: 1px solid #1683af;
   border-radius: 4px;
   .btn {
-    margin-left: 20px;
+    margin-left: 165px;
   }
 }
 ::v-deep .el-col-5 {
