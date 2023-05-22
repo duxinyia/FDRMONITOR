@@ -56,15 +56,11 @@
         </el-col>
       </el-form>
       <!-- </div> -->
-      <el-col :span="1">
-        <el-button
-          class="btn"
-          :type="!disabled ? 'primary' : 'info'"
-          round
-          @click="getSearchData"
-          :disabled="disabled"
-          >查詢</el-button
-        >
+      <!-- :type="!disabled ? 'primary' : 'info'"  :disabled="disabled"-->
+
+      <el-col :span="1" style="display: flex">
+        <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
+        <el-button round type="primary" @click="exportXlsx">導出</el-button>
       </el-col>
       <!-- </div> -->
     </el-row>
@@ -75,6 +71,7 @@
       element-loading-background="rgba(0, 0, 0, 1)"
     >
       <ces-table
+        id="exportTable"
         tableHeight="860px"
         :tableData="tabData"
         :tableCols="tableTitle"
@@ -98,12 +95,13 @@ export default {
   props: {},
   components: {},
   computed: {
-    disabled() {
-      return [0, 1, 3].every((index) => this.selectData[index].value) ||
-        [0, 2, 3].every((index) => this.selectData[index].value)
-        ? false
-        : true
-    }
+    // 控制查询按钮是否能点击
+    // disabled() {
+    //   return [0, 1, 3].every((index) => this.selectData[index].value) ||
+    //     [0, 2, 3].every((index) => this.selectData[index].value)
+    //     ? false
+    //     : true
+    // }
   },
   watch: {},
   data() {
@@ -111,11 +109,11 @@ export default {
       choiceDate: null,
       //将日期时间选择器控制在只能选择7天以内
       pickerOptions: {
-        //onPick：是选中日期时的回调函数，可以在这里对选中的日期进行处{maxDate：后选中日期；minDate：第一个选中的日期}
+        //onPick：是选中日期时的回调函数，可以在这里对选中的日期进行处理{maxDate：后选中日期；minDate：第一个选中的日期}
         onPick: ({ maxDate, minDate }) => {
           // 把选择的第一个日期赋值给一个变量。
           this.choiceDate = minDate.getTime()
-          // 如何你选择了两个日期了，就把那个变量置空
+          // 如果你选择了两个日期了，就把那个变量置空
           if (maxDate) this.choiceDate = ""
         },
         disabledDate: (time) => {
@@ -176,7 +174,7 @@ export default {
     }
   },
   created() {
-    this.$store.commit("fullLoading/SET_TITLE", "查询报表")
+    this.$store.commit("fullLoading/SET_TITLE", "查詢報表")
   },
   mounted() {
     this.getselectData()
@@ -204,20 +202,22 @@ export default {
     // 获取数据
     async getData() {
       this.isLoading = true
-      let ruleForm = {}
+      let ruleForm = { Starttime: "", Endtime: "" }
       this.selectData.forEach((item) => {
         if (item.key === "times") {
           let value = new Map([
             ["Starttime", item.value[0]],
             ["Endtime", item.value[1]]
           ])
-          value.forEach((valueItem, key) => {
-            this.$set(ruleForm, key, moment(valueItem).format("YYYY-MM-DD HH:mm:ss"))
-          })
+          item.value &&
+            value.forEach((valueItem, key) => {
+              this.$set(ruleForm, key, moment(valueItem).format("YYYY-MM-DD HH:mm:ss"))
+            })
         } else {
           ruleForm[item.key] = item.value
         }
       })
+
       let res = await GetReport7TableData(ruleForm)
       // console.log("res===", res)
       this.tableTitle = res.columns
@@ -231,6 +231,15 @@ export default {
         this.tabData.push(objKey)
       })
       this.isLoading = false
+    },
+    // 导出表格为xlsx
+    exportXlsx() {
+      let workbook = this.$xlsx.utils.table_to_book(document.getElementById("exportTable")) //需要在table上定义一个id
+      try {
+        this.$xlsx.writeFile(workbook, "工單查詢報表.xlsx")
+      } catch (e) {
+        console.log("error", e)
+      }
     }
   }
 }
