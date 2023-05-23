@@ -5,6 +5,7 @@
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
         <el-select
+          style="width: 150px; height: 34px"
           v-if="item.type == 'select'"
           :popper-append-to-body="false"
           v-model="item.value"
@@ -20,6 +21,7 @@
         </el-select>
 
         <el-date-picker
+          style="width: 194px; height: 34px"
           v-if="item.type == 'datetime'"
           :clearable="false"
           v-model="item.value"
@@ -29,13 +31,19 @@
         >
         </el-date-picker>
       </div>
-      <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
+      <el-button class="btn" icon="el-icon-search" type="primary" round @click="getSearchData"
+        >查詢</el-button
+      >
     </div>
     <el-table
       :data="tabData"
-      :header-cell-style="{ background: '#131540', color: '#fff', 'font-weight': 700 }"
+      :header-cell-style="{
+        'font-size': '14px',
+        color: '#fff',
+        'font-weight': 700
+      }"
       :cell-style="cellStyle"
-      height="calc(100% - 74.9px)"
+      height="calc(100% - 100px)"
       v-loading="isLoading"
       element-loading-spinner="el-icon-loading"
       element-loading-text="加载中..."
@@ -208,30 +216,47 @@ export default {
 
 <style lang="scss" scoped>
 .page-mian {
+  box-sizing: border-box;
   height: calc(100% - 120px);
   margin-top: 10px;
-  // border: 1px solid red;
 }
 
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
-  border: 1px solid #1683af;
+  border: 1px solid #fff;
   margin-top: 20px;
   // height: calc(100% - 74.9px);
   // overflow: auto;
+}
+
+::v-deep .el-table__header-wrapper {
+  border: 2px solid rgba(160, 190, 250, 1) !important;
+}
+::v-deep .el-table thead {
+  background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%) !important;
+}
+::v-deep .el-table th.el-table__cell,
+::v-deep.el-table thead.is-group th.el-table__cell {
+  border-bottom: 0px solid #fff !important;
+  background: unset;
 }
 ::v-deep .el-table tr {
   background: transparent;
   color: #fff;
 }
 ::v-deep .el-table th {
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af !important;
+  border-right: 1px solid #fff;
+  border-top: 1px solid #fff !important;
 }
 ::v-deep .el-table td {
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af;
+  box-sizing: border-box;
+  border-left: 1px solid #fff;
+  border-right: 1px solid transparent;
+  // border-bottom: 1px solid #fff;
+}
+::v-deep .el-table tr:first-child th {
+  border-top: 0px solid #fff !important;
 }
 
 ::v-deep .el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
@@ -254,42 +279,66 @@ export default {
 .select-two {
   display: flex;
   padding: 10px 0px;
-  background: #131540;
-  border: 1px solid #1683af;
+  height: 80px;
+  // opacity: 0.8;
   border-radius: 4px;
+  background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%);
+  border: 2px solid rgba(160, 190, 250, 1);
+
   .btn {
-    margin-left: 20px;
+    font-size: 14px;
+    width: 88px;
+    height: 34px;
+    border-radius: 95px;
+    background: rgba(0, 143, 253, 1);
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-left: 72px;
+    padding-left: 18px;
+    padding-top: 9px;
+    margin-top: 11px;
   }
 }
+::v-deep .el-select .el-input .el-select__caret {
+  color: #fff;
+}
 .system-select {
+  align-items: center;
+  margin-top: 8px;
   span {
+    font-size: 14px;
     padding: 0 10px 0 25px;
   }
 }
 ::v-deep .el-scrollbar {
-  width: 240px;
+  width: 148px;
 }
 ::v-deep .el-input--suffix .el-input__inner {
-  background-color: rgba(0, 0, 0, 0.3);
-  font-size: 16px;
+  z-index: 100;
+  border: 0px solid #fff;
+  border-radius: 4px;
+  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
+  font-size: 12px;
   color: #fff;
-  border-color: #409eff;
 }
-::v-deep .el-select-dropdown {
-  background-color: #000c1a;
-  .el-select-dropdown__item {
-    color: #fff;
-    // color: #243d97 !important;
-  }
-  .el-select-dropdown__item.hover,
-  .el-select-dropdown__item:hover {
-    background-color: #243d97;
-  }
-  .el-select-dropdown__item.selected {
-    background-color: #243d97 !important;
-  }
-  .popper__arrow:after {
-    border-bottom-color: #000c1a !important;
-  }
+::v-deep .el-popper {
+  // margin-top: 19px !important;
 }
+// 下拉框的样式
+// ::v-deep .el-select-dropdown {
+//   background-color: #000c1a;
+//   .el-select-dropdown__item {
+//     color: #fff;
+//     // color: #243d97 !important;
+//   }
+//   .el-select-dropdown__item.hover,
+//   .el-select-dropdown__item:hover {
+//     background-color: #243d97;
+//   }
+//   .el-select-dropdown__item.selected {
+//     background-color: #243d97 !important;
+//   }
+//   .popper__arrow:after {
+//     border-bottom-color: #000c1a !important;
+//   }
+// }
 </style>
