@@ -91,6 +91,7 @@
             <el-col :span="6">
               <el-form-item label="TestTime:" prop="DateCode">
                 <el-date-picker
+                  style="width: 194px; height: 34px"
                   v-model="ruleForm.DateCode"
                   value-format="yyyy-MM-dd"
                   type="date"
@@ -156,9 +157,29 @@
           </el-row>
           <el-row>
             <el-form-item style="float: right; margin-right: 80px">
-              <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查詢</el-button>
-              <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
-              <el-button type="primary" size="mini" @click="exportXlsx">导出</el-button>
+              <el-button
+                class="btn"
+                icon="el-icon-search"
+                type="primary"
+                size="mini"
+                @click="submitForm('ruleForm')"
+                >查詢</el-button
+              >
+              <el-button
+                class="btn"
+                icon="el-icon-refresh-right"
+                size="mini"
+                @click="resetForm('ruleForm')"
+                >重置</el-button
+              >
+              <el-button
+                class="btn"
+                icon="el-icon-upload2"
+                type="primary"
+                size="mini"
+                @click="exportXlsx"
+                >导出</el-button
+              >
             </el-form-item>
           </el-row>
         </el-form>
@@ -469,8 +490,9 @@ export default {
     },
     headerCellStyle() {
       return {
-        background: "#131540",
-        color: "#fff"
+        "font-size": "14px",
+        color: "#fff",
+        "font-weight": 700
       }
     },
     Show() {
@@ -535,17 +557,32 @@ export default {
   // font-size: 13px !important;
   height: calc(100% - 270px);
 }
+::v-deep .el-table__header-wrapper {
+  border: 2px solid rgba(160, 190, 250, 1) !important;
+}
+::v-deep .el-table__body {
+  border-left: 2px solid #1683af;
+  border-right: 2px solid #1683af;
+}
+::v-deep .el-table thead {
+  background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%) !important;
+}
+::v-deep .el-table th.el-table__cell,
+::v-deep.el-table thead.is-group th.el-table__cell {
+  border-bottom: 0px solid #fff !important;
+  background: unset;
+}
 ::v-deep .el-table tr {
   background: transparent;
   color: #fff;
 }
 ::v-deep .el-table th {
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af !important;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff !important;
 }
 ::v-deep .el-table td {
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
 }
 ::v-deep .el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
   background: transparent;
@@ -569,19 +606,22 @@ export default {
 .detail {
   cursor: pointer;
 }
-::v-deep .el-popper {
-  background-color: #000c1a;
-  .popper__arrow:after {
-    border-bottom-color: #000c1a;
-  }
+// ::v-deep .el-popper {
+//   background-color: #000c1a;
+//   .popper__arrow:after {
+//     border-bottom-color: #000c1a;
+//   }
+// }
+::v-deep .el-select .el-input .el-select__caret {
+  color: #fff;
 }
-
 // 查询区域样式
 .elForm {
-  border: 1px solid #1683af;
+  border: 2px solid rgba(160, 190, 250, 1);
+  border-radius: 4px;
   margin-top: 10px;
   padding-top: 10px;
-  background: #131540;
+  background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%);
   // max-height: 0;
   transition: 100px 0.3s linear;
 }
@@ -590,39 +630,22 @@ export default {
   color: #fff;
 }
 ::v-deep .el-input--suffix .el-input__inner {
-  background-color: rgba(0, 0, 0, 0.3);
-  font-size: 16px;
+  z-index: 100;
+  border: 0px solid #fff;
+  border-radius: 4px;
+  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
+  font-size: 12px;
   color: #fff;
-  border-color: #409eff;
 }
-::v-deep .el-select-dropdown {
-  background-color: #000c1a;
-  .el-select-dropdown__item {
-    color: #fff;
-    // color: #243d97 !important;
-  }
-  .el-select-dropdown__item.hover,
-  .el-select-dropdown__item:hover {
-    background-color: #243d97;
-  }
-  .el-select-dropdown__item.selected {
-    color: #fff;
-    background-color: transparent !important;
-  }
-  .el-select-dropdown__item.selected:hover {
-    color: #fff;
-    background-color: #243d97 !important;
-  }
 
-  .popper__arrow:after {
-    border-bottom-color: #000c1a !important;
-  }
-}
 .el-date-editor.el-input,
 .el-date-editor.el-input__inner {
-  width: 240px;
+  width: 150px;
+  height: 34px;
 }
-
+::v-deep .el-scrollbar {
+  width: 183px;
+}
 //滚动条位置
 ::v-deep .el-table__body-wrapper is-scrolling-left {
   height: 597px;
@@ -652,5 +675,16 @@ export default {
 
 ::v-deep .el-table__body-wrapper {
   height: 100%;
+}
+// 按钮
+.btn {
+  font-size: 14px;
+  width: 88px;
+  height: 34px;
+  border-radius: 95px;
+  color: #fff;
+  background: rgba(0, 143, 253, 1);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  border: 0px solid #fff;
 }
 </style>
