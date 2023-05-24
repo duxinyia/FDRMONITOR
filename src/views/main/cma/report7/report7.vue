@@ -57,12 +57,7 @@
       </el-form>
       <!-- </div> -->
       <el-col :span="1">
-        <el-button
-          class="btn"
-          :type="!disabled ? 'primary' : 'info'"
-          round
-          @click="getSearchData"
-          :disabled="disabled"
+        <el-button class="btn" :type="!disabled ? 'primary' : 'info'" round @click="getSearchData" :disabled="disabled"
           >查詢</el-button
         >
       </el-col>

@@ -513,8 +513,7 @@ let showArrConfig = {
           route: {
             path: "report7",
             name: "cmamainreport7",
-            component: () =>
-              import(/* webpackChunkName: "report4" */ "@/views/main/cma/report7/report7.vue"),
+            component: () => import(/* webpackChunkName: "report4" */ "@/views/main/cma/report7/report7.vue"),
             meta: { parentName: "cma" }
           }
         },
