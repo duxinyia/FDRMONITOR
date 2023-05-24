@@ -367,7 +367,7 @@ export default {
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
-  border: 1px solid #1683af;
+  border-bottom: 2px solid #1683af;
   margin-top: 20px;
 
   // overflow: auto;
@@ -377,9 +377,9 @@ export default {
   // box-sizing: border-box;
   border: 2px solid rgba(160, 190, 250, 1) !important;
 }
-::v-deep .el-table__body {
+::v-deep .el-table__body-wrapper {
   border-left: 2px solid #1683af;
-  border-right: 10px solid #1683af;
+  border-right: 2px solid #1683af !important;
 }
 ::v-deep .el-table thead {
   background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%) !important;

@@ -224,7 +224,8 @@ export default {
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
-  border: 1px solid #1683af;
+  border-left: 0px solid #fff;
+  border-bottom: 2px solid #1683af;
   margin-top: 20px;
   // height: calc(100% - 74.9px);
   // overflow: auto;
@@ -233,10 +234,7 @@ export default {
 ::v-deep .el-table__header-wrapper {
   border: 2px solid rgba(160, 190, 250, 1) !important;
 }
-::v-deep .el-table__body {
-  border-left: 2px solid #1683af;
-  border-right: 2px solid #1683af;
-}
+
 ::v-deep .el-table thead {
   background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%) !important;
 }
@@ -249,11 +247,15 @@ export default {
   background: transparent;
   color: #fff;
 }
+::v-deep .el-table__body-wrapper {
+  border-left: 2px solid #1683af;
+  border-right: 2px solid #1683af !important;
+}
 ::v-deep .el-table th {
   border-right: 1px solid #fff;
   border-top: 1px solid #fff !important;
 }
-::v-deep .el-table tbody td {
+::v-deep .el-table td {
   // border-left: 1px solid #fff;
   border-right: 1px solid #fff;
   border-bottom: 1px solid #fff;
