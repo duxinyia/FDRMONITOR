@@ -1,5 +1,5 @@
 <template>
-  <div class="page-main">
+  <div class="page-main" ref="toImage">
     <el-row :gutter="10">
       <el-col :span="7">
         <main-left :progressConfig="progressConfig" :scrollData="leftScrollData" />
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import html2canvas from "html2canvas"
 // 导入各子组件
 import MainLeft from "./cpns/main-left/main-left.vue"
 import MainCenter from "./cpns/main-center/main-center.vue"
@@ -180,6 +181,29 @@ export default {
       } catch (error) {
         console.log("error", error)
       }
+    },
+    screenshot() {
+      const canvas = document.createElement("canvas") //创建canvas标签
+      let canvasItem = this.$refs.toImage //获取生成图片的标签
+      const width = parseInt(window.getComputedStyle(canvasItem).width)
+      const height = parseInt(window.getComputedStyle(canvasItem).height)
+
+      canvas.width = width * 2 // 宽高放大2倍，防止图片模糊
+      canvas.height = height * 2
+      console.log(width, height)
+      canvas.style.width = width + "px"
+      canvas.style.height = height + "px"
+      const context = canvas.getContext("2d")
+      context.scale(2, 2)
+      const options = {
+        backgroundColor: null,
+        canvas,
+        useCORS: true
+      }
+      html2canvas(canvasItem, options).then((canvas) => {
+        let imageURL = canvas.toDataURL("image/png")
+        console.log(imageURL)
+      })
     }
   },
   beforeDestroy() {
@@ -191,5 +215,11 @@ export default {
 <style lang="scss" scoped>
 .page-main {
   margin-top: 20px;
+  position: relative;
+}
+.btn {
+  position: absolute;
+  top: -10px;
+  left: 0px;
 }
 </style>

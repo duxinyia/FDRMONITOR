@@ -93,12 +93,10 @@ export default {
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "Lens Reject rate")
+    this.tableData = []
   },
   methods: {}
 }
 </script>
 
-<style lang="scss" scoped>
-/* .rerate {
-} */
-</style>
+<style lang="scss" scoped></style>

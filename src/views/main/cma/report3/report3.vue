@@ -21,6 +21,7 @@
       </div>
 
       <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
+      <el-button class="btn" type="primary" round @click="exportXlsx">导出</el-button>
     </div>
     <el-table
       :data="tableData1"
@@ -46,6 +47,7 @@
       </el-table-column>
     </el-table>
     <el-table
+      id="exportTable"
       :data="tableData2"
       :cell-style="cellStyle2"
       :header-cell-style="{ background: 'transparent', color: '#fff' }"
@@ -324,6 +326,16 @@ export default {
           return { display: "none" }
         } else return { background: "transparent", color: "#fff" }
       }
+    },
+    // 导出表格为xlsx
+    exportXlsx() {
+      console.log("导出")
+      let workbook = this.$xlsx.utils.table_to_book(document.getElementById("exportTable")) //需要在table上定义一个id
+      try {
+        this.$xlsx.writeFile(workbook, "表格.xlsx")
+      } catch (e) {
+        console.log("e", e)
+      }
     }
   }
 }
@@ -333,15 +345,12 @@ export default {
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;
-  // border: 1px solid red;
 }
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
   border: 1px solid #1683af;
   margin-top: 20px;
-
-  // overflow: auto;
 }
 ::v-deep .el-table tr {
   background: transparent;
@@ -383,7 +392,7 @@ export default {
 }
 .system-select {
   span {
-    padding: 0 10px 0 25px;
+    padding: 0 10px;
   }
 }
 .dateSelect {

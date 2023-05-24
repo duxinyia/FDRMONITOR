@@ -57,7 +57,6 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 router.afterEach((to, from) => {
-  // console.log("to, from", to, from)
   // 用于做页面统计的接口
   if (to.meta.pageId) {
     addPageCount(to.meta.pageId)

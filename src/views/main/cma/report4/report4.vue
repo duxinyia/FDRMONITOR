@@ -1,53 +1,54 @@
 <template>
   <div class="page-mian">
-    <div class="queryArea">
-      <div class="system-select" v-for="item in selectData" :key="item.name">
-        <span>{{ item.name }}:</span>
-        <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
-          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
-          </el-option>
-        </el-select>
+    <dv-border-box-12>
+      <div class="queryArea">
+        <div class="system-select" v-for="item in selectData" :key="item.name">
+          <span>{{ item.name }}:</span>
+          <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
+            <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="datePicker">
+          <span>Start Time:</span>
+          <el-date-picker
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            v-model="date.startTime"
+            placeholder="請選擇時間"
+          >
+          </el-date-picker>
+          <span>End Time:</span>
+          <el-date-picker
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            v-model="date.EndTime"
+            placeholder="請選擇時間"
+          >
+          </el-date-picker>
+        </div>
+        <el-button class="btn" size="medium" type="primary" @click="getSearchData">查詢</el-button>
+        <el-button class="btn" size="medium" type="primary" @click="exportXlsx">导出</el-button>
       </div>
-      <div class="datePicker">
-        <span>Start Time:</span>
-        <el-date-picker
-          type="datetime"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          v-model="date.startTime"
-          placeholder="請選擇時間"
-        >
-        </el-date-picker>
-        <span>End Time:</span>
-        <el-date-picker
-          type="datetime"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          v-model="date.EndTime"
-          placeholder="請選擇時間"
-        >
-        </el-date-picker>
-      </div>
-      <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
-      <el-button class="btn" type="primary" round @click="exportXlsx">导出</el-button>
-    </div>
-
-    <el-table
-      id="exportTable"
-      :data="tableData"
-      :cell-style="cellStyle"
-      :header-cell-style="{ background: 'transparent', color: '#fff' }"
-      height="calc(100% - 75px)"
-    >
-      <el-table-column
-        v-for="(item, index) in tableTitle"
-        :key="index"
-        :prop="item.id"
-        :label="item.capital"
-        align="center"
-        min-width="50px"
-        show-overflow-tooltip
+      <el-table
+        id="exportTable"
+        :data="tableData"
+        :cell-style="cellStyle"
+        :header-cell-style="{ background: '#3f63814d', color: '#1adafb', 'font-weight': 'blod' }"
+        height="calc(100% - 75px)"
       >
-      </el-table-column>
-    </el-table>
+        <el-table-column
+          v-for="(item, index) in tableTitle"
+          :key="index"
+          :prop="item.id"
+          :label="item.capital"
+          align="center"
+          min-width="50px"
+          show-overflow-tooltip
+        >
+        </el-table-column>
+      </el-table>
+    </dv-border-box-12>
   </div>
 </template>
 
@@ -155,6 +156,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .border-box-content {
+  padding: 20px;
+}
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;
@@ -200,7 +204,7 @@ export default {
 .queryArea {
   display: flex;
   padding: 10px 0px;
-  background: #131540;
+  /* background: #131540; */
   border: 1px solid #1683af;
   .btn {
     margin-left: 20px;

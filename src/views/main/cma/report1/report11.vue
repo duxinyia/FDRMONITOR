@@ -1,26 +1,17 @@
 <template>
   <div class="page-mian">
     <dv-border-box-12>
-      <!-- 选择下拉框+搜索按钮 -->
-      <div class="select-two">
-        <div class="system-select" v-for="item in selectData" :key="item.name">
-          <span>{{ item.name }}:</span>
-          <el-select
-            v-if="item.type == 'select'"
-            :popper-append-to-body="false"
-            v-model="item.value"
-            placeholder="請選擇"
-          >
-            <el-option
-              v-for="optionsItem in options[item.name]"
-              :key="optionsItem.id"
-              :label="optionsItem.id"
-              :value="optionsItem.value"
-            >
-            </el-option>
-          </el-select>
+      <!-- 搜索区域 -->
+      <el-form inline :model="formData">
+        <el-form-item label="DefectType">
+          <el-input v-model="formData.DefectType" placeholder="审批人"></el-input>
+        </el-form-item>
+        <el-form-item label="DeviceSeriers">
+          <el-input v-model="formData.DeviceSeriers" placeholder="审批人"></el-input>
+        </el-form-item>
+        <el-form-item label="datetime">
+          <!-- <el-input v-model="formData.datetime" placeholder="时间"></el-input> -->
           <el-date-picker
-            v-if="item.type == 'datetime'"
             :clearable="false"
             v-model="item.value"
             value-format="yyyy-MM-dd HH:mm:ss"
@@ -28,47 +19,82 @@
             placeholder="選擇日期時間"
           >
           </el-date-picker>
-        </div>
-        <el-button class="btn" type="primary" @click="getSearchData">查詢</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">查询</el-button>
+        </el-form-item>
+      </el-form>
+      <!-- 表格 -->
+    </dv-border-box-12>
+    <ces-table :tableData="tableData" :tableCols="tableCols"> </ces-table>
+    <!-- 选择下拉框+搜索按钮 -->
+    <!-- <div class="select-two">
+      <div class="system-select" v-for="item in selectData" :key="item.name">
+        <span>{{ item.name }}:</span>
+        <el-select
+          v-if="item.type == 'select'"
+          :popper-append-to-body="false"
+          v-model="item.value"
+          placeholder="請選擇"
+        >
+          <el-option
+            v-for="optionsItem in options[item.name]"
+            :key="optionsItem.id"
+            :label="optionsItem.id"
+            :value="optionsItem.value"
+          >
+          </el-option>
+        </el-select>
+
+        <el-date-picker
+          v-if="item.type == 'datetime'"
+          :clearable="false"
+          v-model="item.value"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          type="datetime"
+          placeholder="選擇日期時間"
+        >
+        </el-date-picker>
       </div>
-      <el-table
-        :data="tabData"
-        :header-cell-style="{ background: '#3f63814d', color: '#1adafb', 'font-weight': 'blod' }"
-        :cell-style="cellStyle"
-        height="calc(100% - 74.9px)"
-        v-loading="isLoading"
-        element-loading-spinner="el-icon-loading"
-        element-loading-text="加载中..."
-        element-loading-background="rgba(0, 0, 0, 1)"
+      <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
+    </div>
+    <el-table
+      :data="tabData"
+      :header-cell-style="{ background: '#131540', color: '#fff', 'font-weight': 700 }"
+      :cell-style="cellStyle"
+      height="calc(100% - 74.9px)"
+      v-loading="isLoading"
+      element-loading-spinner="el-icon-loading"
+      element-loading-text="加载中..."
+      element-loading-background="rgba(0, 0, 0, 1)"
+    >
+      <el-table-column
+        v-for="(taT, index) in tableTitle"
+        :key="index"
+        :width="taT.name == 'Lens Vendor' ? '110' : ''"
+        :prop="taT.id"
+        align="center"
+        :label="taT.name"
       >
         <el-table-column
-          v-for="(taT, index) in tableTitle"
+          v-show="taT.chileColumn"
+          v-for="(c, index) in taT.chileColumn"
           :key="index"
-          :width="taT.name == 'Lens Vendor' ? '110' : ''"
-          :prop="taT.id"
+          :prop="c.id"
           align="center"
-          :label="taT.name"
+          :label="c.name"
         >
           <el-table-column
-            v-show="taT.chileColumn"
-            v-for="(c, index) in taT.chileColumn"
+            v-show="c.chileColumn"
+            v-for="(s, index) in c.chileColumn"
             :key="index"
-            :prop="c.id"
+            :prop="s.id"
             align="center"
-            :label="c.name"
-          >
-            <el-table-column
-              v-show="c.chileColumn"
-              v-for="(s, index) in c.chileColumn"
-              :key="index"
-              :prop="s.id"
-              align="center"
-              :label="s.name"
-            ></el-table-column>
-          </el-table-column>
+            :label="s.name"
+          ></el-table-column>
         </el-table-column>
-      </el-table>
-    </dv-border-box-12>
+      </el-table-column>
+    </el-table> -->
   </div>
 </template>
 
@@ -92,11 +118,13 @@ export default {
         { name: "DeviceSeriers", value: "", type: "select" },
         { name: "datetime", value: "", type: "datetime" }
       ],
+      formData: { DefectType: "", DeviceSeriers: "", datetime: "" },
       // 两个下拉框的选项
       options: {
         DefectType: [],
         DeviceSeriers: []
       },
+      tableCols: [],
       // 从后端拿到的表格数据
       tableData: [],
       // 自己组成的新的表格数据
@@ -113,6 +141,7 @@ export default {
     async getselectData() {
       let inputValue = this.selectData
       let res = await GetDefectTypeInfo()
+      console.log("res", res)
       this.options["DefectType"] = res
       res.forEach((item) => {
         if (item.selected) {
@@ -145,6 +174,7 @@ export default {
       let t = inputD[2].value
       this.tabData = []
       let res = await GetReport1Search(type, seriers, t)
+      console.log("res列数据", res)
       this.tableTitle = res.columns
       // console.log("res===", res)
       this.tableData = res.rows
@@ -158,7 +188,7 @@ export default {
       this.isLoading = false
     },
     // 单元格样式
-    cellStyle({ row, column }) {
+    cellStyle({ row, column, rowIndex, columnIndex }) {
       let property = column.property
       if (row[property] && String(row[property]).includes("%")) {
         if (parseFloat(row[property]) < 0.1) {
@@ -183,10 +213,11 @@ export default {
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;
+  /* border: 1px solid red; */
 }
 
 /* 修改表格的一些样式 */
-::v-deep .el-table {
+/* ::v-deep .el-table {
   background: transparent;
   border: 1px solid #1683af;
   margin-top: 20px;
@@ -224,7 +255,7 @@ export default {
 .select-two {
   display: flex;
   padding: 10px 0px;
-  /* background: #131540; */
+  background: #131540;
   border: 1px solid #1683af;
   border-radius: 4px;
   .btn {
@@ -249,7 +280,6 @@ export default {
   background-color: #000c1a;
   .el-select-dropdown__item {
     color: #fff;
-    // color: #243d97 !important;
   }
   .el-select-dropdown__item.hover,
   .el-select-dropdown__item:hover {
@@ -261,5 +291,5 @@ export default {
   .popper__arrow:after {
     border-bottom-color: #000c1a !important;
   }
-}
+} */
 </style>

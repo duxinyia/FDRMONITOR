@@ -114,7 +114,7 @@
           <el-row>
             <el-form-item style="float: right; margin-right: 80px">
               <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查詢</el-button>
-              <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
+              <!-- <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button> -->
               <el-button type="primary" size="mini" @click="exportXlsx">导出</el-button>
             </el-form-item>
           </el-row>
@@ -412,9 +412,9 @@ export default {
       this.isLoading = false
     },
     // 重置
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
-    },
+    // resetForm(formName) {
+    //   this.$refs[formName].resetFields()
+    // },
     // 导出表格为xlsx
     exportXlsx() {
       let workbook = this.$xlsx.utils.table_to_book(document.getElementById("exportTable")) //需要在table上定义一个id

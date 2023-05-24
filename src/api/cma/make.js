@@ -2,7 +2,7 @@ import request from "@/network"
 let { post: $post } = request
 
 // 导入时间处理函数
-import { getTime, getTimeAgo } from "@/utils"
+import { getTime } from "@/utils"
 
 // GetRunningInfo
 export let GetRunningInfo = (params) => {

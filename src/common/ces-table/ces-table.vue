@@ -148,7 +148,7 @@ export default {
     headerCellStyle: {
       type: Object,
       default: () => {
-        return { background: "transparent !important", color: "#1adafb" }
+        return { background: "transparent", color: "#1adafb" }
       }
     },
     isHasHandle: { type: Boolean, default: false },
@@ -197,7 +197,8 @@ export default {
   font-size: 15px !important;
   color: var(--make-base-text);
   border-top: 1px solid #1683af;
-  border-left: none;
+  border-left: 1px solid #1683af;
+  /* border-left: none; */
   background-color: transparent !important;
 }
 ::v-deep .cell {
@@ -210,18 +211,18 @@ export default {
   /* border-left: 1px solid #1683af; */
   border-right: 1px solid #1683af;
   border-bottom: 1px solid #1683af !important;
-  &:first-child {
+  /* &:first-child {
     border-left: 1px solid #1683af;
-  }
+  } */
 }
 ::v-deep .el-table td {
   padding: 7px 0;
   /* padding: 0px; */
   border-right: 1px solid #1683af;
   border-bottom: 1px solid #1683af;
-  &:first-child {
+  /* &:first-child {
     border-left: 1px solid #1683af;
-  }
+  } */
 }
 ::v-deep .el-table tr {
   background-color: transparent !important; //每一行透明

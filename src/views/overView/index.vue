@@ -14,7 +14,7 @@
         </div>
         <div :class="{ title: true, active: 1 == currentIndex }" @click="currentIndex = 1">
           <span class="iconfont icon-tubiaotongji"></span>
-          <span class="name">表报</span>
+          <span class="name">报表</span>
         </div>
       </div>
       <menu-child :menus="getShowMenu" />
@@ -74,7 +74,6 @@ export default {
       return this.$route.path.replace(/\//g, "_")
     },
     getShowMenu() {
-      console.log(this.$store.getters.showIndex, this.currentIndex)
       return [this.$store.getters.menus[this.$store.getters.showIndex][this.currentIndex]]
     }
   },
@@ -148,12 +147,12 @@ export default {
     }
     .end-set {
       margin: auto;
-      height: 32px;
-      line-height: 32px;
+      height: 40px;
+      line-height: 40px;
       margin-bottom: 20px;
       cursor: pointer;
       color: #fff;
-      font-size: 14px;
+      font-size: 16px;
       display: flex;
       border-radius: 4px;
       background: #2a4c73;
@@ -207,7 +206,7 @@ export default {
         width: 100%;
         height: 100%;
         border-radius: 10px;
-        padding: 30px 40px 20px 40px;
+        padding: 20px;
         background: url("~@/assets/images/other/overview-bg1.png");
         background-size: 100% 100%;
         overflow: auto;

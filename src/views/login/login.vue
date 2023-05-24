@@ -34,8 +34,9 @@
               @click="toLogin"
               :loading="btnLoading"
               :disabled="btnLoading"
-              >{{ btnLoading ? "登录中~" : "登录" }}</el-button
             >
+              {{ btnLoading ? "登录中~" : "登录" }}
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
