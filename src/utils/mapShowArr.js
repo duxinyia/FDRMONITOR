@@ -264,6 +264,19 @@ let showArrConfig = {
             component: () => import("@/views/main/cma/rerate/rerate.vue"),
             meta: { parentName: "cma" }
           }
+        },
+        {
+          title: "Stangging Time 看板",
+          imgUrl: require("@/assets/images/other/repair.png"),
+          belong: "管理层/设备",
+          isShow: false,
+          to: "stang",
+          route: {
+            path: "stang",
+            name: "stang",
+            component: () => import("@/views/main/cma/stang/stang.vue"),
+            meta: { parentName: "cma" }
+          }
         }
       ],
       process: [

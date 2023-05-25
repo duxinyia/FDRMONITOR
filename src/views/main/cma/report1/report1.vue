@@ -1,78 +1,83 @@
 <template>
   <div class="page-mian">
-    <dv-border-box-12>
-      <!-- 选择下拉框+搜索按钮 -->
-      <div class="select-two">
-        <div class="system-select" v-for="item in selectData" :key="item.name">
-          <span>{{ item.name }}:</span>
-          <el-select
-            v-if="item.type == 'select'"
-            :popper-append-to-body="false"
-            v-model="item.value"
-            placeholder="請選擇"
+    <!-- 选择下拉框+搜索按钮 -->
+    <div class="select-two">
+      <div class="system-select" v-for="item in selectData" :key="item.name">
+        <span>{{ item.name }}:</span>
+        <el-select
+          style="width: 150px; height: 34px"
+          v-if="item.type == 'select'"
+          :popper-append-to-body="false"
+          v-model="item.value"
+          placeholder="請選擇"
+        >
+          <el-option
+            v-for="optionsItem in options[item.name]"
+            :key="optionsItem.id"
+            :label="optionsItem.id"
+            :value="optionsItem.value"
           >
-            <el-option
-              v-for="optionsItem in options[item.name]"
-              :key="optionsItem.id"
-              :label="optionsItem.id"
-              :value="optionsItem.value"
-            >
-            </el-option>
-          </el-select>
-          <el-date-picker
-            v-if="item.type == 'datetime'"
-            :clearable="false"
-            v-model="item.value"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            type="datetime"
-            placeholder="選擇日期時間"
-          >
-          </el-date-picker>
-        </div>
-        <el-button class="btn" type="primary" @click="getSearchData">查詢</el-button>
+          </el-option>
+        </el-select>
+        <el-date-picker
+          style="width: 194px; height: 34px"
+          v-if="item.type == 'datetime'"
+          :clearable="false"
+          v-model="item.value"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          type="datetime"
+          placeholder="選擇日期時間"
+        >
+        </el-date-picker>
       </div>
-      <el-table
-        :data="tabData"
-        :header-cell-style="{ background: '#3f63814d', color: '#1adafb', 'font-weight': 'blod' }"
-        :cell-style="cellStyle"
-        height="calc(100% - 74.9px)"
-        v-loading="isLoading"
-        element-loading-spinner="el-icon-loading"
-        element-loading-text="加载中..."
-        element-loading-background="rgba(0, 0, 0, 1)"
+      <el-button class="btn" icon="el-icon-search" type="primary" round @click="getSearchData">查詢</el-button>
+    </div>
+    <el-table
+      :data="tabData"
+      :header-cell-style="{
+        'font-size': '14px',
+        color: '#fff',
+        'font-weight': 700
+      }"
+      :cell-style="cellStyle"
+      height="calc(100% - 100px)"
+      v-loading="isLoading"
+      element-loading-spinner="el-icon-loading"
+      element-loading-text="加载中..."
+      element-loading-background="rgba(0, 0, 0, 1)"
+    >
+      <!--height="calc(100% - 20.9px) " 如果没有下拉框换成这个-->
+      <el-table-column
+        v-for="(taT, index) in tableTitle"
+        :key="index"
+        :width="taT.name == 'Lens Vendor' ? '110' : ''"
+        :prop="taT.id"
+        align="center"
+        :label="taT.name"
       >
         <el-table-column
-          v-for="(taT, index) in tableTitle"
+          v-show="taT.chileColumn"
+          v-for="(c, index) in taT.chileColumn"
           :key="index"
-          :width="taT.name == 'Lens Vendor' ? '110' : ''"
-          :prop="taT.id"
+          :prop="c.id"
           align="center"
-          :label="taT.name"
+          :label="c.name"
         >
           <el-table-column
-            v-show="taT.chileColumn"
-            v-for="(c, index) in taT.chileColumn"
+            v-show="c.chileColumn"
+            v-for="(s, index) in c.chileColumn"
             :key="index"
-            :prop="c.id"
+            :prop="s.id"
             align="center"
-            :label="c.name"
-          >
-            <el-table-column
-              v-show="c.chileColumn"
-              v-for="(s, index) in c.chileColumn"
-              :key="index"
-              :prop="s.id"
-              align="center"
-              :label="s.name"
-            ></el-table-column>
-          </el-table-column>
+            :label="s.name"
+          ></el-table-column>
         </el-table-column>
-      </el-table>
-    </dv-border-box-12>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
-
 <script>
+import moment from "moment"
 // 导入点击搜索数据
 import { GetReport1Search, GetDefectTypeInfo, GetDeviceSeriersInfo } from "@/api/cma/report1"
 export default {
@@ -98,21 +103,49 @@ export default {
         DeviceSeriers: []
       },
       // 从后端拿到的表格数据
-      tableData: [],
+      tableData: [
+        // [
+        //   { columnID: "0", value: "www" },
+        //   { columnID: "1", value: "www1" },
+        //   { columnID: "2", value: "www2" },
+        //   { columnID: "3-0", value: "0.02%" },
+        //   { columnID: "3-1", value: "0.10%" },
+        //   { columnID: "3-2-0", value: "2.02%" },
+        //   { columnID: "3-2-1", value: "www6" },
+        //   { columnID: "3-2-2", value: "www7" },
+        //   { columnID: "3-2-3", value: "www8" },
+        //   { columnID: "3-3-0", value: "wwww9" },
+        //   { columnID: "3-3-1", value: "www10" }
+        // ]
+      ],
       // 自己组成的新的表格数据
       tabData: [],
+      // objKey+objValue=tabData
       objKey: {}
+      // objValue: {}
     }
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", this.title)
+    // console.log(this.tabData)
+  },
+  mounted() {
     this.getselectData()
+  },
+  watch: {
+    // tableTitle: {
+    //   immediate: true,
+    //   handler(newData) {
+    //     this.isLoading = !newData[0] ? true : false
+    //   }
+    // }
   },
   methods: {
     // 获取下拉框数据
     async getselectData() {
       let inputValue = this.selectData
       let res = await GetDefectTypeInfo()
+      // console.log(res)
       this.options["DefectType"] = res
       res.forEach((item) => {
         if (item.selected) {
@@ -126,10 +159,9 @@ export default {
           inputValue[1].value = item.value
         }
       })
-      inputValue[2].value = this.$moment().format("YYYY-MM-DD HH:mm:ss")
+      inputValue[2].value = moment().format("YYYY-MM-DD HH:mm:ss")
       this.getData(inputValue)
     },
-
     // 点击搜索按钮
     getSearchData() {
       let inputValue = this.selectData
@@ -158,7 +190,7 @@ export default {
       this.isLoading = false
     },
     // 单元格样式
-    cellStyle({ row, column }) {
+    cellStyle({ row, column, rowIndex, columnIndex }) {
       let property = column.property
       if (row[property] && String(row[property]).includes("%")) {
         if (parseFloat(row[property]) < 0.1) {
@@ -175,35 +207,48 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
-::v-deep .border-box-content {
-  padding: 20px;
-}
 .page-mian {
+  box-sizing: border-box;
   height: calc(100% - 120px);
   margin-top: 10px;
 }
-
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
-  border: 1px solid #1683af;
+  border: 1px solid #fff;
   margin-top: 20px;
+  // height: calc(100% - 74.9px);
+  // overflow: auto;
+}
+::v-deep .el-table__header-wrapper {
+  border: 2px solid rgba(160, 190, 250, 1) !important;
+}
+::v-deep .el-table thead {
+  background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%) !important;
+}
+::v-deep .el-table th.el-table__cell,
+::v-deep.el-table thead.is-group th.el-table__cell {
+  border-bottom: 0px solid #fff !important;
+  background: unset;
 }
 ::v-deep .el-table tr {
   background: transparent;
   color: #fff;
 }
 ::v-deep .el-table th {
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af !important;
+  border-right: 1px solid #fff;
+  border-top: 1px solid #fff !important;
 }
 ::v-deep .el-table td {
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af;
+  box-sizing: border-box;
+  border-left: 1px solid #fff;
+  border-right: 1px solid transparent;
+  // border-bottom: 1px solid #fff;
 }
-
+::v-deep .el-table tr:first-child th {
+  border-top: 0px solid #fff !important;
+}
 ::v-deep .el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
   background: transparent;
 }
@@ -224,42 +269,65 @@ export default {
 .select-two {
   display: flex;
   padding: 10px 0px;
-  /* background: #131540; */
-  border: 1px solid #1683af;
+  height: 80px;
+  // opacity: 0.8;
   border-radius: 4px;
+  background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%);
+  border: 2px solid rgba(160, 190, 250, 1);
   .btn {
-    margin-left: 20px;
+    font-size: 14px;
+    width: 88px;
+    height: 34px;
+    border-radius: 95px;
+    background: rgba(0, 143, 253, 1);
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-left: 72px;
+    padding-left: 18px;
+    padding-top: 9px;
+    margin-top: 11px;
   }
 }
+::v-deep .el-select .el-input .el-select__caret {
+  color: #fff;
+}
 .system-select {
+  align-items: center;
+  margin-top: 8px;
   span {
+    font-size: 14px;
     padding: 0 10px 0 25px;
   }
 }
 ::v-deep .el-scrollbar {
-  width: 240px;
+  width: 148px;
 }
 ::v-deep .el-input--suffix .el-input__inner {
-  background-color: rgba(0, 0, 0, 0.3);
-  font-size: 16px;
+  z-index: 100;
+  border: 0px solid #fff;
+  border-radius: 4px;
+  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
+  font-size: 12px;
   color: #fff;
-  border-color: #409eff;
 }
-::v-deep .el-select-dropdown {
-  background-color: #000c1a;
-  .el-select-dropdown__item {
-    color: #fff;
-    // color: #243d97 !important;
-  }
-  .el-select-dropdown__item.hover,
-  .el-select-dropdown__item:hover {
-    background-color: #243d97;
-  }
-  .el-select-dropdown__item.selected {
-    background-color: #243d97 !important;
-  }
-  .popper__arrow:after {
-    border-bottom-color: #000c1a !important;
-  }
+::v-deep .el-popper {
+  // margin-top: 19px !important;
 }
+// 下拉框的样式
+// ::v-deep .el-select-dropdown {
+//   background-color: #000c1a;
+//   .el-select-dropdown__item {
+//     color: #fff;
+//     // color: #243d97 !important;
+//   }
+//   .el-select-dropdown__item.hover,
+//   .el-select-dropdown__item:hover {
+//     background-color: #243d97;
+//   }
+//   .el-select-dropdown__item.selected {
+//     background-color: #243d97 !important;
+//   }
+//   .popper__arrow:after {
+//     border-bottom-color: #000c1a !important;
+//   }
+// }
 </style>
