@@ -1,138 +1,54 @@
 <template>
   <div class="page-main">
-    <main-one
-      :legends="xData"
-      :dpcs="dpcs"
-      :lcbs="lcbs"
-      :sfrs="sfrs"
-      :fol_cosmetic="fol_cosmetic"
-      :eol_cosmetic="eol_cosmetic"
-      :fol_others="fol_others"
-      :eol_others="eol_others"
-      :OverallYield="OverallYield"
-      :TargetYield="TargetYield"
-      :fol_process="fol_process"
-      :eol_process="eol_process"
-    />
-    <main-two
-      :dpcs="dpcs"
-      :lcbs="lcbs"
-      :sfrs="sfrs"
-      :fol_cosmetic="fol_cosmetic"
-      :eol_cosmetic="eol_cosmetic"
-      :fol_others="fol_others"
-      :eol_others="eol_others"
-      :xData="xData"
-      :OverallYield="OverallYield"
-      :TargetYield="TargetYield"
-      :fol_process="fol_process"
-      :eol_process="eol_process"
-      :totalNum="totalNum"
+    <!-- 使用轮播图来展示数据 -->
+    <el-carousel
+      style="height: 1000px"
+      indicator-position="none"
+      :interval="15 * 10000"
+      ref="carousel"
+      arrow="never"
+      @change="changeCarousel"
+    >
+      <el-carousel-item> <child-cpn /> </el-carousel-item>
+      <el-carousel-item> <child-cpn :isMw="true" /> </el-carousel-item>
+    </el-carousel>
+    <!-- 自定义两个切换按钮 -->
+    <change-switch
+      :leftConfig="{ left: '5px', top: '5px' }"
+      :rightConfig="{ right: '5px', top: '5px' }"
+      @directionChange="handleDirection"
     />
   </div>
 </template>
-
 <script>
-// 导入第一行
-import mainOne from "./cpns/main-one/main-one.vue"
-// 导入底部区域
-import mainTwo from "./cpns/main-two/main-two.vue"
-// 导入发送请求的函數
-import { GetDefectYieldInfo } from "@/api/cma/defect.js"
+// 导入左右切换的组件
+import ChangeSwitch from "@/components/change-switch/change-switch.vue"
+// 导入子组件
+import ChildCpn from "./defect copy.vue"
 export default {
   name: "defect",
   components: {
-    mainOne,
-    mainTwo
-  },
-  data() {
-    return {
-      // 接口返回的数据
-      showData: [],
-      xData: [],
-      OverallYield: [],
-      TargetYield: [],
-      dpcs: [],
-      lcbs: [],
-      sfrs: [],
-      fol_cosmetic: [],
-      eol_cosmetic: [],
-      fol_others: [],
-      eol_others: [],
-      fol_process: [],
-      eol_process: [],
-      totalNum: []
-    }
+    ChangeSwitch,
+    ChildCpn
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "Top 25 Defect")
-    this.$store.commit("fullLoading/SET_FULLLOADING", true)
-    this.getDefectYieldInfo()
   },
-
   methods: {
-    async getDefectYieldInfo() {
-      let res = await GetDefectYieldInfo()
-      console.log("top25的数据", res)
-      let tempArr = res.filter((item) => {
-        return !item.device.includes("MW")
-        // return false
-      })
-      console.log("tempArr", tempArr)
-      // 1. 取出x轴的数据
-      tempArr.forEach((item) => {
-        //
-        let { device, overallYield, targetYield } = item
-        // 取出x轴的数据
-        this.xData.push(device)
-        this.OverallYield.push(overallYield)
-        this.TargetYield.push(targetYield)
-        // 也需要求和和rate
-        let total = 0
-        let rate = 0
-        // 取出dpc 和 lcb这些
-        item.defectNameList.forEach((item1) => {
-          if (item1.name == "DPC") {
-            total += item1.failQty
-            this.dpcs.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "LCB") {
-            total += item1.failQty
-            rate += parseFloat(item1.rate) * 100
-            this.lcbs.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "SFR") {
-            total += item1.failQty
-            rate += parseFloat(item1.rate) * 100
-            this.sfrs.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "FOL Cosmetic") {
-            total += item1.failQty
-            rate += parseFloat(item1.rate) * 100
-            this.fol_cosmetic.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "EOL Cosmetic") {
-            total += item1.failQty
-            rate += parseFloat(item1.rate) * 100
-            this.eol_cosmetic.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "FOL Others") {
-            total += item1.failQty
-            rate += parseFloat(item1.rate) * 100
-            this.fol_others.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "EOL Others") {
-            total += item1.failQty
-            rate += parseFloat(item1.rate) * 100
-            this.eol_others.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "FOL Process") {
-            total += item1.failQty
-            rate += parseFloat(item1.rate) * 100
-            this.fol_process.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "EOL Process") {
-            total += item1.failQty
-            rate += parseFloat(item1.rate) * 100
-            this.eol_process.push({ rate: item1.rate, qty: item1.failQty })
-          }
-        })
-        this.totalNum.push({ total, rate: (rate / 100).toFixed(2) + "%" })
-      })
-      this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    handleDirection(direction) {
+      direction == "left" ? this.$refs.carousel.prev() : this.$refs.carousel.next()
     }
   }
 }
 </script>
+<style lang="scss" scoped>
+.page-main {
+  height: calc(100% - 120px);
+  margin-top: 10px;
+  padding-top: 30px;
+  position: relative;
+}
+::v-deep .el-carousel__container {
+  height: 100%;
+}
+</style>

@@ -20,9 +20,7 @@
           </el-option>
         </el-select>
       </div>
-      <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData"
-        >查詢</el-button
-      >
+      <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
     <!-- 图表 -->
     <div class="charts">

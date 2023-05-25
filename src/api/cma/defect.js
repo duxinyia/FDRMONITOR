@@ -8,8 +8,25 @@ export let GetDefectYieldInfo = ({
   ShowTag = "ALL",
   LotType = "MP",
   St = `${moment().format("YYYY-MM-DD 06:00:00")}`,
-  Et = `${moment().format("YYYY-MM-DD HH:mm:ss")}`
+  Et = `${moment().format("YYYY-MM-DD HH:mm:ss")}`,
+  isMw = false
 } = {}) =>
   $post(
-    `api/MESYield/GetDefectYieldInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&ShowTag=${ShowTag}&LotType=${LotType}&St=${St}&Et=${Et}`
+    `api/MESYield/GetDefectYieldInfo${
+      isMw ? "" : "_MW"
+    }?PlantID=${PlantID}&ProductArea=${ProductArea}&ShowTag=${ShowTag}&LotType=${LotType}&St=${St}&Et=${Et}`
   )
+
+// 获取mw的top25
+
+// export let GetDefectYieldInfoMw = ({
+//   PlantID = "8S01",
+//   ProductArea = "ALL",
+//   ShowTag = "ALL",
+//   LotType = "MP",
+//   St = `${moment().format("YYYY-MM-DD 06:00:00")}`,
+//   Et = `${moment().format("YYYY-MM-DD HH:mm:ss")}`
+// } = {}) =>
+//   $post(
+//     `api/MESYield/GetDefectYieldInfo_MW?PlantID=${PlantID}&ProductArea=${ProductArea}&ShowTag=${ShowTag}&LotType=${LotType}&St=${St}&Et=${Et}`
+//   )

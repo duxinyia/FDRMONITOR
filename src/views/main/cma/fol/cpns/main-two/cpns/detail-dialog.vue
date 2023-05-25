@@ -24,15 +24,16 @@
         <div class="right">
           <div class="right-one">
             <el-table :data="oneTableData" border style="width: 100%">
-              <template v-for="item in oneConfigArr">
-                <el-table-column
-                  :key="item.name"
-                  :prop="item.prop"
-                  :label="item.label"
-                  :width="item.width"
-                  align="center"
-                ></el-table-column>
-              </template>
+              <!-- <template> -->
+              <el-table-column
+                v-for="item in oneConfigArr"
+                :key="item.name"
+                :prop="item.prop"
+                :label="item.label"
+                :width="item.width"
+                align="center"
+              ></el-table-column>
+              <!-- </template> -->
             </el-table>
           </div>
           <div class="right-two">

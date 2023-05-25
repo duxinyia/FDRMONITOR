@@ -197,7 +197,7 @@ export default {
   font-size: 15px !important;
   color: var(--make-base-text);
   border-top: 1px solid #1683af;
-  border-left: 1px solid #1683af;
+  /* border-left: 1px solid #1683af; */
   /* border-left: none; */
   background-color: transparent !important;
 }
@@ -236,5 +236,11 @@ export default {
 }
 ::v-deep .el-table tbody tr:hover > td {
   background-color: transparent !important;
+}
+::v-deep .el-table--group {
+  border-left-color: #1683af;
+}
+::v-deep .el-table--border {
+  border-left-color: #1683af;
 }
 </style>

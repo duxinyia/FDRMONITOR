@@ -1,8 +1,8 @@
 <template>
   <div class="main-one">
-    <dv-border-box-10 :color="changeBoxColor">
+    <dv-border-box-12>
       <base-echart :options="options" height="380px" />
-    </dv-border-box-10>
+    </dv-border-box-12>
   </div>
 </template>
 
@@ -29,9 +29,6 @@ export default {
     baseEchart
   },
   computed: {
-    changeBoxColor() {
-      return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
-    },
     options() {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
@@ -244,6 +241,6 @@ export default {
   padding: 20px 20px 10px 20px;
 }
 .main-one {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 </style>

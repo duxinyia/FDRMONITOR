@@ -1,5 +1,4 @@
 <template>
-  <!-- fol -->
   <div
     v-loading.fullscreen.lock="loading"
     element-loading-text="加載中..."
@@ -101,8 +100,8 @@
         </el-carousel>
         <!-- 自定义两个切换按钮 -->
         <change-switch
-          :leftConfig="{ left: '0px', top: '40px' }"
-          :rightConfig="{ right: '0px', top: '40px' }"
+          :leftConfig="{ left: '20px', top: '40px' }"
+          :rightConfig="{ right: '20px', top: '40px' }"
           @directionChange="handleDirection"
         />
       </div>
