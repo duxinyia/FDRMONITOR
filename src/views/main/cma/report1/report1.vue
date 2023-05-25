@@ -40,7 +40,7 @@
         'font-weight': 700
       }"
       :cell-style="cellStyle"
-      height="calc(100% - 100px)"
+      height="calc(100% - 102px)"
       v-loading="isLoading"
       element-loading-spinner="el-icon-loading"
       element-loading-text="加载中..."
@@ -216,14 +216,17 @@ export default {
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
-  border: 1px solid #fff;
+  border-left: 0px solid #fff;
+  border-bottom: 2px solid #1683af;
   margin-top: 20px;
   // height: calc(100% - 74.9px);
   // overflow: auto;
 }
+// 表头
 ::v-deep .el-table__header-wrapper {
   border: 2px solid rgba(160, 190, 250, 1) !important;
 }
+
 ::v-deep .el-table thead {
   background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%) !important;
 }
@@ -236,15 +239,18 @@ export default {
   background: transparent;
   color: #fff;
 }
+::v-deep .el-table__body-wrapper {
+  border-left: 2px solid #1683af;
+  border-right: 2px solid #1683af !important;
+}
 ::v-deep .el-table th {
   border-right: 1px solid #fff;
   border-top: 1px solid #fff !important;
 }
 ::v-deep .el-table td {
-  box-sizing: border-box;
-  border-left: 1px solid #fff;
-  border-right: 1px solid transparent;
-  // border-bottom: 1px solid #fff;
+  // border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
 }
 ::v-deep .el-table tr:first-child th {
   border-top: 0px solid #fff !important;
@@ -309,10 +315,8 @@ export default {
   font-size: 12px;
   color: #fff;
 }
-::v-deep .el-popper {
-  // margin-top: 19px !important;
-}
-// 下拉框的样式
+
+// 下拉框的另外样式
 // ::v-deep .el-select-dropdown {
 //   background-color: #000c1a;
 //   .el-select-dropdown__item {

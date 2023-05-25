@@ -1,54 +1,60 @@
 <template>
   <div class="page-mian">
-    <dv-border-box-12>
-      <div class="queryArea">
-        <div class="system-select" v-for="item in selectData" :key="item.name">
-          <span>{{ item.name }}:</span>
-          <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
-            <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
-            </el-option>
-          </el-select>
-        </div>
-        <div class="datePicker">
-          <span>Start Time:</span>
-          <el-date-picker
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            v-model="date.startTime"
-            placeholder="請選擇時間"
-          >
-          </el-date-picker>
-          <span>End Time:</span>
-          <el-date-picker
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            v-model="date.EndTime"
-            placeholder="請選擇時間"
-          >
-          </el-date-picker>
-        </div>
-        <el-button class="btn" size="medium" type="primary" @click="getSearchData">查詢</el-button>
-        <el-button class="btn" size="medium" type="primary" @click="exportXlsx">导出</el-button>
-      </div>
-      <el-table
-        id="exportTable"
-        :data="tableData"
-        :cell-style="cellStyle"
-        :header-cell-style="{ background: '#3f63814d', color: '#1adafb', 'font-weight': 'blod' }"
-        height="calc(100% - 75px)"
-      >
-        <el-table-column
-          v-for="(item, index) in tableTitle"
-          :key="index"
-          :prop="item.id"
-          :label="item.capital"
-          align="center"
-          min-width="50px"
-          show-overflow-tooltip
+    <div class="queryArea">
+      <div class="system-select" v-for="item in selectData" :key="item.name">
+        <span>{{ item.name }}:</span>
+        <el-select
+          style="width: 150px; height: 34px"
+          :popper-append-to-body="false"
+          v-model="item.value"
+          placeholder="請選擇"
         >
-        </el-table-column>
-      </el-table>
-    </dv-border-box-12>
+          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="datePicker">
+        <span>Start Time:</span>
+        <el-date-picker
+          style="width: 194px; height: 34px"
+          type="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          v-model="date.startTime"
+          placeholder="請選擇時間"
+        >
+        </el-date-picker>
+        <span>End Time:</span>
+        <el-date-picker
+          style="width: 194px; height: 34px"
+          type="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          v-model="date.EndTime"
+          placeholder="請選擇時間"
+        >
+        </el-date-picker>
+      </div>
+      <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData">查詢</el-button>
+      <el-button icon="el-icon-upload2" class="btn btnExp" type="primary" round @click="exportXlsx">导出</el-button>
+    </div>
+
+    <el-table
+      id="exportTable"
+      :data="tableData"
+      :cell-style="cellStyle"
+      :header-cell-style="{ background: 'transparent', color: '#fff' }"
+      height="calc(100% - 102px)"
+    >
+      <el-table-column
+        v-for="(item, index) in tableTitle"
+        :key="index"
+        :prop="item.id"
+        :label="item.capital"
+        align="center"
+        min-width="50px"
+        show-overflow-tooltip
+      >
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -167,22 +173,38 @@ export default {
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
-  border: 1px solid #1683af;
+  border-bottom: 2px solid #1683af;
   margin-top: 20px;
   height: calc(100% - 74.9px);
   // overflow: auto;
+}
+// 表头
+::v-deep .el-table__header-wrapper {
+  border: 2px solid rgba(160, 190, 250, 1) !important;
+}
+::v-deep .el-table thead {
+  background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%) !important;
+}
+::v-deep .el-table th.el-table__cell,
+::v-deep.el-table thead.is-group th.el-table__cell {
+  border-bottom: 0px solid #fff !important;
+  background: unset;
 }
 ::v-deep .el-table tr {
   background: transparent;
   color: #fff;
 }
+::v-deep .el-table__body-wrapper {
+  border-left: 2px solid #1683af;
+  border-right: 2px solid #1683af !important;
+}
 ::v-deep .el-table th {
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af !important;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
 }
 ::v-deep .el-table td {
-  border-right: 1px solid #1683af;
-  border-bottom: 1px solid #1683af;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
 }
 ::v-deep .el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
   background: transparent;
@@ -204,43 +226,46 @@ export default {
 .queryArea {
   display: flex;
   padding: 10px 0px;
-  /* background: #131540; */
-  border: 1px solid #1683af;
+  height: 80px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%);
+  border: 2px solid rgba(160, 190, 250, 1);
   .btn {
-    margin-left: 20px;
+    font-size: 14px;
+    width: 88px;
+    height: 34px;
+    border-radius: 95px;
+    background: rgba(0, 143, 253, 1);
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-left: 72px;
+    padding-left: 18px;
+    padding-top: 9px;
+    margin-top: 11px;
+  }
+  .btnExp {
+    margin-left: 12px;
   }
 }
-.system-select {
-  span {
-    padding: 0 10px 0 25px;
-  }
-}
+.system-select,
 .datePicker {
+  align-items: center;
+  margin-top: 8px;
   span {
+    font-size: 14px;
     padding: 0 10px 0 25px;
   }
+}
+::v-deep .el-select .el-input .el-select__caret {
+  color: #fff;
+}
+::v-deep .el-scrollbar {
+  width: 148px;
 }
 ::v-deep .el-input--suffix .el-input__inner {
-  background-color: rgba(0, 0, 0, 0.3);
-  font-size: 16px;
+  border: 0px solid #fff;
+  border-radius: 4px;
+  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
+  font-size: 12px;
   color: #fff;
-  border-color: #409eff;
-}
-::v-deep .el-select-dropdown {
-  background-color: #000c1a;
-  .el-select-dropdown__item {
-    color: #fff;
-    // color: #243d97 !important;
-  }
-  .el-select-dropdown__item.hover,
-  .el-select-dropdown__item:hover {
-    background-color: #243d97;
-  }
-  .el-select-dropdown__item.selected {
-    background-color: #243d97 !important;
-  }
-  .popper__arrow:after {
-    border-bottom-color: #000c1a !important;
-  }
 }
 </style>

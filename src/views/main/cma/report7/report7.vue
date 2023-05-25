@@ -20,7 +20,12 @@
         </el-col>
         <el-col v-if="item.type == 'select'" :span="5">
           <el-form-item :label="item.name" :prop="item.key">
-            <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
+            <el-select
+              style="width: 150px; height: 34px"
+              :popper-append-to-body="false"
+              v-model="item.value"
+              placeholder="請選擇"
+            >
               <el-option
                 v-for="optionsItem in options[item.key]"
                 :key="optionsItem.id"
@@ -57,8 +62,8 @@
       <!-- </div> -->
       <!-- :type="!disabled ? 'primary' : 'info'"  :disabled="disabled"-->
       <el-col :span="1" style="display: flex">
-        <el-button class="btn" type="primary" round @click="getSearchData">查詢</el-button>
-        <el-button round type="primary" @click="exportXlsx">導出</el-button>
+        <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData">查詢</el-button>
+        <el-button class="btn btnExp" icon="el-icon-upload2" round type="primary" @click="exportXlsx">導出</el-button>
       </el-col>
       <!-- </div> -->
     </el-row>
@@ -70,11 +75,11 @@
     >
       <ces-table
         id="exportTable"
-        tableHeight="860px"
+        tableHeight="830px"
         :tableData="tabData"
         :tableCols="tableTitle"
         :header-cell-style="{
-          background: '#131540',
+          'font-size': '14px',
           color: '#fff',
           'font-weight': 700
         }"
@@ -244,11 +249,13 @@ export default {
 }
 // 时间选择器样式
 ::v-deep .el-range-editor.el-input__inner {
-  border: 1px solid #1683af;
-  background: transparent;
+  border: 0px solid #fff;
+  border-radius: 4px;
+  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
+  font-size: 12px;
 }
 ::v-deep .el-date-editor .el-range-input {
-  font-size: 16px;
+  font-size: 14px;
   color: #fff !important;
 }
 ::v-deep .el-range-editor .el-range-input {
@@ -257,21 +264,62 @@ export default {
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
-  border: 1px solid #1683af;
+  border-bottom: 2px solid #1683af;
   margin-top: 20px;
   // height: calc(100% - 74.9px);
   // overflow: auto;
 }
+// 表头
+::v-deep .el-table__header {
+  border: 2px solid rgba(160, 190, 250, 1) !important;
+}
+::v-deep .el-table__body-wrapper {
+  border-left: 2px solid #1683af;
+  border-right: 2px solid #1683af !important;
+}
+::v-deep .el-table th.el-table__cell,
+::v-deep.el-table thead.is-group th.el-table__cell {
+  border-bottom: 0px solid #fff !important;
+  background: unset;
+}
+::v-deep .el-table thead {
+  background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%) !important;
+}
+
 // 输入框的样式
 .select-two {
   padding: 15px 0 0 0;
-  background: #131540;
-  border: 1px solid #1683af;
   border-radius: 4px;
+  background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%);
+  border: 2px solid rgba(160, 190, 250, 1);
   .btn {
-    margin-left: 165px;
+    font-size: 14px;
+    width: 88px;
+    height: 34px;
+    border-radius: 95px;
+    background: rgba(0, 143, 253, 1);
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-left: 195px;
+    padding-left: 18px;
+    padding-top: 9px;
+    margin-top: 3px;
+  }
+  .btnExp {
+    margin-left: 12px;
   }
 }
+::v-deep .el-select .el-input .el-select__caret {
+  color: #fff;
+}
+.system-select {
+  align-items: center;
+  margin-top: 8px;
+  span {
+    font-size: 14px;
+    padding: 0 10px 0 25px;
+  }
+}
+
 ::v-deep .el-col-5 {
   width: 17.83333%;
 }
@@ -280,32 +328,17 @@ export default {
   color: #fff;
 }
 ::v-deep .el-select-dropdown {
-  width: 238px;
+  width: 148px;
 }
 .inputStyle {
   display: flex;
 }
 ::v-deep .el-input--suffix .el-input__inner {
-  background-color: rgba(0, 0, 0, 0.3);
-  font-size: 16px;
+  z-index: 100;
+  border: 0px solid #fff;
+  border-radius: 4px;
+  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
+  font-size: 12px;
   color: #fff;
-  border-color: #409eff;
-}
-::v-deep .el-select-dropdown {
-  background-color: #000c1a;
-  .el-select-dropdown__item {
-    color: #fff;
-    // color: #243d97 !important;
-  }
-  .el-select-dropdown__item.hover,
-  .el-select-dropdown__item:hover {
-    background-color: #243d97;
-  }
-  .el-select-dropdown__item.selected {
-    background-color: #243d97 !important;
-  }
-  .popper__arrow:after {
-    border-bottom-color: #000c1a !important;
-  }
 }
 </style>
