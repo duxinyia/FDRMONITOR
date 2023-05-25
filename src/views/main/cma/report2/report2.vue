@@ -67,7 +67,7 @@
             <el-col :span="6">
               <el-form-item label="TestTime:" prop="DateCode">
                 <el-date-picker
-                  style="width: 194px; height: 34px"
+                  style="width: 238px; height: 34px"
                   v-model="ruleForm.DateCode"
                   value-format="yyyy-MM-dd"
                   type="date"
@@ -433,7 +433,7 @@ export default {
     },
     headerCellStyle() {
       return {
-        "font-size": "14px",
+        "font-size": "16px",
         color: "#fff",
         "font-weight": 700
       }
@@ -558,7 +558,7 @@ export default {
 //   }
 // }
 ::v-deep .el-select .el-input .el-select__caret {
-  color: #fff;
+  color: rgba(128, 128, 128, 1);
 }
 // 查询区域样式
 .elForm {
@@ -578,9 +578,9 @@ export default {
   z-index: 100;
   border: 0px solid #fff;
   border-radius: 4px;
-  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
-  font-size: 12px;
-  color: #fff;
+  background: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  color: rgba(128, 128, 128, 1);
 }
 
 .el-date-editor.el-input,
@@ -589,7 +589,7 @@ export default {
   height: 34px;
 }
 ::v-deep .el-scrollbar {
-  width: 183px;
+  width: 238px;
 }
 //滚动条位置
 ::v-deep .el-table__body-wrapper is-scrolling-left {
