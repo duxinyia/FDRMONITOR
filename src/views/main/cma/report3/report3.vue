@@ -4,7 +4,7 @@
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
         <el-select
-          style="width: 150px; height: 34px"
+          style="width: 230px; height: 34px"
           :popper-append-to-body="false"
           v-model="item.value"
           placeholder="請選擇"
@@ -23,7 +23,6 @@
       <div class="dateSelect">
         <span>datetime:</span>
         <el-date-picker
-          style="width: 194px; height: 34px"
           type="datetime"
           value-format="yyyy-MM-dd HH:mm:ss"
           v-model="datetime"
@@ -456,22 +455,21 @@ export default {
   align-items: center;
   margin-top: 8px;
   span {
-    font-size: 14px;
+    font-size: 16px;
     padding: 0 10px 0 25px;
   }
 }
 ::v-deep .el-scrollbar {
-  width: 148px;
+  width: 230px;
 }
 ::v-deep .el-input--suffix .el-input__inner {
   border-radius: 4px;
-  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
-  font-size: 14px;
-  color: #fff;
-  font-size: 12px;
+  background: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  color: rgba(128, 128, 128, 1);
   border: 0px solid #fff;
 }
 ::v-deep .el-select .el-input .el-select__caret {
-  color: #fff;
+  color: rgba(128, 128, 128, 1);
 }
 </style>

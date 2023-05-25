@@ -5,7 +5,6 @@
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
         <el-select
-          style="width: 150px; height: 34px"
           v-if="item.type == 'select'"
           :popper-append-to-body="false"
           v-model="item.value"
@@ -21,7 +20,6 @@
         </el-select>
 
         <el-date-picker
-          style="width: 194px; height: 34px"
           v-if="item.type == 'datetime'"
           :clearable="false"
           v-model="item.value"
@@ -38,7 +36,7 @@
     <el-table
       :data="tabData"
       :header-cell-style="{
-        'font-size': '14px',
+        'font-size': '16px',
         color: '#fff',
         'font-weight': 700
       }"
@@ -304,26 +302,26 @@ export default {
   }
 }
 ::v-deep .el-select .el-input .el-select__caret {
-  color: #fff;
+  color: rgba(128, 128, 128, 1);
 }
 .system-select {
   align-items: center;
   margin-top: 8px;
   span {
-    font-size: 14px;
+    font-size: 16px;
     padding: 0 10px 0 25px;
   }
 }
 ::v-deep .el-scrollbar {
-  width: 148px;
+  width: 238px;
 }
 ::v-deep .el-input--suffix .el-input__inner {
   z-index: 100;
   border: 0px solid #fff;
   border-radius: 4px;
-  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
-  font-size: 12px;
-  color: #fff;
+  background: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  color: rgba(128, 128, 128, 1);
 }
 
 // 下拉框的另外样式

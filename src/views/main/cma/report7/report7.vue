@@ -20,12 +20,7 @@
         </el-col>
         <el-col v-if="item.type == 'select'" :span="5">
           <el-form-item :label="item.name" :prop="item.key">
-            <el-select
-              style="width: 150px; height: 34px"
-              :popper-append-to-body="false"
-              v-model="item.value"
-              placeholder="請選擇"
-            >
+            <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
               <el-option
                 v-for="optionsItem in options[item.key]"
                 :key="optionsItem.id"
@@ -90,7 +85,7 @@
         :tableData="tabData"
         :tableCols="tableTitle"
         :header-cell-style="{
-          'font-size': '14px',
+          'font-size': '16px',
           color: '#fff',
           'font-weight': 700
         }"
@@ -269,12 +264,13 @@ export default {
 ::v-deep .el-range-editor.el-input__inner {
   border: 0px solid #fff;
   border-radius: 4px;
-  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
-  font-size: 12px;
+  background: rgba(255, 255, 255, 1);
+
+  font-size: 16px;
 }
 ::v-deep .el-date-editor .el-range-input {
-  font-size: 14px;
-  color: #fff !important;
+  font-size: 16px;
+  color: rgba(128, 128, 128, 1);
 }
 ::v-deep .el-range-editor .el-range-input {
   background: transparent;
@@ -327,13 +323,13 @@ export default {
   }
 }
 ::v-deep .el-select .el-input .el-select__caret {
-  color: #fff;
+  color: rgba(128, 128, 128, 1);
 }
 .system-select {
   align-items: center;
   margin-top: 8px;
   span {
-    font-size: 14px;
+    font-size: 16px;
     padding: 0 10px 0 25px;
   }
 }
@@ -347,7 +343,7 @@ export default {
 }
 
 ::v-deep .el-select-dropdown {
-  width: 148px;
+  width: 235px;
 }
 .inputStyle {
   display: flex;
@@ -357,8 +353,8 @@ export default {
   z-index: 100;
   border: 0px solid #fff;
   border-radius: 4px;
-  background: linear-gradient(134.15deg, rgba(21, 71, 150, 1) 0%, rgba(75, 177, 250, 1) 100%);
-  font-size: 12px;
-  color: #fff;
+  background: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  color: rgba(128, 128, 128, 1);
 }
 </style>
