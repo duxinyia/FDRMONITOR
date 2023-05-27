@@ -84,7 +84,7 @@ export default {
 
 /* .progress-container {
   height: 380px;
-  .progress-item { 
+  .progress-item {
     margin-bottom: 18px;
     .info {
       display: flex;

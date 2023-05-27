@@ -85,7 +85,7 @@ export default {
       type: String,
       default: "#003b51"
     },
-    // 各项的数组
+    // 各列的宽度
     widths: {
       type: Array,
       default: () => []
@@ -95,7 +95,7 @@ export default {
       type: Array
       // default: () => []
     },
-    // 需要展示的列数
+    // 需要展示的行数
     rowNum: {
       type: Number,
       default: 6
