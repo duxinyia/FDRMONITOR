@@ -1,6 +1,6 @@
 <template>
   <div class="page-main">
-    <dv-border-box-10>
+    <dv-border-box-12>
       <!-- 轮播图 -->
       <el-carousel
         style="height: 100%"
@@ -29,11 +29,11 @@
           <avi-item />
         </el-carousel-item>
       </el-carousel>
-    </dv-border-box-10>
+    </dv-border-box-12>
     <!-- 自定义两个切换按钮 -->
     <change-switch
-      :leftConfig="{ left: '5px', top: '10px' }"
-      :rightConfig="{ right: '5px', top: '10px' }"
+      :leftConfig="{ left: '15px', top: '10px' }"
+      :rightConfig="{ right: '15px', top: '10px' }"
       @directionChange="handleDirection"
     />
     <!-- 需要一个数组将 avi test  -->

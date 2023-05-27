@@ -2,7 +2,7 @@
   <!-- 主要区域 -->
   <div class="page-main">
     <!-- 主要区域 -->
-    <dv-border-box-10>
+    <dv-border-box-12>
       <div class="page-main">
         <!-- 第一个图 -->
         <div class="top-chart">
@@ -27,7 +27,7 @@
           </el-carousel-item>
         </el-carousel>
       </div>
-    </dv-border-box-10>
+    </dv-border-box-12>
   </div>
 </template>
 <script>
@@ -87,7 +87,6 @@ export default {
       await Promise.all(requestArr)
       this.$store.commit("fullLoading/SET_FULLLOADING", false)
     },
-
     // 获取所有的子类型
     async getMESDeviceInfo() {
       let res = await getMESDeviceInfo()
@@ -177,6 +176,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 ::v-deep .border-box-content {
-  padding: 10px 20px 18px 20px;
+  padding: 20px;
 }
 </style>

@@ -58,9 +58,14 @@ router.beforeEach(async (to, from, next) => {
 })
 router.afterEach((to, from) => {
   // 用于做页面统计的接口
-  if (to.meta.pageId) {
-    addPageCount(to.meta.pageId)
-  }
+  // if (to.meta.pageId) {
+  //   console.log("to", to)
+  //   addPageCount({
+  //     PageID: to.meta.pageId,
+  //     SysID: 2,
+  //     PageName: to.meta.pageName
+  //   })
+  // }
   NProgress.done()
 })
 export default router

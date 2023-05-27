@@ -1,5 +1,12 @@
 <template>
-  <dv-border-box-11 :title="`${config.defectName}系列`">
+  <dv-border-box-11
+    v-loading="isLoading"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中..."
+    element-loading-background="rgba(0, 0, 0, 1)"
+    :color="changeBoxColor"
+    :title="`${showTitle || ''}`"
+  >
     <base-echart :options="options" />
   </dv-border-box-11>
 </template>
@@ -12,72 +19,62 @@ export default {
   components: {
     BaseEchart
   },
-  props: ["config"],
-  data() {
-    return {
-      xData: [],
-      legends: []
+  props: {
+    config: {
+      type: Object,
+      default: () => ({ legends: [], xData: [], showData: [] })
+    },
+    showTitle: {
+      type: String,
+      default: "标题"
     }
   },
+  data() {
+    return { isLoading: true }
+  },
   computed: {
+    changeBoxColor() {
+      return this.$store.getters.theme == "dark" ? ["#8aaafb", "#1f33a2"] : ["#05dad4", "#2c97e1"]
+    },
     options() {
-      // 处理对应的数据
-      if (Object.keys(this.config).length > 0) {
-        // 取出 legend 的值
-        this.config.monthWeekYieldList.forEach((item, index) => {
-          // 取出lengds
-          this.legends.push(item.device)
-          // 给实例新增属性
-          this[item.device] = []
-          item.dateValues.forEach((item1) => {
-            if (index == 0) {
-              // 取出x轴的数据
-              this.xData.push(item1.dateCode)
-            }
-            // 取出剩下的数据
-            this[item.device].push(parseFloat(item1.values.value))
-          })
-        })
-      }
-      // 一些基本的配置
-      let baseLengend = {
-        top: 50,
-        textStyle: {
-          color: "#FFFFFF",
-          fontSize: 12
-        }
-      }
+      // 设置变量
+      let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
+      let { legends = [], xData = [], showData = [] } = this.config
       let baseSerie = {
         type: "line",
-        symbolSize: 8,
+        symbol: "circle",
+        symbolSize: 5,
         smooth: true, // 设置拆线平滑
         lineStyle: {
-          width: 4
+          width: 3
         },
         label: {
           show: true,
+          color: "#fff",
           formatter: (params) => params.value + "%"
         }
       }
       return {
-        color: ["#5ad2fa", "#b989f0", "#adf7b7", "#c9dd68"],
+        color: ["#9669ff", "#3766f4", "#43cf7c", "#ff8d1a"],
         grid: {
-          top: 80,
+          top: 100,
           right: 50,
           left: 80,
           bottom: 40 //图表尺寸大小
         },
+        // color: ["#5ad2fa", "#b989f0", "#adf7b7", "#c9dd68"],
         legend: {
           top: 50,
           right: 50,
           textStyle: {
-            color: "#fff",
+            color: themeColor,
             fontSize: 14
           },
-          data: this.legends
+          data: legends
         },
         tooltip: {
           show: true,
+          confine: true,
           trigger: "axis", //axis , item
           backgroundColor: "RGBA(0, 49, 85, 1)",
           borderColor: "rgba(0, 151, 251, 1)",
@@ -109,10 +106,11 @@ export default {
           type: "category",
           boundaryGap: true,
           color: "#59588D",
-          data: this.xData,
+          data: xData,
           axisLabel: {
             margin: 10,
-            color: "#EEEEEE",
+            // color: "#EEEEEE",
+            color: themeColor,
             textStyle: {
               fontSize: 14
             }
@@ -120,8 +118,9 @@ export default {
           axisLine: {
             symbol: ["none", "arrow"],
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.8
+              // color: "#ffffff",
+              color: themeColor,
+              opacity: 1
             }
           },
           axisTick: {
@@ -130,8 +129,9 @@ export default {
           splitLine: {
             show: false,
             lineStyle: {
-              color: "#ffffff",
-              opacity: 0.3
+              // color: "#ffffff",
+              color: themeColor,
+              opacity: 1
             }
           }
         },
@@ -144,7 +144,8 @@ export default {
               show: false
             },
             axisLabel: {
-              color: "#EEEEEE",
+              // color: "#EEEEEE",
+              color: themeColor,
               textStyle: {
                 fontSize: 16
               },
@@ -156,20 +157,28 @@ export default {
               show: false
             },
             axisLine: {
+              show: true,
               symbol: ["none", "arrow"],
               lineStyle: {
-                color: "#fff",
+                color: themeColor,
                 opacity: 1
               }
             }
           }
         ],
-        series: [
-          { ...baseSerie, name: this.legends[0], data: this[this.legends[0]] },
-          { ...baseSerie, name: this.legends[1], data: this[this.legends[1]] },
-          { ...baseSerie, name: this.legends[2], data: this[this.legends[2]] }
-        ]
+
+        series: legends.map((item, index) => {
+          return { ...baseSerie, name: legends[index], data: showData[index] }
+        })
       }
+    }
+  },
+  watch: {
+    config: {
+      handler() {
+        this.isLoading = false
+      },
+      deep: true
     }
   }
 }

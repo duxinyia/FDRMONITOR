@@ -18,10 +18,10 @@ export default {
     "sfrs",
     "fol_cosmetic",
     "eol_cosmetic",
-    "fol_others",
-    "eol_others",
     "fol_process",
-    "eol_process"
+    "eol_process",
+    "others_tests",
+    "others_fol1s"
   ],
   components: {
     baseEchart
@@ -65,18 +65,6 @@ export default {
             })
           },
           {
-            name: "FOL Others",
-            data: this.fol_others.map((item) => {
-              return parseFloat(item.rate)
-            })
-          },
-          {
-            name: "EOL Others",
-            data: this.eol_others.map((item) => {
-              return parseFloat(item.rate)
-            })
-          },
-          {
             name: "FOL Process",
             data: this.fol_process.map((item) => {
               return parseFloat(item.rate)
@@ -85,6 +73,18 @@ export default {
           {
             name: "EOL Process",
             data: this.eol_process.map((item) => {
+              return parseFloat(item.rate)
+            })
+          },
+          {
+            name: "Others-Test",
+            data: this.others_tests.map((item) => {
+              return parseFloat(item.rate)
+            })
+          },
+          {
+            name: "Others-FOL1",
+            data: this.others_fol1s.map((item) => {
               return parseFloat(item.rate)
             })
           }
@@ -169,15 +169,6 @@ export default {
             let boxHeight = size.contentSize[1]
             return [x - boxWidth / 2 - 5, y - boxHeight - 30]
           }
-          // formatter: function (params) {
-          //   return `<div class="tooltip-div">${
-          //     params.name || "-"
-          //   }（人）<div style='margin-top: 8px;'>${
-          //     params.seriesName || "-"
-          //   }</div><div style='color: ${params.color};margin-top: 8px;'>${
-          //     changeNumberToStr(params.data) || "-"
-          //   }</div></div>`
-          // }
         },
         grid: {
           left: 5,

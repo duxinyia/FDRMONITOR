@@ -10,7 +10,7 @@
       @change="changeCarousel"
     >
       <el-carousel-item> <child-cpn /> </el-carousel-item>
-      <el-carousel-item> <child-cpn :isMw="true" /> </el-carousel-item>
+      <el-carousel-item> <child-cpn1 /> </el-carousel-item>
     </el-carousel>
     <!-- 自定义两个切换按钮 -->
     <change-switch
@@ -24,12 +24,14 @@
 // 导入左右切换的组件
 import ChangeSwitch from "@/components/change-switch/change-switch.vue"
 // 导入子组件
-import ChildCpn from "./defect copy.vue"
+import ChildCpn from "./child-cpn.vue"
+import ChildCpn1 from "./child-cpn1.vue"
 export default {
   name: "defect",
   components: {
     ChangeSwitch,
-    ChildCpn
+    ChildCpn,
+    ChildCpn1
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "Top 25 Defect")

@@ -11,7 +11,6 @@
     <base-echart :options="options" />
   </dv-border-box-11>
 </template>
-
 <script>
 // 导入基础的图
 import BaseEchart from "@/common/echart"
@@ -75,7 +74,6 @@ export default {
         },
         tooltip: {
           show: true,
-          confine: true,
           trigger: "axis", //axis , item
           backgroundColor: "RGBA(0, 49, 85, 1)",
           borderColor: "rgba(0, 151, 251, 1)",
@@ -85,18 +83,6 @@ export default {
             color: "#BCE9FC",
             fontSize: 16,
             align: "left"
-          },
-          formatter: function (params) {
-            var html = params[0].name + "<br>"
-            for (var i = 0; i < params.length; i++) {
-              html += `<div style="display:flex;justify-content: space-between;">
-                  <div> <span style="display:inline-block;margin-right:2px;border-radius:10px;width:10px;height:10px;background:${
-                    params[i].color
-                  };"></span>   ${params[i].seriesName}</div>
-                  <div style="margin-left:10px">${params[i].value || "-"}%</div>
-                  </div>`
-            }
-            return html
           },
           axisPointer: {
             // 坐标轴指示器，坐标轴触发有效
@@ -167,7 +153,6 @@ export default {
             }
           }
         ],
-
         series: legends.map((item, index) => {
           return { ...baseSerie, name: legends[index], data: showData[index] }
         })
@@ -184,17 +169,20 @@ export default {
   },
   methods: {
     toDetail() {
+      console.log("toDetail", this.config)
       this.$router.push({
-        name: "sfcdetail"
-        // query: {
-        //   device: this.config.deviceSeries
-        // }
+        name: "sfcdetail",
+        query: {
+          device: this.showTitle
+        },
+        params: {
+          topLineChartConfig: this.config
+        }
       })
     }
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .btn {
   position: absolute;

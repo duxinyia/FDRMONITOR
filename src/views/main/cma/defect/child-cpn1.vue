@@ -13,26 +13,25 @@
       :sfrs="sfrs"
       :fol_cosmetic="fol_cosmetic"
       :eol_cosmetic="eol_cosmetic"
-      :fol_others="fol_others"
-      :eol_others="eol_others"
-      :OverallYield="OverallYield"
-      :TargetYield="TargetYield"
       :fol_process="fol_process"
       :eol_process="eol_process"
+      :others_tests="others_tests"
+      :others_fol1s="others_fol1s"
     />
     <main-two
       :dpcs="dpcs"
       :lcbs="lcbs"
       :sfrs="sfrs"
+      :vcms="vcms"
       :fol_cosmetic="fol_cosmetic"
       :eol_cosmetic="eol_cosmetic"
-      :fol_others="fol_others"
-      :eol_others="eol_others"
-      :xData="xData"
-      :OverallYield="OverallYield"
-      :TargetYield="TargetYield"
       :fol_process="fol_process"
       :eol_process="eol_process"
+      :others_tests="others_tests"
+      :others_fol1s="others_fol1s"
+      :others_fol2s="others_fol2s"
+      :others_eols="others_eols"
+      :xData="xData"
       :totalNum="totalNum"
     />
   </div>
@@ -40,11 +39,11 @@
 
 <script>
 // 导入第一行
-import mainOne from "./cpns/main-one/main-one.vue"
+import mainOne from "./cpns/childtwo/main-one.vue"
 // 导入底部区域
-import mainTwo from "./cpns/main-two/main-two.vue"
+import mainTwo from "./cpns/childtwo/main-two.vue"
 // 导入发送请求的函數
-import { GetDefectYieldInfo, GetDefectYieldInfoMw } from "@/api/cma/defect.js"
+import { GetDefectYieldInfo } from "@/api/cma/defect.js"
 export default {
   name: "defect",
   components: {
@@ -60,20 +59,21 @@ export default {
   data() {
     return {
       isLoading: true,
-      // 接口返回的数据
-      showData: [],
       xData: [],
       OverallYield: [],
       TargetYield: [],
       dpcs: [],
       lcbs: [],
       sfrs: [],
+      vcms: [],
       fol_cosmetic: [],
       eol_cosmetic: [],
-      fol_others: [],
-      eol_others: [],
       fol_process: [],
       eol_process: [],
+      others_tests: [],
+      others_fol1s: [],
+      others_fol2s: [],
+      others_eols: [],
       totalNum: []
     }
   },
@@ -82,10 +82,11 @@ export default {
   },
   methods: {
     async getDefectYieldInfo() {
-      let res = await GetDefectYieldInfo({ isMw: this.isMw })
-      console.log("top25的数据", res)
+      let res = await GetDefectYieldInfo({ isMw: true })
+      console.log("top25的数据true", res)
+      // 只要MW 和 BWI 的数据
       let tempArr = res.filter((item) => {
-        return !item.device.includes("MW")
+        return item.device.includes("MW") || item.device.includes("BW")
       })
       console.log("tempArr", tempArr)
       // 1. 取出x轴的数据
@@ -103,7 +104,7 @@ export default {
           if (item1.name == "DPC") {
             total += item1.failQty
             this.dpcs.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "LCB") {
+          } else if (item.name == "LCB") {
             total += item1.failQty
             rate += parseFloat(item1.rate) * 100
             this.lcbs.push({ rate: item1.rate, qty: item1.failQty })
@@ -111,6 +112,10 @@ export default {
             total += item1.failQty
             rate += parseFloat(item1.rate) * 100
             this.sfrs.push({ rate: item1.rate, qty: item1.failQty })
+          } else if (item1.name == "VCM") {
+            total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
+            this.vcms.push({ rate: item1.rate, qty: item1.failQty })
           } else if (item1.name == "FOL Cosmetic") {
             total += item1.failQty
             rate += parseFloat(item1.rate) * 100
@@ -119,14 +124,6 @@ export default {
             total += item1.failQty
             rate += parseFloat(item1.rate) * 100
             this.eol_cosmetic.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "FOL Others") {
-            total += item1.failQty
-            rate += parseFloat(item1.rate) * 100
-            this.fol_others.push({ rate: item1.rate, qty: item1.failQty })
-          } else if (item1.name == "EOL Others") {
-            total += item1.failQty
-            rate += parseFloat(item1.rate) * 100
-            this.eol_others.push({ rate: item1.rate, qty: item1.failQty })
           } else if (item1.name == "FOL Process") {
             total += item1.failQty
             rate += parseFloat(item1.rate) * 100
@@ -135,6 +132,22 @@ export default {
             total += item1.failQty
             rate += parseFloat(item1.rate) * 100
             this.eol_process.push({ rate: item1.rate, qty: item1.failQty })
+          } else if (item1.name == "Others-Test") {
+            total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
+            this.others_tests.push({ rate: item1.rate, qty: item1.failQty })
+          } else if (item1.name == "Others-FOL1") {
+            total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
+            this.others_fol1s.push({ rate: item1.rate, qty: item1.failQty })
+          } else if (item1.name == "Others-FOL2") {
+            total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
+            this.others_fol2s.push({ rate: item1.rate, qty: item1.failQty })
+          } else if (item1.name == "Others-EOL") {
+            total += item1.failQty
+            rate += parseFloat(item1.rate) * 100
+            this.others_eols.push({ rate: item1.rate, qty: item1.failQty })
           }
         })
         this.totalNum.push({ total, rate: (rate / 100).toFixed(2) + "%" })

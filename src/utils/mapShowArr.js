@@ -13,7 +13,7 @@ let showArrConfig = {
             path: "output",
             name: "output",
             component: () => import("@/views/main/cma/output/output.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "年度產出總覽" }
           }
         },
         {
@@ -34,7 +34,7 @@ let showArrConfig = {
               }
             ],
             component: () => import("@/views/main/cma/makewar/makewar.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "By天產出看板" }
           }
         },
         {
@@ -47,7 +47,7 @@ let showArrConfig = {
             path: "output2",
             name: "output2",
             component: () => import("@/views/main/cma/output2/output2.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "By站位產出看板" }
           }
         },
         {
@@ -60,7 +60,7 @@ let showArrConfig = {
             path: "aactga",
             name: "aactga",
             component: () => import("@/views/main/cma/aactga/aactga.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "By機臺產出看板" }
           }
         }
       ],
@@ -83,7 +83,7 @@ let showArrConfig = {
               }
             ],
             component: () => import("@/views/main/cma/sfc/sfc.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "SFC良率By月" }
           }
         },
         {
@@ -96,7 +96,7 @@ let showArrConfig = {
             path: "tsfc",
             name: "tsfc",
             component: () => import("@/views/main/cma/tsfc/tsfc.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "SFC良率Daily" }
           }
         },
         {
@@ -117,7 +117,7 @@ let showArrConfig = {
               }
             ],
             component: () => import("@/views/main/cma/defect/defect.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Top 25 Defect" }
           }
         },
         {
@@ -130,7 +130,7 @@ let showArrConfig = {
             path: "follcb",
             name: "follcb",
             component: () => import("@/views/main/cma/follcb/index.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "FOL LCB差异层别" }
           }
         },
         {
@@ -143,7 +143,7 @@ let showArrConfig = {
             path: "foldpc",
             name: "foldpc",
             component: () => import("@/views/main/cma/foldpc/index.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "FOL DPC差异层别" }
           }
         }
       ],
@@ -158,7 +158,7 @@ let showArrConfig = {
             path: "aa",
             name: "aa",
             component: () => import("@/views/main/cma/aa/aa.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "AA設備總覽" }
           }
         },
         {
@@ -171,7 +171,7 @@ let showArrConfig = {
             path: "fol",
             name: "fol",
             component: () => import("@/views/main/cma/fol/fol.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "FOL設備總覽" }
           }
         },
         {
@@ -184,7 +184,7 @@ let showArrConfig = {
             path: "wekoutput",
             name: "wekoutput",
             component: () => import("@/views/main/cma/wekoutput/wekoutput.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "周產出/效率看板" }
           }
         },
         {
@@ -197,7 +197,7 @@ let showArrConfig = {
             path: "fixtrue",
             name: "fixtrue",
             component: () => import("@/views/main/cma/fixtrue/fixtrue.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Test治具良率看板" }
           }
         },
         {
@@ -210,7 +210,7 @@ let showArrConfig = {
             path: "effciency",
             name: "effciency",
             component: () => import("@/views/main/cma/effciency/effciency.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "效率看板" }
           }
         },
         {
@@ -223,7 +223,7 @@ let showArrConfig = {
             path: "testfirst",
             name: "testfirst",
             component: () => import("@/views/main/cma/testfirst/testfirst.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Test一次不良Top15" }
           }
         },
         {
@@ -236,7 +236,7 @@ let showArrConfig = {
             path: "aawar",
             name: "aawar",
             component: () => import("@/views/main/cma/aawar/aawar.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "AA 機況排行榜" }
           }
         },
         {
@@ -249,7 +249,7 @@ let showArrConfig = {
             path: "testeff",
             name: "testeff",
             component: () => import("@/views/main/cma/testeff/testeff.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Test效率看板" }
           }
         },
         {
@@ -262,7 +262,7 @@ let showArrConfig = {
             path: "rerate",
             name: "rerate",
             component: () => import("@/views/main/cma/rerate/rerate.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Lens Reject rate" }
           }
         },
         {
@@ -275,7 +275,7 @@ let showArrConfig = {
             path: "stang",
             name: "stang",
             component: () => import("@/views/main/cma/stang/stang.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Stangging Time 看板" }
           }
         },
         // 看板的内容  text
@@ -289,7 +289,7 @@ let showArrConfig = {
             path: "text",
             name: "text",
             component: () => import("@/views/main/cma/text/text.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Stangging Time 看板" }
           }
         }
       ],
@@ -387,7 +387,7 @@ let showArrConfig = {
             path: "ga",
             name: "ga",
             component: () => import("@/views/main/cma/ga/ga.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "GA製程監控" }
           }
         },
         {
@@ -400,7 +400,7 @@ let showArrConfig = {
             path: "va",
             name: "va",
             component: () => import("@/views/main/cma/va/va.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "VA製程監控" }
           }
         }
       ]
@@ -427,7 +427,7 @@ let showArrConfig = {
             path: "folyield",
             name: "folyield",
             component: () => import("@/views/main/cma/folyield/folyield.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "FOL Yield Report" }
           }
         }
       ],
@@ -442,7 +442,7 @@ let showArrConfig = {
             path: "jsa",
             name: "jsa",
             component: () => import("@/views/main/cma/jsa/jsa.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "SA效率看板" }
           }
         }
       ],
@@ -457,7 +457,7 @@ let showArrConfig = {
             path: "javi",
             name: "javi",
             component: () => import("@/views/main/cma/javi/javi.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "AVI效率看板" }
           }
         }
       ]
@@ -476,7 +476,7 @@ let showArrConfig = {
             path: "report1",
             name: "cmamainreport",
             component: () => import("@/views/main/cma/report1/report1.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Defect BY AAMC" }
           }
         },
         {
@@ -489,7 +489,7 @@ let showArrConfig = {
             path: "report2",
             name: "cmamainreport2",
             component: () => import("@/views/main/cma/report2/report2.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Yield Loss Track(VCM)" }
           }
         },
         {
@@ -502,7 +502,7 @@ let showArrConfig = {
             path: "report3",
             name: "cmamainreport3",
             component: () => import("@/views/main/cma/report3/report3.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Defect BY Tooling" }
           }
         },
         {
@@ -515,7 +515,7 @@ let showArrConfig = {
             path: "report4",
             name: "cmamainreport4",
             component: () => import("@/views/main/cma/report4/report4.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "Defect BY Lens Lot" }
           }
         },
         {
@@ -528,7 +528,7 @@ let showArrConfig = {
             path: "report6",
             name: "cmamainreport6",
             component: () => import("@/views/main/cma/report6/report6.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "数据分析" }
           }
         },
         {
@@ -540,8 +540,8 @@ let showArrConfig = {
           route: {
             path: "report7",
             name: "cmamainreport7",
-            component: () => import(/* webpackChunkName: "report4" */ "@/views/main/cma/report7/report7.vue"),
-            meta: { parentName: "cma" }
+            component: () => import("@/views/main/cma/report7/report7.vue"),
+            meta: { parentName: "cma", pageName: "报表查询" }
           }
         },
         {
@@ -554,7 +554,7 @@ let showArrConfig = {
             path: "report5",
             name: "cmamainreport5",
             component: () => import("@/views/main/cma/report5/report5.vue"),
-            meta: { parentName: "cma" }
+            meta: { parentName: "cma", pageName: "cma的第五个报表" }
           }
         }
       ]
@@ -573,7 +573,7 @@ let showArrConfig = {
             path: "output",
             name: "dpoutput",
             component: () => import("@/views/main/dp/output/output.vue"),
-            meta: { parentName: "dp" }
+            meta: { parentName: "dp", pageName: "年度產出總覽" }
           }
         },
         {
@@ -594,7 +594,7 @@ let showArrConfig = {
               }
             ],
             component: () => import("@/views/main/dp/makewar/makewar.vue"),
-            meta: { parentName: "dp" }
+            meta: { parentName: "dp", pageName: "By天產出看板" }
           }
         },
         {
@@ -607,7 +607,7 @@ let showArrConfig = {
             path: "output2",
             name: "dpoutput2",
             component: () => import("../views/main/dp/output2/output2.vue"),
-            meta: { parentName: "dp" }
+            meta: { parentName: "dp", pageName: "By站位產出看板" }
           }
         },
         {
@@ -620,7 +620,7 @@ let showArrConfig = {
             path: "equipoutput",
             name: "dpequipoutput",
             component: () => import("@/views/main/dp/equipOutput/equipOutput.vue"),
-            meta: { parentName: "dp" }
+            meta: { parentName: "dp", pageName: "設備產出看板" }
           }
         },
         {
@@ -633,7 +633,7 @@ let showArrConfig = {
             path: "outwork",
             name: "dpoutwork",
             component: () => import("../views/main/dp/outwork/outwork.vue"),
-            meta: { parentName: "dp" }
+            meta: { parentName: "dp", pageName: "人員出勤率看板" }
           }
         }
       ]

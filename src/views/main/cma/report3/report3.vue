@@ -17,12 +17,7 @@
       </div>
       <div class="dateSelect">
         <span>datetime:</span>
-        <el-date-picker
-          type="datetime"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          v-model="datetime"
-          placeholder="請選擇時間"
-        >
+        <el-date-picker type="datetime" value-format="yyyy-MM-dd HH:mm:ss" v-model="datetime" placeholder="請選擇時間">
         </el-date-picker>
       </div>
 

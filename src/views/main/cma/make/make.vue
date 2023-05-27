@@ -17,7 +17,6 @@
             </div>
           </div>
         </dv-border-box-12>
-
         <div style="margin: 8px 0px">
           <dv-border-box-12>
             <make-chart-1
@@ -43,7 +42,6 @@
             />
           </dv-border-box-12>
         </div>
-
         <dv-border-box-12>
           <make-chart-3
             :title="chart3Ttitle"
@@ -193,7 +191,6 @@ export default {
       // 取出最后一项的 pack 计划
       let packPlan = stationInfo[stationInfo.length - 1].targetOut
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno: this.Opno })
-
       // 获取 左边最下面的数据
       this.getStationTimeSpanWIPInfo({ ...this.$route.params, Opno: this.Opno })
       // 循环取出头部区域
@@ -287,7 +284,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 ::v-deep .el-col-10 {
   height: 925px !important;
@@ -370,7 +366,6 @@ export default {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-
     animation: fade 2s infinite;
   }
 }
