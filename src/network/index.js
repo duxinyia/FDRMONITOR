@@ -19,7 +19,6 @@ service.interceptors.request.use((config) => {
   } else if (config.isPort) {
     config.baseURL = process.env.VUE_APP_PORT_BASE
   }
-  console.log(config)
 
   // 拦截操作
   return config

@@ -43,8 +43,6 @@ export default {
   components: {},
   data() {
     return {
-      name: "",
-      flag: null,
       isLoading: false,
 
       // 表头名称
@@ -100,23 +98,6 @@ export default {
           ]
         }
       ],
-      // 从后端拿到的表格数据
-      tableData: [
-        // [
-        //   { columnID: "0", value: "www" },
-        //   { columnID: "MachineID", value: "PC1" },
-        //   { columnID: "Status", value: "0" },
-        //   { columnID: "Message", value: "SUCCESS" },
-        //   { columnID: "Time", value: "2023-05-28 17:00:00" }
-        // ],
-        // [
-        //   { columnID: "0", value: "www" },
-        //   { columnID: "MachineID", value: "PC2" },
-        //   { columnID: "Status", value: "0" },
-        //   { columnID: "Message", value: "SUCCESS" },
-        //   { columnID: "Time", value: "2023-05-27 14:40:00" }
-        // ]
-      ],
       // 自己组成的新的表格数据
       tabData: {
         FdrHeartCheck: [
@@ -125,6 +106,12 @@ export default {
             Status: "0",
             Message: "SUCCESS",
             Time: "2023/05/30 08:28:04"
+          },
+          {
+            MachineID: "PC011",
+            Status: "0",
+            Message: "SUCCESS",
+            Time: "2023/05/29 08:28:04"
           }
         ],
         FdrJmetHeartCheck: [
@@ -138,6 +125,12 @@ export default {
             MachineID: "PC03",
             Status: "0",
             Message: "SUCCESS",
+            Time: "2023-05-30 16:19:03"
+          },
+          {
+            MachineID: "PC02",
+            Status: "0",
+            Message: "SUCCESS",
             Time: "2023-05-27 16:19:03"
           }
         ],
@@ -146,7 +139,13 @@ export default {
             MachineID: "PC04",
             Status: "0",
             Message: "SUCCESS",
-            Time: "2023-05-27 16:19:03"
+            Time: "2023-05-30 16:19:03"
+          },
+          {
+            MachineID: "PC040",
+            Status: "0",
+            Message: "SUCCESS",
+            Time: "2023-05-30 16:19:03"
           }
         ],
         GetUploadState5min: [
@@ -154,7 +153,7 @@ export default {
             MachineID: "PC05",
             Status: "0",
             Message: "SUCCESS",
-            Time: "2023-05-27 16:19:03"
+            Time: "2023-05-30 16:19:03"
           }
         ],
         GetExportSate5min: [
@@ -181,48 +180,31 @@ export default {
     async getData() {
       this.isLoading = true
       // this.tabData = []
-      let arr = [
-        "FdrHeartCheck",
-        "FdrJmetHeartCheck",
-        "GetDownloadSate5Min",
-        "GetUploadState5min",
-        "GetExportSate5min"
-      ]
+      let arr = ["FdrHeartCheck", "FdrJmetHeartCheck", "GetDownloadSate5Min", "GetUploadState5min", "GetExportSate5min"]
       await arr.forEach((item) => {
         let res = GetFdrHeartCheck(item)
         this.$set(this.tabData, item, res)
       })
-
-      // console.log(res)
-      // this.tableTitle = res.columns
-      // console.log("res", res)
-      // this.tableData = res.rows
-      // this.tableData.forEach((item) => {
-      //   let objKey = {}
-      //   item.forEach((key) => {
-      //     objKey[key.columnID] = key.value
-      //   })
-      //   this.tabData.push(objKey)
-      // })
       this.isLoading = false
     },
     // 当Time和Nowtime差距大于8分钟，对应的行红色显示
     cellStyle({ row, column, rowIndex, columnIndex }) {
+      // console.log("row", row)
+      // console.log("column", column)
       let property = column.property
       if (columnIndex === 3 && row[property]) {
         let times = new Date()
         times = moment().format("YYYY-MM-DD HH:mm:ss")
         let rows = row[property]
         let dataDiff = this.GetDateDiff(times, rows, "minute")
-        // console.log(dataDiff)
         if (dataDiff > 8) {
-          this.flag = rowIndex
-          this.name = row
+          this.$set(row, "show", true)
+          // return { background: "#ff80ff", color: "#000" }
         }
       }
     },
-    tableRowStyle({ row, rowIndex }) {
-      if (rowIndex === this.flag && this.name === row) {
+    tableRowStyle({ row }) {
+      if (row.show === true) {
         return { background: "#ff80ff", color: "#000" }
       } else {
         return { background: "transparent" }
@@ -266,6 +248,7 @@ export default {
   box-sizing: border-box;
   height: calc(100% - 120px);
   margin-top: 10px;
+  overflow: auto;
 }
 
 /* 修改表格的一些样式 */
