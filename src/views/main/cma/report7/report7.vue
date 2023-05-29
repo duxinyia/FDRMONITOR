@@ -21,6 +21,7 @@
         <el-col v-if="item.type == 'select'" :span="5">
           <el-form-item :label="item.name" :prop="item.key">
             <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
+              <!-- collapse-tags multiple -->
               <el-option
                 v-for="optionsItem in options[item.key]"
                 :key="optionsItem.id"
@@ -184,6 +185,7 @@ export default {
       this.options["DeviceNo"] = res
       res.forEach((item) => {
         if (item.selected) {
+          // inputValue[0].value[0] = item.id
           inputValue[0].value = item.id
         }
       })

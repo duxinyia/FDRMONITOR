@@ -36,15 +36,13 @@
 <script>
 import moment from "moment"
 // 导入点击搜索数据
-import { GetFdrHeartCheck, text } from "@/api/cma/report8"
+import { GetFdrHeartCheck } from "@/api/cma/report8"
 export default {
   name: "report8",
   props: {},
   components: {},
   data() {
     return {
-      name: "",
-      flag: null,
       isLoading: false,
 
       // 表头名称
@@ -74,8 +72,8 @@ export default {
           name: "FDR DownLoad State",
           chileColumn: [
             { id: "MachineID", name: "PC" },
-            { id: "Status", name: "Qty Last 5 minite" },
-            { id: "Message", name: "Failqty" },
+            { id: "Yield", name: "Qty Last 5 minite" },
+            { id: "QTY", name: "Failqty" },
             { id: "Time", name: "Time" }
           ]
         },
@@ -84,8 +82,8 @@ export default {
           name: "FDR Upload State",
           chileColumn: [
             { id: "MachineID", name: "PC" },
-            { id: "Status", name: "Qty Last 5 minite" },
-            { id: "Message", name: "Failqty" },
+            { id: "Yield", name: "Qty Last 5 minite" },
+            { id: "QTY", name: "Failqty" },
             { id: "Time", name: "Time" }
           ]
         },
@@ -94,134 +92,98 @@ export default {
           name: "FDR Export State",
           chileColumn: [
             { id: "MachineID", name: "PC" },
-            { id: "Status", name: "Qty Last 5 minite" },
-            { id: "Message", name: "Failqty" },
+            { id: "Yield", name: "Qty Last 5 minite" },
+            { id: "QTY", name: "Failqty" },
             { id: "Time", name: "Time" }
           ]
         }
       ],
-      // 从后端拿到的表格数据
-      tableData: [
-        // [
-        //   { columnID: "0", value: "www" },
-        //   { columnID: "MachineID", value: "PC1" },
-        //   { columnID: "Status", value: "0" },
-        //   { columnID: "Message", value: "SUCCESS" },
-        //   { columnID: "Time", value: "2023-05-28 17:00:00" }
-        // ],
-        // [
-        //   { columnID: "0", value: "www" },
-        //   { columnID: "MachineID", value: "PC2" },
-        //   { columnID: "Status", value: "0" },
-        //   { columnID: "Message", value: "SUCCESS" },
-        //   { columnID: "Time", value: "2023-05-27 14:40:00" }
-        // ]
-      ],
       // 自己组成的新的表格数据
       tabData: {
-        FdrHeartCheck: [
-          {
-            MachineID: "PC01",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023/05/30 08:28:04"
-          }
-        ],
-        FdrJmetHeartCheck: [
-          {
-            MachineID: "PC02",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-27 16:19:03"
-          },
-          {
-            MachineID: "PC03",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-27 16:19:03"
-          }
-        ],
-        GetDownloadSate5Min: [
-          {
-            MachineID: "PC04",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-27 16:19:03"
-          }
-        ],
-        GetUploadState5min: [
-          {
-            MachineID: "PC05",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-27 16:19:03"
-          }
-        ],
-        GetExportSate5min: [
-          {
-            MachineID: "PC06",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-27 16:19:03"
-          }
-        ]
+        // FdrHeartCheck: [
+        //   {
+        //     MachineID: "PC01",
+        //     Status: "0",
+        //     Message: "SUCCESS",
+        //     Time: "2023/05/30 08:28:04"
+        //   }
+        // ],
+        // FdrJmetHeartCheck: [
+        //   {
+        //     MachineID: "PC02",
+        //     Status: "0",
+        //     Message: "SUCCESS",
+        //     Time: "2023-05-27 16:19:03"
+        //   }
+        // ],
+        // GetDownloadSate5Min: [
+        //   {
+        //     MachineID: "PC04",
+        //     Status: "0",
+        //     Message: "SUCCESS",
+        //     Time: "2023-05-30 16:19:03"
+        //   }
+        // ],
+        // GetUploadState5min: [
+        //   {
+        //     MachineID: "PC05",
+        //     Status: "0",
+        //     Message: "SUCCESS",
+        //     Time: "2023-05-30 16:19:03"
+        //   }
+        // ],
+        // GetExportSate5min: [
+        //   {
+        //     MachineID: "PC06",
+        //     Status: "0",
+        //     Message: "SUCCESS",
+        //     Time: "2023-05-27 16:19:03"
+        //   }
+        // ]
       }
     }
   },
   created() {
-    console.log("res----")
-    text().then((res) => {
-      console.log("res-------", res)
-    })
-
     this.$store.commit("fullLoading/SET_TITLE", "FDR MONITOR")
   },
   mounted() {
-    this.getData()
+    this.initData()
   },
 
   watch: {},
   methods: {
-    // 获取数据
-    async getData() {
-      this.isLoading = true
-      // this.tabData = []
+    initData() {
       let arr = ["FdrHeartCheck", "FdrJmetHeartCheck", "GetDownloadSate5Min", "GetUploadState5min", "GetExportSate5min"]
-      await arr.forEach((item) => {
-        let res = GetFdrHeartCheck(item)
-        this.$set(this.tabData, item, res)
+      arr.forEach((item) => {
+        this.getData(item)
       })
-
+    },
+    // 获取数据
+    async getData(i) {
+      this.isLoading = true
+      let res = await GetFdrHeartCheck(i)
       // console.log(res)
-      // this.tableTitle = res.columns
-      // console.log("res", res)
-      // this.tableData = res.rows
-      // this.tableData.forEach((item) => {
-      //   let objKey = {}
-      //   item.forEach((key) => {
-      //     objKey[key.columnID] = key.value
-      //   })
-      //   this.tabData.push(objKey)
-      // })
+      this.$set(this.tabData, i, res.Resultvalue)
       this.isLoading = false
     },
     // 当Time和Nowtime差距大于8分钟，对应的行红色显示
     cellStyle({ row, column, rowIndex, columnIndex }) {
+      // console.log("row", row)
+      // console.log("column", column)
       let property = column.property
       if (columnIndex === 3 && row[property]) {
         let times = new Date()
         times = moment().format("YYYY-MM-DD HH:mm:ss")
         let rows = row[property]
         let dataDiff = this.GetDateDiff(times, rows, "minute")
-        // console.log(dataDiff)
         if (dataDiff > 8) {
-          this.flag = rowIndex
-          this.name = row
+          this.$set(row, "show", true)
+          // return { background: "#ff80ff", color: "#000" }
         }
       }
     },
-    tableRowStyle({ row, rowIndex }) {
-      if (rowIndex === this.flag && this.name === row) {
+    tableRowStyle({ row }) {
+      if (row.show === true) {
         return { background: "#ff80ff", color: "#000" }
       } else {
         return { background: "transparent" }
@@ -265,6 +227,7 @@ export default {
   box-sizing: border-box;
   height: calc(100% - 120px);
   margin-top: 10px;
+  overflow: auto;
 }
 
 /* 修改表格的一些样式 */

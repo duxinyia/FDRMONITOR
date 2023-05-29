@@ -98,16 +98,16 @@ export default {
             //   }
             // },
             //饼图图形上的文本标签，可用于说明图形的一些数据信息
-            label: {
-              // 文字本身的描边宽度
-              textBorderWidth: 0,
-              backgroundColor: "none",
-              color: "#fff",
-              // {b}：数据名。{d}：百分比。
-              formatter: "{b}: ({d}%)",
-              fontWeight: "normal",
-              fontSize: 15
-            },
+            // label: {
+            //   // 文字本身的描边宽度
+            //   textBorderWidth: 0,
+            //   backgroundColor: "none",
+            //   color: "#fff",
+            //   // {b}：数据名。{d}：百分比。
+            //   formatter: "{b}: ({d}%)",
+            //   fontWeight: "normal",
+            //   fontSize: 15
+            // },
             data: this.seriesData,
             // 提示线
             labelLine: {
