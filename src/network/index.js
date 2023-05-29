@@ -16,7 +16,11 @@ service.interceptors.request.use((config) => {
   } else if (config.isMenu) {
     // 获取菜单的时候更改基础地址
     config.baseURL = process.env.VUE_APP_MENU_API
+  } else if (config.isPort) {
+    config.baseURL = process.env.VUE_APP_PORT_BASE
   }
+  console.log(config)
+
   // 拦截操作
   return config
 })
@@ -62,13 +66,13 @@ const request = {
     return service.get(`${url}${_params}`, { ...config })
   },
   // 封裝post請求
-  post(url, params = "") {
-    return service.post(`${url}${params}`)
+  post(url, params = "", config = {}) {
+    return service.post(`${url}${params}`, { ...config })
   },
 
   // 封裝body post請求
-  bodypost(url, data) {
-    return service.post(url, data)
+  bodypost(url, data, config = {}) {
+    return service.post(url, data, { ...config })
   }
 }
 export default request

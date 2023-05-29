@@ -79,6 +79,11 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: { "^/api": "" }
       }
+      // "/api1": {
+      //   target: "http://10.143.4.103:8083/",
+      //   changeOrigin: true,
+      //   pathRewrite: { "^/api1": "" }
+      // }
     }
   }
 }

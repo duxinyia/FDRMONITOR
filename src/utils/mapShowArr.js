@@ -534,6 +534,20 @@ let showArrConfig = {
           }
         },
         {
+          title: "FDR MONITOR",
+          imgUrl: require("@/assets/images/cma/report4.png"),
+          belong: "报表/所有",
+          isShow: false,
+          to: "cmamainreport8",
+          route: {
+            path: "report8",
+            name: "cmamainreport8",
+            component: () =>
+              import(/* webpackChunkName: "report4" */ "@/views/main/cma/report8/report8.vue"),
+            meta: { parentName: "cma" }
+          }
+        },
+        {
           title: "cma的第五个报表",
           imgUrl: require("@/assets/images/cma/output.png"),
           belong: "报表/所有",
