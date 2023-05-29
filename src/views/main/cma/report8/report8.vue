@@ -36,7 +36,7 @@
 <script>
 import moment from "moment"
 // 导入点击搜索数据
-import { GetFdrHeartCheck } from "@/api/cma/report8"
+import { GetFdrHeartCheck, text } from "@/api/cma/report8"
 export default {
   name: "report8",
   props: {},
@@ -169,6 +169,11 @@ export default {
     }
   },
   created() {
+    console.log("res----")
+    text().then((res) => {
+      console.log("res-------", res)
+    })
+
     this.$store.commit("fullLoading/SET_TITLE", "FDR MONITOR")
   },
   mounted() {
@@ -181,13 +186,7 @@ export default {
     async getData() {
       this.isLoading = true
       // this.tabData = []
-      let arr = [
-        "FdrHeartCheck",
-        "FdrJmetHeartCheck",
-        "GetDownloadSate5Min",
-        "GetUploadState5min",
-        "GetExportSate5min"
-      ]
+      let arr = ["FdrHeartCheck", "FdrJmetHeartCheck", "GetDownloadSate5Min", "GetUploadState5min", "GetExportSate5min"]
       await arr.forEach((item) => {
         let res = GetFdrHeartCheck(item)
         this.$set(this.tabData, item, res)

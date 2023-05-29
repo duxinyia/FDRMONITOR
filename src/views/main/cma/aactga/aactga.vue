@@ -11,6 +11,9 @@
         @change="changeCarousel"
       >
         <el-carousel-item>
+          <cf-item />
+        </el-carousel-item>
+        <!-- <el-carousel-item>
           <aa-item />
         </el-carousel-item>
         <el-carousel-item>
@@ -27,7 +30,7 @@
         </el-carousel-item>
         <el-carousel-item>
           <avi-item />
-        </el-carousel-item>
+        </el-carousel-item> -->
       </el-carousel>
     </dv-border-box-12>
     <!-- 自定义两个切换按钮 -->
@@ -37,7 +40,7 @@
       @directionChange="handleDirection"
     />
     <!-- 需要一个数组将 avi test  -->
-    <div class="select-container">
+    <!-- <div class="select-container">
       <div
         :class="{ 'select-item': true, 'active-item': index == currentIndex }"
         v-for="(item, index) in options"
@@ -46,6 +49,12 @@
       >
         {{ item.label }}
       </div>
+    </div> -->
+    <!-- 下拉选择框 -->
+    <div class="selsect-container">
+      <el-select :popper-append-to-body="false" @change="changeValue" size="mini" v-model="value" placeholder="">
+        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+      </el-select>
     </div>
   </div>
 </template>
@@ -60,18 +69,21 @@ import CtItem from "./cpns/ct.vue"
 import AcfItem from "./cpns/acf.vue"
 import TestItem from "./cpns/test.vue"
 import AviItem from "./cpns/avi.vue"
+import CfItem from "./cpns/cf.vue"
 export default {
   name: "aactga",
   data() {
     return {
       options: [
-        { label: "AA", value: 1 },
-        { label: "GA", value: 2 },
-        { label: "CT", value: 3 },
-        { label: "ACF", value: 4 },
-        { label: "TEST", value: 5 },
-        { label: "AVI", value: 6 }
+        { label: "CF", value: 1 },
+        { label: "AA", value: 2 },
+        { label: "GA", value: 3 },
+        { label: "CT", value: 4 },
+        { label: "ACF", value: 5 },
+        { label: "TEST", value: 6 },
+        { label: "AVI", value: 7 }
       ],
+      value: "CF",
       currentIndex: 0
     }
   },
@@ -82,7 +94,8 @@ export default {
     CtItem,
     AcfItem,
     TestItem,
-    AviItem
+    AviItem,
+    CfItem
   },
   created() {
     this.$store.commit("fullLoading/SET_TITLE", "By機臺產出看板")
@@ -93,25 +106,30 @@ export default {
     },
     changeValue(value) {
       this.$refs.carousel.setActiveItem(value)
-      this.currentIndex = value
     },
     changeCarousel(index) {
-      this.currentIndex = index
+      this.value = this.options[index].value
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-select-dropdown__item.hover {
+  color: #fff;
+  background: #274be8 !important;
+}
+::v-deep .el-select-dropdown {
+  background-color: #000c1a;
+  columns: #fff;
+}
 /* 更改下拉框的背景色 */
 ::v-deep .el-input__inner {
-  background: transparent;
+  background: linear-gradient(58deg, #3f77e8, #243d97);
   color: #fff;
   font-size: 15px;
-  border: 1px solid #2e6099;
-  &:hover {
-    border: 1px solid #2e6099;
-  }
+  height: 25px;
+  border: none;
 }
 ::v-deep .border-box-content {
   padding: 20px;
@@ -125,7 +143,7 @@ export default {
   height: calc(100% - 120px);
   position: relative;
 }
-.select-container {
+/* .select-container {
   position: absolute;
   top: 8px;
   right: 150px;
@@ -139,5 +157,11 @@ export default {
   .active-item {
     background: linear-gradient(58deg, #3f77e8, #243d97);
   }
+} */
+.selsect-container {
+  position: absolute;
+  top: 7px;
+  right: 150px;
+  width: 100px;
 }
 </style>

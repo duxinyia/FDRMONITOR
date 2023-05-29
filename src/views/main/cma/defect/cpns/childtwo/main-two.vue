@@ -2,100 +2,148 @@
   <dv-border-box-12>
     <div class="main-two">
       <div class="main-row row-one">
-        <div class="row-item">Time</div>
-        <div class="row-item device" v-for="(item, index) in xData" :key="index" @click="toDetail">
+        <div class="row-item width10">Time</div>
+        <div class="row-item device width45" v-for="(item, index) in xData" :key="index" @click="toDetail">
           {{ item }}
         </div>
       </div>
       <div class="main-row">
-        <div class="row-item is-bg">DPC</div>
-        <div class="row-item" v-for="(item, index) in dpcs" :key="index">
+        <div class="row-item width10 is-bg">DPC</div>
+        <div class="row-item width45" v-for="(item, index) in dpcs" :key="index">
           <span class="qty">{{ item.qty }}</span>
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
-        <div class="row-item is-bg">LCB</div>
-        <div class="row-item" v-for="(item, index) in lcbs" :key="index">
+        <div class="row-item width10 is-bg">LCB</div>
+        <template v-if="lcbs.length == 0">
+          <div class="row-item width45" v-for="(item, index) in [{}, {}]" :key="index">
+            <span class="qty">-</span>
+            <span class="rate">-</span>
+          </div>
+        </template>
+        <template v-else>
+          <div class="row-item width45" v-for="(item, index) in lcbs" :key="index">
+            <span class="qty">{{ item.qty || "-" }}</span>
+            <span class="rate">{{ item.rate || "-" }}</span>
+          </div>
+        </template>
+      </div>
+      <div class="main-row">
+        <div class="row-item width10 is-bg">SFR</div>
+        <div class="row-item width45" v-for="(item, index) in sfrs" :key="index">
           <span class="qty">{{ item.qty }}</span>
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
-        <div class="row-item is-bg">SFR</div>
-        <div class="row-item" v-for="(item, index) in sfrs" :key="index">
+        <div class="row-item width10 is-bg border-right">VCM</div>
+        <template v-if="vcms.length == 0">
+          <div class="row-item width45" v-for="(item, index) in [{}, {}]" :key="index">
+            <span class="qty">-</span>
+            <span class="rate">-</span>
+          </div>
+        </template>
+        <template v-else>
+          <div class="row-item width45" v-for="(item, index) in vcms" :key="index">
+            <span class="qty">{{ item.qty || "-" }}</span>
+            <span class="rate">{{ item.rate || "-" }}</span>
+          </div>
+        </template>
+      </div>
+      <div class="main-row">
+        <div class="row-item width10 is-bg border-right">FOL Cosmetic</div>
+        <div class="row-item width45" v-for="(item, index) in fol_cosmetic" :key="index">
           <span class="qty">{{ item.qty }}</span>
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
-        <div class="row-item is-bg border-right">VCM</div>
-        <div class="row-item" v-for="(item, index) in vcms" :key="index">
-          <span class="qty">{{ item.qty }}</span>
-          <span class="rate">{{ item.rate }}</span>
-        </div>
-      </div>
-      <div class="main-row">
-        <div class="row-item is-bg border-right">FOL Cosmetic</div>
-        <div class="row-item" v-for="(item, index) in fol_cosmetic" :key="index">
-          <span class="qty">{{ item.qty }}</span>
-          <span class="rate">{{ item.rate }}</span>
-        </div>
-      </div>
-      <div class="main-row">
-        <div class="row-item is-bg border-right">EOL Cosmetic</div>
-        <div class="row-item" v-for="(item, index) in eol_cosmetic" :key="index">
+        <div class="row-item width10 is-bg border-right">EOL Cosmetic</div>
+        <div class="row-item width45" v-for="(item, index) in eol_cosmetic" :key="index">
           <span class="qty">{{ item.qty }}</span>
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
 
       <div class="main-row">
-        <div class="row-item is-bg border-right">FOL Process</div>
-        <div class="row-item" v-for="(item, index) in fol_process" :key="index">
+        <div class="row-item width10 is-bg border-right">FOL Process</div>
+        <div class="row-item width45" v-for="(item, index) in fol_process" :key="index">
           <span class="qty">{{ item.qty }}</span>
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
       <div class="main-row">
-        <div class="row-item is-bg border-right">EOL Process</div>
-        <div class="row-item" v-for="(item, index) in eol_process" :key="index">
+        <div class="row-item width10 is-bg border-right">EOL Process</div>
+        <div class="row-item width45" v-for="(item, index) in eol_process" :key="index">
           <span class="qty">{{ item.qty }}</span>
           <span class="rate">{{ item.rate }}</span>
         </div>
       </div>
 
       <div class="main-row">
-        <div class="row-item is-bg border-right">Others-Test</div>
-        <div class="row-item" v-for="(item, index) in others_tests" :key="index">
-          <span class="qty">{{ item.qty }}</span>
-          <span class="rate">{{ item.rate }}</span>
-        </div>
+        <div class="row-item width10 is-bg border-right">Others-Test</div>
+        <template v-if="others_tests.length == 0">
+          <div class="row-item width45" v-for="(item, index) in [{}, {}]" :key="index">
+            <span class="qty">-</span>
+            <span class="rate">-</span>
+          </div>
+        </template>
+        <template v-else>
+          <div class="row-item width45" v-for="(item, index) in others_tests" :key="index">
+            <span class="qty">{{ item.qty || "-" }}</span>
+            <span class="rate">{{ item.rate || "-" }}</span>
+          </div>
+        </template>
       </div>
       <div class="main-row">
-        <div class="row-item is-bg border-right">Others-Fol1</div>
-        <div class="row-item" v-for="(item, index) in others_fol1s" :key="index">
-          <span class="qty">{{ item.qty }}</span>
-          <span class="rate">{{ item.rate }}</span>
-        </div>
+        <div class="row-item width10 is-bg border-right">Others-Fol1</div>
+        <template v-if="others_fol1s.length == 0">
+          <div class="row-item width45" v-for="(item, index) in [{}, {}]" :key="index">
+            <span class="qty">-</span>
+            <span class="rate">-</span>
+          </div>
+        </template>
+        <template v-else>
+          <div class="row-item width45" v-for="(item, index) in others_fol1s" :key="index">
+            <span class="qty">{{ item.qty || "-" }}</span>
+            <span class="rate">{{ item.rate || "-" }}</span>
+          </div>
+        </template>
       </div>
       <div class="main-row">
-        <div class="row-item is-bg border-right">Others-Fol2</div>
-        <div class="row-item" v-for="(item, index) in others_fol2s" :key="index">
-          <span class="qty">{{ item.qty }}</span>
-          <span class="rate">{{ item.rate }}</span>
-        </div>
+        <div class="row-item width10 is-bg border-right">Others-Fol2</div>
+        <template v-if="others_fol2s.length == 0">
+          <div class="row-item width45" v-for="(item, index) in [{}, {}]" :key="index">
+            <span class="qty">-</span>
+            <span class="rate">-</span>
+          </div>
+        </template>
+        <template v-else>
+          <div class="row-item width45" v-for="(item, index) in others_fol2s" :key="index">
+            <span class="qty">{{ item.qty || "-" }}</span>
+            <span class="rate">{{ item.rate || "-" }}</span>
+          </div>
+        </template>
       </div>
       <div class="main-row">
-        <div class="row-item is-bg border-right">Others-Eol</div>
-        <div class="row-item" v-for="(item, index) in others_eols" :key="index">
-          <span class="qty">{{ item.qty }}</span>
-          <span class="rate">{{ item.rate }}</span>
-        </div>
+        <div class="row-item width10 is-bg border-right">Others-Eol</div>
+        <template v-if="others_eols.length == 0">
+          <div class="row-item width45" v-for="(item, index) in [{}, {}]" :key="index">
+            <span class="qty">-</span>
+            <span class="rate">-</span>
+          </div>
+        </template>
+        <template v-else>
+          <div class="row-item width45" v-for="(item, index) in others_eols" :key="index">
+            <span class="qty">{{ item.qty || "-" }}</span>
+            <span class="rate">{{ item.rate || "-" }}</span>
+          </div>
+        </template>
       </div>
       <div class="main-row">
-        <div class="row-item is-bg border-right">Total</div>
-        <div class="row-item is-bg" v-for="(item, index) in totalNum" :key="index">
+        <div class="row-item width10 is-bg border-right">Total</div>
+        <div class="row-item is-bg width45" v-for="(item, index) in totalNum" :key="index">
           <span class="qty">{{ item.total }}</span>
           <span class="rate">{{ item.rate }}</span>
         </div>
@@ -112,12 +160,15 @@ export default {
     "dpcs",
     "lcbs",
     "sfrs",
+    "vcms",
     "fol_cosmetic",
     "eol_cosmetic",
-    "fol_others",
-    "eol_others",
     "fol_process",
     "eol_process",
+    "others_tests",
+    "others_fol1s",
+    "others_fol2s",
+    "others_eols",
     "totalNum"
   ],
 
@@ -145,6 +196,12 @@ export default {
     cursor: pointer;
   }
 }
+.width10 {
+  width: 10%;
+}
+.width45 {
+  width: 45%;
+}
 .main-two {
   border: 1px solid var(--defect-border);
   color: var(--defect-text);
@@ -157,8 +214,7 @@ export default {
       border-bottom: none;
     }
     .row-item {
-      /* width: 7.69%; */
-      width: 33.3%;
+      /* width: 33.3%; */
       text-align: center;
       border-right: 1px solid var(--defect-border);
       &:last-child {
