@@ -18,27 +18,23 @@ export default [
       {
         path: "cma",
         name: "overviewcma",
-        component: () =>
-          import(/* webpackChunkName: "overviewcma" */ "@/views/overView/cma/index.vue"),
+        component: () => import(/* webpackChunkName: "overviewcma" */ "@/views/overView/cma/index.vue"),
         children: [
           // 分决策层和管理层
           {
             path: "manage/:type",
             name: "cmamanage",
-            component: () =>
-              import(/* webpackChunkName: "cmamanage" */ "@/views/overView/cma/manage/manage.vue")
+            component: () => import(/* webpackChunkName: "cmamanage" */ "@/views/overView/cma/manage/manage.vue")
           },
           {
             path: "juec/:type",
             name: "cmajuec",
-            component: () =>
-              import(/* webpackChunkName: "cmajuec" */ "@/views/overView/cma/manage/manage.vue")
+            component: () => import(/* webpackChunkName: "cmajuec" */ "@/views/overView/cma/manage/manage.vue")
           },
           {
             path: "report/:type",
             name: "cmareport",
-            component: () =>
-              import(/* webpackChunkName: "cmareport" */ "@/views/overView/cma/manage/manage.vue")
+            component: () => import(/* webpackChunkName: "cmareport" */ "@/views/overView/cma/manage/manage.vue")
           }
         ]
       },
@@ -46,27 +42,23 @@ export default [
       {
         path: "dp",
         name: "overviewdp",
-        component: () =>
-          import(/* webpackChunkName: "overviewdp" */ "@/views/overView/cma/index.vue"),
+        component: () => import(/* webpackChunkName: "overviewdp" */ "@/views/overView/cma/index.vue"),
         children: [
           // 分决策层和管理层
           {
             path: "manage/:type",
             name: "dpmanage",
-            component: () =>
-              import(/* webpackChunkName: "dpmanage" */ "@/views/overView/cma/manage/manage.vue")
+            component: () => import(/* webpackChunkName: "dpmanage" */ "@/views/overView/cma/manage/manage.vue")
           },
           {
             path: "juec/:type",
             name: "dpjuec",
-            component: () =>
-              import(/* webpackChunkName: "dpjuec" */ "@/views/overView/cma/manage/manage.vue")
+            component: () => import(/* webpackChunkName: "dpjuec" */ "@/views/overView/cma/manage/manage.vue")
           },
           {
             path: "report/:type",
             name: "dpreport",
-            component: () =>
-              import(/* webpackChunkName: "dpreport" */ "@/views/overView/cma/manage/manage.vue")
+            component: () => import(/* webpackChunkName: "dpreport" */ "@/views/overView/cma/manage/manage.vue")
           }
         ]
       }

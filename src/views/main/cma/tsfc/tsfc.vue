@@ -1,15 +1,9 @@
 <template>
   <div class="page-main">
     <!-- 主要区域 -->
-    <dv-border-box-10>
+    <dv-border-box-12>
       <!-- 使用轮播图来展示数据 -->
-      <el-carousel
-        style="height: 100%"
-        indicator-position="none"
-        :interval="15 * 10000"
-        ref="carousel"
-        arrow="never"
-      >
+      <el-carousel style="height: 100%" indicator-position="none" :interval="15 * 10000" ref="carousel" arrow="never">
         <el-carousel-item v-for="(item, index) in splitArr" :key="index">
           <div class="chart-container">
             <div v-for="(childItem, childIndex) in item" :key="childIndex" class="chart-item">
@@ -17,18 +11,16 @@
               <div class="btns">
                 <div @click="toDetail">EOL</div>
                 <div @click="toDetail">FOL</div>
-                <!-- <el-button @click="toDetail" round type="success" size="mini">EOL</el-button>
-                <el-button @click="toDetail" type="success" size="mini">FOL</el-button> -->
               </div>
             </div>
           </div>
         </el-carousel-item>
       </el-carousel>
-    </dv-border-box-10>
+    </dv-border-box-12>
     <!-- 自定义两个切换按钮 -->
     <change-switch
-      :leftConfig="{ left: '0px', top: '12px' }"
-      :rightConfig="{ right: '0px', top: '12px' }"
+      :leftConfig="{ left: '25px', top: '15px' }"
+      :rightConfig="{ right: '25px', top: '15px' }"
       @directionChange="handleDirection"
     />
   </div>

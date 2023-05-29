@@ -7,20 +7,12 @@
     :collapse="false"
     unique-opened
     :default-active="$route.path"
-    @open="handleOpen"
   >
     <template v-for="item in menus">
       <template v-if="item.subs">
-        <el-submenu
-          :index="item.index"
-          class="one-menu"
-          :key="item.title"
-          @click.native="itemClick(item)"
-        >
+        <el-submenu :index="item.index" class="one-menu" :key="item.title" @click.native="itemClick(item)">
           <template slot="title">
             <item :icon="item.icon" :title="item.title" />
-            <!-- <i :class="item.icon"></i>
-            <span slot="title">{{ item.title }}11</span>-->
           </template>
           <template v-for="subItem in item.subs">
             <template v-if="subItem.subs">
@@ -32,8 +24,6 @@
               >
                 <template slot="title">
                   <item :icon="subItem.icon" :title="subItem.title" />
-                  <!-- <i :class="subItem.icon"></i>
-                  <span slot="title">{{ subItem.title }}22</span>-->
                 </template>
                 <template v-for="subItem2 in subItem.subs">
                   <template v-if="subItem2.subs">
@@ -45,8 +35,6 @@
                     >
                       <template slot="title">
                         <item :icon="subItem2.icon" :title="subItem2.title" />
-                        <!-- <i :class="subItem2.icon"></i>
-                        <span slot="title">{{ subItem2.title }}</span>-->
                       </template>
                       <template v-for="subItem3 in subItem2.subs">
                         <template v-if="subItem3.subs">
@@ -57,8 +45,6 @@
                           >
                             <template slot="title">
                               <item :icon="subItem3.icon" :title="subItem3.title" />
-                              <!-- <i :class="subItem3.icon"></i>
-                              <span slot="title">{{ subItem3.title }}66</span>-->
                             </template>
                             <el-menu-item
                               v-for="fiveItem in subItem3.subs"
@@ -67,8 +53,6 @@
                               @click.native.stop="itemClick(fiveItem)"
                             >
                               <item :icon="fiveItem.icon" :title="fiveItem.title" />
-                              <!-- <i :class="fiveItem.icon"></i>
-                              <span slot="title">{{ fiveItem.title }}77</span>-->
                             </el-menu-item>
                           </el-submenu>
                         </template>
@@ -79,8 +63,6 @@
                           @click.native.stop="itemClick(subItem3)"
                         >
                           <item :icon="subItem3.icon" :title="subItem3.title" />
-                          <!-- <i :class="subItem3.icon"></i>
-                          <span slot="title">{{ subItem3.title }}</span>-->
                         </el-menu-item>
                       </template>
                     </el-submenu>
@@ -92,29 +74,18 @@
                     @click.native.stop="itemClick(subItem2)"
                   >
                     <item :icon="subItem2.icon" :title="subItem2.title" />
-                    <!-- <i :class="subItem2.icon"></i>
-                    <span slot="title">{{ subItem2.title }}</span>-->
                   </el-menu-item>
                 </template>
               </el-submenu>
             </template>
-            <el-menu-item
-              v-else
-              :index="subItem.index"
-              :key="subItem.title"
-              @click.native.stop="itemClick(subItem)"
-            >
+            <el-menu-item v-else :index="subItem.index" :key="subItem.title" @click.native.stop="itemClick(subItem)">
               <item :icon="subItem.icon" :title="subItem.title" />
-              <!-- <i :class="subItem.icon"></i>
-              <span slot="title">{{ subItem.title }}</span>-->
             </el-menu-item>
           </template>
         </el-submenu>
       </template>
       <template v-else>
         <el-menu-item :index="item.index" :key="item.title">
-          <!-- <i :class="item.icon"></i>
-          <span slot="title">{{ item.title }}33</span>-->
           <item :icon="item.icon" :title="item.title" />
         </el-menu-item>
       </template>
@@ -136,8 +107,6 @@ export default {
       /**
        * 1. 后端如果是外链(http https), window.open 方法打开新窗口
        * 2.
-       *
-       *
        * fin: 把当前路径保存下来，用于跳转回来0
        */
       // 如果index包含http 那么是跳转外部链接
@@ -157,9 +126,6 @@ export default {
       }
       let path = this.$route.path
       this.$store.commit("fullLoading/SET_PATH", path)
-    },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath)
     }
   }
 }

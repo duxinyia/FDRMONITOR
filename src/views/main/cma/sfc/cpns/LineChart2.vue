@@ -11,7 +11,6 @@
     <base-echart :options="options" />
   </dv-border-box-11>
 </template>
-
 <script>
 // 导入基础的图
 import BaseEchart from "@/common/echart"
@@ -154,7 +153,6 @@ export default {
             }
           }
         ],
-
         series: legends.map((item, index) => {
           return { ...baseSerie, name: legends[index], data: showData[index] }
         })
@@ -167,7 +165,6 @@ export default {
         this.isLoading = false
       },
       deep: true
-      // this.isLoading = false
     }
   },
   methods: {
@@ -176,14 +173,16 @@ export default {
       this.$router.push({
         name: "sfcdetail",
         query: {
-          device: this.config.deviceSeries
+          device: this.showTitle
+        },
+        params: {
+          topLineChartConfig: this.config
         }
       })
     }
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .btn {
   position: absolute;

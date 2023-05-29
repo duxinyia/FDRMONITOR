@@ -7,11 +7,17 @@
         <h2 class="name" v-show="!menuFold">RAYPRUS</h2>
       </div>
       <!-- 菜单设置 -->
-      <!-- <div class="end-set" @click="toMenuSet">
-        <svg-icon icon-class="link" />
-        <span class="title">菜单设置</span>
-      </div> -->
-      <menu-child :menus="$store.getters.menus[$store.getters.showIndex]" />
+      <div class="end-set">
+        <div :class="{ title: true, active: 0 == currentIndex }" @click="currentIndex = 0">
+          <span class="iconfont icon-shuju"></span>
+          <span class="name">数据</span>
+        </div>
+        <div :class="{ title: true, active: 1 == currentIndex }" @click="currentIndex = 1">
+          <span class="iconfont icon-tubiaotongji"></span>
+          <span class="name">报表</span>
+        </div>
+      </div>
+      <menu-child :menus="getShowMenu" />
     </el-aside>
     <el-container class="right-container">
       <!-- 左边菜单 -->
@@ -59,12 +65,16 @@ export default {
   data() {
     return {
       menuFold: false,
-      logoUrl: require("@/assets/images/other/_logo.png")
+      logoUrl: require("@/assets/images/other/_logo.png"),
+      currentIndex: 0
     }
   },
   computed: {
     key() {
       return this.$route.path.replace(/\//g, "_")
+    },
+    getShowMenu() {
+      return [this.$store.getters.menus[this.$store.getters.showIndex][this.currentIndex]]
     }
   },
   methods: {
@@ -73,9 +83,6 @@ export default {
       this.$router.push(item.path).catch(() => {})
       this.$store.commit("fullLoading/SET_PATH", this.$route.path)
       this.$store.commit("permission/SET_INDEX", index)
-    },
-    toMenuSet() {
-      window.open("http://10.151.130.135:70/")
     }
   }
 }
@@ -86,7 +93,9 @@ export default {
   color: #fff;
 }
 .active {
-  background: rgba(87, 200, 249, 0.6);
+  position: relative;
+  border-radius: 4px;
+  background: rgba(2, 43, 82, 1);
 }
 // 外层容器
 .overview {
@@ -136,22 +145,29 @@ export default {
         margin-top: 5px;
       }
     }
-    /* .end-set {
-      padding: 0px 20px;
+    .end-set {
       margin: auto;
-      width: 85%;
       height: 40px;
       line-height: 40px;
-      border-radius: 20px;
       margin-bottom: 20px;
       cursor: pointer;
       color: #fff;
-      font-size: 14px;
-      background: linear-gradient(90deg, #21aebe91 0%, #3357caf5 68.63%, #353cb8 100%);
+      font-size: 16px;
+      display: flex;
+      border-radius: 4px;
+      background: #2a4c73;
+      box-shadow: inset 5px 5px 4px 0px rgba(0, 0, 0, 0.25);
+
       .title {
-        margin-left: 13px;
+        flex: 1;
+        text-align: center;
+        letter-spacing: 6px;
+        border-radius: 4px;
+        .name {
+          margin-left: 2px;
+        }
       }
-    } */
+    }
   }
   // 右边主要区域
   .right-container {
@@ -190,7 +206,7 @@ export default {
         width: 100%;
         height: 100%;
         border-radius: 10px;
-        padding: 30px 40px 20px 40px;
+        padding: 20px;
         background: url("~@/assets/images/other/overview-bg1.png");
         background-size: 100% 100%;
         overflow: auto;

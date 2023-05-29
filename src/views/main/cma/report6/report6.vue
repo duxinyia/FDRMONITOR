@@ -19,26 +19,14 @@
           </el-option>
         </el-select>
       </div>
-      <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData"
-        >查詢</el-button
-      >
+      <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
     <!-- 图表 -->
     <div class="charts">
       <!-- 折线图 -->
-      <line-chart
-        v-if="flag === 1"
-        class="echarts linecharts"
-        :height="height"
-        :config="lineChartConfig"
-      />
+      <line-chart v-if="flag === 1" class="echarts linecharts" :height="height" :config="lineChartConfig" />
       <!-- 饼图 -->
-      <pie-chart
-        class="echarts piecharts"
-        v-if="flag === 0"
-        :seriesData="seriesData"
-        :height="height"
-      />
+      <pie-chart class="echarts piecharts" v-if="flag === 0" :seriesData="seriesData" :height="height" />
       <!-- 柱状图 -->
       <bar-chart class="echarts barcharts" v-if="flag === 2" :barData="barData" :height="height" />
     </div>
@@ -50,7 +38,6 @@
 import LineChart from "./echarts/line-chart.vue"
 import PieChart from "./echarts/pie-chart.vue"
 import BarChart from "./echarts/bar-chart.vue"
-
 export default {
   name: "report6",
   props: {},
@@ -67,18 +54,7 @@ export default {
         ["Brownie", 30, 53, 32, 80, 10]
       ],
       lineChartConfig: {
-        legends: [
-          "IOWA",
-          "JU-X",
-          "JU-2X",
-          "MD-3X",
-          "MD-2X",
-          "ML-2X",
-          "ML-X",
-          "MW",
-          "NH-2X",
-          "Stanley"
-        ],
+        legends: ["IOWA", "JU-X", "JU-2X", "MD-3X", "MD-2X", "ML-2X", "ML-X", "MW", "NH-2X", "Stanley"],
         xData: ["05-12", "05-13", "05-14", "05-15", "05-16", "05-17", "05-18", "05-19"],
         yData: [
           [0.3, 0.3, 0, 3, 3, 3, 1, 3],

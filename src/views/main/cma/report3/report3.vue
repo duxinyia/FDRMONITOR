@@ -11,29 +11,17 @@
           @change="handlerChange(item.name)"
         >
           <!-- @change="handlerChange(item.name)" -->
-          <el-option
-            v-for="item in options[item.name]"
-            :key="item.value"
-            :label="item.value"
-            :value="item.id"
-          >
+          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
           </el-option>
         </el-select>
       </div>
       <div class="dateSelect">
         <span>datetime:</span>
-        <el-date-picker
-          type="datetime"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          v-model="datetime"
-          placeholder="請選擇時間"
-        >
+        <el-date-picker type="datetime" value-format="yyyy-MM-dd HH:mm:ss" v-model="datetime" placeholder="請選擇時間">
         </el-date-picker>
       </div>
 
-      <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData"
-        >查詢</el-button
-      >
+      <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
     <el-table
       :data="tableData1"
@@ -59,6 +47,7 @@
       </el-table-column>
     </el-table>
     <el-table
+      id="exportTable"
       :data="tableData2"
       :cell-style="cellStyle2"
       :header-cell-style="{ background: 'transparent', color: '#fff' }"
@@ -80,14 +69,7 @@
 </template>
 
 <script>
-import {
-  GetDefectType,
-  GetDeviceSeriers,
-  ToolingType,
-  Supply,
-  GetTbale1Info,
-  GetTbale2Info
-} from "@/api/cma/report3"
+import { GetDefectType, GetDeviceSeriers, ToolingType, Supply, GetTbale1Info, GetTbale2Info } from "@/api/cma/report3"
 import { handlerTableDate } from "@/utils/handlerTableData"
 export default {
   name: "report3",
@@ -146,10 +128,7 @@ export default {
           let firstTitle = this.options.DefectType.find((item) => item.id == newValue[1].value)
           // console.log("firstTitle", firstTitle.value)
           let twoTitle = this.options.ToolingType.find((item) => item.id == newValue[2].value)
-          this.$store.commit(
-            "fullLoading/SET_TITLE",
-            `${firstTitle.value} BY ${twoTitle.value} Tooling`
-          )
+          this.$store.commit("fullLoading/SET_TITLE", `${firstTitle.value} BY ${twoTitle.value} Tooling`)
         }
       },
       deep: true
@@ -295,10 +274,7 @@ export default {
             background: "#9acd32",
             color: "#000"
           }
-        } else if (
-          parseFloat(row[column.property]) >= 0.1 &&
-          parseFloat(row[column.property]) <= 0.3
-        ) {
+        } else if (parseFloat(row[column.property]) >= 0.1 && parseFloat(row[column.property]) <= 0.3) {
           return {
             background: "#ffff00",
             color: "#000"
@@ -342,15 +318,23 @@ export default {
       if (this.testData[columnIndex]) {
         this.$nextTick(() => {
           if (document.getElementsByClassName(column.id).length !== 0) {
-            document
-              .getElementsByClassName(column.id)[0]
-              .setAttribute("colSpan", this.testData[columnIndex].colSpan)
+            document.getElementsByClassName(column.id)[0].setAttribute("colSpan", this.testData[columnIndex].colSpan)
           }
         })
         // 被合并的列隐藏
         if (this.testData[columnIndex].colSpan === 0) {
           return { display: "none" }
         } else return { background: "transparent", color: "#fff" }
+      }
+    },
+    // 导出表格为xlsx
+    exportXlsx() {
+      console.log("导出")
+      let workbook = this.$xlsx.utils.table_to_book(document.getElementById("exportTable")) //需要在table上定义一个id
+      try {
+        this.$xlsx.writeFile(workbook, "表格.xlsx")
+      } catch (e) {
+        console.log("e", e)
       }
     }
   }
@@ -361,15 +345,12 @@ export default {
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;
-  // border: 1px solid red;
 }
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
   border-bottom: 2px solid #1683af;
   margin-top: 20px;
-
-  // overflow: auto;
 }
 // 表头
 ::v-deep .el-table__header {

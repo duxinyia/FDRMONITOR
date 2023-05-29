@@ -1,26 +1,28 @@
 <template>
   <!-- 主要区域 -->
   <div class="page-main">
-    <!-- 第一个图 -->
-    <dv-border-box-10>
+    <dv-border-box-12>
       <div class="top-chart">
-        <line-chart-1 :config="topLineChartConfig" :title="tag" />
+        <line-chart-1 :config="topLineChartConfig" :title="device" />
       </div>
       <!-- 下面四个图 -->
-      <el-row :gutter="20">
-        <el-col v-for="item in 4" :key="item" :span="12">
-          <line-chart-2 :config="lineChartConfig[item - 1]" />
-        </el-col>
-      </el-row>
-    </dv-border-box-10>
+      <el-carousel height="550px" :interval="10000" indicator-position="none">
+        <el-carousel-item v-for="(item, index) in splitArr" :key="index">
+          <el-col v-for="(childItem, childIndex) in item" :key="childIndex" :span="12">
+            <line-chart-2 :config="allDetails[4 * index + childIndex]" :showTitle="allTypes[4 * index + childIndex]" />
+          </el-col>
+        </el-carousel-item>
+      </el-carousel>
+    </dv-border-box-12>
   </div>
 </template>
 <script>
+import { splitArray } from "@/utils"
 // 导入5个折线图
 import LineChart1 from "./cpns/LineChart1.vue"
 import LineChart2 from "./cpns/LineChart2.vue"
 // 导入发送请求的函函數
-import { getCloseNGYieldInfo } from "@/api/cma/sfcdetail.js"
+import { getCloseYield, getCloseYieldDetail } from "@/api/cma/sfcdetail.js"
 export default {
   name: "sfcdetail",
   components: {
@@ -29,44 +31,60 @@ export default {
   },
   data() {
     return {
-      tag: "",
+      device: "",
+      allTypes: [],
+      allDetails: [],
       topLineChartConfig: [], // 上方折线图的数据
       lineChartConfig: [] // 下方折线图的数据
     }
   },
-  computed: {},
   mounted() {
-    this.tag = this.$route.query.tag
-    this.$store.commit("fullLoading/SET_TITLE", `${this.tag}系列良率`)
+    this.device = this.$route.query.device
+    console.log("this.$route", this.$route)
+    this.topLineChartConfig = this.$route.params.topLineChartConfig
+    this.$store.commit("fullLoading/SET_TITLE", `${this.device}系列良率`)
     this.$store.commit("fullLoading/SET_FULLLOADING", true)
-    // this.$store.commit("fullLoading/SET_FULLLOADING", false)
+    this.$store.commit("fullLoading/SET_FULLLOADING", false)
     this.initData()
-    // 每5分钟获取一次数据
-    // this.dataTiming = setInterval(() => {
-    //   this.initData()
-    // }, 50000)
+  },
+  computed: {
+    // 分割形成不同的数组
+    splitArr() {
+      return splitArray(this.allTypes, 4)
+    }
   },
   methods: {
     async initData() {
-      let requestArr = [
-        this.getCloseNGYieldInfo()
-        // this.getMaintainInfo(),
-        // this.getDeviceInfo(),
-        // this.getMachineTop5(),
-        // this.getProductInfo()
-      ]
-      await Promise.all(requestArr)
-      this.$store.commit("fullLoading/SET_FULLLOADING", false)
-    },
-    // 获取数据
-    async getCloseNGYieldInfo() {
-      let res = await getCloseNGYieldInfo({ tag: this.tag })
-      console.log("返回的值为:", res)
-      // 获取上方折线图的数据
-      this.topLineChartConfig = res.deviceInfos
-      // 下方折线图的数据
-      this.lineChartConfig = res.deviceNGInfos
+      let res = await getCloseYield({ DeviceSeries_V0: this.device })
+      console.log("所有的子项目:", res)
+      this.allTypes = res
+      res.forEach((type, index) => {
+        getCloseYieldDetail({ DefectType: type, DeviceSeries_V0: this.device }).then((res1) => {
+          console.log("详细的数据为：", res1)
+          let tempConfig = {
+            legends: [],
+            xData: [],
+            showData: []
+          }
+          res1.forEach((item, index) => {
+            let tempData = []
+            // 1. 取出legends
+            tempConfig.legends.push(item.deviceSeries)
+            // 2. 取出xData中的值 但只能取一次
+            item.yieldList.forEach((childItem) => {
+              if (index == 0) {
+                tempConfig.xData.push(childItem.dateCode)
+              }
+              // 取出对应的值
+              tempData.push(parseFloat(childItem.values.value))
+            })
+            tempConfig.showData.push(tempData)
+          })
+          this.$set(this.allDetails, index, tempConfig)
+        })
+      })
     }
+    // 获取数据
   },
   beforeDestroy() {
     clearInterval(this.dataTiming)
@@ -78,6 +96,8 @@ export default {
   padding: 10px 20px 18px 20px;
 }
 .page-main {
+  height: calc(100% - 120px);
+  margin-top: 10px;
   .top-chart {
     margin: 0px 0px;
   }

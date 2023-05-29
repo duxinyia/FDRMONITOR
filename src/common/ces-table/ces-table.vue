@@ -30,11 +30,9 @@
         :span-method="objectSpanMethod"
       >
         <!-- 是否有前面的多选效果 -->
-        <el-table-column type="selection" width="55" align="center" v-if="isSelection">
-        </el-table-column>
+        <el-table-column type="selection" width="55" align="center" v-if="isSelection"> </el-table-column>
         <!-- 是否显示前面的序号 -->
-        <el-table-column v-if="isIndex" type="index" :label="indexLabel" align="center" width="50">
-        </el-table-column>
+        <el-table-column v-if="isIndex" type="index" :label="indexLabel" align="center" width="50"> </el-table-column>
         <!-- 表格的每一项：表格列数据 -->
         <el-table-column
           v-for="(item, index) in tableCols"
@@ -150,7 +148,7 @@ export default {
     headerCellStyle: {
       type: Object,
       default: () => {
-        return { background: "transparent !important", color: "#1adafb" }
+        return { background: "transparent", color: "#1adafb" }
       }
     },
     isHasHandle: { type: Boolean, default: false },
@@ -158,7 +156,7 @@ export default {
   },
   data() {
     return {
-      isloading: true
+      isloading: false
     }
   },
   watch: {
@@ -199,7 +197,8 @@ export default {
   font-size: 15px !important;
   color: var(--make-base-text);
   border-top: 1px solid #1683af;
-  border-left: none;
+  /* border-left: 1px solid #1683af; */
+  /* border-left: none; */
   background-color: transparent !important;
 }
 ::v-deep .cell {
@@ -212,18 +211,18 @@ export default {
   /* border-left: 1px solid #1683af; */
   border-right: 1px solid #1683af;
   border-bottom: 1px solid #1683af !important;
-  &:first-child {
+  /* &:first-child {
     border-left: 1px solid #1683af;
-  }
+  } */
 }
 ::v-deep .el-table td {
   padding: 7px 0;
   /* padding: 0px; */
   border-right: 1px solid #1683af;
   border-bottom: 1px solid #1683af;
-  &:first-child {
+  /* &:first-child {
     border-left: 1px solid #1683af;
-  }
+  } */
 }
 ::v-deep .el-table tr {
   background-color: transparent !important; //每一行透明
@@ -237,5 +236,11 @@ export default {
 }
 ::v-deep .el-table tbody tr:hover > td {
   background-color: transparent !important;
+}
+::v-deep .el-table--group {
+  border-left-color: #1683af;
+}
+::v-deep .el-table--border {
+  border-left-color: #1683af;
 }
 </style>

@@ -20,29 +20,15 @@
                   placeholder="請選擇"
                   @change="handlerDeviceChange"
                 >
-                  <el-option
-                    v-for="item in deviceOptions"
-                    :key="item.value"
-                    :label="item.value"
-                    :value="item.id"
-                  >
+                  <el-option v-for="item in deviceOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="Lottype:" prop="LotType">
-                <el-select
-                  :popper-append-to-body="false"
-                  v-model="ruleForm.LotType"
-                  placeholder="請選擇"
-                >
-                  <el-option
-                    v-for="item in lottypeOptions"
-                    :key="item.value"
-                    :label="item.value"
-                    :value="item.id"
-                  >
+                <el-select :popper-append-to-body="false" v-model="ruleForm.LotType" placeholder="請選擇">
+                  <el-option v-for="item in lottypeOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -57,12 +43,7 @@
                   placeholder="請選擇"
                   @change="handlerTesterChange"
                 >
-                  <el-option
-                    v-for="item in testerOptions"
-                    :key="item.value"
-                    :label="item.value"
-                    :value="item.id"
-                  >
+                  <el-option v-for="item in testerOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -76,12 +57,7 @@
                   collapse-tags
                   placeholder="請選擇"
                 >
-                  <el-option
-                    v-for="item in testStationOptions"
-                    :key="item.value"
-                    :label="item.value"
-                    :value="item.id"
-                  >
+                  <el-option v-for="item in testStationOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -108,29 +84,15 @@
                   placeholder="請選擇"
                   @change="handlerMaterialChange"
                 >
-                  <el-option
-                    v-for="item in materialOptions"
-                    :key="item.value"
-                    :label="item.value"
-                    :value="item.id"
-                  >
+                  <el-option v-for="item in materialOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="Material Vendor:" prop="MaterialVendor">
-                <el-select
-                  :popper-append-to-body="false"
-                  v-model="ruleForm.MaterialVendor"
-                  placeholder="請選擇"
-                >
-                  <el-option
-                    v-for="item in vendorOptions"
-                    :key="item.value"
-                    :label="item.value"
-                    :value="item.id"
-                  >
+                <el-select :popper-append-to-body="false" v-model="ruleForm.MaterialVendor" placeholder="請選擇">
+                  <el-option v-for="item in vendorOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -144,12 +106,7 @@
                   collapse-tags
                   placeholder="請選擇"
                 >
-                  <el-option
-                    v-for="item in processOptions"
-                    :key="item.value"
-                    :label="item.value"
-                    :value="item.id"
-                  >
+                  <el-option v-for="item in processOptions" :key="item.value" :label="item.value" :value="item.id">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -157,27 +114,13 @@
           </el-row>
           <el-row>
             <el-form-item style="float: right; margin-right: 80px">
-              <el-button
-                class="btn"
-                icon="el-icon-search"
-                type="primary"
-                size="mini"
-                @click="submitForm('ruleForm')"
+              <el-button class="btn" icon="el-icon-search" type="primary" size="mini" @click="submitForm('ruleForm')"
                 >查詢</el-button
               >
-              <el-button
-                class="btn"
-                icon="el-icon-refresh-right"
-                size="mini"
-                @click="resetForm('ruleForm')"
+              <el-button class="btn" icon="el-icon-refresh-right" size="mini" @click="resetForm('ruleForm')"
                 >重置</el-button
               >
-              <el-button
-                class="btn"
-                icon="el-icon-upload2"
-                type="primary"
-                size="mini"
-                @click="exportXlsx"
+              <el-button class="btn" icon="el-icon-upload2" type="primary" size="mini" @click="exportXlsx"
                 >导出</el-button
               >
             </el-form-item>
@@ -476,9 +419,9 @@ export default {
       this.isLoading = false
     },
     // 重置
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
-    },
+    // resetForm(formName) {
+    //   this.$refs[formName].resetFields()
+    // },
     // 导出表格为xlsx
     exportXlsx() {
       let workbook = this.$xlsx.utils.table_to_book(document.getElementById("exportTable")) //需要在table上定义一个id

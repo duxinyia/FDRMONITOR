@@ -1,9 +1,11 @@
 <template>
-  <dv-border-box-10 :color="changeBoxColor">
+  <dv-border-box-12>
     <div class="main-two">
       <div class="main-row row-one">
         <div class="row-item">Time</div>
-        <div class="row-item" v-for="(item, index) in xData" :key="index">{{ item }}</div>
+        <div class="row-item device" v-for="(item, index) in xData" :key="index" @click="toDetail">
+          {{ item }}
+        </div>
       </div>
       <div class="main-row">
         <div class="row-item">Overall Yield</div>
@@ -91,7 +93,7 @@
         </div>
       </div>
     </div>
-  </dv-border-box-10>
+  </dv-border-box-12>
 </template>
 
 <script>
@@ -112,9 +114,10 @@ export default {
     "eol_process",
     "totalNum"
   ],
-  computed: {
-    changeBoxColor() {
-      return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
+
+  methods: {
+    toDetail() {
+      this.$router.push({ name: "defectdetail" })
     }
   }
 }
@@ -132,15 +135,18 @@ export default {
 .row-one {
   background: #264380;
   color: #fff !important;
+  .device {
+    cursor: pointer;
+  }
 }
 .main-two {
   border: 1px solid var(--defect-border);
   color: var(--defect-text);
   .main-row {
     display: flex;
-    height: 36px;
+    height: 33px;
     border-bottom: 1px solid var(--defect-border);
-    line-height: 36px;
+    line-height: 33px;
     &:last-child {
       border-bottom: none;
     }

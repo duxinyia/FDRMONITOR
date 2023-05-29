@@ -31,7 +31,6 @@
             </el-select>
           </el-form-item>
         </el-col>
-
         <el-col :span="5" v-if="item.type == 'datetime'">
           <el-form-item :label="item.name" :prop="item.key">
             <el-date-picker
@@ -57,19 +56,9 @@
       </el-form>
       <!-- </div> -->
       <!-- :type="!disabled ? 'primary' : 'info'"  :disabled="disabled"-->
-
       <el-col :span="1" style="display: flex">
-        <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData"
-          >查詢</el-button
-        >
-        <el-button
-          class="btn btnExp"
-          icon="el-icon-upload2"
-          round
-          type="primary"
-          @click="exportXlsx"
-          >導出</el-button
-        >
+        <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData">查詢</el-button>
+        <el-button class="btn btnExp" icon="el-icon-upload2" round type="primary" @click="exportXlsx">導出</el-button>
       </el-col>
       <!-- </div> -->
     </el-row>
@@ -94,7 +83,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import moment from "moment"
 // 导入点击搜索数据
@@ -146,7 +134,6 @@ export default {
           }
         }
       },
-
       isLoading: false,
       // 表头名称
       tableTitle: [],
@@ -188,7 +175,6 @@ export default {
   mounted() {
     this.getselectData()
   },
-
   methods: {
     // 获取下拉框数据
     async getselectData() {
@@ -202,12 +188,10 @@ export default {
         }
       })
     },
-
     // 点击搜索按钮
     getSearchData() {
       this.getData()
     },
-
     // 获取数据
     async getData() {
       this.isLoading = true
@@ -226,7 +210,6 @@ export default {
           ruleForm[item.key] = item.value
         }
       })
-
       let res = await GetReport7TableData(ruleForm)
       // console.log("res===", res)
       this.tableTitle = res.columns
@@ -253,7 +236,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .page-mian {
   height: calc(100% - 120px);
@@ -341,14 +323,12 @@ export default {
   font-size: 16px;
   color: #fff;
 }
-
 ::v-deep .el-select-dropdown {
   width: 235px;
 }
 .inputStyle {
   display: flex;
 }
-
 ::v-deep .el-input--suffix .el-input__inner {
   z-index: 100;
   border: 0px solid #fff;

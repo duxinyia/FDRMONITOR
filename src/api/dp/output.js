@@ -4,25 +4,13 @@ import moment from "moment"
 
 // 1. 获取 左上 右上 的数据
 export let getYearOutputInfo = (params = {}) => {
-  let {
-    PlantID = "9S01",
-    ProductArea = "EOL",
-    Year = `${moment().format("YYYY")}`,
-    DateTag
-  } = params
-  return $get(
-    `api/MESDPOutPut/GetYearOutputInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&DateTag=${DateTag}`
-  )
+  let { PlantID = "9S01", ProductArea = "EOL", Year = `${moment().format("YYYY")}`, DateTag } = params
+  return $get(`api/MESDPOutPut/GetYearOutputInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&DateTag=${DateTag}`)
 }
 
 // 2. 获取 左下 右下 的数据
 export let getDateCodeOutputInfo = (params = {}) => {
-  let {
-    PlantID = "9S01",
-    ProductArea = "EOL",
-    Time = `${moment().format("YYYY-MM")}`,
-    DateTag
-  } = params
+  let { PlantID = "9S01", ProductArea = "EOL", Time = `${moment().format("YYYY-MM")}`, DateTag } = params
   return $get(
     `api/MESDPOutPut/GetDateCodeOutputInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&Time=${Time}&DateTag=${DateTag}`
   )
@@ -31,9 +19,7 @@ export let getDateCodeOutputInfo = (params = {}) => {
 // 3. 获取中间统计区域的和饼图的数据
 export let getYearOutputInfoCollection = (params = {}) => {
   let { PlantID = "9S01", ProductArea = "EOL", Year = `${moment().format("YYYY")}` } = params
-  return $get(
-    `api/MESDPOutPut/GetYearOutputInfoCollection?PlantID=${PlantID}&ProductArea=${ProductArea}&Year=${Year}`
-  )
+  return $get(`api/MESDPOutPut/GetYearOutputInfoCollection?PlantID=${PlantID}&ProductArea=${ProductArea}&Year=${Year}`)
 }
 
 // 4. 获取中间区域的折线图部分
@@ -44,7 +30,5 @@ export let getMPSOpenLineInfo = (params = {}) => {
     St = `${moment().format("YYYY-MM-DD")}`,
     Et = `${moment().add(7, "days").format("YYYY-MM-DD")}`
   } = params
-  return $get(
-    `api/MESDPOutPut/GetMPSOpenLineInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&St=${St}&Et=${Et}`
-  )
+  return $get(`api/MESDPOutPut/GetMPSOpenLineInfo?PlantID=${PlantID}&ProductArea=${ProductArea}&St=${St}&Et=${Et}`)
 }

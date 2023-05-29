@@ -4,12 +4,7 @@
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
         <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
-          <el-option
-            v-for="item in options[item.name]"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
+          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </div>
@@ -281,10 +276,7 @@ export default {
           return {
             background: "green"
           }
-        } else if (
-          parseFloat(row[column.property]) >= 0.1 &&
-          parseFloat(row[column.property]) <= 0.3
-        ) {
+        } else if (parseFloat(row[column.property]) >= 0.1 && parseFloat(row[column.property]) <= 0.3) {
           return {
             background: "yellow",
             color: "#000"

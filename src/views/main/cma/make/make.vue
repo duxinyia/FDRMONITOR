@@ -17,7 +17,6 @@
             </div>
           </div>
         </dv-border-box-12>
-
         <div style="margin: 8px 0px">
           <dv-border-box-12>
             <make-chart-1
@@ -43,7 +42,6 @@
             />
           </dv-border-box-12>
         </div>
-
         <dv-border-box-12>
           <make-chart-3
             :title="chart3Ttitle"
@@ -88,11 +86,7 @@ import MakeChart1 from "./cpns/makechart1.vue"
 import MakeChart2 from "./cpns/makechart2.vue"
 import MakeChart3 from "./cpns/makechart3.vue"
 // 导入请求函数
-import {
-  GetRunningInfo,
-  GetStationTimeSpanOutputInfo,
-  getStationTimeSpanWIPInfo
-} from "@/api/cma/make.js"
+import { GetRunningInfo, GetStationTimeSpanOutputInfo, getStationTimeSpanWIPInfo } from "@/api/cma/make.js"
 export default {
   name: "make",
   components: {
@@ -197,7 +191,6 @@ export default {
       // 取出最后一项的 pack 计划
       let packPlan = stationInfo[stationInfo.length - 1].targetOut
       this.GetStationTimeSpanOutputInfo({ ...this.$route.params, Opno: this.Opno })
-
       // 获取 左边最下面的数据
       this.getStationTimeSpanWIPInfo({ ...this.$route.params, Opno: this.Opno })
       // 循环取出头部区域
@@ -256,9 +249,7 @@ export default {
       console.log("获取左边最下面区域数据", result)
       // 取出对应的值
       result.dateValues.forEach((item) => {
-        this.chart3Config.chat3Xdata.push(
-          this.$moment(item.dateCode).subtract(2, "hours").format("HH:mm")
-        )
+        this.chart3Config.chat3Xdata.push(this.$moment(item.dateCode).subtract(2, "hours").format("HH:mm"))
         this.chart3Config.chat3MaxWips.push(item.values.value.maxWip)
         this.chart3Config.chat3MinWips.push(item.values.value.minWip)
         this.chart3Config.chat3Wips.push(item.values.value.wip)
@@ -293,7 +284,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 ::v-deep .el-col-10 {
   height: 925px !important;
@@ -376,7 +366,6 @@ export default {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-
     animation: fade 2s infinite;
   }
 }

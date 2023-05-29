@@ -88,7 +88,7 @@ export default {
     machine: {
       handler(machinename) {
         console.log("新的值为:", machinename)
-        getScatData({ machinename }).then((res) => {
+        getScatData({ machinename, isGa: true }).then((res) => {
           console.log("res散点图", res)
           this.scats = res
         })

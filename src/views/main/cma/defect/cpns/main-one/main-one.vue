@@ -1,8 +1,8 @@
 <template>
   <div class="main-one">
-    <dv-border-box-10 :color="changeBoxColor">
+    <dv-border-box-12>
       <base-echart :options="options" height="380px" />
-    </dv-border-box-10>
+    </dv-border-box-12>
   </div>
 </template>
 
@@ -13,8 +13,6 @@ export default {
   name: "main-one",
   props: [
     "legends",
-    "OverallYield",
-    "TargetYield",
     "dpcs",
     "lcbs",
     "sfrs",
@@ -29,9 +27,6 @@ export default {
     baseEchart
   },
   computed: {
-    changeBoxColor() {
-      return this.$store.getters.theme == "dark" ? ["#6586ec", "#2cf7fe"] : ["#05dad4", "#2c97e1"]
-    },
     options() {
       // 设置变量
       let themeColor = this.$store.getters.theme == "dark" ? "#fff" : "#000"
@@ -157,8 +152,7 @@ export default {
           backgroundColor: "#fff",
           borderRadius: 5,
           confine: true, // 是否将tooltip框限制在图表的区域内
-          extraCssText:
-            "box-shadow: 8px 10px 15px 0px rgba(0, 0, 0, 0.34);padding: 12px 16px;z-index: 2;width: 160px;",
+          extraCssText: "box-shadow: 8px 10px 15px 0px rgba(0, 0, 0, 0.34);padding: 12px 16px;z-index: 2;width: 160px;",
           textStyle: {
             color: "#000",
             fontSize: 10
@@ -245,6 +239,6 @@ export default {
   padding: 20px 20px 10px 20px;
 }
 .main-one {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 </style>

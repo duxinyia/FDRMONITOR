@@ -26,7 +26,7 @@ export default {
       tableData: [],
       columns: ["5-0", "6-0", "7-0", "8-0", "9-0", "10-0", "11-0"],
       tableCols: [],
-      tableWidths: [80, 80, 400, 100, 100],
+      tableWidths: [150, 80, 400, 100, 100],
       targetArr: {},
       // 红 绿  黄
       colors1: ["rgba(255, 0, 102, 0.9)", "rgba(0, 255, 0, 0.9)", "rgba(255, 255, 0, 0.9)"],
@@ -38,31 +38,66 @@ export default {
     }
   },
   mounted() {
-    this.getList()
+    // this.getList()
+    this.initData()
   },
   methods: {
-    async getList() {
-      let res = await getTableList({ device: this.device })
-      // console.log("res", res)
-      this.tableCols = res.columns
-      // 循环 columns 找到以为 - 的数据，现成一个对象
-      res.columns.forEach((column) => {
-        if (column.chileColumn.length > 0) {
-          let { id, name } = column.chileColumn[0]
-          this.targetArr[id] = name
+    // 初始化數據
+    async initData() {
+      let requestArr = [
+        getTableList({ device: this.device, SearchType: "GoldenTag" }),
+        getTableList({ device: this.device, SearchType: "Line&Vendor" }),
+        getTableList({ device: this.device, SearchType: "Line" }),
+        getTableList({ device: this.device, SearchType: "Config" }),
+        getTableList({ device: this.device, SearchType: "AA" })
+      ]
+      let tables = await Promise.all(requestArr)
+      console.log("initData====", tables)
+      let finalArr = []
+      tables.forEach((table, index) => {
+        if (index == 0) {
+          // 表格的列
+          this.tableCols = table.columns
+          // 循环 columns 找到以为 - 的数据，现成一个对象
+          table.columns.forEach((column) => {
+            if (column.chileColumn.length > 0) {
+              let { id, name } = column.chileColumn[0]
+              this.targetArr[id] = name
+            }
+          })
+        }
+        // 处理表格数据
+        table.rows.forEach((item) => {
+          let tempObj = {}
+          item.forEach((childItem) => {
+            let { columnID, value } = childItem
+            tempObj[columnID] = value
+            if (index == 2 && value == "LCB") {
+              tempObj[columnID] = `${value} By Line`
+            }
+            if (index == 3 && value == "LCB") {
+              tempObj[columnID] = `${value} By Config`
+            }
+            if (index == 4 && value == "LCB") {
+              tempObj[columnID] = `${value} By AA機台`
+            }
+          })
+          finalArr.push(tempObj)
+        })
+        if (index == 0 || index == 1 || index == 2 || index == 3) {
+          // 再最后一行加上空行
+          let lastRow = {}
+          if (finalArr.length > 0) {
+            Object.keys(finalArr[0]).forEach((item) => {
+              lastRow[item] = " "
+            })
+          }
+          finalArr.push(lastRow)
         }
       })
-      let tempArr = []
-      res.rows.forEach((item) => {
-        let tempObj = {}
-        item.forEach((childItem) => {
-          let { columnID, value } = childItem
-          tempObj[columnID] = value
-        })
-        tempArr.push(tempObj)
-      })
-      this.tableData = tempArr
+      this.tableData = [...this.tableData, ...finalArr]
     },
+
     changeStyle(row, columnId) {
       // console.log("row", row, columnId)
       // 取出 row 中的 columnId 的值

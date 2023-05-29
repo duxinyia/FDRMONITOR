@@ -4,12 +4,7 @@
       <div class="system-select" v-for="item in selectData" :key="item.name">
         <span>{{ item.name }}:</span>
         <el-select :popper-append-to-body="false" v-model="item.value" placeholder="請選擇">
-          <el-option
-            v-for="item in options[item.name]"
-            :key="item.value"
-            :label="item.value"
-            :value="item.id"
-          >
+          <el-option v-for="item in options[item.name]" :key="item.value" :label="item.value" :value="item.id">
           </el-option>
         </el-select>
       </div>
@@ -31,12 +26,8 @@
         >
         </el-date-picker>
       </div>
-      <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData"
-        >查詢</el-button
-      >
-      <el-button icon="el-icon-upload2" class="btn btnExp" type="primary" round @click="exportXlsx"
-        >导出</el-button
-      >
+      <el-button icon="el-icon-search" class="btn" type="primary" round @click="getSearchData">查詢</el-button>
+      <el-button icon="el-icon-upload2" class="btn btnExp" type="primary" round @click="exportXlsx">导出</el-button>
     </div>
 
     <el-table
@@ -164,6 +155,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .border-box-content {
+  padding: 20px;
+}
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;

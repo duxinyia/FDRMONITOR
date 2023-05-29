@@ -18,7 +18,6 @@
           >
           </el-option>
         </el-select>
-
         <el-date-picker
           v-if="item.type == 'datetime'"
           :clearable="false"
@@ -29,9 +28,7 @@
         >
         </el-date-picker>
       </div>
-      <el-button class="btn" icon="el-icon-search" type="primary" round @click="getSearchData"
-        >查詢</el-button
-      >
+      <el-button class="btn" icon="el-icon-search" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
     <el-table
       :data="tabData"
@@ -77,7 +74,6 @@
     </el-table>
   </div>
 </template>
-
 <script>
 import moment from "moment"
 // 导入点击搜索数据
@@ -134,7 +130,6 @@ export default {
   mounted() {
     this.getselectData()
   },
-
   watch: {
     // tableTitle: {
     //   immediate: true,
@@ -165,7 +160,6 @@ export default {
       inputValue[2].value = moment().format("YYYY-MM-DD HH:mm:ss")
       this.getData(inputValue)
     },
-
     // 点击搜索按钮
     getSearchData() {
       let inputValue = this.selectData
@@ -211,14 +205,12 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .page-mian {
   box-sizing: border-box;
   height: calc(100% - 120px);
   margin-top: 10px;
 }
-
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
@@ -261,7 +253,6 @@ export default {
 ::v-deep .el-table tr:first-child th {
   border-top: 0px solid #fff !important;
 }
-
 ::v-deep .el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
   background: transparent;
 }
@@ -287,7 +278,6 @@ export default {
   border-radius: 4px;
   background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(80, 126, 163, 1) 100%);
   border: 2px solid rgba(160, 190, 250, 1);
-
   .btn {
     font-size: 14px;
     width: 88px;

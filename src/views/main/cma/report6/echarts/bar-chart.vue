@@ -119,13 +119,7 @@ export default {
             }
           }
         ],
-        series: [
-          { type: "bar" },
-          { type: "bar" },
-          { type: "bar" },
-          { type: "bar" },
-          { type: "bar" }
-        ]
+        series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }, { type: "bar" }, { type: "bar" }]
       }
     }
   }
