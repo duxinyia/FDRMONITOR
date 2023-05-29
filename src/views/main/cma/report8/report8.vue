@@ -147,40 +147,23 @@ export default {
     this.$store.commit("fullLoading/SET_TITLE", "FDR MONITOR")
   },
   mounted() {
-    this.getData()
+    this.initData()
   },
 
   watch: {},
   methods: {
-    // 获取数据
-    async getData() {
-      this.isLoading = true
-      // this.tabData = []
+    initData() {
       let arr = ["FdrHeartCheck", "FdrJmetHeartCheck", "GetDownloadSate5Min", "GetUploadState5min", "GetExportSate5min"]
-      let res = await GetFdrHeartCheck("FdrHeartCheck")
-      console.log(res)
-      this.$set(this.tabData, "FdrHeartCheck", res.Resultvalue)
-
-      let res1 = await GetFdrHeartCheck("FdrJmetHeartCheck")
-      console.log(res)
-      this.$set(this.tabData, "FdrJmetHeartCheck", res1.Resultvalue)
-
-      let res2 = await GetFdrHeartCheck("GetDownloadSate5Min")
-      console.log(res)
-      this.$set(this.tabData, "GetDownloadSate5Min", res2.Resultvalue)
-
-      let res3 = await GetFdrHeartCheck("GetUploadState5min")
-      console.log(res)
-      this.$set(this.tabData, "GetUploadState5min", res3.Resultvalue)
-
-      let res4 = await GetFdrHeartCheck("GetExportSate5min")
-      console.log(res)
-      this.$set(this.tabData, "GetExportSate5min", res4.Resultvalue)
-      // await arr.forEach((item) => {
-      //   let res = GetFdrHeartCheck(item)
-      //   console.log(res)
-      //   this.$set(this.tabData, item, res.Resultvalue)
-      // })
+      arr.forEach((item) => {
+        this.getData(item)
+      })
+    },
+    // 获取数据
+    async getData(i) {
+      this.isLoading = true
+      let res = await GetFdrHeartCheck(i)
+      // console.log(res)
+      this.$set(this.tabData, i, res.Resultvalue)
       this.isLoading = false
     },
     // 当Time和Nowtime差距大于8分钟，对应的行红色显示
