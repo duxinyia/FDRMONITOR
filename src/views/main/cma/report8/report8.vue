@@ -72,8 +72,8 @@ export default {
           name: "FDR DownLoad State",
           chileColumn: [
             { id: "MachineID", name: "PC" },
-            { id: "Status", name: "Qty Last 5 minite" },
-            { id: "Message", name: "Failqty" },
+            { id: "Yield", name: "Qty Last 5 minite" },
+            { id: "QTY", name: "Failqty" },
             { id: "Time", name: "Time" }
           ]
         },
@@ -82,8 +82,8 @@ export default {
           name: "FDR Upload State",
           chileColumn: [
             { id: "MachineID", name: "PC" },
-            { id: "Status", name: "Qty Last 5 minite" },
-            { id: "Message", name: "Failqty" },
+            { id: "Yield", name: "Qty Last 5 minite" },
+            { id: "QTY", name: "Failqty" },
             { id: "Time", name: "Time" }
           ]
         },
@@ -92,78 +92,54 @@ export default {
           name: "FDR Export State",
           chileColumn: [
             { id: "MachineID", name: "PC" },
-            { id: "Status", name: "Qty Last 5 minite" },
-            { id: "Message", name: "Failqty" },
+            { id: "Yield", name: "Qty Last 5 minite" },
+            { id: "QTY", name: "Failqty" },
             { id: "Time", name: "Time" }
           ]
         }
       ],
       // 自己组成的新的表格数据
       tabData: {
-        FdrHeartCheck: [
-          {
-            MachineID: "PC01",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023/05/30 08:28:04"
-          },
-          {
-            MachineID: "PC011",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023/05/29 08:28:04"
-          }
-        ],
-        FdrJmetHeartCheck: [
-          {
-            MachineID: "PC02",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-27 16:19:03"
-          },
-          {
-            MachineID: "PC03",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-30 16:19:03"
-          },
-          {
-            MachineID: "PC02",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-27 16:19:03"
-          }
-        ],
-        GetDownloadSate5Min: [
-          {
-            MachineID: "PC04",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-30 16:19:03"
-          },
-          {
-            MachineID: "PC040",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-30 16:19:03"
-          }
-        ],
-        GetUploadState5min: [
-          {
-            MachineID: "PC05",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-30 16:19:03"
-          }
-        ],
-        GetExportSate5min: [
-          {
-            MachineID: "PC06",
-            Status: "0",
-            Message: "SUCCESS",
-            Time: "2023-05-27 16:19:03"
-          }
-        ]
+        // FdrHeartCheck: [
+        //   {
+        //     MachineID: "PC01",
+        //     Status: "0",
+        //     Message: "SUCCESS",
+        //     Time: "2023/05/30 08:28:04"
+        //   }
+        // ],
+        // FdrJmetHeartCheck: [
+        //   {
+        //     MachineID: "PC02",
+        //     Status: "0",
+        //     Message: "SUCCESS",
+        //     Time: "2023-05-27 16:19:03"
+        //   }
+        // ],
+        // GetDownloadSate5Min: [
+        //   {
+        //     MachineID: "PC04",
+        //     Status: "0",
+        //     Message: "SUCCESS",
+        //     Time: "2023-05-30 16:19:03"
+        //   }
+        // ],
+        // GetUploadState5min: [
+        //   {
+        //     MachineID: "PC05",
+        //     Status: "0",
+        //     Message: "SUCCESS",
+        //     Time: "2023-05-30 16:19:03"
+        //   }
+        // ],
+        // GetExportSate5min: [
+        //   {
+        //     MachineID: "PC06",
+        //     Status: "0",
+        //     Message: "SUCCESS",
+        //     Time: "2023-05-27 16:19:03"
+        //   }
+        // ]
       }
     }
   },
