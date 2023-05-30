@@ -30,6 +30,7 @@
         </el-table-column>
       </el-table-column>
     </el-table>
+    <div class="text">IT值班人員請參考公司首頁：Rayprus MIS 值班表</div>
   </div>
 </template>
 
@@ -73,7 +74,7 @@ export default {
           chileColumn: [
             { id: "MachineID", name: "PC" },
             { id: "QTY", name: "Qty Last 5 minite" },
-            { id: "Yield", name: "Failqty" },
+            { id: "Yield", name: "FailRate" },
             { id: "Time", name: "Time" }
           ]
         },
@@ -83,7 +84,7 @@ export default {
           chileColumn: [
             { id: "MachineID", name: "PC" },
             { id: "QTY", name: "Qty Last 5 minite" },
-            { id: "Yield", name: "Failqty" },
+            { id: "Yield", name: "FailRate" },
             { id: "Time", name: "Time" }
           ]
         },
@@ -93,7 +94,7 @@ export default {
           chileColumn: [
             { id: "MachineID", name: "PC" },
             { id: "QTY", name: "Qty Last 5 minite" },
-            { id: "Yield", name: "Failqty" },
+            { id: "Yield", name: "FailRate" },
             { id: "Time", name: "Time" }
           ]
         }
@@ -224,12 +225,18 @@ export default {
 
 <style lang="scss" scoped>
 .page-mian {
+  position: relative;
   box-sizing: border-box;
   height: calc(100% - 120px);
   margin-top: 10px;
   overflow: auto;
 }
-
+.text {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
 /* 修改表格的一些样式 */
 ::v-deep .el-table {
   background: transparent;
