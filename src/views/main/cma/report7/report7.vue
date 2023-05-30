@@ -214,7 +214,11 @@ export default {
       })
       let res = await GetReport7TableData(ruleForm)
       // console.log("res===", res)
-      this.tableTitle = res.columns
+      // this.tableTitle = res.columns
+      // 表格的列
+      this.tableTitle = res.columns.map((item) => {
+        return { show: true, ...item }
+      })
       this.tabData = []
       this.tableData = res.rows
       this.tableData.forEach((item) => {
@@ -263,7 +267,7 @@ export default {
 ::v-deep .el-table {
   background: transparent;
   border-bottom: 2px solid #1683af;
-  margin-top: 20px;
+  // margin-top: 20px;
   // height: calc(100% - 74.9px);
   // overflow: auto;
 }
@@ -272,6 +276,7 @@ export default {
   border: 2px solid rgba(160, 190, 250, 1) !important;
 }
 ::v-deep .el-table__body-wrapper {
+  height: 830px !important;
   border-left: 2px solid #1683af;
   border-right: 2px solid #1683af !important;
 }
