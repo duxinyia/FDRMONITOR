@@ -101,15 +101,16 @@ export default {
         {
           id: "",
           name: `${this.$route.params.customName} 產能達成狀況`,
+          show: true,
           chileColumn: [
-            { id: "station", name: "站位" },
-            { id: "targetOut", name: "計劃" },
-            { id: "outPut", name: "實際" },
-            { id: "hitRate", name: "達成率" },
-            { id: "processYield", name: "良率" },
-            { id: "wip", name: "WIP" },
-            { id: "maxWip", name: "上限" },
-            { id: "minWip", name: "下限" }
+            { id: "station", name: "站位", show: true },
+            { id: "targetOut", name: "計劃", show: true },
+            { id: "outPut", name: "實際", show: true },
+            { id: "hitRate", name: "達成率", show: true },
+            { id: "processYield", name: "良率", show: true },
+            { id: "wip", name: "WIP", show: true },
+            { id: "maxWip", name: "上限", show: true },
+            { id: "minWip", name: "下限", show: true }
           ]
         }
       ],
@@ -173,6 +174,11 @@ export default {
     this.tableLabel = `${customName} 產能達成狀況`
   },
   methods: {
+    // changeState(index) {
+    //   console.log("改变的索引", index)
+    //   this.tableCols[index].show = !this.tableCols[index].show
+
+    // },
     // 获取右边表格的数据
     async GetRunningInfo(params) {
       let result = await GetRunningInfo(params)

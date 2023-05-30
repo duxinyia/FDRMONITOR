@@ -73,7 +73,7 @@ export default {
           chileColumn: [
             { id: "MachineID", name: "PC" },
             { id: "Yield", name: "Qty Last 5 minite" },
-            { id: "QTY", name: "Failqty" },
+            { id: "QTY", name: "Failrate" },
             { id: "Time", name: "Time" }
           ]
         },
@@ -82,8 +82,8 @@ export default {
           name: "FDR Upload State",
           chileColumn: [
             { id: "MachineID", name: "PC" },
+            { id: "QTY", name: "Failrate" },
             { id: "Yield", name: "Qty Last 5 minite" },
-            { id: "QTY", name: "Failqty" },
             { id: "Time", name: "Time" }
           ]
         },
@@ -92,8 +92,8 @@ export default {
           name: "FDR Export State",
           chileColumn: [
             { id: "MachineID", name: "PC" },
+            { id: "QTY", name: "Failrate" },
             { id: "Yield", name: "Qty Last 5 minite" },
-            { id: "QTY", name: "Failqty" },
             { id: "Time", name: "Time" }
           ]
         }

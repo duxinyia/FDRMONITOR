@@ -188,7 +188,7 @@ export default {
       this.isLoading = false
     },
     // 单元格样式
-    cellStyle({ row, column, rowIndex, columnIndex }) {
+    cellStyle({ row, column }) {
       let property = column.property
       if (row[property] && String(row[property]).includes("%")) {
         if (parseFloat(row[property]) < 0.1) {
@@ -217,8 +217,8 @@ export default {
   border-left: 0px solid #fff;
   border-bottom: 2px solid #1683af;
   margin-top: 20px;
-  // height: calc(100% - 74.9px);
-  // overflow: auto;
+  height: calc(100% - 74.9px);
+  overflow: auto;
 }
 // 表头
 ::v-deep .el-table__header-wrapper {

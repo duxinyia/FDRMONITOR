@@ -3,7 +3,7 @@
     <dv-border-box-12 class="wrapper-container">
       <!-- 使用轮播图来展示数据 -->
       <el-carousel style="height: 1000px" indicator-position="none" :interval="15 * 10000" ref="carousel" arrow="never">
-        <el-carousel-item v-for="(item, index) in 4" :key="index" :name="item">
+        <el-carousel-item v-for="(item, index) in 4" :key="index" :name="item + ''">
           <div style="margin-top: 30px">
             <ces-table :tableData="tableData" :tableCols="tableCols" tableHeight="900">
               <template #time12="{ row }">

@@ -236,13 +236,15 @@ export default {
         {
           id: "",
           name: `StartTime`,
+          show: true,
           chileColumn: [{ id: "time1", name: "2023/07/03" }]
         },
-        { id: "machine", name: "Machine" },
-        { id: "target", name: "Target" },
+        { id: "machine", name: "Machine", show: true },
+        { id: "target", name: "Target", show: true },
         {
           id: "",
           name: `Output`,
+          show: true,
           chileColumn: [
             { id: "time2", name: "2023/07/03" },
             { id: "time3", name: "2023/07/03" },
@@ -252,6 +254,7 @@ export default {
         {
           id: "",
           name: `HitRate`,
+          show: true,
           chileColumn: [
             { id: "time5", name: "2023/07/03" },
             { id: "time6", name: "2023/07/03" },
@@ -261,6 +264,7 @@ export default {
         {
           id: "",
           name: `FirstYield`,
+          show: true,
           chileColumn: [
             { id: "time8", name: "2023/07/03" },
             { id: "time9", name: "2023/07/03" },
@@ -270,6 +274,7 @@ export default {
         {
           id: "",
           name: `Effciency`,
+          show: true,
           chileColumn: [
             { id: "time11", name: "2023/07/03" },
             { id: "time12", name: "2023/07/03" },
@@ -279,6 +284,7 @@ export default {
         {
           id: "",
           name: `Alarm`,
+          show: true,
           chileColumn: [
             { id: "time14", name: "2023/07/03" },
             { id: "time15", name: "2023/07/03" },
@@ -290,8 +296,8 @@ export default {
       tableData1: [],
       // 表格的列配置
       tableCols1: [
-        { id: "device", name: "Device" },
-        { id: "machine", name: "Machine" },
+        { id: "device", name: "Device", show: true },
+        { id: "machine", name: "Machine", show: true },
         {
           id: "",
           name: `Total/MC`,
@@ -300,61 +306,71 @@ export default {
         {
           id: "",
           name: `TOP1`,
+          show: true,
           chileColumn: [{ id: "station", name: "GRR 底部條碼視覺通信接收失敗" }]
         },
         {
           id: "",
           name: `TOP2`,
+          show: true,
           chileColumn: [{ id: "station", name: "測試軟體狀態錯誤" }]
         },
         {
           id: "",
           name: `TOP3`,
+          show: true,
           chileColumn: [{ id: "station", name: "測試軟體啟動失敗" }]
         },
         {
           id: "",
           name: `TOP4`,
+          show: true,
           chileColumn: [{ id: "station", name: "測試軟體啟動失敗" }]
         },
         {
           id: "",
           name: `TOP5`,
+          show: true,
           chileColumn: [{ id: "station", name: "主PP 3號吸嘴真空失敗" }]
         },
         {
           id: "",
           name: `TOP6`,
+          show: true,
           chileColumn: [{ id: "station", name: "視覺軟體工作託盤產品計數失敗" }]
         },
         {
           id: "",
           name: `TOP7`,
+          show: true,
           chileColumn: [{ id: "station", name: "作業託盤取出失敗" }]
         },
         {
           id: "",
           name: `TOP8`,
+          show: true,
           chileColumn: [{ id: "station", name: "作業託盤最多數量計數失敗" }]
         }
       ],
       tableData2: [],
       tableCols2: [
-        { id: "device", name: "停机项目" },
-        { id: "time", name: "时间(min)" }
+        { id: "device", name: "停机项目", show: true },
+        { id: "time", name: "时间(min)", show: true }
       ],
       tableData3: [],
       tableCols3: [
-        { id: "device", name: "Device" },
-        { id: "machine", name: "Machine" },
+        { id: "device", name: "Device", show: true },
+        { id: "machine", name: "Machine", show: true },
         {
           id: "",
           name: `####`,
+          show: true,
           chileColumn: [{ id: "target", name: "target" }]
         },
         {
           id: "",
           name: `Input`,
+          show: true,
           chileColumn: [
             { id: "target", name: "####" },
             { id: "target", name: "####" },
@@ -364,6 +380,7 @@ export default {
         {
           id: "",
           name: `HitRate`,
+          show: true,
           chileColumn: [
             { id: "target", name: "####" },
             { id: "target", name: "####" },

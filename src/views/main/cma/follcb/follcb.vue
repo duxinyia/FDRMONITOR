@@ -3,7 +3,7 @@
     :tableData="tableData"
     :tableCols="tableCols"
     :tableWidths="tableWidths"
-    tableHeight="900"
+    tableHeight="880"
     :handleColumn="objectSpanMethod"
     isHasHandle
   >
@@ -57,7 +57,10 @@ export default {
       tables.forEach((table, index) => {
         if (index == 0) {
           // 表格的列
-          this.tableCols = table.columns
+          // this.tableCols = table.columns
+          this.tableCols = table.columns.map((item) => {
+            return { show: true, ...item }
+          })
           // 循环 columns 找到以为 - 的数据，现成一个对象
           table.columns.forEach((column) => {
             if (column.chileColumn.length > 0) {
@@ -66,6 +69,7 @@ export default {
             }
           })
         }
+
         // 处理表格数据
         table.rows.forEach((item) => {
           let tempObj = {}

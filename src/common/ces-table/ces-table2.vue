@@ -12,26 +12,18 @@
           :icon="item.icon"
           :key="item.label"
           @click="item.handle()"
+          >{{ item.label }}</el-button
         >
-          {{ item.label }}
-        </el-button>
       </section>
     </section>
-
     <!-- 是否需要动态显示什么列 -->
-    <div class="setting">
-      <el-tooltip class="item" effect="dark" placement="bottom-end">
-        <div slot="content">
-          <div class="column" v-for="item in tableCols" :key="item.name">
-            <el-checkbox v-model="item.show">{{ item.name }}</el-checkbox>
-          </div>
-        </div>
-        <span><i class="el-icon-s-tools" style="cursor: pointer"></i></span>
-      </el-tooltip>
+    <div>
+      <i class="el-icon-s-tools" @click="openDialog" style="cursor: pointer"></i>
     </div>
     <!-- 表格组件 -->
     <section class="ces-table">
       <el-table
+        ref="table"
         :header-cell-style="headerCellStyle"
         :data="tableData"
         :border="isBorder"
@@ -43,65 +35,63 @@
         :span-method="objectSpanMethod"
       >
         <!-- 是否有前面的多选效果 -->
-        <el-table-column type="selection" width="55" align="center" v-if="false"> </el-table-column>
+        <el-table-column type="selection" width="55" align="center" v-if="isSelection"> </el-table-column>
         <!-- 是否显示前面的序号 -->
-        <el-table-column v-if="false" type="index" :label="indexLabel" align="center" width="50"> </el-table-column>
+        <el-table-column v-if="isIndex" type="index" :label="indexLabel" align="center" width="50"> </el-table-column>
         <!-- 表格的每一项：表格列数据 -->
-        <template v-for="(item, index) in tableCols">
-          <el-table-column
-            :prop="item.id"
-            :label="item.name"
-            align="center"
-            :key="item.id"
-            v-if="item.show"
-            :sortable="item.isSortable || false"
-            :width="tableWidths[index]"
-            show-overflow-tooltip
-          >
-            <!-- 如果嵌套标题 -->
-            <template v-if="item.chileColumn">
-              <el-table-column
-                v-for="(childitem, chileIndex) in item.chileColumn"
-                :prop="childitem.id"
-                :label="childitem.name"
-                align="center"
-                :key="childitem.id"
-                :sortable="childitem.isSortable || false"
-                :width="tableWidths[index + chileIndex]"
-                show-overflow-tooltip
-              >
-                <template v-if="childitem.chileColumn">
-                  <el-table-column
-                    v-for="(childitem2, childIndex2) in childitem.chileColumn"
-                    :prop="childitem2.id"
-                    :label="childitem2.name"
-                    align="center"
-                    :key="childitem2.id"
-                    :sortable="childitem2.isSortable || false"
-                    :width="tableWidths[index + chileIndex + childIndex2]"
-                    show-overflow-tooltip
-                  >
-                    <template #default="scope">
-                      <slot :name="childitem2.id" :row="scope.row">
-                        {{ scope.row[childitem2.id] || "-" }}
-                      </slot>
-                    </template>
-                  </el-table-column>
-                </template>
-                <template #default="scope">
-                  <slot :name="childitem.id" :row="scope.row">
-                    {{ scope.row[childitem.id] || "-" }}
-                  </slot>
-                </template>
-              </el-table-column>
-            </template>
-            <template #default="scope">
-              <slot :name="item.id" :row="scope.row">
-                {{ scope.row[item.id] || "-" }}
-              </slot>
-            </template>
-          </el-table-column>
-        </template>
+        <el-table-column
+          v-for="(item, index) in tableCols"
+          :prop="item.id"
+          :label="item.name"
+          align="center"
+          :key="item.id"
+          :sortable="item.isSortable || false"
+          :width="tableWidths[index]"
+          show-overflow-tooltip
+        >
+          <!-- 如果嵌套标题 -->
+          <template v-if="item.chileColumn">
+            <el-table-column
+              v-for="(childitem, chileIndex) in item.chileColumn"
+              :prop="childitem.id"
+              :label="childitem.name"
+              align="center"
+              :key="childitem.id"
+              :sortable="childitem.isSortable || false"
+              :width="tableWidths[index + chileIndex]"
+              show-overflow-tooltip
+            >
+              <template v-if="childitem.chileColumn">
+                <el-table-column
+                  v-for="(childitem2, childIndex2) in childitem.chileColumn"
+                  :prop="childitem2.id"
+                  :label="childitem2.name"
+                  align="center"
+                  :key="childitem2.id"
+                  :sortable="childitem2.isSortable || false"
+                  :width="tableWidths[index + chileIndex + childIndex2]"
+                  show-overflow-tooltip
+                >
+                  <template #default="scope">
+                    <slot :name="childitem2.id" :row="scope.row">
+                      {{ scope.row[childitem2.id] || "-" }}
+                    </slot>
+                  </template>
+                </el-table-column>
+              </template>
+              <template #default="scope">
+                <slot :name="childitem.id" :row="scope.row">
+                  {{ scope.row[childitem.id] || "-" }}
+                </slot>
+              </template>
+            </el-table-column>
+          </template>
+          <template #default="scope">
+            <slot :name="item.id" :row="scope.row">
+              {{ scope.row[item.id] || "-" }}
+            </slot>
+          </template>
+        </el-table-column>
       </el-table>
     </section>
     <!-- 分页组件 -->
@@ -118,18 +108,17 @@
       </el-pagination>
     </section>
     <!-- 弹框组件 -->
-    <!-- <el-dialog :visible.sync="dialogVisible" :modal-append-to-body="false" :before-close="toClose">
-      <div class="column-container">
-        <el-col class="column" v-for="item in tableCols" :key="item.name" :span="6">
-          <el-checkbox v-model="item.show">{{ item.name }}</el-checkbox>
+    <el-dialog :visible.sync="dialogVisible" :modal-append-to-body="false" :before-close="toClose">
+      <div>
+        <!-- <el-checkbox @change="changeSelect" v-model="item.show">{{ item.name }}</el-checkbox> -->
+        <el-col v-for="item in tableCols" :key="item.name" :span="6">
+          <el-checkbox @change="changeSelect" v-model="item.show">{{ item.name }}</el-checkbox>
         </el-col>
       </div>
-      <el-button @click="dialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-    </el-dialog> -->
+    </el-dialog>
   </section>
 </template>
-
 <script>
 export default {
   name: "ces-table",
@@ -185,7 +174,6 @@ export default {
       dialogVisible: false
     }
   },
-  // computed() {},
   watch: {
     tableData: {
       handler() {
@@ -222,20 +210,14 @@ export default {
     },
     toClose() {
       this.dialogVisible = false
+    },
+    changeSelect() {
+      this.$refs.table.doLayout()
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-// 弹出框的样式
-::v-deep .el-dialog__header {
-  display: none;
-}
-::v-deep .el-dialog__body {
-  padding: 0px;
-  /* background: #00132a; */
-  background: #ccc;
-}
 //整个table的背景颜色
 ::v-deep .el-table {
   font-size: 15px !important;
@@ -286,15 +268,5 @@ export default {
 }
 ::v-deep .el-table--border {
   border-left-color: #1683af;
-}
-
-.setting {
-  text-align: right;
-}
-
-.column-container {
-  .colnmn {
-    margin-bottom: 10px;
-  }
 }
 </style>
