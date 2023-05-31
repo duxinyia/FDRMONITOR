@@ -30,7 +30,11 @@
       </div>
       <el-button class="btn" icon="el-icon-search" type="primary" round @click="getSearchData">查詢</el-button>
     </div>
+    <!-- 是否需要动态显示什么列 tableCols:列数据 -->
+    <ces-tooltip :tableCols="tableTitle" />
+
     <el-table
+      ref="reportTable"
       :data="tabData"
       :header-cell-style="{
         'font-size': '16px',
@@ -48,6 +52,7 @@
       <el-table-column
         v-for="(taT, index) in tableTitle"
         :key="index"
+        v-if="taT.show"
         :width="taT.name == 'Lens Vendor' ? '110' : ''"
         :prop="taT.id"
         align="center"
@@ -76,12 +81,13 @@
 </template>
 <script>
 import moment from "moment"
+import cesTooltip from "@/components/ces-tooltip/ces-tooltip.vue"
 // 导入点击搜索数据
 import { GetReport1Search, GetDefectTypeInfo, GetDeviceSeriersInfo } from "@/api/cma/report1"
 export default {
   name: "report1",
   props: {},
-  components: {},
+  components: { cesTooltip },
   data() {
     return {
       isLoading: false,
@@ -175,7 +181,11 @@ export default {
       let t = inputD[2].value
       this.tabData = []
       let res = await GetReport1Search(type, seriers, t)
-      this.tableTitle = res.columns
+      // this.tableTitle = res.columns
+      // 表格的列
+      this.tableTitle = res.columns.map((item) => {
+        return { show: true, ...item }
+      })
       // console.log("res===", res)
       this.tableData = res.rows
       this.tableData.forEach((item) => {
@@ -202,6 +212,12 @@ export default {
         return { background: "transparent" }
       }
     }
+  },
+  beforeUpdate() {
+    this.$nextTick(() => {
+      //在数据加载完，重新渲染表格,防止显示隐藏表格列出现闪动的问题
+      this.$refs["reportTable"].doLayout()
+    })
   }
 }
 </script>
@@ -238,6 +254,7 @@ export default {
   color: #fff;
 }
 ::v-deep .el-table__body-wrapper {
+  height: calc(100% - 100px) !important;
   border-left: 2px solid #1683af;
   border-right: 2px solid #1683af !important;
 }

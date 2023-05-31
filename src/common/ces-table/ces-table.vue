@@ -19,7 +19,7 @@
     </section>
 
     <!-- 是否需要动态显示什么列 -->
-    <div class="setting">
+    <div class="setting" style="float: right; padding-right: 5px">
       <el-tooltip class="item" effect="dark" placement="bottom-end">
         <div slot="content">
           <div class="column" v-for="item in tableCols" :key="item.name">
@@ -227,6 +227,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+// 选择列的样式
+.el-checkbox {
+  color: #fff !important;
+}
 // 弹出框的样式
 ::v-deep .el-dialog__header {
   display: none;
@@ -289,7 +293,7 @@ export default {
 }
 
 .setting {
-  text-align: right;
+  // text-align: right;
 }
 
 .column-container {

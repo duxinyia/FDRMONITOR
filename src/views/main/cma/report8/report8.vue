@@ -1,6 +1,6 @@
 <template>
   <div class="page-mian">
-    <!-- :cell-style="cellStyle" -->
+    <!-- :row-style="tableRowStyle" -->
     <el-table
       v-for="(taT, index) in tableTitle"
       :key="index"
@@ -11,7 +11,6 @@
         'font-weight': 700
       }"
       :cell-style="cellStyle"
-      :row-style="tableRowStyle"
       v-loading="isLoading"
       element-loading-spinner="el-icon-loading"
       element-loading-text="加载中..."
@@ -177,19 +176,23 @@ export default {
         times = moment().format("YYYY-MM-DD HH:mm:ss")
         let rows = row[property]
         let dataDiff = this.GetDateDiff(times, rows, "minute")
-        if (dataDiff > 8) {
-          this.$set(row, "show", true)
-          // return { background: "#ff80ff", color: "#000" }
+        if (dataDiff > 5 || dataDiff < -5) {
+          // this.$set(row, "show", true)
+          return { background: "#ff80ff", color: "#000" }
+        }
+      } else if (columnIndex === 2 && row[property] && String(row[property]).includes("%")) {
+        if (parseFloat(row[property]) > 95) {
+          return { background: "#ff80ff", color: "#000" }
         }
       }
     },
-    tableRowStyle({ row }) {
-      if (row.show === true) {
-        return { background: "#ff80ff", color: "#000" }
-      } else {
-        return { background: "transparent" }
-      }
-    },
+    // tableRowStyle({ row }) {
+    //   if (row.show === true) {
+    //     return { background: "#ff80ff", color: "#000" }
+    //   } else {
+    //     return { background: "transparent" }
+    //   }
+    // },
     // 计算时间差
     GetDateDiff(startTime, endTime, diffType) {
       //将xxxx-xx-xx的时间格式，转换为 xxxx/xx/xx的格式

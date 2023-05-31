@@ -128,6 +128,8 @@
         </el-form>
       </div>
     </el-collapse-transition>
+    <!-- 是否需要动态显示什么列 tableCols:列数据 -->
+    <ces-tooltip :tableCols="tableHeader" />
     <el-table
       :data="tableData"
       border
@@ -196,10 +198,11 @@ import {
   GetProcessInfo,
   getTableDate
 } from "@/api/cma/report2"
-
+import cesTooltip from "@/components/ces-tooltip/ces-tooltip.vue"
 import { handlerTableDate } from "@/utils/handlerTableData"
 export default {
   name: "report2",
+  components: { cesTooltip },
   data() {
     return {
       isLoading: false,
@@ -441,6 +444,12 @@ export default {
     Show() {
       this.isShow = !this.isShow
     }
+  },
+  beforeUpdate() {
+    this.$nextTick(() => {
+      //在数据加载完，重新渲染表格,防止显示隐藏表格列出现闪动的问题
+      this.$refs["table"].doLayout()
+    })
   }
 }
 </script>
@@ -487,7 +496,9 @@ export default {
   /* border-radius: 5px; */
   background: #3b4e92;
 }
-
+::v-deep .el-table__body-wrapper {
+  // height: 640px !important;
+}
 .page-mian {
   height: calc(100% - 120px);
   margin-top: 10px;
@@ -497,7 +508,7 @@ export default {
 ::v-deep .el-table {
   background: transparent;
   border-left: 0px solid #fff;
-  border-bottom: 2px solid #1683af;
+  // border-bottom: 2px solid #1683af;
   // font-size: 13px !important;
   height: calc(100% - 270px);
 }
@@ -518,12 +529,16 @@ export default {
   color: #fff;
 }
 ::v-deep .el-table__body-wrapper {
+  border-bottom: 2px solid #1683af;
   border-left: 2px solid #1683af;
   border-right: 2px solid #1683af !important;
 }
 ::v-deep .el-table th {
   border-right: 1px solid #fff;
-  border-bottom: 1px solid #fff !important;
+  border-top: 1px solid #fff !important;
+}
+::v-deep .el-table tr:first-child th {
+  border-top: 0px solid #fff !important;
 }
 ::v-deep .el-table td {
   border-right: 1px solid #fff;
@@ -593,7 +608,8 @@ export default {
 }
 //滚动条位置
 ::v-deep .el-table__body-wrapper is-scrolling-left {
-  height: 597px;
+  height: 628px !important;
+  // height: 597px;
 }
 
 // 控制查詢區域顯示隱藏
@@ -619,7 +635,7 @@ export default {
 }
 
 ::v-deep .el-table__body-wrapper {
-  height: 100%;
+  // height: 100%;
 }
 // 按钮
 .btn {
