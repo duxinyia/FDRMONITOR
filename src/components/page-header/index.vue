@@ -85,11 +85,11 @@ export default {
       return this.$store.getters.theme == "dark" ? ["#568aea", "#000000"] : ["#568aea", "#ecf6ff"]
     },
     changeAddress() {
-      if (this.$route.path.includes("cma")) {
-        return "RAYPRUS&nbsp;深圳&nbsp;龍華&nbsp;CMA"
-      } else {
-        return "RAYPRUS&nbsp;深圳&nbsp;龍華&nbsp;DP"
-      }
+      // if (this.$route.path.includes("cma")) {
+      return "RAYPRUS&nbsp;深圳&nbsp;龍華&nbsp;CMA"
+      // } else {
+      // return "RAYPRUS&nbsp;深圳&nbsp;龍華&nbsp;DP"
+      // }
     }
   },
   created() {

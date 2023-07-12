@@ -1,12 +1,11 @@
 export default [
   {
     path: "/",
-    redirect: () => "login"
+    component: () => import(/* webpackChunkName: "FDRMONITOR" */ "@/views/main/cma/report8/report8.vue")
   },
   {
-    path: "/login",
-    name: "login",
-    component: () => import(/* webpackChunkName: "login" */ "@/views/login/login.vue")
+    path: "/",
+    name: "login"
   },
   // 登录以后的路由
   {

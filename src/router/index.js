@@ -16,55 +16,55 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes
 })
-let hasRoles = true
+// let hasRoles = true
 // 用于动态添加路由
-router.beforeEach(async (to, from, next) => {
-  NProgress.start()
-  // 如果去的路由的 login
-  if (to.path.includes("login")) {
-    if (cache.getCache("user")) {
-      next("/overview")
-    } else {
-      next()
-    }
-  } else {
-    if (hasRoles || store.state.permission.menus.length == 0) {
-      let asyncRoutes = await store.dispatch("permission/getUserRoutes", {
-        userJob: store.state.user.user.username,
-        nickName: store.state.user.user.fullName
-      })
-      hasRoles = false
-      console.log("异步路由", asyncRoutes)
-      // 加载异步路由
-      asyncRoutes.forEach((route) => {
-        if (route.isHasDetailArr) {
-          route.isHasDetailArr.forEach((detailRoute) => {
-            router.addRoute(detailRoute.meta.parentName, detailRoute)
-          })
-          delete route.isHasDetailArr
-        }
-        router.addRoute(route.meta.parentName, route)
-      })
-      router.addRoute({
-        path: "*",
-        name: "notFound",
-        component: () => import(/* webpackChunkName: "notFound" */ "@/views/notFound/notFound.vue")
-      })
-      next({ ...to, replace: true })
-    } else {
-      next()
-    }
-  }
-})
-router.afterEach((to, from) => {
-  // 用于做页面统计的接口
-  // if (to.meta.pageId) {
-  //   addPageCount({
-  //     PageID: to.meta.pageId,
-  //     SysID: 2,
-  //     PageName: to.meta.pageName
-  //   })
-  // }
-  NProgress.done()
-})
+// router.beforeEach(async (to, from, next) => {
+//   NProgress.start()
+//   // 如果去的路由的 login
+//   if (to.path.includes("login")) {
+//     if (cache.getCache("user")) {
+//       next("/overview")
+//     } else {
+//       next()
+//     }
+//   } else {
+//     if (hasRoles || store.state.permission.menus.length == 0) {
+//       let asyncRoutes = await store.dispatch("permission/getUserRoutes", {
+//         userJob: store.state.user.user.username,
+//         nickName: store.state.user.user.fullName
+//       })
+//       hasRoles = false
+//       console.log("异步路由", asyncRoutes)
+//       // 加载异步路由
+//       asyncRoutes.forEach((route) => {
+//         if (route.isHasDetailArr) {
+//           route.isHasDetailArr.forEach((detailRoute) => {
+//             router.addRoute(detailRoute.meta.parentName, detailRoute)
+//           })
+//           delete route.isHasDetailArr
+//         }
+//         router.addRoute(route.meta.parentName, route)
+//       })
+//       router.addRoute({
+//         path: "*",
+//         name: "notFound",
+//         component: () => import(/* webpackChunkName: "notFound" */ "@/views/notFound/notFound.vue")
+//       })
+//       next({ ...to, replace: true })
+//     } else {
+//       next()
+//     }
+//   }
+// })
+// router.afterEach((to, from) => {
+// 用于做页面统计的接口
+// if (to.meta.pageId) {
+//   addPageCount({
+//     PageID: to.meta.pageId,
+//     SysID: 2,
+//     PageName: to.meta.pageName
+//   })
+// }
+//   NProgress.done()
+// })
 export default router
